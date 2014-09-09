@@ -237,7 +237,6 @@ public class MainFrame extends javax.swing.JFrame {
         ImageIcon plotImage = dataTableModel.producePlot(colname);
         
         JPanel frame = new JPanel();
-        System.out.println("---" + plotImage.getIconWidth() + ", " + plotImage.getIconHeight());
         frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
         JLabel label = new JLabel(plotImage);
         frame.add(label);
