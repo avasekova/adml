@@ -37,6 +37,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelChart = new javax.swing.JPanel();
         comboBoxColnames = new javax.swing.JComboBox();
         buttonPlotColname = new javax.swing.JButton();
+        panelPlot = new javax.swing.JPanel();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -60,16 +61,30 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout panelPlotLayout = new javax.swing.GroupLayout(panelPlot);
+        panelPlot.setLayout(panelPlotLayout);
+        panelPlotLayout.setHorizontalGroup(
+            panelPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 766, Short.MAX_VALUE)
+        );
+        panelPlotLayout.setVerticalGroup(
+            panelPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelChartLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonPlotColname)
-                .addContainerGap(648, Short.MAX_VALUE))
+                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelChartLayout.createSequentialGroup()
+                        .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonPlotColname))
+                    .addComponent(panelPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,7 +93,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonPlotColname))
-                .addContainerGap(458, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelEverything.addTab("Chart", panelChart);
@@ -217,22 +234,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
         String colname = comboBoxColnames.getSelectedItem().toString();
         
-        dataTableModel.producePlot(colname);
+        ImageIcon plotImage = dataTableModel.producePlot(colname);
         
-        BufferedImage img;
-        try {
-            img = ImageIO.read(new File("1.png"));
-            JPanel frame = new JPanel();
-            frame.setSize(img.getWidth(), img.getHeight());
-            JLabel label = new JLabel(new ImageIcon(img));
-            frame.add(label);
-            frame.setVisible(true);
-            panelChart.add(frame);
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
+        JPanel frame = new JPanel();
+        System.out.println("---" + plotImage.getIconWidth() + ", " + plotImage.getIconHeight());
+        frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
+        JLabel label = new JLabel(plotImage);
+        frame.add(label);
+        frame.setVisible(true);
+        panelPlot.add(frame);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
     
     /**
@@ -284,6 +294,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
     private javax.swing.JTabbedPane panelEverything;
+    private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelSummary;
     private javax.swing.JScrollPane scrollPaneData;
     // End of variables declaration//GEN-END:variables
