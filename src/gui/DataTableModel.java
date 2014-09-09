@@ -57,7 +57,7 @@ public class DataTableModel extends AbstractTableModel {
     
     public void openFile(File file) {
         RCaller caller = new RCaller();
-        caller.setRExecutable(RSCRIPT_EXE);
+        caller.setRscriptExecutable(RSCRIPT_EXE);
         
         RCode code = new RCode();
         
@@ -87,7 +87,7 @@ public class DataTableModel extends AbstractTableModel {
     public ImageIcon producePlot(String colname) {
         try {
             RCaller caller = new RCaller();
-            caller.setRExecutable(RSCRIPT_EXE);
+            caller.setRscriptExecutable(RSCRIPT_EXE);
 
             RCode code = new RCode();
             
