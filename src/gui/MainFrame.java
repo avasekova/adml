@@ -39,12 +39,16 @@ public class MainFrame extends javax.swing.JFrame {
         buttonSummaryColname = new javax.swing.JButton();
         panelSummary = new javax.swing.JPanel();
         panelAnalysisSettings = new javax.swing.JPanel();
-        separator1 = new javax.swing.JSeparator();
-        jLabelMLP = new javax.swing.JLabel();
+        paneSettingsMethods = new javax.swing.JTabbedPane();
+        paneSettingsMethodsMLP = new javax.swing.JPanel();
+        jLabelPercTrain = new javax.swing.JLabel();
         sliderPercentTrain = new javax.swing.JSlider();
         textFieldPercentTrain = new javax.swing.JTextField();
         jLabelPercentSign = new javax.swing.JLabel();
-        jLabelPercTrain = new javax.swing.JLabel();
+        jLabelRPkg = new javax.swing.JLabel();
+        comboBoxRPackage = new javax.swing.JComboBox();
+        paneSettingsMethodsARIMA = new javax.swing.JPanel();
+        jLabelARIMA = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -168,9 +172,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Summary", panelSummaryOutside);
 
-        separator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+        paneSettingsMethods.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
-        jLabelMLP.setText("MLP:");
+        jLabelPercTrain.setText("Portion of data to use for training:");
 
         sliderPercentTrain.setPaintTicks(true);
         sliderPercentTrain.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -188,45 +192,78 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelPercentSign.setText("%");
 
-        jLabelPercTrain.setText("Portion of data to use for training:");
+        jLabelRPkg.setText("R package:");
+
+        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnetar (forecast)", "neuralnet" }));
+
+        javax.swing.GroupLayout paneSettingsMethodsMLPLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLP);
+        paneSettingsMethodsMLP.setLayout(paneSettingsMethodsMLPLayout);
+        paneSettingsMethodsMLPLayout.setHorizontalGroup(
+            paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelPercTrain)
+                    .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
+                        .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPercentSign))
+                    .addComponent(jLabelRPkg)
+                    .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(497, Short.MAX_VALUE))
+        );
+        paneSettingsMethodsMLPLayout.setVerticalGroup(
+            paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelPercTrain)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelPercentSign))
+                    .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(123, 123, 123)
+                .addComponent(jLabelRPkg)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(262, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("MLP", paneSettingsMethodsMLP);
+
+        jLabelARIMA.setText("Blabla:");
+
+        javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
+        paneSettingsMethodsARIMA.setLayout(paneSettingsMethodsARIMALayout);
+        paneSettingsMethodsARIMALayout.setHorizontalGroup(
+            paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelARIMA)
+                .addContainerGap(699, Short.MAX_VALUE))
+        );
+        paneSettingsMethodsARIMALayout.setVerticalGroup(
+            paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelARIMA)
+                .addContainerGap(462, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
 
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelMLP)
-                    .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
-                        .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercentSign))
-                    .addComponent(jLabelPercTrain))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(541, Short.MAX_VALUE))
+            .addComponent(paneSettingsMethods)
         );
         panelAnalysisSettingsLayout.setVerticalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
-                        .addComponent(jLabelMLP)
-                        .addGap(12, 12, 12)
-                        .addComponent(jLabelPercTrain)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabelPercentSign)))
-                        .addGap(0, 393, Short.MAX_VALUE))
-                    .addComponent(separator1))
-                .addContainerGap())
+            .addComponent(paneSettingsMethods)
         );
 
         panelEverything.addTab("Analysis settings", panelAnalysisSettings);
@@ -353,7 +390,7 @@ public class MainFrame extends javax.swing.JFrame {
         String colname = comboBoxColnamesSummary.getSelectedItem().toString();
         
         //tu treba natrenovat a spocitat a zobrazit vsetko
-        List<Double> errorMeasures = dataTableModel.trainAndTest(colname, sliderPercentTrain.getValue());
+        List<Double> errorMeasures = dataTableModel.trainAndTest(colname, sliderPercentTrain.getValue(), comboBoxRPackage.getSelectedItem().toString());
         
         panelSummary.removeAll();
         JTable frame = new JTable();
@@ -399,15 +436,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonSummaryColname;
     private javax.swing.JComboBox comboBoxColnames;
     private javax.swing.JComboBox comboBoxColnamesSummary;
-    private javax.swing.JLabel jLabelMLP;
+    private javax.swing.JComboBox comboBoxRPackage;
+    private javax.swing.JLabel jLabelARIMA;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercentSign;
+    private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JTable jTableData;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuFileExit;
     private javax.swing.JMenuItem menuFileLoad;
+    private javax.swing.JTabbedPane paneSettingsMethods;
+    private javax.swing.JPanel paneSettingsMethodsARIMA;
+    private javax.swing.JPanel paneSettingsMethodsMLP;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
@@ -416,7 +458,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSummary;
     private javax.swing.JPanel panelSummaryOutside;
     private javax.swing.JScrollPane scrollPaneData;
-    private javax.swing.JSeparator separator1;
     private javax.swing.JSlider sliderPercentTrain;
     private javax.swing.JTextField textFieldPercentTrain;
     // End of variables declaration//GEN-END:variables
