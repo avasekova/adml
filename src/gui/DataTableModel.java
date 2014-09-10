@@ -17,6 +17,7 @@ import rcaller.RCode;
 public class DataTableModel extends AbstractTableModel {
     
     private static final String BRENT = "brent";
+    private static final String ACC = "acc";
     private static final String RSCRIPT_EXE = "C:\\Program Files\\R\\R-3.1.0\\bin\\x64\\Rscript.exe";
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
@@ -115,7 +116,7 @@ public class DataTableModel extends AbstractTableModel {
         return null;
     }
     
-    public void trainAndTest(String colname, int percentTrain) {
+    public List<Double> trainAndTest(String colname, int percentTrain) {
         RCaller caller = new RCaller();
         caller.setRscriptExecutable(RSCRIPT_EXE);
         
@@ -131,19 +132,23 @@ public class DataTableModel extends AbstractTableModel {
         code.addDoubleArray("traindata", listToArray(trainingPortionOfData));
         code.addRCode("nnetwork <- nnetar(traindata)");
         
-        code.addRCode("4cast <- forecast(nnetwork, " + testingPortionOfData.size() + ")");
+        code.addRCode("forecasted <- forecast(nnetwork, " + testingPortionOfData.size() + ")");
         
         code.addDoubleArray("testdata", listToArray(testingPortionOfData));
-        code.addRCode(BRENT + " <- accuracy(4cast, testdata)");
+        code.addRCode(ACC + " <- accuracy(forecasted, testdata)");
         
         caller.setRCode(code);
         
-        caller.runAndReturnResult(BRENT);
+        caller.runAndReturnResult(ACC);
         
-        System.out.println(caller.getParser().getNames());
+        double[] acc = caller.getParser().getAsDoubleArray(ACC); //pozor na poradie vysledkov, ochenta setenta...
+        //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         
-//        String[] ac = caller.getParser().getAsStringArray(BRENT);
-//        System.out.println(Arrays.toString(ac));
+        //dalo by sa aj maticu, ale momentalne mi staci ten list:
+        //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
+        
+        System.out.println(Arrays.toString(acc));
+        return arrayToList(acc);
     }
     
     private List<Double> arrayToList(double[] array) {

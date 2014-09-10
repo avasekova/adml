@@ -2,9 +2,11 @@ package gui;
 
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -119,7 +121,7 @@ public class MainFrame extends javax.swing.JFrame {
         comboBoxColnamesSummary.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
 
         buttonSummaryColname.setText("Train and Test");
-        buttonPlotColname.setEnabled(false);
+        buttonSummaryColname.setEnabled(false);
         buttonSummaryColname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonSummaryColnameActionPerformed(evt);
@@ -351,15 +353,15 @@ public class MainFrame extends javax.swing.JFrame {
         String colname = comboBoxColnamesSummary.getSelectedItem().toString();
         
         //tu treba natrenovat a spocitat a zobrazit vsetko
-        dataTableModel.trainAndTest(colname, sliderPercentTrain.getValue());
+        List<Double> errorMeasures = dataTableModel.trainAndTest(colname, sliderPercentTrain.getValue());
         
-//        panelSummary.removeAll();
-//        JPanel frame = new JPanel();
-//        frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
-//        JLabel label = new JLabel(plotImage);
-//        frame.add(label);
-//        frame.setVisible(true);
-//        panelSummary.add(frame);
+        panelSummary.removeAll();
+        JTable frame = new JTable();
+        frame.setSize(panelSummary.getWidth(), panelSummary.getHeight());
+        frame.setModel(new ErrorMeasuresTableModel(errorMeasures));
+        frame.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+        frame.setVisible(true);
+        panelSummary.add(frame);
     }//GEN-LAST:event_buttonSummaryColnameActionPerformed
     
     /**

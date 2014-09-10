@@ -252,7 +252,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSummaryColnameActionPerformed"/>
               </Events>
               <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonPlotColname.setEnabled(false);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonSummaryColname.setEnabled(false);"/>
               </AuxValues>
             </Component>
             <Container class="javax.swing.JPanel" name="panelSummary">
