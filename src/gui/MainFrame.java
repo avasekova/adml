@@ -236,6 +236,8 @@ public class MainFrame extends javax.swing.JFrame {
         
         ImageIcon plotImage = dataTableModel.producePlot(colname);
         
+        //TODO: ten panel/frame tam povodne nie je, a potom ho tam pridam. ale dalsi mi tam tak nejak nejde pridat
+        panelPlot.removeAll();
         JPanel frame = new JPanel();
         frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
         JLabel label = new JLabel(plotImage);

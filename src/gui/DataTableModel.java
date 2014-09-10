@@ -77,7 +77,7 @@ public class DataTableModel extends AbstractTableModel {
 //getNames() z nejakeho dovodu vracia nazvy stlpcov, t.j. [Month_Year, Upper_bound, Lower_bound, Center, Radius] a nie "brent" premennu ako taku        
         for (String colName : columnNames) {
             double[] doubleArray = caller.getParser().getAsDoubleArray(colName);
-            values.put(colName, asListDouble(doubleArray));
+            values.put(colName, arrayToList(doubleArray));
         }
         
         System.out.println(values);
@@ -90,13 +90,9 @@ public class DataTableModel extends AbstractTableModel {
             caller.setRscriptExecutable(RSCRIPT_EXE);
 
             RCode code = new RCode();
-            
-            System.out.println("blabal");
             code.clear();
             
-            code.addDoubleArray("x", new double[]{1.0, 2.2, 3.9, 4.3, 5.5});
-            
-            
+            code.addDoubleArray("x", listToArray(values.get(colname)));
             
             File plotFile = code.startPlot();
             System.out.println("Plot will be saved to: " + plotFile);
@@ -118,12 +114,22 @@ public class DataTableModel extends AbstractTableModel {
         return null;
     }
     
-    private List<Double> asListDouble(double[] array) {
+    private List<Double> arrayToList(double[] array) {
         List<Double> listDouble = new ArrayList<>();
         for (double value : array) {
             listDouble.add(value);
         }
         return listDouble;
+    }
+    
+    private double[] listToArray(List<Double> list) {
+        double[] arrayDouble = new double[list.size()];
+        int i = 0;
+        for (Double value : list) {
+            arrayDouble[i] = value;
+            i++;
+        }
+        return arrayDouble;
     }
     
     public List<String> getColnames() {
