@@ -47,6 +47,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabelPercentSign = new javax.swing.JLabel();
         jLabelRPkg = new javax.swing.JLabel();
         comboBoxRPackage = new javax.swing.JComboBox();
+        textFieldNumNonSeasonalLags = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        textFieldNumSeasonalLags = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        textFieldNumNodesInHiddenSingleLayer = new javax.swing.JTextField();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         jLabelARIMA = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
@@ -196,6 +202,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnetar (forecast)", "neuralnet" }));
 
+        textFieldNumNonSeasonalLags.setToolTipText("The default is the optimal number of lags (according to the AIC) for a linear AR(p) model.");
+
+        jLabel1.setText("Number of non-seasonal lags to be used as inputs:");
+
+        jLabel2.setText("Number of seasonal lags to be used as inputs:");
+
+        jLabel3.setText("Number of nodes in the (single) hidden layer:");
+
+        textFieldNumNodesInHiddenSingleLayer.setText("1");
+
         javax.swing.GroupLayout paneSettingsMethodsMLPLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLP);
         paneSettingsMethodsMLP.setLayout(paneSettingsMethodsMLPLayout);
         paneSettingsMethodsMLPLayout.setHorizontalGroup(
@@ -204,15 +220,23 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabelPercTrain)
-                    .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
-                        .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercentSign))
                     .addComponent(jLabelRPkg)
-                    .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(497, Short.MAX_VALUE))
+                    .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
+                        .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textFieldNumNonSeasonalLags, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldNumSeasonalLags)
+                            .addComponent(textFieldNumNodesInHiddenSingleLayer, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPercentSign)))
+                .addContainerGap(433, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPLayout.setVerticalGroup(
             paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -225,11 +249,23 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelPercentSign))
                     .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(123, 123, 123)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(textFieldNumNodesInHiddenSingleLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textFieldNumNonSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(textFieldNumSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(19, 19, 19)
                 .addComponent(jLabelRPkg)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(256, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("MLP", paneSettingsMethodsMLP);
@@ -437,6 +473,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxColnames;
     private javax.swing.JComboBox comboBoxColnamesSummary;
     private javax.swing.JComboBox comboBoxRPackage;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelARIMA;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercentSign;
@@ -459,6 +498,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSummaryOutside;
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JSlider sliderPercentTrain;
+    private javax.swing.JTextField textFieldNumNodesInHiddenSingleLayer;
+    private javax.swing.JTextField textFieldNumNonSeasonalLags;
+    private javax.swing.JTextField textFieldNumSeasonalLags;
     private javax.swing.JTextField textFieldPercentTrain;
     // End of variables declaration//GEN-END:variables
 
