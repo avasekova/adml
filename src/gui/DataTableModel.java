@@ -3,6 +3,7 @@ package gui;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,12 +93,12 @@ public class DataTableModel extends AbstractTableModel {
             RCode code = new RCode();
             code.clear();
             
-            code.addDoubleArray("x", listToArray(values.get(colname)));
+            code.addDoubleArray("data", listToArray(values.get(colname)));
             
             File plotFile = code.startPlot();
             System.out.println("Plot will be saved to: " + plotFile);
 //            code.addRCode("plot.ts(" + BRENT + "$" + colname + ")");
-            code.addRCode("plot.ts(x)");
+            code.addRCode("plot.ts(data)");
             code.endPlot();
 
             caller.setRCode(code);
@@ -112,6 +113,37 @@ public class DataTableModel extends AbstractTableModel {
             Logger.getLogger(DataTableModel.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    public void trainAndTest(String colname, int percentTrain) {
+        RCaller caller = new RCaller();
+        caller.setRscriptExecutable(RSCRIPT_EXE);
+        
+        RCode code = new RCode();
+        code.clear();
+        
+        code.R_require("forecast");
+        List<Double> allData = values.get(colname);
+        int numTrainingEntries = Math.round(((float) percentTrain/100)*allData.size());
+        List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
+        List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
+        
+        code.addDoubleArray("traindata", listToArray(trainingPortionOfData));
+        code.addRCode("nnetwork <- nnetar(traindata)");
+        
+        code.addRCode("4cast <- forecast(nnetwork, " + testingPortionOfData.size() + ")");
+        
+        code.addDoubleArray("testdata", listToArray(testingPortionOfData));
+        code.addRCode(BRENT + " <- accuracy(4cast, testdata)");
+        
+        caller.setRCode(code);
+        
+        caller.runAndReturnResult(BRENT);
+        
+        System.out.println(caller.getParser().getNames());
+        
+//        String[] ac = caller.getParser().getAsStringArray(BRENT);
+//        System.out.println(Arrays.toString(ac));
     }
     
     private List<Double> arrayToList(double[] array) {

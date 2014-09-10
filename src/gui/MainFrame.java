@@ -1,19 +1,10 @@
 package gui;
 
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileFilter;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -41,8 +32,17 @@ public class MainFrame extends javax.swing.JFrame {
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
+        panelSummaryOutside = new javax.swing.JPanel();
+        comboBoxColnamesSummary = new javax.swing.JComboBox();
+        buttonSummaryColname = new javax.swing.JButton();
         panelSummary = new javax.swing.JPanel();
         panelAnalysisSettings = new javax.swing.JPanel();
+        separator1 = new javax.swing.JSeparator();
+        jLabelMLP = new javax.swing.JLabel();
+        sliderPercentTrain = new javax.swing.JSlider();
+        textFieldPercentTrain = new javax.swing.JTextField();
+        jLabelPercentSign = new javax.swing.JLabel();
+        jLabelPercTrain = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -116,28 +116,115 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Data", panelData);
 
+        comboBoxColnamesSummary.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+
+        buttonSummaryColname.setText("Train and Test");
+        buttonPlotColname.setEnabled(false);
+        buttonSummaryColname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSummaryColnameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSummaryLayout = new javax.swing.GroupLayout(panelSummary);
         panelSummary.setLayout(panelSummaryLayout);
         panelSummaryLayout.setHorizontalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
+            .addGap(0, 441, Short.MAX_VALUE)
         );
 
-        panelEverything.addTab("Summary", panelSummary);
+        javax.swing.GroupLayout panelSummaryOutsideLayout = new javax.swing.GroupLayout(panelSummaryOutside);
+        panelSummaryOutside.setLayout(panelSummaryOutsideLayout);
+        panelSummaryOutsideLayout.setHorizontalGroup(
+            panelSummaryOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSummaryOutsideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSummaryOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelSummaryOutsideLayout.createSequentialGroup()
+                        .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonSummaryColname)
+                        .addGap(0, 636, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelSummaryOutsideLayout.setVerticalGroup(
+            panelSummaryOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSummaryOutsideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSummaryOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSummaryColname))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelEverything.addTab("Summary", panelSummaryOutside);
+
+        separator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabelMLP.setText("MLP:");
+
+        sliderPercentTrain.setPaintTicks(true);
+        sliderPercentTrain.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderPercentTrainStateChanged(evt);
+            }
+        });
+
+        textFieldPercentTrain.setText("" + sliderPercentTrain.getValue());
+        textFieldPercentTrain.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldPercentTrainActionPerformed(evt);
+            }
+        });
+
+        jLabelPercentSign.setText("%");
+
+        jLabelPercTrain.setText("Portion of data to use for training:");
 
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelMLP)
+                    .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
+                        .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPercentSign))
+                    .addComponent(jLabelPercTrain))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(separator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(541, Short.MAX_VALUE))
         );
         panelAnalysisSettingsLayout.setVerticalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 492, Short.MAX_VALUE)
+            .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelAnalysisSettingsLayout.createSequentialGroup()
+                        .addComponent(jLabelMLP)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabelPercTrain)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabelPercentSign)))
+                        .addGap(0, 393, Short.MAX_VALUE))
+                    .addComponent(separator1))
+                .addContainerGap())
         );
 
         panelEverything.addTab("Analysis settings", panelAnalysisSettings);
@@ -213,9 +300,11 @@ public class MainFrame extends javax.swing.JFrame {
                     dataTableModel.fireTableStructureChanged();
                     for (String colname : dataTableModel.getColnames()) {
                         comboBoxColnames.addItem(colname);
+                        comboBoxColnamesSummary.addItem(colname);
                     }
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
+                        buttonSummaryColname.setEnabled(true);
                     }
 //                    break;
 //                case JFileChooser.CANCEL_OPTION:
@@ -236,7 +325,6 @@ public class MainFrame extends javax.swing.JFrame {
         
         ImageIcon plotImage = dataTableModel.producePlot(colname);
         
-        //TODO: ten panel/frame tam povodne nie je, a potom ho tam pridam. ale dalsi mi tam tak nejak nejde pridat
         panelPlot.removeAll();
         JPanel frame = new JPanel();
         frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
@@ -245,6 +333,34 @@ public class MainFrame extends javax.swing.JFrame {
         frame.setVisible(true);
         panelPlot.add(frame);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
+
+    private void textFieldPercentTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainActionPerformed
+        try {
+            int val = Integer.parseInt(textFieldPercentTrain.getText());
+            sliderPercentTrain.setValue(val);
+        } catch (NumberFormatException e) {
+            //TODO log
+        }
+    }//GEN-LAST:event_textFieldPercentTrainActionPerformed
+
+    private void sliderPercentTrainStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainStateChanged
+        textFieldPercentTrain.setText("" + sliderPercentTrain.getValue());
+    }//GEN-LAST:event_sliderPercentTrainStateChanged
+
+    private void buttonSummaryColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSummaryColnameActionPerformed
+        String colname = comboBoxColnamesSummary.getSelectedItem().toString();
+        
+        //tu treba natrenovat a spocitat a zobrazit vsetko
+        dataTableModel.trainAndTest(colname, sliderPercentTrain.getValue());
+        
+//        panelSummary.removeAll();
+//        JPanel frame = new JPanel();
+//        frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
+//        JLabel label = new JLabel(plotImage);
+//        frame.add(label);
+//        frame.setVisible(true);
+//        panelSummary.add(frame);
+    }//GEN-LAST:event_buttonSummaryColnameActionPerformed
     
     /**
      * @param args the command line arguments
@@ -262,13 +378,7 @@ public class MainFrame extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
@@ -284,7 +394,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonPlotColname;
+    private javax.swing.JButton buttonSummaryColname;
     private javax.swing.JComboBox comboBoxColnames;
+    private javax.swing.JComboBox comboBoxColnamesSummary;
+    private javax.swing.JLabel jLabelMLP;
+    private javax.swing.JLabel jLabelPercTrain;
+    private javax.swing.JLabel jLabelPercentSign;
     private javax.swing.JTable jTableData;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
@@ -297,7 +412,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelEverything;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelSummary;
+    private javax.swing.JPanel panelSummaryOutside;
     private javax.swing.JScrollPane scrollPaneData;
+    private javax.swing.JSeparator separator1;
+    private javax.swing.JSlider sliderPercentTrain;
+    private javax.swing.JTextField textFieldPercentTrain;
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
