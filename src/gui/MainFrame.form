@@ -194,105 +194,6 @@
             </Container>
           </SubComponents>
         </Container>
-        <Container class="javax.swing.JPanel" name="panelRunOutside">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Run">
-                <Property name="tabTitle" type="java.lang.String" value="Run"/>
-              </JTabbedPaneConstraints>
-            </Constraint>
-          </Constraints>
-
-          <Layout>
-            <DimensionLayout dim="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="panelSummary" max="32767" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="comboBoxColnamesSummary" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="buttonSummaryColname" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="checkBoxRunMLP" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="581" max="32767" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-            <DimensionLayout dim="1">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="comboBoxColnamesSummary" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="buttonSummaryColname" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabelTrainingInfo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunMLP" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelSummary" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-              </Group>
-            </DimensionLayout>
-          </Layout>
-          <SubComponents>
-            <Component class="javax.swing.JComboBox" name="comboBoxColnamesSummary">
-              <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
-                </Property>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="buttonSummaryColname">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Train and Test"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSummaryColnameActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonSummaryColname.setEnabled(false);"/>
-              </AuxValues>
-            </Component>
-            <Container class="javax.swing.JPanel" name="panelSummary">
-
-              <Layout>
-                <DimensionLayout dim="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-                <DimensionLayout dim="1">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="441" max="32767" attributes="0"/>
-                  </Group>
-                </DimensionLayout>
-              </Layout>
-            </Container>
-            <Component class="javax.swing.JLabel" name="jLabelTrainingInfo">
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLP">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="MLP"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunARIMA">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="ARIMA"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Container class="javax.swing.JPanel" name="panelAnalysisSettings">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
@@ -397,7 +298,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabelPercTrain" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -405,45 +306,28 @@
                                                   <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="1" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="textFieldNumForecasts" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                                                          <Group type="102" alignment="1" attributes="0">
-                                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                                  <Component id="textFieldLambda" max="32767" attributes="0"/>
-                                                                  <Component id="textFieldNumReps" alignment="0" max="32767" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace min="15" pref="15" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="textFieldNumSeasonalLags" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                                                          <Component id="textFieldNumNonSeasonalLags" min="-2" max="-2" attributes="0"/>
-                                                          <Group type="102" alignment="0" attributes="0">
-                                                              <Group type="103" groupAlignment="1" attributes="0">
-                                                                  <Component id="textFieldNumNodesInHiddenSingleLayer" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="textFieldPercentTrain" min="-2" pref="56" max="-2" attributes="0"/>
-                                                              </Group>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="jLabelPercentSign" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                      </Group>
+                                                      <Component id="sliderPercentTrain" min="-2" pref="270" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
+                                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Component id="textFieldNumForecasts" max="32767" attributes="0"/>
+                                                      <Component id="textFieldLambda" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="textFieldNumReps" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="textFieldNumNodesInHiddenSingleLayer" alignment="1" max="32767" attributes="0"/>
+                                                      <Component id="textFieldNumNonSeasonalLags" alignment="0" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="textFieldPercentTrain" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabelPercentSign" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="0" pref="421" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="sliderPercentTrain" min="-2" pref="270" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -665,6 +549,105 @@
                 </Container>
               </SubComponents>
             </Container>
+          </SubComponents>
+        </Container>
+        <Container class="javax.swing.JPanel" name="panelRunOutside">
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+              <JTabbedPaneConstraints tabName="Run">
+                <Property name="tabTitle" type="java.lang.String" value="Run"/>
+              </JTabbedPaneConstraints>
+            </Constraint>
+          </Constraints>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="panelSummary" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="comboBoxColnamesSummary" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="buttonSummaryColname" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLP" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="581" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="comboBoxColnamesSummary" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonSummaryColname" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabelTrainingInfo" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxRunMLP" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelSummary" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JComboBox" name="comboBoxColnamesSummary">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
+                </Property>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonSummaryColname">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Train and Test"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSummaryColnameActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonSummaryColname.setEnabled(false);"/>
+              </AuxValues>
+            </Component>
+            <Container class="javax.swing.JPanel" name="panelSummary">
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace min="0" pref="441" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+            </Container>
+            <Component class="javax.swing.JLabel" name="jLabelTrainingInfo">
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLP">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MLP"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunARIMA">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="ARIMA"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

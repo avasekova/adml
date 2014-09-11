@@ -38,13 +38,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
-        panelRunOutside = new javax.swing.JPanel();
-        comboBoxColnamesSummary = new javax.swing.JComboBox();
-        buttonSummaryColname = new javax.swing.JButton();
-        panelSummary = new javax.swing.JPanel();
-        jLabelTrainingInfo = new javax.swing.JLabel();
-        checkBoxRunMLP = new javax.swing.JCheckBox();
-        checkBoxRunARIMA = new javax.swing.JCheckBox();
         panelAnalysisSettings = new javax.swing.JPanel();
         paneSettingsMethods = new javax.swing.JTabbedPane();
         paneSettingsMethodsMLP = new javax.swing.JPanel();
@@ -72,6 +65,13 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         jLabelARIMA = new javax.swing.JLabel();
+        panelRunOutside = new javax.swing.JPanel();
+        comboBoxColnamesSummary = new javax.swing.JComboBox();
+        buttonSummaryColname = new javax.swing.JButton();
+        panelSummary = new javax.swing.JPanel();
+        jLabelTrainingInfo = new javax.swing.JLabel();
+        checkBoxRunMLP = new javax.swing.JCheckBox();
+        checkBoxRunARIMA = new javax.swing.JCheckBox();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -145,69 +145,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Data", panelData);
 
-        comboBoxColnamesSummary.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-
-        buttonSummaryColname.setText("Train and Test");
-        buttonSummaryColname.setEnabled(false);
-        buttonSummaryColname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSummaryColnameActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelSummaryLayout = new javax.swing.GroupLayout(panelSummary);
-        panelSummary.setLayout(panelSummaryLayout);
-        panelSummaryLayout.setHorizontalGroup(
-            panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelSummaryLayout.setVerticalGroup(
-            panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 441, Short.MAX_VALUE)
-        );
-
-        checkBoxRunMLP.setText("MLP");
-
-        checkBoxRunARIMA.setText("ARIMA");
-
-        javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
-        panelRunOutside.setLayout(panelRunOutsideLayout);
-        panelRunOutsideLayout.setHorizontalGroup(
-            panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                        .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonSummaryColname)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelTrainingInfo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkBoxRunMLP)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(checkBoxRunARIMA)
-                        .addGap(0, 581, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panelRunOutsideLayout.setVerticalGroup(
-            panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonSummaryColname)
-                    .addComponent(jLabelTrainingInfo)
-                    .addComponent(checkBoxRunMLP)
-                    .addComponent(checkBoxRunARIMA))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        panelEverything.addTab("Run", panelRunOutside);
-
         paneSettingsMethods.setTabPlacement(javax.swing.JTabbedPane.LEFT);
 
         jLabelRPkg.setText("R package:");
@@ -278,33 +215,23 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMLPPackage_nnetarLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textFieldNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMLPPackage_nnetarLayout.createSequentialGroup()
-                                        .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(textFieldLambda)
-                                            .addComponent(textFieldNumReps))
-                                        .addGap(15, 15, 15))))
+                            .addComponent(jLabel7)
                             .addGroup(panelSettingsMLPPackage_nnetarLayout.createSequentialGroup()
-                                .addGap(45, 45, 45)
-                                .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(textFieldNumSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(textFieldNumNonSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(panelSettingsMLPPackage_nnetarLayout.createSequentialGroup()
-                                        .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(textFieldNumNodesInHiddenSingleLayer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabelPercentSign)))))))
+                                .addContainerGap()
+                                .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(8, 8, 8)
+                        .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(textFieldNumForecasts)
+                                .addComponent(textFieldLambda, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(textFieldNumReps, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(textFieldNumSeasonalLags, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(textFieldNumNodesInHiddenSingleLayer, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(textFieldNumNonSeasonalLags))
+                            .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPercentSign)))
                 .addGap(0, 421, Short.MAX_VALUE))
-            .addGroup(panelSettingsMLPPackage_nnetarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelSettingsMLPPackage_nnetarLayout.setVerticalGroup(
             panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -430,6 +357,69 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         panelEverything.addTab("Analysis settings", panelAnalysisSettings);
+
+        comboBoxColnamesSummary.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+
+        buttonSummaryColname.setText("Train and Test");
+        buttonSummaryColname.setEnabled(false);
+        buttonSummaryColname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSummaryColnameActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSummaryLayout = new javax.swing.GroupLayout(panelSummary);
+        panelSummary.setLayout(panelSummaryLayout);
+        panelSummaryLayout.setHorizontalGroup(
+            panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelSummaryLayout.setVerticalGroup(
+            panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 441, Short.MAX_VALUE)
+        );
+
+        checkBoxRunMLP.setText("MLP");
+
+        checkBoxRunARIMA.setText("ARIMA");
+
+        javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
+        panelRunOutside.setLayout(panelRunOutsideLayout);
+        panelRunOutsideLayout.setHorizontalGroup(
+            panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                        .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonSummaryColname)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelTrainingInfo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkBoxRunMLP)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxRunARIMA)
+                        .addGap(0, 581, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelRunOutsideLayout.setVerticalGroup(
+            panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSummaryColname)
+                    .addComponent(jLabelTrainingInfo)
+                    .addComponent(checkBoxRunMLP)
+                    .addComponent(checkBoxRunARIMA))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelEverything.addTab("Run", panelRunOutside);
 
         menuFile.setText("File");
 
