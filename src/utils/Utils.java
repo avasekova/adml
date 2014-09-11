@@ -2,6 +2,7 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import rcaller.RCaller;
 
 public class Utils {
     
@@ -23,5 +24,13 @@ public class Utils {
             i++;
         }
         return arrayDouble;
+    }
+    
+    public static RCaller getCleanRCaller() {//TODO: zistit nejaky menej nechutny sposob, ako tam spustat viac veci v jednom.
+        //ono to totiz uzavrie callera po runAndReturnResult a vyhadzuje IllegalThreadStateException...
+        RCaller caller = new RCaller();
+        caller.setRscriptExecutable(Utils.RSCRIPT_EXE);
+        
+        return caller;
     }
 }
