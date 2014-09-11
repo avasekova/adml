@@ -35,6 +35,8 @@ public class MainFrame extends javax.swing.JFrame {
         comboBoxColnames = new javax.swing.JComboBox();
         buttonPlotColname = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
+        buttonACF = new javax.swing.JButton();
+        buttonPACF = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -101,6 +103,20 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 441, Short.MAX_VALUE)
         );
 
+        buttonACF.setText("Autocorrelation Plot");
+        buttonACF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonACFActionPerformed(evt);
+            }
+        });
+
+        buttonPACF.setText("Partial Autocorrelation Plot");
+        buttonPACF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPACFActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
@@ -111,7 +127,11 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelChartLayout.createSequentialGroup()
                         .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonPlotColname))
+                        .addComponent(buttonPlotColname)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonACF)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonPACF))
                     .addComponent(panelPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
@@ -121,7 +141,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonPlotColname))
+                    .addComponent(buttonPlotColname)
+                    .addComponent(buttonACF)
+                    .addComponent(buttonPACF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -581,6 +603,35 @@ public class MainFrame extends javax.swing.JFrame {
         card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_" + comboBoxRPackage.getSelectedItem().toString());
         panelSettingsMLPPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
+
+    private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
+        String colname = comboBoxColnames.getSelectedItem().toString();
+        
+        ImageIcon plotImageACF = dataTableModel.producePlotACF(colname);
+        
+        panelPlot.removeAll();
+        JPanel frame = new JPanel();
+        frame.setSize(plotImageACF.getIconWidth(), plotImageACF.getIconHeight());
+        JLabel label = new JLabel(plotImageACF);
+        frame.add(label);
+        frame.setVisible(true);
+        panelPlot.add(frame);
+    }//GEN-LAST:event_buttonACFActionPerformed
+
+    //TODO aj toto je uplne rovnake ako dva dalsie plot buttony, nejak extrahovat?
+    private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
+        String colname = comboBoxColnames.getSelectedItem().toString();
+        
+        ImageIcon plotImagePACF = dataTableModel.producePlotPACF(colname);
+        
+        panelPlot.removeAll();
+        JPanel frame = new JPanel();
+        frame.setSize(plotImagePACF.getIconWidth(), plotImagePACF.getIconHeight());
+        JLabel label = new JLabel(plotImagePACF);
+        frame.add(label);
+        frame.setVisible(true);
+        panelPlot.add(frame);
+    }//GEN-LAST:event_buttonPACFActionPerformed
     
     /**
      * @param args the command line arguments
@@ -613,6 +664,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonACF;
+    private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonSummaryColname;
     private javax.swing.JCheckBox checkBoxRunARIMA;

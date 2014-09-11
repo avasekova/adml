@@ -91,6 +91,10 @@
                               <Component id="comboBoxColnames" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="buttonPlotColname" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonACF" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="buttonPACF" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="panelPlot" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -105,6 +109,8 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="comboBoxColnames" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonPlotColname" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonACF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonPACF" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelPlot" max="32767" attributes="0"/>
@@ -149,6 +155,22 @@
                 </DimensionLayout>
               </Layout>
             </Container>
+            <Component class="javax.swing.JButton" name="buttonACF">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Autocorrelation Plot"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonACFActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonPACF">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Partial Autocorrelation Plot"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPACFActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelData">
