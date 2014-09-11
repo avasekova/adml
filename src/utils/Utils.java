@@ -2,11 +2,10 @@ package utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JTextField;
 import rcaller.RCaller;
 
 public class Utils {
-    
-    public static final String RSCRIPT_EXE = "C:\\Program Files\\R\\R-3.1.0\\bin\\x64\\Rscript.exe";
     
     public static List<Double> arrayToList(double[] array) {
         List<Double> listDouble = new ArrayList<>();
@@ -29,8 +28,17 @@ public class Utils {
     public static RCaller getCleanRCaller() {//TODO: zistit nejaky menej nechutny sposob, ako tam spustat viac veci v jednom.
         //ono to totiz uzavrie callera po runAndReturnResult a vyhadzuje IllegalThreadStateException...
         RCaller caller = new RCaller();
-        caller.setRscriptExecutable(Utils.RSCRIPT_EXE);
+        caller.setRscriptExecutable(Const.RSCRIPT_EXE);
         
         return caller;
+    }
+    
+    public static Integer getIntegerOrDefault(JTextField textField) {
+        try {
+            return Integer.parseInt(textField.getText());
+        } catch (NumberFormatException e) {
+            //TODO log? resp. bude sa pouzivat defaultna hodnota
+            return null;
+        }
     }
 }

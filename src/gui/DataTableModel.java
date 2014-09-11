@@ -14,11 +14,10 @@ import models.MLP;
 import models.TrainAndTestReport;
 import rcaller.RCaller;
 import rcaller.RCode;
+import utils.Const;
 import utils.Utils;
 
 public class DataTableModel extends AbstractTableModel {
-    
-    private static final String BRENT = "brent";
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
     private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
@@ -59,18 +58,18 @@ public class DataTableModel extends AbstractTableModel {
     
     public void openFile(File file) {
         RCaller caller = new RCaller();
-        caller.setRscriptExecutable(Utils.RSCRIPT_EXE);
+        caller.setRscriptExecutable(Const.RSCRIPT_EXE);
         
         RCode code = new RCode();
         
         String filePathEscaped = file.getPath().replace("\\","\\\\");
         
         code.R_require("gdata");
-        code.addRCode(BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
+        code.addRCode(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
         caller.setRCode(code);
         
-        caller.runAndReturnResult(BRENT); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
+        caller.runAndReturnResult(Const.BRENT); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
         
         System.out.println(caller.getParser().getNames());
         
@@ -89,17 +88,16 @@ public class DataTableModel extends AbstractTableModel {
     public ImageIcon producePlot(String colname) {
         try {
             RCaller caller = new RCaller();
-            caller.setRscriptExecutable(Utils.RSCRIPT_EXE);
+            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
 
             RCode code = new RCode();
             code.clear();
             
-            code.addDoubleArray("data", Utils.listToArray(values.get(colname)));
+            code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
             
             File plotFile = code.startPlot();
             System.out.println("Plot will be saved to: " + plotFile);
-//            code.addRCode("plot.ts(" + BRENT + "$" + colname + ")");
-            code.addRCode("plot.ts(data)");
+            code.addRCode("plot.ts(" + Const.TRAINDATA + ")");
             code.endPlot();
 
             caller.setRCode(code);
@@ -116,11 +114,11 @@ public class DataTableModel extends AbstractTableModel {
         return null;
     }
     
-    public TrainAndTestReport trainAndTest(String colname, int percentTrain, String pkg) {
+    public TrainAndTestReport trainAndTest(String colname, String pkg, Map<String, Integer> params) {
         //TODO: consider using an interface? (instead of switch etc.)
         switch (pkg) {
-            case "nnetar (forecast)":
-                return MLP.trainAndTestNnetar(values.get(colname), percentTrain);
+            case "nnetar":
+                return MLP.trainAndTestNnetar(values.get(colname), params);
             case "neuralnet":
                 System.out.println("-------------------neuralnet");
                 return new TrainAndTestReport();
