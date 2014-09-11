@@ -1,7 +1,9 @@
 package models;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Utils;
@@ -11,7 +13,9 @@ public class MLP {
     private static final String ACC = "acc";
 
     
-    public static List<Double> trainAndTestNnetar(List<Double> allData, int percentTrain) {
+    public static TrainAndTestReport trainAndTestNnetar(List<Double> allData, int percentTrain) {
+        TrainAndTestReport report = new TrainAndTestReport();
+        
         RCaller caller = new RCaller();
         caller.setRscriptExecutable(Utils.RSCRIPT_EXE);
         
@@ -42,6 +46,7 @@ public class MLP {
         //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
         
         System.out.println(Arrays.toString(acc));
-        return Utils.arrayToList(acc);
+        report.setErrorMeasures(Utils.arrayToList(acc));
+        return report;
     }
 }

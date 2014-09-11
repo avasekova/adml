@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 import models.MLP;
+import models.TrainAndTestReport;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Utils;
@@ -115,16 +116,47 @@ public class DataTableModel extends AbstractTableModel {
         return null;
     }
     
-    public List<Double> trainAndTest(String colname, int percentTrain, String pkg) {
+    public ImageIcon produceForecastPlot(String colname) {
+        try {
+            RCaller caller = new RCaller();
+            caller.setRscriptExecutable(Utils.RSCRIPT_EXE);
+
+            RCode code = new RCode();
+            code.clear();
+            
+            code.addDoubleArray("data", Utils.listToArray(values.get(colname)));
+            
+            File plotFile = code.startPlot();
+            System.out.println("Plot will be saved to: " + plotFile);
+//            code.addRCode("plot.ts(" + BRENT + "$" + colname + ")");
+            code.addRCode("plot.ts(data)");
+            code.endPlot();
+
+            caller.setRCode(code);
+            
+            caller.runOnly();
+
+            
+            //code.showPlot(plotFile);
+            return code.getPlot(plotFile);
+            
+        } catch (IOException ex) {
+            Logger.getLogger(DataTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public TrainAndTestReport trainAndTest(String colname, int percentTrain, String pkg) {
+        //TODO: consider using an interface? (instead of switch etc.)
         switch (pkg) {
             case "nnetar (forecast)":
                 return MLP.trainAndTestNnetar(values.get(colname), percentTrain);
             case "neuralnet":
                 System.out.println("-------------------neuralnet");
-                return new ArrayList<>();
+                return new TrainAndTestReport();
         }
         
-        return new ArrayList<>();
+        return new TrainAndTestReport();
     }
     
     public List<String> getColnames() {
