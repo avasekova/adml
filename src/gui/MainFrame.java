@@ -475,19 +475,14 @@ public class MainFrame extends javax.swing.JFrame {
         panelSummary.add(errorMeasuresTable);
         
         
-        
-        //tu bude treba: z trainAndTest ziskat aj forecastnute data, potom ich prilepit k trenovacim, a spolu naplotovat
-        //      (tie forecastnute teoreticky inym stylom)
-//        ImageIcon forecastPlotImage = dataTableModel.produceForecastPlot(colname);
-//        
-//        panelPlot.removeAll();
-//        JPanel frame = new JPanel();
-//        frame.setSize(forecastPlotImage.getIconWidth(), forecastPlotImage.getIconHeight());
-//        JLabel label = new JLabel(forecastPlotImage);
-//        frame.add(label);
-//        frame.setVisible(true);
-//        panelPlot.add(frame);
-//        jLabelTrainingInfo.setText("The forecast plot can now be found in the Chart panel.");
+        //show Forecast plot
+        panelPlot.removeAll();
+        JPanel frame = new JPanel();
+        frame.setSize(report.getForecastPlot().getIconWidth(), report.getForecastPlot().getIconHeight());
+        JLabel label = new JLabel(report.getForecastPlot());
+        frame.add(label);
+        frame.setVisible(true);
+        panelPlot.add(frame);
     }//GEN-LAST:event_buttonSummaryColnameActionPerformed
     
     /**
