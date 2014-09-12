@@ -445,6 +445,9 @@
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textFieldNumNodesInHiddenSingleLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(textFieldNumNodesInHiddenSingleLayer.getText())) {&#xa;            textFieldNumNodesInHiddenSingleLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (textFieldNumNodesInHiddenSingleLayer.getText().length() &lt; 1) {&#xa;            textFieldNumNodesInHiddenSingleLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel1">
                               <Properties>
@@ -456,6 +459,9 @@
                                 <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
                                 <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(textFieldNumNonSeasonalLags.getText())) {&#xa;            textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel2">
                               <Properties>
@@ -466,6 +472,9 @@
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(textFieldNumSeasonalLags.getText())) {&#xa;            textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel4">
                               <Properties>
@@ -476,6 +485,9 @@
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(textFieldNumReps.getText())) {&#xa;            textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (textFieldNumReps.getText().length() &lt; 1) {&#xa;            textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel5">
                               <Properties>
@@ -486,6 +498,9 @@
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
                               </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(textFieldLambda.getText())) {&#xa;            textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (textFieldLambda.getText().length() &lt; 1) {&#xa;            textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel7">
                               <Properties>

@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.CardLayout;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.HashMap;
@@ -202,23 +204,103 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel3.setText("Number of nodes in the (single) hidden layer:");
 
+        textFieldNumNodesInHiddenSingleLayer.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent fe) {
+                if ("<default>".equals(textFieldNumNodesInHiddenSingleLayer.getText())) {
+                    textFieldNumNodesInHiddenSingleLayer.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                if (textFieldNumNodesInHiddenSingleLayer.getText().length() < 1) {
+                    textFieldNumNodesInHiddenSingleLayer.setText("<default>");
+                }
+            }
+        });
         textFieldNumNodesInHiddenSingleLayer.setText("<default>");
 
         jLabel1.setText("Number of non-seasonal lags to be used as inputs:");
 
+        textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent fe) {
+                if ("<default>".equals(textFieldNumNonSeasonalLags.getText())) {
+                    textFieldNumNonSeasonalLags.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                if (textFieldNumNonSeasonalLags.getText().length() < 1) {
+                    textFieldNumNonSeasonalLags.setText("<default>");
+                }
+            }
+        });
         textFieldNumNonSeasonalLags.setText("<default>");
         textFieldNumNonSeasonalLags.setToolTipText("The default is the optimal number of lags (according to the AIC) for a linear AR(p) model.");
 
         jLabel2.setText("Number of seasonal lags to be used as inputs:");
 
+        textFieldNumSeasonalLags.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent fe) {
+                if ("<default>".equals(textFieldNumSeasonalLags.getText())) {
+                    textFieldNumSeasonalLags.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                if (textFieldNumSeasonalLags.getText().length() < 1) {
+                    textFieldNumSeasonalLags.setText("<default>");
+                }
+            }
+        });
         textFieldNumSeasonalLags.setText("<default>");
 
         jLabel4.setText("Number of repetitions:");
 
+        textFieldNumReps.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent fe) {
+                if ("<default>".equals(textFieldNumReps.getText())) {
+                    textFieldNumReps.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                if (textFieldNumReps.getText().length() < 1) {
+                    textFieldNumReps.setText("<default>");
+                }
+            }
+        });
         textFieldNumReps.setText("<default>");
 
         jLabel5.setText("Lambda (Box-Cox transformation):");
 
+        textFieldLambda.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent fe) {
+                if ("<default>".equals(textFieldLambda.getText())) {
+                    textFieldLambda.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent fe) {
+                if (textFieldLambda.getText().length() < 1) {
+                    textFieldLambda.setText("<default>");
+                }
+            }
+        });
         textFieldLambda.setText("<default>");
 
         jLabel7.setText("Number of forecasts:");
