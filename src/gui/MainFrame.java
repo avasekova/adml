@@ -104,6 +104,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         buttonACF.setText("Autocorrelation Plot");
+        buttonACF.setEnabled(false);
         buttonACF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonACFActionPerformed(evt);
@@ -111,6 +112,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         buttonPACF.setText("Partial Autocorrelation Plot");
+        buttonPACF.setEnabled(false);
         buttonPACF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPACFActionPerformed(evt);
@@ -519,6 +521,8 @@ public class MainFrame extends javax.swing.JFrame {
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
                         buttonSummaryColname.setEnabled(true);
+                        buttonACF.setEnabled(true);
+                        buttonPACF.setEnabled(true);
                     }
 //                    break;
 //                case JFileChooser.CANCEL_OPTION:
@@ -546,6 +550,7 @@ public class MainFrame extends javax.swing.JFrame {
         frame.add(label);
         frame.setVisible(true);
         panelPlot.add(frame);
+        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void textFieldPercentTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainActionPerformed
@@ -596,6 +601,7 @@ public class MainFrame extends javax.swing.JFrame {
         frame.add(label);
         frame.setVisible(true);
         panelPlot.add(frame);
+        this.repaint();
     }//GEN-LAST:event_buttonSummaryColnameActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -616,6 +622,7 @@ public class MainFrame extends javax.swing.JFrame {
         frame.add(label);
         frame.setVisible(true);
         panelPlot.add(frame);
+        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
     }//GEN-LAST:event_buttonACFActionPerformed
 
     //TODO aj toto je uplne rovnake ako dva dalsie plot buttony, nejak extrahovat?
@@ -631,6 +638,7 @@ public class MainFrame extends javax.swing.JFrame {
         frame.add(label);
         frame.setVisible(true);
         panelPlot.add(frame);
+        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
     }//GEN-LAST:event_buttonPACFActionPerformed
     
     /**

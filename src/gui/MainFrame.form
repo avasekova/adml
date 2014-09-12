@@ -162,6 +162,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonACFActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonACF.setEnabled(false);"/>
+              </AuxValues>
             </Component>
             <Component class="javax.swing.JButton" name="buttonPACF">
               <Properties>
@@ -170,6 +173,9 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPACFActionPerformed"/>
               </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonPACF.setEnabled(false);"/>
+              </AuxValues>
             </Component>
           </SubComponents>
         </Container>
