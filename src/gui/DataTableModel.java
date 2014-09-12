@@ -85,7 +85,7 @@ public class DataTableModel extends AbstractTableModel {
         //int[] dimensions = caller.getParser().getDimensions("Center");
     }
     
-    public ImageIcon producePlot(String colname) {
+    public ImageIcon producePlotGeneral(String colname, String plotFunction, String additionalArgs) {
         try {
             RCaller caller = new RCaller();
             caller.setRscriptExecutable(Const.RSCRIPT_EXE);
@@ -97,7 +97,7 @@ public class DataTableModel extends AbstractTableModel {
             
             File plotFile = code.startPlot();
             System.out.println("Plot will be saved to: " + plotFile);
-            code.addRCode("plot.ts(" + Const.TRAINDATA + ")");
+            code.addRCode(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")"); //plot.ts
             code.endPlot();
 
             caller.setRCode(code);
@@ -129,64 +129,5 @@ public class DataTableModel extends AbstractTableModel {
     
     public List<String> getColnames() {
         return columnNames;
-    }
-
-    //TODO urobit nejaku fasadu nad tymto volanim RCallera? vsetko je rovnake, minimalne ako v producePlot, len ina funkcia
-    public ImageIcon producePlotACF(String colname) {
-        try {
-            RCaller caller = new RCaller();
-            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
-
-            RCode code = new RCode();
-            code.clear();
-            
-            code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
-            
-            File plotFile = code.startPlot();
-            System.out.println("Plot will be saved to: " + plotFile);
-            code.addRCode("acf(" + Const.TRAINDATA + ")");
-            code.endPlot();
-
-            caller.setRCode(code);
-            
-            caller.runOnly();
-
-            
-            //code.showPlot(plotFile);
-            return code.getPlot(plotFile);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(DataTableModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
-    ImageIcon producePlotPACF(String colname) {
-        try {
-            RCaller caller = new RCaller();
-            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
-
-            RCode code = new RCode();
-            code.clear();
-            
-            code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
-            
-            File plotFile = code.startPlot();
-            System.out.println("Plot will be saved to: " + plotFile);
-            code.addRCode("pacf(" + Const.TRAINDATA + ")");
-            code.endPlot();
-
-            caller.setRCode(code);
-            
-            caller.runOnly();
-
-            
-            //code.showPlot(plotFile);
-            return code.getPlot(plotFile);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(DataTableModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
     }
 }

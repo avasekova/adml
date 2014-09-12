@@ -6,7 +6,7 @@ import javax.swing.ImageIcon;
 
 public class TrainAndTestReport {
     
-    private List<Double> errorMeasures = new ArrayList<>();
+    private List<Double> errorMeasures = new ArrayList<>(); //TODO Map<String, Double> fixne metriky pre vsetkych
     private List<Double> trainData = new ArrayList<>();
     private List<Double> testData = new ArrayList<>();
     private List<Double> forecastData = new ArrayList<>();

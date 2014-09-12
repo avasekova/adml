@@ -539,18 +539,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFileExitActionPerformed
 
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
-        String colname = comboBoxColnames.getSelectedItem().toString();
-        
-        ImageIcon plotImage = dataTableModel.producePlot(colname);
-        
-        panelPlot.removeAll();
-        JPanel frame = new JPanel();
-        frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
-        JLabel label = new JLabel(plotImage);
-        frame.add(label);
-        frame.setVisible(true);
-        panelPlot.add(frame);
-        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
+        outputPlotGeneral("plot.ts", "");
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void textFieldPercentTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainActionPerformed
@@ -611,34 +600,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        String colname = comboBoxColnames.getSelectedItem().toString();
-        
-        ImageIcon plotImageACF = dataTableModel.producePlotACF(colname);
-        
-        panelPlot.removeAll();
-        JPanel frame = new JPanel();
-        frame.setSize(plotImageACF.getIconWidth(), plotImageACF.getIconHeight());
-        JLabel label = new JLabel(plotImageACF);
-        frame.add(label);
-        frame.setVisible(true);
-        panelPlot.add(frame);
-        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
+        outputPlotGeneral("acf", "");
     }//GEN-LAST:event_buttonACFActionPerformed
 
-    //TODO aj toto je uplne rovnake ako dva dalsie plot buttony, nejak extrahovat?
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        String colname = comboBoxColnames.getSelectedItem().toString();
-        
-        ImageIcon plotImagePACF = dataTableModel.producePlotPACF(colname);
-        
-        panelPlot.removeAll();
-        JPanel frame = new JPanel();
-        frame.setSize(plotImagePACF.getIconWidth(), plotImagePACF.getIconHeight());
-        JLabel label = new JLabel(plotImagePACF);
-        frame.add(label);
-        frame.setVisible(true);
-        panelPlot.add(frame);
-        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
+        outputPlotGeneral("pacf", "");
     }//GEN-LAST:event_buttonPACFActionPerformed
     
     /**
@@ -725,5 +691,20 @@ public class MainFrame extends javax.swing.JFrame {
 
     private File loadedFile;
     private final DataTableModel dataTableModel = new DataTableModel();
+
+    private void outputPlotGeneral(String plotFunction, String additionalArgs) {
+        String colname = comboBoxColnames.getSelectedItem().toString();
+        
+        ImageIcon plotImage = dataTableModel.producePlotGeneral(colname, plotFunction, additionalArgs);
+        
+        panelPlot.removeAll();
+        JPanel frame = new JPanel();
+        frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
+        JLabel label = new JLabel(plotImage);
+        frame.add(label);
+        frame.setVisible(true);
+        panelPlot.add(frame);
+        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
+    }
 
 }
