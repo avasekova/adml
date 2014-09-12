@@ -10,7 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
-import models.MLP;
+import models.DefaultForecastable;
+import models.Forecastable;
+import models.Neuralnet;
+import models.Nnetar;
 import models.TrainAndTestReport;
 import rcaller.RCaller;
 import rcaller.RCode;
@@ -115,16 +118,19 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     public TrainAndTestReport trainAndTest(String colname, String pkg, Map<String, Integer> params) {
-        //TODO: consider using an interface? (instead of switch etc.)
+        Forecastable forecastable;
         switch (pkg) {
             case "nnetar":
-                return MLP.trainAndTestNnetar(values.get(colname), params);
+                forecastable = new Nnetar();
+                break;
             case "neuralnet":
-                System.out.println("-------------------neuralnet");
-                return new TrainAndTestReport();
+                forecastable = new Neuralnet();
+                break;
+            default:
+                forecastable = new DefaultForecastable();
         }
         
-        return new TrainAndTestReport();
+        return forecastable.forecast(values.get(colname), params);
     }
     
     public List<String> getColnames() {

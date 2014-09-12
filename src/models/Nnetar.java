@@ -11,9 +11,10 @@ import rcaller.RCode;
 import utils.Const;
 import utils.Utils;
 
-public class MLP {
+public class Nnetar implements Forecastable {
     
-    public static TrainAndTestReport trainAndTestNnetar(List<Double> allData, Map<String, Integer> params) {
+    @Override
+    public TrainAndTestReport forecast(List<Double> allData, Map<String, Integer> params) {
         TrainAndTestReport report = new TrainAndTestReport();
 
         RCaller caller = Utils.getCleanRCaller();
@@ -72,13 +73,14 @@ public class MLP {
             caller.runOnly();
             report.setForecastPlot(code.getPlot(forecastPlotFile));
         } catch (IOException ex) {
-            Logger.getLogger(MLP.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return report;
     }
     
-    private static String getOptionalParams(Map<String, Integer> params) {
+    @Override
+    public String getOptionalParams(Map<String, Integer> params) {
         String optionalParams = "";
         if (params.get("numNonSeasonalLags") != null) {
             optionalParams += ", p = " + params.get("numNonSeasonalLags");
