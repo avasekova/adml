@@ -1,17 +1,17 @@
 package models;
 
 import java.util.List;
-import java.util.Map;
+import params.Params;
 
 public class DefaultForecastable implements Forecastable {
 
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Map<String, Integer> params) {
+    public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 
     @Override
-    public String getOptionalParams(Map<String, Integer> params) {
+    public String getOptionalParams(Params parameters) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
     

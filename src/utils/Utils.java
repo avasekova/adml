@@ -41,4 +41,21 @@ public class Utils {
             return null;
         }
     }
+    
+    public static Double getDoubleOrDefault(JTextField textField) {
+        try {
+            return Double.parseDouble(textField.getText());
+        } catch (NumberFormatException e) {
+            //TODO log? resp. bude sa pouzivat defaultna hodnota
+            return null;
+        }
+    }
+    
+    public static R_Bool booleanToRBool(boolean truefalse) {
+        if (truefalse) {
+            return R_Bool.TRUE;
+        } else {
+            return R_Bool.FALSE;
+        }
+    }
 }

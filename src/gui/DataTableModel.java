@@ -13,8 +13,11 @@ import javax.swing.table.AbstractTableModel;
 import models.DefaultForecastable;
 import models.Forecastable;
 import models.Neuralnet;
+import models.Nnet;
 import models.Nnetar;
 import models.TrainAndTestReport;
+import params.NnetParams;
+import params.Params;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
@@ -117,7 +120,7 @@ public class DataTableModel extends AbstractTableModel {
         return null;
     }
     
-    public TrainAndTestReport trainAndTest(String colname, String pkg, Map<String, Integer> params) {
+    public TrainAndTestReport trainAndTest(String colname, String pkg, Params params) {
         Forecastable forecastable;
         switch (pkg) {
             case "nnetar":
@@ -125,6 +128,10 @@ public class DataTableModel extends AbstractTableModel {
                 break;
             case "neuralnet":
                 forecastable = new Neuralnet();
+                break;
+            case "nnet":
+                forecastable = new Nnet();
+                ((NnetParams) params).setInputs(values.get(((NnetParams) params).getInputColname()));
                 break;
             default:
                 forecastable = new DefaultForecastable();

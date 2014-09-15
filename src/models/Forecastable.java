@@ -1,11 +1,11 @@
 package models;
 
 import java.util.List;
-import java.util.Map;
+import params.Params;
 
 public interface Forecastable {
     
-    TrainAndTestReport forecast(List<Double> allData, Map<String, Integer> params);
-    String getOptionalParams(Map<String, Integer> params);
+    TrainAndTestReport forecast(List<Double> allData, Params parameters);
+    String getOptionalParams(Params parameters);
     
 }
