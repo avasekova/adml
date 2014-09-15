@@ -2,6 +2,7 @@ package models;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,9 +53,27 @@ public class Nnet implements Forecastable {
         caller.setRCode(code);
         caller.runAndReturnResult(Const.FORECAST_MODEL);
         double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_MODEL);
+        report.setForecastData(Utils.arrayToList(forecasted));
+        //..
+        //..
+        //tu pokracovat: spocitat tie error measures (zatial len tie, co mal nnetar), a zobrazit graf forecasted vals
+        //TODO spocitat naozaj tie error measures
+        //zatial len dummy data
+        List<Double> dummyErrorMeasures = new ArrayList<>();
+        dummyErrorMeasures.add(0.0);
+        dummyErrorMeasures.add(0.1);
+        dummyErrorMeasures.add(0.2);
+        dummyErrorMeasures.add(0.3);
+        dummyErrorMeasures.add(0.4);
+        dummyErrorMeasures.add(0.5);
+        dummyErrorMeasures.add(0.6);
+        dummyErrorMeasures.add(0.7);
+        dummyErrorMeasures.add(0.8);
+        dummyErrorMeasures.add(0.9);
+        dummyErrorMeasures.add(1.0);
+        dummyErrorMeasures.add(1.1);
+        report.setErrorMeasures(dummyErrorMeasures);
         
-//        report.setForecastData(Utils.arrayToList(forecasted));
-//            
 //        caller = Utils.getCleanRCaller();
 //        code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfData));
 //        code.addRCode(Const.ACC + " <- accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")");
@@ -69,18 +88,19 @@ public class Nnet implements Forecastable {
 //        //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
 //
 //        report.setErrorMeasures(Utils.arrayToList(acc));
-//        
-//        try {
-//            caller = Utils.getCleanRCaller();
-//            File forecastPlotFile = code.startPlot();
-//            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
-//            code.endPlot();
-//            caller.setRCode(code);
-//            caller.runOnly();
-//            report.setForecastPlot(code.getPlot(forecastPlotFile));
-//        } catch (IOException ex) {
-//            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        
+        //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
+        try {
+            caller = Utils.getCleanRCaller();
+            File forecastPlotFile = code.startPlot();
+            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
+            code.endPlot();
+            caller.setRCode(code);
+            caller.runOnly();
+            report.setForecastPlot(code.getPlot(forecastPlotFile));
+        } catch (IOException ex) {
+            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return report;
     }

@@ -38,7 +38,7 @@ public class ErrorMeasuresTableModel extends AbstractTableModel {
             case 1:
                 switch (columnIndex) {
                     case 0: return "Training set";
-                    default: return errorMeasures.get((columnIndex - 1)*2);
+                    default: System.out.println((columnIndex - 1)*2 + "....." + errorMeasures);return errorMeasures.get((columnIndex - 1)*2);
                 }
             case 2:
                 switch (columnIndex) {
