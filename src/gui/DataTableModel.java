@@ -56,6 +56,8 @@ public class DataTableModel extends AbstractTableModel {
     
     
     public void openFile(File file) {
+        final String DATA = Const.DATA + RCodeSession.INSTANCE.getCounter();
+        
         RCaller caller = new RCaller();
         caller.setRscriptExecutable(Const.RSCRIPT_EXE);
         
@@ -64,12 +66,10 @@ public class DataTableModel extends AbstractTableModel {
         String filePathEscaped = file.getPath().replace("\\","\\\\");
         
         code.R_require("gdata");
-        final String data = Const.DATA + RCodeSession.INSTANCE.getCounter();
-        code.addRCode(data + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
+        code.addRCode(DATA + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
         caller.setRCode(code);
-        
-        caller.runAndReturnResult(data); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
+        caller.runAndReturnResult(DATA); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
         
         columnNames = caller.getParser().getNames();
 
@@ -79,30 +79,28 @@ public class DataTableModel extends AbstractTableModel {
             values.put(colName, Utils.arrayToList(doubleArray));
         }
         
-        //int[] dimensions = caller.getParser().getDimensions("Center");
-        
         RCodeSession.INSTANCE.setRCode(code);
     }
     
     public ImageIcon producePlotGeneral(String colname, String plotFunction, String additionalArgs) {
         try {
+            final String TRAINDATA = Const.TRAINDATA + RCodeSession.INSTANCE.getCounter(); //to have a unique name
+            
             RCaller caller = new RCaller();
             caller.setRscriptExecutable(Const.RSCRIPT_EXE);
 
             RCode code = RCodeSession.INSTANCE.getRCode();
             
-            final String trainData = Const.TRAINDATA + RCodeSession.INSTANCE.getCounter(); //to have a unique name
-            code.addDoubleArray(trainData, Utils.listToArray(values.get(colname)));
+            code.addDoubleArray(TRAINDATA, Utils.listToArray(values.get(colname)));
             
             File plotFile = code.startPlot();
             System.out.println("Plot will be saved to: " + plotFile);
-            code.addRCode(plotFunction + "(" + trainData + additionalArgs + ")"); //plot.ts
+            code.addRCode(plotFunction + "(" + TRAINDATA + additionalArgs + ")"); //plot.ts
             code.endPlot();
 
             caller.setRCode(code);
             
             caller.runOnly();
-
             
             RCodeSession.INSTANCE.setRCode(code);
             

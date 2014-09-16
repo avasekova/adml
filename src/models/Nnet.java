@@ -14,6 +14,13 @@ public class Nnet implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
+        final String INPUTDATA = Const.INPUT + RCodeSession.INSTANCE.getCounter();
+        final String OUTPUTDATA = Const.OUTPUT + RCodeSession.INSTANCE.getCounter();
+        final String NNETWORK = Const.NNETWORK + RCodeSession.INSTANCE.getCounter();
+        final String TESTDATA = Const.TEST + RCodeSession.INSTANCE.getCounter();
+        final String FORECASTMODEL = Const.FORECAST_MODEL + RCodeSession.INSTANCE.getCounter();
+        
+        
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
 
@@ -32,27 +39,22 @@ public class Nnet implements Forecastable {
         report.setTestData(testingPortionOfData);
         List<Double> testingPortionOfInputValues = params.getInputs().subList(numTrainingEntries, params.getInputs().size());
 
-        final String inputData = Const.INPUT + RCodeSession.INSTANCE.getCounter();
-        code.addDoubleArray(inputData, Utils.listToArray(trainingPortionOfInputValues));
-        final String outputData = Const.OUTPUT + RCodeSession.INSTANCE.getCounter();
-        code.addDoubleArray(outputData, Utils.listToArray(trainingPortionOfData));
+        code.addDoubleArray(INPUTDATA, Utils.listToArray(trainingPortionOfInputValues));
+        code.addDoubleArray(OUTPUTDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         
-        final String nnetwork = Const.NNETWORK + RCodeSession.INSTANCE.getCounter();
-        code.addRCode(nnetwork + " <- nnet(" + inputData + ", " + outputData + optionalParams + ")");
+        code.addRCode(NNETWORK + " <- nnet(" + INPUTDATA + ", " + OUTPUTDATA + optionalParams + ")");
         
         //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
-        final String testData = Const.TEST + RCodeSession.INSTANCE.getCounter();
-        code.addDoubleArray(testData, Utils.listToArray(testingPortionOfInputValues));
-        final String forecastModel = Const.FORECAST_MODEL + RCodeSession.INSTANCE.getCounter();
-        code.addRCode(forecastModel + " <- predict(" + nnetwork + ", " + testData + ", type='raw')");
+        code.addDoubleArray(TESTDATA, Utils.listToArray(testingPortionOfInputValues));
+        code.addRCode(FORECASTMODEL + " <- predict(" + NNETWORK + ", " + TESTDATA + ", type='raw')");
         
         
         caller.setRCode(code);
-        caller.runAndReturnResult(forecastModel);
-        double[] forecasted = caller.getParser().getAsDoubleArray(forecastModel);
+        caller.runAndReturnResult(FORECASTMODEL);
+        double[] forecasted = caller.getParser().getAsDoubleArray(FORECASTMODEL);
         report.setForecastData(Utils.arrayToList(forecasted));
         //..
         //..
@@ -90,7 +92,7 @@ public class Nnet implements Forecastable {
 //        report.setErrorMeasures(Utils.arrayToList(acc));
         
         //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
-        report.setForecastPlotCode("plot(" + forecastModel + ")");
+        report.setForecastPlotCode("plot(" + FORECASTMODEL + ")");
         
         RCodeSession.INSTANCE.setRCode(code);
         

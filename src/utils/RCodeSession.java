@@ -4,6 +4,8 @@ import rcaller.RCode;
 
 public enum RCodeSession { //singleton (hopefully)
     
+    //nepouzivat code.clean()! a vzdy, ked si vyziadam INSTANCE, tak po pouziti prepisem code (setRCode)
+    
     INSTANCE;
     
     private RCode code = new RCode();
