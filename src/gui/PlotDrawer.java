@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import models.TrainAndTestReport;
 import rcaller.RCaller;
 import rcaller.RCode;
+import utils.RCodeSession;
 import utils.Utils;
 
 public class PlotDrawer {
@@ -23,8 +24,7 @@ public class PlotDrawer {
             RCaller caller = Utils.getCleanRCaller();
             caller.deleteTempFiles();
             
-            RCode code = new RCode();
-            code.clear();
+            RCode code = RCodeSession.INSTANCE.getRCode();
             
             File forecastPlotFile = code.startPlot();
             
@@ -44,6 +44,9 @@ public class PlotDrawer {
             code.endPlot();
             caller.setRCode(code);
             caller.runOnly();
+            
+            RCodeSession.INSTANCE.setRCode(code);
+            
             return code.getPlot(forecastPlotFile);
             
         } catch (IOException ex) {

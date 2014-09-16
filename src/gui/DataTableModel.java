@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
+import utils.RCodeSession;
 import utils.Utils;
 
 public class DataTableModel extends AbstractTableModel {
@@ -58,18 +59,17 @@ public class DataTableModel extends AbstractTableModel {
         RCaller caller = new RCaller();
         caller.setRscriptExecutable(Const.RSCRIPT_EXE);
         
-        RCode code = new RCode();
+        RCode code = RCodeSession.INSTANCE.getRCode();
         
         String filePathEscaped = file.getPath().replace("\\","\\\\");
         
         code.R_require("gdata");
-        code.addRCode(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
+        final String data = Const.DATA + RCodeSession.INSTANCE.getCounter();
+        code.addRCode(data + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
         caller.setRCode(code);
         
-        caller.runAndReturnResult(Const.BRENT); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
-        
-        System.out.println(caller.getParser().getNames());
+        caller.runAndReturnResult(data); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
         
         columnNames = caller.getParser().getNames();
 
@@ -79,8 +79,9 @@ public class DataTableModel extends AbstractTableModel {
             values.put(colName, Utils.arrayToList(doubleArray));
         }
         
-        System.out.println(values);
         //int[] dimensions = caller.getParser().getDimensions("Center");
+        
+        RCodeSession.INSTANCE.setRCode(code);
     }
     
     public ImageIcon producePlotGeneral(String colname, String plotFunction, String additionalArgs) {
@@ -88,14 +89,14 @@ public class DataTableModel extends AbstractTableModel {
             RCaller caller = new RCaller();
             caller.setRscriptExecutable(Const.RSCRIPT_EXE);
 
-            RCode code = new RCode();
-            code.clear();
+            RCode code = RCodeSession.INSTANCE.getRCode();
             
-            code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
+            final String trainData = Const.TRAINDATA + RCodeSession.INSTANCE.getCounter(); //to have a unique name
+            code.addDoubleArray(trainData, Utils.listToArray(values.get(colname)));
             
             File plotFile = code.startPlot();
             System.out.println("Plot will be saved to: " + plotFile);
-            code.addRCode(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")"); //plot.ts
+            code.addRCode(plotFunction + "(" + trainData + additionalArgs + ")"); //plot.ts
             code.endPlot();
 
             caller.setRCode(code);
@@ -103,7 +104,8 @@ public class DataTableModel extends AbstractTableModel {
             caller.runOnly();
 
             
-            //code.showPlot(plotFile);
+            RCodeSession.INSTANCE.setRCode(code);
+            
             return code.getPlot(plotFile);
             
         } catch (IOException ex) {

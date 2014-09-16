@@ -1,15 +1,12 @@
 package models;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import params.NnetarParams;
 import params.Params;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
+import utils.RCodeSession;
 import utils.Utils;
 
 public class Nnetar implements Forecastable {
@@ -22,9 +19,8 @@ public class Nnetar implements Forecastable {
         RCaller caller = Utils.getCleanRCaller();
         caller.deleteTempFiles();
 
-        RCode code = new RCode();
-        code.clear();
-
+        RCode code = RCodeSession.INSTANCE.getRCode();
+        
         code.R_require("forecast");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
         List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
@@ -32,39 +28,46 @@ public class Nnetar implements Forecastable {
         List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
         report.setTestData(testingPortionOfData);
 
-        code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(trainingPortionOfData));
+        final String trainData = Const.TRAINDATA + RCodeSession.INSTANCE.getCounter();
+        code.addDoubleArray(trainData, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
-        code.addRCode(Const.NNETWORK + " <- nnetar(" + Const.TRAINDATA + optionalParams + ")");
+        final String nnetwork = Const.NNETWORK + RCodeSession.INSTANCE.getCounter();
+        code.addRCode(nnetwork + " <- nnetar(" + trainData + optionalParams + ")");
 
         int numForecasts = testingPortionOfData.size();
         numForecasts += params.getNumForecasts();
-        code.addRCode(Const.FORECAST_MODEL + " <- forecast(" + Const.NNETWORK + ", " + numForecasts + ")");
+        final String forecastModel = Const.FORECAST_MODEL + RCodeSession.INSTANCE.getCounter();
+        code.addRCode(forecastModel + " <- forecast(" + nnetwork + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
-        code.addRCode(Const.FORECAST_VALS + " <- " + Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
+        final String forecastVals = Const.FORECAST_VALS + RCodeSession.INSTANCE.getCounter();
+        code.addRCode(forecastVals + " <- " + forecastModel + "$mean[1:" + testingPortionOfData.size() + "]");
 
         caller.setRCode(code);
-        caller.runAndReturnResult(Const.FORECAST_VALS);
-        double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_VALS);
+        caller.runAndReturnResult(forecastVals);
+        double[] forecasted = caller.getParser().getAsDoubleArray(forecastVals);
         report.setForecastData(Utils.arrayToList(forecasted));
             
         caller = Utils.getCleanRCaller();
-        code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfData));
-        code.addRCode(Const.ACC + " <- accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")");
+        final String testData = Const.TEST + RCodeSession.INSTANCE.getCounter();
+        code.addDoubleArray(testData, Utils.listToArray(testingPortionOfData));
+        final String accuracy = Const.ACC + RCodeSession.INSTANCE.getCounter();
+        code.addRCode(accuracy + " <- accuracy(" + forecastModel + ", " + testData + ")");
 
         caller.setRCode(code);
-        caller.runAndReturnResult(Const.ACC);
+        caller.runAndReturnResult(accuracy);
 
-        double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
+        double[] acc = caller.getParser().getAsDoubleArray(accuracy); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
 
         //dalo by sa aj maticu, ale momentalne mi staci ten list:
         //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
 
         report.setErrorMeasures(Utils.arrayToList(acc));
-        //report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")"); //TODO ved on odinakial nevie, co to je za premennu!
-        report.setForecastPlotCode("plot(seq(1,120))");
+        report.setForecastPlotCode("plot(" + forecastModel + ")"); //TODO ved on odinakial nevie, co to je za premennu!
+        
+        RCodeSession.INSTANCE.setRCode(code);
         
         return report;
     }

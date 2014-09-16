@@ -6,9 +6,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +19,6 @@ import models.TrainAndTestReport;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
-import params.Params;
 import utils.Utils;
 
 public class MainFrame extends javax.swing.JFrame {
@@ -988,19 +985,6 @@ public class MainFrame extends javax.swing.JFrame {
         frame.setVisible(true);
         panelPlot.add(frame);
         this.repaint();
-        /* kod na kreslenie grafu:
-        try {
-            caller = Utils.getCleanRCaller();
-            File forecastPlotFile = code.startPlot();
-            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
-            code.endPlot();
-            caller.setRCode(code);
-            caller.runOnly();
-            report.setForecastPlot(code.getPlot(forecastPlotFile));
-        } catch (IOException ex) {
-            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
