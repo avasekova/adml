@@ -10,14 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
-import models.DefaultForecastable;
-import models.Forecastable;
-import models.Neuralnet;
-import models.Nnet;
-import models.Nnetar;
-import models.TrainAndTestReport;
-import params.NnetParams;
-import params.Params;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
@@ -120,27 +112,11 @@ public class DataTableModel extends AbstractTableModel {
         return null;
     }
     
-    public TrainAndTestReport trainAndTest(String colname, String pkg, Params params) {
-        Forecastable forecastable;
-        switch (pkg) {
-            case "nnetar":
-                forecastable = new Nnetar();
-                break;
-            case "neuralnet":
-                forecastable = new Neuralnet();
-                break;
-            case "nnet":
-                forecastable = new Nnet();
-                ((NnetParams) params).setInputs(values.get(((NnetParams) params).getInputColname()));
-                break;
-            default:
-                forecastable = new DefaultForecastable();
-        }
-        
-        return forecastable.forecast(values.get(colname), params);
-    }
-    
     public List<String> getColnames() {
         return columnNames;
+    }
+    
+    public List<Double> getDataForColname(String colname) {
+        return values.get(colname);
     }
 }

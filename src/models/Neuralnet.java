@@ -8,7 +8,7 @@ public class Neuralnet implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
-        TrainAndTestReport report = new TrainAndTestReport();
+        TrainAndTestReport report = new TrainAndTestReport("neuralnet");
 
 //        RCaller caller = Utils.getCleanRCaller();
 //        caller.deleteTempFiles();

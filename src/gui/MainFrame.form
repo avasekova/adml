@@ -1010,18 +1010,20 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelSummary" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <Component id="comboBoxColnamesSummary" min="-2" max="-2" attributes="0"/>
+                              <Component id="comboBoxColnamesRun" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="checkBoxRunMLP" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLPnnetar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLPneuralnet" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLPnnet" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel28" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="764" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="645" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1033,12 +1035,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="comboBoxColnamesSummary" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="comboBoxColnamesRun" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonTrainAndTest" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabelTrainingInfo" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunMLP" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxRunMLPnnetar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel28" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxRunMLPnnet" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="checkBoxRunMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelSummary" max="32767" attributes="0"/>
@@ -1048,7 +1051,7 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JComboBox" name="comboBoxColnamesSummary">
+            <Component class="javax.swing.JComboBox" name="comboBoxColnamesRun">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
@@ -1083,19 +1086,27 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabelTrainingInfo">
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLP">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPnnetar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="MLP"/>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="MLP (nnetar)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunARIMA">
               <Properties>
                 <Property name="text" type="java.lang.String" value="ARIMA"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel28">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPnnet">
               <Properties>
-                <Property name="text" type="java.lang.String" value="(make this work!)"/>
+                <Property name="text" type="java.lang.String" value="MLP (nnet)"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPneuralnet">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MLP (neuralnet)"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

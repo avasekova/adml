@@ -2,27 +2,34 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.ImageIcon;
 
 public class TrainAndTestReport {
     
+    private String modelName = "";
     private List<Double> errorMeasures = new ArrayList<>(); //TODO Map<String, Double> fixne metriky pre vsetkych
     private List<Double> trainData = new ArrayList<>();
     private List<Double> testData = new ArrayList<>();
     private List<Double> forecastData = new ArrayList<>();
-    private ImageIcon forecastPlot = new ImageIcon();
+    private String forecastPlotCode = "";
     
-    public TrainAndTestReport() { }
+    public TrainAndTestReport(String modelName) { 
+        this.modelName = modelName;
+    }
     
-    public TrainAndTestReport(List<Double> errorMeasures, List<Double> trainData,
-                              List<Double> testData, List<Double> forecastData, ImageIcon forecastPlot) {
+    public TrainAndTestReport(String modelName, List<Double> errorMeasures, List<Double> trainData,
+                              List<Double> testData, List<Double> forecastData, String forecastPlot) {
+        this.modelName = modelName;
         this.errorMeasures = errorMeasures;
         this.trainData = trainData;
         this.testData = testData;
         this.forecastData = forecastData;
-        this.forecastPlot = forecastPlot;
+        this.forecastPlotCode = forecastPlot;
     }
 
+    public String getModelName() {
+        return modelName;
+    }
+    
     public List<Double> getErrorMeasures() {
         return errorMeasures;
     }
@@ -55,12 +62,12 @@ public class TrainAndTestReport {
         this.forecastData = forecastData;
     }
 
-    public ImageIcon getForecastPlot() {
-        return forecastPlot;
+    public String getForecastPlotCode() {
+        return forecastPlotCode;
     }
 
-    public void setForecastPlot(ImageIcon forecastPlot) {
-        this.forecastPlot = forecastPlot;
+    public void setForecastPlotCode(String forecastPlot) {
+        this.forecastPlotCode = forecastPlot;
     }
     
 }

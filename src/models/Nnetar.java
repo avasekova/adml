@@ -15,9 +15,9 @@ import utils.Utils;
 public class Nnetar implements Forecastable {
     
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters ){
+    public TrainAndTestReport forecast(List<Double> allData, Params parameters){
         NnetarParams params = (NnetarParams) parameters;
-        TrainAndTestReport report = new TrainAndTestReport();
+        TrainAndTestReport report = new TrainAndTestReport("nnetar");
 
         RCaller caller = Utils.getCleanRCaller();
         caller.deleteTempFiles();
@@ -63,18 +63,8 @@ public class Nnetar implements Forecastable {
         //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
 
         report.setErrorMeasures(Utils.arrayToList(acc));
-        
-        try {
-            caller = Utils.getCleanRCaller();
-            File forecastPlotFile = code.startPlot();
-            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
-            code.endPlot();
-            caller.setRCode(code);
-            caller.runOnly();
-            report.setForecastPlot(code.getPlot(forecastPlotFile));
-        } catch (IOException ex) {
-            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")"); //TODO ved on odinakial nevie, co to je za premennu!
+        report.setForecastPlotCode("plot(seq(1,120))");
         
         return report;
     }

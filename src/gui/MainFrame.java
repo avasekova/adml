@@ -5,12 +5,18 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import models.Forecastable;
+import models.Neuralnet;
+import models.Nnet;
+import models.Nnetar;
 import models.TrainAndTestReport;
 import params.NeuralnetParams;
 import params.NnetParams;
@@ -112,13 +118,14 @@ public class MainFrame extends javax.swing.JFrame {
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         jLabelARIMA = new javax.swing.JLabel();
         panelRunOutside = new javax.swing.JPanel();
-        comboBoxColnamesSummary = new javax.swing.JComboBox();
+        comboBoxColnamesRun = new javax.swing.JComboBox();
         buttonTrainAndTest = new javax.swing.JButton();
         panelSummary = new javax.swing.JPanel();
         jLabelTrainingInfo = new javax.swing.JLabel();
-        checkBoxRunMLP = new javax.swing.JCheckBox();
+        checkBoxRunMLPnnetar = new javax.swing.JCheckBox();
         checkBoxRunARIMA = new javax.swing.JCheckBox();
-        jLabel28 = new javax.swing.JLabel();
+        checkBoxRunMLPnnet = new javax.swing.JCheckBox();
+        checkBoxRunMLPneuralnet = new javax.swing.JCheckBox();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -744,7 +751,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Analysis settings", panelAnalysisSettings);
 
-        comboBoxColnamesSummary.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxColnamesRun.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
 
         buttonTrainAndTest.setText("Train and Test");
         buttonTrainAndTest.setEnabled(false);
@@ -765,11 +772,16 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 444, Short.MAX_VALUE)
         );
 
-        checkBoxRunMLP.setText("MLP");
+        checkBoxRunMLPnnetar.setSelected(true);
+        checkBoxRunMLPnnetar.setText("MLP (nnetar)");
 
         checkBoxRunARIMA.setText("ARIMA");
+        checkBoxRunARIMA.setEnabled(false);
 
-        jLabel28.setText("(make this work!)");
+        checkBoxRunMLPnnet.setText("MLP (nnet)");
+
+        checkBoxRunMLPneuralnet.setText("MLP (neuralnet)");
+        checkBoxRunMLPneuralnet.setEnabled(false);
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
@@ -780,18 +792,20 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                        .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(buttonTrainAndTest)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelTrainingInfo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(checkBoxRunMLP)
+                        .addComponent(checkBoxRunMLPnnetar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxRunMLPneuralnet)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxRunMLPnnet)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkBoxRunARIMA)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel28)
-                        .addGap(0, 764, Short.MAX_VALUE)))
+                        .addGap(0, 645, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -799,12 +813,13 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxColnamesSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonTrainAndTest)
                     .addComponent(jLabelTrainingInfo)
-                    .addComponent(checkBoxRunMLP)
+                    .addComponent(checkBoxRunMLPnnetar)
                     .addComponent(checkBoxRunARIMA)
-                    .addComponent(jLabel28))
+                    .addComponent(checkBoxRunMLPnnet)
+                    .addComponent(checkBoxRunMLPneuralnet))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -883,7 +898,7 @@ public class MainFrame extends javax.swing.JFrame {
                     dataTableModel.fireTableStructureChanged();
                     for (String colname : dataTableModel.getColnames()) {
                         comboBoxColnames.addItem(colname);
-                        comboBoxColnamesSummary.addItem(colname);
+                        comboBoxColnamesRun.addItem(colname);
                         paramNnet_comboBoxColnamesInput.addItem(colname);
                         paramNnet_comboBoxColnamesOutput.addItem(colname);
                     }
@@ -925,29 +940,39 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderPercentTrainStateChanged
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
-        Params params;
-        switch (comboBoxRPackage.getSelectedItem().toString()) {
-            case "nnetar":
-                params = getParamsNnetar();
-                break;
-            case "neuralnet":
-                params = getParamsNeuralnet();
-                break;
-            case "nnet":
-                params = getParamsNnet();
-                break;
-            default:
-                params = new Params();
+        String colname = comboBoxColnamesRun.getSelectedItem().toString();
+        //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
+        List<TrainAndTestReport> reports = new ArrayList<>();
+        
+        if (checkBoxRunMLPnnetar.isSelected()) {
+            NnetarParams params = getParamsNnetar();
+            Forecastable nnetar = new Nnetar();
+            TrainAndTestReport report = nnetar.forecast(dataTableModel.getDataForColname(colname), params);
+            reports.add(report);
         }
         
-        String colname = comboBoxColnamesSummary.getSelectedItem().toString();
-        //tu treba natrenovat a spocitat a zobrazit vsetko
-        TrainAndTestReport report = dataTableModel.trainAndTest(colname, comboBoxRPackage.getSelectedItem().toString(), params);
+        if (checkBoxRunMLPneuralnet.isSelected()) {
+            NeuralnetParams params = getParamsNeuralnet();
+            Forecastable neuralnet = new Neuralnet();
+            TrainAndTestReport report = neuralnet.forecast(dataTableModel.getDataForColname(colname), params);
+            reports.add(report);
+        }
+        
+        if (checkBoxRunMLPnnet.isSelected()) {
+            NnetParams params = getParamsNnet();
+            Forecastable nnet = new Nnet();
+            ((NnetParams) params).setInputs(dataTableModel.getDataForColname(((NnetParams) params).getInputColname()));
+            TrainAndTestReport report = nnet.forecast(dataTableModel.getDataForColname(colname), params);
+            reports.add(report);
+        }
+        
+        //add more methods/models here
+        
         
         panelSummary.removeAll();
         JTable errorMeasuresTable = new JTable();
         errorMeasuresTable.setSize(panelSummary.getWidth(), panelSummary.getHeight());
-        errorMeasuresTable.setModel(new ErrorMeasuresTableModel(report.getErrorMeasures()));
+        errorMeasuresTable.setModel(new ErrorMeasuresTableModel(reports));
         errorMeasuresTable.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
         errorMeasuresTable.setVisible(true);
         panelSummary.add(errorMeasuresTable);
@@ -956,12 +981,26 @@ public class MainFrame extends javax.swing.JFrame {
         //show Forecast plot
         panelPlot.removeAll();
         JPanel frame = new JPanel();
-        frame.setSize(report.getForecastPlot().getIconWidth(), report.getForecastPlot().getIconHeight());
-        JLabel label = new JLabel(report.getForecastPlot());
+        frame.setSize(panelPlot.getWidth(), panelPlot.getHeight());
+        //TODO tu pozliepat tie ploty: par(new=TRUE) medzi kazdym kreslenim
+        JLabel label = new JLabel(PlotDrawer.drawPlots(reports));
         frame.add(label);
         frame.setVisible(true);
         panelPlot.add(frame);
         this.repaint();
+        /* kod na kreslenie grafu:
+        try {
+            caller = Utils.getCleanRCaller();
+            File forecastPlotFile = code.startPlot();
+            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
+            code.endPlot();
+            caller.setRCode(code);
+            caller.runOnly();
+            report.setForecastPlot(code.getPlot(forecastPlotFile));
+        } catch (IOException ex) {
+            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -1019,9 +1058,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
-    private javax.swing.JCheckBox checkBoxRunMLP;
+    private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
+    private javax.swing.JCheckBox checkBoxRunMLPnnet;
+    private javax.swing.JCheckBox checkBoxRunMLPnnetar;
     private javax.swing.JComboBox comboBoxColnames;
-    private javax.swing.JComboBox comboBoxColnamesSummary;
+    private javax.swing.JComboBox comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxRPackage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1043,7 +1084,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

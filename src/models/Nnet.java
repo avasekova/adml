@@ -19,7 +19,7 @@ public class Nnet implements Forecastable {
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
         NnetParams params = (NnetParams) parameters;
-        TrainAndTestReport report = new TrainAndTestReport();
+        TrainAndTestReport report = new TrainAndTestReport("nnet");
 
         RCaller caller = Utils.getCleanRCaller();
         caller.deleteTempFiles();
@@ -90,17 +90,8 @@ public class Nnet implements Forecastable {
 //        report.setErrorMeasures(Utils.arrayToList(acc));
         
         //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
-        try {
-            caller = Utils.getCleanRCaller();
-            File forecastPlotFile = code.startPlot();
-            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
-            code.endPlot();
-            caller.setRCode(code);
-            caller.runOnly();
-            report.setForecastPlot(code.getPlot(forecastPlotFile));
-        } catch (IOException ex) {
-            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")");
+        report.setForecastPlotCode("plot.ts(sin(seq(1,120)))");
         
         return report;
     }
