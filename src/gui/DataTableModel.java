@@ -13,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
+import utils.MyRCaller;
 import utils.Utils;
 
 public class DataTableModel extends AbstractTableModel {
@@ -55,8 +56,7 @@ public class DataTableModel extends AbstractTableModel {
     
     
     public void openFile(File file) {
-        RCaller caller = new RCaller();
-        caller.setRscriptExecutable(Const.RSCRIPT_EXE);
+        RCaller caller = new MyRCaller();
         
         RCode code = new RCode();
         
@@ -69,8 +69,6 @@ public class DataTableModel extends AbstractTableModel {
         
         caller.runAndReturnResult(Const.BRENT); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
         
-        System.out.println(caller.getParser().getNames());
-        
         columnNames = caller.getParser().getNames();
 
 //getNames() z nejakeho dovodu vracia nazvy stlpcov, t.j. [Month_Year, Upper_bound, Lower_bound, Center, Radius] a nie "brent" premennu ako taku        
@@ -79,14 +77,12 @@ public class DataTableModel extends AbstractTableModel {
             values.put(colName, Utils.arrayToList(doubleArray));
         }
         
-        System.out.println(values);
         //int[] dimensions = caller.getParser().getDimensions("Center");
     }
     
     public ImageIcon producePlotGeneral(String colname, String plotFunction, String additionalArgs) {
         try {
-            RCaller caller = new RCaller();
-            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
+            RCaller caller = new MyRCaller();
 
             RCode code = new RCode();
             code.clear();
@@ -94,7 +90,6 @@ public class DataTableModel extends AbstractTableModel {
             code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
             
             File plotFile = code.startPlot();
-            System.out.println("Plot will be saved to: " + plotFile);
             code.addRCode(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")"); //plot.ts
             code.endPlot();
 

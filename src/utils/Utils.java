@@ -25,14 +25,6 @@ public class Utils {
         return arrayDouble;
     }
     
-    public static RCaller getCleanRCaller() {//TODO: zistit nejaky menej nechutny sposob, ako tam spustat viac veci v jednom.
-        //ono to totiz uzavrie callera po runAndReturnResult a vyhadzuje IllegalThreadStateException...
-        RCaller caller = new RCaller();
-        caller.setRscriptExecutable(Const.RSCRIPT_EXE);
-        
-        return caller;
-    }
-    
     public static Integer getIntegerOrDefault(JTextField textField) {
         try {
             return Integer.parseInt(textField.getText());

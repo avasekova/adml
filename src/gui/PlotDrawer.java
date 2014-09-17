@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
 import models.TrainAndTestReport;
 import rcaller.RCaller;
 import rcaller.RCode;
+import utils.MyRCaller;
 import utils.Utils;
 
 public class PlotDrawer {
@@ -20,7 +21,7 @@ public class PlotDrawer {
         }
         
         try {
-            RCaller caller = Utils.getCleanRCaller();
+            RCaller caller = new MyRCaller();
             caller.deleteTempFiles();
             
             RCode code = new RCode();

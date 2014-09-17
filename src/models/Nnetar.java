@@ -10,6 +10,7 @@ import params.Params;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
+import utils.MyRCaller;
 import utils.Utils;
 
 public class Nnetar implements Forecastable {
@@ -19,7 +20,7 @@ public class Nnetar implements Forecastable {
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnetar");
 
-        RCaller caller = Utils.getCleanRCaller();
+        RCaller caller = new MyRCaller();
         caller.deleteTempFiles();
 
         RCode code = new RCode();
@@ -45,19 +46,19 @@ public class Nnetar implements Forecastable {
         code.addRCode(Const.FORECAST_VALS + " <- " + Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
 
         caller.setRCode(code);
-        caller.runAndReturnResult(Const.FORECAST_VALS);
+        caller.runAndReturnResultOnline(Const.FORECAST_VALS);
         double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_VALS);
         report.setForecastData(Utils.arrayToList(forecasted));
             
-        caller = Utils.getCleanRCaller();
+        caller.cleanRCode();
         code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfData));
         code.addRCode(Const.ACC + " <- accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
         // tam pribudla aj ACF a niekedy robi problemy
 
-
+        
 
         caller.setRCode(code);
-        caller.runAndReturnResult(Const.ACC);
+        caller.runAndReturnResultOnline(Const.ACC);
 
         double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE

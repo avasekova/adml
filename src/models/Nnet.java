@@ -12,6 +12,7 @@ import params.Params;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
+import utils.MyRCaller;
 import utils.Utils;
 
 public class Nnet implements Forecastable {
@@ -21,7 +22,7 @@ public class Nnet implements Forecastable {
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
 
-        RCaller caller = Utils.getCleanRCaller();
+        RCaller caller = new MyRCaller();
         caller.deleteTempFiles();
 
         RCode code = new RCode();
