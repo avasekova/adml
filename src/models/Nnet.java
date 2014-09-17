@@ -1,12 +1,7 @@
 package models;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import params.NnetParams;
 import params.Params;
 import rcaller.RCaller;
@@ -22,7 +17,7 @@ public class Nnet implements Forecastable {
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
 
-        RCaller caller = new MyRCaller();
+        RCaller caller = MyRCaller.getInstance();
         caller.deleteTempFiles();
 
         RCode code = new RCode();

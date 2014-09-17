@@ -56,7 +56,7 @@ public class DataTableModel extends AbstractTableModel {
     
     
     public void openFile(File file) {
-        RCaller caller = new MyRCaller();
+        RCaller caller = MyRCaller.getInstance();
         
         RCode code = new RCode();
         
@@ -82,10 +82,9 @@ public class DataTableModel extends AbstractTableModel {
     
     public ImageIcon producePlotGeneral(String colname, String plotFunction, String additionalArgs) {
         try {
-            RCaller caller = new MyRCaller();
-
+            RCaller caller = MyRCaller.getInstance();
+            
             RCode code = new RCode();
-            code.clear();
             
             code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
             

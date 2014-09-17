@@ -10,7 +10,6 @@ import models.TrainAndTestReport;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.MyRCaller;
-import utils.Utils;
 
 public class PlotDrawer {
     
@@ -21,7 +20,7 @@ public class PlotDrawer {
         }
         
         try {
-            RCaller caller = new MyRCaller();
+            RCaller caller = MyRCaller.getInstance();
             caller.deleteTempFiles();
             
             RCode code = new RCode();

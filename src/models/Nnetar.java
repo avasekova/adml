@@ -1,10 +1,6 @@
 package models;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import params.NnetarParams;
 import params.Params;
 import rcaller.RCaller;
@@ -20,7 +16,7 @@ public class Nnetar implements Forecastable {
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnetar");
 
-        RCaller caller = new MyRCaller();
+        RCaller caller = MyRCaller.getInstance();
         caller.deleteTempFiles();
 
         RCode code = new RCode();
@@ -46,7 +42,7 @@ public class Nnetar implements Forecastable {
         code.addRCode(Const.FORECAST_VALS + " <- " + Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
 
         caller.setRCode(code);
-        caller.runAndReturnResultOnline(Const.FORECAST_VALS);
+        caller.runAndReturnResult(Const.FORECAST_VALS);
         double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_VALS);
         report.setForecastData(Utils.arrayToList(forecasted));
             
@@ -58,7 +54,7 @@ public class Nnetar implements Forecastable {
         
 
         caller.setRCode(code);
-        caller.runAndReturnResultOnline(Const.ACC);
+        caller.runAndReturnResult(Const.ACC);
 
         double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
