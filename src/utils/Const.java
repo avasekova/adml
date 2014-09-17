@@ -12,6 +12,6 @@ public class Const {
     public static final String INPUT = "INPUT";
     public static final String OUTPUT = "OUTPUT";
     
-    public static final String RSCRIPT_EXE = "C:\\Program Files\\R\\R-3.1.0\\bin\\x64\\Rscript.exe";
+    public static final String RSCRIPT_EXE = "C:\\Program Files\\R\\R-3.1.1\\bin\\x64\\Rscript.exe";
     
 }

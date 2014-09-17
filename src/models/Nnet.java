@@ -41,13 +41,16 @@ public class Nnet implements Forecastable {
         code.addDoubleArray(Const.OUTPUT, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         
-        code.addRCode(Const.NNETWORK + " <- nnet(" + Const.INPUT + ", " + Const.OUTPUT + optionalParams + ")");
+        code.addRCode(Const.NNETWORK + " <- nnet(" + Const.INPUT + ", " + Const.OUTPUT + optionalParams + ", linout = TRUE)");
+        //TODO potom tu nemat natvrdo linout!
+        //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
+
         
         //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
         code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfInputValues));
-        code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", " + Const.TEST + ", type='raw')");
+        code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", data.frame(" + Const.TEST + "), type=\"raw\")");
         
         
         caller.setRCode(code);
@@ -111,22 +114,22 @@ public class Nnet implements Forecastable {
         
         //mask
         
-        if (params.getLinearElseLogistic() != null) {
-            optionalParams.append(", linout = ").append(params.getLinearElseLogistic());
-        }
-        
-        
-        if (params.getLeastSqrsElseMaxCondLikelihood() != null) {
-            optionalParams.append(", entropy = ").append(params.getLeastSqrsElseMaxCondLikelihood());
-        }
-        
-        if (params.getLoglinSoftmaxElseMaxCondLikelihood() != null) {
-            optionalParams.append(", softmax = ").append(params.getLoglinSoftmaxElseMaxCondLikelihood());
-        }
-        
-        if (params.getCensoredOnElseOff() != null) {
-            optionalParams.append(", censored = ").append(params.getCensoredOnElseOff());
-        }
+//        if (params.getLinearElseLogistic() != null) {
+//            optionalParams.append(", linout = ").append(params.getLinearElseLogistic());
+//        }
+//        
+//        
+//        if (params.getLeastSqrsElseMaxCondLikelihood() != null) {
+//            optionalParams.append(", entropy = ").append(params.getLeastSqrsElseMaxCondLikelihood());
+//        }
+//        
+//        if (params.getLoglinSoftmaxElseMaxCondLikelihood() != null) {
+//            optionalParams.append(", softmax = ").append(params.getLoglinSoftmaxElseMaxCondLikelihood());
+//        }
+//        
+//        if (params.getCensoredOnElseOff() != null) {
+//            optionalParams.append(", censored = ").append(params.getCensoredOnElseOff());
+//        }
         
         if (params.getSkipLayerConnections() != null) {
             optionalParams.append(", skip = ").append(params.getSkipLayerConnections());

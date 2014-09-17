@@ -794,17 +794,20 @@
                             <Component class="javax.swing.JLabel" name="jLabel17">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Output units:"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JRadioButton" name="paramNnet_radioButtonLogistic">
                               <Properties>
                                 <Property name="selected" type="boolean" value="true"/>
                                 <Property name="text" type="java.lang.String" value="Logistic (if not selected, linear)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JRadioButton" name="paramNnet_radioButtonLeastSqrs">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Maximum conditional likelihood fitting (if not selected, least squares fitting)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel18">
@@ -815,11 +818,13 @@
                             <Component class="javax.swing.JRadioButton" name="paramNnet_radioButtonLoglinSoftmax">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JRadioButton" name="paramNnet_radioButtonCensoredOn">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="censored on"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel19">
