@@ -442,17 +442,22 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel16.setText("(not enabled yet. Default: all)");
 
         jLabel17.setText("Output units:");
+        jLabel17.setEnabled(false);
 
         paramNnet_radioButtonLogistic.setSelected(true);
         paramNnet_radioButtonLogistic.setText("Logistic (if not selected, linear)");
+        paramNnet_radioButtonLogistic.setEnabled(false);
 
         paramNnet_radioButtonLeastSqrs.setText("Maximum conditional likelihood fitting (if not selected, least squares fitting)");
+        paramNnet_radioButtonLeastSqrs.setEnabled(false);
 
         jLabel18.setText("(not enabled yet)");
 
         paramNnet_radioButtonLoglinSoftmax.setText("Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)");
+        paramNnet_radioButtonLoglinSoftmax.setEnabled(false);
 
         paramNnet_radioButtonCensoredOn.setText("censored on");
+        paramNnet_radioButtonCensoredOn.setEnabled(false);
 
         jLabel19.setText("Add skip-layer connections from input to output:");
 

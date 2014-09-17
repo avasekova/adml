@@ -54,19 +54,21 @@ public class Nnetar implements Forecastable {
             
         caller = Utils.getCleanRCaller();
         code.addDoubleArray(TESTDATA, Utils.listToArray(testingPortionOfData));
-        code.addRCode(ACCURACY + " <- accuracy(" + FORECASTMODEL + ", " + TESTDATA + ")");
+        code.addRCode(ACCURACY + " <- accuracy(" + FORECASTMODEL + ", " + TESTDATA + ")[1:12]"); //TODO [1:12] preto, ze v novej verzii
+        // tam pribudla aj ACF a niekedy robi problemy
 
         caller.setRCode(code);
         caller.runAndReturnResult(ACCURACY);
 
         double[] acc = caller.getParser().getAsDoubleArray(ACCURACY); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
+        //nova verzia vracia aj ACF1
 
         //dalo by sa aj maticu, ale momentalne mi staci ten list:
         //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
 
         report.setErrorMeasures(Utils.arrayToList(acc));
-        report.setForecastPlotCode("plot(" + FORECASTMODEL + ")"); //TODO ved on odinakial nevie, co to je za premennu!
+        report.setForecastPlotCode("plot(" + FORECASTMODEL + ", type=\"l\")");
         
         RCodeSession.INSTANCE.setRCode(code);
         

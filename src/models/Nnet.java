@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import params.NnetParams;
 import params.Params;
@@ -43,13 +44,15 @@ public class Nnet implements Forecastable {
         code.addDoubleArray(OUTPUTDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         
-        code.addRCode(NNETWORK + " <- nnet(" + INPUTDATA + ", " + OUTPUTDATA + optionalParams + ")");
+        code.addRCode(NNETWORK + " <- nnet(" + INPUTDATA + ", " + OUTPUTDATA + optionalParams + ", linout = TRUE)"); //TODO !
+        //TODO potom tu nemat natvrdo linout!
+        //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
         
         //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
         code.addDoubleArray(TESTDATA, Utils.listToArray(testingPortionOfInputValues));
-        code.addRCode(FORECASTMODEL + " <- predict(" + NNETWORK + ", " + TESTDATA + ", type='raw')");
+        code.addRCode(FORECASTMODEL + " <- predict(" + NNETWORK + ", data.frame(" + TESTDATA + "), type=\"raw\")");
         
         
         caller.setRCode(code);
@@ -92,7 +95,7 @@ public class Nnet implements Forecastable {
 //        report.setErrorMeasures(Utils.arrayToList(acc));
         
         //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
-        report.setForecastPlotCode("plot(" + FORECASTMODEL + ")");
+        report.setForecastPlotCode("plot(" + FORECASTMODEL + ", type=\"l\")");
         
         RCodeSession.INSTANCE.setRCode(code);
         
@@ -114,22 +117,22 @@ public class Nnet implements Forecastable {
         
         //mask
         
-        if (params.getLinearElseLogistic() != null) {
-            optionalParams.append(", linout = ").append(params.getLinearElseLogistic());
-        }
-        
-        
-        if (params.getLeastSqrsElseMaxCondLikelihood() != null) {
-            optionalParams.append(", entropy = ").append(params.getLeastSqrsElseMaxCondLikelihood());
-        }
-        
-        if (params.getLoglinSoftmaxElseMaxCondLikelihood() != null) {
-            optionalParams.append(", softmax = ").append(params.getLoglinSoftmaxElseMaxCondLikelihood());
-        }
-        
-        if (params.getCensoredOnElseOff() != null) {
-            optionalParams.append(", censored = ").append(params.getCensoredOnElseOff());
-        }
+//        if (params.getLinearElseLogistic() != null) {
+//            optionalParams.append(", linout = ").append(params.getLinearElseLogistic());
+//        }
+//        
+//        
+//        if (params.getLeastSqrsElseMaxCondLikelihood() != null) {
+//            optionalParams.append(", entropy = ").append(params.getLeastSqrsElseMaxCondLikelihood());
+//        }
+//        
+//        if (params.getLoglinSoftmaxElseMaxCondLikelihood() != null) {
+//            optionalParams.append(", softmax = ").append(params.getLoglinSoftmaxElseMaxCondLikelihood());
+//        }
+//        
+//        if (params.getCensoredOnElseOff() != null) {
+//            optionalParams.append(", censored = ").append(params.getCensoredOnElseOff());
+//        }
         
         if (params.getSkipLayerConnections() != null) {
             optionalParams.append(", skip = ").append(params.getSkipLayerConnections());
