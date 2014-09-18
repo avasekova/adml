@@ -18,6 +18,7 @@ public class Nnet implements Forecastable {
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String NNETWORK = Const.NNETWORK + Utils.getCounter();
         final String TEST = Const.TEST + Utils.getCounter();
+        final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
@@ -47,10 +48,11 @@ public class Nnet implements Forecastable {
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
         rengine.assign(TEST, Utils.listToArray(testingPortionOfInputValues));
-        REXP getForecastModel = rengine.eval("predict(" + NNETWORK + ", data.frame(" + TEST + "), type=\"raw\")");
-        double[] forecasted = getForecastModel.asDoubleArray();
+        rengine.eval(FORECAST_MODEL + " <- predict(" + NNETWORK + ", data.frame(" + TEST + "), type=\"raw\")");
+        REXP getForecastModel = rengine.eval(FORECAST_MODEL);
+        double[] forecast = getForecastModel.asDoubleArray();
         
-        report.setForecastData(Utils.arrayToList(forecasted));
+        report.setForecastData(Utils.arrayToList(forecast));
         //..
         //..
         //tu pokracovat: spocitat tie error measures (zatial len tie, co mal nnetar), a zobrazit graf forecasted vals
@@ -87,8 +89,10 @@ public class Nnet implements Forecastable {
 //        report.setErrorMeasures(Utils.arrayToList(acc));
         
         //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
-        //report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")");
-        report.setForecastPlotCode("plot.ts(sin(seq(1,120)))");
+        report.setForecastPlotCode("plot.ts(" + FORECAST_MODEL + ")");
+        
+        report.setRangeMin(Utils.minArray(forecast));
+        report.setRangeMax(Utils.maxArray(forecast));
         
         return report;
     }

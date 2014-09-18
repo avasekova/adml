@@ -17,18 +17,34 @@ public class PlotDrawer {
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
-
+        
+        StringBuilder rangesY = new StringBuilder("range(c(");
         boolean next = false;
+        for (TrainAndTestReport r : reports) {
+            if (next) {
+                rangesY.append(", ");
+            } else {
+                next = true;
+            }
+            rangesY.append(r.getRangeMin()).append(", ");
+            rangesY.append(r.getRangeMax());
+        }
+        rangesY.append("))");
+
+        //TODO colours!
+        next = false;
         for (TrainAndTestReport r : reports) {
             if (next) {
                 rengine.eval("par(new=TRUE)");
             } else {
                 next = true;
             }
-//                String plotCode = r.getForecastPlotCode().substring(0, r.getForecastPlotCode().length() - 2);
-//                plotCode += "ylim=range(c(brent.center.nnet.4cast, brent$Center)), xlim=range(c(brent.center.nnet.4cast,brent$Center)), col="red")"
-            rengine.eval(r.getForecastPlotCode()); //TODO scale the axes
-            //ylim=range(c(brent.center.nnet.4cast, brent$Center)), xlim=range(c(brent.center.nnet.4cast,brent$Center))
+            
+            StringBuilder plotCode = new StringBuilder(r.getForecastPlotCode());
+            plotCode.insert(r.getForecastPlotCode().length() - 1, ", xlim = range(0, " + (r.getTrainData().size() + r.getForecastData().size()) + "), ylim = " + rangesY.toString());
+            //TODO opravit ten xlim: (r.getTrainData().size() + r.getForecastData().size()) je zle. vypocitavat to podobne ako range
+            //TODO neskor zarovnavat forecasty doprava, pretoze niekto tam zobrazuje aj realne data a niekto nie, ALEBO zobrazit u vsetkych aj realne data aj forecast
+            rengine.eval(plotCode.toString());
         }
 
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
