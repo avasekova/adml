@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.JTextField;
 
@@ -12,6 +11,23 @@ public class Utils {
         for (double value : array) {
             listDouble.add(value);
         }
+        return listDouble;
+    }
+    
+    public static List<Double> matrixToList(double[][] matrix) {
+        List<Double> listDouble = new ArrayList<>();
+        for (int i = 0; i < matrix.length; i++) { //matrix.length gives size in 1 dimension
+            for (int j = 0; j < matrix[0].length; j++) {
+                System.out.println("[" + i + "," + j + "]: " + matrix[i][j]);
+                listDouble.add(matrix[i][j]);
+            }
+        }
+//        for (double[] line : matrix) {
+//            for (double value : line) {
+//                listDouble.add(value);
+//            }
+//        }
+        
         return listDouble;
     }
     

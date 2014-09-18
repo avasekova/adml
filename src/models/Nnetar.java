@@ -1,10 +1,10 @@
 package models;
 
 import java.util.List;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
 import params.NnetarParams;
 import params.Params;
-import rcaller.RCaller;
-import rcaller.RCode;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -16,58 +16,38 @@ public class Nnetar implements Forecastable {
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnetar");
 
-        RCaller caller = new RCaller();
-            caller.setRExecutable(Const.REXECUTABLE);
-            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
-        caller.deleteTempFiles();
-
-        RCode code = new RCode();
-        code.clear();
-
-        code.R_require("forecast");
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(forecast)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
         List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
         report.setTrainData(trainingPortionOfData);
         List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
         report.setTestData(testingPortionOfData);
 
-        code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(trainingPortionOfData));
+        rengine.assign(Const.TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
-        code.addRCode(Const.NNETWORK + " <- nnetar(" + Const.TRAINDATA + optionalParams + ")");
+        rengine.eval(Const.NNETWORK + " <- nnetar(" + Const.TRAINDATA + optionalParams + ")");
 
         int numForecasts = testingPortionOfData.size();
         numForecasts += params.getNumForecasts();
-        code.addRCode(Const.FORECAST_MODEL + " <- forecast(" + Const.NNETWORK + ", " + numForecasts + ")");
+        rengine.eval(Const.FORECAST_MODEL + " <- forecast(" + Const.NNETWORK + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
-        code.addRCode(Const.FORECAST_VALS + " <- " + Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
-
-        caller.setRCode(code);
-        caller.runAndReturnResultOnline(Const.FORECAST_VALS);
-        double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_VALS);
-        report.setForecastData(Utils.arrayToList(forecasted));
-            
-        caller.cleanRCode();
-        code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfData));
-        code.addRCode(Const.ACC + " <- accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
-        // tam pribudla aj ACF a niekedy robi problemy
-
+        REXP getForecastVals = rengine.eval(Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
+        double[] forecast = getForecastVals.asDoubleArray();
         
-
-        caller.setRCode(code);
-        caller.runAndReturnResultOnline(Const.ACC);
-
-        double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
+        report.setForecastData(Utils.arrayToList(forecast));
+            
+        rengine.assign(Const.TEST, Utils.listToArray(testingPortionOfData));
+        REXP getAcc = rengine.eval("accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
+        // tam pribudla aj ACF a niekedy robi problemy
+        double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         //nova verzia vracia aj ACF1
         
-        //dalo by sa aj maticu, ale momentalne mi staci ten list:
-        //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
-
         report.setErrorMeasures(Utils.arrayToList(acc));
-        //report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")"); //TODO ved on odinakial nevie, co to je za premennu!
-        report.setForecastPlotCode("plot(seq(1,120))");
+        report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")");
         
         return report;
     }

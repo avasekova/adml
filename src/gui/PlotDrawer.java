@@ -15,7 +15,7 @@ public class PlotDrawer {
         }
         
         Rengine rengine = MyRengine.getRengine();
-        rengine.eval("library(JavaGD)");
+        rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
 
         boolean next = false;

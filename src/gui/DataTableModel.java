@@ -56,7 +56,7 @@ public class DataTableModel extends AbstractTableModel {
     public void openFile(File file) {
         Rengine rengine = MyRengine.getRengine();
         
-        rengine.eval("library(gdata)");
+        rengine.eval("require(gdata)");
         String filePathEscaped = file.getPath().replace("\\","\\\\");
         rengine.eval(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
@@ -77,7 +77,7 @@ public class DataTableModel extends AbstractTableModel {
             
         rengine.assign(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
 
-        rengine.eval("library(JavaGD)");
+        rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         rengine.eval(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")");
         // R always draws a plot of a default size to the JavaGD device.
