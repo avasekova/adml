@@ -44,7 +44,7 @@ public class Nnetar implements Forecastable {
         code.addRCode(Const.FORECAST_VALS + " <- " + Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
 
         caller.setRCode(code);
-        caller.runAndReturnResult(Const.FORECAST_VALS);
+        caller.runAndReturnResultOnline(Const.FORECAST_VALS);
         double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_VALS);
         report.setForecastData(Utils.arrayToList(forecasted));
             
@@ -56,7 +56,7 @@ public class Nnetar implements Forecastable {
         
 
         caller.setRCode(code);
-        caller.runAndReturnResult(Const.ACC);
+        caller.runAndReturnResultOnline(Const.ACC);
 
         double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE

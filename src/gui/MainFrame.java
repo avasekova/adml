@@ -978,15 +978,8 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         //show Forecast plot
-        panelPlot.removeAll();
-        JPanel frame = new JPanel();
-        frame.setSize(panelPlot.getWidth(), panelPlot.getHeight());
-        //TODO tu pozliepat tie ploty: par(new=TRUE) medzi kazdym kreslenim
-        JLabel label = new JLabel(PlotDrawer.drawPlots(reports));
-        frame.add(label);
-        frame.setVisible(true);
-        panelPlot.add(frame);
-        this.repaint();
+        PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), reports);
+        //this.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
