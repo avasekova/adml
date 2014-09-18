@@ -6,6 +6,8 @@ import javax.swing.JTextField;
 
 public class Utils {
     
+    private static int counter = 0;
+    
     public static List<Double> arrayToList(double[] array) {
         List<Double> listDouble = new ArrayList<>();
         for (double value : array) {
@@ -85,5 +87,10 @@ public class Utils {
         }
         
         return max;
+    }
+    
+    public static int getCounter() {
+        counter++;
+        return counter;
     }
 }

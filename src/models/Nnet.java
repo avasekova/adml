@@ -14,6 +14,11 @@ public class Nnet implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
+        final String INPUT = Const.INPUT + Utils.getCounter();
+        final String OUTPUT = Const.OUTPUT + Utils.getCounter();
+        final String NNETWORK = Const.NNETWORK + Utils.getCounter();
+        final String TEST = Const.TEST + Utils.getCounter();
+        
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
 
@@ -29,11 +34,11 @@ public class Nnet implements Forecastable {
         report.setTestData(testingPortionOfData);
         List<Double> testingPortionOfInputValues = params.getInputs().subList(numTrainingEntries, params.getInputs().size());
 
-        rengine.assign(Const.INPUT, Utils.listToArray(trainingPortionOfInputValues));
-        rengine.assign(Const.OUTPUT, Utils.listToArray(trainingPortionOfData));
+        rengine.assign(INPUT, Utils.listToArray(trainingPortionOfInputValues));
+        rengine.assign(OUTPUT, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         
-        rengine.eval(Const.NNETWORK + " <- nnet(" + Const.INPUT + ", " + Const.OUTPUT + optionalParams + ", linout = TRUE)");
+        rengine.eval(NNETWORK + " <- nnet(" + INPUT + ", " + OUTPUT + optionalParams + ", linout = TRUE)");
         //TODO potom tu nemat natvrdo linout!
         //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
 
@@ -41,8 +46,8 @@ public class Nnet implements Forecastable {
         //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
-        rengine.assign(Const.TEST, Utils.listToArray(testingPortionOfInputValues));
-        REXP getForecastModel = rengine.eval("predict(" + Const.NNETWORK + ", data.frame(" + Const.TEST + "), type=\"raw\")");
+        rengine.assign(TEST, Utils.listToArray(testingPortionOfInputValues));
+        REXP getForecastModel = rengine.eval("predict(" + NNETWORK + ", data.frame(" + TEST + "), type=\"raw\")");
         double[] forecasted = getForecastModel.asDoubleArray();
         
         report.setForecastData(Utils.arrayToList(forecasted));

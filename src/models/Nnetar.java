@@ -13,6 +13,11 @@ public class Nnetar implements Forecastable {
     
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters){
+        final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
+        final String NNETWORK = Const.NNETWORK + Utils.getCounter();
+        final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
+        final String TEST = Const.TEST + Utils.getCounter();
+        
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnetar");
 
@@ -24,30 +29,30 @@ public class Nnetar implements Forecastable {
         List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
         report.setTestData(testingPortionOfData);
 
-        rengine.assign(Const.TRAINDATA, Utils.listToArray(trainingPortionOfData));
+        rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
-        rengine.eval(Const.NNETWORK + " <- nnetar(" + Const.TRAINDATA + optionalParams + ")");
+        rengine.eval(NNETWORK + " <- nnetar(" + TRAINDATA + optionalParams + ")");
 
         int numForecasts = testingPortionOfData.size();
         numForecasts += params.getNumForecasts();
-        rengine.eval(Const.FORECAST_MODEL + " <- forecast(" + Const.NNETWORK + ", " + numForecasts + ")");
+        rengine.eval(FORECAST_MODEL + " <- forecast(" + NNETWORK + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
-        REXP getForecastVals = rengine.eval(Const.FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
+        REXP getForecastVals = rengine.eval(FORECAST_MODEL + "$mean[1:" + testingPortionOfData.size() + "]");
         double[] forecast = getForecastVals.asDoubleArray();
         
         report.setForecastData(Utils.arrayToList(forecast));
             
-        rengine.assign(Const.TEST, Utils.listToArray(testingPortionOfData));
-        REXP getAcc = rengine.eval("accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
+        rengine.assign(TEST, Utils.listToArray(testingPortionOfData));
+        REXP getAcc = rengine.eval("accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
         // tam pribudla aj ACF a niekedy robi problemy
         double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         //nova verzia vracia aj ACF1
         
         report.setErrorMeasures(Utils.arrayToList(acc));
-        report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")");
+        report.setForecastPlotCode("plot(" + FORECAST_MODEL + ")");
 
         report.setRangeMin(Utils.minArray(forecast));
         report.setRangeMax(Utils.maxArray(forecast));

@@ -54,32 +54,36 @@ public class DataTableModel extends AbstractTableModel {
     
     
     public void openFile(File file) {
+        final String BRENT = Const.BRENT + Utils.getCounter();
+        
         Rengine rengine = MyRengine.getRengine();
         
         rengine.eval("require(gdata)");
         String filePathEscaped = file.getPath().replace("\\","\\\\");
-        rengine.eval(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
+        rengine.eval(BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
-        REXP getColnames = rengine.eval("colnames(" + Const.BRENT + ")");
+        REXP getColnames = rengine.eval("colnames(" + BRENT + ")");
         String[] columnNamesArray = getColnames.asStringArray();
         
         columnNames = new ArrayList<>(Arrays.asList(columnNamesArray));
 
         for (String colName : columnNames) {
-            REXP getColumn = rengine.eval(Const.BRENT + "$" + colName);
+            REXP getColumn = rengine.eval(BRENT + "$" + colName);
             double[] doubleArray = getColumn.asDoubleArray();
             values.put(colName, Utils.arrayToList(doubleArray));
         }
     }
     
     public void producePlotGeneral(int width, int height, String colname, String plotFunction, String additionalArgs) {
+        final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
+        
         Rengine rengine = MyRengine.getRengine();
             
-        rengine.assign(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
+        rengine.assign(TRAINDATA, Utils.listToArray(values.get(colname)));
 
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
-        rengine.eval(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")");
+        rengine.eval(plotFunction + "(" + TRAINDATA + additionalArgs + ")");
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDCanvas is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
