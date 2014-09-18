@@ -2,10 +2,10 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
 import params.NnetParams;
 import params.Params;
-import rcaller.RCaller;
-import rcaller.RCode;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -17,15 +17,9 @@ public class Nnet implements Forecastable {
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
 
-        RCaller caller = new RCaller();
-            caller.setRExecutable(Const.REXECUTABLE);
-            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
-        caller.deleteTempFiles();
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(nnet)");
 
-        RCode code = new RCode();
-        code.clear();
-
-        code.R_require("nnet");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
         List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
         report.setTrainData(trainingPortionOfData);
@@ -35,11 +29,11 @@ public class Nnet implements Forecastable {
         report.setTestData(testingPortionOfData);
         List<Double> testingPortionOfInputValues = params.getInputs().subList(numTrainingEntries, params.getInputs().size());
 
-        code.addDoubleArray(Const.INPUT, Utils.listToArray(trainingPortionOfInputValues));
-        code.addDoubleArray(Const.OUTPUT, Utils.listToArray(trainingPortionOfData));
+        rengine.assign(Const.INPUT, Utils.listToArray(trainingPortionOfInputValues));
+        rengine.assign(Const.OUTPUT, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         
-        code.addRCode(Const.NNETWORK + " <- nnet(" + Const.INPUT + ", " + Const.OUTPUT + optionalParams + ", linout = TRUE)");
+        rengine.eval(Const.NNETWORK + " <- nnet(" + Const.INPUT + ", " + Const.OUTPUT + optionalParams + ", linout = TRUE)");
         //TODO potom tu nemat natvrdo linout!
         //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
 
@@ -47,13 +41,10 @@ public class Nnet implements Forecastable {
         //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
-        code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfInputValues));
-        code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", data.frame(" + Const.TEST + "), type=\"raw\")");
+        rengine.assign(Const.TEST, Utils.listToArray(testingPortionOfInputValues));
+        REXP getForecastModel = rengine.eval("predict(" + Const.NNETWORK + ", data.frame(" + Const.TEST + "), type=\"raw\")");
+        double[] forecasted = getForecastModel.asDoubleArray();
         
-        
-        caller.setRCode(code);
-        caller.runAndReturnResult(Const.FORECAST_MODEL);
-        double[] forecasted = caller.getParser().getAsDoubleArray(Const.FORECAST_MODEL);
         report.setForecastData(Utils.arrayToList(forecasted));
         //..
         //..
