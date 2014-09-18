@@ -7,9 +7,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import models.TrainAndTestReport;
+import org.rosuda.JRI.Rengine;
 import rcaller.RCaller;
 import rcaller.RCode;
-import utils.MyRCaller;
+import utils.Const;
+import utils.MyRengine;
 
 public class PlotDrawer {
     
@@ -20,11 +22,19 @@ public class PlotDrawer {
         }
         
         try {
-            RCaller caller = MyRCaller.getInstance();
-            caller.deleteTempFiles();
+            Rengine rengine = MyRengine.getRengine();
+            /*
+            REXP abc = re.eval("seq(1,10)");
+            re.assign("a", abc);
+            REXP def = re.eval("a + 3");
+            double[] result = def.asDoubleArray();
+            */
+            RCaller caller = new RCaller();
+            caller.setRExecutable(Const.REXECUTABLE);
+            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
             
             RCode code = new RCode();
-            code.clear();
+            
             
             File forecastPlotFile = code.startPlot();
             

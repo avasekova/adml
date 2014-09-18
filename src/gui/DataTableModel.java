@@ -1,19 +1,20 @@
 package gui;
 
+import java.awt.Dimension;
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
-import rcaller.RCaller;
-import rcaller.RCode;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
+import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
-import utils.MyRCaller;
+import utils.MyRengine;
 import utils.Utils;
 
 public class DataTableModel extends AbstractTableModel {
@@ -56,54 +57,38 @@ public class DataTableModel extends AbstractTableModel {
     
     
     public void openFile(File file) {
-        RCaller caller = MyRCaller.getInstance();
+        Rengine rengine = MyRengine.getRengine();
         
-        RCode code = new RCode();
-        
+        rengine.eval("library(gdata)");
         String filePathEscaped = file.getPath().replace("\\","\\\\");
+        REXP readXls = rengine.eval("read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
+        rengine.eval(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
-        code.R_require("gdata");
-        code.addRCode(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
+        REXP getColnames = rengine.eval("colnames(" + Const.BRENT + ")");
+        String[] columnNamesArray = getColnames.asStringArray();
         
-        caller.setRCode(code);
-        
-        caller.runAndReturnResult(Const.BRENT); //pozor, prvy riadok sa berie ako nazov stlpca, a ak tam nie je slovo, vyrobi sa dummy nazov (takze to zahodi hodnoty!)
-        
-        columnNames = caller.getParser().getNames();
+        columnNames = new ArrayList<>(Arrays.asList(columnNamesArray));
 
-//getNames() z nejakeho dovodu vracia nazvy stlpcov, t.j. [Month_Year, Upper_bound, Lower_bound, Center, Radius] a nie "brent" premennu ako taku        
         for (String colName : columnNames) {
-            double[] doubleArray = caller.getParser().getAsDoubleArray(colName);
+            REXP getColumn = rengine.eval(Const.BRENT + "$" + colName);
+            double[] doubleArray = getColumn.asDoubleArray();
             values.put(colName, Utils.arrayToList(doubleArray));
         }
-        
-        //int[] dimensions = caller.getParser().getDimensions("Center");
     }
     
-    public ImageIcon producePlotGeneral(String colname, String plotFunction, String additionalArgs) {
-        try {
-            RCaller caller = MyRCaller.getInstance();
+    public void producePlotGeneral(int width, int height, String colname, String plotFunction, String additionalArgs) {
+        Rengine rengine = MyRengine.getRengine();
             
-            RCode code = new RCode();
-            
-            code.addDoubleArray(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
-            
-            File plotFile = code.startPlot();
-            code.addRCode(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")"); //plot.ts
-            code.endPlot();
+        rengine.assign(Const.TRAINDATA, Utils.listToArray(values.get(colname)));
 
-            caller.setRCode(code);
-            
-            caller.runOnly();
-
-            
-            //code.showPlot(plotFile);
-            return code.getPlot(plotFile);
-            
-        } catch (IOException ex) {
-            Logger.getLogger(DataTableModel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+        rengine.eval("library(JavaGD)");
+        rengine.eval("JavaGD()");
+        rengine.eval(plotFunction + "(" + Const.TRAINDATA + additionalArgs + ")");
+        // R always draws a plot of a default size to the JavaGD device.
+        // But our GDCanvas is supposed to have a different size, so
+        // we have to resize it back to the size we want it to have.
+        MainFrame.gdCanvas.setSize(new Dimension(width, height));
+        MainFrame.gdCanvas.initRefresh();
     }
     
     public List<String> getColnames() {

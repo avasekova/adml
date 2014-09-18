@@ -6,7 +6,7 @@ import params.Params;
 import rcaller.RCaller;
 import rcaller.RCode;
 import utils.Const;
-import utils.MyRCaller;
+import utils.MyRengine;
 import utils.Utils;
 
 public class Nnetar implements Forecastable {
@@ -16,7 +16,9 @@ public class Nnetar implements Forecastable {
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnetar");
 
-        RCaller caller = MyRCaller.getInstance();
+        RCaller caller = new RCaller();
+            caller.setRExecutable(Const.REXECUTABLE);
+            caller.setRscriptExecutable(Const.RSCRIPT_EXE);
         caller.deleteTempFiles();
 
         RCode code = new RCode();

@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -18,10 +19,12 @@ import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
 import models.TrainAndTestReport;
+import org.rosuda.javaGD.GDCanvas;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
+import utils.MyRengine;
 import utils.Utils;
 
 public class MainFrame extends javax.swing.JFrame {
@@ -149,16 +152,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout panelPlotLayout = new javax.swing.GroupLayout(panelPlot);
-        panelPlot.setLayout(panelPlotLayout);
-        panelPlotLayout.setHorizontalGroup(
-            panelPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 766, Short.MAX_VALUE)
-        );
-        panelPlotLayout.setVerticalGroup(
-            panelPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
-        );
+        gdCanvas = new GDCanvas(panelPlot.getWidth(), panelPlot.getHeight());
+        panelPlot.add(gdCanvas, BorderLayout.CENTER);
+        panelPlot.setLayout(new java.awt.BorderLayout());
 
         buttonACF.setText("Autocorrelation Plot");
         buttonACF.setEnabled(false);
@@ -183,6 +179,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelChartLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelChartLayout.createSequentialGroup()
                         .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -190,9 +187,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonACF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonPACF))
-                    .addComponent(panelPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(362, Short.MAX_VALUE))
+                        .addComponent(buttonPACF)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +218,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
         );
 
         panelEverything.addTab("Data", panelData);
@@ -393,7 +390,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addComponent(paramNnetar_textFieldNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(312, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnetar, "panelSettingsMLPPackage_nnetar");
@@ -414,7 +411,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(397, Short.MAX_VALUE))
+                .addContainerGap(448, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_neuralnet, "panelSettingsMLPPackage_neuralnet");
@@ -738,7 +735,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabelARIMA)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(516, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
@@ -774,7 +771,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 444, Short.MAX_VALUE)
+            .addGap(0, 495, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -924,6 +921,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFileLoadActionPerformed
 
     private void menuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExitActionPerformed
+        MyRengine.stopRengine();
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_menuFileExitActionPerformed
 
@@ -1150,20 +1148,16 @@ public class MainFrame extends javax.swing.JFrame {
 
     private File loadedFile;
     private final DataTableModel dataTableModel = new DataTableModel();
+    public static GDCanvas gdCanvas;
 
     private void outputPlotGeneral(String plotFunction, String additionalArgs) {
         String colname = comboBoxColnames.getSelectedItem().toString();
         
-        ImageIcon plotImage = dataTableModel.producePlotGeneral(colname, plotFunction, additionalArgs);
-        
-        panelPlot.removeAll();
-        JPanel frame = new JPanel();
-        frame.setSize(plotImage.getIconWidth(), plotImage.getIconHeight());
-        JLabel label = new JLabel(plotImage);
-        frame.add(label);
-        frame.setVisible(true);
-        panelPlot.add(frame);
-        this.repaint(); //aby sa tam zobrazil ten obrazok hned, a nie o tri roky
+        dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colname, plotFunction, additionalArgs);
+    }
+    
+    public static GDCanvas getGDCanvasForPlot() {
+        return gdCanvas;
     }
 
     private NnetarParams getParamsNnetar() {
