@@ -11,6 +11,8 @@ public class TrainAndTestReport {
     private List<Double> testData = new ArrayList<>();
     private List<Double> forecastData = new ArrayList<>();
     private String forecastPlotCode = "";
+    private double rangeMin;
+    private double rangeMax;
     
     public TrainAndTestReport(String modelName) { 
         this.modelName = modelName;
@@ -69,5 +71,20 @@ public class TrainAndTestReport {
     public void setForecastPlotCode(String forecastPlot) {
         this.forecastPlotCode = forecastPlot;
     }
-    
+
+    public double getRangeMin() {
+        return rangeMin;
+    }
+
+    public void setRangeMin(double rangeMin) {
+        this.rangeMin = rangeMin;
+    }
+
+    public double getRangeMax() {
+        return rangeMax;
+    }
+
+    public void setRangeMax(double rangeMax) {
+        this.rangeMax = rangeMax;
+    }
 }

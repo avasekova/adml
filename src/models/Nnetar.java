@@ -48,6 +48,9 @@ public class Nnetar implements Forecastable {
         
         report.setErrorMeasures(Utils.arrayToList(acc));
         report.setForecastPlotCode("plot(" + Const.FORECAST_MODEL + ")");
+
+        report.setRangeMin(Utils.minArray(forecast));
+        report.setRangeMax(Utils.maxArray(forecast));
         
         return report;
     }

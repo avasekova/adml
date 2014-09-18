@@ -66,4 +66,24 @@ public class Utils {
             return R_Bool.FALSE;
         }
     }
+    
+    public static double minArray(double[] array) {
+        double min = array[0];
+        
+        for (double val : array) {
+            min = Math.min(min, val);
+        }
+        
+        return min;
+    }
+    
+    public static double maxArray(double[] array) {
+        double max = array[0];
+        
+        for (double val : array) {
+            max = Math.max(max, val);
+        }
+        
+        return max;
+    }
 }
