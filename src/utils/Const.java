@@ -9,10 +9,8 @@ public class Const {
     public static final String NNETWORK = "nnetwork";
     public static final String FORECAST_MODEL = "forecastedModel";
     public static final String FORECAST_VALS = "forecastedValues";
-    public static final String INPUT = "INPUT";
-    public static final String OUTPUT = "OUTPUT";
-    
-    public static final String RSCRIPT_EXE = "C:\\Program Files\\R\\R-3.1.1\\bin\\x64\\Rscript.exe";
-    public static final String REXECUTABLE = "C:\\Program Files\\R\\R-3.1.1\\bin\\x64\\R.exe";
+    public static final String INPUT = "input";
+    public static final String OUTPUT = "output";
+    public static final String FIT = "fittedValues";
     
 }

@@ -929,6 +929,8 @@
                     </Component>
                     <Component class="javax.swing.JSlider" name="sliderPercentTrain">
                       <Properties>
+                        <Property name="maximum" type="int" value="99"/>
+                        <Property name="minimum" type="int" value="1"/>
                         <Property name="paintTicks" type="boolean" value="true"/>
                       </Properties>
                       <Events>

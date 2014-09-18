@@ -1,5 +1,6 @@
 package utils;
 
+import static java.lang.Double.NaN;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
@@ -70,20 +71,62 @@ public class Utils {
     }
     
     public static double minArray(double[] array) {
-        double min = array[0];
-        
-        for (double val : array) {
-            min = Math.min(min, val);
+        double min = NaN;
+        for (int i = 0; i < array.length - 1; i++) {
+            if (Double.isNaN(min)) {
+                min = array[i];
+            } else {
+                if (! Double.isNaN(Math.min(min, array[i]))) {
+                    min = Math.min(min, array[i]);
+                }
+            }
         }
         
         return min;
     }
     
     public static double maxArray(double[] array) {
-        double max = array[0];
+        double max = NaN;
+        for (int i = 0; i < array.length - 1; i++) {
+            if (Double.isNaN(max)) {
+                max = array[i];
+            } else {
+                if (! Double.isNaN(Math.max(max, array[i]))) {
+                    max = Math.max(max, array[i]);
+                }
+            }
+        }
         
-        for (double val : array) {
-            max = Math.max(max, val);
+        return max;
+    }
+    
+    public static double minList(List<Double> list) {
+        double min = list.get(0);
+        
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (Double.isNaN(min)) {
+                min = list.get(i);
+            } else {
+                if (! Double.isNaN(Math.min(min, list.get(i)))) {
+                    min = Math.min(min, list.get(i));
+                }
+            }
+        }
+        
+        return min;
+    }
+    
+    public static double maxList(List<Double> list) {
+        double max = list.get(0);
+        
+        for (int i = 0; i < list.size() - 1; i++) {
+            if (Double.isNaN(max)) {
+                max = list.get(i);
+            } else {
+                if (! Double.isNaN(Math.max(max, list.get(i)))) {
+                    max = Math.max(max, list.get(i));
+                }
+            }
         }
         
         return max;

@@ -7,25 +7,13 @@ public class TrainAndTestReport {
     
     private String modelName = "";
     private List<Double> errorMeasures = new ArrayList<>(); //TODO Map<String, Double> fixne metriky pre vsetkych
-    private List<Double> trainData = new ArrayList<>();
-    private List<Double> testData = new ArrayList<>();
-    private List<Double> forecastData = new ArrayList<>();
-    private String forecastPlotCode = "";
-    private double rangeMin;
-    private double rangeMax;
+    private int numTrainingEntries;
+    private String fittedValuesPlotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
+    private double[] fittedValues;
+    private double[] forecastValues = new double[] {};
     
     public TrainAndTestReport(String modelName) { 
         this.modelName = modelName;
-    }
-    
-    public TrainAndTestReport(String modelName, List<Double> errorMeasures, List<Double> trainData,
-                              List<Double> testData, List<Double> forecastData, String forecastPlot) {
-        this.modelName = modelName;
-        this.errorMeasures = errorMeasures;
-        this.trainData = trainData;
-        this.testData = testData;
-        this.forecastData = forecastData;
-        this.forecastPlotCode = forecastPlot;
     }
 
     public String getModelName() {
@@ -40,51 +28,35 @@ public class TrainAndTestReport {
         this.errorMeasures = errorMeasures;
     }
 
-    public List<Double> getTrainData() {
-        return trainData;
+    public int getNumTrainingEntries() {
+        return numTrainingEntries;
     }
 
-    public void setTrainData(List<Double> trainData) {
-        this.trainData = trainData;
+    public void setNumTrainingEntries(int numTrainingEntries) {
+        this.numTrainingEntries = numTrainingEntries;
+    }
+    
+    public String getFittedValuesPlotCode() {
+        return fittedValuesPlotCode;
     }
 
-    public List<Double> getTestData() {
-        return testData;
+    public void setFittedValuesPlotCode(String forecastPlot) {
+        this.fittedValuesPlotCode = forecastPlot;
     }
 
-    public void setTestData(List<Double> testData) {
-        this.testData = testData;
+    public double[] getFittedValues() {
+        return fittedValues;
     }
 
-    public List<Double> getForecastData() {
-        return forecastData;
+    public void setFittedValues(double[] fittedValues) {
+        this.fittedValues = fittedValues;
     }
 
-    public void setForecastData(List<Double> forecastData) {
-        this.forecastData = forecastData;
+    public double[] getForecastValues() {
+        return forecastValues;
     }
 
-    public String getForecastPlotCode() {
-        return forecastPlotCode;
-    }
-
-    public void setForecastPlotCode(String forecastPlot) {
-        this.forecastPlotCode = forecastPlot;
-    }
-
-    public double getRangeMin() {
-        return rangeMin;
-    }
-
-    public void setRangeMin(double rangeMin) {
-        this.rangeMin = rangeMin;
-    }
-
-    public double getRangeMax() {
-        return rangeMax;
-    }
-
-    public void setRangeMax(double rangeMax) {
-        this.rangeMax = rangeMax;
+    public void setForecastValues(double[] forecastValues) {
+        this.forecastValues = forecastValues;
     }
 }

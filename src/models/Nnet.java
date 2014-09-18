@@ -19,6 +19,7 @@ public class Nnet implements Forecastable {
         final String NNETWORK = Const.NNETWORK + Utils.getCounter();
         final String TEST = Const.TEST + Utils.getCounter();
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
+        final String FIT = Const.FIT + Utils.getCounter();
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
@@ -27,12 +28,11 @@ public class Nnet implements Forecastable {
         rengine.eval("require(nnet)");
 
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
+        report.setNumTrainingEntries(numTrainingEntries);
         List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
-        report.setTrainData(trainingPortionOfData);
         List<Double> trainingPortionOfInputValues = params.getInputs().subList(0, numTrainingEntries);
         
         List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
-        report.setTestData(testingPortionOfData);
         List<Double> testingPortionOfInputValues = params.getInputs().subList(numTrainingEntries, params.getInputs().size());
 
         rengine.assign(INPUT, Utils.listToArray(trainingPortionOfInputValues));
@@ -47,12 +47,14 @@ public class Nnet implements Forecastable {
         //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
         //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
         
-        rengine.assign(TEST, Utils.listToArray(testingPortionOfInputValues));
-        rengine.eval(FORECAST_MODEL + " <- predict(" + NNETWORK + ", data.frame(" + TEST + "), type=\"raw\")");
-        REXP getForecastModel = rengine.eval(FORECAST_MODEL);
-        double[] forecast = getForecastModel.asDoubleArray();
         
-        report.setForecastData(Utils.arrayToList(forecast));
+        //TODO toto potom preklopit do forecastov - ale zatial to nerobi forecast! (lebo to pouziva TEST)
+//        rengine.assign(TEST, Utils.listToArray(testingPortionOfInputValues));
+//        rengine.eval(FORECAST_MODEL + " <- predict(" + NNETWORK + ", data.frame(" + TEST + "), type=\"raw\")");
+//        REXP getForecastModel = rengine.eval(FORECAST_MODEL);
+//        double[] forecast = getForecastModel.asDoubleArray();
+//        report.setForecastValues(forecast);
+        
         //..
         //..
         //tu pokracovat: spocitat tie error measures (zatial len tie, co mal nnetar), a zobrazit graf forecasted vals
@@ -88,11 +90,12 @@ public class Nnet implements Forecastable {
 //
 //        report.setErrorMeasures(Utils.arrayToList(acc));
         
-        //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
-        report.setForecastPlotCode("plot.ts(" + FORECAST_MODEL + ")");
+        rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
+        REXP getFittedVals = rengine.eval(FIT);
+        double[] fitted = getFittedVals.asDoubleArray();
+        report.setFittedValues(fitted);
         
-        report.setRangeMin(Utils.minArray(forecast));
-        report.setRangeMax(Utils.maxArray(forecast));
+        report.setFittedValuesPlotCode("plot.ts(" + FIT + ")");
         
         return report;
     }

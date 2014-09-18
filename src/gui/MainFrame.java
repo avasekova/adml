@@ -651,6 +651,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelPercTrain.setText("Portion of data to use for training:");
 
+        sliderPercentTrain.setMaximum(99);
+        sliderPercentTrain.setMinimum(1);
         sliderPercentTrain.setPaintTicks(true);
         sliderPercentTrain.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
@@ -976,7 +978,11 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         //show Forecast plot
-        PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), reports);
+        int numForecastsNnetar = 0; //TODO neskor pridat moznost vseobecne nastavit pocet forecasts, tam hore jak su percenta
+        if (checkBoxRunMLPnnetar.isSelected()) {
+            numForecastsNnetar = Integer.parseInt(paramNnetar_textFieldNumForecasts.getText());
+        }
+        PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname), numForecastsNnetar, reports);
         //this.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
