@@ -7,10 +7,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -23,7 +20,6 @@ import org.rosuda.javaGD.GDCanvas;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
-import params.Params;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -188,7 +184,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(buttonACF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonPACF)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 681, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -201,7 +197,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(buttonACF)
                     .addComponent(buttonPACF))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -991,19 +987,6 @@ public class MainFrame extends javax.swing.JFrame {
         frame.setVisible(true);
         panelPlot.add(frame);
         this.repaint();
-        /* kod na kreslenie grafu:
-        try {
-            caller = Utils.getCleanRCaller();
-            File forecastPlotFile = code.startPlot();
-            code.addRCode("plot(" + Const.FORECAST_MODEL + ")");
-            code.endPlot();
-            caller.setRCode(code);
-            caller.runOnly();
-            report.setForecastPlot(code.getPlot(forecastPlotFile));
-        } catch (IOException ex) {
-            Logger.getLogger(Nnetar.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        */
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -1156,10 +1139,6 @@ public class MainFrame extends javax.swing.JFrame {
         dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colname, plotFunction, additionalArgs);
     }
     
-    public static GDCanvas getGDCanvasForPlot() {
-        return gdCanvas;
-    }
-
     private NnetarParams getParamsNnetar() {
         NnetarParams params = new NnetarParams();
         //zohnat vsetky parametre pre dany model:

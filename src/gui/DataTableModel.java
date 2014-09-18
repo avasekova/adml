@@ -7,12 +7,9 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -61,7 +58,6 @@ public class DataTableModel extends AbstractTableModel {
         
         rengine.eval("library(gdata)");
         String filePathEscaped = file.getPath().replace("\\","\\\\");
-        REXP readXls = rengine.eval("read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         rengine.eval(Const.BRENT + " <- read.xls(\"" + filePathEscaped + "\", sheet = 1, header = TRUE, stringsAsFactors = FALSE)");
         
         REXP getColnames = rengine.eval("colnames(" + Const.BRENT + ")");
@@ -87,7 +83,7 @@ public class DataTableModel extends AbstractTableModel {
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDCanvas is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
-        MainFrame.gdCanvas.setSize(new Dimension(width, height));
+        MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.gdCanvas.initRefresh();
     }
     
