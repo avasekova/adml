@@ -47,6 +47,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelPlot = new javax.swing.JPanel();
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
+        buttonPlotITS = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -166,6 +167,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonPlotITS.setText("Plot ITS");
+        buttonPlotITS.setEnabled(false);
+        buttonPlotITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotITSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
@@ -182,7 +191,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(buttonACF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonPACF)
-                        .addGap(0, 681, Short.MAX_VALUE)))
+                        .addGap(122, 122, 122)
+                        .addComponent(buttonPlotITS)
+                        .addGap(0, 490, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -193,9 +204,10 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonPlotColname)
                     .addComponent(buttonACF)
-                    .addComponent(buttonPACF))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .addComponent(buttonPACF)
+                    .addComponent(buttonPlotITS))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -905,6 +917,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonTrainAndTest.setEnabled(true);
                         buttonACF.setEnabled(true);
                         buttonPACF.setEnabled(true);
+                        buttonPlotITS.setEnabled(true);
                     }
 //                    break;
 //                case JFileChooser.CANCEL_OPTION:
@@ -1003,6 +1016,12 @@ public class MainFrame extends javax.swing.JFrame {
     private void paramNnet_initRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramNnet_initRangeActionPerformed
         paramNnet_labelInitRangeMirror.setText("[-" + paramNnet_initRange.getText() + ";");
     }//GEN-LAST:event_paramNnet_initRangeActionPerformed
+
+    private void buttonPlotITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotITSActionPerformed
+        dialogLBUBCenterRadius = new DialogLbUbCenterRadius(this, true);
+        dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
+        dialogLBUBCenterRadius.setVisible(true);
+    }//GEN-LAST:event_buttonPlotITSActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1039,6 +1058,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup_paramsNnetExclusive;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotColname;
+    private javax.swing.JButton buttonPlotITS;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
@@ -1129,8 +1149,10 @@ public class MainFrame extends javax.swing.JFrame {
     private File loadedFile;
     private final DataTableModel dataTableModel = new DataTableModel();
     public static GDCanvas gdCanvas;
+    private DialogLbUbCenterRadius dialogLBUBCenterRadius;
 
     private void outputPlotGeneral(String plotFunction, String additionalArgs) {
+        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         String colname = comboBoxColnames.getSelectedItem().toString();
         
         dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colname, plotFunction, additionalArgs);
@@ -1186,6 +1208,16 @@ public class MainFrame extends javax.swing.JFrame {
         params.setTraceOptimization(Utils.booleanToRBool(paramNnet_traceOptimization.isSelected()));
         
         return params;
+    }
+    
+    public void drawPlotITS_CenterRadius_currentPanelPlot(String centerCol, String radiusCol) {
+        PlotDrawer.drawPlotITS_CenterRadius(panelPlot.getWidth(), panelPlot.getHeight(),
+                dataTableModel.getDataForColname(centerCol), dataTableModel.getDataForColname(radiusCol));
+    }
+    
+    public void drawPlotITS_LBUB_currentPanelPlot(String lbCol, String ubCol) {
+        PlotDrawer.drawPlotITS_LBUB(panelPlot.getWidth(), panelPlot.getHeight(),
+                dataTableModel.getDataForColname(lbCol), dataTableModel.getDataForColname(ubCol));
     }
     
 }

@@ -4,7 +4,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 import models.TrainAndTestReport;
+import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
+import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -12,7 +14,6 @@ public class PlotDrawer {
     
     //TODO generovat i legendu do toho vysledneho grafu!
     public static void drawPlots(int width, int height, List<Double> allData, int numForecasts, List<TrainAndTestReport> reports) {
-        //plot.ts(brent$Center, ylim=range(c(brent.center.nnet.4cast, brent$Center)), xlim=range(c(brent.center.nnet.4cast,brent$Center)), col="blue")
         if (reports.isEmpty()) {
             return;
         }
@@ -65,7 +66,53 @@ public class PlotDrawer {
 
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.gdCanvas.initRefresh();
-            
+        
+    }
+    
+    public static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound) {
+        final String LOWER = Const.INPUT + Utils.getCounter();
+        final String UPPER = Const.INPUT + Utils.getCounter();
+        final int count = lowerBound.size();
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.assign(LOWER, Utils.listToArray(lowerBound));
+        rengine.assign(UPPER, Utils.listToArray(upperBound));
+        
+        drawPlotITSNow(width, height, LOWER, UPPER, count);
+    }
+    
+    public static void drawPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius) {
+        final String CENTER = Const.INPUT + Utils.getCounter();
+        final String RADIUS = Const.INPUT + Utils.getCounter();
+        final String LOWER = Const.INPUT + Utils.getCounter();
+        final String UPPER = Const.INPUT + Utils.getCounter();
+        final int count = center.size();
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.assign(CENTER, Utils.listToArray(center));
+        rengine.assign(RADIUS, Utils.listToArray(radius));
+        REXP getLower = rengine.eval(CENTER + " - " + RADIUS);
+        REXP Upper = rengine.eval(CENTER + " + " + RADIUS);
+        rengine.assign(LOWER, getLower);
+        rengine.assign(UPPER, Upper);
+        
+        drawPlotITSNow(width, height, LOWER, UPPER, count);
+    }
+    
+    private static void drawPlotITSNow(int width, int height, final String LOWER, final String UPPER, final int count) {
+        Rengine rengine = MyRengine.getRengine();
+        
+        rengine.eval("require(JavaGD)");
+        rengine.eval("JavaGD()");
+        
+        String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
+        rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\")"); //hack
+        rengine.eval("par(new=TRUE)");
+        rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\")");
+        rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + ", col=\"blue\")");
+        
+        MainFrame.gdCanvas.setSize(new Dimension(width, height));
+        MainFrame.gdCanvas.initRefresh();
     }
     
     private List<Color> getNColours(int n) {

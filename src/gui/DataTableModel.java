@@ -74,6 +74,7 @@ public class DataTableModel extends AbstractTableModel {
         }
     }
     
+    //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
     public void producePlotGeneral(int width, int height, String colname, String plotFunction, String additionalArgs) {
         final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
         

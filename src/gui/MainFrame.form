@@ -90,7 +90,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="panelPlot" max="32767" attributes="0"/>
@@ -102,7 +102,9 @@
                               <Component id="buttonACF" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonPACF" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="681" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
+                              <Component id="buttonPlotITS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="0" pref="490" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -118,9 +120,10 @@
                           <Component id="buttonPlotColname" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonACF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonPACF" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonPlotITS" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelPlot" pref="495" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="panelPlot" pref="490" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -175,6 +178,15 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonPACF.setEnabled(false);"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonPlotITS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Plot ITS"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotITSActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

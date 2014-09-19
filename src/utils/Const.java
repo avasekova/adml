@@ -12,5 +12,6 @@ public class Const {
     public static final String INPUT = "input";
     public static final String OUTPUT = "output";
     public static final String FIT = "fittedValues";
+    public static final String COUNT = "count";
     
 }
