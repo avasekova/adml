@@ -32,6 +32,7 @@ public class Nnet implements Forecastable {
         List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
         List<Double> trainingPortionOfInputValues = params.getInputs().subList(0, numTrainingEntries);
         
+        //TODO make it draw the testing and forecast data as well
         List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
         List<Double> testingPortionOfInputValues = params.getInputs().subList(numTrainingEntries, params.getInputs().size());
 

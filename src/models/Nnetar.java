@@ -19,6 +19,7 @@ public class Nnetar implements Forecastable {
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String TEST = Const.TEST + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
+        final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
         
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnetar");
@@ -34,12 +35,13 @@ public class Nnetar implements Forecastable {
         String optionalParams = getOptionalParams(params);
         rengine.eval(NNETWORK + " <- nnetar(" + TRAINDATA + optionalParams + ")");
 
-        int numForecasts = params.getNumForecasts();
+        int numForecasts = testingPortionOfData.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast(" + NNETWORK + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
-        REXP getForecastVals = rengine.eval(FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
+        rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
+        REXP getForecastVals = rengine.eval(FORECAST_VALS);
         double[] forecast = getForecastVals.asDoubleArray();
         report.setForecastValues(forecast);
         
@@ -59,7 +61,7 @@ public class Nnetar implements Forecastable {
         report.setFittedValues(fitted);
         
         //report.setForecastPlotCode("plot(" + FORECAST_MODEL + ")"); //vykresli aj tie modre forecasty
-        report.setFittedValuesPlotCode("plot(" + FIT + ")"); //vykresli iba fitted values
+        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))"); //vykresli iba fitted values
         
         return report;
     }
