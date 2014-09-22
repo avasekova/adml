@@ -54,7 +54,6 @@ public class PlotDrawer {
             
             StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
             plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangesX + ", ylim = " + rangesY + ", col=\"blue\"");
-            //TODO neskor zarovnavat forecasty doprava, pretoze niekto tam zobrazuje aj realne data a niekto nie, ALEBO zobrazit u vsetkych aj realne data aj forecast
             rengine.eval(plotCode.toString());
         }
         
