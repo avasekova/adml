@@ -8,14 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import params.IntervalMLPCcodeParams;
-import params.NnetarParams;
 import params.Params;
-import utils.Const;
-import utils.MyRengine;
-import utils.Utils;
 
 public class IntervalMLPCcode implements Forecastable {
 
@@ -53,7 +47,9 @@ public class IntervalMLPCcode implements Forecastable {
         file = new File("test.dat");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < testingPortionOfCenter.size(); i++) {
-                fw.write(((i%12)+1) + "\t" + (i/12) + "\t"
+                //pozor na hodnoty i! chcem, aby cas nadvazoval na train, takze takto:
+                int monthYear = i + trainingPortionOfCenter.size();
+                fw.write(((monthYear%12)+1) + "\t" + (monthYear/12) + "\t"
                         + testingPortionOfCenter.get(i) + "\t" + testingPortionOfRadius.get(i));
                 fw.newLine();
             }
