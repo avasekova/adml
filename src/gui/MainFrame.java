@@ -1028,6 +1028,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        radioButtonRunCenterRadius.setSelected(true);
         radioButtonRunCenterRadius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonRunCenterRadiusActionPerformed(evt);

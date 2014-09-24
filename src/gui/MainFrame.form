@@ -1555,6 +1555,9 @@
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioButtonRunCenterRadius">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunCenterRadiusActionPerformed"/>
               </Events>
