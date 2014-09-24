@@ -82,9 +82,10 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         try {
-            Process p = Runtime.getRuntime().exec("cmd /c start /wait c config");
+            //bacha, treba pred to supnut "cmd /c start /wait ", aby ich to nespustalo paralelne a neminulo si procesy...
+            //a "start /B" znamena, ze to neotvori okno
+            Process p = Runtime.getRuntime().exec("cmd /c start /B /wait c config");
             p.waitFor();
-            System.out.println("prebehlo to asi!");
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
