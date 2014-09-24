@@ -14,5 +14,15 @@ public class DefaultForecastable implements Forecastable {
     public String getOptionalParams(Params parameters) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
+
+    @Override
+    public TrainAndTestReport forecastIntervalCenterRadius(List<Double> centerData, List<Double> radiusData, Params parameters) {
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
+
+    @Override
+    public TrainAndTestReport forecastIntervalLowerUpper(List<Double> lowerData, List<Double> upperData, Params parameters) {
+        throw new UnsupportedOperationException("Not implemented yet.");
+    }
     
 }
