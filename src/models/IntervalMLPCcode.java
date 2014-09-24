@@ -31,8 +31,14 @@ public class IntervalMLPCcode implements Forecastable {
         List<Double> trainingPortionOfRadius = radiusData.subList(0, numTrainingEntries);
         List<Double> testingPortionOfRadius = radiusData.subList(numTrainingEntries, radiusData.size());
         
+        //delete any previous files:
+        File file = new File("config.res");
+        file.delete();
+        file = new File("config.out");
+        file.delete();
+        
         //create the train and test input files:
-        File file = new File("train.dat");
+        file = new File("train.dat");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < trainingPortionOfCenter.size(); i++) {
                 fw.write(((i%12)+1) + "\t" + (i/12) + "\t"
@@ -77,9 +83,13 @@ public class IntervalMLPCcode implements Forecastable {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        System.out.println("data prepared, run it");
         try {
             //TODO neskor zabranit spustaniu viacerych veci naraz (disablovat Run button, kym neskonci aktualna)
-            Process p = Runtime.getRuntime().exec("cmd /c call c config");
+            //TODO neskor zrusit to cierne okno, ale zatial sa to chova divne, ked ho vypnem :(
+            //        toto vyzeralo, ze funguje: Process p = Runtime.getRuntime().exec("cmd /c call config.bat");
+            //              - kde v config.bat je: "@ECHO OFF     c config"
+            Process p = Runtime.getRuntime().exec("cmd /c start c config");
             p.waitFor();
             System.out.println("should be done now.");
         } catch (IOException | InterruptedException ex) {
@@ -87,6 +97,7 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         
+        //TODO vziat errory z .res alebo .out? hned jak zistim, co je v tych suboroch...
         //TODO opravit tieto dummy veci
         report.setForecastValues(new double[]{});
         report.setFittedValues(new double[]{});
