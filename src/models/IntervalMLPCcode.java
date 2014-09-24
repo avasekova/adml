@@ -78,10 +78,10 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         try {
-            //bacha, treba pred to supnut "cmd /c start /wait ", aby ich to nespustalo paralelne a neminulo si procesy...
-            //a "start /B" znamena, ze to neotvori okno
-            Process p = Runtime.getRuntime().exec("cmd /c start /B /wait c config");
+            //TODO neskor zabranit spustaniu viacerych veci naraz (disablovat Run button, kym neskonci aktualna)
+            Process p = Runtime.getRuntime().exec("cmd /c call c config");
             p.waitFor();
+            System.out.println("should be done now.");
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -100,12 +100,26 @@ public class IntervalMLPCcode implements Forecastable {
         dummyErrorMeasures.add(1.0);dummyErrorMeasures.add(1.1);
         report.setErrorMeasures(dummyErrorMeasures);
         
+        System.out.println("leaving the training method");
         return report;
     }
 
     @Override
     public TrainAndTestReport forecastIntervalLowerUpper(List<Double> lowerData, List<Double> upperData, Params parameters) {
-        return null;
+        List<Double> centerData = new ArrayList<>();
+        List<Double> radiusData = new ArrayList<>();
+        
+        System.out.println("here before");
+        //transform LB and UB to center and radius:
+        for (int i = 0; i < lowerData.size(); i++) {
+            double lower = lowerData.get(i);
+            double upper = upperData.get(i);
+            centerData.add((upper + lower)/2);
+            radiusData.add((upper - lower)/2);
+        }
+        
+        System.out.println("delegating");
+        return forecastIntervalCenterRadius(centerData, radiusData, parameters);
     }
 
     @Override
