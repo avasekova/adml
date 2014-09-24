@@ -1278,6 +1278,9 @@
                           <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Call C code&quot;, &quot;Use neuralnet&quot; })" type="code"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxIntervalMLPModeActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1410,12 +1413,14 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunMLPnnetar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunMLPnnet" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="checkBoxRunMLPnnetar" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLPnnet" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jLabel43" min="-2" max="-2" attributes="0"/>

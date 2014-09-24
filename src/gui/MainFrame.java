@@ -917,6 +917,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel31.setText("(Mode)");
 
         comboBoxIntervalMLPMode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Call C code", "Use neuralnet" }));
+        comboBoxIntervalMLPMode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxIntervalMLPModeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneSettingsMethodsIntervalMLPLayout = new javax.swing.GroupLayout(paneSettingsMethodsIntervalMLP);
         paneSettingsMethodsIntervalMLP.setLayout(paneSettingsMethodsIntervalMLPLayout);
@@ -1150,12 +1155,13 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel42)
                             .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel44)
-                    .addComponent(checkBoxRunMLPnnetar)
-                    .addComponent(checkBoxRunMLPneuralnet)
-                    .addComponent(checkBoxRunMLPnnet)
-                    .addComponent(checkBoxRunARIMA))
+                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkBoxRunMLPnnetar)
+                        .addComponent(checkBoxRunMLPneuralnet)
+                        .addComponent(checkBoxRunMLPnnet)
+                        .addComponent(checkBoxRunARIMA)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel43)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1438,6 +1444,20 @@ public class MainFrame extends javax.swing.JFrame {
             comboBoxRunUpper.setEnabled(false);
         }
     }//GEN-LAST:event_radioButtonRunCenterRadiusActionPerformed
+
+    private void comboBoxIntervalMLPModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntervalMLPModeActionPerformed
+        CardLayout card = (CardLayout)panelSettingsIntervalMLPMode.getLayout();
+        switch (comboBoxIntervalMLPMode.getSelectedItem().toString()) {
+            case "Call C code":
+                card.show(panelSettingsIntervalMLPMode, "panelSettingsIntervalMLPModeCcode");
+                break;
+            case "Use neuralnet":
+                card.show(panelSettingsIntervalMLPMode, "panelSettingsIntervalMLPModeNeuralnet");
+                break;
+        }
+        
+        panelSettingsMLPPackage.repaint();
+    }//GEN-LAST:event_comboBoxIntervalMLPModeActionPerformed
     
     /**
      * @param args the command line arguments
