@@ -1,9 +1,19 @@
 package utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import static java.lang.Double.NaN;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTextField;
+import models.IntervalMLPCcode;
+import utils.imlp.Interval;
+import utils.imlp.IntervalCentreRadius;
 
 public class Utils {
     
@@ -135,5 +145,32 @@ public class Utils {
     public static int getCounter() {
         counter++;
         return counter;
+    }
+    
+    public static List<Interval> getForecastsFromOutFile(File outFile) {
+        List<Interval> forecasts = new ArrayList<>();
+        
+        boolean success = false; //blee
+        while (! success) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(outFile))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] parts = line.split("\\s+"); //yields 2 parts - the predicted center and radius
+                    double centre = Double.parseDouble(parts[0]);
+                    double radius = Double.parseDouble(parts[1]);
+                    Interval interval = new IntervalCentreRadius(centre, radius);
+                    forecasts.add(interval);
+                }
+                System.out.println("here");
+                success = true;
+            } catch (IOException ex) {
+                //Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        
+        System.out.println(forecasts);
+        
+        return forecasts;
     }
 }

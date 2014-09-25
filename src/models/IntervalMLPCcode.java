@@ -2,6 +2,7 @@ package models;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import params.IntervalMLPCcodeParams;
 import params.Params;
+import utils.Utils;
 
 public class IntervalMLPCcode implements Forecastable {
 
@@ -96,19 +98,21 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         
-        //TODO vziat errory z .res alebo .out? hned jak zistim, co je v tych suboroch...
         //TODO opravit tieto dummy veci
-        report.setForecastValues(new double[]{});
-        report.setFittedValues(new double[]{});
+        //Utils.getForecastsFromOutFile(new File("config.out")); //vracia hodnoty z minuleho config.out suboru! nestihne sa asi este prepisat alebo co
+        //dummy vals for now!
+        report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
+        report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!
         report.setFittedValuesPlotCode("plot.ts(sin(seq(0,2*pi,length=1000)))"); 
         List<Double> dummyErrorMeasures = new ArrayList<>();
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.1);
-        dummyErrorMeasures.add(0.2);dummyErrorMeasures.add(0.3);
-        dummyErrorMeasures.add(0.4);dummyErrorMeasures.add(0.5);
-        dummyErrorMeasures.add(0.6);dummyErrorMeasures.add(0.7);
-        dummyErrorMeasures.add(0.8);dummyErrorMeasures.add(0.9);
-        dummyErrorMeasures.add(1.0);dummyErrorMeasures.add(1.1);
+        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
+        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
+        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
+        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
+        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
+        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
         report.setErrorMeasures(dummyErrorMeasures);
+        
         
         System.out.println("leaving the training method");
         return report;
