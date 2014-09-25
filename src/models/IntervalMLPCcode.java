@@ -11,7 +11,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import params.IntervalMLPCcodeParams;
 import params.Params;
+import utils.ErrorMeasures;
 import utils.Utils;
+import utils.imlp.Interval;
+import utils.imlp.WeightedEuclideanDistance;
 
 public class IntervalMLPCcode implements Forecastable {
 
@@ -97,21 +100,29 @@ public class IntervalMLPCcode implements Forecastable {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        List<Interval> forecasts = Utils.getForecastsFromOutFile(new File("config.out"));
+        List<Interval> forecastsTrain = forecasts.subList(0, numTrainingEntries);
+        List<Interval> forecastsTest = forecasts.subList(numTrainingEntries, forecasts.size());
         
-        //TODO opravit tieto dummy veci
-        Utils.getForecastsFromOutFile(new File("config.out")); //vracia hodnoty z minuleho config.out suboru! nestihne sa asi este prepisat alebo co
-        //dummy vals for now!
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingPortionOfCenter, trainingPortionOfRadius, 
+                                                               forecastsTrain, new WeightedEuclideanDistance(0.5));
+        List<Double> errorsTest = Utils.getErrorsForIntervals(testingPortionOfCenter, testingPortionOfRadius,
+                                                              forecastsTest, new WeightedEuclideanDistance(0.5));
+        //dummy vals for now! (in most cases) TODO opravit
         report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
         report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!
         report.setFittedValuesPlotCode("plot.ts(sin(seq(0,2*pi,length=1000)))"); 
-        List<Double> dummyErrorMeasures = new ArrayList<>();
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.0);dummyErrorMeasures.add(0.0);
-        report.setErrorMeasures(dummyErrorMeasures);
+        List<Double> errorMeasures = new ArrayList<>();
+        errorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
+        errorMeasures.add(ErrorMeasures.ME(errorsTest)); //ME test
+        errorMeasures.add(ErrorMeasures.RMSE(errorsTrain)); //RMSE train
+        errorMeasures.add(ErrorMeasures.RMSE(errorsTest)); //RMSE test
+        errorMeasures.add(ErrorMeasures.MAE(errorsTrain)); //MAE train
+        errorMeasures.add(ErrorMeasures.MAE(errorsTest)); //MAE test
+        errorMeasures.add(0.0);errorMeasures.add(0.0); //MPE
+        errorMeasures.add(0.0);errorMeasures.add(0.0); //MAPE
+        errorMeasures.add(0.0);errorMeasures.add(0.0); //MASE
+        report.setErrorMeasures(errorMeasures);
         
         
         System.out.println("leaving the training method");

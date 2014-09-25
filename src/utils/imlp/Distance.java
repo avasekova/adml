@@ -2,6 +2,6 @@ package utils.imlp;
 
 public interface Distance {
     
-    double getDistance(Interval a, Interval b);
+    double getDistance(Interval forecast, Interval real);
     
 }

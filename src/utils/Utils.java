@@ -2,18 +2,14 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import static java.lang.Double.NaN;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JTextField;
-import models.IntervalMLPCcode;
+import utils.imlp.Distance;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
 
@@ -172,6 +168,18 @@ public class Utils {
         System.out.println(forecasts);
         
         return forecasts;
+    }
+    
+    public static List<Double> getErrorsForIntervals(List<Double> centersOrig, List<Double> radiiOrig, List<Interval> forecasts, Distance distanceMeasure) {
+        List<Double> errors = new ArrayList<>();
+        
+        for (int i = 0; i < forecasts.size(); i++) {
+            Interval originalInterval = new IntervalCentreRadius(centersOrig.get(i), radiiOrig.get(i));
+            double error = distanceMeasure.getDistance(forecasts.get(i), originalInterval);
+            errors.add(error);
+        }
+        
+        return errors;
     }
     
     //hack from http://stackoverflow.com/a/11242648
