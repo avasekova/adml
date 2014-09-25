@@ -90,7 +90,7 @@ public class IntervalMLPCcode implements Forecastable {
             //TODO neskor zrusit to cierne okno, ale zatial sa to chova divne, ked ho vypnem :(
             //        toto vyzeralo, ze funguje: Process p = Runtime.getRuntime().exec("cmd /c call config.bat");
             //              - kde v config.bat je: "@ECHO OFF     c config"
-            Process p = Runtime.getRuntime().exec("cmd /c start c config");
+            Process p = Runtime.getRuntime().exec("cmd /c start /wait c config");
             p.waitFor();
             System.out.println("should be done now.");
         } catch (IOException | InterruptedException ex) {
@@ -99,7 +99,7 @@ public class IntervalMLPCcode implements Forecastable {
         
         
         //TODO opravit tieto dummy veci
-        //Utils.getForecastsFromOutFile(new File("config.out")); //vracia hodnoty z minuleho config.out suboru! nestihne sa asi este prepisat alebo co
+        Utils.getForecastsFromOutFile(new File("config.out")); //vracia hodnoty z minuleho config.out suboru! nestihne sa asi este prepisat alebo co
         //dummy vals for now!
         report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
         report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!

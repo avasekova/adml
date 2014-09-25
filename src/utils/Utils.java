@@ -2,8 +2,10 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import static java.lang.Double.NaN;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -150,27 +152,36 @@ public class Utils {
     public static List<Interval> getForecastsFromOutFile(File outFile) {
         List<Interval> forecasts = new ArrayList<>();
         
-        boolean success = false; //blee
-        while (! success) {
-            try (BufferedReader reader = new BufferedReader(new FileReader(outFile))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] parts = line.split("\\s+"); //yields 2 parts - the predicted center and radius
-                    double centre = Double.parseDouble(parts[0]);
-                    double radius = Double.parseDouble(parts[1]);
-                    Interval interval = new IntervalCentreRadius(centre, radius);
-                    forecasts.add(interval);
-                }
-                System.out.println("here");
-                success = true;
-            } catch (IOException ex) {
-                //Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        while (! isCompletelyWritten(outFile)) {
         }
         
+        try (BufferedReader reader = new BufferedReader(new FileReader(outFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split("\\s+"); //yields 2 parts - the predicted center and radius
+                double centre = Double.parseDouble(parts[0]);
+                double radius = Double.parseDouble(parts[1]);
+                Interval interval = new IntervalCentreRadius(centre, radius);
+                forecasts.add(interval);
+            }
+            System.out.println("here");
+        } catch (IOException ex) {
+            //Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         System.out.println(forecasts);
         
         return forecasts;
+    }
+    
+    //hack from http://stackoverflow.com/a/11242648
+    private static boolean isCompletelyWritten(File file) {
+        try (RandomAccessFile stream = new RandomAccessFile(file, "rw")) {
+            return true;
+        } catch (IOException e) {
+            //TODO log
+        }
+        
+        return false;
     }
 }
