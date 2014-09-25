@@ -50,13 +50,12 @@ public class IntervalMLPCcode implements Forecastable {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        //ako "testovacie" data pouzijem vsetky (100% toho, co mam), aby som dostala fit/predikcie pre vsetko
         file = new File("test.dat");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
-            for (int i = 0; i < testingPortionOfCenter.size(); i++) {
-                //pozor na hodnoty i! chcem, aby cas nadvazoval na train, takze takto:
-                int monthYear = i + trainingPortionOfCenter.size();
-                fw.write(((monthYear%12)+1) + "\t" + (monthYear/12) + "\t"
-                        + testingPortionOfCenter.get(i) + "\t" + testingPortionOfRadius.get(i));
+            for (int i = 0; i < centerData.size(); i++) {
+                fw.write(((i%12)+1) + "\t" + (i/12) + "\t"
+                        + centerData.get(i) + "\t" + radiusData.get(i));
                 fw.newLine();
             }
             fw.flush();
