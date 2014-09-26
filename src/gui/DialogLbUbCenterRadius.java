@@ -1,16 +1,27 @@
 package gui;
 
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DialogLbUbCenterRadius extends javax.swing.JDialog {
+    
+    private static DialogLbUbCenterRadius INSTANCE = null;
+    
+    public static DialogLbUbCenterRadius getInstance(java.awt.Frame parent, boolean modal) {
+        if (INSTANCE == null) {
+            INSTANCE = new DialogLbUbCenterRadius(parent, modal);
+        }
+        
+        return INSTANCE;
+    }
     
     /**
      * Creates new form DialogLbUbCenterRadius
      * @param parent
      * @param modal
      */
-    public DialogLbUbCenterRadius(java.awt.Frame parent, boolean modal) {
+    private DialogLbUbCenterRadius(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -258,11 +269,34 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
     public void setColnames(List<String> colnames) {
-        for (String c : colnames) {
-            comboBoxLowerBound.addItem(c);
-            comboBoxUpperBound.addItem(c);
-            comboBoxCenter.addItem(c);
-            comboBoxRadius.addItem(c);
+        List<String> colnamesCopy = new ArrayList<>(colnames);
+        boolean containsAll = true;
+        for (int i = 0; i < comboBoxLowerBound.getItemCount(); i++) { //prejdem vsetky, co su v comboBoxe...
+            if (! colnamesCopy.contains(comboBoxLowerBound.getItemAt(i).toString())) {
+                //assuming all four comboBoxes have the same values, we only need to check one of them
+                containsAll = false;
+                break;
+            } else { //...a ak su vsetky v tom zozname, vsetky ich z neho zmazem...
+                colnamesCopy.remove(comboBoxLowerBound.getItemAt(i).toString());
+            }
+        }
+        
+        if (! colnamesCopy.isEmpty()) { //...ak ale nieco v zozname ostalo navyse, bol iny
+            containsAll = false;
+        }
+        
+        if (! containsAll) {
+            comboBoxLowerBound.removeAllItems();
+            comboBoxUpperBound.removeAllItems();
+            comboBoxCenter.removeAllItems();
+            comboBoxRadius.removeAllItems();
+            
+            for (String c : colnames) {
+                comboBoxLowerBound.addItem(c);
+                comboBoxUpperBound.addItem(c);
+                comboBoxCenter.addItem(c);
+                comboBoxRadius.addItem(c);
+            }
         }
     }
 }

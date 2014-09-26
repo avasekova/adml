@@ -8,10 +8,8 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JTable;
-import javax.swing.filechooser.FileFilter;
 import models.Forecastable;
 import models.IntervalMLPCcode;
 import models.Neuralnet;
@@ -1272,6 +1270,7 @@ public class MainFrame extends javax.swing.JFrame {
                     dataTableModel.openFile(loadedFile);
                     dataTableModel.fireTableStructureChanged();
                     for (String colname : dataTableModel.getColnames()) {
+                        //TODO na toto si dat potom pozor! - obavam sa, ze ked naloadujem novy subor, ostanu tam aj stare prvky v comboBoxoch, len pribudnu nove.
                         comboBoxColnames.addItem(colname);
                         comboBoxColnamesRun.addItem(colname);
                         paramNnet_comboBoxColnamesInput.addItem(colname);
@@ -1433,7 +1432,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_paramNnet_initRangeActionPerformed
 
     private void buttonPlotITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotITSActionPerformed
-        dialogLBUBCenterRadius = new DialogLbUbCenterRadius(this, true);
+        dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
         dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
         dialogLBUBCenterRadius.setVisible(true);
     }//GEN-LAST:event_buttonPlotITSActionPerformed
