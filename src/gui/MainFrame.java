@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileFilter;
 import models.Forecastable;
@@ -1484,7 +1485,9 @@ public class MainFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new MainFrame().setVisible(true);
+                MainFrame mainFrame = new MainFrame();
+                mainFrame.setVisible(true);
+                mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); //maximize the window
             }
         });
     }
