@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TrainAndTestReport {
     
-    private String modelName = "";
+    private final String modelName;
     private List<Double> errorMeasures = new ArrayList<>(); //TODO Map<String, Double> fixne metriky pre vsetkych
     private int numTrainingEntries;
     private String fittedValuesPlotCode = ""; //TODO toto zmazat a kreslit to rucne, ale

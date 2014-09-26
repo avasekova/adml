@@ -13,8 +13,9 @@ import utils.Utils;
 public class PlotDrawer {
     
     //TODO generovat i legendu do toho vysledneho grafu!
-    public static void drawPlots(int width, int height, List<Double> allData, int numForecasts, List<TrainAndTestReport> reports) {
-        if (reports.isEmpty()) {
+    public static void drawPlots(int width, int height, List<Double> allData, int numForecasts,
+                                 List<TrainAndTestReport> reportsCTS, List<TrainAndTestReport> reportsITS) {
+        if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
         }
         
@@ -22,50 +23,63 @@ public class PlotDrawer {
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
-        StringBuilder rangesY = new StringBuilder("range(c(");
-        boolean next = false;
-        int numTrainingEntries = 0;
-        for (TrainAndTestReport r : reports) {
-            numTrainingEntries = r.getNumTrainingEntries();
-            if (next) {
-                rangesY.append(", ");
-            } else {
-                next = true;
-            }
-            rangesY.append(Utils.minArray(r.getFittedValues())).append(", ");
-            rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValues())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValues()));
+        if ((! reportsCTS.isEmpty()) && (! reportsITS.isEmpty())) { //budem vykreslovat oba naraz
+            rengine.eval("par(mfrow=c(1,2))"); //daj dva grafy vedla seba. potom normalne zavolat dva ploty.
         }
-        //a zahrnut aj povodne data:
-        rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
-        rangesY.append("))");
         
-        String rangesX = "range(c(0, " + (allData.size() + numForecasts) + "))";
-
         //TODO colours!
-        next = false;
-        for (TrainAndTestReport r : reports) {
-            if (next) {
-                rengine.eval("par(new=TRUE)");
-            } else {
-                next = true;
-            }
+        if (! reportsCTS.isEmpty()) { //plot CTS
+            int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
+            String rangeY_CTS = getRangeY(allData, reportsCTS);
+            String rangeX = getRangeX(allData, numForecasts);
             
-            StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
-            plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangesX + ", ylim = " + rangesY + ", col=\"blue\"");
-            rengine.eval(plotCode.toString());
+            boolean next = false;
+            for (TrainAndTestReport r : reportsCTS) {
+                if (next) {
+                    rengine.eval("par(new=TRUE)");
+                } else {
+                    next = true;
+                }
+
+                StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
+                plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", col=\"blue\"");
+                rengine.eval(plotCode.toString());
+            }
+
+            rengine.assign("all.data", Utils.listToArray(allData));
+            rengine.eval("par(new=TRUE)");
+            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ")");
+            rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
+            rengine.eval("abline(v = " + allData.size() + ", lty = 3)");
         }
         
-        rengine.assign("all.data", Utils.listToArray(allData));
-        rengine.eval("par(new=TRUE)");
-        rengine.eval("plot.ts(all.data, xlim = " + rangesX + ", ylim = " + rangesY + ")");
-        rengine.eval("abline(v = " + numTrainingEntries + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
-        rengine.eval("abline(v = " + allData.size() + ", lty = 3)");
+        if (! reportsITS.isEmpty()) { //plot ITS
+            int numTrainingEntries_ITS = reportsITS.get(0).getNumTrainingEntries();
+            String rangeY_ITS = getRangeY(allData, reportsITS);
+            String rangeX = getRangeX(allData, numForecasts);
+            
+            boolean next = false;
+            for (TrainAndTestReport r : reportsITS) {
+                if (next) {
+                    rengine.eval("par(new=TRUE)");
+                } else {
+                    next = true;
+                }
+
+                StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
+                plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"green\"");
+                rengine.eval(plotCode.toString());
+            }
+
+            rengine.assign("all.data", Utils.listToArray(allData)); //TODO plot this as intervals! and plot it first, aby to nezakryvalo ten zbytok!
+            rengine.eval("par(new=TRUE)");
+            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ")");
+            rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
+            rengine.eval("abline(v = " + allData.size() + ", lty = 3)");
+        }
 
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.gdCanvas.initRefresh();
-        
     }
     
     public static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound) {
@@ -142,4 +156,29 @@ public class PlotDrawer {
 //        "#BF5650", "#E83000", "#66796D", "#DA007C", "#FF1A59", "#8ADBB4", "#1E0200", "#5B4E51",
 //        "#C895C5", "#320033", "#FF6832", "#66E1D3", "#CFCDAC", "#D0AC94", "#7ED379", "#012C58"; }
     
+    
+    private static String getRangeY(List<Double> allData, List<TrainAndTestReport> reports) {
+        StringBuilder rangesY = new StringBuilder("range(c(");
+        boolean next = false;
+        for (TrainAndTestReport r : reports) {
+            if (next) {
+                rangesY.append(", ");
+            } else {
+                next = true;
+            }
+            rangesY.append(Utils.minArray(r.getFittedValues())).append(", ");
+            rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
+            rangesY.append(Utils.minArray(r.getForecastValues())).append(", ");
+            rangesY.append(Utils.maxArray(r.getForecastValues()));
+        }
+        //a zahrnut aj povodne data:
+        rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
+        rangesY.append("))");
+        
+        return rangesY.toString();
+    }
+    
+    private static String getRangeX(List<Double> allData, int numForecasts) {
+        return "range(c(0, " + (allData.size() + numForecasts) + "))";
+    }
 }
