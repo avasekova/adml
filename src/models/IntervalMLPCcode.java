@@ -41,50 +41,113 @@ public class IntervalMLPCcode implements Forecastable {
         file = new File("config.out");
         file.delete();
         
-        //create the train and test input files:
-        file = new File("train.dat");
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
-            for (int i = 0; i < trainingPortionOfCenter.size(); i++) {
-                fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
-                        + trainingPortionOfCenter.get(i) + "\t" + trainingPortionOfRadius.get(i));
-                fw.newLine();
-            }
-            fw.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+        //for now, ugly like this:
+        switch (params.getExplVarString()) {
+            case "Month and Year":
+                //create the train and test input files:
+                file = new File("train.dat");
+                try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+                    for (int i = 0; i < trainingPortionOfCenter.size(); i++) {
+                        fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
+                                + trainingPortionOfCenter.get(i) + "\t" + trainingPortionOfRadius.get(i));
+                        fw.newLine();
+                    }
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //ako "testovacie" data pouzijem vsetky (100% toho, co mam), aby som dostala fit/predikcie pre vsetko
+                file = new File("test.dat");
+                try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+                    for (int i = 0; i < centerData.size(); i++) {
+                        fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
+                                + centerData.get(i) + "\t" + radiusData.get(i));
+                        fw.newLine();
+                    }
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //create the config file:
+                file = new File("config.net");
+                try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+                    fw.write("mp(2," + params.getNumNodesHidden() + ",1)");
+                    fw.newLine();
+                    fw.write("learn");
+                    fw.newLine();
+                    fw.write("nco(" + params.getNumIterations() + ")");
+                    fw.newLine();
+                    fw.write("wd(0.001)");
+                    fw.newLine();
+                    fw.write("ftrain(train.dat)");
+                    fw.newLine();
+                    fw.write("ftest(test.dat)");
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                break;
+            case "<selectedVariable>(t-1)":
+                //TODO get the variable which is selected (getOptionalParams?)
+                
+                // then move it to lag 1 (basicall start the writing loop somewhere else; I hope
+                
+                //then do this: create the train and test files, create the config file.
+                // don't forget to change the structure: mlp(1..) instead of mlp(2..)
+                
+                
+                //create the train and test input files:
+                file = new File("train.dat");
+                try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+                    for (int i = 0; i < trainingPortionOfCenter.size(); i++) {
+                        fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
+                                + trainingPortionOfCenter.get(i) + "\t" + trainingPortionOfRadius.get(i));
+                        fw.newLine();
+                    }
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //ako "testovacie" data pouzijem vsetky (100% toho, co mam), aby som dostala fit/predikcie pre vsetko
+                file = new File("test.dat");
+                try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+                    for (int i = 0; i < centerData.size(); i++) {
+                        fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
+                                + centerData.get(i) + "\t" + radiusData.get(i));
+                        fw.newLine();
+                    }
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //create the config file:
+                file = new File("config.net");
+                try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+                    fw.write("mp(2," + params.getNumNodesHidden() + ",1)");
+                    fw.newLine();
+                    fw.write("learn");
+                    fw.newLine();
+                    fw.write("nco(" + params.getNumIterations() + ")");
+                    fw.newLine();
+                    fw.write("wd(0.001)");
+                    fw.newLine();
+                    fw.write("ftrain(train.dat)");
+                    fw.newLine();
+                    fw.write("ftest(test.dat)");
+                    fw.flush();
+                } catch (IOException ex) {
+                    Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+                break;
         }
         
-        //ako "testovacie" data pouzijem vsetky (100% toho, co mam), aby som dostala fit/predikcie pre vsetko
-        file = new File("test.dat");
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
-            for (int i = 0; i < centerData.size(); i++) {
-                fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
-                        + centerData.get(i) + "\t" + radiusData.get(i));
-                fw.newLine();
-            }
-            fw.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
-        //create the config file:
-        file = new File("config.net");
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
-            fw.write("mp(2," + params.getNumNodesHidden() + ",1)");
-            fw.newLine();
-            fw.write("learn");
-            fw.newLine();
-            fw.write("nco(" + params.getNumIterations() + ")");
-            fw.newLine();
-            fw.write("wd(0.001)");
-            fw.newLine();
-            fw.write("ftrain(train.dat)");
-            fw.newLine();
-            fw.write("ftest(test.dat)");
-            fw.flush();
-        } catch (IOException ex) {
-            Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
-        }
         
         System.out.println("data prepared, run it");
         try {
@@ -110,7 +173,7 @@ public class IntervalMLPCcode implements Forecastable {
         //dummy vals for now! (in most cases) TODO opravit
         report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
         report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!
-        report.setFittedValuesPlotCode("plot.ts(sin(seq(0,2*pi,length=1000)))"); 
+        report.setFittedValuesPlotCode("plot.ts(sin(seq(0,2*pi,length=" + centerData.size() + "))*50 + 50)");  //a new dummy plot, yaay
         List<Double> errorMeasures = new ArrayList<>();
         errorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
         errorMeasures.add(ErrorMeasures.ME(errorsTest)); //ME test

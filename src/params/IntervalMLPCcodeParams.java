@@ -4,6 +4,7 @@ public class IntervalMLPCcodeParams extends Params {
     
     private Integer numNodesHidden;
     private Integer numIterations;
+    private String explVarString;
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -19,5 +20,13 @@ public class IntervalMLPCcodeParams extends Params {
 
     public void setNumIterations(Integer numIterations) {
         this.numIterations = numIterations;
+    }
+
+    public String getExplVarString() {
+        return explVarString;
+    }
+
+    public void setExplVarString(String explVarString) {
+        this.explVarString = explVarString;
     }
 }
