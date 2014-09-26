@@ -988,7 +988,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 227, Short.MAX_VALUE)
+            .addGap(0, 306, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -1180,8 +1180,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(buttonTrainAndTest))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSummary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90))
+                .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         panelEverything.addTab("Run", panelRunOutside);
@@ -1355,7 +1355,7 @@ public class MainFrame extends javax.swing.JFrame {
                 report = cCode.forecastIntervalLowerUpper(dataTableModel.getDataForColname(lower),
                                                           dataTableModel.getDataForColname(upper), params);
             }
-                
+            
             reportsITS.add(report);
         }
         
@@ -1363,14 +1363,25 @@ public class MainFrame extends javax.swing.JFrame {
         //add more methods/models here
         
         
+        //TODO vymysliet to nejak inak, posuvat ich podla toho, kde je kolko riadkov. a bachnut ich asi do scrollpane, aby
+        //   nieco netrcalo
         panelSummary.removeAll();
-        JTable errorMeasuresTable = new JTable();
-        errorMeasuresTable.setSize(panelSummary.getWidth(), panelSummary.getHeight());
-        errorMeasuresTable.setModel(new ErrorMeasuresTableModel(reportsCTS));
-        //TODO tu dorobit este aj tabulku pre ITS! zatial sa zobrazuju measures len pre CTS
-        errorMeasuresTable.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
-        errorMeasuresTable.setVisible(true);
-        panelSummary.add(errorMeasuresTable);
+        JTable errorMeasuresTable_CTS = new JTable();
+        errorMeasuresTable_CTS.setSize(panelSummary.getWidth(), panelSummary.getHeight()/2);
+        errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
+        errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+        errorMeasuresTable_CTS.setVisible(true);
+        panelSummary.add(errorMeasuresTable_CTS);
+        
+        JTable errorMeasuresTable_ITS = new JTable();
+        errorMeasuresTable_ITS.setLocation(panelSummary.getX(), panelSummary.getHeight()/2);
+        errorMeasuresTable_ITS.setSize(panelSummary.getWidth(), panelSummary.getHeight()/2);
+        errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsITS));
+        errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+        errorMeasuresTable_ITS.setVisible(true);
+        panelSummary.add(errorMeasuresTable_ITS);
+        
+        this.repaint();
         
         
         //show Forecast plot

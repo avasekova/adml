@@ -118,9 +118,6 @@ public class IntervalMLPCcode implements Forecastable {
         errorMeasures.add(ErrorMeasures.RMSE(errorsTest)); //RMSE test
         errorMeasures.add(ErrorMeasures.MAE(errorsTrain)); //MAE train
         errorMeasures.add(ErrorMeasures.MAE(errorsTest)); //MAE test
-        errorMeasures.add(0.0);errorMeasures.add(0.0); //MPE
-        errorMeasures.add(0.0);errorMeasures.add(0.0); //MAPE
-        errorMeasures.add(0.0);errorMeasures.add(0.0); //MASE
         report.setErrorMeasures(errorMeasures);
         
         

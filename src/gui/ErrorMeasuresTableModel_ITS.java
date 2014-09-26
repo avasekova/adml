@@ -4,11 +4,11 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReport;
 
-public class ErrorMeasuresTableModel extends AbstractTableModel {
+public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
     
     private final List<TrainAndTestReport> reports;
     
-    public ErrorMeasuresTableModel(List<TrainAndTestReport> reports) {
+    public ErrorMeasuresTableModel_ITS(List<TrainAndTestReport> reports) {
         this.reports = reports;
     }
 
@@ -19,7 +19,7 @@ public class ErrorMeasuresTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7; //TODO zovseobecnit! toto je len na ErrorMeasures z "nnetar" (ME, RMSE, MAE, MPE, MAPE, MASE)
+        return 4; //TODO zovseobecnit! zatial je to len na ME, RMSE, MAE; pridat viac ErrorMeasures
     }
 
     @Override
@@ -42,9 +42,6 @@ public class ErrorMeasuresTableModel extends AbstractTableModel {
                     case 1: return "ME";
                     case 2: return "RMSE";
                     case 3: return "MAE";
-                    case 4: return "MPE";
-                    case 5: return "MAPE";
-                    case 6: return "MASE";
                 }
             } else {
                 if (rowIndex < reports.size() + 1) {
