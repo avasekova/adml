@@ -45,7 +45,7 @@ public class IntervalMLPCcode implements Forecastable {
         file = new File("train.dat");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < trainingPortionOfCenter.size(); i++) {
-                fw.write(((i%12)+1) + "\t" + (i/12) + "\t"
+                fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
                         + trainingPortionOfCenter.get(i) + "\t" + trainingPortionOfRadius.get(i));
                 fw.newLine();
             }
@@ -58,7 +58,7 @@ public class IntervalMLPCcode implements Forecastable {
         file = new File("test.dat");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             for (int i = 0; i < centerData.size(); i++) {
-                fw.write(((i%12)+1) + "\t" + (i/12) + "\t"
+                fw.write(((i%12)+1) + "\t" + "0" + "\t" + (i/12) + "\t" + "0" + "\t"
                         + centerData.get(i) + "\t" + radiusData.get(i));
                 fw.newLine();
             }
@@ -70,7 +70,7 @@ public class IntervalMLPCcode implements Forecastable {
         //create the config file:
         file = new File("config.net");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
-            fw.write("mp(1," + params.getNumNodesHidden() + ",1)");
+            fw.write("mp(2," + params.getNumNodesHidden() + ",1)");
             fw.newLine();
             fw.write("learn");
             fw.newLine();

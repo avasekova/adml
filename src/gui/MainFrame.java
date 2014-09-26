@@ -819,7 +819,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel34.setText("Explanatory variables:");
 
-        jLabel35.setText("(For now, disabled. Only performs with ITS at (t-1).)");
+        jLabel35.setText("(For now, disabled. Works with Month and Year as explanatory variables.)");
         jLabel35.setEnabled(false);
 
         jLabel36.setText("Number of neurons in the (single) hidden layer:");
@@ -847,23 +847,19 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addComponent(jLabel34)
-                        .addGap(136, 136, 136)
-                        .addComponent(jLabel35))
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel33)
-                            .addComponent(jLabel38)
-                            .addComponent(jLabel39))
-                        .addGap(18, 18, 18)
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel40)
-                            .addComponent(jLabel37)
-                            .addComponent(textFieldIntervalMLPCcodeNumNeurons, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(558, Short.MAX_VALUE))
+                    .addComponent(jLabel36)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel38)
+                    .addComponent(jLabel39)
+                    .addComponent(jLabel34))
+                .addGap(18, 18, 18)
+                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel40)
+                    .addComponent(jLabel37)
+                    .addComponent(textFieldIntervalMLPCcodeNumNeurons, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel35))
+                .addContainerGap(453, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPModeCcodeLayout.setVerticalGroup(
             panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1268,6 +1264,14 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxRunUpper.addItem(colname);
                         comboBoxRunCenter.addItem(colname);
                         comboBoxRunRadius.addItem(colname);
+                        
+                        //add explanatory variables to combo in iMLP C code settings
+//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t)");
+//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t - 1)");
+//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t - 2)");
+//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t - 12)");
+                        //TODO think about how to specify the lag. you cannot possibly list everything. and what about
+                        //     other types of seasonality - weekly, monthly seasonal data, etc.
                     }
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
