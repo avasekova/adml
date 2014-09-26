@@ -1486,8 +1486,8 @@ public class MainFrame extends javax.swing.JFrame {
             @Override
             public void run() {
                 MainFrame mainFrame = new MainFrame();
-                mainFrame.setVisible(true);
                 mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); //maximize the window
+                mainFrame.setVisible(true);
             }
         });
     }
