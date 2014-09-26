@@ -13,7 +13,8 @@ import utils.Utils;
 public class PlotDrawer {
     
     //TODO generovat i legendu do toho vysledneho grafu!
-    public static void drawPlots(int width, int height, List<Double> allData, int numForecasts,
+    public static void drawPlots(int width, int height, List<Double> allDataCTS, List<Double> lowerITS, List<Double> upperITS,
+                                 int numForecasts,
                                  List<TrainAndTestReport> reportsCTS, List<TrainAndTestReport> reportsITS) {
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
@@ -30,8 +31,8 @@ public class PlotDrawer {
         //TODO colours!
         if (! reportsCTS.isEmpty()) { //plot CTS
             int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
-            String rangeY_CTS = getRangeY(allData, reportsCTS);
-            String rangeX = getRangeX(allData, numForecasts);
+            String rangeY_CTS = getRangeY(allDataCTS, reportsCTS);
+            String rangeX = getRangeX(allDataCTS, numForecasts);
             
             boolean next = false;
             for (TrainAndTestReport r : reportsCTS) {
@@ -46,17 +47,21 @@ public class PlotDrawer {
                 rengine.eval(plotCode.toString());
             }
 
-            rengine.assign("all.data", Utils.listToArray(allData));
+            rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
             rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ")");
             rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
-            rengine.eval("abline(v = " + allData.size() + ", lty = 3)");
+            rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)");
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
             int numTrainingEntries_ITS = reportsITS.get(0).getNumTrainingEntries();
-            String rangeY_ITS = getRangeY(allData, reportsITS);
-            String rangeX = getRangeX(allData, numForecasts);
+            String rangeY_ITS_lower = getRangeY(lowerITS, reportsITS); //TODO change this! to something reasonable
+            String rangeY_ITS_upper = getRangeY(upperITS, reportsITS);
+            String rangeY_ITS = "range(" + rangeY_ITS_lower + ", " + rangeY_ITS_upper + ")";
+            String rangeX_lower = getRangeX(lowerITS, numForecasts);
+            String rangeX_upper = getRangeX(upperITS, numForecasts);
+            String rangeX = "range(" + rangeX_lower + ", " + rangeX_upper + ")";
             
             boolean next = false;
             for (TrainAndTestReport r : reportsITS) {
@@ -71,11 +76,18 @@ public class PlotDrawer {
                 rengine.eval(plotCode.toString());
             }
 
-            rengine.assign("all.data", Utils.listToArray(allData)); //TODO plot this as intervals! and plot it first, aby to nezakryvalo ten zbytok!
+            rengine.assign("allfg.lower", Utils.listToArray(lowerITS));
+            rengine.assign("allfg.upper", Utils.listToArray(upperITS));
+            
+            //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ")");
+            rengine.eval("plot.ts(allfg.lower, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+            rengine.eval("par(new=TRUE)");
+            rengine.eval("plot.ts(allfg.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+            rengine.eval("segments(1:" + lowerITS.size() + ", allfg.lower, 1:" + lowerITS.size() + ", allfg.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"black\")");
+            
             rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
-            rengine.eval("abline(v = " + allData.size() + ", lty = 3)");
+            rengine.eval("abline(v = " + lowerITS.size() + ", lty = 3)");
         }
 
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet

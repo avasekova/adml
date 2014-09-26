@@ -169,6 +169,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel46 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         buttonTrainAndTest = new javax.swing.JButton();
+        jLabel44 = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1071,6 +1072,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel44.setText("(Warning: both options work, but for now, the plot is drawn based on the values selected in LB and UB)");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1137,7 +1140,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(checkBoxRunIntervalMLPCcode)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunIntervalMLPneuralnet))
-                            .addComponent(buttonTrainAndTest))
+                            .addComponent(buttonTrainAndTest)
+                            .addComponent(jLabel44))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1186,6 +1190,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunIntervalMLPCcode)
                             .addComponent(checkBoxRunIntervalMLPneuralnet))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel44)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(buttonTrainAndTest))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1323,7 +1329,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderPercentTrainStateChanged
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
-        String colname = comboBoxColnamesRun.getSelectedItem().toString();
+        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
         //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
         List<TrainAndTestReport> reportsCTS = new ArrayList<>();
         List<TrainAndTestReport> reportsITS = new ArrayList<>();
@@ -1331,14 +1337,14 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPnnetar.isSelected()) {
             NnetarParams params = getParamsNnetar();
             Forecastable nnetar = new Nnetar();
-            TrainAndTestReport report = nnetar.forecast(dataTableModel.getDataForColname(colname), params);
+            TrainAndTestReport report = nnetar.forecast(dataTableModel.getDataForColname(colname_CTS), params);
             reportsCTS.add(report);
         }
         
         if (checkBoxRunMLPneuralnet.isSelected()) {
             NeuralnetParams params = getParamsNeuralnet();
             Forecastable neuralnet = new Neuralnet();
-            TrainAndTestReport report = neuralnet.forecast(dataTableModel.getDataForColname(colname), params);
+            TrainAndTestReport report = neuralnet.forecast(dataTableModel.getDataForColname(colname_CTS), params);
             reportsCTS.add(report);
         }
         
@@ -1346,7 +1352,7 @@ public class MainFrame extends javax.swing.JFrame {
             NnetParams params = getParamsNnet();
             Forecastable nnet = new Nnet();
             ((NnetParams) params).setInputs(dataTableModel.getDataForColname(((NnetParams) params).getInputColname()));
-            TrainAndTestReport report = nnet.forecast(dataTableModel.getDataForColname(colname), params);
+            TrainAndTestReport report = nnet.forecast(dataTableModel.getDataForColname(colname_CTS), params);
             reportsCTS.add(report);
         }
         
@@ -1399,7 +1405,12 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPnnetar.isSelected()) {
             numForecastsNnetar = Integer.parseInt(paramNnetar_textFieldNumForecasts.getText());
         }
-        PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname), numForecastsNnetar, reportsCTS, reportsITS);
+        
+        String colnameLower = comboBoxRunLower.getSelectedItem().toString();
+        String colnameUpper = comboBoxRunUpper.getSelectedItem().toString();
+        PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
+                dataTableModel.getDataForColname(colnameLower), dataTableModel.getDataForColname(colnameUpper),
+                numForecastsNnetar, reportsCTS, reportsITS);
         //this.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
@@ -1573,6 +1584,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

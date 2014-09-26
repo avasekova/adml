@@ -173,7 +173,7 @@ public class IntervalMLPCcode implements Forecastable {
         //dummy vals for now! (in most cases) TODO opravit
         report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
         report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!
-        report.setFittedValuesPlotCode("plot.ts(sin(seq(0,2*pi,length=" + centerData.size() + "))*50 + 50)");  //a new dummy plot, yaay
+        report.setFittedValuesPlotCode("plot.ts(seq(" + centerData.size()/2 + ", " + centerData.size()/2 + ", length=" + centerData.size() + "))");  //a new dummy plot, yaay
         List<Double> errorMeasures = new ArrayList<>();
         errorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
         errorMeasures.add(ErrorMeasures.ME(errorsTest)); //ME test
