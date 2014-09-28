@@ -39,9 +39,9 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
         } else {
             if ((rowIndex == 0) || (rowIndex == reports.size() + 1)) {
                 switch (columnIndex) {
-                    case 1: return "ME";
-                    case 2: return "RMSE";
-                    case 3: return "MAE";
+                    case 1: return "MDE";
+                    case 2: return "RMSDE";
+                    case 3: return "MADE";
                 }
             } else {
                 if (rowIndex < reports.size() + 1) {
