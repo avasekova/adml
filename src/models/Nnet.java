@@ -8,6 +8,7 @@ import org.rosuda.JRI.Rengine;
 import params.NnetParams;
 import params.Params;
 import utils.Const;
+import utils.ErrorMeasures;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -72,26 +73,6 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
 //        double[] forecast = getForecastModel.asDoubleArray();
 //        report.setForecastValues(forecast);
         
-        //..
-        //..
-        //tu pokracovat: spocitat tie error measures (zatial len tie, co mal nnetar), a zobrazit graf forecasted vals
-        //TODO spocitat naozaj tie error measures
-        //zatial len dummy data
-        List<Double> dummyErrorMeasures = new ArrayList<>();
-        dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.1);
-        dummyErrorMeasures.add(0.2);
-        dummyErrorMeasures.add(0.3);
-        dummyErrorMeasures.add(0.4);
-        dummyErrorMeasures.add(0.5);
-        dummyErrorMeasures.add(0.6);
-        dummyErrorMeasures.add(0.7);
-        dummyErrorMeasures.add(0.8);
-        dummyErrorMeasures.add(0.9);
-        dummyErrorMeasures.add(1.0);
-        dummyErrorMeasures.add(1.1);
-        report.setErrorMeasures(dummyErrorMeasures);
-        
         rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
         
         //scale back the fitted values:
@@ -99,6 +80,24 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         REXP getFittedVals = rengine.eval(SCALED_FIT);
         double[] fitted = getFittedVals.asDoubleArray();
         report.setFittedValues(fitted);
+        
+        //TODO spocitat zbytok tych error measures
+        List<Double> errorsTrain = Utils.getErrors(trainingPortionOfData, Utils.arrayToList(fitted));
+        List<Double> dummyErrorMeasures = new ArrayList<>();
+        dummyErrorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
+        dummyErrorMeasures.add(0.0); //ME test
+        dummyErrorMeasures.add(ErrorMeasures.RMSE(errorsTrain)); //RMSE train
+        dummyErrorMeasures.add(0.0); //RMSE test
+        dummyErrorMeasures.add(ErrorMeasures.MAE(errorsTrain)); //MAE train
+        dummyErrorMeasures.add(0.0); //MAE test
+        dummyErrorMeasures.add(ErrorMeasures.MPE(trainingPortionOfData, Utils.arrayToList(fitted))); //MPE train
+        dummyErrorMeasures.add(0.0); //MPE test
+        dummyErrorMeasures.add(ErrorMeasures.MAPE(trainingPortionOfData, Utils.arrayToList(fitted))); //MAPE train
+        dummyErrorMeasures.add(0.0); //MAPE test
+        dummyErrorMeasures.add(ErrorMeasures.MASE(trainingPortionOfData, Utils.arrayToList(fitted))); //MASE train
+        dummyErrorMeasures.add(1.0); //MASE test
+        report.setErrorMeasures(dummyErrorMeasures);
+        
         
         report.setFittedValuesPlotCode("plot.ts(" + SCALED_FIT + ")");
         

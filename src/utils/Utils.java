@@ -171,6 +171,17 @@ public class Utils {
         return forecasts;
     }
     
+    public static List<Double> getErrors(List<Double> real, List<Double> forecasts) {
+        List<Double> errors = new ArrayList<>();
+        
+        for (int i = 0; i < forecasts.size(); i++) {
+            double error = real.get(i) - forecasts.get(i);
+            errors.add(error);
+        }
+        
+        return errors;
+    }
+    
     public static List<Double> getErrorsForIntervals(List<Interval> real, List<Interval> forecasts, Distance distanceMeasure) {
         List<Double> errors = new ArrayList<>();
         
