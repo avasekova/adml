@@ -36,7 +36,7 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
         this.numTrainingEntries = numTrainingEntries;
     }
     
-    public String getFittedValuesPlotCode() {
+    public String getFittedValuesPlotCode() { //TODO nepouzivat pre intervalove - pouzivat iba fitted vals atd. a kreslit sama
         return fittedValuesPlotCode;
     }
 

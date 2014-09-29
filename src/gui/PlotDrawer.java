@@ -78,16 +78,21 @@ public class PlotDrawer {
             String rangeX = "range(" + rangeX_lower + ", " + rangeX_upper + ")";
             
             boolean next = false;
-            for (TrainAndTestReport r : reportsITS) {
+            for (TrainAndTestReportInterval r : reportsITS) {
                 if (next) {
                     rengine.eval("par(new=TRUE)");
                 } else {
                     next = true;
                 }
 
-                StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
-                plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"" + COLOURS[colourNumber] + "\"");
-                rengine.eval(plotCode.toString());
+                //TODO neskor plotovat samozrejme aj forecast values!
+                rengine.assign("lower", r.getFittedValuesLowers());
+                rengine.assign("upper", r.getFittedValuesUppers());
+                rengine.eval("plot.ts(lower, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("par(new=TRUE)");
+                rengine.eval("plot.ts(upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("segments(1:" + lowerITS.size() + ", lower, 1:" + lowerITS.size() + ", upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"" + COLOURS[colourNumber] + "\")");
+                
                 colourNumber++;
             }
 
