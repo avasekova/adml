@@ -33,16 +33,13 @@ public class Nnetar implements Forecastable {
         rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         rengine.eval(NNETWORK + " <- nnetar(" + TRAINDATA + optionalParams + ")");
-        System.out.println(NNETWORK + " <- nnetar(data.frame(" + TRAINDATA + ")" + optionalParams + ")");
-
+        
         int numForecasts = testingPortionOfData.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast(" + NNETWORK + ", " + numForecasts + ")");
-        System.out.println(FORECAST_MODEL + " <- forecast(" + NNETWORK + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
         rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
-        System.out.println(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
         REXP getForecastVals = rengine.eval(FORECAST_VALS);
         double[] forecast = getForecastVals.asDoubleArray();
         report.setForecastValues(forecast);

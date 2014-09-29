@@ -30,13 +30,9 @@ public class PlotDrawer {
         
         //TODO colours!
         if (! reportsCTS.isEmpty()) { //plot CTS
-            System.out.println("zaciname");
             int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
-            System.out.println("numTrain: " + numTrainingEntries_CTS);
             String rangeY_CTS = getRangeY(allDataCTS, reportsCTS);
             String rangeX = getRangeX(allDataCTS, numForecasts);
-            System.out.println("rangeY_CTS" + rangeY_CTS);
-            System.out.println("rangeX" + rangeX);
             
             boolean next = false;
             for (TrainAndTestReport r : reportsCTS) {
@@ -48,7 +44,6 @@ public class PlotDrawer {
 
                 StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
                 plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", col=\"blue\"");
-                System.out.println("plotcode: " + plotCode);
                 rengine.eval(plotCode.toString());
             }
 

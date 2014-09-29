@@ -99,7 +99,6 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         REXP getFittedVals = rengine.eval(SCALED_FIT);
         double[] fitted = getFittedVals.asDoubleArray();
         report.setFittedValues(fitted);
-        System.out.println("" + Arrays.toString(fitted));
         
         report.setFittedValuesPlotCode("plot.ts(" + SCALED_FIT + ")");
         
