@@ -6,6 +6,7 @@ import org.rosuda.JRI.Rengine;
 import params.NnetarParams;
 import params.Params;
 import utils.Const;
+import utils.ErrorMeasuresCrisp;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -52,7 +53,21 @@ public class Nnetar implements Forecastable {
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         //nova verzia vracia aj ACF1
         
-        report.setErrorMeasures(Utils.arrayToList(acc));
+        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+        errorMeasures.setMEtrain(acc[0]);
+        errorMeasures.setMEtest(acc[1]);
+        errorMeasures.setRMSEtrain(acc[2]);
+        errorMeasures.setRMSEtest(acc[3]);
+        errorMeasures.setMAEtrain(acc[4]);
+        errorMeasures.setMAEtest(acc[5]);
+        errorMeasures.setMPEtrain(acc[6]);
+        errorMeasures.setMPEtest(acc[7]);
+        errorMeasures.setMAPEtrain(acc[8]);
+        errorMeasures.setMAPEtest(acc[9]);
+        errorMeasures.setMASEtrain(acc[10]);
+        errorMeasures.setMASEtest(acc[11]);
+        
+        report.setErrorMeasures(errorMeasures);
         
         rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
         REXP getFittedVals = rengine.eval(FIT);

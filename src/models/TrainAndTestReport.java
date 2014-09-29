@@ -1,14 +1,12 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
+import utils.ErrorMeasures;
 
 public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *Crisp fitted vals sa velmi podobaju, mohlo by sa s nimi
     //                                       dat pracovat jednotne...
     
     private final String modelName;
-    private List<Double> errorMeasures = new ArrayList<>(); //TODO Map<String, Double> fixne metriky pre vsetkych
-                                                            //resp. specialnu entitu na metriky crisp a interval (zvlast)
+    private ErrorMeasures errorMeasures;
     private int numTrainingEntries;
     private String fittedValuesPlotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
     
@@ -20,11 +18,11 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
         return modelName;
     }
     
-    public List<Double> getErrorMeasures() {
+    public ErrorMeasures getErrorMeasures() {
         return errorMeasures;
     }
 
-    public void setErrorMeasures(List<Double> errorMeasures) {
+    public void setErrorMeasures(ErrorMeasures errorMeasures) {
         this.errorMeasures = errorMeasures;
     }
 

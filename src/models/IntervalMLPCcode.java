@@ -10,7 +10,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import params.IntervalMLPCcodeParams;
 import params.Params;
-import utils.ErrorMeasures;
+import utils.ErrorMeasuresInterval;
+import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.WeightedEuclideanDistance;
@@ -174,19 +175,18 @@ public class IntervalMLPCcode implements Forecastable {
         report.setFittedValuesPlotCode("plot.ts(seq(" + centerData.size()/2 + ", " + centerData.size()/2 + ", length=" + centerData.size() + "))");  //a new dummy plot, yaay
         
         
-        List<Double> errorMeasures = new ArrayList<>();
-        errorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
-        errorMeasures.add(ErrorMeasures.ME(errorsTest)); //ME test
-        errorMeasures.add(ErrorMeasures.RMSE(errorsTrain)); //RMSE train
-        errorMeasures.add(ErrorMeasures.RMSE(errorsTest)); //RMSE test
-        errorMeasures.add(ErrorMeasures.MAE(errorsTrain)); //MAE train
-        errorMeasures.add(ErrorMeasures.MAE(errorsTest)); //MAE test
-        errorMeasures.add(ErrorMeasures.meanCoverage(trainingIntervals, forecastsTrain));
-        errorMeasures.add(ErrorMeasures.meanCoverage(testingIntervals, forecastsTest));
-        errorMeasures.add(ErrorMeasures.meanEfficiency(trainingIntervals, forecastsTrain));
-        errorMeasures.add(ErrorMeasures.meanEfficiency(testingIntervals, forecastsTest));
+        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
+        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
+        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
+        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
+        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
+        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
+        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
+        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainingIntervals, forecastsTrain));
+        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, forecastsTest));
+        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervals, forecastsTrain));
+        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
         report.setErrorMeasures(errorMeasures);
-        
         
         return report;
     }

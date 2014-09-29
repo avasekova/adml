@@ -3,6 +3,7 @@ package gui;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportCrisp;
+import utils.ErrorMeasuresCrisp;
 
 public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
     
@@ -19,7 +20,7 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 7; //TODO zovseobecnit! toto je len na ErrorMeasures z "nnetar" (ME, RMSE, MAE, MPE, MAPE, MASE)
+        return ErrorMeasuresCrisp.numberOfSupportedMeasures() + 1;
     }
 
     @Override
@@ -38,24 +39,15 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
             }
         } else {
             if ((rowIndex == 0) || (rowIndex == reports.size() + 1)) {
-                switch (columnIndex) {
-                    case 1: return "ME";
-                    case 2: return "RMSE";
-                    case 3: return "MAE";
-                    case 4: return "MPE";
-                    case 5: return "MAPE";
-                    case 6: return "MASE";
-                }
+                return ErrorMeasuresCrisp.namesOfSupportedMeasures()[columnIndex - 1];
             } else {
                 if (rowIndex < reports.size() + 1) {
-                    return reports.get(rowIndex - 1).getErrorMeasures().get((columnIndex - 1)*2); 
+                    return reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]; 
                 } else { //rowIndex > reports.size() + 1
-                    return reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().get((columnIndex - 1)*2 + 1);
+                    return reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2 + 1];
                 }
             }
         }
-        
-        return "(NA)";
     }
     
     @Override

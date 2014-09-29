@@ -3,6 +3,7 @@ package gui;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportInterval;
+import utils.ErrorMeasuresInterval;
 
 public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
     
@@ -19,7 +20,7 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6; //TODO zovseobecnit! zatial je to len na ME, RMSE, MAE, cvg, eff; pridat viac ErrorMeasures?
+        return ErrorMeasuresInterval.numberOfSupportedMeasures() + 1;
     }
 
     @Override
@@ -38,23 +39,15 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
             }
         } else {
             if ((rowIndex == 0) || (rowIndex == reports.size() + 1)) {
-                switch (columnIndex) {
-                    case 1: return "MDE";
-                    case 2: return "RMSDE";
-                    case 3: return "MADE";
-                    case 4: return "Mean coverage";
-                    case 5: return "Mean efficiency";
-                }
+                return ErrorMeasuresInterval.namesOfSupportedMeasures()[columnIndex - 1];
             } else {
                 if (rowIndex < reports.size() + 1) {
-                    return reports.get(rowIndex - 1).getErrorMeasures().get((columnIndex - 1)*2); 
+                    return reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]; 
                 } else { //rowIndex > reports.size() + 1
-                    return reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().get((columnIndex - 1)*2 + 1);
+                    return reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2 + 1];
                 }
             }
         }
-        
-        return "(NA)";
     }
     
     @Override

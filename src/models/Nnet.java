@@ -7,7 +7,8 @@ import org.rosuda.JRI.Rengine;
 import params.NnetParams;
 import params.Params;
 import utils.Const;
-import utils.ErrorMeasures;
+import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -82,21 +83,20 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         
         //TODO spocitat zbytok tych error measures
         List<Double> errorsTrain = Utils.getErrors(trainingPortionOfData, Utils.arrayToList(fitted));
-        List<Double> dummyErrorMeasures = new ArrayList<>();
-        dummyErrorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
-        dummyErrorMeasures.add(0.0); //ME test
-        dummyErrorMeasures.add(ErrorMeasures.RMSE(errorsTrain)); //RMSE train
-        dummyErrorMeasures.add(0.0); //RMSE test
-        dummyErrorMeasures.add(ErrorMeasures.MAE(errorsTrain)); //MAE train
-        dummyErrorMeasures.add(0.0); //MAE test
-        dummyErrorMeasures.add(ErrorMeasures.MPE(trainingPortionOfData, Utils.arrayToList(fitted))); //MPE train
-        dummyErrorMeasures.add(0.0); //MPE test
-        dummyErrorMeasures.add(ErrorMeasures.MAPE(trainingPortionOfData, Utils.arrayToList(fitted))); //MAPE train
-        dummyErrorMeasures.add(0.0); //MAPE test
-        dummyErrorMeasures.add(ErrorMeasures.MASE(trainingPortionOfData, Utils.arrayToList(fitted))); //MASE train
-        dummyErrorMeasures.add(1.0); //MASE test
-        report.setErrorMeasures(dummyErrorMeasures);
-        
+        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
+        errorMeasures.setMEtest(0.0);
+        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
+        errorMeasures.setRMSEtest(0.0);
+        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
+        errorMeasures.setMAEtest(0.0);
+        errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setMPEtest(0.0);
+        errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setMAPEtest(0.0);
+        errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setMASEtest(1.0);
+        report.setErrorMeasures(errorMeasures);
         
         report.setFittedValuesPlotCode("plot.ts(" + SCALED_FIT + ")");
         
