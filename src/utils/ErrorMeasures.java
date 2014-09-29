@@ -110,6 +110,7 @@ public class ErrorMeasures {
     public static double coverage(Interval real, Interval forecast) {
         double widthReal = real.getUpperBound() - real.getLowerBound();
         return (widthIntersection(real, forecast) / widthReal) * 100;
+        //vracia nulu, ak je forecast bodovy (ale aj ak lezi v realnom intervale) - co je ale feature, nie bug.
     }
     
     public static double efficiency(Interval real, Interval forecast) {
@@ -117,7 +118,6 @@ public class ErrorMeasures {
         if (forecast.getUpperBound() == forecast.getLowerBound()) {
             if ((real.getLowerBound() <= forecast.getLowerBound()) &&
                 (real.getUpperBound() >= forecast.getLowerBound())) { //takze forecast je obsiahnuty
-                System.out.println("eff: " + forecast.getLowerBound() + " in " + real);
                 return 1;
             } else {
                 return 0;
@@ -125,7 +125,6 @@ public class ErrorMeasures {
         }
         
         double widthForecast = forecast.getUpperBound() - forecast.getLowerBound();
-        System.out.println("eff: " + widthForecast + ", " + widthIntersection(real, forecast));
         return (widthIntersection(real, forecast) / widthForecast) * 100;
     }
     
@@ -145,8 +144,6 @@ public class ErrorMeasures {
         for (int i = 0; i < realData.size(); i++) {
             mean += efficiency(realData.get(i), forecastData.get(i));
         }
-        
-        System.out.println("mean Eff: " + mean + ", " + mean/realData.size());
         
         return mean/realData.size();
     }
