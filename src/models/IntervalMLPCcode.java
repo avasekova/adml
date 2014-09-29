@@ -147,9 +147,6 @@ public class IntervalMLPCcode implements Forecastable {
                 break;
         }
         
-        
-        
-        System.out.println("data prepared, run it");
         try {
             //TODO neskor zabranit spustaniu viacerych veci naraz (disablovat Run button, kym neskonci aktualna)
             //TODO neskor zrusit to cierne okno, ale zatial sa to chova divne, ked ho vypnem :(
@@ -157,7 +154,6 @@ public class IntervalMLPCcode implements Forecastable {
             //              - kde v config.bat je: "@ECHO OFF     c config"
             Process p = Runtime.getRuntime().exec("cmd /c start /wait c config");
             p.waitFor();
-            System.out.println("should be done now.");
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -188,7 +184,6 @@ public class IntervalMLPCcode implements Forecastable {
         report.setErrorMeasures(errorMeasures);
         
         
-        System.out.println("leaving the training method");
         return report;
     }
 
@@ -197,7 +192,6 @@ public class IntervalMLPCcode implements Forecastable {
         List<Double> centerData = new ArrayList<>();
         List<Double> radiusData = new ArrayList<>();
         
-        System.out.println("here before");
         //transform LB and UB to center and radius:
         for (int i = 0; i < lowerData.size(); i++) {
             double lower = lowerData.get(i);
@@ -206,7 +200,6 @@ public class IntervalMLPCcode implements Forecastable {
             radiusData.add((upper - lower)/2);
         }
         
-        System.out.println("delegating");
         return forecastIntervalCenterRadius(centerData, radiusData, parameters);
     }
 
