@@ -1,6 +1,7 @@
 package utils;
 
 import java.util.List;
+import utils.imlp.Interval;
 
 public class ErrorMeasures {
     
@@ -104,6 +105,66 @@ public class ErrorMeasures {
         }
         
         return sum/realData.size();
+    }
+    
+    public static double coverage(Interval real, Interval forecast) {
+        double widthReal = real.getUpperBound() - real.getLowerBound();
+        return (widthIntersection(real, forecast) / widthReal) * 100;
+    }
+    
+    public static double efficiency(Interval real, Interval forecast) {
+        double widthForecast = forecast.getUpperBound() - forecast.getLowerBound();
+        return (widthIntersection(real, forecast) / widthForecast) * 100;
+    }
+    
+    public static double meanCoverage(List<Interval> realData, List<Interval> forecastData) {
+        double mean = 0;
+        
+        for (int i = 0; i < realData.size(); i++) {
+            mean += coverage(realData.get(i), forecastData.get(i));
+        }
+        
+        return mean/realData.size();
+    }
+    
+    public static double meanEfficiency(List<Interval> realData, List<Interval> forecastData) {
+        double mean = 0;
+        
+        for (int i = 0; i < realData.size(); i++) {
+            mean += efficiency(realData.get(i), forecastData.get(i));
+        }
+        
+        return mean/realData.size();
+    }
+    
+    private static double widthIntersection(Interval first, Interval second) {
+        System.out.print("intersection width for " + first.toString() + " and " + second.toString() + " = ");
+        
+        if ((first.getUpperBound() <= second.getLowerBound()) ||
+            (second.getUpperBound() <= first.getLowerBound())) { //non-overlapping intervals
+            System.out.println("0");
+            return 0;
+        }
+        
+        else if ((first.getLowerBound() >= second.getLowerBound()) && (first.getUpperBound() <= second.getUpperBound())) {
+            System.out.println((first.getUpperBound() - first.getLowerBound()));
+            return first.getUpperBound() - first.getLowerBound(); //the width of the 1st, because it is contained in the 2nd
+        }
+        
+        else if ((second.getLowerBound() >= first.getLowerBound()) && (second.getUpperBound() <= first.getUpperBound())) {
+            System.out.println((second.getUpperBound() - second.getLowerBound()));
+            return second.getUpperBound() - second.getLowerBound(); //the width of the 2nd, because it is contained in the 1st
+        }
+        
+        else if ((first.getLowerBound() <= second.getLowerBound()) && (first.getUpperBound() <= second.getUpperBound())) {
+            System.out.println((first.getUpperBound() - second.getLowerBound()));
+            return first.getUpperBound() - second.getLowerBound(); //overlap, 1st "more to the left"
+        }
+        
+        else { //(second.getLowerBound() <= first.getLowerBound()) && (second.getUpperBound() <= first.getUpperBound())
+            System.out.println((second.getUpperBound() - first.getLowerBound()));
+            return second.getUpperBound() - first.getLowerBound(); //overlap, 2nd "more to the left"
+        }
     }
     
 }
