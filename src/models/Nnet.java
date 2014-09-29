@@ -1,7 +1,6 @@
 package models;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -32,7 +31,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         final String SCALED_FIT = "scaled." + FIT;
         
         NnetParams params = (NnetParams) parameters;
-        TrainAndTestReport report = new TrainAndTestReport("nnet");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(nnet)");

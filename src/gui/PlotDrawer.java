@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
 import models.TrainAndTestReport;
+import models.TrainAndTestReportCrisp;
+import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import utils.Const;
@@ -15,7 +17,7 @@ public class PlotDrawer {
     //TODO generovat i legendu do toho vysledneho grafu!
     public static void drawPlots(int width, int height, List<Double> allDataCTS, boolean isCenterRadiusITS, 
                                  List<Double> firstITS, List<Double> secondITS, int numForecasts,
-                                 List<TrainAndTestReport> reportsCTS, List<TrainAndTestReport> reportsITS) {
+                                 List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS) {
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
         }
@@ -31,7 +33,7 @@ public class PlotDrawer {
         int colourNumber = 0;
         if (! reportsCTS.isEmpty()) { //plot CTS
             int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
-            String rangeY_CTS = getRangeY(allDataCTS, reportsCTS);
+            String rangeY_CTS = getRangeYCrisp(allDataCTS, reportsCTS);
             String rangeX = getRangeX(allDataCTS, numForecasts);
             
             boolean next = false;
@@ -68,8 +70,8 @@ public class PlotDrawer {
             }
             
             int numTrainingEntries_ITS = reportsITS.get(0).getNumTrainingEntries();
-            String rangeY_ITS_lower = getRangeY(lowerITS, reportsITS); //TODO change this! to something reasonable
-            String rangeY_ITS_upper = getRangeY(upperITS, reportsITS);
+            String rangeY_ITS_lower = getRangeYInterval(lowerITS, reportsITS); //TODO change this! to something reasonable
+            String rangeY_ITS_upper = getRangeYInterval(upperITS, reportsITS);
             String rangeY_ITS = "range(" + rangeY_ITS_lower + ", " + rangeY_ITS_upper + ")";
             String rangeX_lower = getRangeX(lowerITS, numForecasts);
             String rangeX_upper = getRangeX(upperITS, numForecasts);
@@ -181,10 +183,10 @@ public class PlotDrawer {
         "#C895C5", "#320033", "#FF6832", "#66E1D3", "#CFCDAC", "#D0AC94", "#7ED379", "#012C58" };
     
     
-    private static String getRangeY(List<Double> allData, List<TrainAndTestReport> reports) {
+    private static String getRangeYCrisp(List<Double> allData, List<TrainAndTestReportCrisp> reports) {
         StringBuilder rangesY = new StringBuilder("range(c(");
         boolean next = false;
-        for (TrainAndTestReport r : reports) {
+        for (TrainAndTestReportCrisp r : reports) {
             if (next) {
                 rangesY.append(", ");
             } else {
@@ -194,6 +196,32 @@ public class PlotDrawer {
             rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
             rangesY.append(Utils.minArray(r.getForecastValues())).append(", ");
             rangesY.append(Utils.maxArray(r.getForecastValues()));
+        }
+        //a zahrnut aj povodne data:
+        rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
+        rangesY.append("))");
+        
+        return rangesY.toString();
+    }
+    
+    //TODO potom vymysliet menej nechutne :/ mohlo by sa s tym dat pracovat jednotne
+    private static String getRangeYInterval(List<Double> allData, List<TrainAndTestReportInterval> reports) {
+        StringBuilder rangesY = new StringBuilder("range(c(");
+        boolean next = false;
+        for (TrainAndTestReportInterval r : reports) {
+            if (next) {
+                rangesY.append(", ");
+            } else {
+                next = true;
+            }
+            rangesY.append(Utils.minArray(r.getFittedValuesLowers())).append(", ");
+            rangesY.append(Utils.maxArray(r.getFittedValuesLowers())).append(", ");
+            rangesY.append(Utils.minArray(r.getFittedValuesUppers())).append(", ");
+            rangesY.append(Utils.maxArray(r.getFittedValuesUppers())).append(", ");
+            rangesY.append(Utils.minArray(r.getForecastValuesLowers())).append(", ");
+            rangesY.append(Utils.maxArray(r.getForecastValuesLowers())).append(", ");
+            rangesY.append(Utils.minArray(r.getForecastValuesUppers())).append(", ");
+            rangesY.append(Utils.maxArray(r.getForecastValuesUppers()));
         }
         //a zahrnut aj povodne data:
         rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));

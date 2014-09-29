@@ -2,13 +2,13 @@ package gui;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import models.TrainAndTestReport;
+import models.TrainAndTestReportCrisp;
 
 public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
     
-    private final List<TrainAndTestReport> reports;
+    private final List<TrainAndTestReportCrisp> reports;
     
-    public ErrorMeasuresTableModel_CTS(List<TrainAndTestReport> reports) {
+    public ErrorMeasuresTableModel_CTS(List<TrainAndTestReportCrisp> reports) {
         this.reports = reports;
     }
 

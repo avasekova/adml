@@ -3,14 +3,14 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrainAndTestReport {
+public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *Crisp fitted vals sa velmi podobaju, mohlo by sa s nimi
+    //                                       dat pracovat jednotne...
     
     private final String modelName;
     private List<Double> errorMeasures = new ArrayList<>(); //TODO Map<String, Double> fixne metriky pre vsetkych
+                                                            //resp. specialnu entitu na metriky crisp a interval (zvlast)
     private int numTrainingEntries;
     private String fittedValuesPlotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
-    private double[] fittedValues;
-    private double[] forecastValues = new double[] {};
     
     public TrainAndTestReport(String modelName) { 
         this.modelName = modelName;
@@ -42,21 +42,5 @@ public class TrainAndTestReport {
 
     public void setFittedValuesPlotCode(String forecastPlot) {
         this.fittedValuesPlotCode = forecastPlot;
-    }
-
-    public double[] getFittedValues() {
-        return fittedValues;
-    }
-
-    public void setFittedValues(double[] fittedValues) {
-        this.fittedValues = fittedValues;
-    }
-
-    public double[] getForecastValues() {
-        return forecastValues;
-    }
-
-    public void setForecastValues(double[] forecastValues) {
-        this.forecastValues = forecastValues;
     }
 }

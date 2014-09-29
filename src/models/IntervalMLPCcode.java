@@ -24,7 +24,7 @@ public class IntervalMLPCcode implements Forecastable {
 
     @Override
     public TrainAndTestReport forecastIntervalCenterRadius(List<Double> centerData, List<Double> radiusData, Params parameters) {
-        TrainAndTestReport report = new TrainAndTestReport("iMLP (C code)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP (C code)");
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*centerData.size());
@@ -166,10 +166,14 @@ public class IntervalMLPCcode implements Forecastable {
         List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, new WeightedEuclideanDistance(0.5));
         List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
         List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
-        //dummy vals for now! (in most cases) TODO opravit
-        report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
-        report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!
+        
+        report.setFittedValues(forecastsTrain);
+        report.setForecastValues(forecastsTest);
+        
+        //TODO plot
         report.setFittedValuesPlotCode("plot.ts(seq(" + centerData.size()/2 + ", " + centerData.size()/2 + ", length=" + centerData.size() + "))");  //a new dummy plot, yaay
+        
+        
         List<Double> errorMeasures = new ArrayList<>();
         errorMeasures.add(ErrorMeasures.ME(errorsTrain)); //ME train
         errorMeasures.add(ErrorMeasures.ME(errorsTest)); //ME test

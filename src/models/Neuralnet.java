@@ -7,8 +7,8 @@ import params.Params;
 public class Neuralnet implements Forecastable {
 
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
-        TrainAndTestReport report = new TrainAndTestReport("neuralnet");
+    public TrainAndTestReportCrisp forecast(List<Double> allData, Params parameters) {
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("neuralnet");
         
         return report;
     }

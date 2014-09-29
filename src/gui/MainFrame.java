@@ -16,6 +16,8 @@ import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
 import models.TrainAndTestReport;
+import models.TrainAndTestReportCrisp;
+import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.GDCanvas;
 import params.IntervalMLPCcodeParams;
 import params.NeuralnetParams;
@@ -1324,20 +1326,20 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
         //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
-        List<TrainAndTestReport> reportsCTS = new ArrayList<>();
-        List<TrainAndTestReport> reportsITS = new ArrayList<>();
+        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
+        List<TrainAndTestReportInterval> reportsITS = new ArrayList<>();
         
         if (checkBoxRunMLPnnetar.isSelected()) {
             NnetarParams params = getParamsNnetar();
             Forecastable nnetar = new Nnetar();
-            TrainAndTestReport report = nnetar.forecast(dataTableModel.getDataForColname(colname_CTS), params);
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(dataTableModel.getDataForColname(colname_CTS), params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunMLPneuralnet.isSelected()) {
             NeuralnetParams params = getParamsNeuralnet();
             Forecastable neuralnet = new Neuralnet();
-            TrainAndTestReport report = neuralnet.forecast(dataTableModel.getDataForColname(colname_CTS), params);
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(dataTableModel.getDataForColname(colname_CTS), params));
             reportsCTS.add(report);
         }
         
@@ -1345,24 +1347,26 @@ public class MainFrame extends javax.swing.JFrame {
             NnetParams params = getParamsNnet();
             Forecastable nnet = new Nnet();
             ((NnetParams) params).setInputs(dataTableModel.getDataForColname(((NnetParams) params).getInputColname()));
-            TrainAndTestReport report = nnet.forecast(dataTableModel.getDataForColname(colname_CTS), params);
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel.getDataForColname(colname_CTS), params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
             IntervalMLPCcodeParams params = getParamsIntervalMLPCcode();
             Forecastable cCode = new IntervalMLPCcode();
-            TrainAndTestReport report;
+            TrainAndTestReportInterval report;
             if (radioButtonRunCenterRadius.isSelected()) {
                 String center = comboBoxRunCenter.getSelectedItem().toString();
                 String radius = comboBoxRunRadius.getSelectedItem().toString();
-                report = cCode.forecastIntervalCenterRadius(dataTableModel.getDataForColname(center),
-                                                            dataTableModel.getDataForColname(radius), params);
+                report = (TrainAndTestReportInterval) (cCode.forecastIntervalCenterRadius(
+                                                            dataTableModel.getDataForColname(center),
+                                                            dataTableModel.getDataForColname(radius), params));
             } else {
                 String lower = comboBoxRunLower.getSelectedItem().toString();
                 String upper = comboBoxRunUpper.getSelectedItem().toString();
-                report = cCode.forecastIntervalLowerUpper(dataTableModel.getDataForColname(lower),
-                                                          dataTableModel.getDataForColname(upper), params);
+                report = (TrainAndTestReportInterval) (cCode.forecastIntervalLowerUpper(
+                                                          dataTableModel.getDataForColname(lower),
+                                                          dataTableModel.getDataForColname(upper), params));
             }
             
             reportsITS.add(report);
