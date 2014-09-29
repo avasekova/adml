@@ -13,5 +13,7 @@ public class Const {
     public static final String OUTPUT = "output";
     public static final String FIT = "fittedValues";
     public static final String COUNT = "count";
+    public static final String MIN = "min";
+    public static final String MAX = "max";
     
 }

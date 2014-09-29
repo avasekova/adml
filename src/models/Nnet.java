@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -10,16 +11,24 @@ import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 
-public class Nnet implements Forecastable {
+public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a jeden vystup! inak treba zovseobecnit kopu
+    //           veci, napr. scaling, a dalsie volania rengine
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
         final String INPUT = Const.INPUT + Utils.getCounter();
+        final String MIN_INPUT = Const.MIN + Utils.getCounter();
+        final String MAX_INPUT = Const.MAX + Utils.getCounter();
+        final String SCALED_INPUT = "scaled." + INPUT;
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
+        final String MIN_OUTPUT = Const.MIN + Utils.getCounter();
+        final String MAX_OUTPUT = Const.MAX + Utils.getCounter();
+        final String SCALED_OUTPUT = "scaled." + OUTPUT;
         final String NNETWORK = Const.NNETWORK + Utils.getCounter();
         final String TEST = Const.TEST + Utils.getCounter();
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
+        final String SCALED_FIT = "scaled." + FIT;
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReport report = new TrainAndTestReport("nnet");
@@ -40,7 +49,14 @@ public class Nnet implements Forecastable {
         rengine.assign(OUTPUT, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
         
-        rengine.eval(NNETWORK + " <- nnet(" + INPUT + ", " + OUTPUT + optionalParams + ", linout = TRUE)");
+        //scale the input first, so that we do not get the same value for all predictions:
+        rengine.eval(MIN_INPUT + " <- min(" + INPUT + ")");
+        rengine.eval(MAX_INPUT + " <- max(" + INPUT + ")");
+        rengine.eval(MIN_OUTPUT + " <- min(" + OUTPUT + ")");
+        rengine.eval(MAX_OUTPUT + " <- max(" + OUTPUT + ")");
+        rengine.eval(SCALED_INPUT + " <- (" + INPUT + " - " + MIN_INPUT + ")/(" + MAX_INPUT + " - " + MIN_INPUT + ")");
+        rengine.eval(SCALED_OUTPUT + " <- (" + OUTPUT + " - " + MIN_OUTPUT + ")/(" + MAX_OUTPUT + " - " + MIN_OUTPUT + ")");
+        rengine.eval(NNETWORK + " <- nnet(" + SCALED_INPUT + ", " + SCALED_OUTPUT + optionalParams + ", linout = TRUE)");
         //TODO potom tu nemat natvrdo linout!
         //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
 
@@ -77,11 +93,17 @@ public class Nnet implements Forecastable {
         report.setErrorMeasures(dummyErrorMeasures);
         
         rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
-        REXP getFittedVals = rengine.eval(FIT);
+        
+        //scale back the fitted values:
+        rengine.eval(SCALED_FIT + " <- " + FIT + " * (" + MAX_OUTPUT + " - " + MIN_OUTPUT + ") + " + MIN_OUTPUT);
+        REXP getFittedVals = rengine.eval(SCALED_FIT);
         double[] fitted = getFittedVals.asDoubleArray();
         report.setFittedValues(fitted);
+        System.out.println("" + Arrays.toString(fitted));
         
-        report.setFittedValuesPlotCode("plot.ts(" + FIT + ")");
+        report.setFittedValuesPlotCode("plot.ts(" + SCALED_FIT + ")");
+        
+               /*TODO zmazat!!!*/             report.setForecastValues(fitted); //iba zatial, aby kreslilo plot
         
         return report;
     }
