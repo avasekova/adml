@@ -193,6 +193,21 @@ public class Utils {
         return intervals;
     }
     
+    //riadne skareda, vrati v jednom dlhom liste najprv lower, potom upper, a treba ho sublistnut na prvu a druhu polku
+    public static List<Double> getLowersUppersFromCentersRadii(List<Double> centers, List<Double> radii) {
+        List<Double> lowers = new ArrayList<>();
+        List<Double> uppers = new ArrayList<>();
+
+        for (int i = 0; i < centers.size(); i++) {
+            lowers.add(centers.get(i) - radii.get(i));
+            uppers.add(centers.get(i) + radii.get(i));
+        }
+        
+        lowers.addAll(uppers);
+        
+        return lowers;
+    }
+    
     //hack from http://stackoverflow.com/a/11242648
     private static boolean isCompletelyWritten(File file) {
         try (RandomAccessFile stream = new RandomAccessFile(file, "rw")) {

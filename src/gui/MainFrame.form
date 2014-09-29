@@ -1390,9 +1390,8 @@
                                       <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="buttonTrainAndTest" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel44" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="448" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1454,8 +1453,6 @@
                                   <Component id="checkBoxRunIntervalMLPCcode" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunIntervalMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -1636,11 +1633,6 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonTrainAndTest.setEnabled(false);"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel44">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="(Warning: both options work, but for now, the plot is drawn based on the values selected in LB and UB)"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

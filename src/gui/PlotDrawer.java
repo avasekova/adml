@@ -13,8 +13,8 @@ import utils.Utils;
 public class PlotDrawer {
     
     //TODO generovat i legendu do toho vysledneho grafu!
-    public static void drawPlots(int width, int height, List<Double> allDataCTS, List<Double> lowerITS, List<Double> upperITS,
-                                 int numForecasts,
+    public static void drawPlots(int width, int height, List<Double> allDataCTS, boolean isCenterRadiusITS, 
+                                 List<Double> firstITS, List<Double> secondITS, int numForecasts,
                                  List<TrainAndTestReport> reportsCTS, List<TrainAndTestReport> reportsITS) {
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
@@ -55,6 +55,17 @@ public class PlotDrawer {
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
+            List<Double> lowerITS;
+            List<Double> upperITS;
+            if (isCenterRadiusITS) {
+                List<Double> lowersUppers = Utils.getLowersUppersFromCentersRadii(firstITS, secondITS);
+                lowerITS = lowersUppers.subList(0, lowersUppers.size()/2);
+                upperITS = lowersUppers.subList(lowersUppers.size()/2, lowersUppers.size());
+            } else {
+                lowerITS = firstITS;
+                upperITS = secondITS;
+            }
+            
             int numTrainingEntries_ITS = reportsITS.get(0).getNumTrainingEntries();
             String rangeY_ITS_lower = getRangeY(lowerITS, reportsITS); //TODO change this! to something reasonable
             String rangeY_ITS_upper = getRangeY(upperITS, reportsITS);

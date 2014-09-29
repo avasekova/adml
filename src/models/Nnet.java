@@ -76,21 +76,6 @@ public class Nnet implements Forecastable {
         dummyErrorMeasures.add(1.1);
         report.setErrorMeasures(dummyErrorMeasures);
         
-//        caller = Utils.getCleanRCaller();
-//        code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfData));
-//        code.addRCode(Const.ACC + " <- accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")");
-//
-//        caller.setRCode(code);
-//        caller.runAndReturnResult(Const.ACC);
-//
-//        double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
-//        //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
-//
-//        //dalo by sa aj maticu, ale momentalne mi staci ten list:
-//        //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
-//
-//        report.setErrorMeasures(Utils.arrayToList(acc));
-        
         rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
         REXP getFittedVals = rengine.eval(FIT);
         double[] fitted = getFittedVals.asDoubleArray();
@@ -110,6 +95,8 @@ public class Nnet implements Forecastable {
         
         if (params.getNumNodesHiddenLayer() != null) {
             optionalParams.append(", size = ").append(params.getNumNodesHiddenLayer());
+        } else {
+            optionalParams.append(", size = 1 ");
         }
         
         //Wts
