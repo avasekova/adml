@@ -30,7 +30,6 @@ public class Utils {
         List<Double> listDouble = new ArrayList<>();
         for (int i = 0; i < matrix.length; i++) { //matrix.length gives size in 1 dimension
             for (int j = 0; j < matrix[0].length; j++) {
-                System.out.println("[" + i + "," + j + "]: " + matrix[i][j]);
                 listDouble.add(matrix[i][j]);
             }
         }
@@ -161,12 +160,9 @@ public class Utils {
                 Interval interval = new IntervalCentreRadius(centre, radius);
                 forecasts.add(interval);
             }
-            System.out.println("here");
         } catch (IOException ex) {
             //Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        System.out.println(forecasts);
         
         return forecasts;
     }

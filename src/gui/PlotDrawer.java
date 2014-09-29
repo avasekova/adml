@@ -91,15 +91,15 @@ public class PlotDrawer {
                 colourNumber++;
             }
 
-            rengine.assign("allfg.lower", Utils.listToArray(lowerITS));
-            rengine.assign("allfg.upper", Utils.listToArray(upperITS));
+            rengine.assign("all.lower", Utils.listToArray(lowerITS));
+            rengine.assign("all.upper", Utils.listToArray(upperITS));
             
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(allfg.lower, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+            rengine.eval("plot.ts(all.lower, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(allfg.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-            rengine.eval("segments(1:" + lowerITS.size() + ", allfg.lower, 1:" + lowerITS.size() + ", allfg.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"black\")");
+            rengine.eval("plot.ts(all.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+            rengine.eval("segments(1:" + lowerITS.size() + ", all.lower, 1:" + lowerITS.size() + ", all.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"black\")");
             
             rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
             rengine.eval("abline(v = " + lowerITS.size() + ", lty = 3)");
