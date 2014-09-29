@@ -166,10 +166,10 @@ public class IntervalMLPCcode implements Forecastable {
         List<Interval> forecastsTrain = forecasts.subList(0, numTrainingEntries);
         List<Interval> forecastsTest = forecasts.subList(numTrainingEntries, forecasts.size());
         
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingPortionOfCenter, trainingPortionOfRadius, 
-                                                               forecastsTrain, new WeightedEuclideanDistance(0.5));
-        List<Double> errorsTest = Utils.getErrorsForIntervals(testingPortionOfCenter, testingPortionOfRadius,
-                                                              forecastsTest, new WeightedEuclideanDistance(0.5));
+        List<Interval> trainingIntervals = Utils.zipCentersRadiiToIntervals(trainingPortionOfCenter, trainingPortionOfRadius);
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, new WeightedEuclideanDistance(0.5));
+        List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
+        List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
         //dummy vals for now! (in most cases) TODO opravit
         report.setForecastValues(Utils.listToArray(radiusData)); //TODO change for real values!
         report.setFittedValues(Utils.listToArray(testingPortionOfRadius)); //TODO change for real values!
@@ -181,6 +181,10 @@ public class IntervalMLPCcode implements Forecastable {
         errorMeasures.add(ErrorMeasures.RMSE(errorsTest)); //RMSE test
         errorMeasures.add(ErrorMeasures.MAE(errorsTrain)); //MAE train
         errorMeasures.add(ErrorMeasures.MAE(errorsTest)); //MAE test
+        errorMeasures.add(ErrorMeasures.meanCoverage(trainingIntervals, forecastsTrain));
+        errorMeasures.add(ErrorMeasures.meanCoverage(testingIntervals, forecastsTest));
+        errorMeasures.add(ErrorMeasures.meanEfficiency(trainingIntervals, forecastsTrain));
+        errorMeasures.add(ErrorMeasures.meanEfficiency(testingIntervals, forecastsTest));
         report.setErrorMeasures(errorMeasures);
         
         

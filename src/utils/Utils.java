@@ -12,6 +12,7 @@ import javax.swing.JTextField;
 import utils.imlp.Distance;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
+import utils.imlp.IntervalLowerUpper;
 
 public class Utils {
     
@@ -170,16 +171,26 @@ public class Utils {
         return forecasts;
     }
     
-    public static List<Double> getErrorsForIntervals(List<Double> centersOrig, List<Double> radiiOrig, List<Interval> forecasts, Distance distanceMeasure) {
+    public static List<Double> getErrorsForIntervals(List<Interval> real, List<Interval> forecasts, Distance distanceMeasure) {
         List<Double> errors = new ArrayList<>();
         
         for (int i = 0; i < forecasts.size(); i++) {
-            Interval originalInterval = new IntervalCentreRadius(centersOrig.get(i), radiiOrig.get(i));
-            double error = distanceMeasure.getDistance(forecasts.get(i), originalInterval);
+            double error = distanceMeasure.getDistance(forecasts.get(i), real.get(i));
             errors.add(error);
         }
         
         return errors;
+    }
+    
+    public static List<Interval> zipCentersRadiiToIntervals(List<Double> centers, List<Double> radii) {
+        List<Interval> intervals = new ArrayList<>();
+        
+        for (int i = 0; i < centers.size(); i++) {
+            Interval interval = new IntervalLowerUpper(centers.get(i) - radii.get(i), centers.get(i) + radii.get(i));
+            intervals.add(interval);
+        }
+        
+        return intervals;
     }
     
     //hack from http://stackoverflow.com/a/11242648

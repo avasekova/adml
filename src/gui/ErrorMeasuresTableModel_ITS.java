@@ -19,7 +19,7 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4; //TODO zovseobecnit! zatial je to len na ME, RMSE, MAE; pridat viac ErrorMeasures
+        return 6; //TODO zovseobecnit! zatial je to len na ME, RMSE, MAE, cvg, eff; pridat viac ErrorMeasures?
     }
 
     @Override
@@ -42,6 +42,8 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
                     case 1: return "MDE";
                     case 2: return "RMSDE";
                     case 3: return "MADE";
+                    case 4: return "Mean coverage";
+                    case 5: return "Mean efficiency";
                 }
             } else {
                 if (rowIndex < reports.size() + 1) {

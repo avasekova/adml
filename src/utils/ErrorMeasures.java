@@ -113,7 +113,19 @@ public class ErrorMeasures {
     }
     
     public static double efficiency(Interval real, Interval forecast) {
+        //kvoli problemom s delenim nulou, ak je forecastInterval len cislo, tj radius nula:
+        if (forecast.getUpperBound() == forecast.getLowerBound()) {
+            if ((real.getLowerBound() <= forecast.getLowerBound()) &&
+                (real.getUpperBound() >= forecast.getLowerBound())) { //takze forecast je obsiahnuty
+                System.out.println("eff: " + forecast.getLowerBound() + " in " + real);
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        
         double widthForecast = forecast.getUpperBound() - forecast.getLowerBound();
+        System.out.println("eff: " + widthForecast + ", " + widthIntersection(real, forecast));
         return (widthIntersection(real, forecast) / widthForecast) * 100;
     }
     
@@ -134,35 +146,30 @@ public class ErrorMeasures {
             mean += efficiency(realData.get(i), forecastData.get(i));
         }
         
+        System.out.println("mean Eff: " + mean + ", " + mean/realData.size());
+        
         return mean/realData.size();
     }
     
     private static double widthIntersection(Interval first, Interval second) {
-        System.out.print("intersection width for " + first.toString() + " and " + second.toString() + " = ");
-        
         if ((first.getUpperBound() <= second.getLowerBound()) ||
             (second.getUpperBound() <= first.getLowerBound())) { //non-overlapping intervals
-            System.out.println("0");
             return 0;
         }
         
         else if ((first.getLowerBound() >= second.getLowerBound()) && (first.getUpperBound() <= second.getUpperBound())) {
-            System.out.println((first.getUpperBound() - first.getLowerBound()));
             return first.getUpperBound() - first.getLowerBound(); //the width of the 1st, because it is contained in the 2nd
         }
         
         else if ((second.getLowerBound() >= first.getLowerBound()) && (second.getUpperBound() <= first.getUpperBound())) {
-            System.out.println((second.getUpperBound() - second.getLowerBound()));
             return second.getUpperBound() - second.getLowerBound(); //the width of the 2nd, because it is contained in the 1st
         }
         
         else if ((first.getLowerBound() <= second.getLowerBound()) && (first.getUpperBound() <= second.getUpperBound())) {
-            System.out.println((first.getUpperBound() - second.getLowerBound()));
             return first.getUpperBound() - second.getLowerBound(); //overlap, 1st "more to the left"
         }
         
         else { //(second.getLowerBound() <= first.getLowerBound()) && (second.getUpperBound() <= first.getUpperBound())
-            System.out.println((second.getUpperBound() - first.getLowerBound()));
             return second.getUpperBound() - first.getLowerBound(); //overlap, 2nd "more to the left"
         }
     }

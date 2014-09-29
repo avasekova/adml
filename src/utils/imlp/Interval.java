@@ -9,7 +9,7 @@ public abstract class Interval {
     
     @Override
     public String toString() {
-        return "<" + getCentre() + ", " + getRadius() + ">";
+        return "[" + getLowerBound()+ ", " + getUpperBound()+ "]";
     }
     
 }
