@@ -2,7 +2,7 @@ package utils;
 
 public class ErrorMeasuresCrisp extends ErrorMeasures {
     
-    private static final String[] NAMES = new String[]{ "MPE", "MAPE", "MASE" };
+    private static final String[] NAMES = new String[]{ "MPE", "MAPE", "MASE", "Theil's U" };
     
     private double MPEtrain;
     private double MPEtest;
@@ -10,6 +10,8 @@ public class ErrorMeasuresCrisp extends ErrorMeasures {
     private double MAPEtest;
     private double MASEtrain;
     private double MASEtest;
+    private double theilUtrain;
+    private double theilUtest;
     
     public static int numberOfSupportedMeasures() {
         return NAMES.length + ErrorMeasures.numberOfSupportedMeasures();
@@ -71,6 +73,22 @@ public class ErrorMeasuresCrisp extends ErrorMeasures {
     public void setMASEtest(double MASEtest) {
         this.MASEtest = MASEtest;
     }
+
+    public double getTheilUtrain() {
+        return theilUtrain;
+    }
+
+    public void setTheilUtrain(double theilUtrain) {
+        this.theilUtrain = theilUtrain;
+    }
+
+    public double getTheilUtest() {
+        return theilUtest;
+    }
+
+    public void setTheilUtest(double theilUtest) {
+        this.theilUtest = theilUtest;
+    }
     
     @Override
     public double[] serializeToArray() {
@@ -86,7 +104,9 @@ public class ErrorMeasuresCrisp extends ErrorMeasures {
         measures[i] = MAPEtrain; i++;
         measures[i] = MAPEtest; i++;
         measures[i] = MASEtrain; i++;
-        measures[i] = MASEtest;
+        measures[i] = MASEtest; i++;
+        measures[i] = theilUtrain; i++;
+        measures[i] = theilUtest;
         
         return measures;
     }

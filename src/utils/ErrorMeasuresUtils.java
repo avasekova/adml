@@ -70,24 +70,11 @@ public class ErrorMeasuresUtils {
     }
     
     public static double RMSE(List<Double> errors) {
-        double sum = 0;
-        
-        for (double err : errors) {
-            sum += Math.pow(err,2);
-        }
-        
-        return Math.sqrt(sum/errors.size());
+        return Math.sqrt(MSE(errors));
     }
     
     public static double RMSE(List<Double> realData, List<Double> forecastData) {
-        double sum = 0;
-        
-        for (int i = 0; i < realData.size(); i++) {
-            double err = realData.get(i) - forecastData.get(i);
-            sum += Math.pow(err,2);
-        }
-        
-        return Math.sqrt(sum/realData.size());
+        return Math.sqrt(MSE(realData, forecastData));
     }
     
     public static double MASE(List<Double> realData, List<Double> forecastData) {
@@ -105,6 +92,44 @@ public class ErrorMeasuresUtils {
         }
         
         return sum/realData.size();
+    }
+    
+    public static double MSE(List<Double> errors) {
+        double sum = 0;
+        
+        for (double err : errors) {
+            sum += Math.pow(err,2);
+        }
+        
+        return sum/errors.size();
+    }
+    
+    public static double MSE(List<Double> realData, List<Double> forecastData) {
+        double sum = 0;
+        
+        for (int i = 0; i < realData.size(); i++) {
+            double err = realData.get(i) - forecastData.get(i);
+            sum += Math.pow(err,2);
+        }
+        
+        return sum/realData.size();
+    }
+    
+    public static double theilsU(List<Double> realData, List<Double> forecastData) {
+        double numerator = 0;
+        double denominator = 0;
+        
+        for (int i = 0; i < realData.size() - 1; i++) {
+            double aux = (forecastData.get(i+1) - realData.get(i+1))/realData.get(i);
+            numerator += Math.pow(aux,2);
+        }
+        
+        for (int i = 0; i < realData.size() - 1; i++) {
+            double aux = (realData.get(i+1) - realData.get(i))/realData.get(i);
+            denominator += Math.pow(aux,2);
+        }
+        
+        return Math.sqrt(numerator/denominator);
     }
     
     public static double coverage(Interval real, Interval forecast) {

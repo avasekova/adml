@@ -1,6 +1,5 @@
 package models;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -96,6 +95,10 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         errorMeasures.setMAPEtest(0.0);
         errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(trainingPortionOfData, Utils.arrayToList(fitted)));
         errorMeasures.setMASEtest(0.0);
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
+        errorMeasures.setMSEtest(0.0);
+        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setTheilUtest(42);
         report.setErrorMeasures(errorMeasures);
         
         report.setFittedValuesPlotCode("plot.ts(" + SCALED_FIT + ")");

@@ -139,6 +139,8 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
             errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
             errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
+            errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
+            errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
             errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainingIntervals, forecastsTrain));
             errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, forecastsTest));
             errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervals, forecastsTrain));

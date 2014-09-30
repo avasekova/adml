@@ -7,6 +7,7 @@ import params.NnetarParams;
 import params.Params;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -66,6 +67,10 @@ public class Nnetar implements Forecastable {
         errorMeasures.setMAPEtest(acc[9]);
         errorMeasures.setMASEtrain(acc[10]);
         errorMeasures.setMASEtest(acc[11]);
+        errorMeasures.setMSEtrain(0.0); //TODO
+        errorMeasures.setMSEtest(0.0); //TODO
+        errorMeasures.setTheilUtrain(42); //TODO
+        errorMeasures.setTheilUtest(42); //TODO
         
         report.setErrorMeasures(errorMeasures);
         
