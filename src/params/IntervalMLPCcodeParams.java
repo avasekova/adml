@@ -1,10 +1,14 @@
 package params;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.imlp.ExplanatoryVariable;
+
 public class IntervalMLPCcodeParams extends Params {
     
     private Integer numNodesHidden;
     private Integer numIterations;
-    private String explVarString;
+    private List<ExplanatoryVariable> explVars = new ArrayList<>();
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -22,11 +26,11 @@ public class IntervalMLPCcodeParams extends Params {
         this.numIterations = numIterations;
     }
 
-    public String getExplVarString() {
-        return explVarString;
+    public List<ExplanatoryVariable> getExplVars() {
+        return explVars;
     }
 
-    public void setExplVarString(String explVarString) {
-        this.explVarString = explVarString;
+    public void setExplVars(List<ExplanatoryVariable> explVars) {
+        this.explVars = explVars;
     }
 }

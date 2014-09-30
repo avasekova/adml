@@ -17,6 +17,11 @@ import utils.imlp.IntervalLowerUpper;
 public class Utils {
     
     private static int counter = 0;
+    private final static double EPSILON = 0.000001;
+    
+    public static boolean equalsDoubles(double value, double target) {
+        return ((value >= target*(1-EPSILON)) && (value <= target*(1+EPSILON)));
+    }
     
     public static List<Double> arrayToList(double[] array) {
         List<Double> listDouble = new ArrayList<>();
