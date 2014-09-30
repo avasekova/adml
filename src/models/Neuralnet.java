@@ -20,15 +20,4 @@ public class Neuralnet implements Forecastable {
         
         return optionalParams.toString();
     }
-
-    @Override
-    public TrainAndTestReport forecastIntervalCenterRadius(List<Double> centerData, List<Double> radiusData, Params parameters) {
-        throw new UnsupportedOperationException("Not supported for crisp data.");
-    }
-
-    @Override
-    public TrainAndTestReport forecastIntervalLowerUpper(List<Double> lowerData, List<Double> upperData, Params parameters) {
-        throw new UnsupportedOperationException("Not supported for crisp data.");
-    }
-    
 }

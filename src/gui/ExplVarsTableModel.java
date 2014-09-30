@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import utils.imlp.ExplanatoryVariable;
@@ -65,5 +66,7 @@ public class ExplVarsTableModel extends AbstractTableModel {
         return "(NA)";
     }
     
-    
+    public List<ExplanatoryVariable> getVariables() {
+        return Collections.unmodifiableList(variables);
+    }
 }

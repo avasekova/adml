@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import utils.imlp.OutputVariable;
@@ -63,4 +64,7 @@ public class OutVarsTableModel extends AbstractTableModel {
         return "(NA)";
     }
     
+    public List<OutputVariable> getVariables() {
+        return Collections.unmodifiableList(variables);
+    }
 }

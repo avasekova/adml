@@ -1433,6 +1433,10 @@
                                           </Group>
                                       </Group>
                                   </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -1453,8 +1457,9 @@
                                       <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="buttonTrainAndTest" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="448" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1466,43 +1471,6 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="comboBoxColnamesRun" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
-                              <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labelLower" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunLower" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelUpper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunUpper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
-                                  <Component id="radioButtonRunLBUB" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="radioButtonRunCenterRadius" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labelCenter" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunCenter" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="labelRadius" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunRadius" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                          </Group>
-                          <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -1516,10 +1484,55 @@
                                   <Component id="checkBoxRunIntervalMLPCcode" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunIntervalMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jSeparator1" alignment="0" min="-2" pref="221" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel42" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxColnamesRun" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                                      <Component id="jLabel43" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="labelLower" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxRunLower" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelUpper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxRunUpper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
+                                          <Component id="radioButtonRunLBUB" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="radioButtonRunCenterRadius" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="labelCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxRunCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="labelRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxRunRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jLabelTrainingInfo" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelSummary" max="32767" attributes="0"/>
@@ -1609,6 +1622,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioButtonRunLBUB">
+              <Properties>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunLBUBActionPerformed"/>
               </Events>
@@ -1616,6 +1632,7 @@
             <Component class="javax.swing.JRadioButton" name="radioButtonRunCenterRadius">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunCenterRadiusActionPerformed"/>
@@ -1652,6 +1669,7 @@
             <Component class="javax.swing.JLabel" name="labelCenter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Center:"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunCenter">
@@ -1659,11 +1677,13 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelRadius">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Radius:"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunRadius">
@@ -1671,6 +1691,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel46">
@@ -1696,6 +1717,22 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonTrainAndTest.setEnabled(false);"/>
               </AuxValues>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel35">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="(Explanatory and output variables need to be set in Settings.)"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel37">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="TODO check that at least one expl var and one out var is given"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
