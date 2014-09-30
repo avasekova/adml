@@ -21,10 +21,9 @@ public class ExplVarsTableModel extends AbstractTableModel {
         this.fireTableRowsInserted(variables.size() - 1, variables.size() - 1);
     }
     
-    public void removeVariable(ExplanatoryVariable var) {
-        int row = variables.indexOf(var);
+    public void removeRow(int row) {
         if (row > -1) {
-            variables.remove(var);
+            variables.remove(row);
             this.fireTableRowsDeleted(row, row);
         }
     }

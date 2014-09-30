@@ -861,6 +861,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonIMLPRemoveExplVar.setText("Remove selected");
         buttonIMLPRemoveExplVar.setEnabled(false);
+        buttonIMLPRemoveExplVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIMLPRemoveExplVarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelSettingsIntervalMLPModeCcodeLayout = new javax.swing.GroupLayout(panelSettingsIntervalMLPModeCcode);
         panelSettingsIntervalMLPModeCcode.setLayout(panelSettingsIntervalMLPModeCcodeLayout);
@@ -1535,6 +1540,10 @@ public class MainFrame extends javax.swing.JFrame {
         dialogAddExplVar.setColnames(dataTableModel.getColnames());
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonIMLPAddExplVarActionPerformed
+
+    private void buttonIMLPRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPRemoveExplVarActionPerformed
+        ((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).removeRow(tableiMLPSettingsExplVars.getSelectedRow());
+    }//GEN-LAST:event_buttonIMLPRemoveExplVarActionPerformed
     
     /**
      * @param args the command line arguments
