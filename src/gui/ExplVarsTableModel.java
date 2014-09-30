@@ -8,15 +8,25 @@ import utils.imlp.ExplanatoryVariable;
 public class ExplVarsTableModel extends AbstractTableModel {
     
     private List<ExplanatoryVariable> variables = new ArrayList<>();
+    private final String[] columnNames = new String[]{ "Name", "At time", "", "" };
     
     public void addVariable(ExplanatoryVariable var) {
         if (! variables.contains(var)) {
+            if ("".equals(var.getName())) {
+                var.setName("Variable" + (variables.size() + 1));
+            }
             variables.add(var);
         }
+        
+        this.fireTableRowsInserted(variables.size() - 1, variables.size() - 1);
     }
     
     public void removeVariable(ExplanatoryVariable var) {
-        variables.remove(var);
+        int row = variables.indexOf(var);
+        if (row > -1) {
+            variables.remove(var);
+            this.fireTableRowsDeleted(row, row);
+        }
     }
 
     @Override
@@ -27,6 +37,11 @@ public class ExplVarsTableModel extends AbstractTableModel {
     @Override
     public int getColumnCount() {
         return 4;
+    }
+    
+    @Override
+    public String getColumnName(int columnIndex) {
+        return columnNames[columnIndex];
     }
     
     @Override
@@ -41,11 +56,11 @@ public class ExplVarsTableModel extends AbstractTableModel {
             case 0:
                 return var.getName();
             case 1:
-                return var.getFirst();
+                return "(t-" + var.getLag() + ")";
             case 2:
-                return var.getSecond();
+                return var.getFirst();
             case 3:
-                return var.getLag();
+                return var.getSecond();
         }
         
         return "(NA)";
