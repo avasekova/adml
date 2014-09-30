@@ -15,7 +15,6 @@ import models.IntervalMLPCcode;
 import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
-import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.GDCanvas;
@@ -484,6 +483,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel11.setText("(not enabled yet)");
 
         jLabel12.setText("Number of nodes in the (single) hidden layer:");
+
+        paramNnet_numNodesHiddenLayer.setText("1");
 
         jLabel13.setText("Initial parameter vector:");
 
