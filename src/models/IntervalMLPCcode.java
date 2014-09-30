@@ -82,7 +82,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             fw.newLine();
             fw.write("nco(" + params.getNumIterations() + ")");
             fw.newLine();
-            fw.write("wd(0.001)");
+            fw.write("wd(0.00001)");
             fw.newLine();
             fw.write("ftrain(train.dat)");
             fw.newLine();
@@ -103,17 +103,6 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-//        List<Interval> forecasts = Utils.getForecastsFromOutFile(new File("config.out"));
-//        List<Interval> forecastsTrain = forecasts.subList(0, numTrainingEntries);
-//        List<Interval> forecastsTest = forecasts.subList(numTrainingEntries, forecasts.size());
-//        
-//        List<Interval> trainingIntervals = Utils.zipCentersRadiiToIntervals(trainingPortionOfCenter, trainingPortionOfRadius);
-//        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, new WeightedEuclideanDistance(0.5));
-//        List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
-//        List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
-//        
-//        report.setFittedValues(forecastsTrain);
-//        report.setForecastValues(forecastsTest);
         
         //zatial dummy
         report.setFittedValues(new ArrayList<Interval>());
@@ -124,16 +113,38 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
-//        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
-//        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
-//        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
-//        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
-//        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
-//        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
-//        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainingIntervals, forecastsTrain));
-//        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, forecastsTest));
-//        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervals, forecastsTrain));
-//        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
+        
+        //TODO potom zmenit!
+        if (params.getOutVars().size() == 1) {
+            List<Interval> forecasts = Utils.getForecastsFromOutFile(new File("config.out"));
+            List<Interval> forecastsTrain = forecasts.subList(0, numTrainingEntries);
+            List<Interval> forecastsTest = forecasts.subList(numTrainingEntries, forecasts.size());
+            
+            List<Double> trainingPortionOfCenter = data.get(data.size() - 2).subList(0, numTrainingEntries);
+            List<Double> testingPortionOfCenter = data.get(data.size() - 2).subList(numTrainingEntries, data.get(data.size() - 2).size());
+            List<Double> trainingPortionOfRadius = data.get(data.size() - 1).subList(0, numTrainingEntries);
+            List<Double> testingPortionOfRadius = data.get(data.size() - 1).subList(numTrainingEntries, data.get(data.size() - 1).size());
+            
+            List<Interval> trainingIntervals = Utils.zipCentersRadiiToIntervals(trainingPortionOfCenter, trainingPortionOfRadius);
+            List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, new WeightedEuclideanDistance(0.5));
+            List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
+            List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
+
+            report.setFittedValues(forecastsTrain);
+            report.setForecastValues(forecastsTest);
+
+            errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
+            errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
+            errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
+            errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
+            errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
+            errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
+            errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainingIntervals, forecastsTrain));
+            errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, forecastsTest));
+            errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervals, forecastsTrain));
+            errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
+        }
+        
         report.setErrorMeasures(errorMeasures);
         
         return report;

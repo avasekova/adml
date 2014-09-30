@@ -178,6 +178,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonTrainAndTest = new javax.swing.JButton();
         jLabel35 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1079,7 +1080,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel43.setText("ITS:");
 
-        radioButtonRunLBUB.setEnabled(false);
         radioButtonRunLBUB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonRunLBUBActionPerformed(evt);
@@ -1087,7 +1087,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         radioButtonRunCenterRadius.setSelected(true);
-        radioButtonRunCenterRadius.setEnabled(false);
         radioButtonRunCenterRadius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonRunCenterRadiusActionPerformed(evt);
@@ -1107,16 +1106,12 @@ public class MainFrame extends javax.swing.JFrame {
         comboBoxRunUpper.setEnabled(false);
 
         labelCenter.setText("Center:");
-        labelCenter.setEnabled(false);
 
         comboBoxRunCenter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxRunCenter.setEnabled(false);
 
         labelRadius.setText("Radius:");
-        labelRadius.setEnabled(false);
 
         comboBoxRunRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxRunRadius.setEnabled(false);
 
         jLabel46.setText("Data:");
 
@@ -1136,6 +1131,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel37.setForeground(new java.awt.Color(255, 0, 0));
         jLabel37.setText("TODO check that at least one expl var and one out var is given");
+
+        jLabel44.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel44.setText("(This is just for plotting. TO BE CHANGED.)");
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
@@ -1188,7 +1186,9 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addComponent(comboBoxRunRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(comboBoxRunUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(jLabel35)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel44)
+                                    .addComponent(jLabel35))
                                 .addGap(4, 4, 4)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1264,7 +1264,9 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addComponent(comboBoxRunRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addComponent(jLabelTrainingInfo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel35)))
+                        .addComponent(jLabel35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel44)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1677,6 +1679,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

@@ -1434,7 +1434,10 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -1532,6 +1535,8 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel35" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel44" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1622,9 +1627,6 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioButtonRunLBUB">
-              <Properties>
-                <Property name="enabled" type="boolean" value="false"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunLBUBActionPerformed"/>
               </Events>
@@ -1632,7 +1634,6 @@
             <Component class="javax.swing.JRadioButton" name="radioButtonRunCenterRadius">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunCenterRadiusActionPerformed"/>
@@ -1669,7 +1670,6 @@
             <Component class="javax.swing.JLabel" name="labelCenter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Center:"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunCenter">
@@ -1677,13 +1677,11 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelRadius">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Radius:"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunRadius">
@@ -1691,7 +1689,6 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel46">
@@ -1732,6 +1729,14 @@
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="TODO check that at least one expl var and one out var is given"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel44">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="33" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="(This is just for plotting. TO BE CHANGED.)"/>
               </Properties>
             </Component>
           </SubComponents>
