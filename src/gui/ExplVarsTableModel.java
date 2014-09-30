@@ -16,9 +16,9 @@ public class ExplVarsTableModel extends AbstractTableModel {
                 var.setName("Variable" + (variables.size() + 1));
             }
             variables.add(var);
+            
+            this.fireTableRowsInserted(variables.size() - 1, variables.size() - 1);
         }
-        
-        this.fireTableRowsInserted(variables.size() - 1, variables.size() - 1);
     }
     
     public void removeRow(int row) {
@@ -35,7 +35,7 @@ public class ExplVarsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return columnNames.length;
     }
     
     @Override

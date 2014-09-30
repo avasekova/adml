@@ -25,6 +25,7 @@ import params.NnetarParams;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.ExplanatoryVariable;
+import utils.imlp.OutputVariable;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -132,7 +133,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel36 = new javax.swing.JLabel();
         textFieldIntervalMLPCcodeNumNeurons = new javax.swing.JTextField();
         jLabel33 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         textFieldIntervalMLPCcodeNumIterations = new javax.swing.JTextField();
         jLabel39 = new javax.swing.JLabel();
@@ -143,6 +143,8 @@ public class MainFrame extends javax.swing.JFrame {
         tableiMLPSettingsOutVars = new javax.swing.JTable();
         buttonIMLPAddExplVar = new javax.swing.JButton();
         buttonIMLPRemoveExplVar = new javax.swing.JButton();
+        buttonIMLPAddOutVar = new javax.swing.JButton();
+        buttonIMLPRemoveOutVar = new javax.swing.JButton();
         panelSettingsIntervalMLPModeNeuralnet = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -832,9 +834,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel33.setText("Output variables:");
 
-        jLabel37.setText("(For now, disabled. Only performs with ITS at (t).)");
-        jLabel37.setEnabled(false);
-
         jLabel38.setText("Number of iterations:");
 
         textFieldIntervalMLPCcodeNumIterations.setText("500");
@@ -867,6 +866,20 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonIMLPAddOutVar.setText("Add");
+        buttonIMLPAddOutVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIMLPAddOutVarActionPerformed(evt);
+            }
+        });
+
+        buttonIMLPRemoveOutVar.setText("Remove selected");
+        buttonIMLPRemoveOutVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIMLPRemoveOutVarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelSettingsIntervalMLPModeCcodeLayout = new javax.swing.GroupLayout(panelSettingsIntervalMLPModeCcode);
         panelSettingsIntervalMLPModeCcode.setLayout(panelSettingsIntervalMLPModeCcodeLayout);
         panelSettingsIntervalMLPModeCcodeLayout.setHorizontalGroup(
@@ -877,29 +890,30 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(scrollPaneiMLPSettingsOutVars)
                         .addComponent(scrollPaneiMLPSettingsExplVars, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                                .addComponent(jLabel34)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonIMLPAddExplVar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonIMLPRemoveExplVar))
-                            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                                .addComponent(jLabel38)
-                                .addGap(142, 142, 142)
-                                .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
+                            .addComponent(jLabel34)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonIMLPAddExplVar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonIMLPRemoveExplVar))
+                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
+                            .addComponent(jLabel38)
+                            .addGap(142, 142, 142)
+                            .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
                             .addComponent(jLabel39)
                             .addGap(147, 147, 147)
                             .addComponent(jLabel40)))
                     .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel36)
-                            .addComponent(jLabel33))
+                        .addComponent(jLabel36)
                         .addGap(18, 18, 18)
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel37)
-                            .addComponent(textFieldIntervalMLPCcodeNumNeurons, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(textFieldIntervalMLPCcodeNumNeurons, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
+                        .addComponent(jLabel33)
+                        .addGap(31, 31, 31)
+                        .addComponent(buttonIMLPAddOutVar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonIMLPRemoveOutVar)))
                 .addContainerGap(454, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPModeCcodeLayout.setVerticalGroup(
@@ -919,7 +933,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
-                    .addComponent(jLabel37))
+                    .addComponent(buttonIMLPAddOutVar)
+                    .addComponent(buttonIMLPRemoveOutVar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollPaneiMLPSettingsOutVars, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -930,7 +945,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
                     .addComponent(jLabel40))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(158, Short.MAX_VALUE))
         );
 
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeCcode, "panelSettingsIntervalMLPModeCcode");
@@ -1544,6 +1559,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonIMLPRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPRemoveExplVarActionPerformed
         ((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).removeRow(tableiMLPSettingsExplVars.getSelectedRow());
     }//GEN-LAST:event_buttonIMLPRemoveExplVarActionPerformed
+
+    private void buttonIMLPAddOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPAddOutVarActionPerformed
+        DialogAddOutputVarCcode dialogAddOutVar = new DialogAddOutputVarCcode(this, true);
+        dialogAddOutVar.setColnames(dataTableModel.getColnames());
+        dialogAddOutVar.setVisible(true);
+    }//GEN-LAST:event_buttonIMLPAddOutVarActionPerformed
+
+    private void buttonIMLPRemoveOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPRemoveOutVarActionPerformed
+        ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).removeRow(tableiMLPSettingsOutVars.getSelectedRow());
+    }//GEN-LAST:event_buttonIMLPRemoveOutVarActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1582,7 +1607,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup_RunCenterRadiusLBUB;
     private javax.swing.ButtonGroup buttonGroup_paramsNnetExclusive;
     private javax.swing.JButton buttonIMLPAddExplVar;
+    private javax.swing.JButton buttonIMLPAddOutVar;
     private javax.swing.JButton buttonIMLPRemoveExplVar;
+    private javax.swing.JButton buttonIMLPRemoveOutVar;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotITS;
@@ -1630,7 +1657,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -1801,5 +1827,9 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void addToExplVarsTableModel(ExplanatoryVariable var) {
         ((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).addVariable(var);
+    }
+    
+    public void addToOutVarsTableModel(OutputVariable var) {
+        ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).addVariable(var);
     }
 }
