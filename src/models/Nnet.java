@@ -95,7 +95,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(trainingPortionOfData, Utils.arrayToList(fitted)));
         errorMeasures.setMAPEtest(0.0);
         errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMASEtest(1.0);
+        errorMeasures.setMASEtest(0.0);
         report.setErrorMeasures(errorMeasures);
         
         report.setFittedValuesPlotCode("plot.ts(" + SCALED_FIT + ")");

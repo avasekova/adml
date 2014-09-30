@@ -1,7 +1,5 @@
 package utils;
 
-import static utils.ErrorMeasuresInterval.numberOfSupportedMeasures;
-
 public class ErrorMeasuresCrisp extends ErrorMeasures {
     
     private static final String[] NAMES = new String[]{ "MPE", "MAPE", "MASE" };
@@ -79,7 +77,7 @@ public class ErrorMeasuresCrisp extends ErrorMeasures {
         double[] measures = new double[numberOfSupportedMeasures()*2 + ErrorMeasures.numberOfSupportedMeasures()*2];
         
         int i;
-        for (i = 0; i < ErrorMeasures.numberOfSupportedMeasures(); i++) {
+        for (i = 0; i < ErrorMeasures.numberOfSupportedMeasures()*2; i++) {
             measures[i] = super.serializeToArray()[i];
         }
         

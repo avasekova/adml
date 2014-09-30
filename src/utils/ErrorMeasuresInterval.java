@@ -59,7 +59,7 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
         double[] measures = new double[numberOfSupportedMeasures()*2 + ErrorMeasures.numberOfSupportedMeasures()*2];
         
         int i;
-        for (i = 0; i < ErrorMeasures.numberOfSupportedMeasures(); i++) {
+        for (i = 0; i < ErrorMeasures.numberOfSupportedMeasures()*2; i++) {
             measures[i] = super.serializeToArray()[i];
         }
         
