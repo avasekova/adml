@@ -44,14 +44,14 @@ public class PlotDrawer {
                 }
 
                 StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
-                plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", col=\"" + COLOURS[colourNumber] + "\"");
+                plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
                 rengine.eval(plotCode.toString());
                 colourNumber++;
             }
 
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", col=\"#444444\")");
+            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=2, col=\"#444444\")");
             rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
             rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)");
         }
@@ -72,28 +72,28 @@ public class PlotDrawer {
                     next = true;
                 }
                 
-                //naplotovat realne data:
+                //naplotovat fitted values:
+                //TODO neskor plotovat samozrejme aj forecast values!
+                rengine.assign("lower", r.getFittedValuesLowers());
+                rengine.assign("upper", r.getFittedValuesUppers());
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("par(new=TRUE)");
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", lower, 1:" + NUM_REAL_ENTRIES + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                
+                colourNumber++;
+                
+                rengine.eval("par(new=TRUE)");
+                
+                //a na ne naplotovat realne data:
                 rengine.assign("all.lower", Utils.listToArray(r.getRealValuesLowers()));
                 rengine.assign("all.upper", Utils.listToArray(r.getRealValuesUppers()));
 
                 //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
-                rengine.eval("plot.ts(all.lower, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", all.lower, 1:" + NUM_REAL_ENTRIES + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=1, col=\"#444444\")");
-                
-                rengine.eval("par(new=TRUE)");
-                
-                //na ne naplotovat fitted values:
-                //TODO neskor plotovat samozrejme aj forecast values!
-                rengine.assign("lower", r.getFittedValuesLowers());
-                rengine.assign("upper", r.getFittedValuesUppers());
-                rengine.eval("plot.ts(lower, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-                rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", lower, 1:" + NUM_REAL_ENTRIES + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=3, col=\"" + COLOURS[colourNumber] + "\")");
-                
-                colourNumber++;
+                rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", all.lower, 1:" + NUM_REAL_ENTRIES + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=2, col=\"#444444\")");
             }
             
             rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST

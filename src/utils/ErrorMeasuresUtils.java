@@ -140,10 +140,10 @@ public class ErrorMeasuresUtils {
     
     public static double efficiency(Interval real, Interval forecast) {
         //kvoli problemom s delenim nulou, ak je forecastInterval len cislo, tj radius nula:
-        if (forecast.getUpperBound() == forecast.getLowerBound()) {
+        if (Utils.equalsDoubles(forecast.getUpperBound(), forecast.getLowerBound())) {
             if ((real.getLowerBound() <= forecast.getLowerBound()) &&
                 (real.getUpperBound() >= forecast.getLowerBound())) { //takze forecast je obsiahnuty
-                return 1;
+                return 100;
             } else {
                 return 0;
             }
