@@ -1421,7 +1421,6 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonTrainAndTest" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1459,8 +1458,6 @@
                                   <Component id="checkBoxRunIntervalMLPCcode" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunIntervalMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel37" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jLabelTrainingInfo" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jSeparator1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
@@ -1572,14 +1569,6 @@
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonTrainAndTest.setEnabled(false);"/>
               </AuxValues>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel37">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="TODO check that at least one expl var and one out var is given"/>
-              </Properties>
             </Component>
           </SubComponents>
         </Container>

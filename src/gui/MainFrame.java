@@ -9,6 +9,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import models.Forecastable;
 import models.ForecastableIntervals;
@@ -165,7 +166,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         buttonTrainAndTest = new javax.swing.JButton();
-        jLabel37 = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1083,9 +1083,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel37.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel37.setText("TODO check that at least one expl var and one out var is given");
-
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1125,7 +1122,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(checkBoxRunIntervalMLPCcode)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunIntervalMLPneuralnet))
-                            .addComponent(jLabel37)
                             .addComponent(buttonTrainAndTest))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -1153,9 +1149,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunIntervalMLPCcode)
-                            .addComponent(checkBoxRunIntervalMLPneuralnet))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel37))
+                            .addComponent(checkBoxRunIntervalMLPneuralnet)))
                     .addComponent(jLabelTrainingInfo)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(8, 8, 8)
@@ -1322,10 +1316,15 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
-            IntervalMLPCcodeParams params = getParamsIntervalMLPCcode();
-            ForecastableIntervals cCode = new IntervalMLPCcode();
-            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, params));
-            reportsITS.add(report);
+            if (((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables().isEmpty() ||
+                ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "At least one explanatory and one output variable need to be selected for the iMLP C code to run.");
+            } else {
+                IntervalMLPCcodeParams params = getParamsIntervalMLPCcode();
+                ForecastableIntervals cCode = new IntervalMLPCcode();
+                TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, params));
+                reportsITS.add(report);
+            }
         }
         
         
@@ -1521,7 +1520,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
