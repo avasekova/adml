@@ -146,6 +146,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonIMLPRemoveExplVar = new javax.swing.JButton();
         buttonIMLPAddOutVar = new javax.swing.JButton();
         buttonIMLPRemoveOutVar = new javax.swing.JButton();
+        jLabel45 = new javax.swing.JLabel();
         panelSettingsIntervalMLPModeNeuralnet = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -871,6 +872,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         buttonIMLPAddOutVar.setText("Add");
+        buttonIMLPAddOutVar.setEnabled(false);
         buttonIMLPAddOutVar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonIMLPAddOutVarActionPerformed(evt);
@@ -878,11 +880,15 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         buttonIMLPRemoveOutVar.setText("Remove selected");
+        buttonIMLPRemoveOutVar.setEnabled(false);
         buttonIMLPRemoveOutVar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonIMLPRemoveOutVarActionPerformed(evt);
             }
         });
+
+        jLabel45.setText("(Only one variable allowed. Can be extended to more.)");
+        jLabel45.setEnabled(false);
 
         javax.swing.GroupLayout panelSettingsIntervalMLPModeCcodeLayout = new javax.swing.GroupLayout(panelSettingsIntervalMLPModeCcode);
         panelSettingsIntervalMLPModeCcode.setLayout(panelSettingsIntervalMLPModeCcodeLayout);
@@ -917,7 +923,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(31, 31, 31)
                         .addComponent(buttonIMLPAddOutVar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonIMLPRemoveOutVar)))
+                        .addComponent(buttonIMLPRemoveOutVar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel45)))
                 .addContainerGap(454, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPModeCcodeLayout.setVerticalGroup(
@@ -938,18 +946,19 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel33)
                     .addComponent(buttonIMLPAddOutVar)
-                    .addComponent(buttonIMLPRemoveOutVar))
+                    .addComponent(buttonIMLPRemoveOutVar)
+                    .addComponent(jLabel45))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPaneiMLPSettingsOutVars, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(scrollPaneiMLPSettingsOutVars, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel38)
                     .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(18, 18, 18)
+                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel39)
                     .addComponent(jLabel40))
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeCcode, "panelSettingsIntervalMLPModeCcode");
@@ -1190,7 +1199,6 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel44)
                                     .addComponent(jLabel35))
                                 .addGap(4, 4, 4)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1370,6 +1378,8 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonPlotITS.setEnabled(true);
                         buttonIMLPAddExplVar.setEnabled(true);
                         buttonIMLPRemoveExplVar.setEnabled(true);
+                        buttonIMLPAddOutVar.setEnabled(true);
+                        buttonIMLPRemoveOutVar.setEnabled(true);
                     }
 //                    break;
 //                case JFileChooser.CANCEL_OPTION:
@@ -1576,10 +1586,14 @@ public class MainFrame extends javax.swing.JFrame {
         DialogAddOutputVarCcode dialogAddOutVar = new DialogAddOutputVarCcode(this, true);
         dialogAddOutVar.setColnames(dataTableModel.getColnames());
         dialogAddOutVar.setVisible(true);
+        buttonIMLPAddOutVar.setEnabled(false);
     }//GEN-LAST:event_buttonIMLPAddOutVarActionPerformed
 
     private void buttonIMLPRemoveOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPRemoveOutVarActionPerformed
         ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).removeRow(tableiMLPSettingsOutVars.getSelectedRow());
+        if (((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
+            buttonIMLPAddOutVar.setEnabled(true);
+        }
     }//GEN-LAST:event_buttonIMLPRemoveOutVarActionPerformed
     
     /**
@@ -1679,6 +1693,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
+    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;

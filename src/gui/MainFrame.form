@@ -1151,6 +1151,8 @@
                                               <Component id="buttonIMLPAddOutVar" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="buttonIMLPRemoveOutVar" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace pref="454" max="32767" attributes="0"/>
@@ -1178,20 +1180,21 @@
                                           <Component id="jLabel33" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="buttonIMLPAddOutVar" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="buttonIMLPRemoveOutVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel45" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="scrollPaneiMLPSettingsOutVars" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <Component id="scrollPaneiMLPSettingsOutVars" min="-2" pref="47" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldIntervalMLPCcodeNumIterations" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel38" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="textFieldIntervalMLPCcodeNumIterations" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="158" max="32767" attributes="0"/>
+                                      <EmptySpace pref="186" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1288,6 +1291,7 @@
                             <Component class="javax.swing.JButton" name="buttonIMLPAddOutVar">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Add"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIMLPAddOutVarActionPerformed"/>
@@ -1296,10 +1300,17 @@
                             <Component class="javax.swing.JButton" name="buttonIMLPRemoveOutVar">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Remove selected"/>
+                                <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonIMLPRemoveOutVarActionPerformed"/>
                               </Events>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel45">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="(Only one variable allowed. Can be extended to more.)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
                             </Component>
                           </SubComponents>
                         </Container>
