@@ -1236,14 +1236,6 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxColnamesRun.addItem(colname);
                         paramNnet_comboBoxColnamesInput.addItem(colname);
                         paramNnet_comboBoxColnamesOutput.addItem(colname);
-                        
-                        //add explanatory variables to combo in iMLP C code settings
-//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t)");
-//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t - 1)");
-//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t - 2)");
-//                        comboBoxIntervalMLPExplVar1.addItem(colname + "(t - 12)");
-                        //TODO think about how to specify the lag. you cannot possibly list everything. and what about
-                        //     other types of seasonality - weekly, monthly seasonal data, etc.
                     }
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);

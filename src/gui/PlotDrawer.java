@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.List;
-import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
@@ -36,7 +35,7 @@ public class PlotDrawer {
             String rangeX = getRangeXCrisp(allDataCTS, numForecasts);
             
             boolean next = false;
-            for (TrainAndTestReport r : reportsCTS) {
+            for (TrainAndTestReportCrisp r : reportsCTS) {
                 if (next) {
                     rengine.eval("par(new=TRUE)");
                 } else {

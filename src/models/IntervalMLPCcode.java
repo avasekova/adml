@@ -108,9 +108,6 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         report.setFittedValues(new ArrayList<Interval>());
         report.setFittedValues(new ArrayList<Interval>());
         
-        //TODO plot
-        report.setFittedValuesPlotCode("plot.ts(seq(1,170))");  //a new dummy plot, yaay
-        
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         
