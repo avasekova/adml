@@ -1378,7 +1378,6 @@ public class MainFrame extends javax.swing.JFrame {
 //            }
 //        }
         
-        //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_menuFileLoadActionPerformed
 
     private void menuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExitActionPerformed
