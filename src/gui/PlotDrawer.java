@@ -15,8 +15,7 @@ import utils.Utils;
 public class PlotDrawer {
     
     //TODO generovat i legendu do toho vysledneho grafu!
-    public static void drawPlots(int width, int height, List<Double> allDataCTS, boolean isCenterRadiusITS, 
-                                 List<Double> firstITS, List<Double> secondITS, int numForecasts,
+    public static void drawPlots(int width, int height, List<Double> allDataCTS, int numForecasts,
                                  List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS) {
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
@@ -34,7 +33,7 @@ public class PlotDrawer {
         if (! reportsCTS.isEmpty()) { //plot CTS
             int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
             String rangeY_CTS = getRangeYCrisp(allDataCTS, reportsCTS);
-            String rangeX = getRangeX(allDataCTS, numForecasts);
+            String rangeX = getRangeXCrisp(allDataCTS, numForecasts);
             
             boolean next = false;
             for (TrainAndTestReport r : reportsCTS) {
@@ -52,31 +51,19 @@ public class PlotDrawer {
 
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ")");
+            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", col=\"#444444\")");
             rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
             rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)");
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
-            List<Double> lowerITS;
-            List<Double> upperITS;
-            if (isCenterRadiusITS) {
-                List<Double> lowersUppers = Utils.getLowersUppersFromCentersRadii(firstITS, secondITS);
-                lowerITS = lowersUppers.subList(0, lowersUppers.size()/2);
-                upperITS = lowersUppers.subList(lowersUppers.size()/2, lowersUppers.size());
-            } else {
-                lowerITS = firstITS;
-                upperITS = secondITS;
-            }
-            
+            //first go through all the reports to find a common rangeX and rangeY for the one big plot:
             int numTrainingEntries_ITS = reportsITS.get(0).getNumTrainingEntries();
-            String rangeY_ITS_lower = getRangeYInterval(lowerITS, reportsITS); //TODO change this! to something reasonable
-            String rangeY_ITS_upper = getRangeYInterval(upperITS, reportsITS);
-            String rangeY_ITS = "range(" + rangeY_ITS_lower + ", " + rangeY_ITS_upper + ")";
-            String rangeX_lower = getRangeX(lowerITS, numForecasts);
-            String rangeX_upper = getRangeX(upperITS, numForecasts);
-            String rangeX = "range(" + rangeX_lower + ", " + rangeX_upper + ")";
+            final int NUM_REAL_ENTRIES = reportsITS.get(0).getRealValuesLowers().size();
+            String rangeY_ITS = getRangeYInterval(reportsITS);
+            String rangeX_ITS = getRangeXInterval(reportsITS, numForecasts);
             
+            //the plot all reports, the underlying data first! and then the fitted and forecasted vals:
             boolean next = false;
             for (TrainAndTestReportInterval r : reportsITS) {
                 if (next) {
@@ -84,30 +71,33 @@ public class PlotDrawer {
                 } else {
                     next = true;
                 }
+                
+                //naplotovat realne data:
+                rengine.assign("all.lower", Utils.listToArray(r.getRealValuesLowers()));
+                rengine.assign("all.upper", Utils.listToArray(r.getRealValuesUppers()));
 
+                //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
+                rengine.eval("plot.ts(all.lower, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("par(new=TRUE)");
+                rengine.eval("plot.ts(all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", all.lower, 1:" + NUM_REAL_ENTRIES + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=1, col=\"#444444\")");
+                
+                rengine.eval("par(new=TRUE)");
+                
+                //na ne naplotovat fitted values:
                 //TODO neskor plotovat samozrejme aj forecast values!
                 rengine.assign("lower", r.getFittedValuesLowers());
                 rengine.assign("upper", r.getFittedValuesUppers());
-                rengine.eval("plot.ts(lower, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("plot.ts(lower, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-                rengine.eval("segments(1:" + lowerITS.size() + ", lower, 1:" + lowerITS.size() + ", upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"" + COLOURS[colourNumber] + "\")");
+                rengine.eval("plot.ts(upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", col=\"white\")");
+                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", lower, 1:" + NUM_REAL_ENTRIES + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=3, col=\"" + COLOURS[colourNumber] + "\")");
                 
                 colourNumber++;
             }
-
-            rengine.assign("all.lower", Utils.listToArray(lowerITS));
-            rengine.assign("all.upper", Utils.listToArray(upperITS));
-            
-            //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
-            rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.lower, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-            rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"white\")");
-            rengine.eval("segments(1:" + lowerITS.size() + ", all.lower, 1:" + lowerITS.size() + ", all.upper, xlim = " + rangeX + ", ylim = " + rangeY_ITS + ", col=\"black\")");
             
             rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
-            rengine.eval("abline(v = " + lowerITS.size() + ", lty = 3)");
+            rengine.eval("abline(v = " + NUM_REAL_ENTRIES + ", lty = 3)");
         }
 
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
@@ -170,6 +160,9 @@ public class PlotDrawer {
     //alebo tu su nejake farby: od zaciatku si z nich brat, a mali by byt vzdy dost vzdialene
     
     private static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
+        "magenta",
+        "blue",
+        "green3",
         "#42E99D", //tyrkysova
         "#FF7A4B", //oranzova
         "#EA0D5B", //ruzova
@@ -202,8 +195,7 @@ public class PlotDrawer {
         return rangesY.toString();
     }
     
-    //TODO potom vymysliet menej nechutne :/ mohlo by sa s tym dat pracovat jednotne
-    private static String getRangeYInterval(List<Double> allData, List<TrainAndTestReportInterval> reports) {
+    private static String getRangeYInterval(List<TrainAndTestReportInterval> reports) {
         StringBuilder rangesY = new StringBuilder("range(c(");
         boolean next = false;
         for (TrainAndTestReportInterval r : reports) {
@@ -220,15 +212,38 @@ public class PlotDrawer {
             rangesY.append(Utils.maxArray(r.getForecastValuesLowers())).append(", ");
             rangesY.append(Utils.minArray(r.getForecastValuesUppers())).append(", ");
             rangesY.append(Utils.maxArray(r.getForecastValuesUppers()));
+            
+            //a zahrnut aj povodne data:
+            List<Double> realDataLower = r.getRealValuesLowers();
+            List<Double> realDataUpper = r.getRealValuesUppers();
+            rangesY.append(", ").append(Utils.minList(realDataLower)).append(", ").append(Utils.maxList(realDataLower));
+            rangesY.append(", ").append(Utils.minList(realDataUpper)).append(", ").append(Utils.maxList(realDataUpper));
         }
-        //a zahrnut aj povodne data:
-        rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
+        
         rangesY.append("))");
         
         return rangesY.toString();
     }
     
-    private static String getRangeX(List<Double> allData, int numForecasts) {
+    private static String getRangeXCrisp(List<Double> allData, int numForecasts) {
         return "range(c(0, " + (allData.size() + numForecasts) + "))";
+    }
+    
+    private static String getRangeXInterval(List<TrainAndTestReportInterval> reports, int numForecasts) {
+        StringBuilder rangesX = new StringBuilder("range(c(0, ");
+        boolean next = false;
+        for (TrainAndTestReportInterval r : reports) {
+            if (next) {
+                rangesX.append(", ");
+            } else {
+                next = true;
+            }
+            
+            rangesX.append((r.getRealValuesLowers().size() + numForecasts));
+        }
+        
+        rangesX.append("))");
+        
+        return rangesX.toString();
     }
 }
