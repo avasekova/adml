@@ -8,9 +8,11 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileFilter;
 import models.Forecastable;
 import models.ForecastableIntervals;
 import models.IntervalMLPCcode;
@@ -121,8 +123,6 @@ public class MainFrame extends javax.swing.JFrame {
         sliderPercentTrain = new javax.swing.JSlider();
         textFieldPercentTrain = new javax.swing.JTextField();
         jLabelPercentSign = new javax.swing.JLabel();
-        paneSettingsMethodsARIMA = new javax.swing.JPanel();
-        jLabelARIMA = new javax.swing.JLabel();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         sliderPercentTrainIntervalMLP = new javax.swing.JSlider();
@@ -151,6 +151,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         comboBoxIntervalMLPMode = new javax.swing.JComboBox();
+        paneSettingsMethodsARIMA = new javax.swing.JPanel();
+        jLabelARIMA = new javax.swing.JLabel();
+        paneSettingsMethodsKNN = new javax.swing.JPanel();
+        jLabel35 = new javax.swing.JLabel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -771,27 +775,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("MLP", paneSettingsMethodsMLP);
 
-        jLabelARIMA.setText("(TODO)");
-
-        javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
-        paneSettingsMethodsARIMA.setLayout(paneSettingsMethodsARIMALayout);
-        paneSettingsMethodsARIMALayout.setHorizontalGroup(
-            paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelARIMA)
-                .addContainerGap(1037, Short.MAX_VALUE))
-        );
-        paneSettingsMethodsARIMALayout.setVerticalGroup(
-            paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelARIMA)
-                .addContainerGap(525, Short.MAX_VALUE))
-        );
-
-        paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
-
         jLabel28.setText("Portion of data to use for training:");
 
         sliderPercentTrainIntervalMLP.setMaximum(99);
@@ -1021,6 +1004,48 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         paneSettingsMethods.addTab("iMLP", paneSettingsMethodsIntervalMLP);
+
+        jLabelARIMA.setText("(TODO)");
+
+        javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
+        paneSettingsMethodsARIMA.setLayout(paneSettingsMethodsARIMALayout);
+        paneSettingsMethodsARIMALayout.setHorizontalGroup(
+            paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelARIMA)
+                .addContainerGap(1037, Short.MAX_VALUE))
+        );
+        paneSettingsMethodsARIMALayout.setVerticalGroup(
+            paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelARIMA)
+                .addContainerGap(525, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
+
+        jLabel35.setText("(TODO)");
+
+        javax.swing.GroupLayout paneSettingsMethodsKNNLayout = new javax.swing.GroupLayout(paneSettingsMethodsKNN);
+        paneSettingsMethodsKNN.setLayout(paneSettingsMethodsKNNLayout);
+        paneSettingsMethodsKNNLayout.setHorizontalGroup(
+            paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel35)
+                .addContainerGap(1037, Short.MAX_VALUE))
+        );
+        paneSettingsMethodsKNNLayout.setVerticalGroup(
+            paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel35)
+                .addContainerGap(525, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("kNN", paneSettingsMethodsKNN);
 
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
@@ -1511,6 +1536,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
@@ -1540,6 +1566,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane paneSettingsMethods;
     private javax.swing.JPanel paneSettingsMethodsARIMA;
     private javax.swing.JPanel paneSettingsMethodsIntervalMLP;
+    private javax.swing.JPanel paneSettingsMethodsKNN;
     private javax.swing.JPanel paneSettingsMethodsMLP;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
