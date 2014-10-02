@@ -12,10 +12,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileFilter;
 import models.Forecastable;
 import models.ForecastableIntervals;
 import models.IntervalMLPCcode;
+import models.KNN;
 import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
@@ -23,6 +25,7 @@ import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.GDCanvas;
 import params.IntervalMLPCcodeParams;
+import params.KNNParams;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
@@ -119,6 +122,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         paramNnet_reltol = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
+        jLabel44 = new javax.swing.JLabel();
         jLabelPercTrain = new javax.swing.JLabel();
         sliderPercentTrain = new javax.swing.JSlider();
         textFieldPercentTrain = new javax.swing.JTextField();
@@ -154,7 +158,12 @@ public class MainFrame extends javax.swing.JFrame {
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         jLabelARIMA = new javax.swing.JLabel();
         paneSettingsMethodsKNN = new javax.swing.JPanel();
+        jLabel37 = new javax.swing.JLabel();
+        sliderPercentTrainKNN = new javax.swing.JSlider();
+        textFieldPercentTrainKNN = new javax.swing.JTextField();
         jLabel35 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        spinnerKNNnumNeighbours = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -170,6 +179,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         buttonTrainAndTest = new javax.swing.JButton();
+        checkBoxRunKNN = new javax.swing.JCheckBox();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -554,6 +564,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel29.setForeground(new java.awt.Color(255, 0, 0));
         jLabel29.setText("TODO: choose data for prediction");
 
+        jLabel44.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel44.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel44.setText("TODO move this to Run!");
+
         javax.swing.GroupLayout panelSettingsMLPPackage_nnetLayout = new javax.swing.GroupLayout(panelSettingsMLPPackage_nnet);
         panelSettingsMLPPackage_nnet.setLayout(panelSettingsMLPPackage_nnetLayout);
         panelSettingsMLPPackage_nnetLayout.setHorizontalGroup(
@@ -616,11 +631,14 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(paramNnet_comboBoxColnamesOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel11)
-                                .addGap(197, 197, 197)
                                 .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel29)
-                                    .addComponent(jLabel25))))
+                                    .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addGap(197, 197, 197)
+                                        .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel29)
+                                            .addComponent(jLabel25)))
+                                    .addComponent(jLabel44))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
                         .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -641,7 +659,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel8)
                     .addComponent(paramNnet_comboBoxColnamesInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(paramNnet_comboBoxColnamesOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(paramNnet_comboBoxColnamesOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel44))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -764,10 +783,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabelPercTrain))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textFieldPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabelPercentSign)))
+                        .addComponent(jLabelPercentSign))
+                    .addComponent(sliderPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1026,23 +1045,65 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
 
-        jLabel35.setText("(TODO)");
+        jLabel37.setText("Portion of data to use for training:");
+
+        sliderPercentTrainKNN.setMaximum(99);
+        sliderPercentTrainKNN.setMinimum(1);
+        sliderPercentTrainKNN.setPaintTicks(true);
+        sliderPercentTrainKNN.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderPercentTrainKNNStateChanged(evt);
+            }
+        });
+
+        textFieldPercentTrainKNN.setText("" + sliderPercentTrainKNN.getValue());
+        textFieldPercentTrainKNN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldPercentTrainKNNActionPerformed(evt);
+            }
+        });
+
+        jLabel35.setText("%");
+
+        jLabel46.setText("Number of neighbours considered:");
 
         javax.swing.GroupLayout paneSettingsMethodsKNNLayout = new javax.swing.GroupLayout(paneSettingsMethodsKNN);
         paneSettingsMethodsKNN.setLayout(paneSettingsMethodsKNNLayout);
         paneSettingsMethodsKNNLayout.setHorizontalGroup(
             paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel35)
-                .addContainerGap(1037, Short.MAX_VALUE))
+                .addGroup(paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
+                        .addGap(153, 153, 153)
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sliderPercentTrainKNN, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldPercentTrainKNN, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel35))
+                    .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel46)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spinnerKNNnumNeighbours, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(415, Short.MAX_VALUE))
         );
         paneSettingsMethodsKNNLayout.setVerticalGroup(
             paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel35)
-                .addContainerGap(525, Short.MAX_VALUE))
+                .addGroup(paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textFieldPercentTrainKNN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel35))
+                    .addComponent(sliderPercentTrainKNN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel37))
+                .addGap(8, 8, 8)
+                .addGroup(paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(spinnerKNNnumNeighbours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(480, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("kNN", paneSettingsMethodsKNN);
@@ -1108,6 +1169,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        checkBoxRunKNN.setText("kNN");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1136,18 +1199,20 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunIntervalMLPCcode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunIntervalMLPneuralnet))
+                            .addComponent(buttonTrainAndTest)
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunMLPnnetar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunMLPneuralnet)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunMLPnnet)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunARIMA))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(checkBoxRunIntervalMLPCcode)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunIntervalMLPneuralnet))
-                            .addComponent(buttonTrainAndTest))
+                                .addComponent(checkBoxRunARIMA)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunKNN)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1170,7 +1235,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxRunMLPnnetar)
                             .addComponent(checkBoxRunMLPneuralnet)
                             .addComponent(checkBoxRunMLPnnet)
-                            .addComponent(checkBoxRunARIMA))
+                            .addComponent(checkBoxRunARIMA)
+                            .addComponent(checkBoxRunKNN))
                         .addGap(67, 67, 67)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunIntervalMLPCcode)
@@ -1344,6 +1410,12 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
+        if (checkBoxRunKNN.isSelected()) {
+            KNNParams params = getParamsKNN();
+            Forecastable kNN = new KNN();
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            reportsCTS.add(report);
+        }
         
         //add more methods/models here
         
@@ -1454,6 +1526,19 @@ public class MainFrame extends javax.swing.JFrame {
             buttonIMLPAddOutVar.setEnabled(true);
         }
     }//GEN-LAST:event_buttonIMLPRemoveOutVarActionPerformed
+
+    private void sliderPercentTrainKNNStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainKNNStateChanged
+        textFieldPercentTrainKNN.setText("" + sliderPercentTrainKNN.getValue());
+    }//GEN-LAST:event_sliderPercentTrainKNNStateChanged
+
+    private void textFieldPercentTrainKNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainKNNActionPerformed
+        try {
+            int val = Integer.parseInt(textFieldPercentTrainKNN.getText());
+            sliderPercentTrainKNN.setValue(val);
+        } catch (NumberFormatException e) {
+            //TODO log
+        }
+    }//GEN-LAST:event_textFieldPercentTrainKNNActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1501,6 +1586,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
+    private javax.swing.JCheckBox checkBoxRunKNN;
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnetar;
@@ -1538,6 +1624,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel4;
@@ -1545,7 +1632,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -1608,12 +1697,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPaneiMLPSettingsOutVars;
     private javax.swing.JSlider sliderPercentTrain;
     private javax.swing.JSlider sliderPercentTrainIntervalMLP;
+    private javax.swing.JSlider sliderPercentTrainKNN;
+    private javax.swing.JSpinner spinnerKNNnumNeighbours;
     private javax.swing.JTable tableiMLPSettingsExplVars;
     private javax.swing.JTable tableiMLPSettingsOutVars;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
     private javax.swing.JTextField textFieldPercentTrain;
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
+    private javax.swing.JTextField textFieldPercentTrainKNN;
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
@@ -1688,6 +1780,16 @@ public class MainFrame extends javax.swing.JFrame {
         params.setNumIterations(Integer.parseInt(textFieldIntervalMLPCcodeNumIterations.getText()));
         params.setExplVars(((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
         params.setOutVars(((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
+        
+        return params;
+    }
+    
+    private KNNParams getParamsKNN() {
+        KNNParams params = new KNNParams();
+        
+        //zohnat vsetky parametre pre dany model:
+        params.setPercentTrain(sliderPercentTrainKNN.getValue());
+        params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighbours.getValue().toString()));
         
         return params;
     }

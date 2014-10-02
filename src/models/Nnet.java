@@ -55,6 +55,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         rengine.eval(MIN_OUTPUT + " <- min(" + OUTPUT + ")");
         rengine.eval(MAX_OUTPUT + " <- max(" + OUTPUT + ")");
         rengine.eval(SCALED_INPUT + " <- (" + INPUT + " - " + MIN_INPUT + ")/(" + MAX_INPUT + " - " + MIN_INPUT + ")");
+        //TODO skontrolovat vsetky tieto scaling mnamky
         rengine.eval(SCALED_OUTPUT + " <- (" + OUTPUT + " - " + MIN_OUTPUT + ")/(" + MAX_OUTPUT + " - " + MIN_OUTPUT + ")");
         rengine.eval(NNETWORK + " <- nnet(" + SCALED_INPUT + ", " + SCALED_OUTPUT + optionalParams + ", linout = TRUE)");
         //TODO potom tu nemat natvrdo linout!

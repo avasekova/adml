@@ -15,5 +15,6 @@ public class Const {
     public static final String COUNT = "count";
     public static final String MIN = "min";
     public static final String MAX = "max";
+    public static final String NEIGHBOURS = "neighbours";
     
 }

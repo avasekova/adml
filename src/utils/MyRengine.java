@@ -24,6 +24,12 @@ public class MyRengine extends Rengine {
             //change the default destination for drawing with JavaGD //TODO always update when refactoring...
             re.eval("Sys.setenv('JAVAGD_CLASS_NAME'='utils/MyJavaGD')"); //pozor! je to setenv, nie putenv
             
+            //adding my own functions:
+            re.eval("MLPtoR.scale <- function(x) { (x - min(x))/(max(x) - min(x)) }");
+            re.eval("MLPtoR.unscale <- function(x,y) { x * (max(y) - min(y)) + min(y) }");
+            
+            //add more functions here
+            
             instance = new MyRengine();
         }
         
