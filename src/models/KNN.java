@@ -6,7 +6,6 @@ import org.rosuda.JRI.Rengine;
 import params.KNNParams;
 import params.Params;
 import utils.Const;
-import utils.ErrorMeasures;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
@@ -36,7 +35,7 @@ public class KNN implements Forecastable {
         final String RESIDUALS_TEST = "residuals." + OUTPUT_TEST;
         
         KNNParams params = (KNNParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN");
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(FNN)");

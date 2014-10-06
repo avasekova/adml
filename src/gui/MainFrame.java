@@ -8,16 +8,15 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.filechooser.FileFilter;
 import models.Forecastable;
 import models.ForecastableIntervals;
 import models.IntervalMLPCcode;
 import models.KNN;
+import models.MLPint;
 import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
@@ -127,6 +126,13 @@ public class MainFrame extends javax.swing.JFrame {
         sliderPercentTrain = new javax.swing.JSlider();
         textFieldPercentTrain = new javax.swing.JTextField();
         jLabelPercentSign = new javax.swing.JLabel();
+        paneSettingsMethodsMLPint = new javax.swing.JPanel();
+        jLabel47 = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
+        jLabelPercTrain1 = new javax.swing.JLabel();
+        sliderPercentTrainMLPint = new javax.swing.JSlider();
+        textFieldPercentTrainMLPint = new javax.swing.JTextField();
+        jLabelPercentSign1 = new javax.swing.JLabel();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         sliderPercentTrainIntervalMLP = new javax.swing.JSlider();
@@ -180,6 +186,14 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         buttonTrainAndTest = new javax.swing.JButton();
         checkBoxRunKNN = new javax.swing.JCheckBox();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        comboBoxRunMLPintCenter = new javax.swing.JComboBox();
+        comboBoxRunMLPintRadius = new javax.swing.JComboBox();
+        jLabel52 = new javax.swing.JLabel();
+        checkBoxRunMLPint = new javax.swing.JCheckBox();
+        jLabel53 = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -794,6 +808,76 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("MLP", paneSettingsMethodsMLP);
 
+        jLabel47.setText("Imitates iMLP by constructing an interval out of two separate forecasts for Center and Radius.");
+
+        jLabel48.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel48.setText("TODO add parameters. For now, uses parameters from MLP (nnetar).");
+
+        jLabelPercTrain1.setText("Portion of data to use for training:");
+        jLabelPercTrain1.setEnabled(false);
+
+        sliderPercentTrainMLPint.setMaximum(99);
+        sliderPercentTrainMLPint.setMinimum(1);
+        sliderPercentTrainMLPint.setPaintTicks(true);
+        sliderPercentTrainMLPint.setEnabled(false);
+        sliderPercentTrainMLPint.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderPercentTrainMLPintStateChanged(evt);
+            }
+        });
+
+        textFieldPercentTrain.setText("" + sliderPercentTrain.getValue());
+        textFieldPercentTrainMLPint.setEnabled(false);
+        textFieldPercentTrainMLPint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldPercentTrainMLPintActionPerformed(evt);
+            }
+        });
+
+        jLabelPercentSign1.setText("%");
+        jLabelPercentSign1.setEnabled(false);
+
+        javax.swing.GroupLayout paneSettingsMethodsMLPintLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLPint);
+        paneSettingsMethodsMLPint.setLayout(paneSettingsMethodsMLPintLayout);
+        paneSettingsMethodsMLPintLayout.setHorizontalGroup(
+            paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel47)
+                            .addComponent(jLabel48)))
+                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                        .addGap(184, 184, 184)
+                        .addComponent(jLabelPercTrain1)
+                        .addGap(18, 18, 18)
+                        .addComponent(sliderPercentTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldPercentTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPercentSign1)))
+                .addContainerGap(370, Short.MAX_VALUE))
+        );
+        paneSettingsMethodsMLPintLayout.setVerticalGroup(
+            paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelPercTrain1)
+                    .addComponent(sliderPercentTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textFieldPercentTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelPercentSign1)))
+                .addGap(69, 69, 69)
+                .addComponent(jLabel48)
+                .addContainerGap(400, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("MLP(i)", paneSettingsMethodsMLPint);
+
         jLabel28.setText("Portion of data to use for training:");
 
         sliderPercentTrainIntervalMLP.setMaximum(99);
@@ -1171,6 +1255,25 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunKNN.setText("kNN");
 
+        jLabel49.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel49.setText("MLP(i):");
+
+        jLabel50.setText("Center:");
+
+        jLabel51.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel51.setText("TODO enable to specify LB/UB");
+
+        comboBoxRunMLPintCenter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+
+        comboBoxRunMLPintRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+
+        jLabel52.setText("Radius:");
+
+        checkBoxRunMLPint.setText("MLP(i)");
+
+        jLabel53.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel53.setText("for now, uses nnetar (set up exactly as nnetar in Settings) TODO change!");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1181,16 +1284,31 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel41)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(jLabel42))
-                            .addComponent(jLabel43))
-                        .addGap(28, 28, 28)
-                        .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel41)
+                                            .addComponent(jLabel43))
+                                        .addGap(42, 42, 42))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(jLabel42)
+                                        .addGap(26, 26, 26)))
+                                .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel50)
+                                    .addComponent(jLabel49)
+                                    .addComponent(jLabel52))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(13, 13, 13)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGap(211, 211, 211)
+                                .addGap(80, 80, 80)
                                 .addComponent(jLabelTrainingInfo)
                                 .addGap(16, 16, 16))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
@@ -1198,10 +1316,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(checkBoxRunIntervalMLPCcode)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunIntervalMLPneuralnet))
                             .addComponent(buttonTrainAndTest)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunMLPnnetar)
@@ -1212,7 +1326,15 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunARIMA)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBoxRunKNN)))
+                                .addComponent(checkBoxRunKNN))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunIntervalMLPCcode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunIntervalMLPneuralnet))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunMLPint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel53)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -1222,29 +1344,47 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(checkBoxRunMLPnnetar)
+                                    .addComponent(checkBoxRunMLPneuralnet)
+                                    .addComponent(checkBoxRunMLPnnet)
+                                    .addComponent(checkBoxRunARIMA)
+                                    .addComponent(checkBoxRunKNN))
+                                .addGap(33, 33, 33)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(checkBoxRunMLPint)
+                                    .addComponent(jLabel53))
+                                .addGap(37, 37, 37)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(checkBoxRunIntervalMLPCcode)
+                                    .addComponent(checkBoxRunIntervalMLPneuralnet)))
+                            .addComponent(jLabelTrainingInfo)
+                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(8, 8, 8)
+                        .addComponent(buttonTrainAndTest))
+                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel42)
                             .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
-                        .addComponent(jLabel43))
-                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                        .addGap(25, 25, 25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkBoxRunMLPnnetar)
-                            .addComponent(checkBoxRunMLPneuralnet)
-                            .addComponent(checkBoxRunMLPnnet)
-                            .addComponent(checkBoxRunARIMA)
-                            .addComponent(checkBoxRunKNN))
-                        .addGap(67, 67, 67)
+                            .addComponent(jLabel49)
+                            .addComponent(jLabel51))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkBoxRunIntervalMLPCcode)
-                            .addComponent(checkBoxRunIntervalMLPneuralnet)))
-                    .addComponent(jLabelTrainingInfo)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(8, 8, 8)
-                .addComponent(buttonTrainAndTest)
+                            .addComponent(jLabel50)
+                            .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel52))
+                        .addGap(13, 13, 13)
+                        .addComponent(jLabel43)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1327,6 +1467,8 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxColnamesRun.addItem(colname);
                         paramNnet_comboBoxColnamesInput.addItem(colname);
                         paramNnet_comboBoxColnamesOutput.addItem(colname);
+                        comboBoxRunMLPintCenter.addItem(colname);
+                        comboBoxRunMLPintRadius.addItem(colname);
                     }
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
@@ -1415,6 +1557,21 @@ public class MainFrame extends javax.swing.JFrame {
             Forecastable kNN = new KNN();
             TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel.getDataForColname(colname_CTS), params));
             reportsCTS.add(report);
+        }
+        
+        if (checkBoxRunMLPint.isSelected()) {
+            String colnameCenter = comboBoxRunMLPintCenter.getSelectedItem().toString();
+            String colnameRadius = comboBoxRunMLPintRadius.getSelectedItem().toString();
+            //run two separate forecasts, one for Center and the other for Radius
+            NnetarParams params = getParamsNnetar(); //TODO for now!
+            Forecastable mlpInt = new MLPint();
+            
+            List<Double> data = new ArrayList<>();
+            data.addAll(dataTableModel.getDataForColname(colnameCenter));
+            data.addAll(dataTableModel.getDataForColname(colnameRadius));
+            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(data, params));
+            
+            reportsITS.add(report);
         }
         
         //add more methods/models here
@@ -1539,6 +1696,19 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO log
         }
     }//GEN-LAST:event_textFieldPercentTrainKNNActionPerformed
+
+    private void sliderPercentTrainMLPintStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainMLPintStateChanged
+        textFieldPercentTrainMLPint.setText("" + sliderPercentTrainMLPint.getValue());
+    }//GEN-LAST:event_sliderPercentTrainMLPintStateChanged
+
+    private void textFieldPercentTrainMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainMLPintActionPerformed
+        try {
+            int val = Integer.parseInt(textFieldPercentTrainMLPint.getText());
+            sliderPercentTrainMLPint.setValue(val);
+        } catch (NumberFormatException e) {
+            //TODO log
+        }
+    }//GEN-LAST:event_textFieldPercentTrainMLPintActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1587,6 +1757,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunKNN;
+    private javax.swing.JCheckBox checkBoxRunMLPint;
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnetar;
@@ -1594,6 +1765,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxIntervalMLPMode;
     private javax.swing.JComboBox comboBoxRPackage;
+    private javax.swing.JComboBox comboBoxRunMLPintCenter;
+    private javax.swing.JComboBox comboBoxRunMLPintRadius;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1635,14 +1808,23 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelARIMA;
     private javax.swing.JLabel jLabelPercTrain;
+    private javax.swing.JLabel jLabelPercTrain1;
     private javax.swing.JLabel jLabelPercentSign;
+    private javax.swing.JLabel jLabelPercentSign1;
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JSeparator jSeparator1;
@@ -1657,6 +1839,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel paneSettingsMethodsIntervalMLP;
     private javax.swing.JPanel paneSettingsMethodsKNN;
     private javax.swing.JPanel paneSettingsMethodsMLP;
+    private javax.swing.JPanel paneSettingsMethodsMLPint;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
@@ -1698,6 +1881,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSlider sliderPercentTrain;
     private javax.swing.JSlider sliderPercentTrainIntervalMLP;
     private javax.swing.JSlider sliderPercentTrainKNN;
+    private javax.swing.JSlider sliderPercentTrainMLPint;
     private javax.swing.JSpinner spinnerKNNnumNeighbours;
     private javax.swing.JTable tableiMLPSettingsExplVars;
     private javax.swing.JTable tableiMLPSettingsOutVars;
@@ -1706,6 +1890,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPercentTrain;
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
     private javax.swing.JTextField textFieldPercentTrainKNN;
+    private javax.swing.JTextField textFieldPercentTrainMLPint;
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;

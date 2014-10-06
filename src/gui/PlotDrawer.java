@@ -57,8 +57,9 @@ public class PlotDrawer {
         
         if (! reportsITS.isEmpty()) { //plot ITS
             //first go through all the reports to find a common rangeX and rangeY for the one big plot:
-            int numTrainingEntries_ITS = reportsITS.get(0).getNumTrainingEntries();
-            final int NUM_REAL_ENTRIES = reportsITS.get(0).getRealValuesLowers().size();
+            int numTrainingEntries_ITS = reportsITS.get(reportsITS.size() - 1).getNumTrainingEntries(); //hack, pouzivam posledny report, pretoze ked pustim iMLP (C code) a MLP(i), tak iMLP ma menej entries...
+            final int NUM_REAL_ENTRIES = reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().size();
+            System.out.println("num real: " +NUM_REAL_ENTRIES);
             String rangeY_ITS = getRangeYInterval(reportsITS);
             String rangeX_ITS = getRangeXInterval(reportsITS, numForecasts);
             
@@ -72,30 +73,48 @@ public class PlotDrawer {
                 }
                 
                 //naplotovat fitted values:
-                //TODO neskor plotovat samozrejme aj forecast values!
+                final int sizeFitted = r.getFittedValues().size();
                 rengine.assign("lower", r.getFittedValuesLowers());
                 rengine.assign("upper", r.getFittedValuesUppers());
                 rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
                 rengine.eval("par(new=TRUE)");
                 rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
-                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", lower, 1:" + NUM_REAL_ENTRIES + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                
+                //naplotovat fitted values pre training data:
+                final int sizeForecast = r.getForecastValues().size();
+                rengine.eval("par(new=TRUE)");
+                rengine.assign("lower", r.getForecastValuesLowers());
+                rengine.assign("upper", r.getForecastValuesUppers());
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("par(new=TRUE)");
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecast) + ", lower, "
+                        + (sizeFitted+1) + ":" + (sizeFitted+sizeForecast) + ", upper, xlim = " + rangeX_ITS
+                        + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                //TODO naplotovat forecasty!
+                System.out.println("fit+for: " + (sizeFitted + sizeForecast));
                 
                 colourNumber++;
-                
-                rengine.eval("par(new=TRUE)");
-                
-                //a na ne naplotovat realne data:
-                rengine.assign("all.lower", Utils.listToArray(r.getRealValuesLowers()));
-                rengine.assign("all.upper", Utils.listToArray(r.getRealValuesUppers()));
-
-                //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
-                rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
-                rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
-                rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", all.lower, 1:" + NUM_REAL_ENTRIES + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=2, col=\"#444444\")");
             }
             
+            rengine.eval("par(new=TRUE)");
+                
+            //a na ne vsetky naplotovat realne data:
+            //TODO hack, zatial beriem data z prveho reportu. potom nejak vymysliet :(
+            rengine.assign("all.lower", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesLowers()));
+            rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers()));
+
+            //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
+            rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+            rengine.eval("par(new=TRUE)");
+            rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+            rengine.eval("segments(1:" + NUM_REAL_ENTRIES + ", all.lower, 1:" + NUM_REAL_ENTRIES + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=2, col=\"#444444\")");
+            
             rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
+            //TODO potom tam dat oznacenie na vsetky ablines:     rengine.eval("axis(1, at=" + numTrainingEntries_ITS + ", labels = " + numTrainingEntries_ITS + ")");
+            //TODO asi bude treba dat viacero takychto ciar - pre kazdy report jednu, lebo percentTrain sa lisi
+            
             rengine.eval("abline(v = " + NUM_REAL_ENTRIES + ", lty = 3)");
         }
 
