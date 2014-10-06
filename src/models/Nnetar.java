@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Collections;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -74,8 +75,10 @@ public class Nnetar implements Forecastable {
         errorMeasures.setMASEtest(acc[11]);
         errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(trainingPortionOfData, Utils.arrayToList(fitted)));
         errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, Utils.arrayToList(forecast)));
-        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(testingPortionOfData, Utils.arrayToList(forecast)));
+        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(trainingPortionOfData),
+                Collections.unmodifiableList(Utils.arrayToList(fitted))));
+        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(testingPortionOfData),
+                Collections.unmodifiableList(Utils.arrayToList(forecast))));
         
         report.setErrorMeasures(errorMeasures);
         

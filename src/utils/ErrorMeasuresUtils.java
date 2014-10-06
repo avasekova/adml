@@ -1,6 +1,10 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import utils.imlp.Interval;
 
 public class ErrorMeasuresUtils {
@@ -106,18 +110,39 @@ public class ErrorMeasuresUtils {
     
     public static double MSE(List<Double> realData, List<Double> forecastData) {
         double sum = 0;
+        int countNaN = 0;
         
         for (int i = 0; i < realData.size(); i++) {
-            double err = realData.get(i) - forecastData.get(i);
-            sum += Math.pow(err,2);
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                countNaN++;
+            } else {
+                double err = realData.get(i) - forecastData.get(i);
+                sum += Math.pow(err,2);
+            }
         }
         
-        return sum/realData.size();
+        return sum/(realData.size() - countNaN);
     }
     
-    public static double theilsU(List<Double> realData, List<Double> forecastData) {
+    public static double theilsU(List<Double> rData, List<Double> fData) {
+        //no idea why it throws ConcurrentModificationE if I do not do this :/
+        List<Double> realData = new ArrayList<>(rData);
+        List<Double> forecastData = new ArrayList<>(fData);
         double numerator = 0;
         double denominator = 0;
+        
+        //najprv zmazat vsetky NaN
+        List<Double> toDeleteReal = new ArrayList<>();
+        List<Double> toDelete4cast = new ArrayList<>();
+        for (int i = 0; i < realData.size(); i++) {
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                toDeleteReal.add(realData.get(i));
+                toDelete4cast.add(forecastData.get(i));
+            }
+        }
+        
+        realData.removeAll(toDeleteReal);
+        forecastData.removeAll(toDelete4cast);
         
         for (int i = 0; i < realData.size() - 1; i++) {
             double aux = (forecastData.get(i+1) - realData.get(i+1))/realData.get(i);
