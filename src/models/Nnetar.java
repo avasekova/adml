@@ -7,6 +7,7 @@ import params.NnetarParams;
 import params.Params;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
@@ -53,6 +54,11 @@ public class Nnetar implements Forecastable {
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         //nova verzia vracia aj ACF1
         
+        rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
+        REXP getFittedVals = rengine.eval(FIT);
+        double[] fitted = getFittedVals.asDoubleArray();
+        report.setFittedValues(fitted);
+        
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMEtrain(acc[0]);
         errorMeasures.setMEtest(acc[1]);
@@ -66,17 +72,14 @@ public class Nnetar implements Forecastable {
         errorMeasures.setMAPEtest(acc[9]);
         errorMeasures.setMASEtrain(acc[10]);
         errorMeasures.setMASEtest(acc[11]);
-        errorMeasures.setMSEtrain(0.0); //TODO
-        errorMeasures.setMSEtest(0.0); //TODO
-        errorMeasures.setTheilUtrain(42); //TODO
-        errorMeasures.setTheilUtest(42); //TODO
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, Utils.arrayToList(forecast)));
+        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(testingPortionOfData, Utils.arrayToList(forecast)));
         
         report.setErrorMeasures(errorMeasures);
         
-        rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
-        REXP getFittedVals = rengine.eval(FIT);
-        double[] fitted = getFittedVals.asDoubleArray();
-        report.setFittedValues(fitted);
+        
         
         //report.setForecastPlotCode("plot(" + FORECAST_MODEL + ")"); //vykresli aj tie modre forecasty
         report.setFittedValuesPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))"); //vykresli iba fitted values
