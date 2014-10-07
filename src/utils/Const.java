@@ -7,6 +7,7 @@ public class Const {
     public static final String TRAINDATA = "traindata";
     public static final String TEST = "testdata";
     public static final String NNETWORK = "nnetwork";
+    public static final String MODEL = "model";
     public static final String FORECAST_MODEL = "forecastedModel";
     public static final String FORECAST_VALS = "forecastedValues";
     public static final String INPUT = "input";

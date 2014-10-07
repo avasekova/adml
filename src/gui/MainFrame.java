@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
+import models.Arima;
 import models.Forecastable;
 import models.ForecastableIntervals;
 import models.IntervalMLPCcode;
@@ -23,6 +24,7 @@ import models.Nnetar;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.GDCanvas;
+import params.ArimaParams;
 import params.IntervalMLPCcodeParams;
 import params.KNNParams;
 import params.NeuralnetParams;
@@ -162,7 +164,26 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         comboBoxIntervalMLPMode = new javax.swing.JComboBox();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
-        jLabelARIMA = new javax.swing.JLabel();
+        jLabel54 = new javax.swing.JLabel();
+        jLabel55 = new javax.swing.JLabel();
+        textFieldSettingsARIMAnonseasP = new javax.swing.JTextField();
+        jLabel56 = new javax.swing.JLabel();
+        textFieldSettingsARIMAnonseasQ = new javax.swing.JTextField();
+        jLabel57 = new javax.swing.JLabel();
+        textFieldSettingsARIMAnonseasD = new javax.swing.JTextField();
+        jLabel58 = new javax.swing.JLabel();
+        jLabel59 = new javax.swing.JLabel();
+        textFieldSettingsARIMAseasP = new javax.swing.JTextField();
+        jLabel60 = new javax.swing.JLabel();
+        textFieldSettingsARIMAseasD = new javax.swing.JTextField();
+        jLabel61 = new javax.swing.JLabel();
+        textFieldSettingsARIMAseasQ = new javax.swing.JTextField();
+        jLabel62 = new javax.swing.JLabel();
+        jLabelPercTrain2 = new javax.swing.JLabel();
+        sliderPercentTrainARIMA = new javax.swing.JSlider();
+        textFieldPercentTrainARIMA = new javax.swing.JTextField();
+        jLabelPercentSign2 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
         paneSettingsMethodsKNN = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         sliderPercentTrainKNN = new javax.swing.JSlider();
@@ -170,6 +191,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jLabel46 = new javax.swing.JLabel();
         spinnerKNNnumNeighbours = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+        jLabel64 = new javax.swing.JLabel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -1108,7 +1130,59 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("iMLP", paneSettingsMethodsIntervalMLP);
 
-        jLabelARIMA.setText("(TODO)");
+        jLabel54.setText("Non-seasonal part:");
+
+        jLabel55.setText("p =");
+
+        textFieldSettingsARIMAnonseasP.setText("0");
+
+        jLabel56.setText("q =");
+
+        textFieldSettingsARIMAnonseasQ.setText("0");
+
+        jLabel57.setText("d =");
+
+        textFieldSettingsARIMAnonseasD.setText("0");
+
+        jLabel58.setText("Seasonal part:");
+
+        jLabel59.setText("P =");
+
+        textFieldSettingsARIMAseasP.setText("0");
+
+        jLabel60.setText("D =");
+
+        textFieldSettingsARIMAseasD.setText("0");
+
+        jLabel61.setText("Q =");
+
+        textFieldSettingsARIMAseasQ.setText("0");
+
+        jLabel62.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel62.setText("TODO other params of stats.arima + add <default> labels");
+
+        jLabelPercTrain2.setText("Portion of data to use for training:");
+
+        sliderPercentTrainARIMA.setMaximum(99);
+        sliderPercentTrainARIMA.setMinimum(1);
+        sliderPercentTrainARIMA.setPaintTicks(true);
+        sliderPercentTrainARIMA.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderPercentTrainARIMAStateChanged(evt);
+            }
+        });
+
+        textFieldPercentTrainARIMA.setText("" + sliderPercentTrainARIMA.getValue());
+        textFieldPercentTrainARIMA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textFieldPercentTrainARIMAActionPerformed(evt);
+            }
+        });
+
+        jLabelPercentSign2.setText("%");
+
+        jLabel63.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel63.setText("TODO predict.arima");
 
         javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
         paneSettingsMethodsARIMA.setLayout(paneSettingsMethodsARIMALayout);
@@ -1116,15 +1190,90 @@ public class MainFrame extends javax.swing.JFrame {
             paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelARIMA)
-                .addContainerGap(1037, Short.MAX_VALUE))
+                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                                .addComponent(jLabel54)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel55)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldSettingsARIMAnonseasP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                                .addComponent(jLabel58)
+                                .addGap(28, 28, 28)
+                                .addComponent(jLabel59)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldSettingsARIMAseasP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                                        .addComponent(jLabel57)
+                                        .addGap(5, 5, 5)
+                                        .addComponent(textFieldSettingsARIMAnonseasD, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel56)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldSettingsARIMAnonseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                                        .addComponent(jLabel60)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldSettingsARIMAseasD, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel61)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldSettingsARIMAseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(49, 49, 49)
+                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel62)
+                            .addComponent(jLabel63)))
+                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(jLabelPercTrain2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sliderPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelPercentSign2)))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         paneSettingsMethodsARIMALayout.setVerticalGroup(
             paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabelARIMA)
-                .addContainerGap(525, Short.MAX_VALUE))
+                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelPercTrain2)
+                    .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textFieldPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabelPercentSign2))
+                    .addComponent(sliderPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel54)
+                            .addComponent(jLabel55)
+                            .addComponent(textFieldSettingsARIMAnonseasP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(textFieldSettingsARIMAnonseasD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel57)
+                            .addComponent(jLabel56)
+                            .addComponent(textFieldSettingsARIMAnonseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel58)
+                            .addComponent(textFieldSettingsARIMAseasP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel59)
+                            .addComponent(jLabel60)
+                            .addComponent(textFieldSettingsARIMAseasD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel61)
+                            .addComponent(textFieldSettingsARIMAseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel62)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel63)))
+                .addContainerGap(407, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
@@ -1151,6 +1300,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel46.setText("Number of neighbours considered:");
 
+        jLabel64.setText("jLabel64");
+
         javax.swing.GroupLayout paneSettingsMethodsKNNLayout = new javax.swing.GroupLayout(paneSettingsMethodsKNN);
         paneSettingsMethodsKNN.setLayout(paneSettingsMethodsKNNLayout);
         paneSettingsMethodsKNNLayout.setHorizontalGroup(
@@ -1170,7 +1321,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel46)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spinnerKNNnumNeighbours, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(spinnerKNNnumNeighbours, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel64)))
                 .addContainerGap(415, Short.MAX_VALUE))
         );
         paneSettingsMethodsKNNLayout.setVerticalGroup(
@@ -1187,7 +1341,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel46)
                     .addComponent(spinnerKNNnumNeighbours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(480, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel64)
+                .addContainerGap(460, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("kNN", paneSettingsMethodsKNN);
@@ -1222,7 +1378,6 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunMLPnnetar.setText("MLP (nnetar)");
 
         checkBoxRunARIMA.setText("ARIMA");
-        checkBoxRunARIMA.setEnabled(false);
 
         checkBoxRunMLPnnet.setText("MLP (nnet)");
 
@@ -1312,7 +1467,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabelTrainingInfo)
                                 .addGap(16, 16, 16))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1574,6 +1728,13 @@ public class MainFrame extends javax.swing.JFrame {
             reportsITS.add(report);
         }
         
+        if (checkBoxRunARIMA.isSelected()) {
+            ArimaParams params = getParamsArima();
+            Forecastable arima = new Arima();
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            reportsCTS.add(report);
+        }
+        
         //add more methods/models here
         
         
@@ -1709,6 +1870,19 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO log
         }
     }//GEN-LAST:event_textFieldPercentTrainMLPintActionPerformed
+
+    private void sliderPercentTrainARIMAStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainARIMAStateChanged
+        textFieldPercentTrainARIMA.setText("" + sliderPercentTrainARIMA.getValue());
+    }//GEN-LAST:event_sliderPercentTrainARIMAStateChanged
+
+    private void textFieldPercentTrainARIMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainARIMAActionPerformed
+        try {
+            int val = Integer.parseInt(textFieldPercentTrainARIMA.getText());
+            sliderPercentTrainARIMA.setValue(val);
+        } catch (NumberFormatException e) {
+            //TODO log
+        }
+    }//GEN-LAST:event_textFieldPercentTrainARIMAActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1816,15 +1990,27 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
+    private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
+    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabelARIMA;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercTrain1;
+    private javax.swing.JLabel jLabelPercTrain2;
     private javax.swing.JLabel jLabelPercentSign;
     private javax.swing.JLabel jLabelPercentSign1;
+    private javax.swing.JLabel jLabelPercentSign2;
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JSeparator jSeparator1;
@@ -1879,6 +2065,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPaneiMLPSettingsExplVars;
     private javax.swing.JScrollPane scrollPaneiMLPSettingsOutVars;
     private javax.swing.JSlider sliderPercentTrain;
+    private javax.swing.JSlider sliderPercentTrainARIMA;
     private javax.swing.JSlider sliderPercentTrainIntervalMLP;
     private javax.swing.JSlider sliderPercentTrainKNN;
     private javax.swing.JSlider sliderPercentTrainMLPint;
@@ -1888,9 +2075,16 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
     private javax.swing.JTextField textFieldPercentTrain;
+    private javax.swing.JTextField textFieldPercentTrainARIMA;
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
     private javax.swing.JTextField textFieldPercentTrainKNN;
     private javax.swing.JTextField textFieldPercentTrainMLPint;
+    private javax.swing.JTextField textFieldSettingsARIMAnonseasD;
+    private javax.swing.JTextField textFieldSettingsARIMAnonseasP;
+    private javax.swing.JTextField textFieldSettingsARIMAnonseasQ;
+    private javax.swing.JTextField textFieldSettingsARIMAseasD;
+    private javax.swing.JTextField textFieldSettingsARIMAseasP;
+    private javax.swing.JTextField textFieldSettingsARIMAseasQ;
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
@@ -1975,6 +2169,21 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighbours.getValue().toString()));
+        
+        return params;
+    }
+    
+    private ArimaParams getParamsArima() {
+        ArimaParams params = new ArimaParams();
+        
+        //zohnat vsetky parametre pre dany model:
+        params.setPercentTrain(sliderPercentTrainARIMA.getValue());
+        params.setNonSeasP(Integer.parseInt(textFieldSettingsARIMAnonseasP.getText()));
+        params.setNonSeasD(Integer.parseInt(textFieldSettingsARIMAnonseasD.getText()));
+        params.setNonSeasQ(Integer.parseInt(textFieldSettingsARIMAnonseasQ.getText()));
+        params.setSeasP(Integer.parseInt(textFieldSettingsARIMAseasP.getText()));
+        params.setSeasD(Integer.parseInt(textFieldSettingsARIMAseasD.getText()));
+        params.setSeasQ(Integer.parseInt(textFieldSettingsARIMAseasQ.getText()));
         
         return params;
     }
