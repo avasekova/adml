@@ -207,7 +207,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel43 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         buttonTrainAndTest = new javax.swing.JButton();
-        checkBoxRunKNN = new javax.swing.JCheckBox();
+        checkBoxRunKNNcrisp = new javax.swing.JCheckBox();
         jLabel49 = new javax.swing.JLabel();
         jLabel50 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
@@ -216,6 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel52 = new javax.swing.JLabel();
         checkBoxRunMLPint = new javax.swing.JCheckBox();
         jLabel53 = new javax.swing.JLabel();
+        checkBoxRunKNNinterval = new javax.swing.JCheckBox();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1408,7 +1409,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        checkBoxRunKNN.setText("kNN");
+        checkBoxRunKNNcrisp.setText("kNN");
 
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel49.setText("MLP(i):");
@@ -1428,6 +1429,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel53.setForeground(new java.awt.Color(255, 0, 0));
         jLabel53.setText("for now, uses nnetar (set up exactly as nnetar in Settings) TODO change!");
+
+        checkBoxRunKNNinterval.setText("kNN");
+        checkBoxRunKNNinterval.setEnabled(false);
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
@@ -1480,11 +1484,13 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunARIMA)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBoxRunKNN))
+                                .addComponent(checkBoxRunKNNcrisp))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunIntervalMLPCcode)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunIntervalMLPneuralnet))
+                                .addComponent(checkBoxRunIntervalMLPneuralnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunKNNinterval))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunMLPint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1506,7 +1512,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(checkBoxRunMLPneuralnet)
                                     .addComponent(checkBoxRunMLPnnet)
                                     .addComponent(checkBoxRunARIMA)
-                                    .addComponent(checkBoxRunKNN))
+                                    .addComponent(checkBoxRunKNNcrisp))
                                 .addGap(33, 33, 33)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(checkBoxRunMLPint)
@@ -1514,7 +1520,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(37, 37, 37)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(checkBoxRunIntervalMLPCcode)
-                                    .addComponent(checkBoxRunIntervalMLPneuralnet)))
+                                    .addComponent(checkBoxRunIntervalMLPneuralnet)
+                                    .addComponent(checkBoxRunKNNinterval)))
                             .addComponent(jLabelTrainingInfo)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
@@ -1706,7 +1713,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
-        if (checkBoxRunKNN.isSelected()) {
+        if (checkBoxRunKNNcrisp.isSelected()) {
             KNNParams params = getParamsKNN();
             Forecastable kNN = new KNN();
             TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel.getDataForColname(colname_CTS), params));
@@ -1930,7 +1937,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
-    private javax.swing.JCheckBox checkBoxRunKNN;
+    private javax.swing.JCheckBox checkBoxRunKNNcrisp;
+    private javax.swing.JCheckBox checkBoxRunKNNinterval;
     private javax.swing.JCheckBox checkBoxRunMLPint;
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;

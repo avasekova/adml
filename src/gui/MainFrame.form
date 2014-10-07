@@ -1875,12 +1875,14 @@
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunKNN" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNcrisp" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="checkBoxRunIntervalMLPCcode" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNinterval" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="checkBoxRunMLPint" min="-2" max="-2" attributes="0"/>
@@ -1909,7 +1911,7 @@
                                           <Component id="checkBoxRunMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunMLPnnet" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="checkBoxRunKNN" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkBoxRunKNNcrisp" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -1920,6 +1922,7 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="checkBoxRunIntervalMLPCcode" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunIntervalMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkBoxRunKNNinterval" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="jLabelTrainingInfo" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -2059,7 +2062,7 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonTrainAndTest.setEnabled(false);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNN">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNcrisp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="kNN"/>
               </Properties>
@@ -2115,6 +2118,12 @@
                   <Color blue="0" green="0" red="ff" type="rgb"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="for now, uses nnetar (set up exactly as nnetar in Settings) TODO change!"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNinterval">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="kNN"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
