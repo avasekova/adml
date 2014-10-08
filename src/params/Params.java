@@ -1,6 +1,6 @@
 package params;
 
-public class Params {
+public class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
     
     private int percentTrain;
     private int numForecasts;
