@@ -32,9 +32,9 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
                 return "TEST";
             } else {
                 if (rowIndex < reports.size() + 1) {
-                    return reports.get(rowIndex - 1).getModelName();
+                    return "   " + reports.get(rowIndex - 1).getModelName(); //a stupid way to indent, but... whatever
                 } else { //rowIndex > reports.size() + 1
-                    return reports.get(rowIndex - (reports.size() + 2)).getModelName();
+                    return "   " + reports.get(rowIndex - (reports.size() + 2)).getModelName();
                 }
             }
         } else {
