@@ -3,6 +3,8 @@ package models;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
+import params.KNNcustomParams;
+import params.KNNfnnParams;
 import params.Params;
 import utils.MyRengine;
 
@@ -11,12 +13,29 @@ public class KNNcustom implements Forecastable {
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
         
+        KNNcustomParams params = (KNNcustomParams) parameters;
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (custom)");
+        
         Rengine rengine = MyRengine.getRengine();
-//        rengine.eval("num <- abs.difference(15,10)");
-//        REXP getNum = rengine.eval("num");
-        REXP getNum = rengine.eval("abs.difference(15,10)");
-        double[] num = getNum.asDoubleArray();
-        System.out.println("vysledok: " + num[0]);
+        
+        String distanceFunction = "abs.difference"; //default
+        switch (params.getDistanceMethodName()) {
+            case "absolute difference":
+                distanceFunction = "abs.difference";
+                break;
+            //add more here
+        }
+        
+        String combinationFunction = "mean"; //default
+        switch (params.getCombinationMethodName()) {
+            case "average":
+                combinationFunction = "mean";
+                break;
+            //add more here
+        }
+        
+        
+        //predict.knn(lag, k, len, data, distance = abs.difference, combination = mean)
         
         
         
