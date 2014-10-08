@@ -1833,10 +1833,10 @@
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Container class="javax.swing.JPanel" name="panelSettingsKNNoptions_advanced">
+                        <Container class="javax.swing.JPanel" name="panelSettingsKNNoptions_custom">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-                              <CardConstraints cardName="panelSettingsKNNoptions_advanced"/>
+                              <CardConstraints cardName="panelSettingsKNNoptions_custom"/>
                             </Constraint>
                           </Constraints>
 
@@ -1848,13 +1848,25 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel65" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel66" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel67" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel69" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel70" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="spinnerKNNnumNeighboursAdvanced" pref="45" max="32767" attributes="0"/>
-                                          <Component id="textFieldKNNlengthHistory" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="spinnerKNNnumNeighboursCustom" pref="45" max="32767" attributes="0"/>
+                                                  <Component id="textFieldKNNlengthHistory" max="32767" attributes="0"/>
+                                                  <Component id="textFieldKNNlag" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jLabel68" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="comboBoxKNNdistance" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxKNNcombination" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="860" max="32767" attributes="0"/>
+                                      <EmptySpace pref="609" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1864,14 +1876,30 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel65" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="spinnerKNNnumNeighboursAdvanced" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="spinnerKNNnumNeighboursCustom" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel66" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldKNNlengthHistory" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="383" max="32767" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel67" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldKNNlag" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel68" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel69" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxKNNdistance" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="comboBoxKNNcombination" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel70" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="290" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1882,7 +1910,7 @@
                                 <Property name="text" type="java.lang.String" value="Number of neighbours considered:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JSpinner" name="spinnerKNNnumNeighboursAdvanced">
+                            <Component class="javax.swing.JSpinner" name="spinnerKNNnumNeighboursCustom">
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1))"/>
                               </AuxValues>
@@ -1895,6 +1923,48 @@
                             <Component class="javax.swing.JTextField" name="textFieldKNNlengthHistory">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel67">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Lag:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="textFieldKNNlag">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel68">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="so far only one expl. var. and only autoregression"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel69">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Distance measure:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="comboBoxKNNdistance">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;absolute difference&quot; })" type="code"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel70">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Neighbour combination function:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="comboBoxKNNcombination">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;average&quot; })" type="code"/>
+                                </Property>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -1980,17 +2050,6 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="buttonTrainAndTest" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="checkBoxRunMLPnnetar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunMLPneuralnet" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunMLPnnet" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunKNNcrisp" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="checkBoxRunIntervalMLPCcode" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
@@ -2001,6 +2060,19 @@
                                       <Component id="checkBoxRunMLPint" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="checkBoxRunMLPnnetar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunMLPneuralnet" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunMLPnnet" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNfnn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNcustom" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -2024,7 +2096,8 @@
                                           <Component id="checkBoxRunMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunMLPnnet" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunARIMA" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="checkBoxRunKNNcrisp" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkBoxRunKNNfnn" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkBoxRunKNNcustom" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -2175,9 +2248,9 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonTrainAndTest.setEnabled(false);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNcrisp">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNfnn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="kNN"/>
+                <Property name="text" type="java.lang.String" value="kNN (FNN)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel49">
@@ -2237,6 +2310,11 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="kNN"/>
                 <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNcustom">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="kNN (custom)"/>
               </Properties>
             </Component>
           </SubComponents>

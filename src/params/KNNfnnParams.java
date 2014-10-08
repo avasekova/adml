@@ -1,6 +1,6 @@
 package params;
 
-public class KNNParams extends Params {
+public class KNNfnnParams extends Params {
     
     private int numNeighbours;
 

@@ -3,7 +3,7 @@ package models;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-import params.KNNParams;
+import params.KNNfnnParams;
 import params.Params;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
@@ -11,7 +11,7 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
-public class KNN implements Forecastable {
+public class KNNfnn implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
@@ -34,7 +34,7 @@ public class KNN implements Forecastable {
         final String UNSCALED_PREDICTED_TEST = "predicted." + OUTPUT_TEST;
         final String RESIDUALS_TEST = "residuals." + OUTPUT_TEST;
         
-        KNNParams params = (KNNParams) parameters;
+        KNNfnnParams params = (KNNfnnParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN");
 
         Rengine rengine = MyRengine.getRengine();
