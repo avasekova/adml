@@ -7,7 +7,6 @@ public class NnetarParams extends Params {
     private Integer numNonSeasonalLags;
     private Integer numReps;
     private Double lambda;
-    private int numForecasts = 1;
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -48,15 +47,4 @@ public class NnetarParams extends Params {
     public void setLambda(Double lambda) {
         this.lambda = lambda;
     }
-    
-    public int getNumForecasts() {
-        return numForecasts;
-    }
-    
-    public void setNumForecasts(Integer numForecasts) {
-        if (numForecasts != null) {
-            this.numForecasts = numForecasts;
-        }
-    }
-    
 }
