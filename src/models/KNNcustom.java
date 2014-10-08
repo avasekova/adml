@@ -12,8 +12,9 @@ public class KNNcustom implements Forecastable {
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
         
         Rengine rengine = MyRengine.getRengine();
-        rengine.eval("num <- abs.difference(15,10)");
-        REXP getNum = rengine.eval("num");
+//        rengine.eval("num <- abs.difference(15,10)");
+//        REXP getNum = rengine.eval("num");
+        REXP getNum = rengine.eval("abs.difference(15,10)");
         double[] num = getNum.asDoubleArray();
         System.out.println("vysledok: " + num[0]);
         

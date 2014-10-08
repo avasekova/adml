@@ -30,7 +30,9 @@ public class MyRengine extends Rengine {
             //adding my own functions:
             re.eval("MLPtoR.scale <- function(x) { (x - min(x))/(max(x) - min(x)) }");
             re.eval("MLPtoR.unscale <- function(x,y) { x * (max(y) - min(y)) + min(y) }");
-            //adding scripts (hack):
+            //add more functions here
+            
+            //adding scripts (hack - can only add functions one by one, not a whole file full of them):
             StringBuilder scripts = new StringBuilder();
             try (BufferedReader reader = new BufferedReader(new FileReader("scripts.R"))) {
                 String line;
@@ -38,17 +40,21 @@ public class MyRengine extends Rengine {
                     line = line.trim();
                     if ((! line.isEmpty()) && (! line.startsWith("#"))) { //do not evaluate comments and empty lines
                         //further analyze the line and strip any remaining comments:
-                        line = line.split("#")[0]; //take whatever there is until the first comment
-                        scripts.append(line).append(System.lineSeparator());
+                        line = line.split("#")[0]; //take whatever there is until the comment
+                        scripts.append(line).append("\n"); //bloody hell, it took ages to find out that it doesn't accept System.lineSeparator(), but accepts "\n"...
                     }
                 }
             } catch (IOException e) {
                 //TODO log
             }
             
-            re.eval(scripts.toString());
-            
-            //add more functions here
+            //for some reason I cannot make it load more functions in a single call of re.eval
+            String scriptsAll = scripts.toString();
+            String[] functions = scriptsAll.split("---"); //the file needs to separate the functions with ---
+                                                          //(it will not compile, but we don't need it to...)
+            for (String fun : functions) {
+                re.eval(fun);
+            }
             
             instance = new MyRengine();
         }

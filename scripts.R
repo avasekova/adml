@@ -49,9 +49,7 @@ predict.knn <- function(lag, k, len, data, distance = abs.difference, combinatio
   return (predicted.value)
 }
 
-
-
-
+---
 
 #TODO otestovat
 #TODO najst mean.interval - "priemer" intervalov, je definovany niekde v tych paperoch ci co
@@ -108,6 +106,7 @@ predict.knn.interval <- function(lag, k, len, data, distance = euclidean.distanc
   return (predicted.value)
 }
 
+---
 
 mean.interval <- function(centers, radii) {#TODO najst definiciu mean.intervalu
   cen = mean(centers)
@@ -116,11 +115,15 @@ mean.interval <- function(centers, radii) {#TODO najst definiciu mean.intervalu
   return (c(center=cen, radius=rad))
 }
 
+---
+
 #TODO pridat nastavitelny parameter beta! pre kazdu dist. takze dodat asi parameter do predict.knn.interval
 euclidean.distance <- function(expected, found) {
   beta <- 0.5
   return (beta * (found[1] - expected[1])^2  +  (1-beta) * (found[2] - expected[2])^2)
 }
+
+---
 
 abs.difference <- function(first, second) {
   return (abs(first - second))
