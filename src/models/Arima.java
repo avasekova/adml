@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -19,6 +20,8 @@ public class Arima implements Forecastable {
         final String MODEL = Const.MODEL + Utils.getCounter();
         final String TEST = Const.TEST + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
+        final String FORECAST_TEST = Const.FORECAST_VALS + Utils.getCounter();
+        final String FORECAST_TEST_VALS = FORECAST_TEST + ".vals";
         
         ArimaParams params = (ArimaParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
@@ -45,27 +48,34 @@ public class Arima implements Forecastable {
         double[] fitted = getFittedValues.asDoubleArray();
         report.setFittedValues(fitted);
         
-        report.setForecastValues(fitted); //TODO
+        //"forecast" testing data
+        rengine.eval("require(forecast)");
+        rengine.eval(FORECAST_TEST + " <- predict(" + MODEL + ", " + testingPortionOfData.size() + ")");
+        rengine.eval(FORECAST_TEST_VALS + " <- " + FORECAST_TEST + "$pred[1:" + testingPortionOfData.size() + "]");
+        REXP getForecastsTest = rengine.eval(FORECAST_TEST_VALS);
+        double[] forecastsTest = getForecastsTest.asDoubleArray();
+        report.setForecastValues(forecastsTest);
         
+        //TODO pridat aj pocet forecastov do buducnosti
         report.setFittedValuesPlotCode("plot.ts(" + FIT + ")");
         
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMEtest(0.0);
+        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setRMSEtest(0.0);
+        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMAEtest(0.0);
+        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMPEtest(0.0);
+        errorMeasures.setMPEtest(ErrorMeasuresUtils.MPE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMAPEtest(0.0);
+        errorMeasures.setMAPEtest(ErrorMeasuresUtils.MAPE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMASEtest(0.0);
+        errorMeasures.setMASEtest(ErrorMeasuresUtils.MASE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMSEtest(0.0);
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setTheilUtest(0.0);
+        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         report.setErrorMeasures(errorMeasures);
         
         
