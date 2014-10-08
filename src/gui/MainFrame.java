@@ -89,10 +89,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPPackage_neuralnet = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         panelSettingsMLPPackage_nnet = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        paramNnet_comboBoxColnamesInput = new javax.swing.JComboBox();
-        jLabel9 = new javax.swing.JLabel();
-        paramNnet_comboBoxColnamesOutput = new javax.swing.JComboBox();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -125,7 +121,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         paramNnet_reltol = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
-        jLabel44 = new javax.swing.JLabel();
+        jLabel76 = new javax.swing.JLabel();
+        paramNnet_lag = new javax.swing.JTextField();
         jLabelPercTrain = new javax.swing.JLabel();
         sliderPercentTrain = new javax.swing.JSlider();
         textFieldPercentTrain = new javax.swing.JTextField();
@@ -535,14 +532,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_neuralnet, "panelSettingsMLPPackage_neuralnet");
 
-        jLabel8.setText("Inputs:");
-
-        paramNnet_comboBoxColnamesInput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-
-        jLabel9.setText("Outputs:");
-
-        paramNnet_comboBoxColnamesOutput.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-
         jLabel10.setText("Weights:");
 
         jLabel11.setForeground(new java.awt.Color(255, 0, 0));
@@ -621,10 +610,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel29.setForeground(new java.awt.Color(255, 0, 0));
         jLabel29.setText("TODO: choose data for prediction");
 
-        jLabel44.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel44.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel44.setText("TODO move this to Run!");
+        jLabel76.setText("Lag:");
+
+        paramNnet_lag.setText("1");
 
         javax.swing.GroupLayout panelSettingsMLPPackage_nnetLayout = new javax.swing.GroupLayout(panelSettingsMLPPackage_nnet);
         panelSettingsMLPPackage_nnet.setLayout(panelSettingsMLPPackage_nnetLayout);
@@ -680,14 +668,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(paramNnet_reltol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(paramNnet_comboBoxColnamesInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(54, 54, 54)
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(paramNnet_comboBoxColnamesOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(jLabel76)
+                                .addGap(186, 186, 186)
                                 .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
                                         .addComponent(jLabel11)
@@ -695,7 +677,7 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel29)
                                             .addComponent(jLabel25)))
-                                    .addComponent(jLabel44))))
+                                    .addComponent(paramNnet_lag, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
                         .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -713,11 +695,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(paramNnet_comboBoxColnamesInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(paramNnet_comboBoxColnamesOutput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44))
+                    .addComponent(jLabel76)
+                    .addComponent(paramNnet_lag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -1838,8 +1817,6 @@ public class MainFrame extends javax.swing.JFrame {
                         //TODO na toto si dat potom pozor! - obavam sa, ze ked naloadujem novy subor, ostanu tam aj stare prvky v comboBoxoch, len pribudnu nove.
                         comboBoxColnames.addItem(colname);
                         comboBoxColnamesRun.addItem(colname);
-                        paramNnet_comboBoxColnamesInput.addItem(colname);
-                        paramNnet_comboBoxColnamesOutput.addItem(colname);
                         comboBoxRunMLPintCenter.addItem(colname);
                         comboBoxRunMLPintRadius.addItem(colname);
                     }
@@ -1908,7 +1885,6 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPnnet.isSelected()) {
             NnetParams params = getParamsNnet();
             Forecastable nnet = new Nnet();
-            ((NnetParams) params).setInputs(dataTableModel.getDataForColname(((NnetParams) params).getInputColname()));
             TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel.getDataForColname(colname_CTS), params));
             reportsCTS.add(report);
         }
@@ -2231,7 +2207,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
-    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
@@ -2266,8 +2241,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercTrain1;
     private javax.swing.JLabel jLabelPercTrain2;
@@ -2309,10 +2283,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSummary;
     private javax.swing.JTextField paramNnet_abstol;
     private javax.swing.JCheckBox paramNnet_checkBoxSkipConn;
-    private javax.swing.JComboBox paramNnet_comboBoxColnamesInput;
-    private javax.swing.JComboBox paramNnet_comboBoxColnamesOutput;
     private javax.swing.JTextField paramNnet_initRange;
     private javax.swing.JLabel paramNnet_labelInitRangeMirror;
+    private javax.swing.JTextField paramNnet_lag;
     private javax.swing.JTextField paramNnet_maxit;
     private javax.swing.JTextField paramNnet_numNodesHiddenLayer;
     private javax.swing.JRadioButton paramNnet_radioButtonCensoredOn;
@@ -2407,7 +2380,7 @@ public class MainFrame extends javax.swing.JFrame {
         NnetParams params = new NnetParams();
         //zohnat vsetky parametre pre dany model:
         
-        params.setInputColname(paramNnet_comboBoxColnamesInput.getSelectedItem().toString());
+        params.setLag(Integer.parseInt(paramNnet_lag.getText()));
         params.setPercentTrain(sliderPercentTrain.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
         params.setAbstol(Utils.getDoubleOrDefault(paramNnet_abstol));

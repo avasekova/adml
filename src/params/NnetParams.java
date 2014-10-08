@@ -1,12 +1,10 @@
 package params;
 
-import java.util.List;
 import utils.R_Bool;
 
 public class NnetParams extends Params {
     
-    private String inputColname;
-    private List<Double> inputs;
+    private int lag;
     private Double abstol;
     private Double reltol;
     private R_Bool skipLayerConnections = null;
@@ -22,20 +20,12 @@ public class NnetParams extends Params {
     private R_Bool traceOptimization = null;
     private Integer maxNumOfWeights;
 
-    public String getInputColname() {
-        return inputColname;
+    public int getLag() {
+        return lag;
     }
 
-    public void setInputColname(String inputColname) {
-        this.inputColname = inputColname;
-    }
-
-    public List<Double> getInputs() {
-        return inputs;
-    }
-
-    public void setInputs(List<Double> inputs) {
-        this.inputs = inputs;
+    public void setLag(int lag) {
+        this.lag = lag;
     }
     
     public Double getAbstol() {
