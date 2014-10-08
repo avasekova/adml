@@ -1,11 +1,9 @@
 package models;
 
-import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import params.ArimaParams;
-import params.NnetarParams;
 import params.Params;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;

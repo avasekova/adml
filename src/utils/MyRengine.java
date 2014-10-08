@@ -1,5 +1,8 @@
 package utils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import org.rosuda.JRI.Rengine;
 
 public class MyRengine extends Rengine {
@@ -10,7 +13,7 @@ public class MyRengine extends Rengine {
         super();
     }
     
-    public static synchronized MyRengine getRengine(){
+    public static synchronized MyRengine getRengine() {
         if (instance == null) {
             //If not started with --vanilla, funny things may happen in this R shell.
             String[] Rargs = {"--vanilla"};
@@ -27,6 +30,23 @@ public class MyRengine extends Rengine {
             //adding my own functions:
             re.eval("MLPtoR.scale <- function(x) { (x - min(x))/(max(x) - min(x)) }");
             re.eval("MLPtoR.unscale <- function(x,y) { x * (max(y) - min(y)) + min(y) }");
+            //adding scripts (hack):
+            StringBuilder scripts = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new FileReader("scripts.R"))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    if ((! line.isEmpty()) && (! line.startsWith("#"))) { //do not evaluate comments and empty lines
+                        //further analyze the line and strip any remaining comments:
+                        line = line.split("#")[0]; //take whatever there is until the first comment
+                        scripts.append(line).append(System.lineSeparator());
+                    }
+                }
+            } catch (IOException e) {
+                //TODO log
+            }
+            
+            re.eval(scripts.toString());
             
             //add more functions here
             

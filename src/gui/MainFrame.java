@@ -1556,6 +1556,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunKNNinterval.setEnabled(false);
 
         checkBoxRunKNNcustom.setText("kNN (custom)");
+        checkBoxRunKNNcustom.setEnabled(false);
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);

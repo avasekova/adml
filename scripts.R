@@ -117,12 +117,10 @@ mean.interval <- function(centers, radii) {#TODO najst definiciu mean.intervalu
 }
 
 #TODO pridat nastavitelny parameter beta! pre kazdu dist. takze dodat asi parameter do predict.knn.interval
-euclidean.distance(expected, found) {
+euclidean.distance <- function(expected, found) {
   beta <- 0.5
   return (beta * (found[1] - expected[1])^2  +  (1-beta) * (found[2] - expected[2])^2)
 }
-
-
 
 abs.difference <- function(first, second) {
   return (abs(first - second))
