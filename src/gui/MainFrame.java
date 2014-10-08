@@ -2280,12 +2280,12 @@ public class MainFrame extends javax.swing.JFrame {
         NnetarParams params = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrain.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
         params.setNumNodesHidden(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
         params.setNumSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumSeasonalLags));
         params.setNumNonSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
         params.setNumReps(Utils.getIntegerOrDefault(paramNnetar_textFieldNumReps));
         params.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
         
         return params;
     }
@@ -2295,6 +2295,7 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         //TODO: vymysliet nejak vseobecne! zatial je to natvrdo pre nnetar
 //        params.put("percentTrain", sliderPercentTrain.getValue());
+//        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
 //        //TODO chytat vynimky, resp. validator na cisla
 //        params.put("numNodesHidden", Utils.getIntegerOrDefault(textFieldNumNodesInHiddenSingleLayer));
 //        params.put("numSeasonalLags", Utils.getIntegerOrDefault(textFieldNumSeasonalLags));
@@ -2312,6 +2313,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         params.setInputColname(paramNnet_comboBoxColnamesInput.getSelectedItem().toString());
         params.setPercentTrain(sliderPercentTrain.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
         params.setAbstol(Utils.getDoubleOrDefault(paramNnet_abstol));
         params.setReltol(Utils.getDoubleOrDefault(paramNnet_reltol));
         params.setSkipLayerConnections(Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
@@ -2332,6 +2334,7 @@ public class MainFrame extends javax.swing.JFrame {
         IntervalMLPCcodeParams params = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainIntervalMLP.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
         params.setNumNodesHidden(Utils.getIntegerOrDefault(textFieldIntervalMLPCcodeNumNeurons));
         params.setNumIterations(Integer.parseInt(textFieldIntervalMLPCcodeNumIterations.getText()));
         params.setExplVars(((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
@@ -2345,6 +2348,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursFNN.getValue().toString()));
         
         return params;
@@ -2355,6 +2359,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainARIMA.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
         params.setNonSeasP(Integer.parseInt(textFieldSettingsARIMAnonseasP.getText()));
         params.setNonSeasD(Integer.parseInt(textFieldSettingsARIMAnonseasD.getText()));
         params.setNonSeasQ(Integer.parseInt(textFieldSettingsARIMAnonseasQ.getText()));
@@ -2370,6 +2375,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursCustom.getValue().toString()));
         params.setLengthHistory(Integer.parseInt(textFieldKNNlengthHistory.getText()));
         params.setLag(Integer.parseInt(textFieldKNNlag.getText()));
