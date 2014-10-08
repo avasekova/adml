@@ -1906,11 +1906,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         //show Forecast plot
-        int numForecastsNnetar = 0; //TODO neskor pridat moznost vseobecne nastavit pocet forecasts, tam hore jak su percenta
-        if (checkBoxRunMLPnnetar.isSelected()) {
-            numForecastsNnetar = Integer.parseInt(textFieldRunNumForecasts.getText());
-        }
-        
+        int numForecastsNnetar = Integer.parseInt(textFieldRunNumForecasts.getText());
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
                 numForecastsNnetar, reportsCTS, reportsITS);
         //this.repaint();

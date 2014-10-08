@@ -18,10 +18,9 @@ public class Arima implements Forecastable {
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
         final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
         final String MODEL = Const.MODEL + Utils.getCounter();
-        final String TEST = Const.TEST + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
-        final String FORECAST_TEST = Const.FORECAST_VALS + Utils.getCounter();
-        final String FORECAST_TEST_VALS = FORECAST_TEST + ".vals";
+        final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
+        final String FORECAST_VALS = FORECAST + ".values";
         
         ArimaParams params = (ArimaParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
@@ -50,15 +49,19 @@ public class Arima implements Forecastable {
         
         //"forecast" testing data
         rengine.eval("require(forecast)");
-        rengine.eval(FORECAST_TEST + " <- predict(" + MODEL + ", " + testingPortionOfData.size() + ")");
-        rengine.eval(FORECAST_TEST_VALS + " <- " + FORECAST_TEST + "$pred[1:" + testingPortionOfData.size() + "]");
-        REXP getForecastsTest = rengine.eval(FORECAST_TEST_VALS);
-        double[] forecastsTest = getForecastsTest.asDoubleArray();
-        report.setForecastValues(forecastsTest);
+        int numOfForecasts = testingPortionOfData.size() + params.getNumForecasts();
+        rengine.eval(FORECAST + " <- predict(" + MODEL + ", " + numOfForecasts + ")"); //predict all
         
-        //TODO pridat aj pocet forecastov do buducnosti
-        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + ", " + FORECAST_TEST_VALS + "))");
+        //vziat vsetky forecasted vals (cast je z test data, cast je z future)
+        rengine.eval(FORECAST_VALS + " <- " + FORECAST + "$pred[1:length(" + FORECAST + "$pred)]");
+        REXP getAllForecasts = rengine.eval(FORECAST_VALS);
+        double[] allForecasts = getAllForecasts.asDoubleArray();
+        report.setForecastValues(allForecasts);
         
+        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + ", " + FORECAST_VALS + "))");
+        
+        //error measures pocitat len z testu, z buducich sa neda
+        double[] forecastsTest = Arrays.copyOf(allForecasts, testingPortionOfData.size());
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(trainingPortionOfData, Utils.arrayToList(fitted)));
         errorMeasures.setMEtest(ErrorMeasuresUtils.ME(testingPortionOfData, Utils.arrayToList(forecastsTest)));
