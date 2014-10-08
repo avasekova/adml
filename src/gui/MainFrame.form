@@ -363,11 +363,9 @@
                                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="paramNnetar_textFieldNumForecasts" max="32767" attributes="0"/>
                                           <Component id="paramNnetar_textFieldLambda" alignment="1" max="32767" attributes="0"/>
                                           <Component id="paramNnetar_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
                                           <Component id="paramNnetar_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
@@ -406,12 +404,7 @@
                                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                           <Component id="paramNnetar_textFieldLambda" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
-                                          <Component id="paramNnetar_textFieldNumForecasts" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace pref="321" max="32767" attributes="0"/>
+                                      <EmptySpace pref="347" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -482,16 +475,6 @@
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramNnetar_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramNnetar_textFieldLambda.getText())) {&#xa;            paramNnetar_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramNnetar_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramNnetar_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
                               </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel7">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of forecasts:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramNnetar_textFieldNumForecasts">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                              </Properties>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -2005,45 +1988,55 @@
                           <Component id="panelSummary" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="1" attributes="0">
+                                                      <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <Component id="comboBoxColnamesRun" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Component id="jLabel50" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel51" min="-2" pref="162" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxRunMLPintCenter" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxRunMLPintRadius" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel41" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel43" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                                              <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jLabel42" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Component id="comboBoxColnamesRun" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="jLabel50" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel49" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel51" min="-2" pref="162" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunMLPintCenter" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunMLPintRadius" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                      <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="textFieldRunNumForecasts" min="-2" pref="35" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -2115,7 +2108,11 @@
                                   <Component id="jSeparator1" alignment="0" min="-2" pref="190" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="buttonTrainAndTest" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel71" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textFieldRunNumForecasts" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
@@ -2316,6 +2313,16 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="kNN (custom)"/>
                 <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel71">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Number of forecasts to produce:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="textFieldRunNumForecasts">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
             </Component>
           </SubComponents>

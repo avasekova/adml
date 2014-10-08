@@ -84,8 +84,6 @@ public class MainFrame extends javax.swing.JFrame {
         paramNnetar_textFieldNumReps = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         paramNnetar_textFieldLambda = new javax.swing.JTextField();
-        jLabel7 = new javax.swing.JLabel();
-        paramNnetar_textFieldNumForecasts = new javax.swing.JTextField();
         panelSettingsMLPPackage_neuralnet = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         panelSettingsMLPPackage_nnet = new javax.swing.JPanel();
@@ -235,6 +233,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel53 = new javax.swing.JLabel();
         checkBoxRunKNNinterval = new javax.swing.JCheckBox();
         checkBoxRunKNNcustom = new javax.swing.JCheckBox();
+        jLabel71 = new javax.swing.JLabel();
+        textFieldRunNumForecasts = new javax.swing.JTextField();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -454,10 +454,6 @@ public class MainFrame extends javax.swing.JFrame {
         });
         paramNnetar_textFieldLambda.setText("<default>");
 
-        jLabel7.setText("Number of forecasts:");
-
-        paramNnetar_textFieldNumForecasts.setText("1");
-
         javax.swing.GroupLayout panelSettingsMLPPackage_nnetarLayout = new javax.swing.GroupLayout(panelSettingsMLPPackage_nnetar);
         panelSettingsMLPPackage_nnetar.setLayout(panelSettingsMLPPackage_nnetarLayout);
         panelSettingsMLPPackage_nnetarLayout.setHorizontalGroup(
@@ -468,11 +464,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel5))
                 .addGap(45, 45, 45)
                 .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(paramNnetar_textFieldNumForecasts)
                     .addComponent(paramNnetar_textFieldLambda, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paramNnetar_textFieldNumReps, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paramNnetar_textFieldNumSeasonalLags, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -503,11 +497,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(paramNnetar_textFieldLambda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(paramNnetar_textFieldNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(321, Short.MAX_VALUE))
+                .addContainerGap(347, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnetar, "panelSettingsMLPPackage_nnetar");
@@ -1558,6 +1548,10 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunKNNcustom.setText("kNN (custom)");
         checkBoxRunKNNcustom.setEnabled(false);
 
+        jLabel71.setText("Number of forecasts to produce:");
+
+        textFieldRunNumForecasts.setText("0");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1572,31 +1566,38 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel41)
-                                            .addComponent(jLabel43))
-                                        .addGap(42, 42, 42))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(jLabel42)
-                                        .addGap(26, 26, 26)))
-                                .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel50)
-                                    .addComponent(jLabel49)
-                                    .addComponent(jLabel52))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel41)
+                                                    .addComponent(jLabel43))
+                                                .addGap(42, 42, 42))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(jLabel42)
+                                                .addGap(26, 26, 26)))
+                                        .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel50)
+                                            .addComponent(jLabel49)
+                                            .addComponent(jLabel52))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(13, 13, 13)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(13, 13, 13)
-                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGap(80, 80, 80)
+                                        .addComponent(jLabelTrainingInfo)
+                                        .addGap(16, 16, 16))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGap(80, 80, 80)
-                                .addComponent(jLabelTrainingInfo)
-                                .addGap(16, 16, 16))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel71)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonTrainAndTest)
@@ -1653,7 +1654,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabelTrainingInfo)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(8, 8, 8)
-                        .addComponent(buttonTrainAndTest))
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonTrainAndTest)
+                            .addComponent(jLabel71)
+                            .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1904,7 +1908,7 @@ public class MainFrame extends javax.swing.JFrame {
         //show Forecast plot
         int numForecastsNnetar = 0; //TODO neskor pridat moznost vseobecne nastavit pocet forecasts, tam hore jak su percenta
         if (checkBoxRunMLPnnetar.isSelected()) {
-            numForecastsNnetar = Integer.parseInt(paramNnetar_textFieldNumForecasts.getText());
+            numForecastsNnetar = Integer.parseInt(textFieldRunNumForecasts.getText());
         }
         
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
@@ -2168,8 +2172,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel67;
     private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
+    private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelPercTrain;
@@ -2226,7 +2230,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox paramNnet_traceOptimization;
     private javax.swing.JTextField paramNnet_weightDecay;
     private javax.swing.JTextField paramNnetar_textFieldLambda;
-    private javax.swing.JTextField paramNnetar_textFieldNumForecasts;
     private javax.swing.JTextField paramNnetar_textFieldNumNodesHiddenLayer;
     private javax.swing.JTextField paramNnetar_textFieldNumNonSeasonalLags;
     private javax.swing.JTextField paramNnetar_textFieldNumReps;
@@ -2252,6 +2255,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
     private javax.swing.JTextField textFieldPercentTrainKNN;
     private javax.swing.JTextField textFieldPercentTrainMLPint;
+    private javax.swing.JTextField textFieldRunNumForecasts;
     private javax.swing.JTextField textFieldSettingsARIMAnonseasD;
     private javax.swing.JTextField textFieldSettingsARIMAnonseasP;
     private javax.swing.JTextField textFieldSettingsARIMAnonseasQ;
@@ -2281,7 +2285,7 @@ public class MainFrame extends javax.swing.JFrame {
         params.setNumNonSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
         params.setNumReps(Utils.getIntegerOrDefault(paramNnetar_textFieldNumReps));
         params.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
-        params.setNumForecasts(Utils.getIntegerOrDefault(paramNnetar_textFieldNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
         
         return params;
     }
