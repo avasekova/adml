@@ -1845,13 +1845,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
-        if (checkBoxRunKNNfnn.isSelected()) {
-            KNNfnnParams params = getParamsKNNfnn();
-            Forecastable kNN = new KNNfnn();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel.getDataForColname(colname_CTS), params));
-            reportsCTS.add(report);
-        }
-        
         if (checkBoxRunMLPint.isSelected()) {
             String colnameCenter = comboBoxRunMLPintCenter.getSelectedItem().toString();
             String colnameRadius = comboBoxRunMLPintRadius.getSelectedItem().toString();
@@ -1871,6 +1864,13 @@ public class MainFrame extends javax.swing.JFrame {
             ArimaParams params = getParamsArima();
             Forecastable arima = new Arima();
             TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            reportsCTS.add(report);
+        }
+        
+        if (checkBoxRunKNNfnn.isSelected()) {
+            KNNfnnParams params = getParamsKNNfnn();
+            Forecastable kNN = new KNNfnn();
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel.getDataForColname(colname_CTS), params));
             reportsCTS.add(report);
         }
         
