@@ -57,7 +57,7 @@ public class Arima implements Forecastable {
         report.setForecastValues(forecastsTest);
         
         //TODO pridat aj pocet forecastov do buducnosti
-        report.setFittedValuesPlotCode("plot.ts(" + FIT + ")");
+        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + ", " + FORECAST_TEST_VALS + "))");
         
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(trainingPortionOfData, Utils.arrayToList(fitted)));
