@@ -18,6 +18,7 @@ import models.ForecastableIntervals;
 import models.IntervalMLPCcode;
 import models.KNNcustom;
 import models.KNNfnn;
+import models.KNNkknn;
 import models.MLPint;
 import models.Neuralnet;
 import models.Nnet;
@@ -29,6 +30,7 @@ import params.ArimaParams;
 import params.IntervalMLPCcodeParams;
 import params.KNNcustomParams;
 import params.KNNfnnParams;
+import params.KNNkknnParams;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
@@ -209,6 +211,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel70 = new javax.swing.JLabel();
         comboBoxKNNcombination = new javax.swing.JComboBox();
         panelSettingsKNNoptions_kknn = new javax.swing.JPanel();
+        jLabel73 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        textFieldKNNkknnLag = new javax.swing.JTextField();
+        spinnerKNNnumNeighboursKKNN = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+        jLabel75 = new javax.swing.JLabel();
         comboBoxKNNoptions = new javax.swing.JComboBox();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
@@ -239,6 +246,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel71 = new javax.swing.JLabel();
         textFieldRunNumForecasts = new javax.swing.JTextField();
         jLabel72 = new javax.swing.JLabel();
+        checkBoxRunKNNkknn = new javax.swing.JCheckBox();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1427,15 +1435,46 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_custom, "panelSettingsKNNoptions_custom");
 
+        jLabel73.setText("Maximum number of neighbours considered:");
+
+        jLabel74.setText("Lag:");
+
+        textFieldKNNkknnLag.setText("1");
+
+        jLabel75.setText("(optimizes the number of neighbours)");
+
         javax.swing.GroupLayout panelSettingsKNNoptions_kknnLayout = new javax.swing.GroupLayout(panelSettingsKNNoptions_kknn);
         panelSettingsKNNoptions_kknn.setLayout(panelSettingsKNNoptions_kknnLayout);
         panelSettingsKNNoptions_kknnLayout.setHorizontalGroup(
             panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1084, Short.MAX_VALUE)
+            .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
+                        .addComponent(jLabel74)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textFieldKNNkknnLag, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
+                        .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(spinnerKNNnumNeighboursKKNN, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel75)
+                .addContainerGap(617, Short.MAX_VALUE))
         );
         panelSettingsKNNoptions_kknnLayout.setVerticalGroup(
             panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 445, Short.MAX_VALUE)
+            .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel73)
+                    .addComponent(spinnerKNNnumNeighboursKKNN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel75))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel74)
+                    .addComponent(textFieldKNNkknnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_kknn, "panelSettingsKNNoptions_kknn");
@@ -1583,6 +1622,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel72.setForeground(new java.awt.Color(255, 102, 51));
         jLabel72.setText("TODO check errors for FNN");
 
+        checkBoxRunKNNkknn.setText("kNN (kknn)");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1656,8 +1697,10 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(checkBoxRunKNNfnn)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunKNNcustom)))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                        .addComponent(checkBoxRunKNNcustom)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunKNNkknn)))))
+                        .addGap(0, 215, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -1675,7 +1718,8 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(checkBoxRunMLPnnet)
                                     .addComponent(checkBoxRunARIMA)
                                     .addComponent(checkBoxRunKNNfnn)
-                                    .addComponent(checkBoxRunKNNcustom))
+                                    .addComponent(checkBoxRunKNNcustom)
+                                    .addComponent(checkBoxRunKNNkknn))
                                 .addGap(1, 1, 1)
                                 .addComponent(jLabel72)
                                 .addGap(18, 18, 18)
@@ -1917,6 +1961,13 @@ public class MainFrame extends javax.swing.JFrame {
             reportsCTS.add(report);
         }
         
+        if (checkBoxRunKNNkknn.isSelected()) {
+            KNNkknnParams params = getParamsKNNkknn();
+            Forecastable kNNkknn = new KNNkknn();
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            reportsCTS.add(report);
+        }
+        
         //add more methods/models here
         
         
@@ -2128,6 +2179,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunKNNcustom;
     private javax.swing.JCheckBox checkBoxRunKNNfnn;
     private javax.swing.JCheckBox checkBoxRunKNNinterval;
+    private javax.swing.JCheckBox checkBoxRunKNNkknn;
     private javax.swing.JCheckBox checkBoxRunMLPint;
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;
@@ -2211,6 +2263,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
+    private javax.swing.JLabel jLabel73;
+    private javax.swing.JLabel jLabel74;
+    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelPercTrain;
@@ -2282,12 +2337,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSlider sliderPercentTrainMLPint;
     private javax.swing.JSpinner spinnerKNNnumNeighboursCustom;
     private javax.swing.JSpinner spinnerKNNnumNeighboursFNN;
+    private javax.swing.JSpinner spinnerKNNnumNeighboursKKNN;
     private javax.swing.JTable tableiMLPSettingsExplVars;
     private javax.swing.JTable tableiMLPSettingsOutVars;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
     private javax.swing.JTextField textFieldKNNcustomLag;
     private javax.swing.JTextField textFieldKNNfnnLag;
+    private javax.swing.JTextField textFieldKNNkknnLag;
     private javax.swing.JTextField textFieldKNNlengthHistory;
     private javax.swing.JTextField textFieldPercentTrain;
     private javax.swing.JTextField textFieldPercentTrainARIMA;
@@ -2382,18 +2439,6 @@ public class MainFrame extends javax.swing.JFrame {
         return params;
     }
     
-    private KNNfnnParams getParamsKNNfnn() {
-        KNNfnnParams params = new KNNfnnParams();
-        
-        //zohnat vsetky parametre pre dany model:
-        params.setPercentTrain(sliderPercentTrainKNN.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
-        params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursFNN.getValue().toString()));
-        params.setLag(Integer.parseInt(textFieldKNNfnnLag.getText()));
-        
-        return params;
-    }
-    
     private ArimaParams getParamsArima() {
         ArimaParams params = new ArimaParams();
         
@@ -2421,6 +2466,30 @@ public class MainFrame extends javax.swing.JFrame {
         params.setLag(Integer.parseInt(textFieldKNNcustomLag.getText()));
         params.setDistanceMethodName(comboBoxKNNdistance.getSelectedItem().toString());
         params.setCombinationMethodName(comboBoxKNNcombination.getSelectedItem().toString());
+        
+        return params;
+    }
+    
+    private KNNfnnParams getParamsKNNfnn() {
+        KNNfnnParams params = new KNNfnnParams();
+        
+        //zohnat vsetky parametre pre dany model:
+        params.setPercentTrain(sliderPercentTrainKNN.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursFNN.getValue().toString()));
+        params.setLag(Integer.parseInt(textFieldKNNfnnLag.getText()));
+        
+        return params;
+    }
+    
+    private KNNkknnParams getParamsKNNkknn() {
+        KNNkknnParams params = new KNNkknnParams();
+        
+        //zohnat vsetky parametre pre dany model:
+        params.setPercentTrain(sliderPercentTrainKNN.getValue());
+        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setMaxNeighbours(Integer.parseInt(spinnerKNNnumNeighboursKKNN.getValue().toString()));
+        params.setLag(Integer.parseInt(textFieldKNNkknnLag.getText()));
         
         return params;
     }
