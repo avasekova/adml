@@ -20,6 +20,7 @@ public class Arima implements Forecastable {
         final String MODEL = Const.MODEL + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
         final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
+        final String FORECAST_VALS = FORECAST + ".values";
         
         ArimaParams params = (ArimaParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
@@ -55,24 +56,16 @@ public class Arima implements Forecastable {
         report.setFittedValues(fitted);
         
         //"forecast" testing data
-        int numOfForecasts = testingPortionOfData.size() + params.getNumForecasts();
-        rengine.eval(FORECAST + " <- predict(" + MODEL + ", " + numOfForecasts + ")"); //predict all
+        int numOfForecasts = allData.size() + params.getNumForecasts(); //TODO zmenit!
+        rengine.eval(FORECAST + " <- forecast(" + MODEL + ", h = " + numOfForecasts + ")"); //predict all
         
-        
-        /*
-        v tejto sekcii pouzivam premennu TRAINDATA na nieco, co nie je traindata, ale z nejakeho wtf dovodu mi to s inou
-           premennou pada (REXP.asDoubleArray hadze NPE, bo ten eval predtym neprejde). Neviem, ako je to mozne, ale nastastie
-           tie TRAINDATA mozem na tomto mieste prepisat, tak mi to zas tak nevadi
-        */
-        ///////////////////////////////////
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)
-        rengine.eval(TRAINDATA + " <- " + FORECAST + "$pred[1:length(" + FORECAST + "$pred)]");
-        REXP getAllForecasts = rengine.eval(TRAINDATA);
+        rengine.eval(FORECAST_VALS + " <- " + FORECAST + "$mean[1:" + numOfForecasts + "]");
+        REXP getAllForecasts = rengine.eval(FORECAST_VALS);
         double[] allForecasts = getAllForecasts.asDoubleArray();
         report.setForecastValues(allForecasts);
         
-        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + ", " + TRAINDATA + "))");
-        ///////////////////////////////////
+        report.setFittedValuesPlotCode("plot.ts(c(" + /*FIT + ", " + */FORECAST_VALS + "))");
         
         
         //error measures pocitat len z testu, z buducich sa neda
