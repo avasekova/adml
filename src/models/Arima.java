@@ -36,15 +36,8 @@ public class Arima implements Forecastable {
         
         if (params.isOptimize()) {
             rengine.eval(MODEL + " <- auto.arima(" + TRAINDATA + ")");
-            System.out.println(MODEL + " <- auto.arima(" + TRAINDATA + ")");
         } else {
             rengine.eval(MODEL + " <- arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
-                                                                       + params.getNonSeasD() + ", "
-                                                                       + params.getNonSeasQ()
-                                     + "), seasonal = c(" + params.getSeasP() + ", "
-                                                                       + params.getSeasD() + ", "
-                                                                       + params.getNonSeasQ() + "))");
-            System.out.println(MODEL + " <- arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
                                                                        + params.getNonSeasD() + ", "
                                                                        + params.getNonSeasQ()
                                      + "), seasonal = c(" + params.getSeasP() + ", "
@@ -64,7 +57,6 @@ public class Arima implements Forecastable {
         //"forecast" testing data
         int numOfForecasts = testingPortionOfData.size() + params.getNumForecasts();
         rengine.eval(FORECAST + " <- predict(" + MODEL + ", " + numOfForecasts + ")"); //predict all
-        System.out.println(FORECAST + " <- predict(" + MODEL + ", " + numOfForecasts + ")");
         
         
         /*
