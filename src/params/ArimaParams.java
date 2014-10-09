@@ -8,6 +8,7 @@ public class ArimaParams extends Params {
     private int seasP;
     private int seasD;
     private int seasQ;
+    private boolean optimize;
 
     public int getNonSeasP() {
         return nonSeasP;
@@ -56,5 +57,12 @@ public class ArimaParams extends Params {
     public void setSeasQ(int seasQ) {
         this.seasQ = seasQ;
     }
-    
+
+    public boolean isOptimize() {
+        return optimize;
+    }
+
+    public void setOptimize(boolean optimize) {
+        this.optimize = optimize;
+    }
 }

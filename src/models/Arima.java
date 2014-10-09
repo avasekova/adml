@@ -20,24 +20,38 @@ public class Arima implements Forecastable {
         final String MODEL = Const.MODEL + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
         final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
-        final String FORECAST_VALS = FORECAST + ".values";
         
         ArimaParams params = (ArimaParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
 
         Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(forecast)");
+        
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
         report.setNumTrainingEntries(numTrainingEntries);
         List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
         List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
         
         rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
-        rengine.eval(MODEL + " <- arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
+        
+        if (params.isOptimize()) {
+            rengine.eval(MODEL + " <- auto.arima(" + TRAINDATA + ")");
+            System.out.println(MODEL + " <- auto.arima(" + TRAINDATA + ")");
+        } else {
+            rengine.eval(MODEL + " <- arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
                                                                        + params.getNonSeasD() + ", "
                                                                        + params.getNonSeasQ()
-                                     + "), seasonal = list(order = c(" + params.getSeasP() + ", "
+                                     + "), seasonal = c(" + params.getSeasP() + ", "
                                                                        + params.getSeasD() + ", "
-                                                                       + params.getNonSeasQ() + "), period = NA))");
+                                                                       + params.getNonSeasQ() + "))");
+            System.out.println(MODEL + " <- arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
+                                                                       + params.getNonSeasD() + ", "
+                                                                       + params.getNonSeasQ()
+                                     + "), seasonal = c(" + params.getSeasP() + ", "
+                                                                       + params.getSeasD() + ", "
+                                                                       + params.getNonSeasQ() + "))");
+            //TODO include.constant
+        }
         
 //        REXP getResiduals = rengine.eval(MODEL + "$residuals");
 //        double[] residuals = getResiduals.asDoubleArray();
@@ -48,17 +62,26 @@ public class Arima implements Forecastable {
         report.setFittedValues(fitted);
         
         //"forecast" testing data
-        rengine.eval("require(forecast)");
         int numOfForecasts = testingPortionOfData.size() + params.getNumForecasts();
         rengine.eval(FORECAST + " <- predict(" + MODEL + ", " + numOfForecasts + ")"); //predict all
+        System.out.println(FORECAST + " <- predict(" + MODEL + ", " + numOfForecasts + ")");
         
+        
+        /*
+        v tejto sekcii pouzivam premennu TRAINDATA na nieco, co nie je traindata, ale z nejakeho wtf dovodu mi to s inou
+           premennou pada (REXP.asDoubleArray hadze NPE, bo ten eval predtym neprejde). Neviem, ako je to mozne, ale nastastie
+           tie TRAINDATA mozem na tomto mieste prepisat, tak mi to zas tak nevadi
+        */
+        ///////////////////////////////////
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)
-        rengine.eval(FORECAST_VALS + " <- " + FORECAST + "$pred[1:length(" + FORECAST + "$pred)]");
-        REXP getAllForecasts = rengine.eval(FORECAST_VALS);
+        rengine.eval(TRAINDATA + " <- " + FORECAST + "$pred[1:length(" + FORECAST + "$pred)]");
+        REXP getAllForecasts = rengine.eval(TRAINDATA);
         double[] allForecasts = getAllForecasts.asDoubleArray();
         report.setForecastValues(allForecasts);
         
-        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + ", " + FORECAST_VALS + "))");
+        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + ", " + TRAINDATA + "))");
+        ///////////////////////////////////
+        
         
         //error measures pocitat len z testu, z buducich sa neda
         double[] forecastsTest = Arrays.copyOf(allForecasts, testingPortionOfData.size());

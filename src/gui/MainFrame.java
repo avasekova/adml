@@ -163,26 +163,27 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         comboBoxIntervalMLPMode = new javax.swing.JComboBox();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
-        jLabel54 = new javax.swing.JLabel();
-        jLabel55 = new javax.swing.JLabel();
+        labelSettingsARIMAnonseas = new javax.swing.JLabel();
+        labelSettingsARIMAnonseasP = new javax.swing.JLabel();
         textFieldSettingsARIMAnonseasP = new javax.swing.JTextField();
-        jLabel56 = new javax.swing.JLabel();
+        labelSettingsARIMAnonseasQ = new javax.swing.JLabel();
         textFieldSettingsARIMAnonseasQ = new javax.swing.JTextField();
-        jLabel57 = new javax.swing.JLabel();
+        labelSettingsARIMAnonseasD = new javax.swing.JLabel();
         textFieldSettingsARIMAnonseasD = new javax.swing.JTextField();
-        jLabel58 = new javax.swing.JLabel();
-        jLabel59 = new javax.swing.JLabel();
+        labelSettingsARIMAseas = new javax.swing.JLabel();
+        labelSettingsARIMAseasP = new javax.swing.JLabel();
         textFieldSettingsARIMAseasP = new javax.swing.JTextField();
-        jLabel60 = new javax.swing.JLabel();
+        labelSettingsARIMAseasD = new javax.swing.JLabel();
         textFieldSettingsARIMAseasD = new javax.swing.JTextField();
-        jLabel61 = new javax.swing.JLabel();
+        labelSettingsARIMAseasQ = new javax.swing.JLabel();
         textFieldSettingsARIMAseasQ = new javax.swing.JTextField();
         jLabel62 = new javax.swing.JLabel();
         jLabelPercTrain2 = new javax.swing.JLabel();
         sliderPercentTrainARIMA = new javax.swing.JSlider();
         textFieldPercentTrainARIMA = new javax.swing.JTextField();
         jLabelPercentSign2 = new javax.swing.JLabel();
-        jLabel63 = new javax.swing.JLabel();
+        checkBoxSettingsARIMAoptimize = new javax.swing.JCheckBox();
+        checkBoxSettingsARIMAconstant = new javax.swing.JCheckBox();
         paneSettingsMethodsKNN = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         sliderPercentTrainKNN = new javax.swing.JSlider();
@@ -244,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldRunNumForecasts = new javax.swing.JTextField();
         jLabel72 = new javax.swing.JLabel();
         checkBoxRunKNNkknn = new javax.swing.JCheckBox();
+        jLabel8 = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1130,31 +1132,31 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("iMLP", paneSettingsMethodsIntervalMLP);
 
-        jLabel54.setText("Non-seasonal part:");
+        labelSettingsARIMAnonseas.setText("Non-seasonal part:");
 
-        jLabel55.setText("p =");
+        labelSettingsARIMAnonseasP.setText("p =");
 
         textFieldSettingsARIMAnonseasP.setText("0");
 
-        jLabel56.setText("q =");
+        labelSettingsARIMAnonseasQ.setText("q =");
 
         textFieldSettingsARIMAnonseasQ.setText("0");
 
-        jLabel57.setText("d =");
+        labelSettingsARIMAnonseasD.setText("d =");
 
         textFieldSettingsARIMAnonseasD.setText("0");
 
-        jLabel58.setText("Seasonal part:");
+        labelSettingsARIMAseas.setText("Seasonal part:");
 
-        jLabel59.setText("P =");
+        labelSettingsARIMAseasP.setText("P =");
 
         textFieldSettingsARIMAseasP.setText("0");
 
-        jLabel60.setText("D =");
+        labelSettingsARIMAseasD.setText("D =");
 
         textFieldSettingsARIMAseasD.setText("0");
 
-        jLabel61.setText("Q =");
+        labelSettingsARIMAseasQ.setText("Q =");
 
         textFieldSettingsARIMAseasQ.setText("0");
 
@@ -1181,8 +1183,15 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelPercentSign2.setText("%");
 
-        jLabel63.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel63.setText("TODO predict.arima");
+        checkBoxSettingsARIMAoptimize.setText("optimize the parameters");
+        checkBoxSettingsARIMAoptimize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxSettingsARIMAoptimizeActionPerformed(evt);
+            }
+        });
+
+        checkBoxSettingsARIMAconstant.setForeground(new java.awt.Color(204, 0, 0));
+        checkBoxSettingsARIMAconstant.setText("include constant");
 
         javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
         paneSettingsMethodsARIMA.setLayout(paneSettingsMethodsARIMALayout);
@@ -1191,42 +1200,42 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxSettingsARIMAconstant)
+                    .addComponent(checkBoxSettingsARIMAoptimize)
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                .addComponent(jLabel54)
+                                .addComponent(labelSettingsARIMAnonseas)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel55)
+                                .addComponent(labelSettingsARIMAnonseasP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textFieldSettingsARIMAnonseasP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                .addComponent(jLabel58)
+                                .addComponent(labelSettingsARIMAseas)
                                 .addGap(28, 28, 28)
-                                .addComponent(jLabel59)
+                                .addComponent(labelSettingsARIMAseasP)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textFieldSettingsARIMAseasP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                        .addComponent(jLabel57)
+                                        .addComponent(labelSettingsARIMAnonseasD)
                                         .addGap(5, 5, 5)
                                         .addComponent(textFieldSettingsARIMAnonseasD, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel56)
+                                        .addComponent(labelSettingsARIMAnonseasQ)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(textFieldSettingsARIMAnonseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                        .addComponent(jLabel60)
+                                        .addComponent(labelSettingsARIMAseasD)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(textFieldSettingsARIMAseasD, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel61)
+                                        .addComponent(labelSettingsARIMAseasQ)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(textFieldSettingsARIMAseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(49, 49, 49)
-                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel62)
-                            .addComponent(jLabel63)))
+                        .addComponent(jLabel62))
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addGap(119, 119, 119)
                         .addComponent(jLabelPercTrain2)
@@ -1250,30 +1259,32 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(sliderPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(7, 7, 7)
+                        .addComponent(checkBoxSettingsARIMAoptimize)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel54)
-                            .addComponent(jLabel55)
+                            .addComponent(labelSettingsARIMAnonseas)
+                            .addComponent(labelSettingsARIMAnonseasP)
                             .addComponent(textFieldSettingsARIMAnonseasP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(textFieldSettingsARIMAnonseasD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel57)
-                            .addComponent(jLabel56)
+                            .addComponent(labelSettingsARIMAnonseasD)
+                            .addComponent(labelSettingsARIMAnonseasQ)
                             .addComponent(textFieldSettingsARIMAnonseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel58)
+                            .addComponent(labelSettingsARIMAseas)
                             .addComponent(textFieldSettingsARIMAseasP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel59)
-                            .addComponent(jLabel60)
+                            .addComponent(labelSettingsARIMAseasP)
+                            .addComponent(labelSettingsARIMAseasD)
                             .addComponent(textFieldSettingsARIMAseasD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel61)
+                            .addComponent(labelSettingsARIMAseasQ)
                             .addComponent(textFieldSettingsARIMAseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addGap(55, 55, 55)
-                        .addComponent(jLabel62)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel63)))
-                .addContainerGap(407, Short.MAX_VALUE))
+                        .addComponent(jLabel62)))
+                .addGap(27, 27, 27)
+                .addComponent(checkBoxSettingsARIMAconstant)
+                .addContainerGap(370, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
@@ -1531,7 +1542,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 306, Short.MAX_VALUE)
+            .addGap(0, 286, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -1603,6 +1614,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunKNNkknn.setText("kNN (kknn)");
 
+        jLabel8.setForeground(new java.awt.Color(255, 102, 0));
+        jLabel8.setText("Please note: not all models support forecasting at the moment.");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1619,67 +1633,70 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(jLabel41)
-                                                    .addComponent(jLabel43))
-                                                .addGap(42, 42, 42))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(jLabel42)
-                                                .addGap(26, 26, 26)))
-                                        .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel50)
-                                            .addComponent(jLabel49)
-                                            .addComponent(jLabel52))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                            .addComponent(jLabel41)
+                                                            .addComponent(jLabel43))
+                                                        .addGap(42, 42, 42))
+                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                                        .addComponent(jLabel42)
+                                                        .addGap(26, 26, 26)))
+                                                .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel50)
+                                                    .addComponent(jLabel49)
+                                                    .addComponent(jLabel52))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(13, 13, 13)
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(13, 13, 13)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGap(80, 80, 80)
+                                                .addComponent(jLabelTrainingInfo)
+                                                .addGap(16, 16, 16))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addGap(80, 80, 80)
-                                        .addComponent(jLabelTrainingInfo)
-                                        .addGap(16, 16, 16))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(jLabel71)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonTrainAndTest)
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(checkBoxRunIntervalMLPCcode)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunIntervalMLPneuralnet)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBoxRunKNNinterval))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(checkBoxRunMLPint)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel53))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(checkBoxRunMLPnnetar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunMLPneuralnet)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunMLPnnet)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxRunARIMA)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel72)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunKNNfnn)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunKNNcustom)
+                                        .addComponent(jLabel71)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunKNNkknn)))))
-                        .addGap(0, 215, Short.MAX_VALUE)))
+                                        .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonTrainAndTest)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunIntervalMLPCcode)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunIntervalMLPneuralnet)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunKNNinterval))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunMLPint)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel53))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunMLPnnetar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunMLPneuralnet)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunMLPnnet)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunARIMA)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel72)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(checkBoxRunKNNfnn)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunKNNcustom)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkBoxRunKNNkknn))))))
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -1737,7 +1754,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel52))
                         .addGap(13, 13, 13)
                         .addComponent(jLabel43)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(1, 1, 1)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -2105,6 +2124,40 @@ public class MainFrame extends javax.swing.JFrame {
         
         panelSettingsKNNoptions.repaint();
     }//GEN-LAST:event_comboBoxKNNoptionsActionPerformed
+
+    private void checkBoxSettingsARIMAoptimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSettingsARIMAoptimizeActionPerformed
+        if (checkBoxSettingsARIMAoptimize.isSelected()) {
+            labelSettingsARIMAnonseas.setEnabled(false);
+            labelSettingsARIMAnonseasP.setEnabled(false);
+            labelSettingsARIMAnonseasD.setEnabled(false);
+            labelSettingsARIMAnonseasQ.setEnabled(false);
+            labelSettingsARIMAseas.setEnabled(false);
+            labelSettingsARIMAseasP.setEnabled(false);
+            labelSettingsARIMAseasD.setEnabled(false);
+            labelSettingsARIMAseasQ.setEnabled(false);
+            textFieldSettingsARIMAnonseasP.setEnabled(false);
+            textFieldSettingsARIMAnonseasD.setEnabled(false);
+            textFieldSettingsARIMAnonseasQ.setEnabled(false);
+            textFieldSettingsARIMAseasP.setEnabled(false);
+            textFieldSettingsARIMAseasD.setEnabled(false);
+            textFieldSettingsARIMAseasQ.setEnabled(false);
+        } else {
+            labelSettingsARIMAnonseas.setEnabled(true);
+            labelSettingsARIMAnonseasP.setEnabled(true);
+            labelSettingsARIMAnonseasD.setEnabled(true);
+            labelSettingsARIMAnonseasQ.setEnabled(true);
+            labelSettingsARIMAseas.setEnabled(true);
+            labelSettingsARIMAseasP.setEnabled(true);
+            labelSettingsARIMAseasD.setEnabled(true);
+            labelSettingsARIMAseasQ.setEnabled(true);
+            textFieldSettingsARIMAnonseasP.setEnabled(true);
+            textFieldSettingsARIMAnonseasD.setEnabled(true);
+            textFieldSettingsARIMAnonseasQ.setEnabled(true);
+            textFieldSettingsARIMAseasP.setEnabled(true);
+            textFieldSettingsARIMAseasD.setEnabled(true);
+            textFieldSettingsARIMAseasQ.setEnabled(true);
+        }
+    }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2160,6 +2213,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnetar;
+    private javax.swing.JCheckBox checkBoxSettingsARIMAconstant;
+    private javax.swing.JCheckBox checkBoxSettingsARIMAoptimize;
     private javax.swing.JComboBox comboBoxColnames;
     private javax.swing.JComboBox comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxIntervalMLPMode;
@@ -2217,17 +2272,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel54;
-    private javax.swing.JLabel jLabel55;
-    private javax.swing.JLabel jLabel56;
-    private javax.swing.JLabel jLabel57;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -2242,6 +2288,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel74;
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercTrain1;
     private javax.swing.JLabel jLabelPercTrain2;
@@ -2252,6 +2299,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableData;
+    private javax.swing.JLabel labelSettingsARIMAnonseas;
+    private javax.swing.JLabel labelSettingsARIMAnonseasD;
+    private javax.swing.JLabel labelSettingsARIMAnonseasP;
+    private javax.swing.JLabel labelSettingsARIMAnonseasQ;
+    private javax.swing.JLabel labelSettingsARIMAseas;
+    private javax.swing.JLabel labelSettingsARIMAseasD;
+    private javax.swing.JLabel labelSettingsARIMAseasP;
+    private javax.swing.JLabel labelSettingsARIMAseasQ;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -2418,6 +2473,7 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainARIMA.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setOptimize(checkBoxSettingsARIMAoptimize.isSelected());
         params.setNonSeasP(Integer.parseInt(textFieldSettingsARIMAnonseasP.getText()));
         params.setNonSeasD(Integer.parseInt(textFieldSettingsARIMAnonseasD.getText()));
         params.setNonSeasQ(Integer.parseInt(textFieldSettingsARIMAnonseasQ.getText()));
