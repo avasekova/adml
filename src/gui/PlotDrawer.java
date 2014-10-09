@@ -18,7 +18,8 @@ public class PlotDrawer {
     
     //TODO generovat i legendu do toho vysledneho grafu!
     public static void drawPlots(int width, int height, List<Double> allDataCTS, int numForecasts,
-                                 List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS) {
+                                 List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS,
+                                 int from, int to) { //the range of data that is considered
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
         }
@@ -34,6 +35,7 @@ public class PlotDrawer {
         int colourNumber = 0;
         if (! reportsCTS.isEmpty()) { //plot CTS
             int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
+            allDataCTS = allDataCTS.subList(from, to);
             String rangeY_CTS = getRangeYCrisp(allDataCTS, reportsCTS);
             String rangeX = getRangeXCrisp(allDataCTS, numForecasts);
             
@@ -127,8 +129,8 @@ public class PlotDrawer {
                 
             //a na ne vsetky naplotovat realne data:
             //TODO hack, zatial beriem data z prveho reportu. potom nejak vymysliet :(
-            rengine.assign("all.lower", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesLowers()));
-            rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers()));
+            rengine.assign("all.lower", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().subList(from, to)));
+            rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers().subList(from, to)));
 
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
             rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");

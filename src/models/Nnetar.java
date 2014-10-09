@@ -25,6 +25,7 @@ public class Nnetar implements Forecastable {
         
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
+        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");

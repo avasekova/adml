@@ -41,6 +41,7 @@ public class KNNfnn implements Forecastable {
         
         KNNfnnParams params = (KNNfnnParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (FNN)");
+        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(FNN)");

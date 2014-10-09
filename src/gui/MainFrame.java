@@ -246,6 +246,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel72 = new javax.swing.JLabel();
         checkBoxRunKNNkknn = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        textFieldRunDataRangeFrom = new javax.swing.JTextField();
+        jLabel44 = new javax.swing.JLabel();
+        textFieldRunDataRangeTo = new javax.swing.JTextField();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1617,6 +1621,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(255, 102, 0));
         jLabel8.setText("Please note: not all models support forecasting at the moment.");
 
+        jLabel9.setText("with data at positions");
+
+        textFieldRunDataRangeFrom.setText("1");
+
+        jLabel44.setText("to");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1667,13 +1677,6 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonTrainAndTest)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunIntervalMLPCcode)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunIntervalMLPneuralnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunKNNinterval))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(checkBoxRunMLPint)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1694,7 +1697,26 @@ public class MainFrame extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(checkBoxRunKNNcustom)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunKNNkknn))))))
+                                                .addComponent(checkBoxRunKNNkknn))))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(buttonTrainAndTest)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(jLabel9)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(checkBoxRunIntervalMLPCcode)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunIntervalMLPneuralnet)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(checkBoxRunKNNinterval)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(jLabel44)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -1733,7 +1755,11 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonTrainAndTest)
                             .addComponent(jLabel71)
-                            .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel44)
+                            .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1832,6 +1858,7 @@ public class MainFrame extends javax.swing.JFrame {
                                                this.loadedFile = new File("C:\\Users\\Andrejka\\Documents\\fi_muni\\phd\\3d_semester-madrid\\w02\\javier redondo\\brent_prices_its_2000_2014.xlsx");
                     dataTableModel.openFile(loadedFile);
                     dataTableModel.fireTableStructureChanged();
+                    textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
                     for (String colname : dataTableModel.getColnames()) {
                         //TODO na toto si dat potom pozor! - obavam sa, ze ked naloadujem novy subor, ostanu tam aj stare prvky v comboBoxoch, len pribudnu nove.
                         comboBoxColnames.addItem(colname);
@@ -1989,8 +2016,10 @@ public class MainFrame extends javax.swing.JFrame {
         
         //show Forecast plot
         int numForecastsNnetar = Integer.parseInt(textFieldRunNumForecasts.getText());
+        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText());
+        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
-                numForecastsNnetar, reportsCTS, reportsITS);
+                numForecastsNnetar, reportsCTS, reportsITS, from, to);
         //this.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
@@ -2262,6 +2291,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
+    private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
@@ -2289,6 +2319,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercTrain1;
     private javax.swing.JLabel jLabelPercTrain2;
@@ -2379,6 +2410,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
     private javax.swing.JTextField textFieldPercentTrainKNN;
     private javax.swing.JTextField textFieldPercentTrainMLPint;
+    private javax.swing.JTextField textFieldRunDataRangeFrom;
+    private javax.swing.JTextField textFieldRunDataRangeTo;
     private javax.swing.JTextField textFieldRunNumForecasts;
     private javax.swing.JTextField textFieldSettingsARIMAnonseasD;
     private javax.swing.JTextField textFieldSettingsARIMAnonseasP;
@@ -2405,6 +2438,8 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrain.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setNumNodesHidden(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
         params.setNumSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumSeasonalLags));
         params.setNumNonSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
@@ -2438,6 +2473,8 @@ public class MainFrame extends javax.swing.JFrame {
         params.setLag(Integer.parseInt(paramNnet_lag.getText()));
         params.setPercentTrain(sliderPercentTrain.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setAbstol(Utils.getDoubleOrDefault(paramNnet_abstol));
         params.setReltol(Utils.getDoubleOrDefault(paramNnet_reltol));
         params.setSkipLayerConnections(Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
@@ -2459,6 +2496,8 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainIntervalMLP.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setNumNodesHidden(Utils.getIntegerOrDefault(textFieldIntervalMLPCcodeNumNeurons));
         params.setNumIterations(Integer.parseInt(textFieldIntervalMLPCcodeNumIterations.getText()));
         params.setExplVars(((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
@@ -2473,6 +2512,8 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainARIMA.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setOptimize(checkBoxSettingsARIMAoptimize.isSelected());
         params.setNonSeasP(Integer.parseInt(textFieldSettingsARIMAnonseasP.getText()));
         params.setNonSeasD(Integer.parseInt(textFieldSettingsARIMAnonseasD.getText()));
@@ -2486,10 +2527,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     private KNNcustomParams getParamsKNNcustom() {
         KNNcustomParams params = new KNNcustomParams();
-        
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursCustom.getValue().toString()));
         params.setLengthHistory(Integer.parseInt(textFieldKNNlengthHistory.getText()));
         params.setLag(Integer.parseInt(textFieldKNNcustomLag.getText()));
@@ -2505,6 +2547,8 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursFNN.getValue().toString()));
         params.setLag(Integer.parseInt(textFieldKNNfnnLag.getText()));
         
@@ -2517,6 +2561,8 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
         params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setMaxNeighbours(Integer.parseInt(spinnerKNNnumNeighboursKKNN.getValue().toString()));
         params.setLag(Integer.parseInt(textFieldKNNkknnLag.getText()));
         

@@ -14,11 +14,13 @@ public class MLPint implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
-        List<Double> dataCenter = allData.subList(0, allData.size()/2);
-        List<Double> dataRadius = allData.subList(allData.size()/2, allData.size());
-        
         NnetarParams params = (NnetarParams) parameters;
         params.setNumForecasts(0); //zatial nechcem forecasty, lebo mi kvoli tomu blbnu vsade indexy... TODO dorobit
+        
+        List<Double> dataCenter = allData.subList(0, allData.size()/2);
+        dataCenter = dataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        List<Double> dataRadius = allData.subList(allData.size()/2, allData.size());
+        dataRadius = dataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         Nnetar nnetar = new Nnetar();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataCenter, params);

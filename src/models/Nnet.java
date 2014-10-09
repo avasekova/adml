@@ -36,6 +36,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
+        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(nnet)");

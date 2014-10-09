@@ -27,6 +27,7 @@ public class KNNkknn implements Forecastable {
         final String BEST_K = "bestk" + Utils.getCounter();
         
         KNNkknnParams params = (KNNkknnParams) parameters;
+        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(kknn)");

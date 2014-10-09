@@ -24,6 +24,7 @@ public class Arima implements Forecastable {
         
         ArimaParams params = (ArimaParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
+        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");

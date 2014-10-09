@@ -24,6 +24,7 @@ public class KNNcustom implements Forecastable {
         
         KNNcustomParams params = (KNNcustomParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (custom)");
+        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         Rengine rengine = MyRengine.getRengine();
         
