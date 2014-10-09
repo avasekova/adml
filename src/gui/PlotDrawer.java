@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -36,6 +37,8 @@ public class PlotDrawer {
             String rangeY_CTS = getRangeYCrisp(allDataCTS, reportsCTS);
             String rangeX = getRangeXCrisp(allDataCTS, numForecasts);
             
+            List<String> names = new ArrayList<>();
+            List<String> colours = new ArrayList<>();
             boolean next = false;
             for (TrainAndTestReportCrisp r : reportsCTS) {
                 if (next) {
@@ -44,17 +47,33 @@ public class PlotDrawer {
                     next = true;
                 }
 
+                //remember these for the legend
+                names.add(r.getModelName());
+                colours.add(COLOURS[colourNumber]);
+                
                 StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
                 plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
                 rengine.eval(plotCode.toString());
                 colourNumber++;
             }
-
+            
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
             rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=2, col=\"#444444\")");
             rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
             rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)");
+            
+            //add legend
+            rengine.eval("legend(\"topleft\", "      
+                                + "inset = c(0,-0.11), "
+                                + "legend = " + getRString(names) + ", "
+                                + "fill = " + getRString(colours) + ", "
+                                + "horiz = TRUE, "
+                                + "box.lty = 0, "
+                                + "cex = 0.8, "
+                                + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
+                                + "xpd = TRUE)");
+            
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
@@ -66,6 +85,8 @@ public class PlotDrawer {
             String rangeX_ITS = getRangeXInterval(reportsITS, numForecasts);
             
             //the plot all reports, the underlying data first! and then the fitted and forecasted vals:
+            List<String> names = new ArrayList<>();
+            List<String> colours = new ArrayList<>();
             boolean next = false;
             for (TrainAndTestReportInterval r : reportsITS) {
                 if (next) {
@@ -73,6 +94,10 @@ public class PlotDrawer {
                 } else {
                     next = true;
                 }
+                
+                //remember these for the legend
+                names.add(r.getModelName());
+                colours.add(COLOURS[colourNumber]);
                 
                 //naplotovat fitted values:
                 final int sizeFitted = r.getFittedValues().size();
@@ -118,6 +143,17 @@ public class PlotDrawer {
             //TODO asi bude treba dat viacero takychto ciar - pre kazdy report jednu, lebo percentTrain sa lisi
             
             rengine.eval("abline(v = " + NUM_REAL_ENTRIES + ", lty = 3)");
+            
+            //add legend
+            rengine.eval("legend(\"topleft\", "      
+                                + "inset = c(0,-0.11), "
+                                + "legend = " + getRString(names) + ", "
+                                + "fill = " + getRString(colours) + ", "
+                                + "horiz = TRUE, "
+                                + "box.lty = 0, "
+                                + "cex = 0.8, "
+                                + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
+                                + "xpd = TRUE)");
         }
 
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
@@ -266,4 +302,36 @@ public class PlotDrawer {
         
         return rangesX.toString();
     }
+    
+    private static String getRString(List<String> list) {
+        StringBuilder rString = new StringBuilder();
+        rString.append("c(");
+        boolean next = false;
+        for (String s : list) {
+            if (next) {
+                rString.append(", ");
+            } else {
+                next = true;
+            }
+            rString.append("\"").append(s).append("\"");
+        }
+        rString.append(")");
+        return rString.toString();
+    }
+    
+//    private static String getStrWidth(List<String> list) {
+//        StringBuilder rString = new StringBuilder();
+//        rString.append("max(c(");
+//        boolean next = false;
+//        for (String s : list) {
+//            if (next) {
+//                rString.append(", ");
+//            } else {
+//                next = true;
+//            }
+//            rString.append("strwidth(\"").append(s).append("\")");
+//        }
+//        rString.append("))");
+//        return rString.toString();
+//    }
 }
