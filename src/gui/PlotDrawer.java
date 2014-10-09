@@ -80,7 +80,6 @@ public class PlotDrawer {
             //first go through all the reports to find a common rangeX and rangeY for the one big plot:
             int numTrainingEntries_ITS = reportsITS.get(reportsITS.size() - 1).getNumTrainingEntries(); //hack, pouzivam posledny report, pretoze ked pustim iMLP (C code) a MLP(i), tak iMLP ma menej entries...
             final int NUM_REAL_ENTRIES = reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().size();
-            System.out.println("num real: " +NUM_REAL_ENTRIES);
             String rangeY_ITS = getRangeYInterval(reportsITS);
             String rangeX_ITS = getRangeXInterval(reportsITS, numForecasts);
             
@@ -120,7 +119,6 @@ public class PlotDrawer {
                         + (sizeFitted+1) + ":" + (sizeFitted+sizeForecast) + ", upper, xlim = " + rangeX_ITS
                         + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
                 //TODO naplotovat forecasty!
-                System.out.println("fit+for: " + (sizeFitted + sizeForecast));
                 
                 colourNumber++;
             }
