@@ -46,7 +46,7 @@ predict.knn <- function(lag, k, len, data, distance = abs.difference, combinatio
   k.neighbours.data <- k.neighbours$explained.vals
   predicted.value <- combination(k.neighbours.data)
   
-  return (predicted.value)
+  return (list(oneforecast = predicted.value))
 }
 
 ---
