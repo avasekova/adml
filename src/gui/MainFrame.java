@@ -1194,7 +1194,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        checkBoxSettingsARIMAconstant.setForeground(new java.awt.Color(204, 0, 0));
         checkBoxSettingsARIMAconstant.setText("include constant");
 
         javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
