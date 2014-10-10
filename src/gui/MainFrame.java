@@ -7,6 +7,7 @@ import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -1909,6 +1910,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+        List<Double> data = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(colname_CTS)));
         //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
         List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
         List<TrainAndTestReportInterval> reportsITS = new ArrayList<>();
@@ -1916,21 +1918,21 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPnnetar.isSelected()) {
             NnetarParams params = getParamsNnetar();
             Forecastable nnetar = new Nnetar();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(data, params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunMLPneuralnet.isSelected()) {
             NeuralnetParams params = getParamsNeuralnet();
             Forecastable neuralnet = new Neuralnet();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(data, params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunMLPnnet.isSelected()) {
             NnetParams params = getParamsNnet();
             Forecastable nnet = new Nnet();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(data, params));
             reportsCTS.add(report);
         }
         
@@ -1953,10 +1955,11 @@ public class MainFrame extends javax.swing.JFrame {
             NnetarParams params = getParamsNnetar(); //TODO for now!
             Forecastable mlpInt = new MLPint();
             
-            List<Double> data = new ArrayList<>();
-            data.addAll(dataTableModel.getDataForColname(colnameCenter));
-            data.addAll(dataTableModel.getDataForColname(colnameRadius));
-            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(data, params));
+            List<Double> dataMLPint = new ArrayList<>();
+            dataMLPint.addAll(dataTableModel.getDataForColname(colnameCenter));
+            dataMLPint.addAll(dataTableModel.getDataForColname(colnameRadius));
+            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
+                    Collections.unmodifiableList(dataMLPint), params));
             
             reportsITS.add(report);
         }
@@ -1964,28 +1967,28 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunARIMA.isSelected()) {
             ArimaParams params = getParamsArima();
             Forecastable arima = new Arima();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(data, params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunKNNfnn.isSelected()) {
             KNNfnnParams params = getParamsKNNfnn();
             Forecastable kNN = new KNNfnn();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(data, params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunKNNcustom.isSelected()) {
             KNNcustomParams params = getParamsKNNcustom();
             Forecastable kNNcustom = new KNNcustom();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(data, params));
             reportsCTS.add(report);
         }
         
         if (checkBoxRunKNNkknn.isSelected()) {
             KNNkknnParams params = getParamsKNNkknn();
             Forecastable kNNkknn = new KNNkknn();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(dataTableModel.getDataForColname(colname_CTS), params));
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(data, params));
             reportsCTS.add(report);
         }
         

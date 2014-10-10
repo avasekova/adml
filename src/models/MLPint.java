@@ -18,15 +18,17 @@ public class MLPint implements Forecastable {
         params.setNumForecasts(0); //zatial nechcem forecasty, lebo mi kvoli tomu blbnu vsade indexy... TODO dorobit
         
         List<Double> dataCenter = allData.subList(0, allData.size()/2);
-        dataCenter = dataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         List<Double> dataRadius = allData.subList(allData.size()/2, allData.size());
-        dataRadius = dataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        //nesublistovat! urobi sa to este raz v nnetar, a potom hadze IndexOUBounds!
         
         Nnetar nnetar = new Nnetar();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataCenter, params);
         TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnetar.forecast(dataRadius, params);
         
-        List<Interval> realDataInterval = Utils.zipCentersRadiiToIntervals(dataCenter, dataRadius);
+        //sublistovat tie centers a radii az tu, ked uz to neovplyvni nnetar
+        List<Interval> realDataInterval = Utils.zipCentersRadiiToIntervals(
+                dataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()),
+                dataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
         List<Interval> fittedVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getFittedValues()),
                 Utils.arrayToList(reportRadius.getFittedValues()));
         List<Interval> forecastVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValues()),
