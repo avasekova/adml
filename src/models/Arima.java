@@ -37,15 +37,15 @@ public class Arima implements Forecastable {
         rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         
         if (params.isOptimize()) {
-            rengine.eval(MODEL + " <- auto.arima(" + TRAINDATA + ")");
+            rengine.eval(MODEL + " <- forecast::auto.arima(" + TRAINDATA + ")");
         } else {
-            rengine.eval(MODEL + " <- arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
+            rengine.eval(MODEL + " <- forecast::Arima(" + TRAINDATA + ", order = c(" + params.getNonSeasP() + ", "
                                                                        + params.getNonSeasD() + ", "
                                                                        + params.getNonSeasQ()
                                      + "), seasonal = c(" + params.getSeasP() + ", "
                                                                        + params.getSeasD() + ", "
-                                                                       + params.getNonSeasQ() + "))");
-            //TODO include.constant
+                                                                       + params.getNonSeasQ()
+                                     + "), include.constant = " + Utils.booleanToRBool(params.isWithConstant()) + ")");
         }
         
 //        REXP getResiduals = rengine.eval(MODEL + "$residuals");

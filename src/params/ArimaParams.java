@@ -9,6 +9,7 @@ public class ArimaParams extends Params {
     private int seasD;
     private int seasQ;
     private boolean optimize;
+    private boolean withConstant;
 
     public int getNonSeasP() {
         return nonSeasP;
@@ -64,5 +65,13 @@ public class ArimaParams extends Params {
 
     public void setOptimize(boolean optimize) {
         this.optimize = optimize;
+    }
+
+    public boolean isWithConstant() {
+        return withConstant;
+    }
+
+    public void setWithConstant(boolean withConstant) {
+        this.withConstant = withConstant;
     }
 }

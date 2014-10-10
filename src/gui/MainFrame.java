@@ -1204,7 +1204,6 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxSettingsARIMAconstant)
                     .addComponent(checkBoxSettingsARIMAoptimize)
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1248,7 +1247,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercentSign2)))
+                        .addComponent(jLabelPercentSign2))
+                    .addComponent(checkBoxSettingsARIMAconstant))
                 .addContainerGap(439, Short.MAX_VALUE))
         );
         paneSettingsMethodsARIMALayout.setVerticalGroup(
@@ -1286,9 +1286,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel62)))
-                .addGap(27, 27, 27)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(checkBoxSettingsARIMAconstant)
-                .addContainerGap(370, Short.MAX_VALUE))
+                .addContainerGap(395, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
@@ -2170,6 +2170,7 @@ public class MainFrame extends javax.swing.JFrame {
             textFieldSettingsARIMAseasP.setEnabled(false);
             textFieldSettingsARIMAseasD.setEnabled(false);
             textFieldSettingsARIMAseasQ.setEnabled(false);
+            checkBoxSettingsARIMAconstant.setEnabled(false);
         } else {
             labelSettingsARIMAnonseas.setEnabled(true);
             labelSettingsARIMAnonseasP.setEnabled(true);
@@ -2185,6 +2186,7 @@ public class MainFrame extends javax.swing.JFrame {
             textFieldSettingsARIMAseasP.setEnabled(true);
             textFieldSettingsARIMAseasD.setEnabled(true);
             textFieldSettingsARIMAseasQ.setEnabled(true);
+            checkBoxSettingsARIMAconstant.setEnabled(true);
         }
     }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
     
@@ -2521,6 +2523,7 @@ public class MainFrame extends javax.swing.JFrame {
         params.setSeasP(Integer.parseInt(textFieldSettingsARIMAseasP.getText()));
         params.setSeasD(Integer.parseInt(textFieldSettingsARIMAseasD.getText()));
         params.setSeasQ(Integer.parseInt(textFieldSettingsARIMAseasQ.getText()));
+        params.setWithConstant(checkBoxSettingsARIMAconstant.isSelected());
         
         return params;
     }
