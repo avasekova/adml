@@ -25,14 +25,14 @@ public class Nnetar implements Forecastable {
         
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
-        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
-
+        List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
-        List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
-        List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
+        List<Double> trainingPortionOfData = dataToUse.subList(0, numTrainingEntries);
+        List<Double> testingPortionOfData = dataToUse.subList(numTrainingEntries, dataToUse.size());
         
         rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);

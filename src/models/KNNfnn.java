@@ -41,14 +41,14 @@ public class KNNfnn implements Forecastable {
         
         KNNfnnParams params = (KNNfnnParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (FNN)");
-        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(FNN)");
         
         //vyrobit dva subory dat (vstupy, vystupy), lagnuty o prislusny lag (rovnaka dlzka)
-        rengine.assign(INPUT, Utils.listToArray(allData));
-        rengine.assign(OUTPUT, Utils.listToArray(allData));
+        rengine.assign(INPUT, Utils.listToArray(dataToUse));
+        rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
         rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
         rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + params.getLag() + "):length(" + OUTPUT + ")]"); //(1+lag):length
         
@@ -56,7 +56,7 @@ public class KNNfnn implements Forecastable {
         rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + OUTPUT + ")");
         
         //potom z dlzky tychto suborov vypocitat numTrainingEntries podla percentTrain
-        int lengthInputOutput = allData.size() - params.getLag();
+        int lengthInputOutput = dataToUse.size() - params.getLag();
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*lengthInputOutput);
         report.setNumTrainingEntries(numTrainingEntries);
         

@@ -32,21 +32,21 @@ public class Arima implements Forecastable {
         
         ArimaParams params = (ArimaParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
-        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");
         
-        rengine.assign(INPUT, Utils.listToArray(allData));
+        rengine.assign(INPUT, Utils.listToArray(dataToUse));
         rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + INPUT + ")");
         
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         
         rengine.eval(INPUT_TRAIN +        " <- " +        INPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_INPUT_TRAIN + " <- " + SCALED_INPUT + "[1:" + numTrainingEntries + "]");
-        rengine.eval(INPUT_TEST +         " <- " +        INPUT + "[" + (numTrainingEntries+1) + ":" + allData.size() + "]");
-        rengine.eval(SCALED_INPUT_TEST +  " <- " + SCALED_INPUT + "[" + (numTrainingEntries+1) + ":" + allData.size() + "]");
+        rengine.eval(INPUT_TEST +         " <- " +        INPUT + "[" + (numTrainingEntries+1) + ":" + dataToUse.size() + "]");
+        rengine.eval(SCALED_INPUT_TEST +  " <- " + SCALED_INPUT + "[" + (numTrainingEntries+1) + ":" + dataToUse.size() + "]");
         
         if (params.isOptimize()) {
             rengine.eval(MODEL + " <- forecast::auto.arima(" + SCALED_INPUT_TRAIN + ")");
@@ -71,7 +71,7 @@ public class Arima implements Forecastable {
         report.setFittedValues(fitted);
         
         //"forecast" testing data
-        int numForecasts = allData.size() - numTrainingEntries + params.getNumForecasts();
+        int numForecasts = dataToUse.size() - numTrainingEntries + params.getNumForecasts();
         rengine.eval(FORECAST_VALS + " <- forecast::forecast(" + MODEL + ", h = " + numForecasts + ")"); //predict all
                                         
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)

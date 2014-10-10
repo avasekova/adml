@@ -27,17 +27,17 @@ public class KNNkknn implements Forecastable {
         final String BEST_K = "bestk" + Utils.getCounter();
         
         KNNkknnParams params = (KNNkknnParams) parameters;
-        allData = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(kknn)");
         
-        rengine.assign(INPUT, Utils.listToArray(allData));
-        rengine.assign(OUTPUT, Utils.listToArray(allData));
+        rengine.assign(INPUT, Utils.listToArray(dataToUse));
+        rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
         rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
         rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + params.getLag() + "):length(" + OUTPUT + ")]"); //(1+lag):length
         
-        int lengthInputOutput = allData.size() - params.getLag();
+        int lengthInputOutput = dataToUse.size() - params.getLag();
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*lengthInputOutput);
         
         rengine.eval(INPUT_TRAIN + " <- " + INPUT + "[1:" + numTrainingEntries + "]");
