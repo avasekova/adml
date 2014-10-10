@@ -36,10 +36,10 @@ public class Nnetar implements Forecastable {
         
         rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
-        rengine.eval(NNETWORK + " <- nnetar(" + TRAINDATA + optionalParams + ")");
+        rengine.eval(NNETWORK + " <- forecast::nnetar(" + TRAINDATA + optionalParams + ")");
         
         int numForecasts = testingPortionOfData.size() + params.getNumForecasts();
-        rengine.eval(FORECAST_MODEL + " <- forecast(" + NNETWORK + ", " + numForecasts + ")");
+        rengine.eval(FORECAST_MODEL + " <- forecast::forecast(" + NNETWORK + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
@@ -50,7 +50,7 @@ public class Nnetar implements Forecastable {
         
         rengine.assign(TEST, Utils.listToArray(testingPortionOfData));
         //TODO mozno iba accuracy(model) miesto accuracy(model, testingData)? zistit!!!
-        REXP getAcc = rengine.eval("accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
+        REXP getAcc = rengine.eval("forecast::accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
         // tam pribudla aj ACF a niekedy robi problemy
         double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE

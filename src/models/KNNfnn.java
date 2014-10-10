@@ -73,8 +73,8 @@ public class KNNfnn implements Forecastable {
         rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_OUTPUT + ")]");
         
         //first run it without testing data - will give residuals for training data
-        rengine.eval(NBRS_NO_TEST + " <- knn.reg(" + SCALED_INPUT_TRAIN + ", y = " + SCALED_OUTPUT_TRAIN
-                                                   + ", k = " + params.getNumNeighbours() + ")");
+        rengine.eval(NBRS_NO_TEST + " <- FNN::knn.reg(" + SCALED_INPUT_TRAIN + ", y = " + SCALED_OUTPUT_TRAIN
+                                                    + ", k = " + params.getNumNeighbours() + ")");
         
         //the predicted values are in NBRS_NO_TEST$pred, but they need to be scaled back using OUTPUT_TRAIN scale
         rengine.eval(UNSCALED_PREDICTED_TRAIN + " <- MLPtoR.unscale(" + NBRS_NO_TEST + "$pred, " + OUTPUT + ")");
@@ -87,7 +87,7 @@ public class KNNfnn implements Forecastable {
         double[] residualsTrain = getResidualsNoTest.asDoubleArray();
         
         //then run it with testing data (TODO and later with forecasts)
-        rengine.eval(NBRS_WITH_TEST + " <- knn.reg(train = " + SCALED_INPUT_TRAIN + ", test = data.frame(" + SCALED_INPUT_TEST
+        rengine.eval(NBRS_WITH_TEST + " <- FNN::knn.reg(train = " + SCALED_INPUT_TRAIN + ", test = data.frame(" + SCALED_INPUT_TEST
                                                    + "), y = " + SCALED_OUTPUT_TRAIN + ", k = " + params.getNumNeighbours() + ")");
         //the predicted values for test data are in NBRS_NO_TEST$pred, but they need to be scaled back using OUTPUT_TEST scale
         rengine.eval(UNSCALED_PREDICTED_TEST + " <- MLPtoR.unscale(" + NBRS_WITH_TEST + "$pred, " + OUTPUT + ")");

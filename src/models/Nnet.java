@@ -72,7 +72,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         
         
         String optionalParams = getOptionalParams(params);
-        rengine.eval(NNETWORK + " <- nnet(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + optionalParams + ", linout = TRUE)");
+        rengine.eval(NNETWORK + " <- nnet::nnet(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + optionalParams + ", linout = TRUE)");
         //TODO potom tu nemat natvrdo linout!
         //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
         rengine.eval(FITTED_VALS + " <- fitted.values(" + NNETWORK + ")");

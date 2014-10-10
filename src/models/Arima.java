@@ -58,7 +58,7 @@ public class Arima implements Forecastable {
         
         //"forecast" testing data
         int numOfForecasts = allData.size() + params.getNumForecasts(); //TODO zmenit!
-        rengine.eval(FORECAST + " <- forecast(" + MODEL + ", h = " + numOfForecasts + ")"); //predict all
+        rengine.eval(FORECAST + " <- forecast::forecast(" + MODEL + ", h = " + numOfForecasts + ")"); //predict all
         
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)
         rengine.eval(FORECAST_VALS + " <- " + FORECAST + "$mean[1:" + numOfForecasts + "]");
