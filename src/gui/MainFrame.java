@@ -2015,7 +2015,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //show Forecast plot
         int numForecastsNnetar = Integer.parseInt(textFieldRunNumForecasts.getText());
-        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText());
+        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
                 numForecastsNnetar, reportsCTS, reportsITS, from, to);
