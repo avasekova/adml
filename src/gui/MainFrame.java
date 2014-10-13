@@ -2072,6 +2072,7 @@ public class MainFrame extends javax.swing.JFrame {
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
                 numForecastsNnetar, reportsCTS, reportsITS, from, to);
+        labelPlotBasicSummaryCharacteristics.setText("");
         //this.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
@@ -2083,10 +2084,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
         outputPlotGeneral("acf", "");
+        labelPlotBasicSummaryCharacteristics.setText("");
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
         outputPlotGeneral("pacf", "");
+        labelPlotBasicSummaryCharacteristics.setText("");
     }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void paramNnet_initRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramNnet_initRangeActionPerformed
@@ -2680,11 +2683,13 @@ public class MainFrame extends javax.swing.JFrame {
     public void drawPlotITS_CenterRadius_currentPanelPlot(String centerCol, String radiusCol) {
         PlotDrawer.drawPlotITS_CenterRadius(panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(centerCol), dataTableModel.getDataForColname(radiusCol));
+        labelPlotBasicSummaryCharacteristics.setText("");
     }
     
     public void drawPlotITS_LBUB_currentPanelPlot(String lbCol, String ubCol) {
         PlotDrawer.drawPlotITS_LBUB(panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(lbCol), dataTableModel.getDataForColname(ubCol));
+        labelPlotBasicSummaryCharacteristics.setText("");
     }
     
     public void addToExplVarsTableModel(ExplanatoryVariable var) {
