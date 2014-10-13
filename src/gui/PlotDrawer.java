@@ -259,7 +259,6 @@ public class PlotDrawer {
         
         if (par) { //continue from the previous plot
             rengine.eval("par(new=TRUE)");
-            System.out.println("par");
         } else { //start a new plot
             rengine.eval("require(JavaGD)");
             rengine.eval("JavaGD()"); //toto teoreticky zacne novy plot...
