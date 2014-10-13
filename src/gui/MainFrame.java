@@ -2243,6 +2243,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
 
     private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
+        //TODO export to Excel? with formatting - the highest, lowest vals highlighted etc.
+        //TODO add dialog: save as? to prevent overwriting the exported file
         File file = new File("error_measures.txt");
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             //first the CTS
