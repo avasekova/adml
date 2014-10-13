@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
+import params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -78,12 +79,13 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public void producePlotGeneral(int width, int height, String colname, String plotFunction, String additionalArgs) {
+    public BasicStats producePlotGeneral(int width, int height, String colname, String plotFunction, String additionalArgs) {
         final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
         
         Rengine rengine = MyRengine.getRengine();
-            
-        rengine.assign(TRAINDATA, Utils.listToArray(values.get(colname)));
+        
+        List<Double> data = values.get(colname);
+        rengine.assign(TRAINDATA, Utils.listToArray(data));
 
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
@@ -93,6 +95,20 @@ public class DataTableModel extends AbstractTableModel {
         // we have to resize it back to the size we want it to have.
         MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.gdCanvas.initRefresh();
+        
+        //and compute basic statistics of the data:
+        REXP getMean = rengine.eval("mean(" + TRAINDATA + ")");
+        double mean = getMean.asDoubleArray()[0];
+        REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ")");
+        double stDev = getStdDev.asDoubleArray()[0];
+        REXP getMedian = rengine.eval("median(" + TRAINDATA + ")");
+        double median = getMedian.asDoubleArray()[0];
+        BasicStats basicStats = new BasicStats();
+        basicStats.setMean(mean);
+        basicStats.setStdDev(stDev);
+        basicStats.setMedian(median);
+        
+        return basicStats;
     }
     
     public List<String> getColnames() {

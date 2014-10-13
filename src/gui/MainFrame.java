@@ -28,6 +28,7 @@ import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.GDCanvas;
 import params.ArimaParams;
+import params.BasicStats;
 import params.IntervalMLPCcodeParams;
 import params.KNNcustomParams;
 import params.KNNfnnParams;
@@ -67,6 +68,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
         buttonPlotITS = new javax.swing.JButton();
+        labelPlotBasicSummaryCharacteristics = new javax.swing.JLabel();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -324,7 +326,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(buttonPACF)
                         .addGap(122, 122, 122)
                         .addComponent(buttonPlotITS)
-                        .addGap(0, 490, Short.MAX_VALUE)))
+                        .addGap(42, 42, 42)
+                        .addComponent(labelPlotBasicSummaryCharacteristics, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -336,7 +339,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(buttonPlotColname)
                     .addComponent(buttonACF)
                     .addComponent(buttonPACF)
-                    .addComponent(buttonPlotITS))
+                    .addComponent(buttonPlotITS)
+                    .addComponent(labelPlotBasicSummaryCharacteristics))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
                 .addContainerGap())
@@ -2361,6 +2365,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableData;
+    private javax.swing.JLabel labelPlotBasicSummaryCharacteristics;
     private javax.swing.JLabel labelSettingsARIMAnonseas;
     private javax.swing.JLabel labelSettingsARIMAnonseasD;
     private javax.swing.JLabel labelSettingsARIMAnonseasP;
@@ -2462,7 +2467,10 @@ public class MainFrame extends javax.swing.JFrame {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         String colname = comboBoxColnames.getSelectedItem().toString();
         
-        dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colname, plotFunction, additionalArgs);
+        BasicStats basicStats = dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colname, plotFunction, additionalArgs);
+        
+        //mean, standard deviation, median
+        labelPlotBasicSummaryCharacteristics.setText(basicStats.toString());
     }
     
     private NnetarParams getParamsNnetar() {

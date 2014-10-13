@@ -104,7 +104,8 @@
                               <Component id="buttonPACF" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="122" max="-2" attributes="0"/>
                               <Component id="buttonPlotITS" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="490" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="labelPlotBasicSummaryCharacteristics" pref="472" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -121,6 +122,7 @@
                           <Component id="buttonACF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonPACF" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonPlotITS" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelPlotBasicSummaryCharacteristics" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="panelPlot" pref="499" max="32767" attributes="0"/>
@@ -139,9 +141,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonPlotColname">
               <Properties>
-                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="&quot;Plot data&quot;" type="code"/>
-                </Property>
+                <Property name="text" type="java.lang.String" value="Plot data"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotColnameActionPerformed"/>
@@ -187,6 +187,8 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotITSActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="labelPlotBasicSummaryCharacteristics">
             </Component>
           </SubComponents>
         </Container>
