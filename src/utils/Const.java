@@ -2,6 +2,7 @@ package utils;
 
 public class Const {
     
+    public static final String WORKBOOK = "wb";
     public static final String BRENT = "brent";
     public static final String ACC = "accuracy";
     public static final String TRAINDATA = "traindata";

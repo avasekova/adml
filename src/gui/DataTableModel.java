@@ -54,22 +54,24 @@ public class DataTableModel extends AbstractTableModel {
     
     
     public void openFile(File file) {
-        final String DATAFILE = Const.BRENT + Utils.getCounter();
+        final String WORKBOOK = Const.WORKBOOK + Utils.getCounter();
+        final String DATA = Const.BRENT + Utils.getCounter();
         
         Rengine rengine = MyRengine.getRengine();
         
         rengine.eval("require(XLConnect)");
         String filePathEscaped = file.getPath().replace("\\","/"); //toto je snad lepsie kvoli platformovej prenositelnosti..?
-        rengine.eval(DATAFILE + " <- readWorksheetFromFile(\"" + filePathEscaped + "\", sheet = 1)");
+        rengine.eval(WORKBOOK + " <- loadWorkbook(\"" + filePathEscaped + "\")");
+        rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = TRUE)");
         //pozor, intepretuje prvy riadok ako headers, bez ohladu na to, co v nom je!
         
-        REXP getColnames = rengine.eval("colnames(" + DATAFILE + ")");
+        REXP getColnames = rengine.eval("colnames(" + DATA + ")");
         String[] columnNamesArray = getColnames.asStringArray();
         
         columnNames = new ArrayList<>(Arrays.asList(columnNamesArray));
 
         for (String colName : columnNames) {
-            REXP getColumn = rengine.eval(DATAFILE + "$" + colName);
+            REXP getColumn = rengine.eval(DATA + "$" + colName);
             double[] doubleArray = getColumn.asDoubleArray();
             values.put(colName, Utils.arrayToList(doubleArray));
         }
