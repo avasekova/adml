@@ -71,11 +71,14 @@ public class MainFrame extends javax.swing.JFrame {
         panelPlot = new javax.swing.JPanel();
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
-        buttonPlotITS = new javax.swing.JButton();
+        buttonPlotAddITS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listColnames = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaPlotBasicStats = new javax.swing.JTextArea();
+        jSeparator2 = new javax.swing.JSeparator();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listPlotITS = new javax.swing.JList();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -306,11 +309,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonPlotITS.setText("Plot ITS");
-        buttonPlotITS.setEnabled(false);
-        buttonPlotITS.addActionListener(new java.awt.event.ActionListener() {
+        buttonPlotAddITS.setText("Add ITS to plot");
+        buttonPlotAddITS.setEnabled(false);
+        buttonPlotAddITS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotITSActionPerformed(evt);
+                buttonPlotAddITSActionPerformed(evt);
             }
         });
 
@@ -320,10 +323,16 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setEditable(false);
         textAreaPlotBasicStats.setColumns(20);
         textAreaPlotBasicStats.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        textAreaPlotBasicStats.setLineWrap(true);
         textAreaPlotBasicStats.setRows(5);
         textAreaPlotBasicStats.setFocusable(false);
         textAreaPlotBasicStats.setOpaque(false);
         jScrollPane2.setViewportView(textAreaPlotBasicStats);
+
+        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        listPlotITS.setModel(new DefaultListModel());
+        jScrollPane4.setViewportView(listPlotITS);
 
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
@@ -336,31 +345,40 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelChartLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonPlotColname)
+                        .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotColname)
+                            .addComponent(buttonACF)
+                            .addComponent(buttonPACF))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonACF)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonPACF)
-                        .addGap(113, 113, 113)
-                        .addComponent(buttonPlotITS)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonPlotAddITS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 154, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelChartLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonPlotITS)
-                        .addComponent(buttonPlotColname)
-                        .addComponent(buttonACF)
-                        .addComponent(buttonPACF))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
+                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelChartLayout.createSequentialGroup()
+                            .addComponent(buttonPlotColname)
+                            .addGap(3, 3, 3)
+                            .addComponent(buttonACF)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonPACF))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                        .addComponent(jSeparator2)
+                        .addComponent(buttonPlotAddITS))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1929,7 +1947,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonTrainAndTest.setEnabled(true);
                         buttonACF.setEnabled(true);
                         buttonPACF.setEnabled(true);
-                        buttonPlotITS.setEnabled(true);
+                        buttonPlotAddITS.setEnabled(true);
                         buttonIMLPAddExplVar.setEnabled(true);
                         buttonIMLPRemoveExplVar.setEnabled(true);
                         buttonIMLPAddOutVar.setEnabled(true);
@@ -2108,11 +2126,11 @@ public class MainFrame extends javax.swing.JFrame {
         paramNnet_labelInitRangeMirror.setText("[-" + paramNnet_initRange.getText() + ";");
     }//GEN-LAST:event_paramNnet_initRangeActionPerformed
 
-    private void buttonPlotITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotITSActionPerformed
+    private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
         dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
         dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
         dialogLBUBCenterRadius.setVisible(true);
-    }//GEN-LAST:event_buttonPlotITSActionPerformed
+    }//GEN-LAST:event_buttonPlotAddITSActionPerformed
 
     private void sliderPercentTrainIntervalMLPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainIntervalMLPStateChanged
         textFieldPercentTrainIntervalMLP.setText("" + sliderPercentTrainIntervalMLP.getValue());
@@ -2337,8 +2355,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonIMLPRemoveExplVar;
     private javax.swing.JButton buttonIMLPRemoveOutVar;
     private javax.swing.JButton buttonPACF;
+    private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotColname;
-    private javax.swing.JButton buttonPlotITS;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
@@ -2442,7 +2460,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTable jTableData;
     private javax.swing.JLabel labelSettingsARIMAnonseas;
     private javax.swing.JLabel labelSettingsARIMAnonseasD;
@@ -2453,6 +2473,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelSettingsARIMAseasP;
     private javax.swing.JLabel labelSettingsARIMAseasQ;
     private javax.swing.JList listColnames;
+    private javax.swing.JList listPlotITS;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;

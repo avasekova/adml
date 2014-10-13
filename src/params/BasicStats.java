@@ -43,7 +43,8 @@ public class BasicStats {
     
     @Override
     public String toString() {
-        return "Basic statistics (" + varName + "): Mean: " + String.format(Locale.UK, "%.2f", mean) + "; Std. deviation: "
-                + String.format(Locale.UK, "%.2f", stdDev) + "; Median: " + String.format(Locale.UK, "%.2f", median);
+        return "Basic statistics (" + varName + "):\n   Mean: " + String.format(Locale.UK, "%.2f", mean)
+                + "\n   Std. deviation: " + String.format(Locale.UK, "%.2f", stdDev) 
+                + "\n   Median: " + String.format(Locale.UK, "%.2f", median);
     }
 }
