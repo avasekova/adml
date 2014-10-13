@@ -44,6 +44,8 @@ import params.NnetarParams;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.ExplanatoryVariable;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
 
 public class MainFrame extends javax.swing.JFrame {
@@ -71,14 +73,16 @@ public class MainFrame extends javax.swing.JFrame {
         panelPlot = new javax.swing.JPanel();
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
-        buttonPlotAddITS = new javax.swing.JButton();
+        buttonPlotAllITS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listColnames = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaPlotBasicStats = new javax.swing.JTextArea();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listPlotITS = new javax.swing.JList();
+        listPlotITSspecs = new javax.swing.JList();
+        buttonPlotRemoveITS = new javax.swing.JButton();
+        buttonPlotAddITS = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -283,6 +287,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonPlotColname.setText("Plot data");
         buttonPlotColname.setEnabled(false);
+        buttonPlotColname.setEnabled(false);
         buttonPlotColname.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPlotColnameActionPerformed(evt);
@@ -295,6 +300,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonACF.setText("Autocorrelation Plot");
         buttonACF.setEnabled(false);
+        buttonACF.setEnabled(false);
         buttonACF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonACFActionPerformed(evt);
@@ -303,17 +309,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonPACF.setText("Partial Autocorrelation Plot");
         buttonPACF.setEnabled(false);
+        buttonPACF.setEnabled(false);
         buttonPACF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPACFActionPerformed(evt);
             }
         });
 
-        buttonPlotAddITS.setText("Add ITS to plot");
-        buttonPlotAddITS.setEnabled(false);
-        buttonPlotAddITS.addActionListener(new java.awt.event.ActionListener() {
+        buttonPlotAllITS.setText("Plot all specified ITS");
+        buttonPlotAllITS.setEnabled(false);
+        buttonPlotAllITS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotAddITSActionPerformed(evt);
+                buttonPlotAllITSActionPerformed(evt);
             }
         });
 
@@ -331,8 +338,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        listPlotITS.setModel(new DefaultListModel());
-        jScrollPane4.setViewportView(listPlotITS);
+        listPlotITSspecs.setModel(new DefaultListModel());
+        jScrollPane4.setViewportView(listPlotITSspecs);
+
+        buttonPlotRemoveITS.setText("Remove selected ITS");
+        buttonPlotRemoveITS.setEnabled(false);
+        buttonPlotRemoveITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotRemoveITSActionPerformed(evt);
+            }
+        });
+
+        buttonPlotAddITS.setText("Specify new ITS");
+        buttonPlotAddITS.setEnabled(false);
+        buttonPlotAddITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotAddITSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
@@ -354,10 +377,12 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonPlotAddITS)
+                        .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotAllITS)
+                            .addComponent(buttonPlotRemoveITS)
+                            .addComponent(buttonPlotAddITS))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 154, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -375,10 +400,15 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
                         .addComponent(jSeparator2)
-                        .addComponent(buttonPlotAddITS))
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+                        .addGroup(panelChartLayout.createSequentialGroup()
+                            .addComponent(buttonPlotAddITS)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonPlotRemoveITS)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonPlotAllITS)))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1947,7 +1977,9 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonTrainAndTest.setEnabled(true);
                         buttonACF.setEnabled(true);
                         buttonPACF.setEnabled(true);
+                        buttonPlotAllITS.setEnabled(true);
                         buttonPlotAddITS.setEnabled(true);
+                        buttonPlotRemoveITS.setEnabled(true);
                         buttonIMLPAddExplVar.setEnabled(true);
                         buttonIMLPRemoveExplVar.setEnabled(true);
                         buttonIMLPAddOutVar.setEnabled(true);
@@ -2126,11 +2158,12 @@ public class MainFrame extends javax.swing.JFrame {
         paramNnet_labelInitRangeMirror.setText("[-" + paramNnet_initRange.getText() + ";");
     }//GEN-LAST:event_paramNnet_initRangeActionPerformed
 
-    private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
-        dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
-        dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
-        dialogLBUBCenterRadius.setVisible(true);
-    }//GEN-LAST:event_buttonPlotAddITSActionPerformed
+    private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
+        //tu uz len vezmi nasyslene v tych listoch
+        PlotDrawer.drawPlotITS(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
+                listITSPlotCentreRadius, listITSPlotLowerUpper);
+        textAreaPlotBasicStats.setText("");
+    }//GEN-LAST:event_buttonPlotAllITSActionPerformed
 
     private void sliderPercentTrainIntervalMLPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainIntervalMLPStateChanged
         textFieldPercentTrainIntervalMLP.setText("" + sliderPercentTrainIntervalMLP.getValue());
@@ -2314,6 +2347,24 @@ public class MainFrame extends javax.swing.JFrame {
         //a na zaver to disablovat, aby sa na to netukalo furt
         buttonRunExportErrorMeasures.setEnabled(false);
     }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
+
+    private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
+        dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
+        dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
+        dialogLBUBCenterRadius.setVisible(true);
+    }//GEN-LAST:event_buttonPlotAddITSActionPerformed
+
+    private void buttonPlotRemoveITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRemoveITSActionPerformed
+        List<Object> values = listPlotITSspecs.getSelectedValuesList();
+        for (Object val : values) {
+            if (val instanceof IntervalNamesCentreRadius) {
+                listITSPlotCentreRadius.remove((IntervalNamesCentreRadius) val);
+            } else if (val instanceof IntervalNamesLowerUpper) {
+                listITSPlotLowerUpper.remove((IntervalNamesLowerUpper) val);
+            }
+            ((DefaultListModel)(listPlotITSspecs.getModel())).removeElement(val);
+        }
+    }//GEN-LAST:event_buttonPlotRemoveITSActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2356,7 +2407,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonIMLPRemoveOutVar;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
+    private javax.swing.JButton buttonPlotAllITS;
     private javax.swing.JButton buttonPlotColname;
+    private javax.swing.JButton buttonPlotRemoveITS;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
@@ -2473,7 +2526,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelSettingsARIMAseasP;
     private javax.swing.JLabel labelSettingsARIMAseasQ;
     private javax.swing.JList listColnames;
-    private javax.swing.JList listPlotITS;
+    private javax.swing.JList listPlotITSspecs;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -2565,6 +2618,8 @@ public class MainFrame extends javax.swing.JFrame {
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS;
     private JTable errorMeasuresLatest_ITS;
+    private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
+    private List<IntervalNamesLowerUpper> listITSPlotLowerUpper = new ArrayList<>();
 
     private void outputPlotGeneral(String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
@@ -2721,16 +2776,14 @@ public class MainFrame extends javax.swing.JFrame {
         return params;
     }
     
-    public void drawPlotITS_CenterRadius_currentPanelPlot(String centerCol, String radiusCol) {
-        PlotDrawer.drawPlotITS_CenterRadius(panelPlot.getWidth(), panelPlot.getHeight(),
-                dataTableModel.getDataForColname(centerCol), dataTableModel.getDataForColname(radiusCol));
-        textAreaPlotBasicStats.setText("");
+    public void addPlotITS_CentreRadius(IntervalNamesCentreRadius interval) {
+        listITSPlotCentreRadius.add(interval);
+        ((DefaultListModel)(listPlotITSspecs.getModel())).addElement(interval);
     }
     
-    public void drawPlotITS_LBUB_currentPanelPlot(String lbCol, String ubCol) {
-        PlotDrawer.drawPlotITS_LBUB(panelPlot.getWidth(), panelPlot.getHeight(),
-                dataTableModel.getDataForColname(lbCol), dataTableModel.getDataForColname(ubCol));
-        textAreaPlotBasicStats.setText("");
+    public void addPlotITS_LowerUpper(IntervalNamesLowerUpper interval) {
+        listITSPlotLowerUpper.add(interval);
+        ((DefaultListModel)(listPlotITSspecs.getModel())).addElement(interval);
     }
     
     public void addToExplVarsTableModel(ExplanatoryVariable var) {

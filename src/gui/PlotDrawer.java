@@ -11,6 +11,8 @@ import org.rosuda.JRI.Rengine;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 
 //TODO preco po vykresleni grafu ten obrazok blikne? niekde sa nieco kresli dvakrat.
 public class PlotDrawer {
@@ -162,7 +164,65 @@ public class PlotDrawer {
         MainFrame.gdCanvas.initRefresh();
     }
     
-    public static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound) {
+    public static void drawPlotITS(int width, int height, DataTableModel dataTableModel,
+                List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(JavaGD)");
+        rengine.eval("JavaGD()");
+        
+        List<String> names = new ArrayList<>();
+        List<String> colours = new ArrayList<>();
+        int colourNumber = 0;
+        
+        
+        boolean next = false;
+        for (IntervalNamesCentreRadius interval : listCentreRadius) {
+            //remember these for the legend
+            names.add(interval.toString());
+            colours.add(COLOURS[colourNumber]);
+            
+            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"";
+            drawPlotITS_CenterRadius(width, height, dataTableModel.getDataForColname(interval.getCentre()),
+                    dataTableModel.getDataForColname(interval.getRadius()), next, lineStyle);
+            if (! next) {
+                next = true;
+            }
+            
+            colourNumber++;
+        }
+        
+        next = (! listCentreRadius.isEmpty()) && (! listLowerUpper.isEmpty()); //true ak je nieco v CenRad aj v LBUB
+        
+        for (IntervalNamesLowerUpper interval : listLowerUpper) {
+            names.add(interval.toString());
+            colours.add(COLOURS[colourNumber]);
+            
+            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"";
+            drawPlotITS_LBUB(width, height, dataTableModel.getDataForColname(interval.getLowerBound()),
+                    dataTableModel.getDataForColname(interval.getUpperBound()), next, lineStyle);
+            if (! next) {
+                next = true;
+            }
+            
+            colourNumber++;
+        }
+        
+        if ((! listCentreRadius.isEmpty()) && (! listLowerUpper.isEmpty())) {
+            //add legend
+            rengine.eval("legend(\"topleft\", "      
+                                + "inset = c(0,-0.11), "
+                                + "legend = " + getRString(names) + ", "
+                                + "fill = " + getRString(colours) + ", "
+                                + "horiz = TRUE, "
+                                + "box.lty = 0, "
+                                + "cex = 0.8, "
+                                + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
+                                + "xpd = TRUE)");
+        }
+    }
+    
+    private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
+            boolean par, String lineStyle) {
         final String LOWER = Const.INPUT + Utils.getCounter();
         final String UPPER = Const.INPUT + Utils.getCounter();
         final int count = lowerBound.size();
@@ -171,10 +231,11 @@ public class PlotDrawer {
         rengine.assign(LOWER, Utils.listToArray(lowerBound));
         rengine.assign(UPPER, Utils.listToArray(upperBound));
         
-        drawPlotITSNow(width, height, LOWER, UPPER, count);
+        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle);
     }
     
-    public static void drawPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius) {
+    private static void drawPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
+            boolean par, String lineStyle) {
         final String CENTER = Const.INPUT + Utils.getCounter();
         final String RADIUS = Const.INPUT + Utils.getCounter();
         final String LOWER = Const.INPUT + Utils.getCounter();
@@ -189,20 +250,26 @@ public class PlotDrawer {
         rengine.assign(LOWER, getLower);
         rengine.assign(UPPER, Upper);
         
-        drawPlotITSNow(width, height, LOWER, UPPER, count);
+        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle);
     }
     
-    private static void drawPlotITSNow(int width, int height, final String LOWER, final String UPPER, final int count) {
+    private static void drawPlotITSNow(int width, int height, final String LOWER, final String UPPER, final int count,
+            boolean par, String lineStyle) {
         Rengine rengine = MyRengine.getRengine();
         
-        rengine.eval("require(JavaGD)");
-        rengine.eval("JavaGD()");
+        if (par) { //continue from the previous plot
+            rengine.eval("par(new=TRUE)");
+            System.out.println("par");
+        } else { //start a new plot
+            rengine.eval("require(JavaGD)");
+            rengine.eval("JavaGD()"); //toto teoreticky zacne novy plot...
+        }
         
         String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
         rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\")"); //hack
         rengine.eval("par(new=TRUE)");
         rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\")");
-        rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + ", col=\"blue\")");
+        rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
         
         MainFrame.gdCanvas.setSize(new Dimension(width, height));
         MainFrame.gdCanvas.initRefresh();

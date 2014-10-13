@@ -107,10 +107,13 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jSeparator2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="buttonPlotAllITS" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonPlotRemoveITS" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
+                              </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="154" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" pref="384" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -133,12 +136,18 @@
                               <Component id="jScrollPane1" alignment="0" pref="0" max="32767" attributes="0"/>
                               <Component id="jScrollPane2" alignment="0" pref="89" max="32767" attributes="0"/>
                               <Component id="jSeparator2" max="32767" attributes="0"/>
-                              <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonPlotRemoveITS" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="buttonPlotAllITS" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <Component id="jScrollPane4" pref="92" max="32767" attributes="0"/>
+                          <Component id="jScrollPane4" min="-2" pref="87" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelPlot" pref="435" max="32767" attributes="0"/>
+                      <EmptySpace type="unrelated" max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="433" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -148,6 +157,7 @@
             <Component class="javax.swing.JButton" name="buttonPlotColname">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Plot data"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotColnameActionPerformed"/>
@@ -166,6 +176,7 @@
             <Component class="javax.swing.JButton" name="buttonACF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Autocorrelation Plot"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonACFActionPerformed"/>
@@ -177,6 +188,7 @@
             <Component class="javax.swing.JButton" name="buttonPACF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Partial Autocorrelation Plot"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPACFActionPerformed"/>
@@ -185,13 +197,13 @@
                 <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="buttonPACF.setEnabled(false);"/>
               </AuxValues>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonPlotAddITS">
+            <Component class="javax.swing.JButton" name="buttonPlotAllITS">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Add ITS to plot"/>
+                <Property name="text" type="java.lang.String" value="Plot all specified ITS"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAddITSActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAllITSActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -244,7 +256,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JList" name="listPlotITS">
+                <Component class="javax.swing.JList" name="listPlotITSspecs">
                   <Properties>
                     <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new DefaultListModel()" type="code"/>
@@ -253,6 +265,24 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="buttonPlotRemoveITS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remove selected ITS"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRemoveITSActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonPlotAddITS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Specify new ITS"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAddITSActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelData">
