@@ -5,14 +5,20 @@ import java.awt.CardLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.table.TableModel;
 import models.Arima;
 import models.Forecastable;
 import models.ForecastableIntervals;
@@ -257,6 +263,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldRunDataRangeFrom = new javax.swing.JTextField();
         jLabel44 = new javax.swing.JLabel();
         textFieldRunDataRangeTo = new javax.swing.JTextField();
+        buttonRunExportErrorMeasures = new javax.swing.JButton();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1655,6 +1662,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel44.setText("to");
 
+        buttonRunExportErrorMeasures.setText("Export these error measures");
+        buttonRunExportErrorMeasures.setEnabled(false);
+        buttonRunExportErrorMeasures.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRunExportErrorMeasuresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1719,13 +1734,15 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(checkBoxRunARIMA)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel72)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                 .addComponent(checkBoxRunKNNfnn)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(checkBoxRunKNNcustom)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunKNNkknn))))
+                                                .addComponent(checkBoxRunKNNkknn))
+                                            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(buttonRunExportErrorMeasures)
+                                                .addComponent(jLabel72))))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
@@ -1787,7 +1804,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel44)
-                            .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonRunExportErrorMeasures)))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(jLabel41)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1937,6 +1955,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_sliderPercentTrainStateChanged
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
+        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
+        
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
         List<Double> data = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(colname_CTS)));
         //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
@@ -2032,6 +2052,7 @@ public class MainFrame extends javax.swing.JFrame {
         errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
         errorMeasuresTable_CTS.setVisible(true);
         panelSummary.add(errorMeasuresTable_CTS);
+        errorMeasuresLatest_CTS = errorMeasuresTable_CTS; //and save it for possible future export
         
         JTable errorMeasuresTable_ITS = new JTable();
         errorMeasuresTable_ITS.setLocation(panelSummary.getX(), panelSummary.getHeight()/2);
@@ -2040,6 +2061,7 @@ public class MainFrame extends javax.swing.JFrame {
         errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
         errorMeasuresTable_ITS.setVisible(true);
         panelSummary.add(errorMeasuresTable_ITS);
+        errorMeasuresLatest_ITS = errorMeasuresTable_ITS; //and save it for possible future export
         
         this.repaint();
         
@@ -2219,6 +2241,44 @@ public class MainFrame extends javax.swing.JFrame {
             checkBoxSettingsARIMAconstant.setEnabled(true);
         }
     }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
+
+    private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
+        File file = new File("error_measures.txt");
+        try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
+            //first the CTS
+            fw.write("CLASSICAL TIME SERIES");
+            fw.newLine();
+            fw.write("---------------------");
+            fw.newLine();
+            TableModel model_CTS = errorMeasuresLatest_CTS.getModel();
+            for (int row = 0; row < model_CTS.getRowCount(); row++) {
+                for (int col = 0; col < model_CTS.getColumnCount(); col++) {
+                    fw.write(model_CTS.getValueAt(row, col).toString());
+                    fw.write("\t\t");
+                }
+                fw.newLine();
+            }
+            
+            //then the ITS
+            fw.write("INTERVAL TIME SERIES");
+            fw.newLine();
+            fw.write("---------------------");
+            fw.newLine();
+            TableModel model_ITS = errorMeasuresLatest_ITS.getModel();
+            for (int row = 0; row < model_ITS.getRowCount(); row++) {
+                for (int col = 0; col < model_ITS.getColumnCount(); col++) {
+                    fw.write(model_ITS.getValueAt(row, col).toString());
+                    fw.write("\t\t");
+                }
+                fw.newLine();
+            }
+        } catch (IOException ex) {
+            //todo log
+        }
+        
+        //a na zaver to disablovat, aby sa na to netukalo furt
+        buttonRunExportErrorMeasures.setEnabled(false);
+    }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
     
     /**
      * @param args the command line arguments
@@ -2262,6 +2322,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotITS;
+    private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
@@ -2462,6 +2523,8 @@ public class MainFrame extends javax.swing.JFrame {
     private final DataTableModel dataTableModel = new DataTableModel();
     public static GDCanvas gdCanvas;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
+    private JTable errorMeasuresLatest_CTS;
+    private JTable errorMeasuresLatest_ITS;
 
     private void outputPlotGeneral(String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov

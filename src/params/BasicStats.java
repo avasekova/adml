@@ -1,5 +1,7 @@
 package params;
 
+import java.util.Locale;
+
 public class BasicStats {
     
     private double mean;
@@ -32,7 +34,7 @@ public class BasicStats {
     
     @Override
     public String toString() {
-        return "Basic statistics: Mean: " + String.format("%.2f", mean) + "; Std. deviation: " + String.format("%.2f", stdDev)
-                + "; Median: " + String.format("%.2f", median);
+        return "Basic statistics: Mean: " + String.format(Locale.UK, "%.2f", mean) + "; Std. deviation: "
+                + String.format(Locale.UK, "%.2f", stdDev) + "; Median: " + String.format(Locale.UK, "%.2f", median);
     }
 }

@@ -2162,13 +2162,16 @@
                                               <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="checkBoxRunKNNfnn" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="checkBoxRunKNNcustom" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxRunKNNkknn" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                                      <Component id="buttonRunExportErrorMeasures" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -2252,6 +2255,7 @@
                                   <Component id="textFieldRunDataRangeFrom" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel44" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="textFieldRunDataRangeTo" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonRunExportErrorMeasures" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -2503,6 +2507,15 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldRunDataRangeTo">
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonRunExportErrorMeasures">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export these error measures"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRunExportErrorMeasuresActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

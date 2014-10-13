@@ -1,6 +1,7 @@
 package gui;
 
 import java.util.List;
+import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportCrisp;
 import utils.ErrorMeasuresCrisp;
@@ -42,9 +43,9 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
                 return ErrorMeasuresCrisp.namesOfSupportedMeasures()[columnIndex - 1];
             } else {
                 if (rowIndex < reports.size() + 1) {
-                    return reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]; 
+                    return String.format(Locale.UK, "%.2f", reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]);
                 } else { //rowIndex > reports.size() + 1
-                    return reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2 + 1];
+                    return String.format(Locale.UK, "%.2f", reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2 + 1]);
                 }
             }
         }
