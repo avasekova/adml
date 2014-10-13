@@ -1,12 +1,14 @@
 CLASSICAL TIME SERIES
 ---------------------
 TRAIN		ME		RMSE		MAE		MSE		MPE		MAPE		MASE		Theil's U		
-   nnetar		0.00		3.54		2.65		12.55		-1.48		6.92		0.99		0.99		
+   nnetar		-0.00		3.54		2.65		12.56		-1.49		6.91		0.99		0.99		
 TEST		ME		RMSE		MAE		MSE		MPE		MAPE		MASE		Theil's U		
-   nnetar		37.73		44.10		38.92		1945.11		34.44		36.87		14.46		4.99		
+   nnetar		37.84		44.20		39.02		1953.90		34.56		36.97		14.50		5.01		
 INTERVAL TIME SERIES
 ---------------------
 TRAIN		ME		RMSE		MAE		MSE		Mean coverage		Mean efficiency		
-   MLP(i)		19.90		35.70		19.90		1274.51		96.49		94.48		
+   iMLP (C code)		20.33		46.24		20.33		2138.57		47.25		44.68		
+   MLP(i)		6.55		11.31		6.55		127.84		53.12		50.36		
 TEST		ME		RMSE		MAE		MSE		Mean coverage		Mean efficiency		
-   MLP(i)		3179.67		3908.08		3179.67		15273051.84		51.02		97.89		
+   iMLP (C code)		14.93		27.34		14.93		747.51		45.11		61.39		
+   MLP(i)		1142.58		1439.16		1142.58		2071173.67		3.12		4.25		

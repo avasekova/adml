@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.rosuda.JRI.Rengine;
 
 public class MyRengine extends Rengine {
+    //TODO na konci kazdeho pouzivania Rengine (v modeloch atd): "rm" vsetky objekty, co uz nebudem potrebovat
     
     private static MyRengine instance = null;
     

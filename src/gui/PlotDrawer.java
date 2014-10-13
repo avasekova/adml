@@ -12,6 +12,7 @@ import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 
+//TODO preco po vykresleni grafu ten obrazok blikne? niekde sa nieco kresli dvakrat.
 public class PlotDrawer {
     //TODO pridat abline pre kazde oddelenie training a testing data! ptz rozne metody maju rozne pomery.
     //  (alebo nejak inak odlisit. trosku ina farba? iny styl ciary? ina hrubka? vsetko sa mi zda zle.)

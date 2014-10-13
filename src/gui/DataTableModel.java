@@ -16,6 +16,8 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class DataTableModel extends AbstractTableModel {
+    //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
+    //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
     private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
