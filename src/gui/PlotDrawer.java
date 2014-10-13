@@ -129,8 +129,9 @@ public class PlotDrawer {
                 
             //a na ne vsetky naplotovat realne data:
             //TODO hack, zatial beriem data z prveho reportu. potom nejak vymysliet :(
-            rengine.assign("all.lower", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().subList(from, to)));
-            rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers().subList(from, to)));
+            int size = reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().size();
+            rengine.assign("all.lower", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().subList(from, Math.min(to, size))));
+            rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers().subList(from, Math.min(to, size))));
 
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
             rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");

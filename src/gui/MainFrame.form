@@ -1153,13 +1153,6 @@
                                           <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="scrollPaneiMLPSettingsOutVars" max="32767" attributes="0"/>
                                               <Component id="scrollPaneiMLPSettingsExplVars" pref="600" max="32767" attributes="0"/>
-                                              <Group type="102" attributes="0">
-                                                  <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="buttonIMLPAddExplVar" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="buttonIMLPRemoveExplVar" min="-2" max="-2" attributes="0"/>
-                                              </Group>
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="jLabel38" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="142" max="-2" attributes="0"/>
@@ -1169,6 +1162,13 @@
                                                   <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
                                                   <EmptySpace min="-2" pref="147" max="-2" attributes="0"/>
                                                   <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" attributes="0">
+                                                  <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="buttonIMLPAddExplVar" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="buttonIMLPRemoveExplVar" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
@@ -1185,6 +1185,15 @@
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
                                           </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="comboBoxSettingsIMLPcCodeDistance" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                              <Component id="jLabel55" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="textFieldIntervalMLPCcodeDistParam1" min="-2" pref="60" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace pref="454" max="32767" attributes="0"/>
                                   </Group>
@@ -1194,6 +1203,13 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxSettingsIMLPcCodeDistance" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel55" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldIntervalMLPCcodeDistParam1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="buttonIMLPAddExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1225,7 +1241,7 @@
                                           <Component id="jLabel39" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel40" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="186" max="32767" attributes="0"/>
+                                      <EmptySpace pref="143" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1342,6 +1358,25 @@
                                 <Property name="text" type="java.lang.String" value="(Only one variable allowed. Can be extended to more.)"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel54">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Distance:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JComboBox" name="comboBoxSettingsIMLPcCodeDistance">
+                              <Properties>
+                                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Euclidean distance&quot; })" type="code"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel55">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Parameters (if applicable):"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="textFieldIntervalMLPCcodeDistParam1">
                             </Component>
                           </SubComponents>
                         </Container>

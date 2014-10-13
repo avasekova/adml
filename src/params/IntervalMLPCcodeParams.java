@@ -11,6 +11,8 @@ public class IntervalMLPCcodeParams extends Params {
     private Integer numIterations;
     private List<ExplanatoryVariable> explVars = new ArrayList<>();
     private List<OutputVariable> outVars = new ArrayList<>();
+    private String distanceFunction;
+    private double distanceFunctionParam1; //TODO potom to spravit krajsie - urobit si entity pre vsetky distances?
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -42,5 +44,21 @@ public class IntervalMLPCcodeParams extends Params {
 
     public void setOutVars(List<OutputVariable> outVars) {
         this.outVars = outVars;
+    }
+
+    public String getDistanceFunction() {
+        return distanceFunction;
+    }
+
+    public void setDistanceFunction(String distanceFunction) {
+        this.distanceFunction = distanceFunction;
+    }
+
+    public double getDistanceFunctionParam1() {
+        return distanceFunctionParam1;
+    }
+
+    public void setDistanceFunctionParam1(double distanceFunctionParam1) {
+        this.distanceFunctionParam1 = distanceFunctionParam1;
     }
 }

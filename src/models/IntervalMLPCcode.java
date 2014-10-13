@@ -79,6 +79,12 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             fw.write("mp(" + params.getExplVars().size() + "," + params.getNumNodesHidden() + "," + params.getOutVars().size() + ")");
             fw.newLine();
+            switch (params.getDistanceFunction()) {
+                case "Euclidean distance":
+                    fw.write("euclid(" + params.getDistanceFunctionParam1() + ")");
+                    break;
+            }
+            fw.newLine();
             fw.write("learn");
             fw.newLine();
             fw.write("nco(" + params.getNumIterations() + ")");
