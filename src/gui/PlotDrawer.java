@@ -216,7 +216,7 @@ public class PlotDrawer {
     
     //alebo tu su nejake farby: od zaciatku si z nich brat, a mali by byt vzdy dost vzdialene
     
-    private static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
+    public static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
         "magenta",
         "blue",
         "green3",
@@ -304,7 +304,7 @@ public class PlotDrawer {
         return rangesX.toString();
     }
     
-    private static String getRString(List<String> list) {
+    public static String getRString(List<String> list) {
         StringBuilder rString = new StringBuilder();
         rString.append("c(");
         boolean next = false;

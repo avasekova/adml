@@ -12,8 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -68,13 +67,15 @@ public class MainFrame extends javax.swing.JFrame {
         buttonGroup_paramsNnetExclusive = new javax.swing.ButtonGroup();
         panelEverything = new javax.swing.JTabbedPane();
         panelChart = new javax.swing.JPanel();
-        comboBoxColnames = new javax.swing.JComboBox();
         buttonPlotColname = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
         buttonPlotITS = new javax.swing.JButton();
-        labelPlotBasicSummaryCharacteristics = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listColnames = new javax.swing.JList();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textAreaPlotBasicStats = new javax.swing.JTextArea();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -277,8 +278,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        comboBoxColnames.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-
         buttonPlotColname.setText("Plot data");
         buttonPlotColname.setEnabled(false);
         buttonPlotColname.addActionListener(new java.awt.event.ActionListener() {
@@ -315,6 +314,17 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        listColnames.setModel(new DefaultListModel());
+        jScrollPane1.setViewportView(listColnames);
+
+        textAreaPlotBasicStats.setEditable(false);
+        textAreaPlotBasicStats.setColumns(20);
+        textAreaPlotBasicStats.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        textAreaPlotBasicStats.setRows(5);
+        textAreaPlotBasicStats.setFocusable(false);
+        textAreaPlotBasicStats.setOpaque(false);
+        jScrollPane2.setViewportView(textAreaPlotBasicStats);
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
@@ -324,32 +334,33 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelChartLayout.createSequentialGroup()
-                        .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonPlotColname)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonACF)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonPACF)
-                        .addGap(122, 122, 122)
+                        .addGap(113, 113, 113)
                         .addComponent(buttonPlotITS)
-                        .addGap(42, 42, 42)
-                        .addComponent(labelPlotBasicSummaryCharacteristics, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
             panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelChartLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxColnames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonPlotColname)
-                    .addComponent(buttonACF)
-                    .addComponent(buttonPACF)
-                    .addComponent(buttonPlotITS)
-                    .addComponent(labelPlotBasicSummaryCharacteristics))
+                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonPlotITS)
+                        .addComponent(buttonPlotColname)
+                        .addComponent(buttonACF)
+                        .addComponent(buttonPACF))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1907,11 +1918,12 @@ public class MainFrame extends javax.swing.JFrame {
                     textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
                     for (String colname : dataTableModel.getColnames()) {
                         //TODO na toto si dat potom pozor! - obavam sa, ze ked naloadujem novy subor, ostanu tam aj stare prvky v comboBoxoch, len pribudnu nove.
-                        comboBoxColnames.addItem(colname);
+                        ((DefaultListModel)(listColnames.getModel())).addElement(colname);
                         comboBoxColnamesRun.addItem(colname);
                         comboBoxRunMLPintCenter.addItem(colname);
                         comboBoxRunMLPintRadius.addItem(colname);
                     }
+                    
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
                         buttonTrainAndTest.setEnabled(true);
@@ -2072,7 +2084,7 @@ public class MainFrame extends javax.swing.JFrame {
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
                 numForecastsNnetar, reportsCTS, reportsITS, from, to);
-        labelPlotBasicSummaryCharacteristics.setText("");
+        textAreaPlotBasicStats.setText("");
         //this.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
@@ -2084,12 +2096,12 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
         outputPlotGeneral("acf", "");
-        labelPlotBasicSummaryCharacteristics.setText("");
+        textAreaPlotBasicStats.setText("");
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
         outputPlotGeneral("pacf", "");
-        labelPlotBasicSummaryCharacteristics.setText("");
+        textAreaPlotBasicStats.setText("");
     }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void paramNnet_initRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramNnet_initRangeActionPerformed
@@ -2342,7 +2354,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunMLPnnetar;
     private javax.swing.JCheckBox checkBoxSettingsARIMAconstant;
     private javax.swing.JCheckBox checkBoxSettingsARIMAoptimize;
-    private javax.swing.JComboBox comboBoxColnames;
     private javax.swing.JComboBox comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxIntervalMLPMode;
     private javax.swing.JComboBox comboBoxKNNcombination;
@@ -2429,9 +2440,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelPercentSign2;
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelTrainingInfo;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableData;
-    private javax.swing.JLabel labelPlotBasicSummaryCharacteristics;
     private javax.swing.JLabel labelSettingsARIMAnonseas;
     private javax.swing.JLabel labelSettingsARIMAnonseasD;
     private javax.swing.JLabel labelSettingsARIMAnonseasP;
@@ -2440,6 +2452,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelSettingsARIMAseasD;
     private javax.swing.JLabel labelSettingsARIMAseasP;
     private javax.swing.JLabel labelSettingsARIMAseasQ;
+    private javax.swing.JList listColnames;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -2501,6 +2514,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner spinnerKNNnumNeighboursKKNN;
     private javax.swing.JTable tableiMLPSettingsExplVars;
     private javax.swing.JTable tableiMLPSettingsOutVars;
+    private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextField textFieldIntervalMLPCcodeDistParam1;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
@@ -2533,12 +2547,18 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void outputPlotGeneral(String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-        String colname = comboBoxColnames.getSelectedItem().toString();
+        //String colname = comboBoxColnames.getSelectedItem().toString();
+        List<String> colnames = listColnames.getSelectedValuesList();
         
-        BasicStats basicStats = dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colname, plotFunction, additionalArgs);
+        List<BasicStats> basicStats = dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
         
         //mean, standard deviation, median
-        labelPlotBasicSummaryCharacteristics.setText(basicStats.toString());
+        StringBuilder basicStatsString = new StringBuilder();
+        for (BasicStats stat : basicStats) {
+            basicStatsString.append(stat.toString());
+            basicStatsString.append(System.lineSeparator());
+        }
+        textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
     private NnetarParams getParamsNnetar() {
@@ -2683,13 +2703,13 @@ public class MainFrame extends javax.swing.JFrame {
     public void drawPlotITS_CenterRadius_currentPanelPlot(String centerCol, String radiusCol) {
         PlotDrawer.drawPlotITS_CenterRadius(panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(centerCol), dataTableModel.getDataForColname(radiusCol));
-        labelPlotBasicSummaryCharacteristics.setText("");
+        textAreaPlotBasicStats.setText("");
     }
     
     public void drawPlotITS_LBUB_currentPanelPlot(String lbCol, String ubCol) {
         PlotDrawer.drawPlotITS_LBUB(panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(lbCol), dataTableModel.getDataForColname(ubCol));
-        labelPlotBasicSummaryCharacteristics.setText("");
+        textAreaPlotBasicStats.setText("");
     }
     
     public void addToExplVarsTableModel(ExplanatoryVariable var) {
