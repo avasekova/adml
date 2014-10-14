@@ -207,7 +207,7 @@ public class PlotDrawer {
             colourNumber++;
         }
         
-        if ((! listCentreRadius.isEmpty()) && (! listLowerUpper.isEmpty())) {
+        if ((! listCentreRadius.isEmpty()) || (! listLowerUpper.isEmpty())) {
             //add legend
             rengine.eval("legend(\"topleft\", "      
                                 + "inset = c(0,-0.11), "
@@ -216,7 +216,7 @@ public class PlotDrawer {
                                 + "horiz = TRUE, "
                                 + "box.lty = 0, "
                                 + "cex = 0.8, "
-                                + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
+                                + "text.width = 15, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
         }
     }
