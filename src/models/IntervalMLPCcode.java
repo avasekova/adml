@@ -83,6 +83,9 @@ public class IntervalMLPCcode implements ForecastableIntervals {
                 case "Euclidean distance":
                     fw.write("euclid(" + params.getDistanceFunctionParam1() + ")");
                     break;
+                case "Hausdorff distance":
+                    fw.write("hausdorff");
+                    break;
             }
             fw.newLine();
             fw.write("learn");

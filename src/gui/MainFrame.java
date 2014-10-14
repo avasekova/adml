@@ -1062,7 +1062,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel54.setText("Distance:");
 
-        comboBoxSettingsIMLPcCodeDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance" }));
+        comboBoxSettingsIMLPcCodeDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance", "Hausdorff distance" }));
 
         jLabel55.setText("Parameters (if applicable):");
 
@@ -2684,7 +2684,9 @@ public class MainFrame extends javax.swing.JFrame {
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setDistanceFunction(comboBoxSettingsIMLPcCodeDistance.getSelectedItem().toString());
-        params.setDistanceFunctionParam1(Double.parseDouble(textFieldIntervalMLPCcodeDistParam1.getText()));
+        if (! "".equals(textFieldIntervalMLPCcodeDistParam1.getText())) {
+            params.setDistanceFunctionParam1(Double.parseDouble(textFieldIntervalMLPCcodeDistParam1.getText()));
+        }
         params.setNumNodesHidden(Utils.getIntegerOrDefault(textFieldIntervalMLPCcodeNumNeurons));
         params.setNumIterations(Integer.parseInt(textFieldIntervalMLPCcodeNumIterations.getText()));
         params.setExplVars(((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
