@@ -51,6 +51,10 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
         }
     }
     
+    public boolean isEmpty() {
+        return (reports.isEmpty());
+    }
+    
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         //TODO maybe later make them editable?

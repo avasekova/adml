@@ -5,19 +5,16 @@ import java.awt.CardLayout;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.table.TableModel;
 import models.Arima;
 import models.Forecastable;
 import models.ForecastableIntervals;
@@ -43,6 +40,7 @@ import params.NnetParams;
 import params.NnetarParams;
 import utils.MyRengine;
 import utils.Utils;
+import utils.imlp.ExcelWriter;
 import utils.imlp.ExplanatoryVariable;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
@@ -2309,39 +2307,22 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
 
     private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
-        //TODO export to Excel? with formatting - the highest, lowest vals highlighted etc.
-        //TODO add dialog: save as? to prevent overwriting the exported file
-        File file = new File("error_measures.txt");
-        try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
-            //first the CTS
-            fw.write("CLASSICAL TIME SERIES");
-            fw.newLine();
-            fw.write("---------------------");
-            fw.newLine();
-            TableModel model_CTS = errorMeasuresLatest_CTS.getModel();
-            for (int row = 0; row < model_CTS.getRowCount(); row++) {
-                for (int col = 0; col < model_CTS.getColumnCount(); col++) {
-                    fw.write(model_CTS.getValueAt(row, col).toString());
-                    fw.write("\t\t");
-                }
-                fw.newLine();
+        //TODO export with formatting - the highest, lowest vals highlighted etc.
+        JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("error_measures.xls"));
+        if (evt.getSource() == buttonRunExportErrorMeasures) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File errorMeasuresFile = fileChooser.getSelectedFile();
+                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
+                    ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
+                            (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_ITS.getModel()), errorMeasuresFile);
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                    //nothing
             }
-            
-            //then the ITS
-            fw.write("INTERVAL TIME SERIES");
-            fw.newLine();
-            fw.write("---------------------");
-            fw.newLine();
-            TableModel model_ITS = errorMeasuresLatest_ITS.getModel();
-            for (int row = 0; row < model_ITS.getRowCount(); row++) {
-                for (int col = 0; col < model_ITS.getColumnCount(); col++) {
-                    fw.write(model_ITS.getValueAt(row, col).toString());
-                    fw.write("\t\t");
-                }
-                fw.newLine();
-            }
-        } catch (IOException ex) {
-            //todo log
         }
         
         //a na zaver to disablovat, aby sa na to netukalo furt
