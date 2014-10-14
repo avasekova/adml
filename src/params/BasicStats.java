@@ -1,6 +1,7 @@
 package params;
 
 import java.util.Locale;
+import utils.Utils;
 
 public class BasicStats {
     
@@ -43,8 +44,8 @@ public class BasicStats {
     
     @Override
     public String toString() {
-        return "Basic statistics (" + varName + "):\n   Mean: " + String.format(Locale.UK, "%.2f", mean)
-                + "\n   Std. deviation: " + String.format(Locale.UK, "%.2f", stdDev) 
-                + "\n   Median: " + String.format(Locale.UK, "%.2f", median);
+        return "Basic statistics (" + varName + "):\n   Mean: " + Utils.valToDecPoints(mean)
+                + "\n   Std. deviation: " + Utils.valToDecPoints(stdDev) 
+                + "\n   Median: " + Utils.valToDecPoints(median);
     }
 }

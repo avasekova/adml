@@ -5,6 +5,7 @@ import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportInterval;
 import utils.ErrorMeasuresInterval;
+import utils.Utils;
 
 public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
     
@@ -43,9 +44,9 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
                 return ErrorMeasuresInterval.namesOfSupportedMeasures()[columnIndex - 1];
             } else {
                 if (rowIndex < reports.size() + 1) {
-                    return String.format(Locale.UK, "%.2f", reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]);
+                    return Utils.valToDecPoints(reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]);
                 } else { //rowIndex > reports.size() + 1
-                    return String.format(Locale.UK, "%.2f", reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2 + 1]);
+                    return Utils.valToDecPoints(reports.get(rowIndex - (reports.size() + 2)).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2 + 1]);
                 }
             }
         }

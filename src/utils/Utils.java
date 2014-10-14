@@ -16,6 +16,8 @@ import utils.imlp.IntervalLowerUpper;
 
 public class Utils {
     
+    public static final int NUM_DECIMAL_POINTS = 5;
+    
     private static int counter = 0;
     private final static double EPSILON = 0.000001;
     
@@ -229,5 +231,9 @@ public class Utils {
         }
         
         return false;
+    }
+    
+    public static double valToDecPoints(double value) {
+        return Math.round(value * (Math.pow(10, Utils.NUM_DECIMAL_POINTS)))/Math.pow(10, Utils.NUM_DECIMAL_POINTS);
     }
 }
