@@ -6,6 +6,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -2351,6 +2352,28 @@ public class MainFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        //////////
+//        System.out.println("starting to hack Java");
+//        System.out.println(System.getProperty("java.library.path"));
+//        
+//        try {
+//        System.setProperty("java.library.path", System.getProperty("java.library.path")
+//                + ";" + System.getenv("R_HOME") + "\\bin\\x64"
+//                + ";" + System.getenv("R_HOME") + "\\library\\rJava\\jri\\x64"
+//                + ";" + System.getenv("R_HOME") + "\\library\\rJava\\jri" //hopefully not needed
+//                + ";" + System.getenv("R_HOME") + "\\library\\rJava\\libs\\x64" //ditto
+//                + ";" + System.getenv("JAVA_HOME") + "\\jre\\bin\\server"); //ditto
+//        Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
+//        fieldSysPath.setAccessible(true);
+//        fieldSysPath.set(null, null);
+//        } catch (Exception ugly) {
+//            System.err.println(ugly.toString());
+//        }
+//        System.out.println(System.getProperty("java.library.path"));
+//        
+//        System.out.println("finished hacking Java, check for signs of life");
+        //////////
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

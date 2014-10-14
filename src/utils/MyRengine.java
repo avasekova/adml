@@ -17,6 +17,7 @@ public class MyRengine extends Rengine {
     public static synchronized MyRengine getRengine() {
         if (instance == null) {
             //If not started with --vanilla, funny things may happen in this R shell.
+            //The command-line option --vanilla implies --no-site-file, --no-init-file, --no-environ and (except for R CMD) --no-restore
             String[] Rargs = {"--vanilla"};
             Rengine re = new Rengine(Rargs, false, null);
             // the engine creates R in a new thread, so we should wait until it's ready
