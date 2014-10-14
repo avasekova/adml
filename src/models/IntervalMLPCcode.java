@@ -86,6 +86,9 @@ public class IntervalMLPCcode implements ForecastableIntervals {
                 case "Hausdorff distance":
                     fw.write("hausdorff");
                     break;
+                case "Ichino-Yaguchi distance":
+                    fw.write("ichino(" + params.getDistanceFunctionParam1() + ")");
+                    break;
             }
             fw.newLine();
             fw.write("learn");

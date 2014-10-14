@@ -1062,7 +1062,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel54.setText("Distance:");
 
-        comboBoxSettingsIMLPcCodeDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance", "Hausdorff distance" }));
+        comboBoxSettingsIMLPcCodeDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance", "Hausdorff distance", "Ichino-Yaguchi distance" }));
 
         jLabel55.setText("Parameters (if applicable):");
 
