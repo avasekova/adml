@@ -26,6 +26,7 @@ import models.MLPint;
 import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
+import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.GDCanvas;
@@ -270,6 +271,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         textFieldRunDataRangeTo = new javax.swing.JTextField();
         buttonRunExportErrorMeasures = new javax.swing.JButton();
+        panelForecastVals = new javax.swing.JPanel();
+        scrollPaneForecastVals = new javax.swing.JScrollPane();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -1892,6 +1895,19 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Run", panelRunOutside);
 
+        javax.swing.GroupLayout panelForecastValsLayout = new javax.swing.GroupLayout(panelForecastVals);
+        panelForecastVals.setLayout(panelForecastValsLayout);
+        panelForecastValsLayout.setHorizontalGroup(
+            panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
+        );
+        panelForecastValsLayout.setVerticalGroup(
+            panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
+        );
+
+        panelEverything.addTab("Forecast values", panelForecastVals);
+
         menuFile.setText("File");
 
         menuFileLoad.setText("Load");
@@ -2127,13 +2143,25 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         //show Forecast plot
-        int numForecastsNnetar = Integer.parseInt(textFieldRunNumForecasts.getText());
+        int numForecasts = Utils.getIntegerOrDefault(textFieldRunNumForecasts);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
-                numForecastsNnetar, reportsCTS, reportsITS, from, to);
+                numForecasts, reportsCTS, reportsITS, from, to);
         textAreaPlotBasicStats.setText("");
         //this.repaint();
+        
+        //and show forecast values in the other pane
+        List<TrainAndTestReport> allReports = new ArrayList<>();
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsITS);
+        JTable tableForecastValues = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        tableForecastValues.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
+        tableForecastValues.setVisible(true);
+        panelForecastVals.removeAll();
+        scrollPaneForecastVals.setViewportView(tableForecastValues);
+        panelForecastVals.add(scrollPaneForecastVals);
+        panelForecastVals.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -2545,6 +2573,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
     private javax.swing.JTabbedPane panelEverything;
+    private javax.swing.JPanel panelForecastVals;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSettingsIntervalMLPMode;
@@ -2579,6 +2608,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField paramNnetar_textFieldNumReps;
     private javax.swing.JTextField paramNnetar_textFieldNumSeasonalLags;
     private javax.swing.JScrollPane scrollPaneData;
+    private javax.swing.JScrollPane scrollPaneForecastVals;
     private javax.swing.JScrollPane scrollPaneiMLPSettingsExplVars;
     private javax.swing.JScrollPane scrollPaneiMLPSettingsOutVars;
     private javax.swing.JSlider sliderPercentTrain;

@@ -1,7 +1,6 @@
 package gui;
 
 import java.util.List;
-import java.util.Locale;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportInterval;
 import utils.ErrorMeasuresInterval;
