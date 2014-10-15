@@ -33,7 +33,6 @@ public class MLPint implements Forecastable {
         List<Interval> forecastsAllTestAndFutureVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValues()),
                 Utils.arrayToList(reportRadius.getForecastValues()));
         int numberOfRealTestingDataIhope = reportCenter.getForecastValues().length - params.getNumForecasts();
-        System.out.println("num I hope:" + numberOfRealTestingDataIhope + ", fork: " + forecastsAllTestAndFutureVals.size());
         List<Interval> forecastsTest = forecastsAllTestAndFutureVals.subList(0, numberOfRealTestingDataIhope);
         //List<Interval> forecastsFuture = forecastsAllTestAndFutureVals.subList(dataCenter.size(), forecastsAllTestAndFutureVals.size());
         List<Interval> trainingIntervals = realDataInterval.subList(0, reportCenter.getNumTrainingEntries());
@@ -51,8 +50,6 @@ public class MLPint implements Forecastable {
         }
         
         List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervalsWithoutNaN, fittedValsWithoutNaN, new WeightedEuclideanDistance(0.5));
-        System.out.println("testSize: " + testingIntervals.size());
-        System.out.println("forSize: " + forecastsTest.size());
         List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
