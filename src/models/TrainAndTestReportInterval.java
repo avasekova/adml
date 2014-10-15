@@ -76,6 +76,11 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         this.realValuesLowers = lowersUppers.subList(0, lowersUppers.size()/2);
         this.realValuesUppers = lowersUppers.subList(lowersUppers.size()/2, lowersUppers.size());
     }
+    
+    public void setRealValues(List<Interval> realValues) {
+        this.realValuesLowers = Utils.arrayToList(getValuesLowers(realValues));
+        this.realValuesUppers = Utils.arrayToList(getValuesUppers(realValues));
+    }
 
     private double[] getValuesLowers(List<Interval> baseData) {
         List<Double> lowers = new ArrayList<>();

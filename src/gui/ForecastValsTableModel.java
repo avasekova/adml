@@ -25,7 +25,7 @@ public class ForecastValsTableModel extends AbstractTableModel {
     
     @Override
     public int getRowCount() {
-        return numForecasts + 1;
+        return numForecasts;
     }
 
     @Override
