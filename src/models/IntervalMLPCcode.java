@@ -28,6 +28,37 @@ public class IntervalMLPCcode implements ForecastableIntervals {
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+        List<TrainAndTestReportInterval> reports = new ArrayList<>();
+        //train some number of networks
+        //TODO later also keep their .out and other files! prevent overwriting the best!
+        for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
+            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters)));
+        }
+        
+        //and then determine which one is the best
+        //TODO for now coverage+efficiency, later allow to customize
+        TrainAndTestReportInterval bestReport = reports.get(0);
+        double bestMeasures = computeCriterion(bestReport);
+        if (reports.size() > 1) {
+            for (int i = 1; i < reports.size(); i++) {
+                double currentMeasures = computeCriterion(reports.get(i));
+                if (currentMeasures > bestMeasures) {
+                    bestMeasures = currentMeasures;
+                    bestReport = reports.get(i);
+                }
+            }
+        }
+        
+        return bestReport;
+    }
+    
+    private double computeCriterion(TrainAndTestReportInterval report) {
+        ErrorMeasuresInterval m = (ErrorMeasuresInterval)(report.getErrorMeasures());
+        //sum of coverages and efficiencies
+        return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
+    }
+
+    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP (C code)");
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
         
@@ -165,7 +196,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         
         return report;
     }
-
+    
     private List<List<Double>> prepareData(DataTableModel dataTableModel, List<ExplanatoryVariable> explVars, 
                                                                           List<OutputVariable> outVars,
                                                                           int from, int to) {

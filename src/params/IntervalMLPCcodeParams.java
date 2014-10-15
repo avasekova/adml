@@ -13,6 +13,8 @@ public class IntervalMLPCcodeParams extends Params {
     private List<ExplanatoryVariable> explVars = new ArrayList<>();
     private List<OutputVariable> outVars = new ArrayList<>();
     private Distance distanceFunction;
+    private int numNetworks;
+//    private String??? criterion; //error measure based on which it will choose the best network
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -52,5 +54,13 @@ public class IntervalMLPCcodeParams extends Params {
 
     public void setDistanceFunction(Distance distanceFunction) {
         this.distanceFunction = distanceFunction;
+    }
+
+    public int getNumNetworks() {
+        return numNetworks;
+    }
+
+    public void setNumNetworks(int numNetworks) {
+        this.numNetworks = numNetworks;
     }
 }
