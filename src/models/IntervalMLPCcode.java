@@ -24,8 +24,6 @@ import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalMLPCcode implements ForecastableIntervals {
     
-    //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
-
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
@@ -58,6 +56,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
     }
 
+    //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
     private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP (C code)");
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
