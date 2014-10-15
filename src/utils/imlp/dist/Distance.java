@@ -1,4 +1,6 @@
-package utils.imlp;
+package utils.imlp.dist;
+
+import utils.imlp.Interval;
 
 public interface Distance {
     

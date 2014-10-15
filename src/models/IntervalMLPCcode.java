@@ -17,7 +17,9 @@ import utils.Utils;
 import utils.imlp.ExplanatoryVariable;
 import utils.imlp.Interval;
 import utils.imlp.OutputVariable;
-import utils.imlp.WeightedEuclideanDistance;
+import utils.imlp.dist.HausdorffDistance;
+import utils.imlp.dist.IchinoYaguchiDistance;
+import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalMLPCcode implements ForecastableIntervals {
     
@@ -79,16 +81,12 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             fw.write("mp(" + params.getExplVars().size() + "," + params.getNumNodesHidden() + "," + params.getOutVars().size() + ")");
             fw.newLine();
-            switch (params.getDistanceFunction()) {
-                case "Euclidean distance":
-                    fw.write("euclid(" + params.getDistanceFunctionParam1() + ")");
-                    break;
-                case "Hausdorff distance":
-                    fw.write("hausdorff");
-                    break;
-                case "Ichino-Yaguchi distance":
-                    fw.write("ichino(" + params.getDistanceFunctionParam1() + ")");
-                    break;
+            if (params.getDistanceFunction() instanceof WeightedEuclideanDistance) {
+                fw.write("euclid(" + ((WeightedEuclideanDistance)(params.getDistanceFunction())).getBeta() + ")");
+            } else if (params.getDistanceFunction() instanceof HausdorffDistance) {
+                fw.write("hausdorff");
+            } else if (params.getDistanceFunction() instanceof IchinoYaguchiDistance) {
+                fw.write("ichino(" + ((IchinoYaguchiDistance)(params.getDistanceFunction())).getGamma() + ")");
             }
             fw.newLine();
             fw.write("learn");

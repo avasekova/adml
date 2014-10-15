@@ -1,4 +1,6 @@
-package utils.imlp;
+package utils.imlp.dist;
+
+import utils.imlp.Interval;
 
 public class WeightedEuclideanDistance implements Distance {
     
@@ -14,4 +16,7 @@ public class WeightedEuclideanDistance implements Distance {
             ((1-beta)*(Math.pow(forecast.getRadius() - real.getRadius(), 2)));
     }
 
+    public double getBeta() {
+        return beta;
+    }
 }

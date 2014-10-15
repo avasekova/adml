@@ -3,6 +3,7 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 import utils.imlp.Interval;
+import utils.imlp.IntervalLowerUpper;
 
 public class ErrorMeasuresUtils {
     
@@ -195,27 +196,42 @@ public class ErrorMeasuresUtils {
         return mean/realData.size();
     }
     
-    private static double widthIntersection(Interval first, Interval second) {
-        if ((first.getUpperBound() <= second.getLowerBound()) ||
-            (second.getUpperBound() <= first.getLowerBound())) { //non-overlapping intervals
+    public static double widthIntersection(Interval first, Interval second) {
+        Interval lefter;
+        Interval righter;
+        //first make sure that first is indeed more to the left or at the same point as second (if necessary, swap them):
+        if (first.getLowerBound() > second.getLowerBound()) {
+            lefter = new IntervalLowerUpper(second.getLowerBound(), second.getUpperBound());
+            righter = new IntervalLowerUpper(first.getLowerBound(), first.getUpperBound());
+        } else { //they are ok
+            lefter = new IntervalLowerUpper(first.getLowerBound(), first.getUpperBound());
+            righter = new IntervalLowerUpper(second.getLowerBound(), second.getUpperBound());
+        }
+        
+        //now check if they overlap
+        if (lefter.getUpperBound() <= righter.getLowerBound()) { //no overlap
             return 0;
-        }
-        
-        else if ((first.getLowerBound() >= second.getLowerBound()) && (first.getUpperBound() <= second.getUpperBound())) {
-            return first.getUpperBound() - first.getLowerBound(); //the width of the 1st, because it is contained in the 2nd
-        }
-        
-        else if ((second.getLowerBound() >= first.getLowerBound()) && (second.getUpperBound() <= first.getUpperBound())) {
-            return second.getUpperBound() - second.getLowerBound(); //the width of the 2nd, because it is contained in the 1st
-        }
-        
-        else if ((first.getLowerBound() <= second.getLowerBound()) && (first.getUpperBound() <= second.getUpperBound())) {
-            return first.getUpperBound() - second.getLowerBound(); //overlap, 1st "more to the left"
-        }
-        
-        else { //(second.getLowerBound() <= first.getLowerBound()) && (second.getUpperBound() <= first.getUpperBound())
-            return second.getUpperBound() - first.getLowerBound(); //overlap, 2nd "more to the left"
+        } else { //get the width of the overlap
+            return width(righter.getLowerBound(), Math.min(lefter.getUpperBound(), righter.getUpperBound()));
         }
     }
     
+    public static double widthUnion(Interval first, Interval second) {
+        if ((first.getUpperBound() <= second.getLowerBound()) ||
+            (second.getUpperBound() <= first.getLowerBound())) { //non-overlapping intervals
+            return width(first) + width(second);
+        }
+        
+        else {
+            return width(first) + width(second) - widthIntersection(first, second);
+        }
+    }
+    
+    public static double width(double start, double end) {
+        return Math.abs(end - start);
+    }
+    
+    public static double width(Interval interval) {
+        return width(interval.getLowerBound(), interval.getUpperBound());
+    }
 }

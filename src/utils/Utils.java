@@ -9,7 +9,7 @@ import static java.lang.Double.NaN;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextField;
-import utils.imlp.Distance;
+import utils.imlp.dist.Distance;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
 import utils.imlp.IntervalLowerUpper;

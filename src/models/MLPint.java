@@ -8,7 +8,7 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
-import utils.imlp.WeightedEuclideanDistance;
+import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class MLPint implements Forecastable {
 
