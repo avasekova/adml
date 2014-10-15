@@ -1,6 +1,5 @@
 package utils.imlp.dist;
 
-import javax.swing.Spring;
 import utils.ErrorMeasuresUtils;
 import utils.imlp.Interval;
 
@@ -12,7 +11,7 @@ public class IchinoYaguchiDistance implements Distance {
         this.gamma = gamma;
     }
 
-   @Override
+    @Override
     public double getDistance(Interval forecast, Interval real) {
         return ErrorMeasuresUtils.widthUnion(forecast, real) - ErrorMeasuresUtils.widthIntersection(forecast, real)
                 + gamma * (2*ErrorMeasuresUtils.widthIntersection(forecast, real)

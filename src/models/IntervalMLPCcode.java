@@ -17,6 +17,7 @@ import utils.Utils;
 import utils.imlp.ExplanatoryVariable;
 import utils.imlp.Interval;
 import utils.imlp.OutputVariable;
+import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
@@ -85,6 +86,8 @@ public class IntervalMLPCcode implements ForecastableIntervals {
                 fw.write("euclid(" + ((WeightedEuclideanDistance)(params.getDistanceFunction())).getBeta() + ")");
             } else if (params.getDistanceFunction() instanceof HausdorffDistance) {
                 fw.write("hausdorff");
+            } else if (params.getDistanceFunction() instanceof DeCarvalhoDistance) {
+                fw.write("decarvalho(" + ((DeCarvalhoDistance)(params.getDistanceFunction())).getGamma() + ")");
             } else if (params.getDistanceFunction() instanceof IchinoYaguchiDistance) {
                 fw.write("ichino(" + ((IchinoYaguchiDistance)(params.getDistanceFunction())).getGamma() + ")");
             }

@@ -499,7 +499,7 @@
                                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                           <Component id="paramNnetar_textFieldLambda" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="347" max="32767" attributes="0"/>
+                                      <EmptySpace pref="357" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -595,7 +595,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="457" max="32767" attributes="0"/>
+                                      <EmptySpace pref="467" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1080,7 +1080,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                               <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="400" max="32767" attributes="0"/>
+                              <EmptySpace pref="410" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1461,7 +1461,7 @@
                             <Component class="javax.swing.JComboBox" name="comboBoxSettingsIMLPcCodeDistance">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Euclidean distance&quot;, &quot;Hausdorff distance&quot;, &quot;Ichino-Yaguchi distance&quot; })" type="code"/>
+                                  <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Euclidean distance&quot;, &quot;Hausdorff distance&quot;, &quot;Ichino-Yaguchi distance&quot;, &quot;De Carvalho distance&quot; })" type="code"/>
                                 </Property>
                               </Properties>
                               <Events>
@@ -1530,7 +1530,7 @@
                                     </DimensionLayout>
                                     <DimensionLayout dim="1">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="25" max="32767" attributes="0"/>
                                       </Group>
                                     </DimensionLayout>
                                   </Layout>
@@ -1578,6 +1578,49 @@
                                     </Component>
                                   </SubComponents>
                                 </Container>
+                                <Container class="javax.swing.JPanel" name="panelSettingsIntervalMLPDistanceParams_decarvalho">
+                                  <Constraints>
+                                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                                      <CardConstraints cardName="panelSettingsIntervalMLPDistanceParams_decarvalho"/>
+                                    </Constraint>
+                                  </Constraints>
+
+                                  <Layout>
+                                    <DimensionLayout dim="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel57" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="textFieldIntervalMLPDistanceParam_decarvalho_gamma" min="-2" pref="43" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="128" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                    <DimensionLayout dim="1">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel57" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="textFieldIntervalMLPDistanceParam_decarvalho_gamma" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="0" pref="5" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                    </DimensionLayout>
+                                  </Layout>
+                                  <SubComponents>
+                                    <Component class="javax.swing.JLabel" name="jLabel57">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="gamma:"/>
+                                      </Properties>
+                                    </Component>
+                                    <Component class="javax.swing.JTextField" name="textFieldIntervalMLPDistanceParam_decarvalho_gamma">
+                                      <Properties>
+                                        <Property name="text" type="java.lang.String" value="0.5"/>
+                                      </Properties>
+                                    </Component>
+                                  </SubComponents>
+                                </Container>
                               </SubComponents>
                             </Container>
                           </SubComponents>
@@ -1604,7 +1647,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="457" max="32767" attributes="0"/>
+                                      <EmptySpace pref="462" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1753,7 +1796,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="checkBoxSettingsARIMAconstant" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="395" max="32767" attributes="0"/>
+                              <EmptySpace pref="405" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2015,7 +2058,7 @@
                                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldKNNfnnLag" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="388" max="32767" attributes="0"/>
+                                      <EmptySpace pref="398" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2109,7 +2152,7 @@
                                           <Component id="comboBoxKNNcombination" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel70" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="290" max="32767" attributes="0"/>
+                                      <EmptySpace pref="300" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2223,7 +2266,7 @@
                                           <Component id="jLabel74" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldKNNkknnLag" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="388" max="32767" attributes="0"/>
+                                      <EmptySpace pref="398" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
