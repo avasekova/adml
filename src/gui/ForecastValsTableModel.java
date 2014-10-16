@@ -7,6 +7,7 @@ import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import utils.Utils;
+import utils.imlp.Interval;
 
 public class ForecastValsTableModel extends AbstractTableModel {
 
@@ -50,9 +51,19 @@ public class ForecastValsTableModel extends AbstractTableModel {
         } else {
             TrainAndTestReport rep = reports.get(columnIndex - 1);
             if (rep instanceof TrainAndTestReportCrisp) {
-                return Utils.valToDecPoints(((TrainAndTestReportCrisp) rep).getForecastValuesTest()[rowIndex]);
+                double[] forecastsFuture = ((TrainAndTestReportCrisp) rep).getForecastValuesFuture();
+                if (forecastsFuture.length < rowIndex+1) {
+                    return "<not available>";
+                } else {
+                    return Utils.valToDecPoints(forecastsFuture[rowIndex]);
+                }
             } else { //instanceOf TTreportInterval
-                return ((TrainAndTestReportInterval) rep).getForecastValuesTest().get(rowIndex).toString();
+                List<Interval> forecastsFuture = ((TrainAndTestReportInterval) rep).getForecastValuesFuture();
+                if (forecastsFuture.size() < rowIndex+1) {
+                    return "<not available>";
+                } else {
+                    return forecastsFuture.get(rowIndex).toString();
+                }
             }
         }
     }

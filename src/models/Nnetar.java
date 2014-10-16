@@ -44,9 +44,12 @@ public class Nnetar implements Forecastable {
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
         rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
-        REXP getForecastVals = rengine.eval(FORECAST_VALS);
-        double[] forecast = getForecastVals.asDoubleArray();
-        report.setForecastValuesTest(forecast);
+        REXP getForecastValsAll = rengine.eval(FORECAST_VALS);
+        double[] forecastAll = getForecastValsAll.asDoubleArray();
+        List<Double> allForecastsList = Utils.arrayToList(forecastAll);
+        List<Double> forecastTest = allForecastsList.subList(0, testingPortionOfData.size());
+        report.setForecastValuesTest(Utils.listToArray(forecastTest));
+        report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(testingPortionOfData.size(), allForecastsList.size())));
         
         rengine.assign(TEST, Utils.listToArray(testingPortionOfData));
         //TODO mozno iba accuracy(model) miesto accuracy(model, testingData)? zistit!!!
@@ -75,11 +78,11 @@ public class Nnetar implements Forecastable {
         errorMeasures.setMASEtrain(acc[10]);
         errorMeasures.setMASEtest(acc[11]);
         errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, Utils.arrayToList(forecast)));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, forecastTest));
         errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(trainingPortionOfData),
                 Collections.unmodifiableList(Utils.arrayToList(fitted))));
         errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(testingPortionOfData),
-                Collections.unmodifiableList(Utils.arrayToList(forecast))));
+                Collections.unmodifiableList(forecastTest)));
         
         report.setErrorMeasures(errorMeasures);
         

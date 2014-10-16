@@ -30,13 +30,14 @@ public class MLPint implements Forecastable {
                 dataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
         List<Interval> fittedVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getFittedValues()),
                 Utils.arrayToList(reportRadius.getFittedValues()));
-        List<Interval> forecastsAllTestAndFutureVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesTest()),
-                Utils.arrayToList(reportRadius.getForecastValuesTest()));
-        int numberOfRealTestingDataIhope = reportCenter.getForecastValuesTest().length - params.getNumForecasts();
-        List<Interval> forecastsTest = forecastsAllTestAndFutureVals.subList(0, numberOfRealTestingDataIhope);
-        //List<Interval> forecastsFuture = forecastsAllTestAndFutureVals.subList(dataCenter.size(), forecastsAllTestAndFutureVals.size());
+        
         List<Interval> trainingIntervals = realDataInterval.subList(0, reportCenter.getNumTrainingEntries());
         List<Interval> testingIntervals = realDataInterval.subList(reportCenter.getNumTrainingEntries(), realDataInterval.size());
+        
+        List<Interval> forecastsTest = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesTest()),
+                Utils.arrayToList(reportRadius.getForecastValuesTest()));
+        List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
+                Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
         //trim to rectangle:
         List<Interval> fittedValsWithoutNaN = new ArrayList<>();
@@ -74,7 +75,8 @@ public class MLPint implements Forecastable {
         report.setRealValues(realDataInterval);
         
         report.setFittedValues(fittedVals);
-        report.setForecastValuesTest(forecastsAllTestAndFutureVals);
+        report.setForecastValuesTest(forecastsTest);
+        report.setForecastValuesFuture(forecastsFuture);
         
         report.setErrorMeasures(errorMeasures);
         

@@ -113,17 +113,30 @@ public class PlotDrawer {
                 rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
                 
                 //naplotovat fitted values pre training data:
-                final int sizeForecast = r.getForecastValuesTest().size();
+                final int sizeForecastTest = r.getForecastValuesTest().size();
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesTestLowers());
                 rengine.assign("upper", r.getForecastValuesTestUppers());
                 rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
                 rengine.eval("par(new=TRUE)");
                 rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
-                rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecast) + ", lower, "
-                        + (sizeFitted+1) + ":" + (sizeFitted+sizeForecast) + ", upper, xlim = " + rangeX_ITS
+                rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", lower, "
+                        + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", upper, xlim = " + rangeX_ITS
                         + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
-                //TODO naplotovat forecasty! - ale toto by malo zahrnat uz aj forecasty! tak co je
+                
+                //naplotovat forecasty buduce:
+                final int sizeForecastFuture = r.getForecastValuesFuture().size();
+                rengine.eval("par(new=TRUE)");
+                rengine.assign("lower", r.getForecastValuesFutureLowers());
+                rengine.assign("upper", r.getForecastValuesFutureUppers());
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("par(new=TRUE)");
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1) + ":"
+                        + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
+                        + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
+                        + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS
+                        + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
                 
                 colourNumber++;
             }
@@ -312,6 +325,11 @@ public class PlotDrawer {
             rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
             rangesY.append(Utils.minArray(r.getForecastValuesTest())).append(", ");
             rangesY.append(Utils.maxArray(r.getForecastValuesTest()));
+            if (r.getForecastValuesFuture().length != 0) {
+                rangesY.append(", ");
+                rangesY.append(Utils.minArray(r.getForecastValuesFuture())).append(", ");
+                rangesY.append(Utils.maxArray(r.getForecastValuesFuture()));
+            }
         }
         //a zahrnut aj povodne data:
         rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
@@ -337,6 +355,13 @@ public class PlotDrawer {
             rangesY.append(Utils.maxArray(r.getForecastValuesTestLowers())).append(", ");
             rangesY.append(Utils.minArray(r.getForecastValuesTestUppers())).append(", ");
             rangesY.append(Utils.maxArray(r.getForecastValuesTestUppers()));
+            if (! r.getForecastValuesFuture().isEmpty()) {
+                rangesY.append(", ");
+                rangesY.append(Utils.minArray(r.getForecastValuesFutureLowers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getForecastValuesFutureLowers())).append(", ");
+                rangesY.append(Utils.minArray(r.getForecastValuesFutureUppers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getForecastValuesFutureUppers()));
+            }
             
             //a zahrnut aj povodne data:
             List<Double> realDataLower = r.getRealValuesLowers();

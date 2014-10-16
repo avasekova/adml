@@ -12,7 +12,6 @@ import javax.swing.JTextField;
 import utils.imlp.dist.Distance;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
-import utils.imlp.IntervalLowerUpper;
 
 public class Utils {
     
@@ -200,7 +199,7 @@ public class Utils {
         List<Interval> intervals = new ArrayList<>();
         
         for (int i = 0; i < centers.size(); i++) {
-            Interval interval = new IntervalLowerUpper(centers.get(i) - radii.get(i), centers.get(i) + radii.get(i));
+            Interval interval = new IntervalCentreRadius(centers.get(i), radii.get(i));
             intervals.add(interval);
         }
         

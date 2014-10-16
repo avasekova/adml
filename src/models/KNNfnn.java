@@ -132,6 +132,7 @@ public class KNNfnn implements Forecastable {
         //then report.setEverything
         report.setFittedValues(predictedTrain);
         report.setForecastValuesTest(predictedTest);
+//        report.setForecastValuesFuture(); //nothing yet
         
         report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_PREDICTED_TRAIN + ", " + UNSCALED_PREDICTED_TEST + "))");
         

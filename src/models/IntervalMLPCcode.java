@@ -173,6 +173,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
 
             report.setFittedValues(forecastsTrain);
             report.setForecastValuesTest(forecastsTest);
+//            report.setForecastValuesFuture(); //nothing yet
 
             errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
             errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
