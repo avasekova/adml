@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileFilter;
@@ -1781,7 +1782,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 286, Short.MAX_VALUE)
+            .addGap(0, 296, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -2260,28 +2261,7 @@ public class MainFrame extends javax.swing.JFrame {
         //add more methods/models here
         
         
-        //TODO vymysliet to nejak inak, posuvat ich podla toho, kde je kolko riadkov. a bachnut ich asi do scrollpane, aby
-        //   nieco netrcalo
-        panelSummary.removeAll();
-        JTable errorMeasuresTable_CTS = new JTable();
-        errorMeasuresTable_CTS.setSize(panelSummary.getWidth(), panelSummary.getHeight()/2);
-        errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
-        errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
-        errorMeasuresTable_CTS.setVisible(true);
-        panelSummary.add(errorMeasuresTable_CTS);
-        errorMeasuresLatest_CTS = errorMeasuresTable_CTS; //and save it for possible future export
-        
-        JTable errorMeasuresTable_ITS = new JTable();
-        errorMeasuresTable_ITS.setLocation(panelSummary.getX(), panelSummary.getHeight()/2);
-        errorMeasuresTable_ITS.setSize(panelSummary.getWidth(), panelSummary.getHeight()/2);
-        errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsITS));
-        errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
-        errorMeasuresTable_ITS.setVisible(true);
-        panelSummary.add(errorMeasuresTable_ITS);
-        errorMeasuresLatest_ITS = errorMeasuresTable_ITS; //and save it for possible future export
-        
-        this.repaint();
-        
+        drawOneOrTwoTables(reportsCTS, reportsITS);
         
         //show Forecast plot
         int numForecasts = Utils.getIntegerOrDefault(textFieldRunNumForecasts);
@@ -3022,5 +3002,68 @@ public class MainFrame extends javax.swing.JFrame {
     
     public void addToOutVarsTableModel(OutputVariable var) {
         ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).addVariable(var);
+    }
+    
+    private void drawOneOrTwoTables(List<TrainAndTestReportCrisp> reportsCTS,
+                                    List<TrainAndTestReportInterval> reportsIntTS) {
+        panelSummary.removeAll();
+        if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //kresli obe
+            JTable errorMeasuresTable_CTS = new JTable();
+            errorMeasuresTable_CTS.setSize(panelSummary.getWidth(), panelSummary.getHeight()/2);
+            errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
+            errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+            errorMeasuresTable_CTS.setTableHeader(null);
+            errorMeasuresTable_CTS.setVisible(true);
+
+            JScrollPane scrollPaneErrorMeasuresCTS = new JScrollPane(errorMeasuresTable_CTS);
+            scrollPaneErrorMeasuresCTS.setSize(errorMeasuresTable_CTS.getSize());
+            panelSummary.add(scrollPaneErrorMeasuresCTS);
+            errorMeasuresLatest_CTS = errorMeasuresTable_CTS; //and save it for possible future export
+
+
+            JTable errorMeasuresTable_ITS = new JTable();
+            errorMeasuresTable_ITS.setLocation(0, panelSummary.getHeight()/2);
+            errorMeasuresTable_ITS.setSize(panelSummary.getWidth(), panelSummary.getHeight()/2);
+            errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsIntTS));
+            errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+            errorMeasuresTable_ITS.setTableHeader(null);
+            errorMeasuresTable_ITS.setVisible(true);
+
+            JScrollPane scrollPaneErrorMeasuresITS = new JScrollPane(errorMeasuresTable_ITS);
+            scrollPaneErrorMeasuresITS.setSize(errorMeasuresTable_ITS.getSize());
+            scrollPaneErrorMeasuresITS.setLocation(errorMeasuresTable_ITS.getLocation());
+            panelSummary.add(scrollPaneErrorMeasuresITS);
+            errorMeasuresLatest_ITS = errorMeasuresTable_ITS; //and save it for possible future export
+        } else {
+            if (! reportsCTS.isEmpty()) { //takze IntTS je empty, CTS moze zaplnit cele miesto
+                JTable errorMeasuresTable_CTS = new JTable();
+                errorMeasuresTable_CTS.setSize(panelSummary.getWidth(), panelSummary.getHeight());
+                errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
+                errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+                errorMeasuresTable_CTS.setTableHeader(null);
+                errorMeasuresTable_CTS.setVisible(true);
+
+                JScrollPane scrollPaneErrorMeasuresCTS = new JScrollPane(errorMeasuresTable_CTS);
+                scrollPaneErrorMeasuresCTS.setSize(errorMeasuresTable_CTS.getSize());
+                panelSummary.add(scrollPaneErrorMeasuresCTS);
+                errorMeasuresLatest_CTS = errorMeasuresTable_CTS; //and save it for possible future export
+            } else {
+                if (! reportsIntTS.isEmpty()) { //CTS je empty, ITS moze zaplnit cele miesto
+                    JTable errorMeasuresTable_ITS = new JTable();
+                    errorMeasuresTable_ITS.setSize(panelSummary.getWidth(), panelSummary.getHeight());
+                    errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsIntTS));
+                    errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+                    errorMeasuresTable_ITS.setTableHeader(null);
+                    errorMeasuresTable_ITS.setVisible(true);
+
+                    JScrollPane scrollPaneErrorMeasuresITS = new JScrollPane(errorMeasuresTable_ITS);
+                    scrollPaneErrorMeasuresITS.setSize(errorMeasuresTable_ITS.getSize());
+                    panelSummary.add(scrollPaneErrorMeasuresITS);
+                    errorMeasuresLatest_ITS = errorMeasuresTable_ITS; //and save it for possible future export
+                } //else do not draw anything
+            }
+        }
+        
+        this.repaint();
     }
 }
