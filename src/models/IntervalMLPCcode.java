@@ -17,6 +17,7 @@ import utils.Utils;
 import utils.imlp.ExplanatoryVariable;
 import utils.imlp.Interval;
 import utils.imlp.OutputVariable;
+import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
@@ -112,7 +113,9 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             fw.write("mp(" + params.getExplVars().size() + "," + params.getNumNodesHidden() + "," + params.getOutVars().size() + ")");
             fw.newLine();
-            if (params.getDistanceFunction() instanceof WeightedEuclideanDistance) {
+            if (params.getDistanceFunction() instanceof BertoluzzaDistance) {
+                fw.write("bertoluzza(" + ((BertoluzzaDistance)(params.getDistanceFunction())).getBeta() + ")");
+            } else if (params.getDistanceFunction() instanceof WeightedEuclideanDistance) {
                 fw.write("euclid(" + ((WeightedEuclideanDistance)(params.getDistanceFunction())).getBeta() + ")");
             } else if (params.getDistanceFunction() instanceof HausdorffDistance) {
                 fw.write("hausdorff");
@@ -167,9 +170,9 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             List<Double> testingPortionOfRadius = data.get(data.size() - 1).subList(numTrainingEntries, data.get(data.size() - 1).size());
             
             List<Interval> trainingIntervals = Utils.zipCentersRadiiToIntervals(trainingPortionOfCenter, trainingPortionOfRadius);
-            List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, new WeightedEuclideanDistance(0.5));
+            List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, params.getDistanceFunction());
             List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
-            List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
+            List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, params.getDistanceFunction());
 
             report.setFittedValues(forecastsTrain);
             report.setForecastValuesTest(forecastsTest);

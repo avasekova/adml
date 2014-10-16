@@ -50,6 +50,7 @@ public class MLPint implements Forecastable {
             }
         }
         
+        //TODO nechat vybrat distance!
         List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervalsWithoutNaN, fittedValsWithoutNaN, new WeightedEuclideanDistance(0.5));
         List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
         

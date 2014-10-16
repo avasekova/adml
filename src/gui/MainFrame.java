@@ -49,6 +49,7 @@ import utils.imlp.ExplanatoryVariable;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
+import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
@@ -157,6 +158,7 @@ public class MainFrame extends javax.swing.JFrame {
         sliderPercentTrainMLPint = new javax.swing.JSlider();
         textFieldPercentTrainMLPint = new javax.swing.JTextField();
         jLabelPercentSign1 = new javax.swing.JLabel();
+        jLabel63 = new javax.swing.JLabel();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         sliderPercentTrainIntervalMLP = new javax.swing.JSlider();
@@ -194,6 +196,9 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsIntervalMLPDistanceParams_decarvalho = new javax.swing.JPanel();
         jLabel57 = new javax.swing.JLabel();
         textFieldIntervalMLPDistanceParam_decarvalho_gamma = new javax.swing.JTextField();
+        panelSettingsIntervalMLPDistanceParams_bertoluzza = new javax.swing.JPanel();
+        jLabel61 = new javax.swing.JLabel();
+        textFieldIntervalMLPDistanceParam_bertoluzza_beta = new javax.swing.JTextField();
         jLabel58 = new javax.swing.JLabel();
         textFieldSettingsIntervalMLPnumNetworks = new javax.swing.JTextField();
         jLabel59 = new javax.swing.JLabel();
@@ -962,6 +967,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabelPercentSign1.setText("%");
         jLabelPercentSign1.setEnabled(false);
 
+        jLabel63.setText("jLabel63");
+
         javax.swing.GroupLayout paneSettingsMethodsMLPintLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLPint);
         paneSettingsMethodsMLPint.setLayout(paneSettingsMethodsMLPintLayout);
         paneSettingsMethodsMLPintLayout.setHorizontalGroup(
@@ -981,7 +988,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldPercentTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercentSign1)))
+                        .addComponent(jLabelPercentSign1))
+                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel63)))
                 .addContainerGap(370, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
@@ -996,7 +1006,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(textFieldPercentTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelPercentSign1)))
-                .addGap(69, 69, 69)
+                .addGap(21, 21, 21)
+                .addComponent(jLabel63)
+                .addGap(34, 34, 34)
                 .addComponent(jLabel48)
                 .addContainerGap(410, Short.MAX_VALUE))
         );
@@ -1086,7 +1098,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel54.setText("Distance:");
 
-        comboBoxSettingsIMLPcCodeDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance", "Hausdorff distance", "Ichino-Yaguchi distance", "De Carvalho distance" }));
+        comboBoxSettingsIMLPcCodeDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance", "Hausdorff distance", "Ichino-Yaguchi distance", "De Carvalho distance", "Bertoluzza distance" }));
         comboBoxSettingsIMLPcCodeDistance.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsIMLPcCodeDistanceActionPerformed(evt);
@@ -1182,6 +1194,31 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         panelSettingsIntervalMLPDistanceParams.add(panelSettingsIntervalMLPDistanceParams_decarvalho, "panelSettingsIntervalMLPDistanceParams_decarvalho");
+
+        jLabel61.setText("beta:");
+
+        textFieldIntervalMLPDistanceParam_bertoluzza_beta.setText("0.5");
+
+        javax.swing.GroupLayout panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout = new javax.swing.GroupLayout(panelSettingsIntervalMLPDistanceParams_bertoluzza);
+        panelSettingsIntervalMLPDistanceParams_bertoluzza.setLayout(panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout);
+        panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.setHorizontalGroup(
+            panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.createSequentialGroup()
+                .addComponent(jLabel61)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textFieldIntervalMLPDistanceParam_bertoluzza_beta, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 130, Short.MAX_VALUE))
+        );
+        panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.setVerticalGroup(
+            panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.createSequentialGroup()
+                .addGroup(panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel61)
+                    .addComponent(textFieldIntervalMLPDistanceParam_bertoluzza_beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 5, Short.MAX_VALUE))
+        );
+
+        panelSettingsIntervalMLPDistanceParams.add(panelSettingsIntervalMLPDistanceParams_bertoluzza, "panelSettingsIntervalMLPDistanceParams_bertoluzza");
 
         jLabel58.setText("Number of networks to train:");
 
@@ -2514,6 +2551,9 @@ public class MainFrame extends javax.swing.JFrame {
             case "De Carvalho distance":
                 card.show(panelSettingsIntervalMLPDistanceParams, "panelSettingsIntervalMLPDistanceParams_decarvalho");
                 break;
+            case "Bertoluzza distance":
+                card.show(panelSettingsIntervalMLPDistanceParams, "panelSettingsIntervalMLPDistanceParams_bertoluzza");
+                break;
         }
         panelSettingsIntervalMLPDistanceParams.repaint();
     }//GEN-LAST:event_comboBoxSettingsIMLPcCodeDistanceActionPerformed
@@ -2666,7 +2706,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -2726,6 +2768,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams;
+    private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_bertoluzza;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_decarvalho;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_euclid;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_hausdorff;
@@ -2778,6 +2821,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
+    private javax.swing.JTextField textFieldIntervalMLPDistanceParam_bertoluzza_beta;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_decarvalho_gamma;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_euclid_beta;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_ichino_gamma;
@@ -2910,6 +2954,11 @@ public class MainFrame extends javax.swing.JFrame {
                 gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_decarvalho_gamma.getText());
                 DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
                 params.setDistanceFunction(decarvalho);
+                break;
+            case "Bertoluzza distance":
+                gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_bertoluzza_beta.getText());
+                BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
+                params.setDistanceFunction(bertoluzza);
                 break;
         }
         params.setNumNodesHidden(Utils.getIntegerOrDefault(textFieldIntervalMLPCcodeNumNeurons));
