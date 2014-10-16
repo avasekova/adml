@@ -25,8 +25,7 @@ public class Arima implements Forecastable {
         final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
         final String UNSCALED_FORECAST_VALS = "unscaled." + FORECAST_VALS;
         final String FITTED_VALS = Const.FIT + Utils.getCounter();
-        final String RESIDUALS = Const.RESIDUALS + Utils.getCounter();
-        final String UNSCALED_RESIDUALS = "unscaled." + RESIDUALS;
+        final String UNSCALED_FITTED_VALS = "unscaled." + FITTED_VALS;
         
         final String MODEL = Const.MODEL + Utils.getCounter();
         
@@ -60,13 +59,9 @@ public class Arima implements Forecastable {
                                      + "), include.constant = " + Utils.booleanToRBool(params.isWithConstant()) + ")");
         }
         
-//        REXP getResiduals = rengine.eval(MODEL + "$residuals");
-//        double[] residuals = getResiduals.asDoubleArray();
-        
-        rengine.eval(RESIDUALS + " <- " + MODEL + "$residuals[1:" + numTrainingEntries + "]");
-        rengine.eval(UNSCALED_RESIDUALS + " <- MLPtoR.unscale(" + RESIDUALS + ", " + INPUT + ")");
-        rengine.eval(FITTED_VALS + " <- " + INPUT_TRAIN + " - " + UNSCALED_RESIDUALS);
-        REXP getFittedValues = rengine.eval(FITTED_VALS);
+        rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")");
+        rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + INPUT + ")");
+        REXP getFittedValues = rengine.eval(UNSCALED_FITTED_VALS);
         double[] fitted = getFittedValues.asDoubleArray();
         report.setFittedValues(fitted);
         
@@ -84,7 +79,7 @@ public class Arima implements Forecastable {
         report.setForecastValuesTest(Utils.listToArray(allForecastsList.subList(0, dataToUse.size() - numTrainingEntries)));
         report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(dataToUse.size() - numTrainingEntries, allForecastsList.size())));
         
-        report.setPlotCode("plot.ts(c(" + FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
         
         
         //error measures pocitat len z testu, z buducich sa neda
