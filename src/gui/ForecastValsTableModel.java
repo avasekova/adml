@@ -30,21 +30,29 @@ public class ForecastValsTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return reports.size();
+        return reports.size() + 1;
     }
     
     @Override
     public String getColumnName(int columnIndex) {
-        return columnNames.get(columnIndex);
+        if (columnIndex == 0) {
+            return "";
+        } else {
+            return columnNames.get(columnIndex - 1);
+        }
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        TrainAndTestReport rep = reports.get(columnIndex);
-        if (rep instanceof TrainAndTestReportCrisp) {
-            return ((TrainAndTestReportCrisp) rep).getForecastValues()[rowIndex];
-        } else { //instanceOf TTreportInterval
-            return ((TrainAndTestReportInterval) rep).getForecastValues().get(rowIndex).toString();
+        if (columnIndex == 0) {
+            return rowIndex + 1;
+        } else {
+            TrainAndTestReport rep = reports.get(columnIndex - 1);
+            if (rep instanceof TrainAndTestReportCrisp) {
+                return ((TrainAndTestReportCrisp) rep).getForecastValues()[rowIndex];
+            } else { //instanceOf TTreportInterval
+                return ((TrainAndTestReportInterval) rep).getForecastValues().get(rowIndex).toString();
+            }
         }
     }
     

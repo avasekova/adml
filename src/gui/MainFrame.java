@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.table.TableColumn;
 import models.Arima;
 import models.Forecastable;
 import models.ForecastableIntervals;
@@ -431,7 +433,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        panelEverything.addTab("Chart", panelChart);
+        panelEverything.addTab("Plot", panelChart);
 
         jTableData.setModel(dataTableModel);
         scrollPaneData.setViewportView(jTableData);
@@ -2298,6 +2300,9 @@ public class MainFrame extends javax.swing.JFrame {
         allReports.addAll(reportsITS);
         JTable tableForecastValues = new JTable(new ForecastValsTableModel(numForecasts, allReports));
         tableForecastValues.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
+        TableColumn firstColumn = tableForecastValues.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(10);
+        firstColumn.setMaxWidth(50);
         tableForecastValues.setVisible(true);
         panelForecastVals.removeAll();
         scrollPaneForecastVals.setViewportView(tableForecastValues);
