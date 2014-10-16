@@ -2,6 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import params.MLPintParams;
 import params.NnetarParams;
 import params.Params;
 import utils.ErrorMeasuresInterval;
@@ -14,20 +15,21 @@ public class MLPint implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
-        NnetarParams params = (NnetarParams) parameters;
+        NnetarParams paramsCenter = ((MLPintParams)parameters).getParamsCenter();
+        NnetarParams paramsRadius = ((MLPintParams)parameters).getParamsRadius();
         
         List<Double> dataCenter = allData.subList(0, allData.size()/2);
         List<Double> dataRadius = allData.subList(allData.size()/2, allData.size());
         //nesublistovat! urobi sa to este raz v nnetar, a potom hadze IndexOUBounds!
         
         Nnetar nnetar = new Nnetar();
-        TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataCenter, params);
-        TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnetar.forecast(dataRadius, params);
+        TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataCenter, paramsCenter);
+        TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnetar.forecast(dataRadius, paramsRadius);
         
         //sublistovat tie centers a radii az tu, ked uz to neovplyvni nnetar
         List<Interval> realDataInterval = Utils.zipCentersRadiiToIntervals(
-                dataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()),
-                dataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
+                dataCenter.subList((paramsCenter.getDataRangeFrom() - 1), paramsCenter.getDataRangeTo()),
+                dataRadius.subList((paramsRadius.getDataRangeFrom() - 1), paramsRadius.getDataRangeTo()));
         List<Interval> fittedVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getFittedValues()),
                 Utils.arrayToList(reportRadius.getFittedValues()));
         
