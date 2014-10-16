@@ -86,7 +86,7 @@ public class Nnetar implements Forecastable {
         
         
         //report.setForecastPlotCode("plot(" + FORECAST_MODEL + ")"); //vykresli aj tie modre forecasty
-        report.setFittedValuesPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))"); //vykresli iba fitted values
+        report.setPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))"); //vykresli iba fitted values
         
         return report;
     }

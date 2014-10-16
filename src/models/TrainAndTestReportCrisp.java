@@ -4,7 +4,7 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
 
     private double[] fittedValues;
     private double[] forecastValues = new double[] {};
-    private String fittedValuesPlotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
+    private String plotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
     
     public TrainAndTestReportCrisp(String modelName) {
         super(modelName);
@@ -26,11 +26,11 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
         this.forecastValues = forecastValues;
     }
     
-    public String getFittedValuesPlotCode() {
-        return fittedValuesPlotCode;
+    public String getPlotCode() {
+        return plotCode;
     }
 
-    public void setFittedValuesPlotCode(String forecastPlot) {
-        this.fittedValuesPlotCode = forecastPlot;
+    public void setPlotCode(String forecastPlot) {
+        this.plotCode = forecastPlot;
     }
 }

@@ -96,7 +96,7 @@ public class KNNkknn implements Forecastable {
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(trainingVals);
         report.setForecastValues(testingVals); //TODO add forecasts...
-        report.setFittedValuesPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + FITTED_VALS + ", " + FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + FITTED_VALS + ", " + FORECAST_VALS + "))");
         report.setErrorMeasures(errorMeasures);
         
         return report;

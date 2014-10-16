@@ -130,14 +130,10 @@ public class KNNfnn implements Forecastable {
         report.setErrorMeasures(errorMeasures);
         
         //then report.setEverything
-        double[] fitted = new double[predictedTrain.length + predictedTest.length];
-        System.arraycopy(predictedTrain, 0, fitted, 0, predictedTrain.length);
-        System.arraycopy(predictedTest, 0, fitted, predictedTrain.length, predictedTest.length);
-        report.setFittedValues(fitted);
+        report.setFittedValues(predictedTrain);
+        report.setForecastValues(predictedTest);
         
-        report.setForecastValues(fitted); //iba zatial, aby kreslilo plot TODO pridat forecasty
-        
-        report.setFittedValuesPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_PREDICTED_TRAIN + ", " + UNSCALED_PREDICTED_TEST + "))");
+        report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_PREDICTED_TRAIN + ", " + UNSCALED_PREDICTED_TEST + "))");
         
         return report;
     }

@@ -56,8 +56,8 @@ public class PlotDrawer {
                 names.add(r.getModelName());
                 colours.add(COLOURS[colourNumber]);
                 
-                StringBuilder plotCode = new StringBuilder(r.getFittedValuesPlotCode());
-                plotCode.insert(r.getFittedValuesPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
+                StringBuilder plotCode = new StringBuilder(r.getPlotCode());
+                plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
                 rengine.eval(plotCode.toString());
                 colourNumber++;
             }

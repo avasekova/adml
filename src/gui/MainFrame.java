@@ -1843,6 +1843,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunKNNinterval.setEnabled(false);
 
         checkBoxRunKNNcustom.setText("kNN (custom)");
+        checkBoxRunKNNcustom.setEnabled(false);
 
         jLabel71.setText("Number of forecasts to produce:");
 

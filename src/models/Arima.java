@@ -81,7 +81,7 @@ public class Arima implements Forecastable {
         double[] allForecasts = getAllForecasts.asDoubleArray();
         report.setForecastValues(allForecasts);
         
-        report.setFittedValuesPlotCode("plot.ts(c(" + FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
         
         
         //error measures pocitat len z testu, z buducich sa neda

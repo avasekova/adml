@@ -150,7 +150,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         
         //zatial dummy
         report.setFittedValues(new ArrayList<Interval>());
-        report.setFittedValues(new ArrayList<Interval>());
+        report.setForecastValues(null);
         
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();

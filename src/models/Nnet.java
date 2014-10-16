@@ -109,7 +109,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
         report.setErrorMeasures(errorMeasures);
         
-        report.setFittedValuesPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
         
         return report;
     }

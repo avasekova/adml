@@ -71,7 +71,7 @@ public class KNNcustom implements Forecastable {
         double[] dummyVals = new double[]{ 1,2,3,4,5,6,7,8,9,10,100 };
         report.setFittedValues(dummyVals); //TODO zmenit
         report.setForecastValues(dummyVals); //TODO zmenit
-        report.setFittedValuesPlotCode("plot.ts(sin(seq(0,2*pi))");
+        report.setPlotCode("plot.ts(sin(seq(0,2*pi))");
         
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMAEtrain(0.0);
