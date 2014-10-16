@@ -8,7 +8,7 @@ import utils.imlp.Interval;
 public class TrainAndTestReportInterval extends TrainAndTestReport {
     
     private List<Interval> fittedValues;
-    private List<Interval> forecastValues = new ArrayList<>();
+    private List<Interval> forecastValuesTest = new ArrayList<>();
     private List<Double> realValuesLowers;
     private List<Double> realValuesUppers;
     
@@ -25,11 +25,11 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
     }
     
     public double[] getForecastValuesLowers() { //ciste pre plotovacie ucely!
-        return getValuesLowers(forecastValues);
+        return getValuesLowers(forecastValuesTest);
     }
     
     public double[] getForecastValuesUppers() { //ciste pre plotovacie ucely!
-        return getValuesUppers(forecastValues);
+        return getValuesUppers(forecastValuesTest);
     }
     
 //    public double[] getRealValuesLowers() {
@@ -48,12 +48,12 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         this.fittedValues = fittedValues;
     }
 
-    public List<Interval> getForecastValues() {
-        return forecastValues;
+    public List<Interval> getForecastValuesTest() {
+        return forecastValuesTest;
     }
 
-    public void setForecastValues(List<Interval> forecastValues) {
-        this.forecastValues = forecastValues;
+    public void setForecastValuesTest(List<Interval> forecastValuesTest) {
+        this.forecastValuesTest = forecastValuesTest;
     }
 
 //    public List<Interval> getRealValues() {

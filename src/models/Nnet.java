@@ -87,7 +87,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         double[] forecastVals = getForecastVals.asDoubleArray();
         
         report.setFittedValues(fittedVals);
-        report.setForecastValues(forecastVals);
+        report.setForecastValuesTest(forecastVals);
         
         //TODO spocitat zbytok tych error measures
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();

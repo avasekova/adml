@@ -113,7 +113,7 @@ public class PlotDrawer {
                 rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
                 
                 //naplotovat fitted values pre training data:
-                final int sizeForecast = r.getForecastValues().size();
+                final int sizeForecast = r.getForecastValuesTest().size();
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesLowers());
                 rengine.assign("upper", r.getForecastValuesUppers());
@@ -310,8 +310,8 @@ public class PlotDrawer {
             }
             rangesY.append(Utils.minArray(r.getFittedValues())).append(", ");
             rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValues())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValues()));
+            rangesY.append(Utils.minArray(r.getForecastValuesTest())).append(", ");
+            rangesY.append(Utils.maxArray(r.getForecastValuesTest()));
         }
         //a zahrnut aj povodne data:
         rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));

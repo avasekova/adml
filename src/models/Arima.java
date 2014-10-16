@@ -79,7 +79,7 @@ public class Arima implements Forecastable {
         rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + INPUT + ")");
         REXP getAllForecasts = rengine.eval(UNSCALED_FORECAST_VALS);
         double[] allForecasts = getAllForecasts.asDoubleArray();
-        report.setForecastValues(allForecasts);
+        report.setForecastValuesTest(allForecasts);
         
         report.setPlotCode("plot.ts(c(" + FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
         

@@ -30,9 +30,9 @@ public class MLPint implements Forecastable {
                 dataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
         List<Interval> fittedVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getFittedValues()),
                 Utils.arrayToList(reportRadius.getFittedValues()));
-        List<Interval> forecastsAllTestAndFutureVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValues()),
-                Utils.arrayToList(reportRadius.getForecastValues()));
-        int numberOfRealTestingDataIhope = reportCenter.getForecastValues().length - params.getNumForecasts();
+        List<Interval> forecastsAllTestAndFutureVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesTest()),
+                Utils.arrayToList(reportRadius.getForecastValuesTest()));
+        int numberOfRealTestingDataIhope = reportCenter.getForecastValuesTest().length - params.getNumForecasts();
         List<Interval> forecastsTest = forecastsAllTestAndFutureVals.subList(0, numberOfRealTestingDataIhope);
         //List<Interval> forecastsFuture = forecastsAllTestAndFutureVals.subList(dataCenter.size(), forecastsAllTestAndFutureVals.size());
         List<Interval> trainingIntervals = realDataInterval.subList(0, reportCenter.getNumTrainingEntries());
@@ -74,7 +74,7 @@ public class MLPint implements Forecastable {
         report.setRealValues(realDataInterval);
         
         report.setFittedValues(fittedVals);
-        report.setForecastValues(forecastsAllTestAndFutureVals);
+        report.setForecastValuesTest(forecastsAllTestAndFutureVals);
         
         report.setErrorMeasures(errorMeasures);
         

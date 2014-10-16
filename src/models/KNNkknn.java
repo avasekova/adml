@@ -95,7 +95,7 @@ public class KNNkknn implements Forecastable {
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (kknn), " + bestK + " nbr"); //MODEL$best.parameters$k
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(trainingVals);
-        report.setForecastValues(testingVals); //TODO add forecasts...
+        report.setForecastValuesTest(testingVals); //TODO add forecasts...
         report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + FITTED_VALS + ", " + FORECAST_VALS + "))");
         report.setErrorMeasures(errorMeasures);
         

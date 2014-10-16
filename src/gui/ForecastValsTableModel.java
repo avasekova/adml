@@ -50,9 +50,9 @@ public class ForecastValsTableModel extends AbstractTableModel {
         } else {
             TrainAndTestReport rep = reports.get(columnIndex - 1);
             if (rep instanceof TrainAndTestReportCrisp) {
-                return Utils.valToDecPoints(((TrainAndTestReportCrisp) rep).getForecastValues()[rowIndex]);
+                return Utils.valToDecPoints(((TrainAndTestReportCrisp) rep).getForecastValuesTest()[rowIndex]);
             } else { //instanceOf TTreportInterval
-                return ((TrainAndTestReportInterval) rep).getForecastValues().get(rowIndex).toString();
+                return ((TrainAndTestReportInterval) rep).getForecastValuesTest().get(rowIndex).toString();
             }
         }
     }

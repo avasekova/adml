@@ -46,7 +46,7 @@ public class Nnetar implements Forecastable {
         rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
         REXP getForecastVals = rengine.eval(FORECAST_VALS);
         double[] forecast = getForecastVals.asDoubleArray();
-        report.setForecastValues(forecast);
+        report.setForecastValuesTest(forecast);
         
         rengine.assign(TEST, Utils.listToArray(testingPortionOfData));
         //TODO mozno iba accuracy(model) miesto accuracy(model, testingData)? zistit!!!

@@ -3,7 +3,7 @@ package models;
 public class TrainAndTestReportCrisp extends TrainAndTestReport {
 
     private double[] fittedValues;
-    private double[] forecastValues = new double[] {};
+    private double[] forecastValuesTest = new double[] {};
     private String plotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
     
     public TrainAndTestReportCrisp(String modelName) {
@@ -18,12 +18,12 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
         this.fittedValues = fittedValues;
     }
 
-    public double[] getForecastValues() {
-        return forecastValues;
+    public double[] getForecastValuesTest() {
+        return forecastValuesTest;
     }
 
-    public void setForecastValues(double[] forecastValues) {
-        this.forecastValues = forecastValues;
+    public void setForecastValuesTest(double[] forecastValuesTest) {
+        this.forecastValuesTest = forecastValuesTest;
     }
     
     public String getPlotCode() {

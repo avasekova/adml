@@ -150,7 +150,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         
         //zatial dummy
         report.setFittedValues(new ArrayList<Interval>());
-        report.setForecastValues(null);
+        report.setForecastValuesTest(null);
         
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
@@ -172,7 +172,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
 
             report.setFittedValues(forecastsTrain);
-            report.setForecastValues(forecastsTest);
+            report.setForecastValuesTest(forecastsTest);
 
             errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
             errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
