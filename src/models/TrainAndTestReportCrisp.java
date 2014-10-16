@@ -4,6 +4,7 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
 
     private double[] fittedValues;
     private double[] forecastValuesTest = new double[] {};
+    private double[] forecastValuesFuture = new double[] {};
     private String plotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
     
     public TrainAndTestReportCrisp(String modelName) {
@@ -24,6 +25,14 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
 
     public void setForecastValuesTest(double[] forecastValuesTest) {
         this.forecastValuesTest = forecastValuesTest;
+    }
+
+    public double[] getForecastValuesFuture() {
+        return forecastValuesFuture;
+    }
+
+    public void setForecastValuesFuture(double[] forecastValuesFuture) {
+        this.forecastValuesFuture = forecastValuesFuture;
     }
     
     public String getPlotCode() {

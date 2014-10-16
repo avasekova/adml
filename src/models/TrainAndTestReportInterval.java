@@ -9,6 +9,7 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
     
     private List<Interval> fittedValues;
     private List<Interval> forecastValuesTest = new ArrayList<>();
+    private List<Interval> forecastValuesFuture = new ArrayList<>();
     private List<Double> realValuesLowers;
     private List<Double> realValuesUppers;
     
@@ -24,22 +25,14 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         return getValuesUppers(fittedValues);
     }
     
-    public double[] getForecastValuesLowers() { //ciste pre plotovacie ucely!
+    public double[] getForecastValuesTestLowers() { //ciste pre plotovacie ucely!
         return getValuesLowers(forecastValuesTest);
     }
     
-    public double[] getForecastValuesUppers() { //ciste pre plotovacie ucely!
+    public double[] getForecastValuesTestUppers() { //ciste pre plotovacie ucely!
         return getValuesUppers(forecastValuesTest);
     }
     
-//    public double[] getRealValuesLowers() {
-//        return getValuesLowers(realValues);
-//    }
-//    
-//    public double[] getRealValuesUppers() {
-//        return getValuesUppers(realValues);
-//    }
-
     public List<Interval> getFittedValues() {
         return fittedValues;
     }
@@ -56,13 +49,22 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         this.forecastValuesTest = forecastValuesTest;
     }
 
-//    public List<Interval> getRealValues() {
-//        return realValues;
-//    }
-//
-//    public void setRealValues(List<Interval> realValues) {
-//        this.realValues = realValues;
-//    }
+    public List<Interval> getForecastValuesFuture() {
+        return forecastValuesFuture;
+    }
+
+    public void setForecastValuesFuture(List<Interval> forecastValuesFuture) {
+        this.forecastValuesFuture = forecastValuesFuture;
+    }
+
+    public double[] getForecastValuesFutureLowers() { //ciste pre plotovacie ucely!
+        return getValuesLowers(forecastValuesFuture);
+    }
+    
+    public double[] getForecastValuesFutureUppers() { //ciste pre plotovacie ucely!
+        return getValuesUppers(forecastValuesFuture);
+    }
+    
     public List<Double> getRealValuesLowers() {
         return realValuesLowers;
     }

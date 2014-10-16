@@ -115,8 +115,8 @@ public class PlotDrawer {
                 //naplotovat fitted values pre training data:
                 final int sizeForecast = r.getForecastValuesTest().size();
                 rengine.eval("par(new=TRUE)");
-                rengine.assign("lower", r.getForecastValuesLowers());
-                rengine.assign("upper", r.getForecastValuesUppers());
+                rengine.assign("lower", r.getForecastValuesTestLowers());
+                rengine.assign("upper", r.getForecastValuesTestUppers());
                 rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
                 rengine.eval("par(new=TRUE)");
                 rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
@@ -333,10 +333,10 @@ public class PlotDrawer {
             rangesY.append(Utils.maxArray(r.getFittedValuesLowers())).append(", ");
             rangesY.append(Utils.minArray(r.getFittedValuesUppers())).append(", ");
             rangesY.append(Utils.maxArray(r.getFittedValuesUppers())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValuesLowers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValuesLowers())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValuesUppers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValuesUppers()));
+            rangesY.append(Utils.minArray(r.getForecastValuesTestLowers())).append(", ");
+            rangesY.append(Utils.maxArray(r.getForecastValuesTestLowers())).append(", ");
+            rangesY.append(Utils.minArray(r.getForecastValuesTestUppers())).append(", ");
+            rangesY.append(Utils.maxArray(r.getForecastValuesTestUppers()));
             
             //a zahrnut aj povodne data:
             List<Double> realDataLower = r.getRealValuesLowers();
