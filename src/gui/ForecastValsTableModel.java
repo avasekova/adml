@@ -6,6 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
+import utils.Utils;
 
 public class ForecastValsTableModel extends AbstractTableModel {
 
@@ -49,7 +50,7 @@ public class ForecastValsTableModel extends AbstractTableModel {
         } else {
             TrainAndTestReport rep = reports.get(columnIndex - 1);
             if (rep instanceof TrainAndTestReportCrisp) {
-                return ((TrainAndTestReportCrisp) rep).getForecastValues()[rowIndex];
+                return Utils.valToDecPoints(((TrainAndTestReportCrisp) rep).getForecastValues()[rowIndex]);
             } else { //instanceOf TTreportInterval
                 return ((TrainAndTestReportInterval) rep).getForecastValues().get(rowIndex).toString();
             }

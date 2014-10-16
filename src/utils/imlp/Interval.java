@@ -11,7 +11,7 @@ public abstract class Interval {
     
     @Override
     public String toString() {
-        return "[" + getLowerBound()+ ", " + getUpperBound()+ "]";
+        return "[" + Utils.valToDecPoints(getLowerBound()) + ", " + Utils.valToDecPoints(getUpperBound()) + "]";
     }
     
     @Override

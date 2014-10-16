@@ -16,7 +16,7 @@ import utils.imlp.IntervalLowerUpper;
 
 public class Utils {
     
-    public static final int NUM_DECIMAL_POINTS = 5;
+    public static final int NUM_DECIMAL_POINTS = 6;
     
     private static int counter = 0;
     private final static double EPSILON = 0.000001;
