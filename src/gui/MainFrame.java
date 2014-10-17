@@ -337,6 +337,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonRunExportErrorMeasures = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
         scrollPaneForecastVals = new javax.swing.JScrollPane();
+        panelDiagramsNNs = new javax.swing.JPanel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -359,8 +360,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        gdCanvas = new GDCanvas(panelPlot.getWidth(), panelPlot.getHeight());
-        panelPlot.add(gdCanvas, BorderLayout.CENTER);
+        gdCanvasPlot = new GDCanvas(panelPlot.getWidth(), panelPlot.getHeight());
+        panelPlot.add(gdCanvasPlot, BorderLayout.CENTER);
         panelPlot.setLayout(new java.awt.BorderLayout());
 
         buttonACF.setText("Autocorrelation Plot");
@@ -1394,7 +1395,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                     .addGap(262, 262, 262)
-                    .addComponent(panelSettingsMLPintDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelSettingsMLPintDistanceParams, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap(721, Short.MAX_VALUE)))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
@@ -1468,8 +1469,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                     .addGap(311, 311, 311)
-                    .addComponent(panelSettingsMLPintDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(224, Short.MAX_VALUE)))
+                    .addComponent(panelSettingsMLPintDistanceParams, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap(212, Short.MAX_VALUE)))
         );
 
         paneSettingsMethods.addTab("MLP(i)", paneSettingsMethodsMLPint);
@@ -1578,7 +1579,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel56)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFieldIntervalMLPDistanceParam_euclid_beta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 151, Short.MAX_VALUE))
+                .addGap(0, 29, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPDistanceParams_euclidLayout.setVerticalGroup(
             panelSettingsIntervalMLPDistanceParams_euclidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1595,7 +1596,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsIntervalMLPDistanceParams_hausdorff.setLayout(panelSettingsIntervalMLPDistanceParams_hausdorffLayout);
         panelSettingsIntervalMLPDistanceParams_hausdorffLayout.setHorizontalGroup(
             panelSettingsIntervalMLPDistanceParams_hausdorffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 223, Short.MAX_VALUE)
+            .addGap(0, 101, Short.MAX_VALUE)
         );
         panelSettingsIntervalMLPDistanceParams_hausdorffLayout.setVerticalGroup(
             panelSettingsIntervalMLPDistanceParams_hausdorffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1616,7 +1617,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel55)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(textFieldIntervalMLPDistanceParam_ichino_gamma, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 133, Short.MAX_VALUE))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPDistanceParams_ichinoLayout.setVerticalGroup(
             panelSettingsIntervalMLPDistanceParams_ichinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1641,7 +1642,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel57)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFieldIntervalMLPDistanceParam_decarvalho_gamma, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 132, Short.MAX_VALUE))
+                .addGap(0, 10, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPDistanceParams_decarvalhoLayout.setVerticalGroup(
             panelSettingsIntervalMLPDistanceParams_decarvalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1666,7 +1667,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel61)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFieldIntervalMLPDistanceParam_bertoluzza_beta, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 134, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.setVerticalGroup(
             panelSettingsIntervalMLPDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1696,7 +1697,7 @@ public class MainFrame extends javax.swing.JFrame {
             panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(scrollPaneiMLPSettingsOutVars, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
                         .addComponent(jLabel36)
@@ -1725,12 +1726,6 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel40)
                             .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addComponent(jLabel54)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboBoxSettingsIMLPcCodeDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelSettingsIntervalMLPDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
                         .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
                                 .addGap(244, 244, 244)
@@ -1742,7 +1737,14 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(comboBoxSettingsIntervalMLPCriterion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel60))
-                    .addComponent(scrollPaneiMLPSettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
+                            .addComponent(jLabel54)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(comboBoxSettingsIMLPcCodeDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(panelSettingsIntervalMLPDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(scrollPaneiMLPSettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(471, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPModeCcodeLayout.setVerticalGroup(
@@ -2546,6 +2548,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Forecast values", panelForecastVals);
 
+        gdCanvasDiagramsNNs = new GDCanvas(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());
+        panelDiagramsNNs.add(gdCanvasDiagramsNNs, BorderLayout.CENTER);
+        panelDiagramsNNs.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout panelDiagramsNNsLayout = new javax.swing.GroupLayout(panelDiagramsNNs);
+        panelDiagramsNNs.setLayout(panelDiagramsNNsLayout);
+        panelDiagramsNNsLayout.setHorizontalGroup(
+            panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1138, Short.MAX_VALUE)
+        );
+        panelDiagramsNNsLayout.setVerticalGroup(
+            panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 565, Short.MAX_VALUE)
+        );
+
+        panelEverything.addTab("Diagrams of NNs", panelDiagramsNNs);
+
         menuFile.setText("File");
 
         menuFileLoad.setText("Load");
@@ -2764,7 +2783,7 @@ public class MainFrame extends javax.swing.JFrame {
         int numForecasts = Utils.getIntegerOrDefault(textFieldRunNumForecasts);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        PlotDrawer.drawPlots(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
+        PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
                 numForecasts, reportsCTS, reportsITS, from, to);
         textAreaPlotBasicStats.setText("");
         //this.repaint();
@@ -2783,6 +2802,9 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPaneForecastVals.setViewportView(tableForecastValues);
         panelForecastVals.add(scrollPaneForecastVals);
         panelForecastVals.repaint();
+        
+        //and draw diagrams of NNs, if applicable
+        PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -2807,7 +2829,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawPlotITS(panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
+        PlotDrawer.drawPlotITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
                 listITSPlotCentreRadius, listITSPlotLowerUpper);
         textAreaPlotBasicStats.setText("");
     }//GEN-LAST:event_buttonPlotAllITSActionPerformed
@@ -3191,7 +3213,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -3220,7 +3241,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
@@ -3264,17 +3284,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
+    private javax.swing.JPanel panelDiagramsNNs;
     private javax.swing.JTabbedPane panelEverything;
     private javax.swing.JPanel panelForecastVals;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams;
-    private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams1;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_bertoluzza;
-    private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_bertoluzza1;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_decarvalho;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_euclid;
-    private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_euclid1;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_hausdorff;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams_ichino;
     private javax.swing.JPanel panelSettingsIntervalMLPMode;
@@ -3342,10 +3360,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
     private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_bertoluzza_beta;
-    private javax.swing.JTextField textFieldIntervalMLPDistanceParam_bertoluzza_beta1;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_decarvalho_gamma;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_euclid_beta;
-    private javax.swing.JTextField textFieldIntervalMLPDistanceParam_euclid_beta1;
     private javax.swing.JTextField textFieldIntervalMLPDistanceParam_ichino_gamma;
     private javax.swing.JTextField textFieldKNNcustomLag;
     private javax.swing.JTextField textFieldKNNfnnLag;
@@ -3374,7 +3390,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private File loadedFile;
     private final DataTableModel dataTableModel = new DataTableModel();
-    public static GDCanvas gdCanvas;
+    public static GDCanvas drawNowToThisGDCanvas;
+    private static GDCanvas gdCanvasPlot;
+    private static GDCanvas gdCanvasDiagramsNNs;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS;
     private JTable errorMeasuresLatest_ITS;
@@ -3386,7 +3404,7 @@ public class MainFrame extends javax.swing.JFrame {
         //String colname = comboBoxColnames.getSelectedItem().toString();
         List<String> colnames = listColnames.getSelectedValuesList();
         
-        List<BasicStats> basicStats = dataTableModel.producePlotGeneral(panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
+        List<BasicStats> basicStats = dataTableModel.producePlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
         
         //mean, standard deviation, median
         StringBuilder basicStatsString = new StringBuilder();

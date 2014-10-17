@@ -1,6 +1,8 @@
 package utils.imlp;
 
-public class ExplanatoryVariable {
+public class ExplanatoryVariable { //TODO refactor this! pouzit Interval miesto boolCenterRad a first a second
+                                   // potom netreba vzdy ifovat, ale staci si vypytat od toho intervalu upper a lower
+                                   // alebo center a rad podla potreby. a tiez maju toString.
     
     private String name;
     private boolean centerRadius;

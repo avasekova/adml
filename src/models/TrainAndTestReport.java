@@ -8,6 +8,7 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
     private final String modelName;
     private ErrorMeasures errorMeasures;
     private int numTrainingEntries;
+    private String nnDiagramPlotCode = "";
     
     public TrainAndTestReport(String modelName) { 
         this.modelName = modelName;
@@ -31,5 +32,13 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
 
     public void setNumTrainingEntries(int numTrainingEntries) {
         this.numTrainingEntries = numTrainingEntries;
+    }
+
+    public String getNnDiagramPlotCode() {
+        return nnDiagramPlotCode;
+    }
+
+    public void setNnDiagramPlotCode(String nnDiagramPlotCode) {
+        this.nnDiagramPlotCode = nnDiagramPlotCode;
     }
 }

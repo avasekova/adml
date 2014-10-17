@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
+import org.rosuda.javaGD.GDCanvas;
 import params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
@@ -81,7 +82,9 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public List<BasicStats> producePlotGeneral(int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
+    public List<BasicStats> producePlotGeneral(GDCanvas canvasToUse, int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
+        MainFrame.drawNowToThisGDCanvas = canvasToUse;
+        
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
@@ -136,8 +139,8 @@ public class DataTableModel extends AbstractTableModel {
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDCanvas is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
-        MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.gdCanvas.initRefresh();
+        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDCanvas.initRefresh();
         
         return basicStatss;
     }

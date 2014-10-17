@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
+import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
+import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -19,13 +21,16 @@ public class PlotDrawer {
     //TODO pridat abline pre kazde oddelenie training a testing data! ptz rozne metody maju rozne pomery.
     //  (alebo nejak inak odlisit. trosku ina farba? iny styl ciary? ina hrubka? vsetko sa mi zda zle.)
     
-    //TODO generovat i legendu do toho vysledneho grafu!
-    public static void drawPlots(int width, int height, List<Double> allDataCTS, int numForecasts,
+    private static final int COLUMNS_DIAGRAMSNN = 3;
+    
+    public static void drawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int numForecasts,
                                  List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS,
                                  int from, int to) { //the range of data that is considered
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
         }
+        
+        MainFrame.drawNowToThisGDCanvas = canvasToUse;
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
@@ -174,12 +179,14 @@ public class PlotDrawer {
                                 + "xpd = TRUE)");
         }
 
-        MainFrame.gdCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.gdCanvas.initRefresh();
+        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDCanvas.initRefresh();
     }
     
-    public static void drawPlotITS(int width, int height, DataTableModel dataTableModel,
+    public static void drawPlotITS(GDCanvas canvasToUse, int width, int height, DataTableModel dataTableModel,
                 List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
+        MainFrame.drawNowToThisGDCanvas = canvasToUse;
+        
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
@@ -284,8 +291,8 @@ public class PlotDrawer {
         rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\")");
         rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
         
-        MainFrame.gdCanvas.setSize(new Dimension(width, height));
-        MainFrame.gdCanvas.initRefresh();
+        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height));
+        MainFrame.drawNowToThisGDCanvas.initRefresh();
     }
     
     private List<Color> getNColours(int n) {
@@ -411,6 +418,42 @@ public class PlotDrawer {
         }
         rString.append(")");
         return rString.toString();
+    }
+    
+    public static void drawDiagrams(GDCanvas canvasToUse, int width, int height, List<TrainAndTestReport> reports) {
+        if (reports.isEmpty()) {
+            return;
+        }
+        
+        MainFrame.drawNowToThisGDCanvas = canvasToUse;
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(JavaGD)");
+        rengine.eval("JavaGD()");
+        
+        List<String> diagramPlots = new ArrayList<>();
+        for (TrainAndTestReport r : reports) {
+            if (! "".equals(r.getNnDiagramPlotCode())) {
+                diagramPlots.add(r.getNnDiagramPlotCode());
+            }
+        }
+        
+        if (! diagramPlots.isEmpty()) {
+            int rows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
+            rengine.eval("par(mfrow=c(" + rows + "," + COLUMNS_DIAGRAMSNN + "))"); //narobim si mriezku
+            
+            //a teraz idem postupne vyplnat mriezku diagramami:
+            for (String dPlot : diagramPlots) {
+                rengine.eval(dPlot);
+            }
+            
+            //nakoniec doplnim prazdne policka do mriezky plotov, lebo to na ne caka a mohlo by to nerobit dobrotu
+            for (int i = 0; i < (rows*COLUMNS_DIAGRAMSNN)-diagramPlots.size(); i++) { //kolko mam este nevyplnenych
+                rengine.eval("plot.new()");
+            }
+        }
+        
+        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height));
+        MainFrame.drawNowToThisGDCanvas.initRefresh();
     }
     
 //    private static String getStrWidth(List<String> list) {
