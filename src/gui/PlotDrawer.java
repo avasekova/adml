@@ -293,16 +293,24 @@ public class PlotDrawer {
         
         if (par) { //continue from the previous plot
             rengine.eval("par(new=TRUE)");
+            String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
+            rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("par(new=TRUE)");
+            rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\", ylab=\"" +      "<<TODO ylab>>"      + "\")");
+            rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
         } else { //start a new plot
             rengine.eval("require(JavaGD)");
-            rengine.eval("JavaGD()"); //toto teoreticky zacne novy plot...
+            rengine.eval("JavaGD()"); // zacne novy plot
+            String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
+            //dont draw axes
+            rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("par(new=TRUE)");
+            //here either
+            rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\", axes=FALSE, ann=FALSE)");
+            rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
         }
         
-        String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
-        rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\")"); //hack
-        rengine.eval("par(new=TRUE)");
-        rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\")");
-        rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
+        
         
         MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height));
         MainFrame.drawNowToThisGDCanvas.initRefresh();
