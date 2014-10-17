@@ -25,7 +25,7 @@ public class PlotDrawer {
     
     public static void drawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int numForecasts,
                                  List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS,
-                                 int from, int to) { //the range of data that is considered
+                                 int from, int to, String colname_CTS) { //the range of data that is considered
         if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
             return;
         }
@@ -62,14 +62,18 @@ public class PlotDrawer {
                 colours.add(COLOURS[colourNumber]);
                 
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
-                plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
+                plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
+                        + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
+                        + "lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
                 rengine.eval(plotCode.toString());
                 colourNumber++;
             }
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", lwd=2, col=\"#444444\")");
+            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
+                    + "ylab=\"" + colname_CTS + "\","
+                    + "lwd=2, col=\"#444444\")");
             rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
             rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)");
             

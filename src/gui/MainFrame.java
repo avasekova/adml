@@ -2784,7 +2784,7 @@ public class MainFrame extends javax.swing.JFrame {
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
-                numForecasts, reportsCTS, reportsITS, from, to);
+                numForecasts, reportsCTS, reportsITS, from, to, colname_CTS);
         textAreaPlotBasicStats.setText("");
         //this.repaint();
         
