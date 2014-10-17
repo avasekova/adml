@@ -349,8 +349,11 @@ public class PlotDrawer {
         for (IntervalNamesCentreRadius cr : listCentreRadius) {
             List<Double> centers = dataTableModel.getDataForColname(cr.getCentre());
             List<Double> radii = dataTableModel.getDataForColname(cr.getRadius());
-            allVals.addAll(centers);
-            allVals.addAll(radii);
+            
+            for (int i = 0; i < centers.size(); i++) {
+                allVals.add(centers.get(i) + radii.get(i));
+                allVals.add(centers.get(i) - radii.get(i));
+            }
         }
         
         for (IntervalNamesLowerUpper lu : listLowerUpper) {
