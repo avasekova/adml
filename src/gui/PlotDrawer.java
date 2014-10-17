@@ -116,19 +116,24 @@ public class PlotDrawer {
                 final int sizeFitted = r.getFittedValues().size();
                 rengine.assign("lower", r.getFittedValuesLowers());
                 rengine.assign("upper", r.getFittedValuesUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
-                rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = "
+                        + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
                 
                 //naplotovat fitted values pre training data:
                 final int sizeForecastTest = r.getForecastValuesTest().size();
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesTestLowers());
                 rengine.assign("upper", r.getForecastValuesTestUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", lower, "
                         + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", upper, xlim = " + rangeX_ITS
                         + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
@@ -138,9 +143,11 @@ public class PlotDrawer {
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesFutureLowers());
                 rengine.assign("upper", r.getForecastValuesFutureUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1) + ":"
                         + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
                         + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
@@ -160,9 +167,11 @@ public class PlotDrawer {
             rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers()));
 
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
-            rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+            rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ")");
+            rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                    + "ylab=\"" +       "<<add the interval.toString() here>>"      + "\")");
             rengine.eval("segments(1:" + size + ", all.lower, 1:" + size + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=2, col=\"#444444\")");
             
             rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
