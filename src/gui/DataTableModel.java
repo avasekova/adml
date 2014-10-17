@@ -104,6 +104,9 @@ public class DataTableModel extends AbstractTableModel {
         }
         rangeYStringBuilder.append("))");
         String rangeY = rangeYStringBuilder.toString();
+        if ("acf".equals(plotFunction) || "pacf".equals(plotFunction)) {
+            rangeY = "range(c(-1,1))";
+        }
         
         
         List<BasicStats> basicStatss = new ArrayList<>();
