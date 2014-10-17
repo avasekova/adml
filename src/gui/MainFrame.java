@@ -2671,7 +2671,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_menuFileExitActionPerformed
 
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
-        outputPlotGeneral("plot.ts", "");
+        drawPlotGeneral("plot.ts", "");
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void textFieldPercentTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainActionPerformed
@@ -2814,12 +2814,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        outputPlotGeneral("acf", "");
+        drawPlotGeneral("acf", "");
         textAreaPlotBasicStats.setText("");
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        outputPlotGeneral("pacf", "");
+        drawPlotGeneral("pacf", "");
         textAreaPlotBasicStats.setText("");
     }//GEN-LAST:event_buttonPACFActionPerformed
 
@@ -3399,12 +3399,12 @@ public class MainFrame extends javax.swing.JFrame {
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
     private List<IntervalNamesLowerUpper> listITSPlotLowerUpper = new ArrayList<>();
 
-    private void outputPlotGeneral(String plotFunction, String additionalArgs) {
+    private void drawPlotGeneral(String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         //String colname = comboBoxColnames.getSelectedItem().toString();
         List<String> colnames = listColnames.getSelectedValuesList();
         
-        List<BasicStats> basicStats = dataTableModel.producePlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
+        List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
         
         //mean, standard deviation, median
         StringBuilder basicStatsString = new StringBuilder();

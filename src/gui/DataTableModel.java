@@ -82,30 +82,51 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public List<BasicStats> producePlotGeneral(GDCanvas canvasToUse, int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
+    public List<BasicStats> drawPlotGeneral(GDCanvas canvasToUse, int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
         MainFrame.drawNowToThisGDCanvas = canvasToUse;
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
+        //get the Y range first (assuming X is the same)
+        StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
+        boolean next = false;
+        for (String col : colnames) {
+            for (Double d : values.get(col)) {
+                if (next) {
+                    rangeYStringBuilder.append(", ");
+                } else {
+                    next = true;
+                }
+                rangeYStringBuilder.append(d);
+            }
+        }
+        rangeYStringBuilder.append("))");
+        String rangeY = rangeYStringBuilder.toString();
+        
+        
         List<BasicStats> basicStatss = new ArrayList<>();
         
-        boolean next = false;
+        next = false;
         int colourNumber = 0;
         List<String> names = new ArrayList<>();
         List<String> colours = new ArrayList<>();
         for (String col : colnames) {
-            if (next) {
-                rengine.eval("par(new=TRUE)");
-            } else {
-                next = true;
-            }
-            
             List<Double> data = values.get(col);
             final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
             rengine.assign(TRAINDATA, Utils.listToArray(data));
-            rengine.eval(plotFunction + "(" + TRAINDATA + additionalArgs + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+            if (next) {
+                rengine.eval("par(new=TRUE)");
+                rengine.eval(plotFunction + "(" + TRAINDATA + additionalArgs + ", "
+                        + "axes=FALSE, ann=FALSE, "
+                        + "ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+            } else {
+                next = true;
+                rengine.eval(plotFunction + "(" + TRAINDATA + additionalArgs + ", "
+                        + "ylab=NULL, "
+                        + "ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+            }
             names.add(col);
             colours.add(PlotDrawer.COLOURS[colourNumber]);
             colourNumber++;
