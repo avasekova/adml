@@ -13,6 +13,8 @@ import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
+import utils.imlp.Interval;
+import utils.imlp.IntervalCentreRadius;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
@@ -20,6 +22,10 @@ import utils.imlp.IntervalNamesLowerUpper;
 public class PlotDrawer {
     //TODO pridat abline pre kazde oddelenie training a testing data! ptz rozne metody maju rozne pomery.
     //  (alebo nejak inak odlisit. trosku ina farba? iny styl ciary? ina hrubka? vsetko sa mi zda zle.)
+    
+    
+    //TODO toto by cele chcelo upratat, prekopar, mozno refaktorovat do viacerych tried
+    //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
     
@@ -196,7 +202,7 @@ public class PlotDrawer {
         MainFrame.drawNowToThisGDCanvas.initRefresh();
     }
     
-    public static void drawPlotITS(GDCanvas canvasToUse, int width, int height, DataTableModel dataTableModel,
+    public static void drawPlotsITS(GDCanvas canvasToUse, int width, int height, DataTableModel dataTableModel,
                 List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
         MainFrame.drawNowToThisGDCanvas = canvasToUse;
         
@@ -208,6 +214,10 @@ public class PlotDrawer {
         List<String> colours = new ArrayList<>();
         int colourNumber = 0;
         
+        List<Double> allVals = getAllVals(dataTableModel, listCentreRadius, listLowerUpper);
+//        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
+        String rangeY = getRangeYMultipleInterval(allVals);
+        
         
         boolean next = false;
         for (IntervalNamesCentreRadius interval : listCentreRadius) {
@@ -217,7 +227,7 @@ public class PlotDrawer {
             
             String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"";
             drawPlotITS_CenterRadius(width, height, dataTableModel.getDataForColname(interval.getCentre()),
-                    dataTableModel.getDataForColname(interval.getRadius()), next, lineStyle);
+                    dataTableModel.getDataForColname(interval.getRadius()), next, lineStyle, rangeY);
             if (! next) {
                 next = true;
             }
@@ -233,7 +243,7 @@ public class PlotDrawer {
             
             String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"";
             drawPlotITS_LBUB(width, height, dataTableModel.getDataForColname(interval.getLowerBound()),
-                    dataTableModel.getDataForColname(interval.getUpperBound()), next, lineStyle);
+                    dataTableModel.getDataForColname(interval.getUpperBound()), next, lineStyle, rangeY);
             if (! next) {
                 next = true;
             }
@@ -256,7 +266,7 @@ public class PlotDrawer {
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
-            boolean par, String lineStyle) {
+            boolean par, String lineStyle, String rangeY) {
         final String LOWER = Const.INPUT + Utils.getCounter();
         final String UPPER = Const.INPUT + Utils.getCounter();
         final int count = lowerBound.size();
@@ -265,11 +275,11 @@ public class PlotDrawer {
         rengine.assign(LOWER, Utils.listToArray(lowerBound));
         rengine.assign(UPPER, Utils.listToArray(upperBound));
         
-        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle);
+        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeY);
     }
     
     private static void drawPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
-            boolean par, String lineStyle) {
+            boolean par, String lineStyle, String rangeY) {
         final String CENTER = Const.INPUT + Utils.getCounter();
         final String RADIUS = Const.INPUT + Utils.getCounter();
         final String LOWER = Const.INPUT + Utils.getCounter();
@@ -284,36 +294,73 @@ public class PlotDrawer {
         rengine.assign(LOWER, getLower);
         rengine.assign(UPPER, Upper);
         
-        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle);
+        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeY);
     }
     
     private static void drawPlotITSNow(int width, int height, final String LOWER, final String UPPER, final int count,
-            boolean par, String lineStyle) {
+            boolean par, String lineStyle, String rangeY) {
         Rengine rengine = MyRengine.getRengine();
+        String lim = "ylim = " + rangeY;
         
         if (par) { //continue from the previous plot
             rengine.eval("par(new=TRUE)");
-            String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
-            rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\", ylab=\"" +      "<<TODO ylab>>"      + "\")");
-            rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", col=\"white\", ylab=\"" +      "<<TODO ylab>>"      + "\")");
+            rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         } else { //start a new plot
             rengine.eval("require(JavaGD)");
             rengine.eval("JavaGD()"); // zacne novy plot
-            String ylim = "ylim=range(" + LOWER + "," + UPPER + ")";
             //dont draw axes
-            rengine.eval("plot.ts(" + LOWER + ", " + ylim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
             rengine.eval("par(new=TRUE)");
             //here either
-            rengine.eval("plot.ts(" + UPPER + ", " + ylim + ", col=\"white\", axes=FALSE, ann=FALSE)");
-            rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + ylim + lineStyle + ")");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)");
+            rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         }
         
         
         
         MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height));
         MainFrame.drawNowToThisGDCanvas.initRefresh();
+    }
+
+    private static String getRangeYMultipleInterval(List<Double> allVals) {
+        StringBuilder rangeY = new StringBuilder("range(c(");
+        boolean next = false;
+        for (Double d : allVals) {
+            if (next) {
+                rangeY.append(", ");
+            } else {
+                next = true;
+            }
+            rangeY.append(d);
+        }
+        
+        rangeY.append("))");
+        return rangeY.toString();
+    }
+
+    private static List<Double> getAllVals(DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
+        //TODO maybe later "optimize" a bit - netreba tahat vsetky data z dataTableModela, iba unique mena... a tak.
+        
+        List<Double> allVals = new ArrayList<>();
+        
+        for (IntervalNamesCentreRadius cr : listCentreRadius) {
+            List<Double> centers = dataTableModel.getDataForColname(cr.getCentre());
+            List<Double> radii = dataTableModel.getDataForColname(cr.getRadius());
+            allVals.addAll(centers);
+            allVals.addAll(radii);
+        }
+        
+        for (IntervalNamesLowerUpper lu : listLowerUpper) {
+            List<Double> lowers = dataTableModel.getDataForColname(lu.getLowerBound());
+            List<Double> uppers = dataTableModel.getDataForColname(lu.getUpperBound());
+            allVals.addAll(lowers);
+            allVals.addAll(uppers);
+        }
+        
+        return allVals;
     }
     
     private List<Color> getNColours(int n) {

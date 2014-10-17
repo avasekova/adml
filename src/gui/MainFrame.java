@@ -2829,7 +2829,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawPlotITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
+        PlotDrawer.drawPlotsITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
                 listITSPlotCentreRadius, listITSPlotLowerUpper);
         textAreaPlotBasicStats.setText("");
     }//GEN-LAST:event_buttonPlotAllITSActionPerformed
