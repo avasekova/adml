@@ -48,7 +48,6 @@ public class PlotDrawer {
         
         int colourNumber = 0;
         if (! reportsCTS.isEmpty()) { //plot CTS
-            int numTrainingEntries_CTS = reportsCTS.get(0).getNumTrainingEntries();
             allDataCTS = allDataCTS.subList(from, to);
             String rangeY_CTS = getRangeYCrisp(allDataCTS, reportsCTS);
             String rangeX = getRangeXCrisp(allDataCTS, numForecasts);
@@ -72,6 +71,8 @@ public class PlotDrawer {
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                         + "lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
                 rengine.eval(plotCode.toString());
+                //add a dashed vertical line to separate test and train
+                rengine.eval("abline(v = " + r.getNumTrainingEntries() + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber] + "\")");
                 colourNumber++;
             }
             
@@ -80,8 +81,8 @@ public class PlotDrawer {
             rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
                     + "ylab=\"" + colname_CTS + "\","
                     + "lwd=2, col=\"#444444\")");
-            rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
-            rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)");
+//            rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
+            rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)"); //dashed vertical line to separate forecasts
             
             //add legend
             rengine.eval("legend(\"topleft\", "      
@@ -160,6 +161,9 @@ public class PlotDrawer {
                         + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS
                         + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
                 
+                //add a dashed vertical line to separate test and train
+                rengine.eval("abline(v = " + sizeFitted + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber] + "\")");
+                
                 colourNumber++;
             }
             
@@ -179,11 +183,7 @@ public class PlotDrawer {
             rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
                     + "ylab=\"" +       "<<add the interval.toString() here>>"      + "\")");
             rengine.eval("segments(1:" + size + ", all.lower, 1:" + size + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=2, col=\"#444444\")");
-            
-            rengine.eval("abline(v = " + numTrainingEntries_ITS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
-            //TODO potom tam dat oznacenie na vsetky ablines:     rengine.eval("axis(1, at=" + numTrainingEntries_ITS + ", labels = " + numTrainingEntries_ITS + ")");
-            //TODO asi bude treba dat viacero takychto ciar - pre kazdy report jednu, lebo percentTrain sa lisi
-            
+            //add a line separating real data from forecasts
             rengine.eval("abline(v = " + size + ", lty = 3)");
             
             //add legend
