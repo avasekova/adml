@@ -58,6 +58,7 @@ import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
 import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
+import utils.imlp.dist.Distance;
 import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
@@ -203,6 +204,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPintDistanceParams_bertoluzza = new javax.swing.JPanel();
         jLabel95 = new javax.swing.JLabel();
         textFieldMLPintDistanceParam_bertoluzza_beta = new javax.swing.JTextField();
+        jLabel63 = new javax.swing.JLabel();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         sliderPercentTrainIntervalMLP = new javax.swing.JSlider();
@@ -1339,6 +1341,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSettingsMLPintDistanceParams.add(panelSettingsMLPintDistanceParams_bertoluzza, "panelSettingsMLPintDistanceParams_bertoluzza");
 
+        jLabel63.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel63.setText("(not enabled yet)");
+
         javax.swing.GroupLayout paneSettingsMethodsMLPintLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLPint);
         paneSettingsMethodsMLPint.setLayout(paneSettingsMethodsMLPintLayout);
         paneSettingsMethodsMLPintLayout.setHorizontalGroup(
@@ -1346,6 +1351,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel63))
                     .addComponent(jLabel47)
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1469,7 +1477,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel48)
                     .addComponent(comboBoxSettingsMLPintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(257, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel63)
+                .addContainerGap(237, Short.MAX_VALUE))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 560, Short.MAX_VALUE))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3237,6 +3247,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -3439,16 +3450,16 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
-    private <T extends Params> List<T> setSomethingIntegerAnyParams(Class<T> classs,
-            List<T> workingList, List<T> resultList, String methodName, List<Integer> valuesInteger) {
+    private <T extends Params, Q> List<T> setSomethingListAnyParams(Class<T> classs,
+            List<T> workingList, List<T> resultList, String methodName, Class<Q> classsQ, List<Q> valuesQ) {
         workingList.clear();
         workingList.addAll(resultList);
         resultList.clear();
-        for (Integer i : valuesInteger) {
+        for (Q i : valuesQ) {
             for (T p : workingList) {
                 T plone = (T) p.getClone();
                 try {
-                    Method method = classs.getMethod(methodName, Integer.class);
+                    Method method = classs.getMethod(methodName, classsQ);
                     method.invoke(plone, i);
                 } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -3461,8 +3472,8 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     //does not support multiple values yet
-    private <T extends Params> List<T> setSomethingDoubleAnyParams(Class<T> classs,
-            List<T> workingList, List<T> resultList, String methodName, Double valueDouble) {
+    private <T extends Params, Q> List<T> setSomethingOneValueAnyParams(Class<T> classs,
+            List<T> workingList, List<T> resultList, String methodName, Class<Q> classsQ, Q valueQ) {
         workingList.clear();
         workingList.addAll(resultList);
         resultList.clear();
@@ -3470,29 +3481,8 @@ public class MainFrame extends javax.swing.JFrame {
         for (T p : workingList) {
             T plone = (T) p.getClone();
             try {
-                Method method = classs.getMethod(methodName, Double.class);
-                method.invoke(plone, valueDouble);
-            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            resultList.add(plone);
-        }
-        
-        return resultList;
-    }
-    
-    //does not support multiple values yet
-    private <T extends Params> List<T> setSomethingRBoolAnyParams(Class<T> classs,
-            List<T> workingList, List<T> resultList, String methodName, R_Bool valueBool) {
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-        
-        for (T p : workingList) {
-            T plone = (T) p.getClone();
-            try {
-                Method method = classs.getMethod(methodName, R_Bool.class);
-                method.invoke(plone, valueBool);
+                Method method = classs.getMethod(methodName, classsQ);
+                method.invoke(plone, valueQ);
             } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                 Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -3511,24 +3501,22 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumForecasts", 
-                Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setDataRangeFrom",
-                Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setDataRangeTo",
-                Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumNodesHidden",
-                Utils.getIntegersOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumSeasonalLags",
-                Utils.getIntegersOrDefault(paramNnetar_textFieldNumSeasonalLags));
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumNonSeasonalLags",
-                Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
-        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumReps",
-                Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps));
-        setSomethingDoubleAnyParams(NnetarParams.class, workingList, resultList, "setLambda", 
-                Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
-            
-        System.out.println(resultList);
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setNumNodesHidden",
+                Integer.class, Utils.getIntegersOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setNumSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(paramNnetar_textFieldNumSeasonalLags));
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setNumNonSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
+        setSomethingListAnyParams(NnetarParams.class, workingList, resultList, "setNumReps",
+                Integer.class, Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps));
+        setSomethingOneValueAnyParams(NnetarParams.class, workingList, resultList, "setLambda", 
+                Double.class, Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
         
         return resultList;
     }
@@ -3561,86 +3549,99 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setNumForecasts", 
-                Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setDataRangeFrom",
-                Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setDataRangeTo",
-                Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setLag", 
-                Utils.getIntegersOrDefault(paramNnet_lag));
-        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setAbstol", 
-                Utils.getDoubleOrDefault(paramNnet_abstol));
-        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setReltol", 
-                Utils.getDoubleOrDefault(paramNnet_reltol));
-        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setSkipLayerConnections",
-                Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
-        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setInitWeightsRange",
-                Utils.getDoubleOrDefault(paramNnet_initRange));
-        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setMaxIterations",
-                Utils.getIntegersOrDefault(paramNnet_maxit));
-        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setNumNodesHiddenLayer",
-                Utils.getIntegersOrDefault(paramNnet_numNodesHiddenLayer));
-        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setLinearElseLogistic",
-                Utils.booleanToRBool(paramNnet_radioButtonLogistic.isSelected()));
-        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setLeastSqrsElseMaxCondLikelihood",
-                Utils.booleanToRBool(paramNnet_radioButtonLeastSqrs.isSelected()));
-        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setLoglinSoftmaxElseMaxCondLikelihood",
-                Utils.booleanToRBool(paramNnet_radioButtonLoglinSoftmax.isSelected()));
-        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setCensoredOnElseOff",
-                Utils.booleanToRBool(paramNnet_radioButtonCensoredOn.isSelected()));
-        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setWeightDecay",
-                Utils.getDoubleOrDefault(paramNnet_weightDecay));
-        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setTraceOptimization",
-                Utils.booleanToRBool(paramNnet_traceOptimization.isSelected()));
-        
-        System.out.println("-------");
-        System.out.println(resultList);
+        setSomethingListAnyParams(NnetParams.class, workingList, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetParams.class, workingList, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetParams.class, workingList, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetParams.class, workingList, resultList, "setLag", 
+                Integer.class, Utils.getIntegersOrDefault(paramNnet_lag));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setAbstol", 
+                Double.class, Utils.getDoubleOrDefault(paramNnet_abstol));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setReltol", 
+                Double.class, Utils.getDoubleOrDefault(paramNnet_reltol));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setSkipLayerConnections",
+                R_Bool.class, Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setInitWeightsRange",
+                Double.class, Utils.getDoubleOrDefault(paramNnet_initRange));
+        setSomethingListAnyParams(NnetParams.class, workingList, resultList, "setMaxIterations",
+                Integer.class, Utils.getIntegersOrDefault(paramNnet_maxit));
+        setSomethingListAnyParams(NnetParams.class, workingList, resultList, "setNumNodesHiddenLayer",
+                Integer.class, Utils.getIntegersOrDefault(paramNnet_numNodesHiddenLayer));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setLinearElseLogistic",
+                R_Bool.class, Utils.booleanToRBool(paramNnet_radioButtonLogistic.isSelected()));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setLeastSqrsElseMaxCondLikelihood",
+                R_Bool.class, Utils.booleanToRBool(paramNnet_radioButtonLeastSqrs.isSelected()));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setLoglinSoftmaxElseMaxCondLikelihood",
+                R_Bool.class, Utils.booleanToRBool(paramNnet_radioButtonLoglinSoftmax.isSelected()));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setCensoredOnElseOff",
+                R_Bool.class, Utils.booleanToRBool(paramNnet_radioButtonCensoredOn.isSelected()));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setWeightDecay",
+                Double.class, Utils.getDoubleOrDefault(paramNnet_weightDecay));
+        setSomethingOneValueAnyParams(NnetParams.class, workingList, resultList, "setTraceOptimization",
+                R_Bool.class, Utils.booleanToRBool(paramNnet_traceOptimization.isSelected()));
         
         return resultList;
     }
     
     private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode() {
-        IntervalMLPCcodeParams params = new IntervalMLPCcodeParams();
+        List<IntervalMLPCcodeParams> workingList = new ArrayList<>();
+        IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
-        params.setPercentTrain(sliderPercentTrainIntervalMLP.getValue());
-        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
-        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+        par.setPercentTrain(sliderPercentTrain.getValue());
+        
+        List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        
+        Distance distanceFunction = null;
         switch (comboBoxSettingsIMLPcCodeDistance.getSelectedItem().toString()) {
             case "Euclidean distance":
                 double beta = Double.parseDouble(textFieldIntervalMLPDistanceParam_euclid_beta.getText());
                 WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
-                params.setDistanceFunction(euclid);
+                distanceFunction = euclid;
                 break;
             case "Hausdorff distance":
-                params.setDistanceFunction(new HausdorffDistance());
+                distanceFunction = new HausdorffDistance();
                 break;
             case "Ichino-Yaguchi distance":
                 double gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_ichino_gamma.getText());
                 IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
-                params.setDistanceFunction(ichino);
+                distanceFunction = ichino;
                 break;
             case "De Carvalho distance":
                 gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_decarvalho_gamma.getText());
                 DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
-                params.setDistanceFunction(decarvalho);
+                distanceFunction = decarvalho;
                 break;
             case "Bertoluzza distance":
                 gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_bertoluzza_beta.getText());
                 BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
-                params.setDistanceFunction(bertoluzza);
+                distanceFunction = bertoluzza;
                 break;
         }
-        params.setNumNodesHidden(Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumNeurons).get(0));
-        params.setNumIterations(Integer.parseInt(textFieldIntervalMLPCcodeNumIterations.getText()));
-        params.setExplVars(((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
-        params.setOutVars(((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
-        params.setNumNetworks(Integer.parseInt(textFieldSettingsIntervalMLPnumNetworks.getText()));
+        setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDistanceFunction",
+                Distance.class, distanceFunction);
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNodesHidden",
+                Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumNeurons));
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumIterations",
+                Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumIterations));
+        setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setExplVars",
+                List.class, ((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
+        //ak toto bude fungovat, tak som fakt kral
+        setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setOutVars",
+                List.class, ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNetworks",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsIntervalMLPnumNetworks));
         //TODO add the criterion here
         
-        List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
-        resultList.add(params);
         return resultList;
     }
     

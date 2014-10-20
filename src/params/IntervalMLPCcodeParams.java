@@ -60,7 +60,7 @@ public class IntervalMLPCcodeParams extends Params {
         return numNetworks;
     }
 
-    public void setNumNetworks(int numNetworks) {
+    public void setNumNetworks(Integer numNetworks) {
         this.numNetworks = numNetworks;
     }
     
