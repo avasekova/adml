@@ -3831,18 +3831,25 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<KNNkknnParams> getParamsKNNkknn() {
-        KNNkknnParams params = new KNNkknnParams();
-        
+        List<KNNkknnParams> workingList = new ArrayList<>();
+        KNNkknnParams par = new KNNkknnParams();
         //zohnat vsetky parametre pre dany model:
-        params.setPercentTrain(sliderPercentTrainKNN.getValue());
-        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
-        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        params.setMaxNeighbours(Integer.parseInt(spinnerKNNnumNeighboursKKNN.getValue().toString()));
-        params.setLag(Integer.parseInt(textFieldKNNkknnLag.getText()));
+        par.setPercentTrain(sliderPercentTrainKNN.getValue());
         
         List<KNNkknnParams> resultList = new ArrayList<>();
-        resultList.add(params);
+        resultList.add(par);
+        
+        setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setMaxNeighbours",
+                Integer.class, Utils.getIntegersOrDefault(spinnerKNNnumNeighboursKKNN.getValue().toString()));
+        setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setLag",
+                Integer.class, Utils.getIntegersOrDefault(textFieldKNNkknnLag));
+        
         return resultList;
     }
     

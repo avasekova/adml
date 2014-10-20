@@ -9,7 +9,7 @@ public class KNNkknnParams extends Params {
         return maxNeighbours;
     }
 
-    public void setMaxNeighbours(int maxNeighbours) {
+    public void setMaxNeighbours(Integer maxNeighbours) {
         this.maxNeighbours = maxNeighbours;
     }
 
@@ -17,7 +17,7 @@ public class KNNkknnParams extends Params {
         return lag;
     }
 
-    public void setLag(int lag) {
+    public void setLag(Integer lag) {
         this.lag = lag;
     }
     
