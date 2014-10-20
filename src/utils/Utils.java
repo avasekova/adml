@@ -59,11 +59,15 @@ public class Utils {
     }
     
     public static List<Integer> getIntegersOrDefault(JTextField textField) {
+        return getIntegersOrDefault(textField.getText());
+    }
+    
+    public static List<Integer> getIntegersOrDefault(String text) {
         List<Integer> list = new ArrayList<>();
         try {
-            String[] split = textField.getText().split("\\.\\.\\.");
+            String[] split = text.split("\\.\\.\\.");
             if (split.length == 1) {
-                list.add(Integer.parseInt(textField.getText()));
+                list.add(Integer.parseInt(text));
             } else { //predpokladam vyraz v tvare LB...UB
                 for (int i = Integer.parseInt(split[0]); i <= Integer.parseInt(split[1]); i++) { //bleee, to je ohavne
                     list.add(i);

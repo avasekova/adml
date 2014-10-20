@@ -9,7 +9,7 @@ public class KNNfnnParams extends Params {
         return numNeighbours;
     }
 
-    public void setNumNeighbours(int numNeighbours) {
+    public void setNumNeighbours(Integer numNeighbours) {
         this.numNeighbours = numNeighbours;
     }
 
@@ -17,7 +17,7 @@ public class KNNfnnParams extends Params {
         return lag;
     }
 
-    public void setLag(int lag) {
+    public void setLag(Integer lag) {
         this.lag = lag;
     }
     
