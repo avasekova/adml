@@ -15,7 +15,7 @@ public class ArimaParams extends Params {
         return nonSeasP;
     }
 
-    public void setNonSeasP(int nonSeasP) {
+    public void setNonSeasP(Integer nonSeasP) {
         this.nonSeasP = nonSeasP;
     }
 
@@ -23,7 +23,7 @@ public class ArimaParams extends Params {
         return nonSeasD;
     }
 
-    public void setNonSeasD(int nonSeasD) {
+    public void setNonSeasD(Integer nonSeasD) {
         this.nonSeasD = nonSeasD;
     }
 
@@ -31,7 +31,7 @@ public class ArimaParams extends Params {
         return nonSeasQ;
     }
 
-    public void setNonSeasQ(int nonSeasQ) {
+    public void setNonSeasQ(Integer nonSeasQ) {
         this.nonSeasQ = nonSeasQ;
     }
 
@@ -39,7 +39,7 @@ public class ArimaParams extends Params {
         return seasP;
     }
 
-    public void setSeasP(int seasP) {
+    public void setSeasP(Integer seasP) {
         this.seasP = seasP;
     }
 
@@ -47,7 +47,7 @@ public class ArimaParams extends Params {
         return seasD;
     }
 
-    public void setSeasD(int seasD) {
+    public void setSeasD(Integer seasD) {
         this.seasD = seasD;
     }
 
@@ -55,7 +55,7 @@ public class ArimaParams extends Params {
         return seasQ;
     }
 
-    public void setSeasQ(int seasQ) {
+    public void setSeasQ(Integer seasQ) {
         this.seasQ = seasQ;
     }
 
@@ -63,7 +63,7 @@ public class ArimaParams extends Params {
         return optimize;
     }
 
-    public void setOptimize(boolean optimize) {
+    public void setOptimize(Boolean optimize) {
         this.optimize = optimize;
     }
 
@@ -71,7 +71,7 @@ public class ArimaParams extends Params {
         return withConstant;
     }
 
-    public void setWithConstant(boolean withConstant) {
+    public void setWithConstant(Boolean withConstant) {
         this.withConstant = withConstant;
     }
     
@@ -92,5 +92,10 @@ public class ArimaParams extends Params {
         param.setWithConstant(withConstant);
         
         return param;
+    }
+
+    @Override
+    public String toString() {
+        return "ArimaParams{" + "nonSeasP=" + nonSeasP + ", nonSeasD=" + nonSeasD + ", nonSeasQ=" + nonSeasQ + ", seasP=" + seasP + ", seasD=" + seasD + ", seasQ=" + seasQ + ", optimize=" + optimize + ", withConstant=" + withConstant + "}\n";
     }
 }

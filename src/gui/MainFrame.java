@@ -343,6 +343,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         textFieldRunDataRangeTo = new javax.swing.JTextField();
         buttonRunExportErrorMeasures = new javax.swing.JButton();
+        jLabel89 = new javax.swing.JLabel();
         panelForecastVals = new javax.swing.JPanel();
         scrollPaneForecastVals = new javax.swing.JScrollPane();
         panelDiagramsNNs = new javax.swing.JPanel();
@@ -2302,7 +2303,9 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunMLPnnetar.setSelected(true);
         checkBoxRunMLPnnetar.setText("MLP (nnetar)");
 
+        checkBoxRunARIMA.setForeground(new java.awt.Color(102, 255, 0));
         checkBoxRunARIMA.setText("ARIMA");
+        checkBoxRunARIMA.setEnabled(false);
 
         checkBoxRunMLPnnet.setText("MLP (nnet)");
 
@@ -2386,6 +2389,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel89.setForeground(new java.awt.Color(51, 255, 0));
+        jLabel89.setText("under construction");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -2449,16 +2455,11 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(checkBoxRunARIMA)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(checkBoxRunKNNfnn)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(checkBoxRunKNNcustom)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunKNNkknn))
-                                            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(buttonRunExportErrorMeasures)
-                                                .addComponent(jLabel72))))
+                                        .addComponent(checkBoxRunKNNfnn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunKNNcustom)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunKNNkknn))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
@@ -2477,7 +2478,14 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                 .addComponent(jLabel44)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGap(266, 266, 266)
+                                        .addComponent(jLabel89)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(buttonRunExportErrorMeasures)
+                                            .addComponent(jLabel72)))))
                             .addComponent(jLabel8))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
@@ -2500,7 +2508,9 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(checkBoxRunKNNcustom)
                                     .addComponent(checkBoxRunKNNkknn))
                                 .addGap(1, 1, 1)
-                                .addComponent(jLabel72)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel72)
+                                    .addComponent(jLabel89))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(checkBoxRunMLPint)
@@ -3275,6 +3285,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
@@ -3738,34 +3749,47 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(MLPintParams.class, workingList, resultList, "setParamsRadius",
                 NnetarParams.class, resultListRadius);
         
+        return resultList;
+    }
+    
+    private List<ArimaParams> getParamsArima() {
+        List<ArimaParams> workingList = new ArrayList<>();
+        ArimaParams par = new ArimaParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(sliderPercentTrainARIMA.getValue());
+        
+        List<ArimaParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingOneValueAnyParams(ArimaParams.class, workingList, resultList, "setOptimize",
+                Boolean.class, checkBoxSettingsARIMAoptimize.isSelected());
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasP",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAnonseasP));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasD",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAnonseasD));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasQ",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAnonseasQ));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasP",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasP));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasD",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasD));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasQ",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasQ));
+        setSomethingOneValueAnyParams(ArimaParams.class, workingList, resultList, "setWithConstant",
+                Boolean.class, checkBoxSettingsARIMAconstant.isSelected());
+        
         System.out.println(resultList);
         
         return resultList;
     }
     
-    private List<ArimaParams> getParamsArima() {
-        ArimaParams params = new ArimaParams();
-        
-        //zohnat vsetky parametre pre dany model:
-        params.setPercentTrain(sliderPercentTrainARIMA.getValue());
-        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
-        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        params.setOptimize(checkBoxSettingsARIMAoptimize.isSelected());
-        params.setNonSeasP(Integer.parseInt(textFieldSettingsARIMAnonseasP.getText()));
-        params.setNonSeasD(Integer.parseInt(textFieldSettingsARIMAnonseasD.getText()));
-        params.setNonSeasQ(Integer.parseInt(textFieldSettingsARIMAnonseasQ.getText()));
-        params.setSeasP(Integer.parseInt(textFieldSettingsARIMAseasP.getText()));
-        params.setSeasD(Integer.parseInt(textFieldSettingsARIMAseasD.getText()));
-        params.setSeasQ(Integer.parseInt(textFieldSettingsARIMAseasQ.getText()));
-        params.setWithConstant(checkBoxSettingsARIMAconstant.isSelected());
-        
-        List<ArimaParams> resultList = new ArrayList<>();
-        resultList.add(params);
-        return resultList;
-    }
-    
-    private List<KNNcustomParams> getParamsKNNcustom() {
+    private List<KNNcustomParams> getParamsKNNcustom() { //TODO multiple vals
         KNNcustomParams params = new KNNcustomParams();
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
