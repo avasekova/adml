@@ -3441,35 +3441,35 @@ public class MainFrame extends javax.swing.JFrame {
         workingList.add(par);
         
         List<NnetarParams> resultList = new ArrayList<>();
-        for (Integer i : Utils.getIntegersOrDefault(textFieldRunNumForecasts)) {
+//        for (Integer i : Utils.getIntegersOrDefault(textFieldRunNumForecasts)) {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
-                plone.setNumForecasts(i); //tieto sa pripocitaju k testovacim forecasts!
+                plone.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0)); //tieto sa pripocitaju k testovacim forecasts!
                 resultList.add(plone);
             }
-        }
+//        }
         
         workingList.clear();
         workingList.addAll(resultList);
         resultList.clear();
-        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeFrom)) {
+//        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeFrom)) {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
-                plone.setDataRangeFrom(i);
+                plone.setDataRangeFrom(Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).get(0));
                 resultList.add(plone);
             }
-        }
+//        }
         
         workingList.clear();
         workingList.addAll(resultList);
         resultList.clear();
-        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeTo)) {
+//        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeTo)) {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
-                plone.setDataRangeTo(i);
+                plone.setDataRangeTo(Utils.getIntegersOrDefault(textFieldRunDataRangeTo).get(0));
                 resultList.add(plone);
             }
-        }
+//        }
         
         workingList.clear();
         workingList.addAll(resultList);
