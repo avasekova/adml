@@ -4,6 +4,9 @@ import utils.imlp.dist.Distance;
 
 public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke metody - nepouzivam atributy z Params!
     
+    //TODO rep(NA, " + params.getLag() + "), do plotu! len vymysliet, ako skombinovat lag z center a lag z radius!
+    //     asi teda to zarezat na rovnaku dlzku, tj tam, kde zacinaju uz obe (max(startC, startR)) a to povazovat za lag
+    
     private NnetarParams paramsCenter;
     private NnetarParams paramsRadius;
     private Distance distanceFunction;

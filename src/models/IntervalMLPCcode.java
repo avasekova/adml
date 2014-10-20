@@ -197,6 +197,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         //real data: the last two columns in data are Center and Radius of real data.
         report.setRealValues(data.get(data.size() - 2), data.get(data.size() - 1));
         
+        //TODO add lag! resp. add lag do PlotDrawera, aby s tym vedel robit. nieco ako maxLag, tj zarezane spolocne
         return report;
     }
     
