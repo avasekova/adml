@@ -525,7 +525,7 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="paramNnetar_textFieldNumNonSeasonalLags">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                                <Property name="text" type="java.lang.String" value="1"/>
                                 <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
                               </Properties>
                               <AuxValues>
@@ -552,7 +552,7 @@
                             </Component>
                             <Component class="javax.swing.JTextField" name="paramNnetar_textFieldNumReps">
                               <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                                <Property name="text" type="java.lang.String" value="20"/>
                               </Properties>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramNnetar_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramNnetar_textFieldNumReps.getText())) {&#xa;            paramNnetar_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramNnetar_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramNnetar_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
@@ -1060,7 +1060,7 @@
                                                   <Component id="paramMLPint_center_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
                                                   <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
                                                   <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jLabel87" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1083,7 +1083,7 @@
                                                   <Component id="paramMLPint_radius_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
                                                   <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
                                                   <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="0" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                           <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1271,7 +1271,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNonSeasonalLags">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                        <Property name="text" type="java.lang.String" value="1"/>
                         <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
                       </Properties>
                       <AuxValues>
@@ -1298,7 +1298,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumReps">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                        <Property name="text" type="java.lang.String" value="20"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumReps.getText())) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
@@ -1360,7 +1360,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumReps">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                        <Property name="text" type="java.lang.String" value="20"/>
                       </Properties>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumReps.getText())) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
@@ -1376,7 +1376,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNonSeasonalLags">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                        <Property name="text" type="java.lang.String" value="1"/>
                         <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
                       </Properties>
                       <AuxValues>

@@ -547,7 +547,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        paramNnetar_textFieldNumNonSeasonalLags.setText("<default>");
+        paramNnetar_textFieldNumNonSeasonalLags.setText("1");
         paramNnetar_textFieldNumNonSeasonalLags.setToolTipText("The default is the optimal number of lags (according to the AIC) for a linear AR(p) model.");
 
         jLabel2.setText("Number of seasonal lags to be used as inputs:");
@@ -588,7 +588,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        paramNnetar_textFieldNumReps.setText("<default>");
+        paramNnetar_textFieldNumReps.setText("20");
 
         jLabel5.setText("Lambda (Box-Cox transformation):");
 
@@ -1037,7 +1037,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        paramMLPint_center_textFieldNumNonSeasonalLags.setText("<default>");
+        paramMLPint_center_textFieldNumNonSeasonalLags.setText("1");
         paramMLPint_center_textFieldNumNonSeasonalLags.setToolTipText("The default is the optimal number of lags (according to the AIC) for a linear AR(p) model.");
 
         jLabel79.setText("Number of seasonal lags to be used as inputs:");
@@ -1078,7 +1078,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        paramMLPint_center_textFieldNumReps.setText("<default>");
+        paramMLPint_center_textFieldNumReps.setText("20");
 
         jLabel81.setText("Lambda (Box-Cox transformation):");
 
@@ -1162,7 +1162,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        paramMLPint_radius_textFieldNumReps.setText("<default>");
+        paramMLPint_radius_textFieldNumReps.setText("20");
 
         paramMLPint_radius_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {
 
@@ -1198,7 +1198,7 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         });
-        paramMLPint_radius_textFieldNumNonSeasonalLags.setText("<default>");
+        paramMLPint_radius_textFieldNumNonSeasonalLags.setText("1");
         paramMLPint_radius_textFieldNumNonSeasonalLags.setToolTipText("The default is the optimal number of lags (according to the AIC) for a linear AR(p) model.");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -1356,7 +1356,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(paramMLPint_center_textFieldNumReps, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(paramMLPint_center_textFieldNumSeasonalLags, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(paramMLPint_center_textFieldNumNodesHiddenLayer, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(paramMLPint_center_textFieldNumNonSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(paramMLPint_center_textFieldNumNonSeasonalLags)))
                             .addComponent(jLabel87))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1375,7 +1375,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(paramMLPint_radius_textFieldNumReps, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(paramMLPint_radius_textFieldNumSeasonalLags, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(paramMLPint_radius_textFieldNumNodesHiddenLayer, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(paramMLPint_radius_textFieldNumNonSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(paramMLPint_radius_textFieldNumNonSeasonalLags)))
                             .addComponent(jLabel88)))
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addComponent(jLabelPercTrain1)
