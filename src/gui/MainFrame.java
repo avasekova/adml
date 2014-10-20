@@ -49,6 +49,7 @@ import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
 import utils.MyRengine;
+import utils.R_Bool;
 import utils.Utils;
 import utils.imlp.ExcelWriter;
 import utils.imlp.ExplanatoryVariable;
@@ -3459,6 +3460,48 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
+    //does not support multiple values yet
+    private <T extends Params> List<T> setSomethingDoubleAnyParams(Class<T> classs,
+            List<T> workingList, List<T> resultList, String methodName, Double valueDouble) {
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        
+        for (T p : workingList) {
+            T plone = (T) p.getClone();
+            try {
+                Method method = classs.getMethod(methodName, Double.class);
+                method.invoke(plone, valueDouble);
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            resultList.add(plone);
+        }
+        
+        return resultList;
+    }
+    
+    //does not support multiple values yet
+    private <T extends Params> List<T> setSomethingRBoolAnyParams(Class<T> classs,
+            List<T> workingList, List<T> resultList, String methodName, R_Bool valueBool) {
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        
+        for (T p : workingList) {
+            T plone = (T) p.getClone();
+            try {
+                Method method = classs.getMethod(methodName, R_Bool.class);
+                method.invoke(plone, valueBool);
+            } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            resultList.add(plone);
+        }
+        
+        return resultList;
+    }
+    
     private List<NnetarParams> getParamsNnetar() { //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
         List<NnetarParams> workingList = new ArrayList<>();
         NnetarParams par = new NnetarParams();
@@ -3482,16 +3525,8 @@ public class MainFrame extends javax.swing.JFrame {
                 Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
         setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumReps",
                 Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps));
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-        //multiple vals for Doubles not supported yet
-        for (NnetarParams p : workingList) {
-            NnetarParams plone = p.getClone();
-            plone.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
-            resultList.add(plone);
-        }
+        setSomethingDoubleAnyParams(NnetarParams.class, workingList, resultList, "setLambda", 
+                Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
             
         System.out.println(resultList);
         
@@ -3518,29 +3553,50 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<NnetParams> getParamsNnet() {
-        NnetParams params = new NnetParams();
+        List<NnetParams> workingList = new ArrayList<>();
+        NnetParams par = new NnetParams();
         //zohnat vsetky parametre pre dany model:
-        
-        params.setLag(Integer.parseInt(paramNnet_lag.getText()));
-        params.setPercentTrain(sliderPercentTrain.getValue());
-        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
-        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        params.setAbstol(Utils.getDoubleOrDefault(paramNnet_abstol));
-        params.setReltol(Utils.getDoubleOrDefault(paramNnet_reltol));
-        params.setSkipLayerConnections(Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
-        params.setInitWeightsRange(Utils.getDoubleOrDefault(paramNnet_initRange));
-        params.setMaxIterations(Utils.getIntegersOrDefault(paramNnet_maxit).get(0));
-        params.setNumNodesHiddenLayer(Utils.getIntegersOrDefault(paramNnet_numNodesHiddenLayer).get(0));
-        params.setLinearElseLogistic(Utils.booleanToRBool(paramNnet_radioButtonLogistic.isSelected()));
-        params.setLeastSqrsElseMaxCondLikelihood(Utils.booleanToRBool(paramNnet_radioButtonLeastSqrs.isSelected()));
-        params.setLoglinSoftmaxElseMaxCondLikelihood(Utils.booleanToRBool(paramNnet_radioButtonLoglinSoftmax.isSelected()));
-        params.setCensoredOnElseOff(Utils.booleanToRBool(paramNnet_radioButtonCensoredOn.isSelected()));
-        params.setWeightDecay(Utils.getDoubleOrDefault(paramNnet_weightDecay));
-        params.setTraceOptimization(Utils.booleanToRBool(paramNnet_traceOptimization.isSelected()));
+        par.setPercentTrain(sliderPercentTrain.getValue());
         
         List<NnetParams> resultList = new ArrayList<>();
-        resultList.add(params);
+        resultList.add(par);
+        
+        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setNumForecasts", 
+                Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setDataRangeFrom",
+                Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setDataRangeTo",
+                Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setLag", 
+                Utils.getIntegersOrDefault(paramNnet_lag));
+        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setAbstol", 
+                Utils.getDoubleOrDefault(paramNnet_abstol));
+        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setReltol", 
+                Utils.getDoubleOrDefault(paramNnet_reltol));
+        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setSkipLayerConnections",
+                Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
+        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setInitWeightsRange",
+                Utils.getDoubleOrDefault(paramNnet_initRange));
+        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setMaxIterations",
+                Utils.getIntegersOrDefault(paramNnet_maxit));
+        setSomethingIntegerAnyParams(NnetParams.class, workingList, resultList, "setNumNodesHiddenLayer",
+                Utils.getIntegersOrDefault(paramNnet_numNodesHiddenLayer));
+        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setLinearElseLogistic",
+                Utils.booleanToRBool(paramNnet_radioButtonLogistic.isSelected()));
+        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setLeastSqrsElseMaxCondLikelihood",
+                Utils.booleanToRBool(paramNnet_radioButtonLeastSqrs.isSelected()));
+        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setLoglinSoftmaxElseMaxCondLikelihood",
+                Utils.booleanToRBool(paramNnet_radioButtonLoglinSoftmax.isSelected()));
+        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setCensoredOnElseOff",
+                Utils.booleanToRBool(paramNnet_radioButtonCensoredOn.isSelected()));
+        setSomethingDoubleAnyParams(NnetParams.class, workingList, resultList, "setWeightDecay",
+                Utils.getDoubleOrDefault(paramNnet_weightDecay));
+        setSomethingRBoolAnyParams(NnetParams.class, workingList, resultList, "setTraceOptimization",
+                Utils.booleanToRBool(paramNnet_traceOptimization.isSelected()));
+        
+        System.out.println("-------");
+        System.out.println(resultList);
+        
         return resultList;
     }
     

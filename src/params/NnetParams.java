@@ -24,7 +24,7 @@ public class NnetParams extends Params {
         return lag;
     }
 
-    public void setLag(int lag) {
+    public void setLag(Integer lag) {
         this.lag = lag;
     }
     
@@ -164,5 +164,10 @@ public class NnetParams extends Params {
         param.setWeightDecay(weightDecay);
         
         return param;
+    }
+
+    @Override
+    public String toString() {
+        return "NnetParams{" + "lag=" + lag + ", abstol=" + abstol + ", reltol=" + reltol + ", skipLayerConnections=" + skipLayerConnections + ", initWeightsRange=" + initWeightsRange + ", maxIterations=" + maxIterations + ", numNodesHiddenLayer=" + numNodesHiddenLayer + ", linearElseLogistic=" + linearElseLogistic + ", leastSqrsElseMaxCondLikelihood=" + leastSqrsElseMaxCondLikelihood + ", loglinSoftmaxElseMaxCondLikelihood=" + loglinSoftmaxElseMaxCondLikelihood + ", censoredOnElseOff=" + censoredOnElseOff + ", weightDecay=" + weightDecay + ", hessian=" + hessian + ", traceOptimization=" + traceOptimization + ", maxNumOfWeights=" + maxNumOfWeights + "}\n";
     }
 }
