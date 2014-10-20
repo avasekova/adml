@@ -3544,7 +3544,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> workingList = new ArrayList<>();
         NnetParams par = new NnetParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(sliderPercentTrain.getValue());
+        par.setPercentTrain(sliderPercentTrainARIMA.getValue());
         
         List<NnetParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -3589,7 +3589,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<IntervalMLPCcodeParams> workingList = new ArrayList<>();
         IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(sliderPercentTrain.getValue());
+        par.setPercentTrain(sliderPercentTrainIntervalMLP.getValue());
         
         List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -3646,59 +3646,100 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<MLPintParams> getParamsMLPint() {
-        NnetarParams paramsCenter = new NnetarParams();
-        paramsCenter.setPercentTrain(sliderPercentTrainMLPint.getValue());
-        paramsCenter.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0)); //tieto sa pripocitaju k testovacim forecasts!
-        paramsCenter.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        paramsCenter.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        paramsCenter.setNumNodesHidden(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumNodesHiddenLayer).get(0));
-        paramsCenter.setNumSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumSeasonalLags).get(0));
-        paramsCenter.setNumNonSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumNonSeasonalLags).get(0));
-        paramsCenter.setNumReps(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumReps).get(0));
-        paramsCenter.setLambda(Utils.getDoubleOrDefault(paramMLPint_center_textFieldLambda));
+        List<NnetarParams> workingListCenter = new ArrayList<>();
+        NnetarParams parCenter = new NnetarParams();
+        //zohnat vsetky parametre pre dany model:
+        parCenter.setPercentTrain(sliderPercentTrainMLPint.getValue());
         
-        NnetarParams paramsRadius = new NnetarParams();
-        paramsRadius.setPercentTrain(sliderPercentTrainMLPint.getValue());
-        paramsRadius.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0)); //tieto sa pripocitaju k testovacim forecasts!
-        paramsRadius.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        paramsRadius.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        paramsRadius.setNumNodesHidden(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumNodesHiddenLayer).get(0));
-        paramsRadius.setNumSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumSeasonalLags).get(0));
-        paramsRadius.setNumNonSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumNonSeasonalLags).get(0));
-        paramsRadius.setNumReps(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumReps).get(0));
-        paramsRadius.setLambda(Utils.getDoubleOrDefault(paramMLPint_radius_textFieldLambda));
+        List<NnetarParams> resultListCenter = new ArrayList<>();
+        resultListCenter.add(parCenter);
         
-        MLPintParams params = new MLPintParams();
-        params.setParamsCenter(paramsCenter);
-        params.setParamsRadius(paramsRadius);
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setNumNodesHidden",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumNodesHiddenLayer));
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setNumSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumSeasonalLags));
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setNumNonSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumNonSeasonalLags));
+        setSomethingListAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setNumReps",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumReps));
+        setSomethingOneValueAnyParams(NnetarParams.class, workingListCenter, resultListCenter, "setLambda",
+                Double.class, Utils.getDoubleOrDefault(paramMLPint_center_textFieldLambda));
+        
+        
+        List<NnetarParams> workingListRadius = new ArrayList<>();
+        NnetarParams parRadius = new NnetarParams();
+        //zohnat vsetky parametre pre dany model:
+        parRadius.setPercentTrain(sliderPercentTrainMLPint.getValue());
+        
+        List<NnetarParams> resultListRadius = new ArrayList<>();
+        resultListRadius.add(parRadius);
+        
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setNumNodesHidden",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumNodesHiddenLayer));
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setNumSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumSeasonalLags));
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setNumNonSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumNonSeasonalLags));
+        setSomethingListAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setNumReps",
+                Integer.class, Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumReps));
+        setSomethingOneValueAnyParams(NnetarParams.class, workingListRadius, resultListRadius, "setLambda",
+                Double.class, Utils.getDoubleOrDefault(paramMLPint_radius_textFieldLambda));
+        
+        
+        List<MLPintParams> workingList = new ArrayList<>();
+        
+        MLPintParams par = new MLPintParams();
+        
+        List<MLPintParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        Distance distanceFunction = null;
         switch (comboBoxSettingsMLPintDistance.getSelectedItem().toString()) {
             case "Euclidean distance":
                 double beta = Double.parseDouble(textFieldMLPintDistanceParam_euclid_beta.getText());
                 WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
-                params.setDistanceFunction(euclid);
+                distanceFunction = euclid;
                 break;
             case "Hausdorff distance":
-                params.setDistanceFunction(new HausdorffDistance());
+                distanceFunction = new HausdorffDistance();
                 break;
             case "Ichino-Yaguchi distance":
                 double gamma = Double.parseDouble(textFieldMLPintDistanceParam_ichino_gamma.getText());
                 IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
-                params.setDistanceFunction(ichino);
+                distanceFunction = ichino;
                 break;
             case "De Carvalho distance":
                 gamma = Double.parseDouble(textFieldMLPintDistanceParam_decarvalho_gamma.getText());
                 DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
-                params.setDistanceFunction(decarvalho);
+                distanceFunction = decarvalho;
                 break;
             case "Bertoluzza distance":
                 gamma = Double.parseDouble(textFieldMLPintDistanceParam_bertoluzza_beta.getText());
                 BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
-                params.setDistanceFunction(bertoluzza);
+                distanceFunction = bertoluzza;
                 break;
         }
+        setSomethingOneValueAnyParams(MLPintParams.class, workingList, resultList, "setDistanceFunction",
+                Distance.class, distanceFunction);
+        setSomethingListAnyParams(MLPintParams.class, workingList, resultList, "setParamsCenter",
+                NnetarParams.class, resultListCenter);
+        setSomethingListAnyParams(MLPintParams.class, workingList, resultList, "setParamsRadius",
+                NnetarParams.class, resultListRadius);
         
-        List<MLPintParams> resultList = new ArrayList<>();
-        resultList.add(params);
+        System.out.println(resultList);
+        
         return resultList;
     }
     

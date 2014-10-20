@@ -48,4 +48,9 @@ public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke
         
         return param;
     }
+    
+    @Override
+    public String toString() {
+        return "MLPintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distanceFunction=" + distanceFunction + "}\n";
+    }
 }
