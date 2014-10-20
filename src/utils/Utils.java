@@ -58,12 +58,22 @@ public class Utils {
         return arrayDouble;
     }
     
-    public static Integer getIntegerOrDefault(JTextField textField) {
+    public static List<Integer> getIntegersOrDefault(JTextField textField) {
+        List<Integer> list = new ArrayList<>();
         try {
-            return Integer.parseInt(textField.getText());
+            String[] split = textField.getText().split("\\.\\.\\.");
+            if (split.length == 1) {
+                list.add(Integer.parseInt(textField.getText()));
+            } else { //predpokladam vyraz v tvare LB...UB
+                for (int i = Integer.parseInt(split[0]); i <= Integer.parseInt(split[1]); i++) { //bleee, to je ohavne
+                    list.add(i);
+                }
+            }
+            return list;
         } catch (NumberFormatException e) {
             //TODO log? resp. bude sa pouzivat defaultna hodnota
-            return null;
+            list.add(null);
+            return list;
         }
     }
     
@@ -117,12 +127,12 @@ public class Utils {
     public static double minList(List<Double> list) {
         double min = list.get(0);
         
-        for (int i = 0; i < list.size(); i++) {
+        for (Double item : list) {
             if (Double.isNaN(min)) {
-                min = list.get(i);
+                min = item;
             } else {
-                if (! Double.isNaN(Math.min(min, list.get(i)))) {
-                    min = Math.min(min, list.get(i));
+                if (!Double.isNaN(Math.min(min, item))) {
+                    min = Math.min(min, item);
                 }
             }
         }
@@ -133,12 +143,12 @@ public class Utils {
     public static double maxList(List<Double> list) {
         double max = list.get(0);
         
-        for (int i = 0; i < list.size(); i++) {
+        for (Double item : list) {
             if (Double.isNaN(max)) {
-                max = list.get(i);
+                max = item;
             } else {
-                if (! Double.isNaN(Math.max(max, list.get(i)))) {
-                    max = Math.max(max, list.get(i));
+                if (!Double.isNaN(Math.max(max, item))) {
+                    max = Math.max(max, item);
                 }
             }
         }

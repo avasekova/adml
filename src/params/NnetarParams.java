@@ -47,4 +47,24 @@ public class NnetarParams extends Params {
     public void setLambda(Double lambda) {
         this.lambda = lambda;
     }
+    
+    public NnetarParams getClone() {
+        NnetarParams param = new NnetarParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setLambda(lambda);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setNumNodesHidden(numNodesHidden);
+        param.setNumNonSeasonalLags(numNonSeasonalLags);
+        param.setNumReps(numReps);
+        param.setNumSeasonalLags(numSeasonalLags);
+        param.setPercentTrain(this.getPercentTrain());
+        
+        return param;
+    }
+
+    @Override
+    public String toString() {
+        return "NnetarParams{" + "numNodesHidden=" + numNodesHidden + ", numSeasonalLags=" + numSeasonalLags + ", numNonSeasonalLags=" + numNonSeasonalLags + ", numReps=" + numReps + ", lambda=" + lambda + "}\n";
+    }
 }

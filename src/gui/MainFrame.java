@@ -2697,24 +2697,30 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReportInterval> reportsITS = new ArrayList<>();
         
         if (checkBoxRunMLPnnetar.isSelected()) {
-            NnetarParams params = getParamsNnetar();
+            List<NnetarParams> params = getParamsNnetar();
             Forecastable nnetar = new Nnetar();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(data, params));
-            reportsCTS.add(report);
+            for (NnetarParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(data, p));
+                reportsCTS.add(report);
+            }
         }
         
         if (checkBoxRunMLPneuralnet.isSelected()) {
-            NeuralnetParams params = getParamsNeuralnet();
+            List<NeuralnetParams> params = getParamsNeuralnet();
             Forecastable neuralnet = new Neuralnet();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(data, params));
-            reportsCTS.add(report);
+            for (NeuralnetParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(data, p));
+                reportsCTS.add(report);
+            }
         }
         
         if (checkBoxRunMLPnnet.isSelected()) {
-            NnetParams params = getParamsNnet();
+            List<NnetParams> params = getParamsNnet();
             Forecastable nnet = new Nnet();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(data, params));
-            reportsCTS.add(report);
+            for (NnetParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(data, p));
+                reportsCTS.add(report);
+            }
         }
         
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
@@ -2722,17 +2728,19 @@ public class MainFrame extends javax.swing.JFrame {
                 ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory and one output variable need to be selected for the iMLP C code to run.");
             } else {
-                IntervalMLPCcodeParams params = getParamsIntervalMLPCcode();
+                List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode();
                 ForecastableIntervals cCode = new IntervalMLPCcode();
-                TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, params));
-                reportsITS.add(report);
+                for (IntervalMLPCcodeParams p : params) {
+                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, p));
+                    reportsITS.add(report);
+                }
             }
         }
         
         if (checkBoxRunMLPint.isSelected()) {
             String colnameCenter = comboBoxRunMLPintCenter.getSelectedItem().toString();
             String colnameRadius = comboBoxRunMLPintRadius.getSelectedItem().toString();
-            MLPintParams params = getParamsMLPint();
+            List<MLPintParams> params = getParamsMLPint();
             
             //run two separate forecasts, one for Center and the other for Radius
             Forecastable mlpInt = new MLPint();
@@ -2740,38 +2748,48 @@ public class MainFrame extends javax.swing.JFrame {
             List<Double> dataMLPint = new ArrayList<>();
             dataMLPint.addAll(dataTableModel.getDataForColname(colnameCenter));
             dataMLPint.addAll(dataTableModel.getDataForColname(colnameRadius));
-            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
-                    Collections.unmodifiableList(dataMLPint), params));
-            
-            reportsITS.add(report);
+            for (MLPintParams p : params) {
+                TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
+                    Collections.unmodifiableList(dataMLPint), p));
+                reportsITS.add(report);
+            }
         }
         
         if (checkBoxRunARIMA.isSelected()) {
-            ArimaParams params = getParamsArima();
+            List<ArimaParams> params = getParamsArima();
             Forecastable arima = new Arima();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(data, params));
-            reportsCTS.add(report);
+            for (ArimaParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(data, p));
+                reportsCTS.add(report);
+            }
         }
         
         if (checkBoxRunKNNfnn.isSelected()) {
-            KNNfnnParams params = getParamsKNNfnn();
+            List<KNNfnnParams> params = getParamsKNNfnn();
             Forecastable kNN = new KNNfnn();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(data, params));
-            reportsCTS.add(report);
+            for (KNNfnnParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(data, p));
+                reportsCTS.add(report);
+            }
         }
         
         if (checkBoxRunKNNcustom.isSelected()) {
-            KNNcustomParams params = getParamsKNNcustom();
+            List<KNNcustomParams> params = getParamsKNNcustom();
             Forecastable kNNcustom = new KNNcustom();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(data, params));
-            reportsCTS.add(report);
+            for (KNNcustomParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(data, p));
+                reportsCTS.add(report);
+            }
+           
         }
         
         if (checkBoxRunKNNkknn.isSelected()) {
-            KNNkknnParams params = getParamsKNNkknn();
+            List<KNNkknnParams> params = getParamsKNNkknn();
             Forecastable kNNkknn = new KNNkknn();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(data, params));
-            reportsCTS.add(report);
+            for (KNNkknnParams p : params) {
+                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(data, p));
+                reportsCTS.add(report);
+            }
         }
         
         //add more methods/models here
@@ -2780,7 +2798,7 @@ public class MainFrame extends javax.swing.JFrame {
         drawOneOrTwoTables(reportsCTS, reportsITS);
         
         //show Forecast plot
-        int numForecasts = Utils.getIntegerOrDefault(textFieldRunNumForecasts);
+        int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
@@ -3415,54 +3433,136 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
-    private NnetarParams getParamsNnetar() {
-        NnetarParams params = new NnetarParams();
+    private List<NnetarParams> getParamsNnetar() {
+        List<NnetarParams> workingList = new ArrayList<>();
+        NnetarParams par = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
-        params.setPercentTrain(sliderPercentTrain.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
-        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        params.setNumNodesHidden(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
-        params.setNumSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumSeasonalLags));
-        params.setNumNonSeasonalLags(Utils.getIntegerOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
-        params.setNumReps(Utils.getIntegerOrDefault(paramNnetar_textFieldNumReps));
-        params.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
+        par.setPercentTrain(sliderPercentTrain.getValue());
+        workingList.add(par);
         
-        return params;
+        List<NnetarParams> resultList = new ArrayList<>();
+        for (Integer i : Utils.getIntegersOrDefault(textFieldRunNumForecasts)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setNumForecasts(i); //tieto sa pripocitaju k testovacim forecasts!
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeFrom)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setDataRangeFrom(i);
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeTo)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setDataRangeTo(i);
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumNodesHiddenLayer)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setNumNodesHidden(i);
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumSeasonalLags)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setNumSeasonalLags(i);
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setNumNonSeasonalLags(i);
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setNumReps(i);
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+        }
+        
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+//        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps)) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                plone.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
+                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+            }
+//        }
+        
+        return resultList;
     }
     
-    private NeuralnetParams getParamsNeuralnet() {
+    private List<NeuralnetParams> getParamsNeuralnet() {
         NeuralnetParams params = new NeuralnetParams();
         //zohnat vsetky parametre pre dany model:
         //TODO: vymysliet nejak vseobecne! zatial je to natvrdo pre nnetar
 //        params.put("percentTrain", sliderPercentTrain.getValue());
-//        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+//        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts));
 //        //TODO chytat vynimky, resp. validator na cisla
-//        params.put("numNodesHidden", Utils.getIntegerOrDefault(textFieldNumNodesInHiddenSingleLayer));
-//        params.put("numSeasonalLags", Utils.getIntegerOrDefault(textFieldNumSeasonalLags));
-//        params.put("numNonSeasonalLags", Utils.getIntegerOrDefault(textFieldNumNonSeasonalLags));
-//        params.put("numReps", Utils.getIntegerOrDefault(textFieldNumReps));
-//        params.put("lambda", Utils.getIntegerOrDefault(textFieldLambda));
-//        params.put("numForecasts", Utils.getIntegerOrDefault(textFieldNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
+//        params.put("numNodesHidden", Utils.getIntegersOrDefault(textFieldNumNodesInHiddenSingleLayer));
+//        params.put("numSeasonalLags", Utils.getIntegersOrDefault(textFieldNumSeasonalLags));
+//        params.put("numNonSeasonalLags", Utils.getIntegersOrDefault(textFieldNumNonSeasonalLags));
+//        params.put("numReps", Utils.getIntegersOrDefault(textFieldNumReps));
+//        params.put("lambda", Utils.getIntegersOrDefault(textFieldLambda));
+//        params.put("numForecasts", Utils.getIntegersOrDefault(textFieldNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
         
-        return params;
+        List<NeuralnetParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private NnetParams getParamsNnet() {
+    private List<NnetParams> getParamsNnet() {
         NnetParams params = new NnetParams();
         //zohnat vsetky parametre pre dany model:
         
         params.setLag(Integer.parseInt(paramNnet_lag.getText()));
         params.setPercentTrain(sliderPercentTrain.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setAbstol(Utils.getDoubleOrDefault(paramNnet_abstol));
         params.setReltol(Utils.getDoubleOrDefault(paramNnet_reltol));
         params.setSkipLayerConnections(Utils.booleanToRBool(paramNnet_checkBoxSkipConn.isSelected()));
         params.setInitWeightsRange(Utils.getDoubleOrDefault(paramNnet_initRange));
-        params.setMaxIterations(Utils.getIntegerOrDefault(paramNnet_maxit));
-        params.setNumNodesHiddenLayer(Utils.getIntegerOrDefault(paramNnet_numNodesHiddenLayer));
+        params.setMaxIterations(Utils.getIntegersOrDefault(paramNnet_maxit).get(0));
+        params.setNumNodesHiddenLayer(Utils.getIntegersOrDefault(paramNnet_numNodesHiddenLayer).get(0));
         params.setLinearElseLogistic(Utils.booleanToRBool(paramNnet_radioButtonLogistic.isSelected()));
         params.setLeastSqrsElseMaxCondLikelihood(Utils.booleanToRBool(paramNnet_radioButtonLeastSqrs.isSelected()));
         params.setLoglinSoftmaxElseMaxCondLikelihood(Utils.booleanToRBool(paramNnet_radioButtonLoglinSoftmax.isSelected()));
@@ -3470,14 +3570,16 @@ public class MainFrame extends javax.swing.JFrame {
         params.setWeightDecay(Utils.getDoubleOrDefault(paramNnet_weightDecay));
         params.setTraceOptimization(Utils.booleanToRBool(paramNnet_traceOptimization.isSelected()));
         
-        return params;
+        List<NnetParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private IntervalMLPCcodeParams getParamsIntervalMLPCcode() {
+    private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode() {
         IntervalMLPCcodeParams params = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainIntervalMLP.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         switch (comboBoxSettingsIMLPcCodeDistance.getSelectedItem().toString()) {
@@ -3505,37 +3607,39 @@ public class MainFrame extends javax.swing.JFrame {
                 params.setDistanceFunction(bertoluzza);
                 break;
         }
-        params.setNumNodesHidden(Utils.getIntegerOrDefault(textFieldIntervalMLPCcodeNumNeurons));
+        params.setNumNodesHidden(Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumNeurons).get(0));
         params.setNumIterations(Integer.parseInt(textFieldIntervalMLPCcodeNumIterations.getText()));
         params.setExplVars(((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
         params.setOutVars(((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
         params.setNumNetworks(Integer.parseInt(textFieldSettingsIntervalMLPnumNetworks.getText()));
         //TODO add the criterion here
         
-        return params;
+        List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private MLPintParams getParamsMLPint() {
+    private List<MLPintParams> getParamsMLPint() {
         NnetarParams paramsCenter = new NnetarParams();
         paramsCenter.setPercentTrain(sliderPercentTrainMLPint.getValue());
-        paramsCenter.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
+        paramsCenter.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0)); //tieto sa pripocitaju k testovacim forecasts!
         paramsCenter.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         paramsCenter.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        paramsCenter.setNumNodesHidden(Utils.getIntegerOrDefault(paramMLPint_center_textFieldNumNodesHiddenLayer));
-        paramsCenter.setNumSeasonalLags(Utils.getIntegerOrDefault(paramMLPint_center_textFieldNumSeasonalLags));
-        paramsCenter.setNumNonSeasonalLags(Utils.getIntegerOrDefault(paramMLPint_center_textFieldNumNonSeasonalLags));
-        paramsCenter.setNumReps(Utils.getIntegerOrDefault(paramMLPint_center_textFieldNumReps));
+        paramsCenter.setNumNodesHidden(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumNodesHiddenLayer).get(0));
+        paramsCenter.setNumSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumSeasonalLags).get(0));
+        paramsCenter.setNumNonSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumNonSeasonalLags).get(0));
+        paramsCenter.setNumReps(Utils.getIntegersOrDefault(paramMLPint_center_textFieldNumReps).get(0));
         paramsCenter.setLambda(Utils.getDoubleOrDefault(paramMLPint_center_textFieldLambda));
         
         NnetarParams paramsRadius = new NnetarParams();
         paramsRadius.setPercentTrain(sliderPercentTrainMLPint.getValue());
-        paramsRadius.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
+        paramsRadius.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0)); //tieto sa pripocitaju k testovacim forecasts!
         paramsRadius.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         paramsRadius.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        paramsRadius.setNumNodesHidden(Utils.getIntegerOrDefault(paramMLPint_radius_textFieldNumNodesHiddenLayer));
-        paramsRadius.setNumSeasonalLags(Utils.getIntegerOrDefault(paramMLPint_radius_textFieldNumSeasonalLags));
-        paramsRadius.setNumNonSeasonalLags(Utils.getIntegerOrDefault(paramMLPint_radius_textFieldNumNonSeasonalLags));
-        paramsRadius.setNumReps(Utils.getIntegerOrDefault(paramMLPint_radius_textFieldNumReps));
+        paramsRadius.setNumNodesHidden(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumNodesHiddenLayer).get(0));
+        paramsRadius.setNumSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumSeasonalLags).get(0));
+        paramsRadius.setNumNonSeasonalLags(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumNonSeasonalLags).get(0));
+        paramsRadius.setNumReps(Utils.getIntegersOrDefault(paramMLPint_radius_textFieldNumReps).get(0));
         paramsRadius.setLambda(Utils.getDoubleOrDefault(paramMLPint_radius_textFieldLambda));
         
         MLPintParams params = new MLPintParams();
@@ -3567,15 +3671,17 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
         }
         
-        return params;
+        List<MLPintParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private ArimaParams getParamsArima() {
+    private List<ArimaParams> getParamsArima() {
         ArimaParams params = new ArimaParams();
         
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainARIMA.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setOptimize(checkBoxSettingsARIMAoptimize.isSelected());
@@ -3587,14 +3693,16 @@ public class MainFrame extends javax.swing.JFrame {
         params.setSeasQ(Integer.parseInt(textFieldSettingsARIMAseasQ.getText()));
         params.setWithConstant(checkBoxSettingsARIMAconstant.isSelected());
         
-        return params;
+        List<ArimaParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private KNNcustomParams getParamsKNNcustom() {
+    private List<KNNcustomParams> getParamsKNNcustom() {
         KNNcustomParams params = new KNNcustomParams();
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursCustom.getValue().toString()));
@@ -3603,35 +3711,41 @@ public class MainFrame extends javax.swing.JFrame {
         params.setDistanceMethodName(comboBoxKNNdistance.getSelectedItem().toString());
         params.setCombinationMethodName(comboBoxKNNcombination.getSelectedItem().toString());
         
-        return params;
+        List<KNNcustomParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private KNNfnnParams getParamsKNNfnn() {
+    private List<KNNfnnParams> getParamsKNNfnn() {
         KNNfnnParams params = new KNNfnnParams();
         
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursFNN.getValue().toString()));
         params.setLag(Integer.parseInt(textFieldKNNfnnLag.getText()));
         
-        return params;
+        List<KNNfnnParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
-    private KNNkknnParams getParamsKNNkknn() {
+    private List<KNNkknnParams> getParamsKNNkknn() {
         KNNkknnParams params = new KNNkknnParams();
         
         //zohnat vsetky parametre pre dany model:
         params.setPercentTrain(sliderPercentTrainKNN.getValue());
-        params.setNumForecasts(Utils.getIntegerOrDefault(textFieldRunNumForecasts));
+        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
         params.setMaxNeighbours(Integer.parseInt(spinnerKNNnumNeighboursKKNN.getValue().toString()));
         params.setLag(Integer.parseInt(textFieldKNNkknnLag.getText()));
         
-        return params;
+        List<KNNkknnParams> resultList = new ArrayList<>();
+        resultList.add(params);
+        return resultList;
     }
     
     public void addPlotITS_CentreRadius(IntervalNamesCentreRadius interval) {
@@ -3712,6 +3826,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
-        this.repaint();
+        panelSummary.repaint();
     }
 }

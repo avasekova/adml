@@ -62,15 +62,15 @@ public class PlotDrawer {
 
                 //remember these for the legend
                 names.add(r.getModelName());
-                colours.add(COLOURS[colourNumber]);
+                colours.add(COLOURS[colourNumber % COLOURS.length]);
                 
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
-                        + "lwd=4, col=\"" + COLOURS[colourNumber] + "\"");
+                        + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
                 rengine.eval(plotCode.toString());
                 //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + r.getNumTrainingEntries() + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber] + "\")");
+                rengine.eval("abline(v = " + r.getNumTrainingEntries() + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 colourNumber++;
             }
             
@@ -114,7 +114,7 @@ public class PlotDrawer {
                 
                 //remember these for the legend
                 names.add(r.getModelName());
-                colours.add(COLOURS[colourNumber]);
+                colours.add(COLOURS[colourNumber % COLOURS.length]);
                 
                 //naplotovat fitted values:
                 final int sizeFitted = r.getFittedValues().size();
@@ -126,7 +126,7 @@ public class PlotDrawer {
                 rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = "
-                        + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                        + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 //naplotovat fitted values pre training data:
                 final int sizeForecastTest = r.getForecastValuesTest().size();
@@ -140,7 +140,7 @@ public class PlotDrawer {
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", lower, "
                         + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", upper, xlim = " + rangeX_ITS
-                        + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                        + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 //naplotovat forecasty buduce:
                 final int sizeForecastFuture = r.getForecastValuesFuture().size();
@@ -157,11 +157,11 @@ public class PlotDrawer {
                             + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
                             + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
                             + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS
-                            + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                            + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 }
                 
                 //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + sizeFitted + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber] + "\")");
+                rengine.eval("abline(v = " + sizeFitted + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 colourNumber++;
             }
@@ -199,6 +199,7 @@ public class PlotDrawer {
 
         MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDCanvas.initRefresh();
+        //TODO kresli sa dvakrat! skusit http://stackoverflow.com/questions/8067844/paint-in-java-applet-is-called-twice-for-no-reason
     }
     
     public static void drawPlotsITS(GDCanvas canvasToUse, int width, int height, DataTableModel dataTableModel,
@@ -222,9 +223,9 @@ public class PlotDrawer {
         for (IntervalNamesCentreRadius interval : listCentreRadius) {
             //remember these for the legend
             names.add(interval.toString());
-            colours.add(COLOURS[colourNumber]);
+            colours.add(COLOURS[colourNumber % COLOURS.length]);
             
-            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"";
+            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
             drawPlotITS_CenterRadius(width, height, dataTableModel.getDataForColname(interval.getCentre()),
                     dataTableModel.getDataForColname(interval.getRadius()), next, lineStyle, rangeY);
             if (! next) {
@@ -238,9 +239,9 @@ public class PlotDrawer {
         
         for (IntervalNamesLowerUpper interval : listLowerUpper) {
             names.add(interval.toString());
-            colours.add(COLOURS[colourNumber]);
+            colours.add(COLOURS[colourNumber % COLOURS.length]);
             
-            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber] + "\"";
+            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
             drawPlotITS_LBUB(width, height, dataTableModel.getDataForColname(interval.getLowerBound()),
                     dataTableModel.getDataForColname(interval.getUpperBound()), next, lineStyle, rangeY);
             if (! next) {
@@ -376,6 +377,7 @@ public class PlotDrawer {
     //alebo tu su nejake farby: od zaciatku si z nich brat, a mali by byt vzdy dost vzdialene
     
     public static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
+        //TODO urgentne pridat viac farieb, aby to nebolo treba modulit!
         "magenta",
         "blue",
         "green3",
