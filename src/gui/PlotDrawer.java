@@ -13,8 +13,6 @@ import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
-import utils.imlp.Interval;
-import utils.imlp.IntervalCentreRadius;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
@@ -81,7 +79,6 @@ public class PlotDrawer {
             rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
                     + "ylab=\"" + colname_CTS + "\","
                     + "lwd=2, col=\"#444444\")");
-//            rengine.eval("abline(v = " + numTrainingEntries_CTS + ", lty = 3)"); //add a dashed vertical line to separate TRAIN and TEST
             rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)"); //dashed vertical line to separate forecasts
             
             //add legend
@@ -147,19 +144,21 @@ public class PlotDrawer {
                 
                 //naplotovat forecasty buduce:
                 final int sizeForecastFuture = r.getForecastValuesFuture().size();
-                rengine.eval("par(new=TRUE)");
-                rengine.assign("lower", r.getForecastValuesFutureLowers());
-                rengine.assign("upper", r.getForecastValuesFutureUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
-                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
-                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1) + ":"
-                        + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
-                        + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
-                        + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS
-                        + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                if (sizeForecastFuture > 0) {
+                    rengine.eval("par(new=TRUE)");
+                    rengine.assign("lower", r.getForecastValuesFutureLowers());
+                    rengine.assign("upper", r.getForecastValuesFutureUppers());
+                    rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                            + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                    rengine.eval("par(new=TRUE)");
+                    rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                            + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                    rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1) + ":"
+                            + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
+                            + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
+                            + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS
+                            + ", lwd=4, col=\"" + COLOURS[colourNumber] + "\")");
+                }
                 
                 //add a dashed vertical line to separate test and train
                 rengine.eval("abline(v = " + sizeFitted + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber] + "\")");
@@ -403,7 +402,7 @@ public class PlotDrawer {
             rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
             rangesY.append(Utils.minArray(r.getForecastValuesTest())).append(", ");
             rangesY.append(Utils.maxArray(r.getForecastValuesTest()));
-            if (r.getForecastValuesFuture().length != 0) {
+            if (r.getForecastValuesFuture().length > 0) {
                 rangesY.append(", ");
                 rangesY.append(Utils.minArray(r.getForecastValuesFuture())).append(", ");
                 rangesY.append(Utils.maxArray(r.getForecastValuesFuture()));

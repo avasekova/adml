@@ -86,7 +86,7 @@ public class Utils {
     
     public static double minArray(double[] array) {
         double min = NaN;
-        for (int i = 0; i < array.length - 1; i++) {
+        for (int i = 0; i < array.length; i++) {
             if (Double.isNaN(min)) {
                 min = array[i];
             } else {
@@ -101,7 +101,7 @@ public class Utils {
     
     public static double maxArray(double[] array) {
         double max = NaN;
-        for (int i = 0; i < array.length - 1; i++) {
+        for (int i = 0; i < array.length; i++) {
             if (Double.isNaN(max)) {
                 max = array[i];
             } else {
@@ -117,7 +117,7 @@ public class Utils {
     public static double minList(List<Double> list) {
         double min = list.get(0);
         
-        for (int i = 0; i < list.size() - 1; i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (Double.isNaN(min)) {
                 min = list.get(i);
             } else {
@@ -133,7 +133,7 @@ public class Utils {
     public static double maxList(List<Double> list) {
         double max = list.get(0);
         
-        for (int i = 0; i < list.size() - 1; i++) {
+        for (int i = 0; i < list.size(); i++) {
             if (Double.isNaN(max)) {
                 max = list.get(i);
             } else {
