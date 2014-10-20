@@ -53,10 +53,11 @@ public class Arima implements Forecastable {
             rengine.eval(MODEL + " <- forecast::Arima(" + SCALED_INPUT_TRAIN + ", order = c(" + params.getNonSeasP() + ", "
                                                                        + params.getNonSeasD() + ", "
                                                                        + params.getNonSeasQ()
-                                     + "), seasonal = c(" + params.getSeasP() + ", "
+                                     + "), seasonal = list(order=c(" + params.getSeasP() + ", "
                                                                        + params.getSeasD() + ", "
                                                                        + params.getNonSeasQ()
-                                     + "), include.constant = " + Utils.booleanToRBool(params.isWithConstant()) + ")");
+                                     + "), period=NA), include.constant = " + Utils.booleanToRBool(params.isWithConstant()) + ", "
+                                     + "method=\"ML\")");
         }
         
         rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")");
