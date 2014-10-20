@@ -34,4 +34,18 @@ public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke
     public void setDistanceFunction(Distance distanceFunction) {
         this.distanceFunction = distanceFunction;
     }
+    
+    @Override
+    public MLPintParams getClone() {
+        MLPintParams param = new MLPintParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setDistanceFunction(distanceFunction);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setParamsCenter(paramsCenter);
+        param.setParamsRadius(paramsRadius);
+        param.setPercentTrain(this.getPercentTrain());
+        
+        return param;
+    }
 }

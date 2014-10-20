@@ -20,4 +20,17 @@ public class KNNfnnParams extends Params {
     public void setLag(int lag) {
         this.lag = lag;
     }
+    
+    @Override
+    public KNNfnnParams getClone() {
+        KNNfnnParams param = new KNNfnnParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setLag(lag);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setNumNeighbours(numNeighbours);
+        param.setPercentTrain(this.getPercentTrain());
+        
+        return param;
+    }
 }

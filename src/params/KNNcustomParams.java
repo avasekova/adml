@@ -47,4 +47,20 @@ public class KNNcustomParams extends Params {
     public void setCombinationMethodName(String combinationMethodName) {
         this.combinationMethodName = combinationMethodName;
     }
+    
+    @Override
+    public KNNcustomParams getClone() {
+        KNNcustomParams param = new KNNcustomParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setCombinationMethodName(combinationMethodName);
+        param.setDistanceMethodName(distanceMethodName);
+        param.setLag(lag);
+        param.setLengthHistory(lengthHistory);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setNumNeighbours(numNeighbours);
+        param.setPercentTrain(this.getPercentTrain());
+        
+        return param;
+    }
 }

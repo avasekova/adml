@@ -48,6 +48,7 @@ public class NnetarParams extends Params {
         this.lambda = lambda;
     }
     
+    @Override
     public NnetarParams getClone() {
         NnetarParams param = new NnetarParams();
         param.setDataRangeFrom(this.getDataRangeFrom());

@@ -74,4 +74,23 @@ public class ArimaParams extends Params {
     public void setWithConstant(boolean withConstant) {
         this.withConstant = withConstant;
     }
+    
+    @Override
+    public ArimaParams getClone() {
+        ArimaParams param = new ArimaParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setNonSeasD(nonSeasD);
+        param.setNonSeasP(nonSeasP);
+        param.setNonSeasQ(nonSeasQ);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setOptimize(optimize);
+        param.setPercentTrain(this.getPercentTrain());
+        param.setSeasD(seasD);
+        param.setSeasP(seasP);
+        param.setSeasQ(seasQ);
+        param.setWithConstant(withConstant);
+        
+        return param;
+    }
 }

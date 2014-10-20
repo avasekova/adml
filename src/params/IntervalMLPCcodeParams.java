@@ -63,4 +63,21 @@ public class IntervalMLPCcodeParams extends Params {
     public void setNumNetworks(int numNetworks) {
         this.numNetworks = numNetworks;
     }
+    
+    @Override
+    public IntervalMLPCcodeParams getClone() {
+        IntervalMLPCcodeParams param = new IntervalMLPCcodeParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setDistanceFunction(distanceFunction);
+        param.setExplVars(explVars);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setNumIterations(numIterations);
+        param.setNumNetworks(numNetworks);
+        param.setNumNodesHidden(numNodesHidden);
+        param.setOutVars(outVars);
+        param.setPercentTrain(this.getPercentTrain());
+        
+        return param;
+    }
 }

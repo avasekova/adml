@@ -140,4 +140,29 @@ public class NnetParams extends Params {
         this.maxNumOfWeights = maxNumOfWeights;
     }
     
+    @Override
+    public NnetParams getClone() {
+        NnetParams param = new NnetParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setAbstol(abstol);
+        param.setCensoredOnElseOff(censoredOnElseOff);
+        param.setHessian(hessian);
+        param.setInitWeightsRange(initWeightsRange);
+        param.setLag(lag);
+        param.setLeastSqrsElseMaxCondLikelihood(leastSqrsElseMaxCondLikelihood);
+        param.setLinearElseLogistic(linearElseLogistic);
+        param.setLoglinSoftmaxElseMaxCondLikelihood(loglinSoftmaxElseMaxCondLikelihood);
+        param.setMaxIterations(maxIterations);
+        param.setMaxNumOfWeights(maxNumOfWeights);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setNumNodesHiddenLayer(numNodesHiddenLayer);
+        param.setPercentTrain(this.getPercentTrain());
+        param.setReltol(reltol);
+        param.setSkipLayerConnections(skipLayerConnections);
+        param.setTraceOptimization(traceOptimization);
+        param.setWeightDecay(weightDecay);
+        
+        return param;
+    }
 }

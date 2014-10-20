@@ -1,6 +1,6 @@
 package params;
 
-public class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
+public abstract class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
     
     private int percentTrain;
     private int numForecasts;
@@ -9,7 +9,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
     
     public Params() { }
     
-    public Params(int percentTrain) {
+    public Params(Integer percentTrain) {
         this.percentTrain = percentTrain;
     }
 
@@ -17,7 +17,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
         return percentTrain;
     }
 
-    public void setPercentTrain(int percentTrain) {
+    public void setPercentTrain(Integer percentTrain) {
         this.percentTrain = percentTrain;
     }
 
@@ -25,7 +25,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
         return numForecasts;
     }
 
-    public void setNumForecasts(int numForecasts) {
+    public void setNumForecasts(Integer numForecasts) {
         this.numForecasts = numForecasts;
     }
 
@@ -33,7 +33,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
         return dataRangeFrom;
     }
 
-    public void setDataRangeFrom(int dataRangeFrom) {
+    public void setDataRangeFrom(Integer dataRangeFrom) {
         this.dataRangeFrom = dataRangeFrom;
     }
 
@@ -41,7 +41,9 @@ public class Params { //do not add futureForecastValues to params - no need to. 
         return dataRangeTo;
     }
 
-    public void setDataRangeTo(int dataRangeTo) {
+    public void setDataRangeTo(Integer dataRangeTo) {
         this.dataRangeTo = dataRangeTo;
     }
+    
+    public abstract Params getClone();
 }

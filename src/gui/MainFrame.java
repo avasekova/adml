@@ -6,9 +6,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -43,6 +47,7 @@ import params.MLPintParams;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
+import params.Params;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.ExcelWriter;
@@ -3433,98 +3438,63 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
+    //TODO vymysliet nejak vseobecnejsie! s generikami asi. toto je ohavne
+    private List<NnetarParams> setSomethingIntegerNnetar(List<NnetarParams> workingList, List<NnetarParams> resultList,
+            String methodName, List<Integer> valuesInteger) {
+        workingList.clear();
+        workingList.addAll(resultList);
+        resultList.clear();
+        for (Integer i : valuesInteger) {
+            for (NnetarParams p : workingList) {
+                NnetarParams plone = p.getClone();
+                try {
+                    Method method = NnetarParams.class.getMethod(methodName, Integer.class);
+                    method.invoke(plone, i);
+                } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                resultList.add(plone);
+            }
+        }
+        
+        return resultList;
+    }
+    
     private List<NnetarParams> getParamsNnetar() { //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
         List<NnetarParams> workingList = new ArrayList<>();
         NnetarParams par = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(sliderPercentTrain.getValue());
-        workingList.add(par);
         
         List<NnetarParams> resultList = new ArrayList<>();
-//        for (Integer i : Utils.getIntegersOrDefault(textFieldRunNumForecasts)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0)); //tieto sa pripocitaju k testovacim forecasts!
-                resultList.add(plone);
-            }
-//        }
+        resultList.add(par);
+        
+        setSomethingIntegerNnetar(workingList, resultList, "setNumForecasts", 
+                Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingIntegerNnetar(workingList, resultList, "setDataRangeFrom",
+                Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingIntegerNnetar(workingList, resultList, "setDataRangeTo",
+                Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingIntegerNnetar(workingList, resultList, "setNumNodesHidden",
+                Utils.getIntegersOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
+        setSomethingIntegerNnetar(workingList, resultList, "setNumSeasonalLags",
+                Utils.getIntegersOrDefault(paramNnetar_textFieldNumSeasonalLags));
+        setSomethingIntegerNnetar(workingList, resultList, "setNumNonSeasonalLags",
+                Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
+        setSomethingIntegerNnetar(workingList, resultList, "setNumReps",
+                Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps));
         
         workingList.clear();
         workingList.addAll(resultList);
         resultList.clear();
-//        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeFrom)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setDataRangeFrom(Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).get(0));
-                resultList.add(plone);
-            }
-//        }
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-//        for (Integer i : Utils.getIntegersOrDefault(textFieldRunDataRangeTo)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setDataRangeTo(Utils.getIntegersOrDefault(textFieldRunDataRangeTo).get(0));
-                resultList.add(plone);
-            }
-//        }
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumNodesHiddenLayer)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setNumNodesHidden(i);
-                resultList.add(plone);
-            }
+        //multiple vals for Doubles not supported yet
+        for (NnetarParams p : workingList) {
+            NnetarParams plone = p.getClone();
+            plone.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
+            resultList.add(plone);
         }
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumSeasonalLags)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setNumSeasonalLags(i);
-                resultList.add(plone);
-            }
-        }
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setNumNonSeasonalLags(i);
-                resultList.add(plone);
-            }
-        }
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setNumReps(i);
-                resultList.add(plone);
-            }
-        }
-        
-        workingList.clear();
-        workingList.addAll(resultList);
-        resultList.clear();
-//        for (Integer i : Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps)) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
-                plone.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
-                resultList.add(plone);
-            }
-//        }
+            
+        System.out.println(resultList);
         
         return resultList;
     }
