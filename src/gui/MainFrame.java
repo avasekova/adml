@@ -3433,7 +3433,7 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
-    private List<NnetarParams> getParamsNnetar() {
+    private List<NnetarParams> getParamsNnetar() { //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
         List<NnetarParams> workingList = new ArrayList<>();
         NnetarParams par = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
@@ -3445,7 +3445,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setNumForecasts(i); //tieto sa pripocitaju k testovacim forecasts!
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3456,7 +3456,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setDataRangeFrom(i);
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3467,7 +3467,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setDataRangeTo(i);
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3478,7 +3478,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setNumNodesHidden(i);
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3489,7 +3489,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setNumSeasonalLags(i);
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3500,7 +3500,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setNumNonSeasonalLags(i);
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3511,7 +3511,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setNumReps(i);
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
         }
         
@@ -3522,7 +3522,7 @@ public class MainFrame extends javax.swing.JFrame {
             for (NnetarParams p : workingList) {
                 NnetarParams plone = p.getClone();
                 plone.setLambda(Utils.getDoubleOrDefault(paramNnetar_textFieldLambda));
-                resultList.add(plone); //tuto sa asi bude stale prepisovat hodnota tomu ubohemu p, a bude tam vela rovnakych
+                resultList.add(plone);
             }
 //        }
         
