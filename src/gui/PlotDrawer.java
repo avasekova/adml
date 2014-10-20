@@ -504,7 +504,22 @@ public class PlotDrawer {
         List<String> diagramPlots = new ArrayList<>();
         for (TrainAndTestReport r : reports) {
             if (! "".equals(r.getNnDiagramPlotCode())) {
-                diagramPlots.add(r.getNnDiagramPlotCode());
+                if (r.getNnDiagramPlotCode().contains(";")) {
+                    //fuj, hack, TODO spravit lepsie ako split na dva, resp. prisposobovat v buducnosti
+                    String firstPlot = r.getNnDiagramPlotCode().split(";")[0];
+                    StringBuilder diagramPlotCode = new StringBuilder(firstPlot);
+                    diagramPlotCode.insert(firstPlot.length() - 1, ", main=\"" + r.getModelName() + " (Center)\"");
+                    diagramPlots.add(diagramPlotCode.toString());
+                    
+                    String secondPlot = r.getNnDiagramPlotCode().split(";")[1];
+                    diagramPlotCode = new StringBuilder(secondPlot);
+                    diagramPlotCode.insert(secondPlot.length() - 1, ", main=\"" + r.getModelName() + " (Radius)\"");
+                    diagramPlots.add(diagramPlotCode.toString());
+                } else {
+                    StringBuilder diagramPlotCode = new StringBuilder(r.getNnDiagramPlotCode());
+                    diagramPlotCode.insert(r.getNnDiagramPlotCode().length() - 1, ", main=\"" + r.getModelName() + "\"");
+                    diagramPlots.add(diagramPlotCode.toString());
+                }
             }
         }
         

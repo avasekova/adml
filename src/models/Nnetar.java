@@ -92,8 +92,7 @@ public class Nnetar implements Forecastable {
         report.setPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))"); //vykresli iba fitted values
         
         //TODO neskor vybrat najlepsi a ten naplotovat! zatial plotuje prvy :/
-        report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + "$model[[1]]$wts, struct = " + NNETWORK + "$model[[1]]$n, "
-                + "main = \"nnetar\")");
+        report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + "$model[[1]]$wts, struct = " + NNETWORK + "$model[[1]]$n)");
         
         return report;
     }

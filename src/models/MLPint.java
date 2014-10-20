@@ -83,6 +83,9 @@ public class MLPint implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
+        //hack, aby sme mohli mat oba ploty v jednej premennej
+        report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
+        
         return report;
     }
 
