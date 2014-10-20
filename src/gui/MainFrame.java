@@ -3438,17 +3438,16 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
-    //TODO vymysliet nejak vseobecnejsie! s generikami asi. toto je ohavne
-    private List<NnetarParams> setSomethingIntegerNnetar(List<NnetarParams> workingList, List<NnetarParams> resultList,
-            String methodName, List<Integer> valuesInteger) {
+    private <T extends Params> List<T> setSomethingIntegerAnyParams(Class<T> classs,
+            List<T> workingList, List<T> resultList, String methodName, List<Integer> valuesInteger) {
         workingList.clear();
         workingList.addAll(resultList);
         resultList.clear();
         for (Integer i : valuesInteger) {
-            for (NnetarParams p : workingList) {
-                NnetarParams plone = p.getClone();
+            for (T p : workingList) {
+                T plone = (T) p.getClone();
                 try {
-                    Method method = NnetarParams.class.getMethod(methodName, Integer.class);
+                    Method method = classs.getMethod(methodName, Integer.class);
                     method.invoke(plone, i);
                 } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
                     Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -3469,19 +3468,19 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        setSomethingIntegerNnetar(workingList, resultList, "setNumForecasts", 
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumForecasts", 
                 Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerNnetar(workingList, resultList, "setDataRangeFrom",
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setDataRangeFrom",
                 Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerNnetar(workingList, resultList, "setDataRangeTo",
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setDataRangeTo",
                 Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        setSomethingIntegerNnetar(workingList, resultList, "setNumNodesHidden",
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumNodesHidden",
                 Utils.getIntegersOrDefault(paramNnetar_textFieldNumNodesHiddenLayer));
-        setSomethingIntegerNnetar(workingList, resultList, "setNumSeasonalLags",
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumSeasonalLags",
                 Utils.getIntegersOrDefault(paramNnetar_textFieldNumSeasonalLags));
-        setSomethingIntegerNnetar(workingList, resultList, "setNumNonSeasonalLags",
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumNonSeasonalLags",
                 Utils.getIntegersOrDefault(paramNnetar_textFieldNumNonSeasonalLags));
-        setSomethingIntegerNnetar(workingList, resultList, "setNumReps",
+        setSomethingIntegerAnyParams(NnetarParams.class, workingList, resultList, "setNumReps",
                 Utils.getIntegersOrDefault(paramNnetar_textFieldNumReps));
         
         workingList.clear();
