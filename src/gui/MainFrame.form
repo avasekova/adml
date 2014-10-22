@@ -152,7 +152,7 @@
                           <Component id="jScrollPane4" min="-2" pref="87" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                      <Component id="panelPlot" pref="442" max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="447" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -307,7 +307,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="565" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="575" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -504,7 +504,7 @@
                                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                           <Component id="paramNnetar_textFieldLambda" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="357" max="32767" attributes="0"/>
+                                      <EmptySpace pref="367" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -600,7 +600,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="467" max="32767" attributes="0"/>
+                                      <EmptySpace pref="477" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1045,60 +1045,39 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                      <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="panelSettingsMLPintPackage" max="32767" attributes="0"/>
                                           <Group type="102" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel78" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel79" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel81" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="comboBoxSettingsMLPintDistance" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                                      <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="paramMLPint_center_textFieldLambda" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel87" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel82" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel83" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="paramMLPint_radius_textFieldLambda" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="0" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                                              <Component id="comboBoxRPackageMLPint" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabelRPkg1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="32767" attributes="0"/>
                                       <Component id="jLabelPercTrain1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="sliderPercentTrainMLPint" min="-2" pref="270" max="-2" attributes="0"/>
@@ -1106,23 +1085,18 @@
                                       <Component id="textFieldPercentTrainMLPint" min="-2" pref="56" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabelPercentSign1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="comboBoxSettingsMLPintDistance" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="364" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                               <EmptySpace min="0" pref="1084" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="262" max="-2" attributes="0"/>
                                   <Component id="panelSettingsMLPintDistanceParams" max="32767" attributes="0"/>
-                                  <EmptySpace pref="721" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="721" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1134,95 +1108,37 @@
                               <Component id="jLabel47" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabelPercTrain1" min="-2" max="-2" attributes="0"/>
                                   <Component id="sliderPercentTrainMLPint" min="-2" max="-2" attributes="0"/>
                                   <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                       <Component id="textFieldPercentTrainMLPint" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabelPercentSign1" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabelPercTrain1" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabelRPkg1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel77" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel78" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel79" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumReps" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel81" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldLambda" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel82" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel83" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumReps" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldLambda" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
+                                      <Component id="comboBoxRPackageMLPint" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jSeparator3" min="-2" pref="144" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="panelSettingsMLPintPackage" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="comboBoxSettingsMLPintDistance" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="237" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="560" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="570" max="32767" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="2" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="311" max="-2" attributes="0"/>
-                                  <Component id="panelSettingsMLPintDistanceParams" max="32767" attributes="0"/>
-                                  <EmptySpace pref="212" max="32767" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace pref="529" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsMLPintDistanceParams" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -1231,7 +1147,7 @@
                   <SubComponents>
                     <Component class="javax.swing.JLabel" name="jLabel47">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Imitates iMLP by constructing an interval out of two separate forecasts for Center and Radius. Uses nnetar."/>
+                        <Property name="text" type="java.lang.String" value="Imitates iMLP by constructing an interval out of two separate forecasts for Center and Radius."/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabelPercTrain1">
@@ -1260,159 +1176,6 @@
                     <Component class="javax.swing.JLabel" name="jLabelPercentSign1">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="%"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel77">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNodesHiddenLayer">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumNodesHiddenLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumNodesHiddenLayer.getText())) {&#xa;            paramMLPint_center_textFieldNumNodesHiddenLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumNodesHiddenLayer.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumNodesHiddenLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel78">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of non-seasonal lags to be used as inputs:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNonSeasonalLags">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="1"/>
-                        <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumNonSeasonalLags.getText())) {&#xa;            paramMLPint_center_textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel79">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of seasonal lags to be used as inputs:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumSeasonalLags">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumSeasonalLags.getText())) {&#xa;            paramMLPint_center_textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel80">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of repetitions:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumReps">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="20"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumReps.getText())) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel81">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Lambda (Box-Cox transformation):"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldLambda">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldLambda.getText())) {&#xa;            paramMLPint_center_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel82">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNodesHiddenLayer">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumNodesHiddenLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumNodesHiddenLayer.getText())) {&#xa;            paramMLPint_radius_textFieldNumNodesHiddenLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumNodesHiddenLayer.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumNodesHiddenLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel83">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of non-seasonal lags to be used as inputs:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel84">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of seasonal lags to be used as inputs:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel85">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of repetitions:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel86">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Lambda (Box-Cox transformation):"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldLambda">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldLambda.getText())) {&#xa;            paramMLPint_radius_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumReps">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="20"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumReps.getText())) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumSeasonalLags">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumSeasonalLags.getText())) {&#xa;            paramMLPint_radius_textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNonSeasonalLags">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="1"/>
-                        <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
-                      </Properties>
-                      <AuxValues>
-                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumNonSeasonalLags.getText())) {&#xa;            paramMLPint_radius_textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                      </AuxValues>
-                    </Component>
-                    <Component class="javax.swing.JSeparator" name="jSeparator3">
-                      <Properties>
-                        <Property name="orientation" type="int" value="1"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel87">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Center:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel88">
-                      <Properties>
-                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                          <Font name="Tahoma" size="11" style="1"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="Radius:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JComboBox" name="comboBoxSettingsMLPintDistance">
@@ -1492,7 +1255,7 @@
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <EmptySpace min="0" pref="37" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="30" max="32767" attributes="0"/>
                               </Group>
                             </DimensionLayout>
                           </Layout>
@@ -1565,7 +1328,7 @@
                                           <Component id="jLabel94" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldMLPintDistanceParam_decarvalho_gamma" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1608,7 +1371,7 @@
                                           <Component id="jLabel95" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldMLPintDistanceParam_bertoluzza_beta" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace min="0" pref="17" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1635,6 +1398,703 @@
                         </Property>
                         <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
                       </Properties>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnetar">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsMLPintPackage_nnetar"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel78" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel79" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel81" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="paramMLPint_center_textFieldLambda" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_center_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="jLabel87" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel82" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel83" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="paramMLPint_radius_textFieldLambda" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_radius_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="344" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel77" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel78" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel79" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_center_textFieldNumReps" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel81" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_center_textFieldLambda" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel82" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel83" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_radius_textFieldNumReps" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPint_radius_textFieldLambda" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                          </Group>
+                                          <Component id="jSeparator3" min="-2" pref="144" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace pref="241" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel87">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="11" style="1"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Center:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel77">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel78">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of non-seasonal lags to be used as inputs:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel79">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of seasonal lags to be used as inputs:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel80">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of repetitions:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel81">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Lambda (Box-Cox transformation):"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNodesHiddenLayer">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumNodesHiddenLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumNodesHiddenLayer.getText())) {&#xa;            paramMLPint_center_textFieldNumNodesHiddenLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumNodesHiddenLayer.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumNodesHiddenLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNonSeasonalLags">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                                <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumNonSeasonalLags.getText())) {&#xa;            paramMLPint_center_textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumSeasonalLags">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumSeasonalLags.getText())) {&#xa;            paramMLPint_center_textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumReps">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="20"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumReps.getText())) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldLambda">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldLambda.getText())) {&#xa;            paramMLPint_center_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel88">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="11" style="1"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Radius:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel82">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel83">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of non-seasonal lags to be used as inputs:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel84">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of seasonal lags to be used as inputs:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel85">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of repetitions:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel86">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Lambda (Box-Cox transformation):"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNodesHiddenLayer">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumNodesHiddenLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumNodesHiddenLayer.getText())) {&#xa;            paramMLPint_radius_textFieldNumNodesHiddenLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumNodesHiddenLayer.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumNodesHiddenLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNonSeasonalLags">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                                <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumNonSeasonalLags.getText())) {&#xa;            paramMLPint_radius_textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumSeasonalLags">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumSeasonalLags.getText())) {&#xa;            paramMLPint_radius_textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumReps">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="20"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumReps.getText())) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldLambda">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
+                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldLambda.getText())) {&#xa;            paramMLPint_radius_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                              </AuxValues>
+                            </Component>
+                            <Component class="javax.swing.JSeparator" name="jSeparator3">
+                              <Properties>
+                                <Property name="orientation" type="int" value="1"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnet">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsMLPintPackage_nnet"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="paramMLPintNnet_maxit" alignment="0" pref="37" max="32767" attributes="0"/>
+                                                  <Component id="paramMLPintNnet_weightDecay" alignment="0" max="32767" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace min="-2" pref="789" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel91" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel96" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="paramMLPintNnet_radioButtonLogistic" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel99" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel98" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_numNodesHiddenLayer" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="paramMLPintNnet_radioButtonLeastSqrs" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="jLabel110" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Component id="paramMLPintNnet_radioButtonLoglinSoftmax" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_radioButtonCensoredOn" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_checkBoxSkipConn" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel103" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_labelInitRangeMirror" min="-2" pref="35" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_initRange" min="-2" pref="39" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel104" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_abstol" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel109" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_reltol" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                                  <Component id="jLabel101" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel100" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <Component id="paramMLPintNnet_lag" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel105" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel106" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_traceOptimization" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel90" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="paramMLPintNnet_lag" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel97" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel100" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="paramMLPintNnet_numNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel101" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel98" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel99" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel96" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="paramMLPintNnet_radioButtonLogistic" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="paramMLPintNnet_radioButtonLeastSqrs" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel110" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="paramMLPintNnet_radioButtonLoglinSoftmax" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="paramMLPintNnet_radioButtonCensoredOn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="paramMLPintNnet_checkBoxSkipConn" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_weightDecay" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_maxit" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                              <Component id="paramMLPintNnet_traceOptimization" alignment="1" min="-2" max="-2" attributes="0"/>
+                                              <Group type="102" alignment="1" attributes="0">
+                                                  <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Group type="103" groupAlignment="3" attributes="0">
+                                                      <Component id="jLabel103" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_labelInitRangeMirror" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_initRange" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel104" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel108" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="paramMLPintNnet_abstol" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel109" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="paramMLPintNnet_reltol" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel90">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Lag:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel50">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Weights:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel51">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel52">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Initial parameter vector:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel91">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Which parameters to optimize:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel96">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Output units:"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_lag">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_numNodesHiddenLayer">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel97">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel98">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel99">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="(not enabled yet. Default: all)"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLogistic">
+                              <Properties>
+                                <Property name="selected" type="boolean" value="true"/>
+                                <Property name="text" type="java.lang.String" value="Logistic (if not selected, linear)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLeastSqrs">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Maximum conditional likelihood fitting (if not selected, least squares fitting)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLoglinSoftmax">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonCensoredOn">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="censored on"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel100">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Hessian not included, as well as maxNumOfWeights"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel101">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="TODO: choose data for prediction"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel102">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Add skip-layer connections from input to output:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_checkBoxSkipConn">
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel103">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Initial random weights in range:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="paramMLPintNnet_labelInitRangeMirror">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="&quot;[-&quot; + paramNnet_initRange.getText() + &quot;;&quot;" type="code"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_initRange">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.7"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paramMLPintNnet_initRangeActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel104">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="]"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel105">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Weight decay:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_weightDecay">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel106">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Max iterations:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_maxit">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="100"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel107">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Trace optimization:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_traceOptimization">
+                              <Properties>
+                                <Property name="selected" type="boolean" value="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel108">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Stop if the fit criterion falls below"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_abstol">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.0001"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel109">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Stop if the optimizer cannot reduce the fit criterion by a factor of at least 1 -"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_reltol">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.00000001"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel110">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabelRPkg1">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="R package:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="comboBoxRPackageMLPint">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;nnetar&quot;, &quot;nnet&quot; })" type="code"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxRPackageMLPintActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1862,7 +2322,7 @@
                                           <Component id="jLabel39" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel40" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="136" max="32767" attributes="0"/>
+                                      <EmptySpace pref="146" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2247,7 +2707,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="462" max="32767" attributes="0"/>
+                                      <EmptySpace pref="472" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2658,7 +3118,7 @@
                                           <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldKNNfnnLag" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="398" max="32767" attributes="0"/>
+                                      <EmptySpace pref="408" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2752,7 +3212,7 @@
                                           <Component id="comboBoxKNNcombination" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel70" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="300" max="32767" attributes="0"/>
+                                      <EmptySpace pref="310" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -2866,7 +3326,7 @@
                                           <Component id="jLabel74" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldKNNkknnLag" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="398" max="32767" attributes="0"/>
+                                      <EmptySpace pref="408" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -3199,7 +3659,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="270" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="280" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -3470,7 +3930,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneForecastVals" alignment="0" pref="565" max="32767" attributes="0"/>
+                  <Component id="scrollPaneForecastVals" alignment="0" pref="575" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -3501,7 +3961,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="565" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="575" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
