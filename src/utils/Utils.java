@@ -16,6 +16,7 @@ import utils.imlp.IntervalCentreRadius;
 public class Utils {
     
     public static final int NUM_DECIMAL_POINTS = 6;
+    public static final int REASONABLY_MANY_MODELS = 10;
     
     private static int counter = 0;
     private final static double EPSILON = 0.000001;

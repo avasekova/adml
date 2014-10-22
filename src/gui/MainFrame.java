@@ -2537,8 +2537,9 @@ public class MainFrame extends javax.swing.JFrame {
                                                     .addComponent(checkBoxRunIntervalMLPCcode)
                                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                     .addComponent(checkBoxRunIntervalMLPneuralnet)
-                                                    .addGap(4, 4, 4)
-                                                    .addComponent(checkBoxRunKNNinterval)))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(checkBoxRunKNNinterval)
+                                                    .addGap(13, 13, 13)))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(buttonRunExportErrorMeasures))))))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -2785,152 +2786,6 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldPercentTrain.setText("" + sliderPercentTrain.getValue());
     }//GEN-LAST:event_sliderPercentTrainStateChanged
 
-    private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
-        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
-        
-        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        List<Double> data = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(colname_CTS)));
-        //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
-        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
-        List<TrainAndTestReportInterval> reportsITS = new ArrayList<>();
-        
-        if (checkBoxRunMLPnnetar.isSelected()) {
-            List<NnetarParams> params = getParamsNnetar();
-            Forecastable nnetar = new Nnetar();
-            for (NnetarParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(data, p));
-                reportsCTS.add(report);
-            }
-        }
-        
-        if (checkBoxRunMLPneuralnet.isSelected()) {
-            List<NeuralnetParams> params = getParamsNeuralnet();
-            Forecastable neuralnet = new Neuralnet();
-            for (NeuralnetParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(data, p));
-                reportsCTS.add(report);
-            }
-        }
-        
-        if (checkBoxRunMLPnnet.isSelected()) {
-            List<NnetParams> params = getParamsNnet();
-            Forecastable nnet = new Nnet();
-            for (NnetParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(data, p));
-                reportsCTS.add(report);
-            }
-        }
-        
-        if (checkBoxRunIntervalMLPCcode.isSelected()) {
-            if (((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables().isEmpty() ||
-                ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "At least one explanatory and one output variable need to be selected for the iMLP C code to run.");
-            } else {
-                List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode();
-                ForecastableIntervals cCode = new IntervalMLPCcode();
-                for (IntervalMLPCcodeParams p : params) {
-                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, p));
-                    reportsITS.add(report);
-                }
-            }
-        }
-        
-        if (checkBoxRunMLPint.isSelected()) {
-            List<MLPintParams> params = getParamsMLPint();
-            
-            //run two separate forecasts, one for Center and the other for Radius
-            Forecastable mlpInt = new MLPint();
-            
-            List<Double> dataMLPint = new ArrayList<>();
-            if (radioButtonRunMLPintCenterRadius.isSelected()) {
-                String colnameCenter = comboBoxRunMLPintCenter.getSelectedItem().toString();
-                String colnameRadius = comboBoxRunMLPintRadius.getSelectedItem().toString();
-                dataMLPint.addAll(dataTableModel.getDataForColname(colnameCenter));
-                dataMLPint.addAll(dataTableModel.getDataForColname(colnameRadius));
-            } else {
-                String colnameLower = comboBoxRunMLPintLower.getSelectedItem().toString();
-                String colnameUpper = comboBoxRunMLPintUpper.getSelectedItem().toString();
-                dataMLPint.addAll(dataTableModel.getDataForColname(colnameLower));
-                dataMLPint.addAll(dataTableModel.getDataForColname(colnameUpper));
-            }
-            
-            for (MLPintParams p : params) {
-                TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
-                    Collections.unmodifiableList(dataMLPint), p));
-                reportsITS.add(report);
-            }
-        }
-        
-        if (checkBoxRunARIMA.isSelected()) {
-            List<ArimaParams> params = getParamsArima();
-            Forecastable arima = new Arima();
-            for (ArimaParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(data, p));
-                reportsCTS.add(report);
-            }
-        }
-        
-        if (checkBoxRunKNNfnn.isSelected()) {
-            List<KNNfnnParams> params = getParamsKNNfnn();
-            Forecastable kNN = new KNNfnn();
-            for (KNNfnnParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(data, p));
-                reportsCTS.add(report);
-            }
-        }
-        
-        if (checkBoxRunKNNcustom.isSelected()) {
-            List<KNNcustomParams> params = getParamsKNNcustom();
-            Forecastable kNNcustom = new KNNcustom();
-            for (KNNcustomParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(data, p));
-                reportsCTS.add(report);
-            }
-           
-        }
-        
-        if (checkBoxRunKNNkknn.isSelected()) {
-            List<KNNkknnParams> params = getParamsKNNkknn();
-            Forecastable kNNkknn = new KNNkknn();
-            for (KNNkknnParams p : params) {
-                TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(data, p));
-                reportsCTS.add(report);
-            }
-        }
-        
-        //add more methods/models here
-        
-        
-        drawOneOrTwoTables(reportsCTS, reportsITS);
-        
-        //show Forecast plot
-        int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
-        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
-        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
-                numForecasts, reportsCTS, reportsITS, from, to, colname_CTS);
-        textAreaPlotBasicStats.setText("");
-        //this.repaint();
-        
-        //and show forecast values in the other pane
-        List<TrainAndTestReport> allReports = new ArrayList<>();
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsITS);
-        JTable tableForecastValues = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        tableForecastValues.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
-        TableColumn firstColumn = tableForecastValues.getColumnModel().getColumn(0);
-        firstColumn.setMinWidth(10);
-        firstColumn.setMaxWidth(50);
-        tableForecastValues.setVisible(true);
-        panelForecastVals.removeAll();
-        scrollPaneForecastVals.setViewportView(tableForecastValues);
-        panelForecastVals.add(scrollPaneForecastVals);
-        panelForecastVals.repaint();
-        
-        //and draw diagrams of NNs, if applicable
-        PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
-    }//GEN-LAST:event_buttonTrainAndTestActionPerformed
-
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
         CardLayout card = (CardLayout)panelSettingsMLPPackage.getLayout();
         card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_" + comboBoxRPackage.getSelectedItem().toString());
@@ -3101,29 +2956,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
 
-    private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
-        //TODO export with formatting - the highest, lowest vals highlighted etc.
-        JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
-        fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.setSelectedFile(new File("error_measures.xls"));
-        if (evt.getSource() == buttonRunExportErrorMeasures) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File errorMeasuresFile = fileChooser.getSelectedFile();
-                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
-                    ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
-                            (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_ITS.getModel()), errorMeasuresFile);
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                    //nothing
-            }
-        }
-        
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonRunExportErrorMeasures.setEnabled(false);
-    }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
-
     private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
         dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
         dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
@@ -3211,6 +3043,208 @@ public class MainFrame extends javax.swing.JFrame {
             comboBoxRunMLPintUpper.setEnabled(false);
         }
     }//GEN-LAST:event_radioButtonRunMLPintCenterRadiusActionPerformed
+
+    private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
+        //TODO export with formatting - the highest, lowest vals highlighted etc.
+        JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("error_measures.xls"));
+        if (evt.getSource() == buttonRunExportErrorMeasures) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                File errorMeasuresFile = fileChooser.getSelectedFile();
+                //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
+                ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
+                    (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_ITS.getModel()), errorMeasuresFile);
+                break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
+
+        //a na zaver to disablovat, aby sa na to netukalo furt
+        buttonRunExportErrorMeasures.setEnabled(false);
+    }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
+
+    private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
+        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
+
+        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+        List<Double> data = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(colname_CTS)));
+        //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
+        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
+        List<TrainAndTestReportInterval> reportsITS = new ArrayList<>();
+
+        if (checkBoxRunMLPnnetar.isSelected()) {
+            List<NnetarParams> params = getParamsNnetar();
+            
+            showDialogTooManyModelsInCase(params.size(), "nnetar");
+            if (continueWithTooManyModels) {
+                Forecastable nnetar = new Nnetar();
+                for (NnetarParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunMLPneuralnet.isSelected()) {
+            List<NeuralnetParams> params = getParamsNeuralnet();
+            
+            showDialogTooManyModelsInCase(params.size(), "neuralnet");
+            if (continueWithTooManyModels) {
+                Forecastable neuralnet = new Neuralnet();
+                for (NeuralnetParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunMLPnnet.isSelected()) {
+            List<NnetParams> params = getParamsNnet();
+            
+            showDialogTooManyModelsInCase(params.size(), "nnet");
+            if (continueWithTooManyModels) {
+                Forecastable nnet = new Nnet();
+                for (NnetParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunIntervalMLPCcode.isSelected()) {
+            if (((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables().isEmpty() ||
+                ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "At least one explanatory and one output variable need to be selected for the iMLP C code to run.");
+            } else {
+                List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode();
+                
+                showDialogTooManyModelsInCase(params.size(), "iMLP");
+                if (continueWithTooManyModels) {
+                    ForecastableIntervals cCode = new IntervalMLPCcode();
+                    for (IntervalMLPCcodeParams p : params) {
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, p));
+                        reportsITS.add(report);
+                    }
+                }
+            }
+        }
+
+        if (checkBoxRunMLPint.isSelected()) {
+            List<MLPintParams> params = getParamsMLPint();
+
+            showDialogTooManyModelsInCase(params.size(), "MLP(i)");
+            if (continueWithTooManyModels) {
+                //run two separate forecasts, one for Center and the other for Radius
+                Forecastable mlpInt = new MLPint();
+
+                List<Double> dataMLPint = new ArrayList<>();
+                if (radioButtonRunMLPintCenterRadius.isSelected()) {
+                    String colnameCenter = comboBoxRunMLPintCenter.getSelectedItem().toString();
+                    String colnameRadius = comboBoxRunMLPintRadius.getSelectedItem().toString();
+                    dataMLPint.addAll(dataTableModel.getDataForColname(colnameCenter));
+                    dataMLPint.addAll(dataTableModel.getDataForColname(colnameRadius));
+                } else {
+                    String colnameLower = comboBoxRunMLPintLower.getSelectedItem().toString();
+                    String colnameUpper = comboBoxRunMLPintUpper.getSelectedItem().toString();
+                    dataMLPint.addAll(dataTableModel.getDataForColname(colnameLower));
+                    dataMLPint.addAll(dataTableModel.getDataForColname(colnameUpper));
+                }
+
+                for (MLPintParams p : params) {
+                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
+                    Collections.unmodifiableList(dataMLPint), p));
+                    reportsITS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunARIMA.isSelected()) {
+            List<ArimaParams> params = getParamsArima();
+            
+            showDialogTooManyModelsInCase(params.size(), "ARIMA");
+            if (continueWithTooManyModels) {
+                Forecastable arima = new Arima();
+                for (ArimaParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunKNNfnn.isSelected()) {
+            List<KNNfnnParams> params = getParamsKNNfnn();
+            
+            showDialogTooManyModelsInCase(params.size(), "kNN (fnn)");
+            if (continueWithTooManyModels) {
+                Forecastable kNN = new KNNfnn();
+                for (KNNfnnParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunKNNcustom.isSelected()) {
+            List<KNNcustomParams> params = getParamsKNNcustom();
+            
+            showDialogTooManyModelsInCase(params.size(), "kNN (custom)");
+            if (continueWithTooManyModels) {
+                Forecastable kNNcustom = new KNNcustom();
+                for (KNNcustomParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        if (checkBoxRunKNNkknn.isSelected()) {
+            List<KNNkknnParams> params = getParamsKNNkknn();
+            
+            showDialogTooManyModelsInCase(params.size(), "kNN (kknn)");
+            if (continueWithTooManyModels) {
+                Forecastable kNNkknn = new KNNkknn();
+                for (KNNkknnParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(data, p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+
+        //add more methods/models here
+
+        drawOneOrTwoTables(reportsCTS, reportsITS);
+
+        //show Forecast plot
+        int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
+        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
+        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
+        PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
+            numForecasts, reportsCTS, reportsITS, from, to, colname_CTS);
+        textAreaPlotBasicStats.setText("");
+        //this.repaint();
+
+        //and show forecast values in the other pane
+        List<TrainAndTestReport> allReports = new ArrayList<>();
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsITS);
+        JTable tableForecastValues = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        tableForecastValues.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
+        TableColumn firstColumn = tableForecastValues.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(10);
+        firstColumn.setMaxWidth(50);
+        tableForecastValues.setVisible(true);
+        panelForecastVals.removeAll();
+        scrollPaneForecastVals.setViewportView(tableForecastValues);
+        panelForecastVals.add(scrollPaneForecastVals);
+        panelForecastVals.repaint();
+
+        //and draw diagrams of NNs, if applicable
+        PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
+    }//GEN-LAST:event_buttonTrainAndTestActionPerformed
     
     /**
      * @param args the command line arguments
@@ -3557,6 +3591,11 @@ public class MainFrame extends javax.swing.JFrame {
     private JTable errorMeasuresLatest_ITS;
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
     private List<IntervalNamesLowerUpper> listITSPlotLowerUpper = new ArrayList<>();
+    private boolean continueWithTooManyModels = true;
+    
+    public void setContinueWithTooManyModels(boolean continueWithTooManyModels) {
+        this.continueWithTooManyModels = continueWithTooManyModels;
+    }
 
     private void drawPlotGeneral(String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
@@ -4047,5 +4086,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         panelSummary.repaint();
+    }
+
+    private void showDialogTooManyModelsInCase(int paramsSize, String modelName) {
+        if (paramsSize > Utils.REASONABLY_MANY_MODELS) {
+            DialogTooManyModels dialogTooManyModels = new DialogTooManyModels(this, true, paramsSize, modelName);
+            dialogTooManyModels.setVisible(true);
+        }
     }
 }
