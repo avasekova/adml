@@ -326,7 +326,6 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunKNNfnn = new javax.swing.JCheckBox();
         jLabel49 = new javax.swing.JLabel();
         labelRunMLPintCenter = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
         comboBoxRunMLPintCenter = new javax.swing.JComboBox();
         comboBoxRunMLPintRadius = new javax.swing.JComboBox();
         labelRunMLPintRadius = new javax.swing.JLabel();
@@ -2353,9 +2352,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         labelRunMLPintCenter.setText("Center:");
 
-        jLabel51.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel51.setText("TODO enable to specify LB/UB");
-
         comboBoxRunMLPintCenter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
 
         comboBoxRunMLPintRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
@@ -2451,10 +2447,7 @@ public class MainFrame extends javax.swing.JFrame {
                                                         .addComponent(jLabel42)
                                                         .addGap(26, 26, 26)))
                                                 .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(jLabel49)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(jLabel51, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel49)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -2482,7 +2475,7 @@ public class MainFrame extends javax.swing.JFrame {
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                                 .addComponent(comboBoxRunMLPintLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                             .addComponent(jLabel43))
-                                        .addGap(13, 13, 13)
+                                        .addGap(97, 97, 97)
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                 .addGap(80, 80, 80)
@@ -2581,9 +2574,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel42)
                             .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel49)
-                            .addComponent(jLabel51))
+                        .addComponent(jLabel49)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3386,7 +3377,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
