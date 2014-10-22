@@ -10,6 +10,7 @@ public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke
     private NnetarParams paramsCenter;
     private NnetarParams paramsRadius;
     private Distance distanceFunction;
+    private boolean centerRadius; //TODO vymysliet krajsie?
 
     public NnetarParams getParamsCenter() {
         return paramsCenter;
@@ -33,6 +34,14 @@ public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke
 
     public void setDistanceFunction(Distance distanceFunction) {
         this.distanceFunction = distanceFunction;
+    }
+    
+    public boolean isCenterRadius() {
+        return centerRadius;
+    }
+
+    public void setCenterRadius(Boolean centerRadius) {
+        this.centerRadius = centerRadius;
     }
     
     @Override

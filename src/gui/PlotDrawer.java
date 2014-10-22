@@ -526,7 +526,7 @@ public class PlotDrawer {
         }
         
         if (! diagramPlots.isEmpty()) {
-            int rows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
+        int rows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
             rengine.eval("par(mfrow=c(" + rows + "," + COLUMNS_DIAGRAMSNN + "))"); //narobim si mriezku
             
             //a teraz idem postupne vyplnat mriezku diagramami:

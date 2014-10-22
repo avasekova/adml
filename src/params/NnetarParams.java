@@ -7,7 +7,7 @@ public class NnetarParams extends Params {
     private Integer numNonSeasonalLags;
     private Integer numReps;
     private Double lambda;
-
+    
     public Integer getNumNodesHidden() {
         return numNodesHidden;
     }
@@ -47,7 +47,7 @@ public class NnetarParams extends Params {
     public void setLambda(Double lambda) {
         this.lambda = lambda;
     }
-    
+
     @Override
     public NnetarParams getClone() {
         NnetarParams param = new NnetarParams();

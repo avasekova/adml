@@ -2,11 +2,15 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
 import params.MLPintParams;
 import params.NnetarParams;
 import params.Params;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
+import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
@@ -18,9 +22,30 @@ public class MLPint implements Forecastable {
         NnetarParams paramsCenter = ((MLPintParams)parameters).getParamsCenter();
         NnetarParams paramsRadius = ((MLPintParams)parameters).getParamsRadius();
         
-        List<Double> dataCenter = allData.subList(0, allData.size()/2);
-        List<Double> dataRadius = allData.subList(allData.size()/2, allData.size());
+        List<Double> dataFirst = allData.subList(0, allData.size()/2);
+        List<Double> dataSecond = allData.subList(allData.size()/2, allData.size());
         //nesublistovat! urobi sa to este raz v nnetar, a potom hadze IndexOUBounds!
+        
+        //make sure we have data for centers and radii:
+        List<Double> dataCenter;
+        List<Double> dataRadius;
+        if (((MLPintParams)parameters).isCenterRadius()) {
+            dataCenter = dataFirst;
+            dataRadius = dataSecond;
+        } else {
+            final String LOWER = Const.INPUT + Utils.getCounter();
+            final String UPPER = Const.INPUT + Utils.getCounter();
+            
+            Rengine rengine = MyRengine.getRengine();
+            rengine.assign(LOWER, Utils.listToArray(dataFirst));
+            rengine.assign(UPPER, Utils.listToArray(dataSecond));
+            REXP getCenter = rengine.eval("(" + UPPER + " + " + LOWER + ")/2");
+            REXP getRadius = rengine.eval("(" + UPPER + " - " + LOWER + ")/2");
+            double[] centers = getCenter.asDoubleArray();
+            double[] radii = getRadius.asDoubleArray();
+            dataCenter = Utils.arrayToList(centers);
+            dataRadius = Utils.arrayToList(radii);
+        }
         
         Nnetar nnetar = new Nnetar();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataCenter, paramsCenter);
