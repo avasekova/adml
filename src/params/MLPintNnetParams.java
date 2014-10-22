@@ -2,29 +2,29 @@ package params;
 
 import utils.imlp.dist.Distance;
 
-public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke metody - nepouzivam atributy z Params!
+public class MLPintNnetParams extends Params { //extends Params ciste kvoli hlavicke metody - nepouzivam atributy z Params!
     
     //TODO rep(NA, " + params.getLag() + "), do plotu! len vymysliet, ako skombinovat lag z center a lag z radius!
     //     asi teda to zarezat na rovnaku dlzku, tj tam, kde zacinaju uz obe (max(startC, startR)) a to povazovat za lag
     
-    private NnetarParams paramsCenter;
-    private NnetarParams paramsRadius;
+    private NnetParams paramsCenter;
+    private NnetParams paramsRadius;
     private Distance distanceFunction;
     private boolean centerRadius; //TODO vymysliet krajsie?
 
-    public NnetarParams getParamsCenter() {
+    public NnetParams getParamsCenter() {
         return paramsCenter;
     }
 
-    public void setParamsCenter(NnetarParams paramsCenter) {
+    public void setParamsCenter(NnetParams paramsCenter) {
         this.paramsCenter = paramsCenter;
     }
 
-    public NnetarParams getParamsRadius() {
+    public NnetParams getParamsRadius() {
         return paramsRadius;
     }
 
-    public void setParamsRadius(NnetarParams paramsRadius) {
+    public void setParamsRadius(NnetParams paramsRadius) {
         this.paramsRadius = paramsRadius;
     }
 
@@ -45,8 +45,8 @@ public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke
     }
     
     @Override
-    public MLPintParams getClone() {
-        MLPintParams param = new MLPintParams();
+    public MLPintNnetParams getClone() {
+        MLPintNnetParams param = new MLPintNnetParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setDistanceFunction(distanceFunction);
@@ -60,6 +60,6 @@ public class MLPintParams extends Params { //extends Params ciste kvoli hlavicke
     
     @Override
     public String toString() {
-        return "MLPintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distanceFunction=" + distanceFunction + "}\n";
+        return "MLPintNnetParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distanceFunction=" + distanceFunction + "}\n";
     }
 }

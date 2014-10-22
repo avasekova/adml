@@ -179,7 +179,7 @@ public class ErrorMeasuresUtils {
     public static double meanCoverage(List<Interval> realData, List<Interval> forecastData) {
         double mean = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
+        for (int i = 0; i < forecastData.size(); i++) {
             mean += coverage(realData.get(i), forecastData.get(i));
         }
         
@@ -189,7 +189,7 @@ public class ErrorMeasuresUtils {
     public static double meanEfficiency(List<Interval> realData, List<Interval> forecastData) {
         double mean = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
+        for (int i = 0; i < forecastData.size(); i++) {
             mean += efficiency(realData.get(i), forecastData.get(i));
         }
         

@@ -152,7 +152,7 @@
                           <Component id="jScrollPane4" min="-2" pref="87" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="32767" attributes="0"/>
-                      <Component id="panelPlot" pref="447" max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="452" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1121,7 +1121,7 @@
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelSettingsMLPintPackage" max="32767" attributes="0"/>
+                              <Component id="panelSettingsMLPintPackage" pref="396" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1701,97 +1701,182 @@
                           <Layout>
                             <DimensionLayout dim="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="228" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="paramMLPintNnet_maxit" alignment="0" pref="37" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPintNnet_weightDecay" alignment="0" max="32767" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Component id="jLabel98" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <EmptySpace min="-2" pref="789" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_numNodesHiddenLayerCenter" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel91" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jLabel99" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel50" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                              <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel100" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_lagCenter" min="-2" pref="34" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel51" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel52" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel91" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel96" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="paramMLPintNnet_radioButtonLogistic" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel99" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="jLabel98" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPintNnet_numNodesHiddenLayer" alignment="0" min="-2" pref="35" max="-2" attributes="0"/>
-                                                          <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="paramMLPintNnet_radioButtonLeastSqrs" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="jLabel110" min="-2" max="-2" attributes="0"/>
-                                                          </Group>
-                                                          <Component id="paramMLPintNnet_radioButtonLoglinSoftmax" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPintNnet_radioButtonCensoredOn" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_checkBoxSkipConn" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel103" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_labelInitRangeMirror" min="-2" pref="35" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_initRange" min="-2" pref="39" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="jLabel104" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_abstol" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel109" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_reltol" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_reltolCenter" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="jLabel90" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace min="-2" pref="186" max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="jLabel97" min="-2" max="-2" attributes="0"/>
-                                                              <EmptySpace min="-2" pref="197" max="-2" attributes="0"/>
-                                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                                  <Component id="jLabel101" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                                  <Component id="jLabel100" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                              </Group>
-                                                          </Group>
-                                                          <Component id="paramMLPintNnet_lag" alignment="0" min="-2" pref="34" max="-2" attributes="0"/>
-                                                      </Group>
+                                                      <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_weightDecayCenter" min="-2" pref="44" max="-2" attributes="0"/>
                                                   </Group>
-                                              </Group>
-                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel50" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel105" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel106" alignment="0" min="-2" max="-2" attributes="0"/>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_traceOptimization" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_traceOptimizationCenter" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Component id="paramMLPintNnet_radioButtonLoglinSoftmaxCenter" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="paramMLPintNnet_radioButtonCensoredOnCenter" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_checkBoxSkipConnCenter" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                          <Component id="paramMLPintNnet_radioButtonLeastSqrsCenter" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_radioButtonLogisticCenter" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
+                                                  <Component id="jLabel102" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel103" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_labelInitRangeMirrorCenter" min="-2" pref="35" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_initRangeCenter" min="-2" pref="39" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel104" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_maxitCenter" max="32767" attributes="0"/>
+                                                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Group type="102" alignment="0" attributes="0">
+                                                          <Component id="jLabel108" min="-2" max="-2" attributes="0"/>
+                                                          <EmptySpace max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_abstolCenter" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
                                                   </Group>
                                               </Group>
-                                              <EmptySpace max="32767" attributes="0"/>
+                                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                              <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                  <Component id="jLabel112" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel113" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="32767" attributes="0"/>
+                                                      <Component id="jLabel114" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_numNodesHiddenLayerRadius" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel115" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jLabel116" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                                              <Component id="jLabel111" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                                              <Component id="jLabel110" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_lagRadius" min="-2" pref="34" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel125" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_reltolRadius" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel121" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_weightDecayRadius" min="-2" pref="44" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel123" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_traceOptimizationRadius" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel117" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="paramMLPintNnet_radioButtonLoglinSoftmaxRadius" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="paramMLPintNnet_radioButtonCensoredOnRadius" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace min="-2" pref="83" max="-2" attributes="0"/>
+                                                      <Component id="paramMLPintNnet_checkBoxSkipConnRadius" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="paramMLPintNnet_radioButtonLeastSqrsRadius" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="paramMLPintNnet_radioButtonLogisticRadius" alignment="0" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Component id="jLabel118" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel119" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_labelInitRangeMirrorRadius" min="-2" pref="35" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="paramMLPintNnet_initRangeRadius" min="-2" pref="39" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel120" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel122" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paramMLPintNnet_maxitRadius" max="32767" attributes="0"/>
+                                                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel124" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="paramMLPintNnet_abstolRadius" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace pref="57" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1799,84 +1884,175 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel90" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="paramMLPintNnet_lag" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel97" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel100" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="paramMLPintNnet_numNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel101" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel98" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel99" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel96" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="paramMLPintNnet_radioButtonLogistic" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="paramMLPintNnet_radioButtonLeastSqrs" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel110" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="paramMLPintNnet_radioButtonLoglinSoftmax" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="paramMLPintNnet_radioButtonCensoredOn" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="paramMLPintNnet_checkBoxSkipConn" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Component id="paramMLPintNnet_weightDecay" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="paramMLPintNnet_maxit" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                              <Component id="paramMLPintNnet_traceOptimization" alignment="1" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="1" attributes="0">
-                                                  <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="3" attributes="0">
-                                                      <Component id="jLabel103" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_labelInitRangeMirror" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="paramMLPintNnet_initRange" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel104" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jSeparator4" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel110" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_lagRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel101" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel111" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel112" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_numNodesHiddenLayerRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel113" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel114" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel115" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel116" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                                  <Group type="102" alignment="1" attributes="0">
+                                                                      <Component id="jLabel117" min="-2" max="-2" attributes="0"/>
+                                                                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel118" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="paramMLPintNnet_checkBoxSkipConnRadius" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel119" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_labelInitRangeMirrorRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_initRangeRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel120" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel121" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_weightDecayRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel122" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_maxitRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="paramMLPintNnet_radioButtonLogisticRadius" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_radioButtonLeastSqrsRadius" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_radioButtonLoglinSoftmaxRadius" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_radioButtonCensoredOnRadius" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="jLabel123" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_traceOptimizationRadius" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel124" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_abstolRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel125" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_reltolRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
                                                   </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="jLabel105" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="jLabel106" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
+                                                  <Group type="102" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel90" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_lagCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel100" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel50" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel97" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel51" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_numNodesHiddenLayerCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel52" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel98" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel91" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="jLabel99" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="0" attributes="0">
+                                                          <Group type="102" attributes="0">
+                                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                                  <Group type="102" attributes="0">
+                                                                      <Component id="jLabel96" min="-2" max="-2" attributes="0"/>
+                                                                      <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                                                                      <Component id="jLabel102" min="-2" max="-2" attributes="0"/>
+                                                                  </Group>
+                                                                  <Component id="paramMLPintNnet_checkBoxSkipConnCenter" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel103" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_labelInitRangeMirrorCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_initRangeCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="jLabel104" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel105" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_weightDecayCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                                  <Component id="jLabel106" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                                  <Component id="paramMLPintNnet_maxitCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                              </Group>
+                                                          </Group>
+                                                          <Group type="102" alignment="0" attributes="0">
+                                                              <Component id="paramMLPintNnet_radioButtonLogisticCenter" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_radioButtonLeastSqrsCenter" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_radioButtonLoglinSoftmaxCenter" min="-2" max="-2" attributes="0"/>
+                                                              <EmptySpace max="-2" attributes="0"/>
+                                                              <Component id="paramMLPintNnet_radioButtonCensoredOnCenter" min="-2" max="-2" attributes="0"/>
+                                                          </Group>
+                                                      </Group>
+                                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="1" attributes="0">
+                                                          <Component id="jLabel107" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_traceOptimizationCenter" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel108" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_abstolCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel109" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="paramMLPintNnet_reltolCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                  </Group>
                                               </Group>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel108" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="paramMLPintNnet_abstol" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel109" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="paramMLPintNnet_reltol" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -1915,12 +2091,12 @@
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_lag">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_lagCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="1"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_numNodesHiddenLayer">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_numNodesHiddenLayerCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="1"/>
                               </Properties>
@@ -1949,45 +2125,29 @@
                                 <Property name="text" type="java.lang.String" value="(not enabled yet. Default: all)"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLogistic">
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLogisticCenter">
                               <Properties>
                                 <Property name="selected" type="boolean" value="true"/>
                                 <Property name="text" type="java.lang.String" value="Logistic (if not selected, linear)"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLeastSqrs">
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLeastSqrsCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Maximum conditional likelihood fitting (if not selected, least squares fitting)"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLoglinSoftmax">
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLoglinSoftmaxCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)"/>
                                 <Property name="enabled" type="boolean" value="false"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonCensoredOn">
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonCensoredOnCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="censored on"/>
                                 <Property name="enabled" type="boolean" value="false"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel100">
-                              <Properties>
-                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="Hessian not included, as well as maxNumOfWeights"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel101">
-                              <Properties>
-                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                                </Property>
-                                <Property name="text" type="java.lang.String" value="TODO: choose data for prediction"/>
                               </Properties>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel102">
@@ -1995,26 +2155,26 @@
                                 <Property name="text" type="java.lang.String" value="Add skip-layer connections from input to output:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_checkBoxSkipConn">
+                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_checkBoxSkipConnCenter">
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel103">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="Initial random weights in range:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="paramMLPintNnet_labelInitRangeMirror">
+                            <Component class="javax.swing.JLabel" name="paramMLPintNnet_labelInitRangeMirrorCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                                  <Connection code="&quot;[-&quot; + paramNnet_initRange.getText() + &quot;;&quot;" type="code"/>
+                                  <Connection code="&quot;[-&quot; + paramMLPintNnet_initRangeCenter.getText() + &quot;;&quot;" type="code"/>
                                 </Property>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_initRange">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_initRangeCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="0.7"/>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paramMLPintNnet_initRangeActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paramMLPintNnet_initRangeCenterActionPerformed"/>
                               </Events>
                             </Component>
                             <Component class="javax.swing.JLabel" name="jLabel104">
@@ -2027,7 +2187,7 @@
                                 <Property name="text" type="java.lang.String" value="Weight decay:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_weightDecay">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_weightDecayCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="0"/>
                               </Properties>
@@ -2037,7 +2197,7 @@
                                 <Property name="text" type="java.lang.String" value="Max iterations:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_maxit">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_maxitCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="100"/>
                               </Properties>
@@ -2047,7 +2207,7 @@
                                 <Property name="text" type="java.lang.String" value="Trace optimization:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_traceOptimization">
+                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_traceOptimizationCenter">
                               <Properties>
                                 <Property name="selected" type="boolean" value="true"/>
                               </Properties>
@@ -2057,7 +2217,7 @@
                                 <Property name="text" type="java.lang.String" value="Stop if the fit criterion falls below"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_abstol">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_abstolCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="0.0001"/>
                               </Properties>
@@ -2067,14 +2227,202 @@
                                 <Property name="text" type="java.lang.String" value="Stop if the optimizer cannot reduce the fit criterion by a factor of at least 1 -"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_reltol">
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_reltolCenter">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="0.00000001"/>
                               </Properties>
                             </Component>
+                            <Component class="javax.swing.JSeparator" name="jSeparator4">
+                              <Properties>
+                                <Property name="orientation" type="int" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel100">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="11" style="1"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Center:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel101">
+                              <Properties>
+                                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                                  <Font name="Tahoma" size="11" style="1"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="Radius:"/>
+                              </Properties>
+                            </Component>
                             <Component class="javax.swing.JLabel" name="jLabel110">
                               <Properties>
+                                <Property name="text" type="java.lang.String" value="Lag:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_lagRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel53">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Weights:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel111">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
                                 <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel112">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_numNodesHiddenLayerRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="1"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel113">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Initial parameter vector:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel114">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel115">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Which parameters to optimize:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel116">
+                              <Properties>
+                                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                                </Property>
+                                <Property name="text" type="java.lang.String" value="(not enabled yet. Default: all)"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel117">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Output units:"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLogisticRadius">
+                              <Properties>
+                                <Property name="selected" type="boolean" value="true"/>
+                                <Property name="text" type="java.lang.String" value="Logistic (if not selected, linear)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLeastSqrsRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Maximum conditional likelihood fitting (if not selected, least squares fitting)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonLoglinSoftmaxRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JRadioButton" name="paramMLPintNnet_radioButtonCensoredOnRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="censored on"/>
+                                <Property name="enabled" type="boolean" value="false"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel118">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Add skip-layer connections from input to output:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel119">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Initial random weights in range:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="paramMLPintNnet_labelInitRangeMirrorRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="&quot;[-&quot; + paramMLPintNnet_initRangeRadius.getText() + &quot;;&quot;" type="code"/>
+                                </Property>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_initRangeRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.7"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="paramMLPintNnet_initRangeRadiusActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_checkBoxSkipConnRadius">
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel120">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="]"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_weightDecayRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel121">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Weight decay:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel122">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Max iterations:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_maxitRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="100"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel123">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Trace optimization:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JCheckBox" name="paramMLPintNnet_traceOptimizationRadius">
+                              <Properties>
+                                <Property name="selected" type="boolean" value="true"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel124">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Stop if the fit criterion falls below"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_abstolRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.0001"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JLabel" name="jLabel125">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Stop if the optimizer cannot reduce the fit criterion by a factor of at least 1 -"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="paramMLPintNnet_reltolRadius">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.00000001"/>
                               </Properties>
                             </Component>
                           </SubComponents>
@@ -3475,9 +3823,9 @@
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="checkBoxRunMLPint" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jLabel53" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunMLPintNnet" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="checkBoxRunMLPnnetar" min="-2" max="-2" attributes="0"/>
@@ -3560,8 +3908,8 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="checkBoxRunMLPint" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel53" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunMLPintNnetar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunMLPintNnet" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -3780,17 +4128,9 @@
                 <Property name="text" type="java.lang.String" value="Radius:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPint">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPintNnetar">
               <Properties>
-                <Property name="text" type="java.lang.String" value="MLP(i)"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel53">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="0" green="0" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="for now, uses nnetar"/>
+                <Property name="text" type="java.lang.String" value="MLP(i) (nnetar)"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNinterval">
@@ -3910,6 +4250,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunMLPintLowerUpperActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPintNnet">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="MLP(i) (nnet)"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

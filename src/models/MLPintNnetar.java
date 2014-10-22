@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-import params.MLPintParams;
+import params.MLPintNnetarParams;
 import params.NnetarParams;
 import params.Params;
 import utils.Const;
@@ -15,12 +15,12 @@ import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
-public class MLPint implements Forecastable {
+public class MLPintNnetar implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
-        NnetarParams paramsCenter = ((MLPintParams)parameters).getParamsCenter();
-        NnetarParams paramsRadius = ((MLPintParams)parameters).getParamsRadius();
+        NnetarParams paramsCenter = ((MLPintNnetarParams)parameters).getParamsCenter();
+        NnetarParams paramsRadius = ((MLPintNnetarParams)parameters).getParamsRadius();
         
         List<Double> dataFirst = allData.subList(0, allData.size()/2);
         List<Double> dataSecond = allData.subList(allData.size()/2, allData.size());
@@ -29,7 +29,7 @@ public class MLPint implements Forecastable {
         //make sure we have data for centers and radii:
         List<Double> dataCenter;
         List<Double> dataRadius;
-        if (((MLPintParams)parameters).isCenterRadius()) {
+        if (((MLPintNnetarParams)parameters).isCenterRadius()) {
             dataCenter = dataFirst;
             dataRadius = dataSecond;
         } else {
@@ -95,7 +95,7 @@ public class MLPint implements Forecastable {
         errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervalsWithoutNaN, fittedValsWithoutNaN));
         errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         
