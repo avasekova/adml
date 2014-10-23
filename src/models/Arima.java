@@ -30,7 +30,18 @@ public class Arima implements Forecastable {
         final String MODEL = Const.MODEL + Utils.getCounter();
         
         ArimaParams params = (ArimaParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
+        String arimaDescription;
+        if (params.isOptimize()) {
+            arimaDescription = "ARIMA(optimized)";
+        } else {
+            arimaDescription = "ARIMA(" + params.getNonSeasP() + "," + 
+                params.getNonSeasD() + "," + params.getNonSeasQ() + ")(" + params.getSeasP() + "," +
+                params.getSeasD() + "," + params.getSeasQ() + ")";
+            if (params.isWithConstant()) {
+                arimaDescription += ",const.";
+            }
+        }
+        
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();
@@ -40,7 +51,6 @@ public class Arima implements Forecastable {
         rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + INPUT + ")");
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
-        report.setNumTrainingEntries(numTrainingEntries);
         
         rengine.eval(INPUT_TRAIN +        " <- " +        INPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_INPUT_TRAIN + " <- " + SCALED_INPUT + "[1:" + numTrainingEntries + "]");
@@ -64,7 +74,6 @@ public class Arima implements Forecastable {
         rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + INPUT + ")");
         REXP getFittedValues = rengine.eval(UNSCALED_FITTED_VALS);
         double[] fitted = getFittedValues.asDoubleArray();
-        report.setFittedValues(fitted);
         
         //"forecast" testing data
         int numForecasts = dataToUse.size() - numTrainingEntries + params.getNumForecasts();
@@ -77,11 +86,6 @@ public class Arima implements Forecastable {
         double[] allForecasts = getAllForecasts.asDoubleArray();
         //TODO avoid this conversion array<->list whenever possible - moze to byt spomalovak pre velke mnozstva dat
         List<Double> allForecastsList = Utils.arrayToList(allForecasts);
-        report.setForecastValuesTest(Utils.listToArray(allForecastsList.subList(0, dataToUse.size() - numTrainingEntries)));
-        report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(dataToUse.size() - numTrainingEntries, allForecastsList.size())));
-        
-        report.setPlotCode("plot.ts(c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
-        
         
         //error measures pocitat len z testu, z buducich sa neda
         REXP getTrainingPortionOfData = rengine.eval(INPUT_TRAIN);
@@ -109,6 +113,17 @@ public class Arima implements Forecastable {
         errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(trainingPortionOfData, Utils.arrayToList(fitted)));
         errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(testingPortionOfData, Utils.arrayToList(forecastsTest)));
+        
+        
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(arimaDescription);
+        report.setNumTrainingEntries(numTrainingEntries);
+        report.setFittedValues(fitted);
+        
+        report.setForecastValuesTest(Utils.listToArray(allForecastsList.subList(0, dataToUse.size() - numTrainingEntries)));
+        report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(dataToUse.size() - numTrainingEntries, allForecastsList.size())));
+        
+        report.setPlotCode("plot.ts(c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
+        
         report.setErrorMeasures(errorMeasures);
         
         

@@ -38,7 +38,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         final String FINAL_UNSCALED_FORECAST_VALS = "final." + UNSCALED_FORECAST_VALS;
         
         NnetParams params = (NnetParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet(lag=" + params.getLag() + ",hid=" + params.getNumNodesHiddenLayer() + ")");
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();

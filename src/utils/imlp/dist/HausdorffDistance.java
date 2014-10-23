@@ -8,4 +8,9 @@ public class HausdorffDistance implements Distance {
     public double getDistance(Interval forecast, Interval real) {
         return (Math.abs(forecast.getCentre() - real.getCentre()) + Math.abs(forecast.getRadius() - real.getRadius()));
     }
+    
+    @Override
+    public String toString() {
+        return "Hausdorff";
+    }
 }

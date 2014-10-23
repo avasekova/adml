@@ -12,4 +12,9 @@ public class BertoluzzaDistance extends WeightedEuclideanDistance {
     public double getDistance(Interval forecast, Interval real) {
         return Math.sqrt(super.getDistance(forecast, real));
     }
+    
+    @Override
+    public String toString() {
+        return "Bertoluzza";
+    }
 }

@@ -13,4 +13,9 @@ public class DeCarvalhoDistance extends IchinoYaguchiDistance {
     public double getDistance(Interval forecast, Interval real) {
         return super.getDistance(forecast, real) / ErrorMeasuresUtils.widthUnion(forecast, real);
     }
+    
+    @Override
+    public String toString() {
+        return "DeCarvalho";
+    }
 }
