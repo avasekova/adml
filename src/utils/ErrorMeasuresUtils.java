@@ -157,7 +157,15 @@ public class ErrorMeasuresUtils {
     
     public static double coverage(Interval real, Interval forecast) {
         double widthReal = real.getUpperBound() - real.getLowerBound();
-        return (widthIntersection(real, forecast) / widthReal) * 100;
+        if (widthReal == 0) {
+            if ((real.getUpperBound() < forecast.getLowerBound()) || (real.getUpperBound() > forecast.getUpperBound())) {
+                return 0; //ten bod je mimo
+            } else {
+                return 100; //ten bod je vnutri forecastu, i.e. 100% ho pokryva forecast
+            }
+        } else {
+            return (widthIntersection(real, forecast) / widthReal) * 100;
+        }
         //vracia nulu, ak je forecast bodovy (ale aj ak lezi v realnom intervale) - co je ale feature, nie bug.
     }
     
@@ -180,10 +188,13 @@ public class ErrorMeasuresUtils {
         double mean = 0;
         
         for (int i = 0; i < forecastData.size(); i++) {
+            System.out.println(i + ": " + realData.get(i) + ", " + forecastData.get(i) + " = " + coverage(realData.get(i), forecastData.get(i)));
             mean += coverage(realData.get(i), forecastData.get(i));
         }
         
-        return mean/realData.size();
+        System.out.println("mean: " + mean + ", /size = " + (mean/forecastData.size()));
+        
+        return mean/forecastData.size();
     }
     
     public static double meanEfficiency(List<Interval> realData, List<Interval> forecastData) {
@@ -193,7 +204,7 @@ public class ErrorMeasuresUtils {
             mean += efficiency(realData.get(i), forecastData.get(i));
         }
         
-        return mean/realData.size();
+        return mean/forecastData.size();
     }
     
     public static double widthIntersection(Interval first, Interval second) {
