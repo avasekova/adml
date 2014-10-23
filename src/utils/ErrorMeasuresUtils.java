@@ -188,11 +188,8 @@ public class ErrorMeasuresUtils {
         double mean = 0;
         
         for (int i = 0; i < forecastData.size(); i++) {
-            System.out.println(i + ": " + realData.get(i) + ", " + forecastData.get(i) + " = " + coverage(realData.get(i), forecastData.get(i)));
             mean += coverage(realData.get(i), forecastData.get(i));
         }
-        
-        System.out.println("mean: " + mean + ", /size = " + (mean/forecastData.size()));
         
         return mean/forecastData.size();
     }

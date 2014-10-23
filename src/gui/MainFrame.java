@@ -4369,7 +4369,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> workingList = new ArrayList<>();
         NnetParams par = new NnetParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(sliderPercentTrainARIMA.getValue());
+        par.setPercentTrain(sliderPercentTrain.getValue());
         
         List<NnetParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -4728,8 +4728,6 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasQ));
         setSomethingOneValueAnyParams(ArimaParams.class, workingList, resultList, "setWithConstant",
                 Boolean.class, checkBoxSettingsARIMAconstant.isSelected());
-        
-        System.out.println(resultList);
         
         return resultList;
     }

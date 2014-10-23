@@ -33,6 +33,9 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         final String FITTED_VALS = Const.FIT + Utils.getCounter();
         final String UNSCALED_FITTED_VALS = "unscaled." + FITTED_VALS;
         final String UNSCALED_FORECAST_VALS = "unscaled." + FORECAST_VALS;
+        final String ALL_AUX = "aux" + Utils.getCounter();
+        final String FINAL_UNSCALED_FITTED_VALS = "final." + UNSCALED_FITTED_VALS;
+        final String FINAL_UNSCALED_FORECAST_VALS = "final." + UNSCALED_FORECAST_VALS;
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
@@ -49,8 +52,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + INPUT + ")");
         rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + OUTPUT + ")");
         
-        int lengthInputOutput = dataToUse.size() - params.getLag();
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*lengthInputOutput);
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         
         rengine.eval(INPUT_TRAIN +        " <- " +        INPUT + "[1:" + numTrainingEntries + "]");
@@ -81,9 +83,18 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         rengine.eval(FORECAST_VALS + " <- predict(" + NNETWORK + ", data.frame(" + SCALED_INPUT_TEST + "), type='raw')");
         rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + OUTPUT + ")");
         
-        REXP getFittedVals = rengine.eval(UNSCALED_FITTED_VALS);
+        //a teraz to cele posuniem o lag, aby to davalo normalne vysledky:
+        //povodne: -----fit-----|---forecast--|--nothin--
+        //teraz:   --nothin--|-----fit-----|---forecast--
+        rengine.eval(ALL_AUX + " <- c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + ")");
+        rengine.eval(ALL_AUX + " <- c(rep(NA, " + params.getLag() + "), " + ALL_AUX + ")");
+        rengine.eval(FINAL_UNSCALED_FITTED_VALS + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FINAL_UNSCALED_FORECAST_VALS + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
+                "length(" + ALL_AUX + ")]");
+        
+        REXP getFittedVals = rengine.eval(FINAL_UNSCALED_FITTED_VALS);
         double[] fittedVals = getFittedVals.asDoubleArray();
-        REXP getForecastVals = rengine.eval(UNSCALED_FORECAST_VALS);
+        REXP getForecastVals = rengine.eval(FINAL_UNSCALED_FORECAST_VALS);
         double[] forecastVals = getForecastVals.asDoubleArray();
         
         report.setFittedValues(fittedVals);
@@ -111,7 +122,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
         report.setErrorMeasures(errorMeasures);
         
-        report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + "))");
         
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + ")");
         

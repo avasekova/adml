@@ -69,7 +69,7 @@ public class MLPintNnet implements Forecastable {
         //trim to rectangle:
         List<Interval> fittedValsWithoutNaN = new ArrayList<>();
         List<Interval> trainingIntervalsWithoutNaN = new ArrayList<>();
-        for (int i = 0; i < fittedVals.size(); i++) {
+        for (int i = 0; i < Math.min(trainingIntervals.size(), fittedVals.size()); i++) {
             if (!(((Double) fittedVals.get(i).getCentre()).isNaN()) &&
                 !(((Double) fittedVals.get(i).getRadius()).isNaN())) {
                 fittedValsWithoutNaN.add(fittedVals.get(i));

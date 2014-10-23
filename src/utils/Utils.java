@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import static java.lang.Double.NaN;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.swing.JTextField;
 import utils.imlp.dist.Distance;
@@ -189,6 +190,10 @@ public class Utils {
     }
     
     public static List<Double> getErrors(List<Double> real, List<Double> forecasts) {
+        if (real.size() != forecasts.size()) {
+            throw new IndexOutOfBoundsException("real.size = " + real.size() + ", forecasts.size = " + forecasts.size());
+        }
+        
         List<Double> errors = new ArrayList<>();
         
         for (int i = 0; i < forecasts.size(); i++) {
@@ -200,6 +205,10 @@ public class Utils {
     }
     
     public static List<Double> getErrorsForIntervals(List<Interval> real, List<Interval> forecasts, Distance distanceMeasure) {
+        if (real.size() != forecasts.size()) {
+            throw new IndexOutOfBoundsException("real.size = " + real.size() + ", forecasts.size = " + forecasts.size());
+        }
+        
         List<Double> errors = new ArrayList<>();
         
         for (int i = 0; i < forecasts.size(); i++) {
@@ -213,10 +222,23 @@ public class Utils {
     public static List<Interval> zipCentersRadiiToIntervals(List<Double> centers, List<Double> radii) {
         List<Interval> intervals = new ArrayList<>();
         
-        for (int i = 0; i < centers.size(); i++) {
-            Interval interval = new IntervalCentreRadius(centers.get(i), radii.get(i));
+        int lastIndexCenters = centers.size() - 1;
+        int lastIndexRadii = radii.size() - 1;
+        
+        //kvoli lagom to cele zarovna "doprava" a odreze predok, kde trci
+        while ((lastIndexCenters >= 0) && (lastIndexRadii >= 0)) {
+            Interval interval = new IntervalCentreRadius(centers.get(lastIndexCenters), radii.get(lastIndexRadii));
             intervals.add(interval);
+            lastIndexCenters--;
+            lastIndexRadii--;
         }
+        
+        //teraz este doplnit tie NaN na zaciatok:
+        for (int i = 0; i < Math.max(lastIndexCenters, lastIndexRadii); i++) {
+            intervals.add(new IntervalCentreRadius(NaN, NaN));
+        }
+        
+        Collections.reverse(intervals);
         
         return intervals;
     }
