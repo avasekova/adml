@@ -20,6 +20,8 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         final String SCALED_INPUT = "scaled." + INPUT;
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String SCALED_OUTPUT = "scaled." + OUTPUT;
+        final String ORIGINAL_INPUT = "original." + INPUT;
+        final String ORIGINAL_OUTPUT = "original." + OUTPUT;
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String SCALED_INPUT_TRAIN = "scaled." + INPUT_TRAIN;
         final String INPUT_TEST = Const.INPUT + Utils.getCounter();
@@ -44,27 +46,29 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(nnet)");
 
-        rengine.assign(INPUT, Utils.listToArray(dataToUse));
-        rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
-        rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
-        rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + params.getLag() + "):length(" + OUTPUT + ")]"); //(1+lag):length
+        rengine.assign(ORIGINAL_INPUT, Utils.listToArray(dataToUse));
+        rengine.assign(ORIGINAL_OUTPUT, Utils.listToArray(dataToUse));
         
-        rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + INPUT + ")");
-        rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + OUTPUT + ")");
+        rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + ORIGINAL_INPUT + ")");
+        rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + ORIGINAL_OUTPUT + ")");
+        
+        rengine.eval(INPUT + " <- " + ORIGINAL_INPUT + "[1:(length(" + ORIGINAL_INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
+        rengine.eval(OUTPUT + " <- " + ORIGINAL_OUTPUT + "[(1 + " + params.getLag() + "):length(" + ORIGINAL_OUTPUT + ")]"); //(1+lag):length
+        
+        rengine.eval(SCALED_INPUT + " <- " + SCALED_INPUT + "[1:(length(" + SCALED_INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
+        rengine.eval(SCALED_OUTPUT + " <- " + SCALED_OUTPUT + "[(1 + " + params.getLag() + "):length(" + SCALED_OUTPUT + ")]"); //(1+lag):length
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         
-        rengine.eval(INPUT_TRAIN +        " <- " +        INPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_INPUT_TRAIN + " <- " + SCALED_INPUT + "[1:" + numTrainingEntries + "]");
-        rengine.eval(INPUT_TEST +        " <- " +        INPUT + "[" + (numTrainingEntries+1) + ":length(" +        INPUT + ")]");
-        rengine.eval(SCALED_INPUT_TEST + " <- " + SCALED_INPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_INPUT + ")]");
+        rengine.eval(SCALED_INPUT_TEST + " <- " + SCALED_INPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_INPUT + ")]");
         
         rengine.eval(OUTPUT_TRAIN +        " <- " +        OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
         
-        rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[" + (numTrainingEntries+1) + ":length(" +        OUTPUT + ")]");
-        rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_OUTPUT + ")]");
+        rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[(" + numTrainingEntries + " + 1):length(" +        OUTPUT + ")]");
+        rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_OUTPUT + ")]");
         
         REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
         double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
@@ -78,10 +82,10 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         //TODO potom tu nemat natvrdo linout!
         //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
         rengine.eval(FITTED_VALS + " <- fitted.values(" + NNETWORK + ")");
-        rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + OUTPUT + ")");
+        rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + ORIGINAL_OUTPUT + ")");
         
         rengine.eval(FORECAST_VALS + " <- predict(" + NNETWORK + ", data.frame(" + SCALED_INPUT_TEST + "), type='raw')");
-        rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + OUTPUT + ")");
+        rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + ORIGINAL_OUTPUT + ")");
         
         //a teraz to cele posuniem o lag, aby to davalo normalne vysledky:
         //povodne: -----fit-----|---forecast--|--nothin--
@@ -90,7 +94,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         rengine.eval(ALL_AUX + " <- c(rep(NA, " + params.getLag() + "), " + ALL_AUX + ")");
         rengine.eval(FINAL_UNSCALED_FITTED_VALS + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
         rengine.eval(FINAL_UNSCALED_FORECAST_VALS + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
-                "length(" + ALL_AUX + ")]");
+                "length(" + ORIGINAL_INPUT + ")]");
         
         REXP getFittedVals = rengine.eval(FINAL_UNSCALED_FITTED_VALS);
         double[] fittedVals = getFittedVals.asDoubleArray();
