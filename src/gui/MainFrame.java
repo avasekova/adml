@@ -37,6 +37,7 @@ import models.Nnetar;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
+import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.GDCanvas;
 import params.ArimaParams;
 import params.BasicStats;
@@ -101,6 +102,7 @@ public class MainFrame extends javax.swing.JFrame {
         listPlotITSspecs = new javax.swing.JList();
         buttonPlotRemoveITS = new javax.swing.JButton();
         buttonPlotAddITS = new javax.swing.JButton();
+        buttonPlotExportPlot = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -418,7 +420,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         textFieldRunDataRangeTo = new javax.swing.JTextField();
         buttonRunExportErrorMeasures = new javax.swing.JButton();
-        jLabel89 = new javax.swing.JLabel();
         labelRunMLPintLower = new javax.swing.JLabel();
         labelRunMLPintUpper = new javax.swing.JLabel();
         comboBoxRunMLPintLower = new javax.swing.JComboBox();
@@ -517,6 +518,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonPlotExportPlot.setText("Save currently shown plot");
+        buttonPlotExportPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotExportPlotActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
@@ -542,7 +550,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonPlotRemoveITS)
                             .addComponent(buttonPlotAddITS))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
+                    .addGroup(panelChartLayout.createSequentialGroup()
+                        .addComponent(buttonPlotExportPlot)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -567,8 +578,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonPlotAllITS)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(buttonPlotExportPlot)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2909,9 +2922,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunMLPnnetar.setSelected(true);
         checkBoxRunMLPnnetar.setText("MLP (nnetar)");
 
-        checkBoxRunARIMA.setForeground(new java.awt.Color(102, 255, 0));
         checkBoxRunARIMA.setText("ARIMA");
-        checkBoxRunARIMA.setEnabled(false);
 
         checkBoxRunMLPnnet.setText("MLP (nnet)");
 
@@ -2988,9 +2999,6 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonRunExportErrorMeasuresActionPerformed(evt);
             }
         });
-
-        jLabel89.setForeground(new java.awt.Color(51, 255, 0));
-        jLabel89.setText("under construction");
 
         labelRunMLPintLower.setText("Lower bound:");
         labelRunMLPintLower.setEnabled(false);
@@ -3106,9 +3114,7 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(checkBoxRunKNNkknn))
                                     .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
-                                            .addGap(266, 266, 266)
-                                            .addComponent(jLabel89)
-                                            .addGap(44, 44, 44)
+                                            .addGap(400, 400, 400)
                                             .addComponent(jLabel72))
                                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
                                             .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -3150,9 +3156,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxRunKNNcustom)
                             .addComponent(checkBoxRunKNNkknn))
                         .addGap(1, 1, 1)
-                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel72)
-                            .addComponent(jLabel89))
+                        .addComponent(jLabel72)
                         .addGap(18, 18, 18)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunMLPintNnetar)
@@ -3786,7 +3790,9 @@ public class MainFrame extends javax.swing.JFrame {
                 Forecastable arima = new Arima();
                 for (ArimaParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(data, p));
-                    reportsCTS.add(report);
+                    if (report != null) {
+                        reportsCTS.add(report);
+                    }
                 }
             }
         }
@@ -3906,6 +3912,12 @@ public class MainFrame extends javax.swing.JFrame {
             ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).removeElement(val);
         }
     }//GEN-LAST:event_buttonSettingsIntervalMLPDistancesRemoveActionPerformed
+
+    private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("dev.print(png, file=\"plotExport.png\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+        rengine.eval("dev.off()");
+    }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
     
     /**
      * @param args the command line arguments
@@ -3973,6 +3985,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
     private javax.swing.JButton buttonPlotColname;
+    private javax.swing.JButton buttonPlotExportPlot;
     private javax.swing.JButton buttonPlotRemoveITS;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonSettingsIntervalMLPDistancesAdd;
@@ -4119,7 +4132,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;

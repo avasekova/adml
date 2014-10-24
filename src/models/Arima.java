@@ -73,6 +73,9 @@ public class Arima implements Forecastable {
         rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")");
         rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + INPUT + ")");
         REXP getFittedValues = rengine.eval(UNSCALED_FITTED_VALS);
+        if (getFittedValues == null) {
+            return null;
+        }
         double[] fitted = getFittedValues.asDoubleArray();
         
         //"forecast" testing data
