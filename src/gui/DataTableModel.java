@@ -14,6 +14,7 @@ import org.rosuda.javaGD.GDCanvas;
 import params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
+import utils.PlotStateKeeper;
 import utils.Utils;
 
 public class DataTableModel extends AbstractTableModel {
@@ -162,8 +163,8 @@ public class DataTableModel extends AbstractTableModel {
         
         REXP getMaxY = rengine.eval(rangeY + "[2]");
         double[] maxY = getMaxY.asDoubleArray();
-        PlotDrawer.setLastDrawnCrispXmax(getRowCount());
-        PlotDrawer.setLastDrawnCrispYmax(maxY[0]);
+        PlotStateKeeper.setLastDrawnCrispXmax(getRowCount());
+        PlotStateKeeper.setLastDrawnCrispYmax(maxY[0]);
         
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDCanvas is supposed to have a different size, so

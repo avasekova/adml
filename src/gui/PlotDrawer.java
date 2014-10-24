@@ -12,6 +12,7 @@ import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
 import utils.MyRengine;
+import utils.PlotStateKeeper;
 import utils.Utils;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
@@ -26,10 +27,6 @@ public class PlotDrawer {
     //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
-    private static int lastDrawnCrispXmax;
-    private static double lastDrawnCrispYmax;
-    private static int lastDrawnIntXmax;
-    private static double lastDrawnIntYmax;
     
     public static void drawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int numForecasts,
                                  List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS,
@@ -98,8 +95,8 @@ public class PlotDrawer {
             
             REXP getMaxY = rengine.eval(rangeY_CTS + "[2]");
             double[] maxY = getMaxY.asDoubleArray();
-            lastDrawnCrispXmax = allDataCTS.size() + numForecasts;
-            lastDrawnCrispYmax = maxY[0];
+            PlotStateKeeper.setLastDrawnCrispXmax(allDataCTS.size() + numForecasts);
+            PlotStateKeeper.setLastDrawnCrispYmax(maxY[0]);
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
@@ -208,8 +205,8 @@ public class PlotDrawer {
             int[] maxX = getMaxX.asIntArray();
             REXP getMaxY = rengine.eval(rangeY_ITS + "[2]");
             double[] maxY = getMaxY.asDoubleArray();
-            lastDrawnIntXmax = maxX[0];
-            lastDrawnIntYmax = maxY[0];
+            PlotStateKeeper.setLastDrawnIntXmax(maxX[0]);
+            PlotStateKeeper.setLastDrawnIntYmax(maxY[0]);
         }
 
         MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
@@ -281,8 +278,8 @@ public class PlotDrawer {
         
         REXP getMaxY = rengine.eval(rangeY + "[2]");
         double[] maxY = getMaxY.asDoubleArray();
-        lastDrawnIntXmax = dataTableModel.getRowCount();
-        lastDrawnIntYmax = maxY[0];
+        PlotStateKeeper.setLastDrawnIntXmax(dataTableModel.getRowCount());
+        PlotStateKeeper.setLastDrawnIntYmax(maxY[0]);
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
@@ -579,29 +576,5 @@ public class PlotDrawer {
 //        rString.append("))");
 //        return rString.toString();
 //    }
-    
-    public static int getLastDrawnCrispXmax() {
-        return lastDrawnCrispXmax;
-    }
-
-    public static double getLastDrawnCrispYmax() {
-        return lastDrawnCrispYmax;
-    }
-    
-    public static void setLastDrawnCrispXmax(int lastDrawnCrispXmax) {
-        PlotDrawer.lastDrawnCrispXmax = lastDrawnCrispXmax;
-    }
-
-    public static void setLastDrawnCrispYmax(double lastDrawnCrispYmax) {
-        PlotDrawer.lastDrawnCrispYmax = lastDrawnCrispYmax;
-    }
-
-    public static int getLastDrawnIntXmax() {
-        return lastDrawnIntXmax;
-    }
-
-    public static double getLastDrawnIntYmax() {
-        return lastDrawnIntYmax;
-    }
     
 }

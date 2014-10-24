@@ -52,6 +52,7 @@ import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
 import utils.MyRengine;
+import utils.PlotStateKeeper;
 import utils.R_Bool;
 import utils.Utils;
 import utils.imlp.ExcelWriter;
@@ -5188,9 +5189,9 @@ public class MainFrame extends javax.swing.JFrame {
             textFieldPlotRangeCTSYfrom.setEnabled(true);
             textFieldPlotRangeCTSYto.setEnabled(true);
             textFieldPlotRangeCTSXfrom.setText("0");
-            textFieldPlotRangeCTSXto.setText("" + PlotDrawer.getLastDrawnCrispXmax());
+            textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
             textFieldPlotRangeCTSYfrom.setText("0");
-            textFieldPlotRangeCTSYto.setText("" + PlotDrawer.getLastDrawnCrispYmax());
+            textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
             
             textFieldPlotRangeIntTSXfrom.setEnabled(false);
             textFieldPlotRangeIntTSXto.setEnabled(false);
@@ -5207,27 +5208,27 @@ public class MainFrame extends javax.swing.JFrame {
             textFieldPlotRangeIntTSYfrom.setEnabled(true);
             textFieldPlotRangeIntTSYto.setEnabled(true);
             textFieldPlotRangeIntTSXfrom.setText("0");
-            textFieldPlotRangeIntTSXto.setText("" + PlotDrawer.getLastDrawnIntXmax());
+            textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
             textFieldPlotRangeIntTSYfrom.setText("0");
-            textFieldPlotRangeIntTSYto.setText("" + PlotDrawer.getLastDrawnIntYmax());
+            textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         } else {
             textFieldPlotRangeCTSXfrom.setEnabled(true);
             textFieldPlotRangeCTSXto.setEnabled(true);
             textFieldPlotRangeCTSYfrom.setEnabled(true);
             textFieldPlotRangeCTSYto.setEnabled(true);
             textFieldPlotRangeCTSXfrom.setText("0");
-            textFieldPlotRangeCTSXto.setText("" + PlotDrawer.getLastDrawnCrispXmax());
+            textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
             textFieldPlotRangeCTSYfrom.setText("0");
-            textFieldPlotRangeCTSYto.setText("" + PlotDrawer.getLastDrawnCrispYmax());
+            textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
             
             textFieldPlotRangeIntTSXfrom.setEnabled(true);
             textFieldPlotRangeIntTSXto.setEnabled(true);
             textFieldPlotRangeIntTSYfrom.setEnabled(true);
             textFieldPlotRangeIntTSYto.setEnabled(true);
             textFieldPlotRangeIntTSXfrom.setText("0");
-            textFieldPlotRangeIntTSXto.setText("" + PlotDrawer.getLastDrawnIntXmax());
+            textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
             textFieldPlotRangeIntTSYfrom.setText("0");
-            textFieldPlotRangeIntTSYto.setText("" + PlotDrawer.getLastDrawnIntYmax());
+            textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         }
     }
 }
