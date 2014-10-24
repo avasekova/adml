@@ -4498,34 +4498,12 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         
-        Distance distanceFunction = null;
-        switch (comboBoxSettingsIMLPcCodeDistance.getSelectedItem().toString()) {
-            case "Euclidean distance":
-                double beta = Double.parseDouble(textFieldIntervalMLPDistanceParam_euclid_beta.getText());
-                WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
-                distanceFunction = euclid;
-                break;
-            case "Hausdorff distance":
-                distanceFunction = new HausdorffDistance();
-                break;
-            case "Ichino-Yaguchi distance":
-                double gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_ichino_gamma.getText());
-                IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
-                distanceFunction = ichino;
-                break;
-            case "De Carvalho distance":
-                gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_decarvalho_gamma.getText());
-                DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
-                distanceFunction = decarvalho;
-                break;
-            case "Bertoluzza distance":
-                gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_bertoluzza_beta.getText());
-                BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
-                distanceFunction = bertoluzza;
-                break;
+        List<Distance> distanceFunctions = new ArrayList<>();
+        for (Object obj : ((DefaultListModel)listSettingsIntervalMLPDistancesUsed.getModel()).toArray()) {
+            distanceFunctions.add((Distance) obj);
         }
-        setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDistanceFunction",
-                Distance.class, distanceFunction);
+        setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDistanceFunction",
+                Distance.class, distanceFunctions);
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumNeurons));
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumIterations",
