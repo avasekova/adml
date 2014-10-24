@@ -519,6 +519,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         buttonPlotExportPlot.setText("Save currently shown plot");
+        buttonPlotExportPlot.setEnabled(false);
         buttonPlotExportPlot.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPlotExportPlotActionPerformed(evt);
@@ -3402,6 +3403,7 @@ public class MainFrame extends javax.swing.JFrame {
         PlotDrawer.drawPlotsITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
                 listITSPlotCentreRadius, listITSPlotLowerUpper);
         textAreaPlotBasicStats.setText("");
+        buttonPlotExportPlot.setEnabled(true);
     }//GEN-LAST:event_buttonPlotAllITSActionPerformed
 
     private void sliderPercentTrainIntervalMLPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainIntervalMLPStateChanged
@@ -3847,6 +3849,7 @@ public class MainFrame extends javax.swing.JFrame {
         PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
             numForecasts, reportsCTS, reportsITS, from, to, colname_CTS);
         textAreaPlotBasicStats.setText("");
+        buttonPlotExportPlot.setEnabled(true);
         //this.repaint();
 
         //and show forecast values in the other pane
@@ -3914,9 +3917,28 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonSettingsIntervalMLPDistancesRemoveActionPerformed
 
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
-        Rengine rengine = MyRengine.getRengine();
-        rengine.eval("dev.print(png, file=\"plotExport.png\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
-        rengine.eval("dev.off()");
+        JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("plotExport.png"));
+        
+        if (evt.getSource() == buttonPlotExportPlot) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File plotFile = fileChooser.getSelectedFile();
+                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
+                    //drawNowToThisGDCanvas = gdCanvasPlot;
+                    Rengine rengine = MyRengine.getRengine();
+                    rengine.eval("dev.print(png, file=\"" + plotFile.getPath().replace("\\", "\\\\") + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+                    rengine.eval("dev.off()");
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
+
+        //a na zaver to disablovat, aby sa na to netukalo furt
+        buttonPlotExportPlot.setEnabled(false);
     }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
     
     /**
@@ -4349,6 +4371,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<String> colnames = listColnames.getSelectedValuesList();
         
         List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
+        buttonPlotExportPlot.setEnabled(true);
         
         //mean, standard deviation, median
         StringBuilder basicStatsString = new StringBuilder();
