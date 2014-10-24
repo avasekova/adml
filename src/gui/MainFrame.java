@@ -3841,6 +3841,13 @@ public class MainFrame extends javax.swing.JFrame {
         //add more methods/models here
 
         drawOneOrTwoTables(reportsCTS, reportsITS);
+        
+        //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
+        //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
+        List<TrainAndTestReport> allReports = new ArrayList<>();
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsITS);
+        PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
 
         //show Forecast plot
         int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
@@ -3853,9 +3860,6 @@ public class MainFrame extends javax.swing.JFrame {
         //this.repaint();
 
         //and show forecast values in the other pane
-        List<TrainAndTestReport> allReports = new ArrayList<>();
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsITS);
         JTable tableForecastValues = new JTable(new ForecastValsTableModel(numForecasts, allReports));
         tableForecastValues.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
         TableColumn firstColumn = tableForecastValues.getColumnModel().getColumn(0);
@@ -3866,9 +3870,6 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPaneForecastVals.setViewportView(tableForecastValues);
         panelForecastVals.add(scrollPaneForecastVals);
         panelForecastVals.repaint();
-
-        //and draw diagrams of NNs, if applicable
-        PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
