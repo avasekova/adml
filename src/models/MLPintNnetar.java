@@ -13,7 +13,6 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
-import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class MLPintNnetar implements Forecastable {
 
@@ -78,8 +77,8 @@ public class MLPintNnetar implements Forecastable {
         }
         
         //TODO nechat vybrat distance!
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervalsWithoutNaN, fittedValsWithoutNaN, new WeightedEuclideanDistance(0.5));
-        List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, new WeightedEuclideanDistance(0.5));
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervalsWithoutNaN, fittedValsWithoutNaN, ((MLPintNnetarParams)parameters).getDistanceFunction());
+        List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, ((MLPintNnetarParams)parameters).getDistanceFunction());
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
@@ -95,7 +94,7 @@ public class MLPintNnetar implements Forecastable {
         errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervalsWithoutNaN, fittedValsWithoutNaN));
         errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)(" + ((MLPintNnetarParams)parameters).getDistanceFunction() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         
