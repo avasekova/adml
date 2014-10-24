@@ -4510,7 +4510,6 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumIterations));
         setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setExplVars",
                 List.class, ((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
-        //ak toto bude fungovat, tak som fakt kral
         setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setOutVars",
                 List.class, ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNetworks",
