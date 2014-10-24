@@ -160,6 +160,11 @@ public class DataTableModel extends AbstractTableModel {
                             + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                             + "xpd = TRUE)");
         
+        REXP getMaxY = rengine.eval(rangeY + "[2]");
+        double[] maxY = getMaxY.asDoubleArray();
+        PlotDrawer.setLastDrawnCrispXmax(getRowCount());
+        PlotDrawer.setLastDrawnCrispYmax(maxY[0]);
+        
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDCanvas is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.

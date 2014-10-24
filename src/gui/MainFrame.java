@@ -103,6 +103,28 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotRemoveITS = new javax.swing.JButton();
         buttonPlotAddITS = new javax.swing.JButton();
         buttonPlotExportPlot = new javax.swing.JButton();
+        jLabel89 = new javax.swing.JLabel();
+        textFieldPlotRangeCTSXfrom = new javax.swing.JTextField();
+        jLabel126 = new javax.swing.JLabel();
+        textFieldPlotRangeCTSXto = new javax.swing.JTextField();
+        jLabel127 = new javax.swing.JLabel();
+        textFieldPlotRangeCTSYfrom = new javax.swing.JTextField();
+        jLabel128 = new javax.swing.JLabel();
+        textFieldPlotRangeCTSYto = new javax.swing.JTextField();
+        buttonPlotRestoreCTSRangeX = new javax.swing.JButton();
+        buttonPlotRestoreCTSRangeY = new javax.swing.JButton();
+        jLabel129 = new javax.swing.JLabel();
+        jLabel130 = new javax.swing.JLabel();
+        textFieldPlotRangeIntTSYfrom = new javax.swing.JTextField();
+        textFieldPlotRangeIntTSXfrom = new javax.swing.JTextField();
+        jLabel131 = new javax.swing.JLabel();
+        jLabel132 = new javax.swing.JLabel();
+        textFieldPlotRangeIntTSYto = new javax.swing.JTextField();
+        textFieldPlotRangeIntTSXto = new javax.swing.JTextField();
+        buttonPlotRestoreIntTSRangeX = new javax.swing.JButton();
+        buttonPlotRestoreIntTSRangeY = new javax.swing.JButton();
+        buttonPlotZoomCTS = new javax.swing.JButton();
+        buttonPlotZoomIntTS = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -427,7 +449,7 @@ public class MainFrame extends javax.swing.JFrame {
         radioButtonRunMLPintCenterRadius = new javax.swing.JRadioButton();
         radioButtonRunMLPintLowerUpper = new javax.swing.JRadioButton();
         checkBoxRunMLPintNnet = new javax.swing.JCheckBox();
-        buttonRunSetRangeAll = new javax.swing.JButton();
+        buttonRunRestoreRangeAll = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
         scrollPaneForecastVals = new javax.swing.JScrollPane();
         panelDiagramsNNs = new javax.swing.JPanel();
@@ -527,6 +549,47 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel89.setText("Zoom CTS axis x: from");
+
+        textFieldPlotRangeCTSXfrom.setText("0");
+
+        jLabel126.setText("to");
+
+        jLabel127.setText("Zoom CTS axis y: from");
+
+        textFieldPlotRangeCTSYfrom.setText("0");
+
+        jLabel128.setText("to");
+
+        buttonPlotRestoreCTSRangeX.setText("<-restore all");
+        buttonPlotRestoreCTSRangeX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotRestoreCTSRangeXActionPerformed(evt);
+            }
+        });
+
+        buttonPlotRestoreCTSRangeY.setText("<-restore all");
+
+        jLabel129.setText("Zoom ITS axis x: from");
+
+        jLabel130.setText("Zoom ITS axis y: from");
+
+        textFieldPlotRangeIntTSYfrom.setText("0");
+
+        textFieldPlotRangeIntTSXfrom.setText("0");
+
+        jLabel131.setText("to");
+
+        jLabel132.setText("to");
+
+        buttonPlotRestoreIntTSRangeX.setText("<-restore all");
+
+        buttonPlotRestoreIntTSRangeY.setText("<-restore all");
+
+        buttonPlotZoomCTS.setText("Zoom CTS");
+
+        buttonPlotZoomIntTS.setText("Zoom ITS");
+
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
         panelChartLayout.setHorizontalGroup(
@@ -536,26 +599,79 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelChartLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotColname)
-                            .addComponent(buttonACF)
-                            .addComponent(buttonPACF))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonPlotColname)
+                                    .addComponent(buttonACF)
+                                    .addComponent(buttonPACF))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel127)
+                                    .addGroup(panelChartLayout.createSequentialGroup()
+                                        .addComponent(buttonPlotExportPlot)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel89)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelChartLayout.createSequentialGroup()
+                                        .addComponent(textFieldPlotRangeCTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel126)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPlotRestoreCTSRangeX))
+                                    .addGroup(panelChartLayout.createSequentialGroup()
+                                        .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel128)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPlotRestoreCTSRangeY)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonPlotZoomCTS)))
+                        .addGap(27, 27, 27)
                         .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotAllITS)
-                            .addComponent(buttonPlotRemoveITS)
-                            .addComponent(buttonPlotAddITS))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE))
-                    .addGroup(panelChartLayout.createSequentialGroup()
-                        .addComponent(buttonPlotExportPlot)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonPlotAllITS)
+                                    .addComponent(buttonPlotRemoveITS)
+                                    .addComponent(buttonPlotAddITS))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel130)
+                                    .addComponent(jLabel129))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelChartLayout.createSequentialGroup()
+                                        .addComponent(textFieldPlotRangeIntTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel131)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPlotRestoreIntTSRangeX))
+                                    .addGroup(panelChartLayout.createSequentialGroup()
+                                        .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel132)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldPlotRangeIntTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPlotRestoreIntTSRangeY)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonPlotZoomIntTS)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -580,10 +696,49 @@ public class MainFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonPlotAllITS)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonPlotExportPlot)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
+                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(buttonPlotZoomCTS)
+                        .addGap(21, 21, 21))
+                    .addGroup(panelChartLayout.createSequentialGroup()
+                        .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textFieldPlotRangeCTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel126)
+                                    .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonPlotRestoreCTSRangeX)
+                                    .addComponent(buttonPlotExportPlot))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel127)
+                                    .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel128)
+                                    .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonPlotRestoreCTSRangeY)))
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel129, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(textFieldPlotRangeIntTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel131)
+                                    .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonPlotRestoreIntTSRangeX))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel130)
+                                    .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel132)
+                                    .addComponent(textFieldPlotRangeIntTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(buttonPlotRestoreIntTSRangeY)))
+                            .addGroup(panelChartLayout.createSequentialGroup()
+                                .addGap(25, 25, 25)
+                                .addComponent(buttonPlotZoomIntTS)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -596,7 +751,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelData.setLayout(panelDataLayout);
         panelDataLayout.setHorizontalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE)
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -737,7 +892,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(paramNnetar_textFieldNumSeasonalLags, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paramNnetar_textFieldNumNodesHiddenLayer, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(paramNnetar_textFieldNumNonSeasonalLags))
-                .addGap(0, 720, Short.MAX_VALUE))
+                .addGap(0, 760, Short.MAX_VALUE))
         );
         panelSettingsMLPPackage_nnetarLayout.setVerticalGroup(
             panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -776,7 +931,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(1017, Short.MAX_VALUE))
+                .addContainerGap(1057, Short.MAX_VALUE))
         );
         panelSettingsMLPPackage_neuralnetLayout.setVerticalGroup(
             panelSettingsMLPPackage_neuralnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -880,7 +1035,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
                         .addGap(228, 228, 228)
                         .addGroup(panelSettingsMLPPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(paramNnet_maxit, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                            .addComponent(paramNnet_maxit, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
                             .addComponent(paramNnet_weightDecay))
                         .addGap(789, 789, 789))
                     .addGroup(panelSettingsMLPPackage_nnetLayout.createSequentialGroup()
@@ -1131,7 +1286,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel92)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(textFieldMLPintDistanceParam_euclid_beta, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 29, Short.MAX_VALUE))
+                .addGap(0, 69, Short.MAX_VALUE))
         );
         panelSettingsMLPintDistanceParams_euclidLayout.setVerticalGroup(
             panelSettingsMLPintDistanceParams_euclidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1148,7 +1303,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPintDistanceParams_hausdorff.setLayout(panelSettingsMLPintDistanceParams_hausdorffLayout);
         panelSettingsMLPintDistanceParams_hausdorffLayout.setHorizontalGroup(
             panelSettingsMLPintDistanceParams_hausdorffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 101, Short.MAX_VALUE)
+            .addGap(0, 141, Short.MAX_VALUE)
         );
         panelSettingsMLPintDistanceParams_hausdorffLayout.setVerticalGroup(
             panelSettingsMLPintDistanceParams_hausdorffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1488,7 +1643,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(paramMLPint_radius_textFieldNumNodesHiddenLayer, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(paramMLPint_radius_textFieldNumNonSeasonalLags, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel88))
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(384, Short.MAX_VALUE))
         );
         panelSettingsMLPintPackage_nnetarLayout.setVerticalGroup(
             panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1846,7 +2001,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel124)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(paramMLPintNnet_abstolRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         panelSettingsMLPintPackage_nnetLayout.setVerticalGroup(
             panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2037,7 +2192,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabelPercentSign1)
                         .addGap(202, 202, 202))))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 1084, Short.MAX_VALUE))
+                .addGap(0, 1124, Short.MAX_VALUE))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                     .addGap(262, 262, 262)
@@ -2374,7 +2529,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonSettingsIntervalMLPDistancesRemove)))
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addContainerGap(311, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPModeCcodeLayout.setVerticalGroup(
             panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2442,7 +2597,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsIntervalMLPModeNeuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel32)
-                .addContainerGap(933, Short.MAX_VALUE))
+                .addContainerGap(973, Short.MAX_VALUE))
         );
         panelSettingsIntervalMLPModeNeuralnetLayout.setVerticalGroup(
             panelSettingsIntervalMLPModeNeuralnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2708,7 +2863,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(spinnerKNNnumNeighboursFNN, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addComponent(textFieldKNNfnnLag))
-                .addContainerGap(860, Short.MAX_VALUE))
+                .addContainerGap(900, Short.MAX_VALUE))
         );
         panelSettingsKNNoptions_FNNLayout.setVerticalGroup(
             panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2770,7 +2925,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel68))
                     .addComponent(comboBoxKNNdistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboBoxKNNcombination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(609, Short.MAX_VALUE))
+                .addContainerGap(649, Short.MAX_VALUE))
         );
         panelSettingsKNNoptions_customLayout.setVerticalGroup(
             panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2826,7 +2981,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(spinnerKNNnumNeighboursKKNN, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel75)
-                .addContainerGap(617, Short.MAX_VALUE))
+                .addContainerGap(657, Short.MAX_VALUE))
         );
         panelSettingsKNNoptions_kknnLayout.setVerticalGroup(
             panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2914,7 +3069,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSummary.setLayout(panelSummaryLayout);
         panelSummaryLayout.setHorizontalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1118, Short.MAX_VALUE)
+            .addGap(0, 1158, Short.MAX_VALUE)
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3029,10 +3184,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunMLPintNnet.setText("MLP(i) (nnet)");
 
-        buttonRunSetRangeAll.setText("<-restore all data");
-        buttonRunSetRangeAll.addActionListener(new java.awt.event.ActionListener() {
+        buttonRunRestoreRangeAll.setText("<-restore all data");
+        buttonRunRestoreRangeAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRunSetRangeAllActionPerformed(evt);
+                buttonRunRestoreRangeAllActionPerformed(evt);
             }
         });
 
@@ -3144,10 +3299,10 @@ public class MainFrame extends javax.swing.JFrame {
                                                 .addComponent(checkBoxRunKNNinterval)
                                                 .addGap(13, 13, 13)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonRunSetRangeAll)
+                                        .addComponent(buttonRunRestoreRangeAll)
                                         .addGap(81, 81, 81)
                                         .addComponent(buttonRunExportErrorMeasures)))))
-                        .addGap(0, 161, Short.MAX_VALUE)))
+                        .addGap(0, 201, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -3224,7 +3379,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel44)
                     .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonRunExportErrorMeasures)
-                    .addComponent(buttonRunSetRangeAll))
+                    .addComponent(buttonRunRestoreRangeAll))
                 .addGap(1, 1, 1)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -3238,7 +3393,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelForecastVals.setLayout(panelForecastValsLayout);
         panelForecastValsLayout.setHorizontalGroup(
             panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 1138, Short.MAX_VALUE)
+            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE)
         );
         panelForecastValsLayout.setVerticalGroup(
             panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3255,7 +3410,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelDiagramsNNs.setLayout(panelDiagramsNNsLayout);
         panelDiagramsNNsLayout.setHorizontalGroup(
             panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1138, Short.MAX_VALUE)
+            .addGap(0, 1178, Short.MAX_VALUE)
         );
         panelDiagramsNNsLayout.setVerticalGroup(
             panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3373,6 +3528,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
         drawPlotGeneral("plot.ts", "");
+        setPlotRanges(dataTableModel.getRowCount(), 0);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void textFieldPercentTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainActionPerformed
@@ -3397,11 +3553,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
         drawPlotGeneral("acf", "");
         textAreaPlotBasicStats.setText("");
+        setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
         drawPlotGeneral("pacf", "");
         textAreaPlotBasicStats.setText("");
+        setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void paramNnet_initRangeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramNnet_initRangeActionPerformed
@@ -3414,6 +3572,7 @@ public class MainFrame extends javax.swing.JFrame {
                 listITSPlotCentreRadius, listITSPlotLowerUpper);
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
+        setPlotRanges(0, dataTableModel.getRowCount());
     }//GEN-LAST:event_buttonPlotAllITSActionPerformed
 
     private void sliderPercentTrainIntervalMLPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainIntervalMLPStateChanged
@@ -3865,6 +4024,7 @@ public class MainFrame extends javax.swing.JFrame {
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
             numForecasts, reportsCTS, reportsITS, from, to, colname_CTS);
+        setPlotRanges(dataTableModel.getRowCount(), dataTableModel.getRowCount());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         //this.repaint();
@@ -3952,10 +4112,14 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotExportPlot.setEnabled(false);
     }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
 
-    private void buttonRunSetRangeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunSetRangeAllActionPerformed
+    private void buttonRunRestoreRangeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunRestoreRangeAllActionPerformed
         textFieldRunDataRangeFrom.setText("1");
         textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
-    }//GEN-LAST:event_buttonRunSetRangeAllActionPerformed
+    }//GEN-LAST:event_buttonRunRestoreRangeAllActionPerformed
+
+    private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonPlotRestoreCTSRangeXActionPerformed
     
     /**
      * @param args the command line arguments
@@ -4025,8 +4189,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotExportPlot;
     private javax.swing.JButton buttonPlotRemoveITS;
+    private javax.swing.JButton buttonPlotRestoreCTSRangeX;
+    private javax.swing.JButton buttonPlotRestoreCTSRangeY;
+    private javax.swing.JButton buttonPlotRestoreIntTSRangeX;
+    private javax.swing.JButton buttonPlotRestoreIntTSRangeY;
+    private javax.swing.JButton buttonPlotZoomCTS;
+    private javax.swing.JButton buttonPlotZoomIntTS;
     private javax.swing.JButton buttonRunExportErrorMeasures;
-    private javax.swing.JButton buttonRunSetRangeAll;
+    private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonSettingsIntervalMLPDistancesAdd;
     private javax.swing.JButton buttonSettingsIntervalMLPDistancesRemove;
     private javax.swing.JButton buttonTrainAndTest;
@@ -4088,7 +4258,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel123;
     private javax.swing.JLabel jLabel124;
     private javax.swing.JLabel jLabel125;
+    private javax.swing.JLabel jLabel126;
+    private javax.swing.JLabel jLabel127;
+    private javax.swing.JLabel jLabel128;
+    private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel130;
+    private javax.swing.JLabel jLabel131;
+    private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -4171,6 +4348,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
+    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabel90;
     private javax.swing.JLabel jLabel91;
@@ -4354,6 +4532,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
     private javax.swing.JTextField textFieldPercentTrainKNN;
     private javax.swing.JTextField textFieldPercentTrainMLPint;
+    private javax.swing.JTextField textFieldPlotRangeCTSXfrom;
+    private javax.swing.JTextField textFieldPlotRangeCTSXto;
+    private javax.swing.JTextField textFieldPlotRangeCTSYfrom;
+    private javax.swing.JTextField textFieldPlotRangeCTSYto;
+    private javax.swing.JTextField textFieldPlotRangeIntTSXfrom;
+    private javax.swing.JTextField textFieldPlotRangeIntTSXto;
+    private javax.swing.JTextField textFieldPlotRangeIntTSYfrom;
+    private javax.swing.JTextField textFieldPlotRangeIntTSYto;
     private javax.swing.JTextField textFieldRunDataRangeFrom;
     private javax.swing.JTextField textFieldRunDataRangeTo;
     private javax.swing.JTextField textFieldRunNumForecasts;
@@ -4982,6 +5168,66 @@ public class MainFrame extends javax.swing.JFrame {
         if (paramsSize > Utils.REASONABLY_MANY_MODELS) {
             DialogTooManyModels dialogTooManyModels = new DialogTooManyModels(this, true, paramsSize, modelName);
             dialogTooManyModels.setVisible(true);
+        }
+    }
+
+    private void setPlotRanges(int sizeCTS, int sizeIntTS) {
+        if ((sizeCTS == 0) && (sizeIntTS == 0)) {
+            textFieldPlotRangeCTSXfrom.setEnabled(false);
+            textFieldPlotRangeCTSXto.setEnabled(false);
+            textFieldPlotRangeCTSYfrom.setEnabled(false);
+            textFieldPlotRangeCTSYto.setEnabled(false);
+            
+            textFieldPlotRangeIntTSXfrom.setEnabled(false);
+            textFieldPlotRangeIntTSXto.setEnabled(false);
+            textFieldPlotRangeIntTSYfrom.setEnabled(false);
+            textFieldPlotRangeIntTSYto.setEnabled(false);
+        } else if (sizeIntTS == 0) {
+            textFieldPlotRangeCTSXfrom.setEnabled(true);
+            textFieldPlotRangeCTSXto.setEnabled(true);
+            textFieldPlotRangeCTSYfrom.setEnabled(true);
+            textFieldPlotRangeCTSYto.setEnabled(true);
+            textFieldPlotRangeCTSXfrom.setText("0");
+            textFieldPlotRangeCTSXto.setText("" + PlotDrawer.getLastDrawnCrispXmax());
+            textFieldPlotRangeCTSYfrom.setText("0");
+            textFieldPlotRangeCTSYto.setText("" + PlotDrawer.getLastDrawnCrispYmax());
+            
+            textFieldPlotRangeIntTSXfrom.setEnabled(false);
+            textFieldPlotRangeIntTSXto.setEnabled(false);
+            textFieldPlotRangeIntTSYfrom.setEnabled(false);
+            textFieldPlotRangeIntTSYto.setEnabled(false);
+        } else if (sizeCTS == 0) {
+            textFieldPlotRangeCTSXfrom.setEnabled(false);
+            textFieldPlotRangeCTSXto.setEnabled(false);
+            textFieldPlotRangeCTSYfrom.setEnabled(false);
+            textFieldPlotRangeCTSYto.setEnabled(false);
+            
+            textFieldPlotRangeIntTSXfrom.setEnabled(true);
+            textFieldPlotRangeIntTSXto.setEnabled(true);
+            textFieldPlotRangeIntTSYfrom.setEnabled(true);
+            textFieldPlotRangeIntTSYto.setEnabled(true);
+            textFieldPlotRangeIntTSXfrom.setText("0");
+            textFieldPlotRangeIntTSXto.setText("" + PlotDrawer.getLastDrawnIntXmax());
+            textFieldPlotRangeIntTSYfrom.setText("0");
+            textFieldPlotRangeIntTSYto.setText("" + PlotDrawer.getLastDrawnIntYmax());
+        } else {
+            textFieldPlotRangeCTSXfrom.setEnabled(true);
+            textFieldPlotRangeCTSXto.setEnabled(true);
+            textFieldPlotRangeCTSYfrom.setEnabled(true);
+            textFieldPlotRangeCTSYto.setEnabled(true);
+            textFieldPlotRangeCTSXfrom.setText("0");
+            textFieldPlotRangeCTSXto.setText("" + PlotDrawer.getLastDrawnCrispXmax());
+            textFieldPlotRangeCTSYfrom.setText("0");
+            textFieldPlotRangeCTSYto.setText("" + PlotDrawer.getLastDrawnCrispYmax());
+            
+            textFieldPlotRangeIntTSXfrom.setEnabled(true);
+            textFieldPlotRangeIntTSXto.setEnabled(true);
+            textFieldPlotRangeIntTSYfrom.setEnabled(true);
+            textFieldPlotRangeIntTSYto.setEnabled(true);
+            textFieldPlotRangeIntTSXfrom.setText("0");
+            textFieldPlotRangeIntTSXto.setText("" + PlotDrawer.getLastDrawnIntXmax());
+            textFieldPlotRangeIntTSYfrom.setText("0");
+            textFieldPlotRangeIntTSYto.setText("" + PlotDrawer.getLastDrawnIntYmax());
         }
     }
 }

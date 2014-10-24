@@ -26,6 +26,10 @@ public class PlotDrawer {
     //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
+    private static int lastDrawnCrispXmax;
+    private static double lastDrawnCrispYmax;
+    private static int lastDrawnIntXmax;
+    private static double lastDrawnIntYmax;
     
     public static void drawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int numForecasts,
                                  List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS,
@@ -92,6 +96,10 @@ public class PlotDrawer {
                                 + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
             
+            REXP getMaxY = rengine.eval(rangeY_CTS + "[2]");
+            double[] maxY = getMaxY.asDoubleArray();
+            lastDrawnCrispXmax = allDataCTS.size() + numForecasts;
+            lastDrawnCrispYmax = maxY[0];
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
@@ -195,6 +203,13 @@ public class PlotDrawer {
                                 + "cex = 0.8, "
                                 + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
+            
+            REXP getMaxX = rengine.eval(rangeX_ITS + "[2]");
+            int[] maxX = getMaxX.asIntArray();
+            REXP getMaxY = rengine.eval(rangeY_ITS + "[2]");
+            double[] maxY = getMaxY.asDoubleArray();
+            lastDrawnIntXmax = maxX[0];
+            lastDrawnIntYmax = maxY[0];
         }
 
         MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
@@ -263,6 +278,11 @@ public class PlotDrawer {
                                 + "text.width = 15, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
         }
+        
+        REXP getMaxY = rengine.eval(rangeY + "[2]");
+        double[] maxY = getMaxY.asDoubleArray();
+        lastDrawnIntXmax = dataTableModel.getRowCount();
+        lastDrawnIntYmax = maxY[0];
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
@@ -559,4 +579,29 @@ public class PlotDrawer {
 //        rString.append("))");
 //        return rString.toString();
 //    }
+    
+    public static int getLastDrawnCrispXmax() {
+        return lastDrawnCrispXmax;
+    }
+
+    public static double getLastDrawnCrispYmax() {
+        return lastDrawnCrispYmax;
+    }
+    
+    public static void setLastDrawnCrispXmax(int lastDrawnCrispXmax) {
+        PlotDrawer.lastDrawnCrispXmax = lastDrawnCrispXmax;
+    }
+
+    public static void setLastDrawnCrispYmax(double lastDrawnCrispYmax) {
+        PlotDrawer.lastDrawnCrispYmax = lastDrawnCrispYmax;
+    }
+
+    public static int getLastDrawnIntXmax() {
+        return lastDrawnIntXmax;
+    }
+
+    public static double getLastDrawnIntYmax() {
+        return lastDrawnIntYmax;
+    }
+    
 }
