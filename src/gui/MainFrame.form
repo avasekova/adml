@@ -2555,7 +2555,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="scrollPaneiMLPSettingsOutVars" min="-2" pref="562" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="jLabel36" min="-2" max="-2" attributes="0"/>
@@ -2570,13 +2570,6 @@
                                               <Component id="buttonIMLPRemoveOutVar" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonIMLPAddExplVar" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonIMLPRemoveExplVar" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
@@ -2604,37 +2597,66 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel60" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="comboBoxSettingsIMLPcCodeDistance" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="panelSettingsIntervalMLPDistanceParams" min="-2" pref="101" max="-2" attributes="0"/>
+                                          <Component id="scrollPaneiMLPSettingsExplVars" min="-2" pref="562" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="buttonIMLPAddExplVar" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="buttonIMLPRemoveExplVar" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel54" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="comboBoxSettingsIMLPcCodeDistance" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="panelSettingsIntervalMLPDistanceParams" min="-2" pref="101" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="buttonSettingsIntervalMLPDistancesAdd" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
-                                              <Component id="scrollPaneiMLPSettingsExplVars" min="-2" pref="562" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jScrollPane3" min="-2" pref="271" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="buttonSettingsIntervalMLPDistancesRemove" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <EmptySpace pref="471" max="32767" attributes="0"/>
+                                      <EmptySpace pref="271" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
                             <DimensionLayout dim="1">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="comboBoxSettingsIMLPcCodeDistance" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" attributes="0">
+                                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                                      <Group type="103" groupAlignment="3" attributes="0">
+                                                          <Component id="jLabel54" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="comboBoxSettingsIMLPcCodeDistance" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      </Group>
+                                                      <Component id="panelSettingsIntervalMLPDistanceParams" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="buttonSettingsIntervalMLPDistancesAdd" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="buttonIMLPAddExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="buttonIMLPRemoveExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
                                           </Group>
-                                          <Component id="panelSettingsIntervalMLPDistanceParams" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="buttonIMLPAddExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="buttonIMLPRemoveExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="buttonSettingsIntervalMLPDistancesRemove" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                                              </Group>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="scrollPaneiMLPSettingsExplVars" min="-2" pref="70" max="-2" attributes="0"/>
@@ -3030,6 +3052,35 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="no other options for now"/>
                               </Properties>
+                            </Component>
+                            <Component class="javax.swing.JButton" name="buttonSettingsIntervalMLPDistancesAdd">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="-&gt; Use this distance -&gt;"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSettingsIntervalMLPDistancesAddActionPerformed"/>
+                              </Events>
+                            </Component>
+                            <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Component class="javax.swing.JList" name="listSettingsIntervalMLPDistancesUsed">
+                                  <Properties>
+                                    <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                      <Connection code="new DefaultListModel()" type="code"/>
+                                    </Property>
+                                  </Properties>
+                                </Component>
+                              </SubComponents>
+                            </Container>
+                            <Component class="javax.swing.JButton" name="buttonSettingsIntervalMLPDistancesRemove">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="Remove selected distance"/>
+                              </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSettingsIntervalMLPDistancesRemoveActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>

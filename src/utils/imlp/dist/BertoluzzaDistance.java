@@ -15,6 +15,6 @@ public class BertoluzzaDistance extends WeightedEuclideanDistance {
     
     @Override
     public String toString() {
-        return "Bertoluzza";
+        return "Bertoluzza (" + getBeta() + ")";
     }
 }

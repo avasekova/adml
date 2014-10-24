@@ -22,6 +22,6 @@ public class WeightedEuclideanDistance implements Distance {
     
     @Override
     public String toString() {
-        return "Wght. Euclidean";
+        return "Wght. Euclidean (" + beta + ")";
     }
 }

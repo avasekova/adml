@@ -24,6 +24,6 @@ public class IchinoYaguchiDistance implements Distance {
     
     @Override
     public String toString() {
-        return "Ichino-Yaguchi";
+        return "Ichino-Yaguchi (" + gamma + ")";
     }
 }
