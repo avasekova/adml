@@ -428,6 +428,7 @@
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeCTSXfrom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel126">
@@ -436,6 +437,10 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeCTSXto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel127">
               <Properties>
@@ -445,6 +450,7 @@
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeCTSYfrom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel128">
@@ -453,10 +459,15 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeCTSYto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="buttonPlotRestoreCTSRangeX">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;-restore all"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRestoreCTSRangeXActionPerformed"/>
@@ -465,7 +476,11 @@
             <Component class="javax.swing.JButton" name="buttonPlotRestoreCTSRangeY">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;-restore all"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRestoreCTSRangeYActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel129">
               <Properties>
@@ -480,11 +495,13 @@
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeIntTSYfrom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeIntTSXfrom">
               <Properties>
                 <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel131">
@@ -498,28 +515,52 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeIntTSYto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="textFieldPlotRangeIntTSXto">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="0"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="buttonPlotRestoreIntTSRangeX">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;-restore all"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRestoreIntTSRangeXActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonPlotRestoreIntTSRangeY">
               <Properties>
                 <Property name="text" type="java.lang.String" value="&lt;-restore all"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRestoreIntTSRangeYActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonPlotZoomCTS">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zoom CTS"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotZoomCTSActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonPlotZoomIntTS">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Zoom ITS"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotZoomIntTSActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

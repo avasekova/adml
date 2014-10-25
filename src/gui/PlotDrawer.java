@@ -12,10 +12,12 @@ import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
 import utils.MyRengine;
-import utils.PlotStateKeeper;
 import utils.Utils;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
+import utils.ugliez.CallParamsDrawPlots;
+import utils.ugliez.CallParamsDrawPlotsITS;
+import utils.ugliez.PlotStateKeeper;
 
 //TODO preco po vykresleni grafu ten obrazok blikne? niekde sa nieco kresli dvakrat.
 public class PlotDrawer {
@@ -28,12 +30,41 @@ public class PlotDrawer {
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
     
-    public static void drawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int numForecasts,
-                                 List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS,
-                                 int from, int to, String colname_CTS) { //the range of data that is considered
-        if (reportsCTS.isEmpty() && reportsITS.isEmpty()) {
+    public static void drawPlots(CallParamsDrawPlots par) {
+        String rangeXCrisp = "";
+        String rangeYCrisp = "";
+        String rangeXInt = "";
+        String rangeYInt = "";
+        
+        if (! par.getReportsCTS().isEmpty()) {
+            rangeXCrisp = getRangeXCrisp(par.getAllDataCTS(), par.getNumForecasts());
+            rangeYCrisp = getRangeYCrisp(par.getAllDataCTS(), par.getReportsCTS());
+        }
+        
+        if (! par.getReportsITS().isEmpty()) {
+            rangeXInt = getRangeXInterval(par.getReportsITS(), par.getNumForecasts());
+            rangeYInt = getRangeYInterval(par.getReportsITS());
+        }
+        
+        drawPlots(par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+    }
+    
+    public static void drawPlots(CallParamsDrawPlots par,
+                                 String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
+        if (par.getReportsCTS().isEmpty() && par.getReportsITS().isEmpty()) {
             return;
         }
+        
+        GDCanvas canvasToUse = par.getCanvasToUse();
+        int width = par.getWidth();
+        int height = par.getHeight();
+        List<Double> allDataCTS = par.getAllDataCTS();
+        int numForecasts = par.getNumForecasts();
+        List<TrainAndTestReportCrisp> reportsCTS = par.getReportsCTS();
+        List<TrainAndTestReportInterval> reportsITS = par.getReportsITS();
+        int from = par.getFrom();
+        int to = par.getTo();
+        String colname_CTS = par.getColname_CTS();
         
         MainFrame.drawNowToThisGDCanvas = canvasToUse;
         
@@ -48,8 +79,6 @@ public class PlotDrawer {
         int colourNumber = 0;
         if (! reportsCTS.isEmpty()) { //plot CTS
             allDataCTS = allDataCTS.subList(from, to);
-            String rangeY_CTS = getRangeYCrisp(allDataCTS, reportsCTS);
-            String rangeX = getRangeXCrisp(allDataCTS, numForecasts);
             
             List<String> names = new ArrayList<>();
             List<String> colours = new ArrayList<>();
@@ -66,7 +95,7 @@ public class PlotDrawer {
                 colours.add(COLOURS[colourNumber % COLOURS.length]);
                 
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
-                plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
+                plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                         + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
                 rengine.eval(plotCode.toString());
@@ -77,7 +106,7 @@ public class PlotDrawer {
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.data, xlim = " + rangeX + ", ylim = " + rangeY_CTS + ", "
+            rengine.eval("plot.ts(all.data, xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                     + "ylab=\"" + colname_CTS + "\","
                     + "lwd=2, col=\"#444444\")");
             rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)"); //dashed vertical line to separate forecasts
@@ -93,20 +122,14 @@ public class PlotDrawer {
                                 + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
             
-            REXP getMaxY = rengine.eval(rangeY_CTS + "[2]");
+            REXP getMaxY = rengine.eval(rangeYCrisp + "[2]");
             double[] maxY = getMaxY.asDoubleArray();
             PlotStateKeeper.setLastDrawnCrispXmax(allDataCTS.size() + numForecasts);
             PlotStateKeeper.setLastDrawnCrispYmax(maxY[0]);
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
-            //first go through all the reports to find a common rangeX and rangeY for the one big plot:
-            int numTrainingEntries_ITS = reportsITS.get(reportsITS.size() - 1).getNumTrainingEntries(); //hack, pouzivam posledny report, pretoze ked pustim iMLP (C code) a MLP(i), tak iMLP ma menej entries...
-            //final int NUM_REAL_ENTRIES = reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().size();
-            String rangeY_ITS = getRangeYInterval(reportsITS);
-            String rangeX_ITS = getRangeXInterval(reportsITS, numForecasts);
-            
-            //the plot all reports, the underlying data first! and then the fitted and forecasted vals:
+            //plot all reports, the underlying data first! and then the fitted and forecasted vals:
             List<String> names = new ArrayList<>();
             List<String> colours = new ArrayList<>();
             boolean next = false;
@@ -125,27 +148,27 @@ public class PlotDrawer {
                 final int sizeFitted = r.getFittedValues().size();
                 rengine.assign("lower", r.getFittedValuesLowers());
                 rengine.assign("upper", r.getFittedValuesUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = "
-                        + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 //naplotovat fitted values pre training data:
                 final int sizeForecastTest = r.getForecastValuesTest().size();
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesTestLowers());
                 rengine.assign("upper", r.getForecastValuesTestUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", lower, "
-                        + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", upper, xlim = " + rangeX_ITS
-                        + ", ylim = " + rangeY_ITS + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", upper, xlim = " + rangeXInt
+                        + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 //naplotovat forecasty buduce:
                 final int sizeForecastFuture = r.getForecastValuesFuture().size();
@@ -153,15 +176,15 @@ public class PlotDrawer {
                     rengine.eval("par(new=TRUE)");
                     rengine.assign("lower", r.getForecastValuesFutureLowers());
                     rengine.assign("upper", r.getForecastValuesFutureUppers());
-                    rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                    rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("par(new=TRUE)");
-                    rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+                    rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1) + ":"
                             + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
                             + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
-                            + ", upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS
+                            + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
                             + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 }
                 
@@ -181,12 +204,12 @@ public class PlotDrawer {
             rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers()));
 
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
-            rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+            rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", "
+            rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                     + "ylab=\"" +       "<<add the interval.toString() here>>"      + "\")");
-            rengine.eval("segments(1:" + size + ", all.lower, 1:" + size + ", all.upper, xlim = " + rangeX_ITS + ", ylim = " + rangeY_ITS + ", lwd=2, col=\"#444444\")");
+            rengine.eval("segments(1:" + size + ", all.lower, 1:" + size + ", all.upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", lwd=2, col=\"#444444\")");
             //add a line separating real data from forecasts
             rengine.eval("abline(v = " + size + ", lty = 3)");
             
@@ -201,22 +224,32 @@ public class PlotDrawer {
                                 + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
             
-            REXP getMaxX = rengine.eval(rangeX_ITS + "[2]");
+            REXP getMaxX = rengine.eval(rangeXInt + "[2]");
             int[] maxX = getMaxX.asIntArray();
-            REXP getMaxY = rengine.eval(rangeY_ITS + "[2]");
+            REXP getMaxY = rengine.eval(rangeYInt + "[2]");
             double[] maxY = getMaxY.asDoubleArray();
             PlotStateKeeper.setLastDrawnIntXmax(maxX[0]);
             PlotStateKeeper.setLastDrawnIntYmax(maxY[0]);
         }
+        
+        PlotStateKeeper.setLastCallParams(par);
 
         MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDCanvas.initRefresh();
         //TODO kresli sa dvakrat! skusit http://stackoverflow.com/questions/8067844/paint-in-java-applet-is-called-twice-for-no-reason
     }
     
-    public static void drawPlotsITS(GDCanvas canvasToUse, int width, int height, DataTableModel dataTableModel,
-                List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
-        MainFrame.drawNowToThisGDCanvas = canvasToUse;
+    public static void drawPlotsITS(CallParamsDrawPlotsITS par) {
+        List<Double> allVals = getAllVals(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
+//        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
+        String rangeY = getRangeYMultipleInterval(allVals);
+        String rangeX = "range(c(0," + par.getDataTableModel().getRowCount() + "))";
+        
+        drawPlotsITS(par, rangeX, rangeY);
+    }
+    
+    public static void drawPlotsITS(CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
+        MainFrame.drawNowToThisGDCanvas = par.getCanvasToUse();
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
@@ -226,20 +259,15 @@ public class PlotDrawer {
         List<String> colours = new ArrayList<>();
         int colourNumber = 0;
         
-        List<Double> allVals = getAllVals(dataTableModel, listCentreRadius, listLowerUpper);
-//        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
-        String rangeY = getRangeYMultipleInterval(allVals);
-        
-        
         boolean next = false;
-        for (IntervalNamesCentreRadius interval : listCentreRadius) {
+        for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             //remember these for the legend
             names.add(interval.toString());
             colours.add(COLOURS[colourNumber % COLOURS.length]);
             
             String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
-            drawPlotITS_CenterRadius(width, height, dataTableModel.getDataForColname(interval.getCentre()),
-                    dataTableModel.getDataForColname(interval.getRadius()), next, lineStyle, rangeY);
+            drawPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
+                    par.getDataTableModel().getDataForColname(interval.getRadius()), next, lineStyle, rangeX, rangeY);
             if (! next) {
                 next = true;
             }
@@ -247,15 +275,15 @@ public class PlotDrawer {
             colourNumber++;
         }
         
-        next = (! listCentreRadius.isEmpty()) && (! listLowerUpper.isEmpty()); //true ak je nieco v CenRad aj v LBUB
+        next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
         
-        for (IntervalNamesLowerUpper interval : listLowerUpper) {
+        for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
             names.add(interval.toString());
             colours.add(COLOURS[colourNumber % COLOURS.length]);
             
             String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
-            drawPlotITS_LBUB(width, height, dataTableModel.getDataForColname(interval.getLowerBound()),
-                    dataTableModel.getDataForColname(interval.getUpperBound()), next, lineStyle, rangeY);
+            drawPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
+                    par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeX, rangeY);
             if (! next) {
                 next = true;
             }
@@ -263,7 +291,7 @@ public class PlotDrawer {
             colourNumber++;
         }
         
-        if ((! listCentreRadius.isEmpty()) || (! listLowerUpper.isEmpty())) {
+        if ((! par.getListCentreRadius().isEmpty()) || (! par.getListLowerUpper().isEmpty())) {
             //add legend
             rengine.eval("legend(\"topleft\", "      
                                 + "inset = c(0,-0.11), "
@@ -278,12 +306,13 @@ public class PlotDrawer {
         
         REXP getMaxY = rengine.eval(rangeY + "[2]");
         double[] maxY = getMaxY.asDoubleArray();
-        PlotStateKeeper.setLastDrawnIntXmax(dataTableModel.getRowCount());
+        PlotStateKeeper.setLastDrawnIntXmax(par.getDataTableModel().getRowCount());
         PlotStateKeeper.setLastDrawnIntYmax(maxY[0]);
+        PlotStateKeeper.setLastCallParams(par);
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
-            boolean par, String lineStyle, String rangeY) {
+            boolean par, String lineStyle, String rangeX, String rangeY) {
         final String LOWER = Const.INPUT + Utils.getCounter();
         final String UPPER = Const.INPUT + Utils.getCounter();
         final int count = lowerBound.size();
@@ -292,11 +321,11 @@ public class PlotDrawer {
         rengine.assign(LOWER, Utils.listToArray(lowerBound));
         rengine.assign(UPPER, Utils.listToArray(upperBound));
         
-        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeY);
+        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeX, rangeY);
     }
     
     private static void drawPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
-            boolean par, String lineStyle, String rangeY) {
+            boolean par, String lineStyle, String rangeX, String rangeY) {
         final String CENTER = Const.INPUT + Utils.getCounter();
         final String RADIUS = Const.INPUT + Utils.getCounter();
         final String LOWER = Const.INPUT + Utils.getCounter();
@@ -311,13 +340,13 @@ public class PlotDrawer {
         rengine.assign(LOWER, getLower);
         rengine.assign(UPPER, Upper);
         
-        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeY);
+        drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeX, rangeY);
     }
     
     private static void drawPlotITSNow(int width, int height, final String LOWER, final String UPPER, final int count,
-            boolean par, String lineStyle, String rangeY) {
+            boolean par, String lineStyle, String rangeX, String rangeY) {
         Rengine rengine = MyRengine.getRengine();
-        String lim = "ylim = " + rangeY;
+        String lim = "xlim = " + rangeX + ", ylim = " + rangeY;
         
         if (par) { //continue from the previous plot
             rengine.eval("par(new=TRUE)");

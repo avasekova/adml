@@ -14,8 +14,9 @@ import org.rosuda.javaGD.GDCanvas;
 import params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
-import utils.PlotStateKeeper;
+import utils.ugliez.PlotStateKeeper;
 import utils.Utils;
+import utils.ugliez.CallParamsDrawPlotGeneral;
 
 public class DataTableModel extends AbstractTableModel {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
@@ -83,17 +84,11 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public List<BasicStats> drawPlotGeneral(GDCanvas canvasToUse, int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
-        MainFrame.drawNowToThisGDCanvas = canvasToUse;
-        
-        Rengine rengine = MyRengine.getRengine();
-        rengine.eval("require(JavaGD)");
-        rengine.eval("JavaGD()");
-        
+    public List<BasicStats> drawPlotGeneral(CallParamsDrawPlotGeneral par) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
         boolean next = false;
-        for (String col : colnames) {
+        for (String col : par.getColnames()) {
             for (Double d : values.get(col)) {
                 if (next) {
                     rangeYStringBuilder.append(", ");
@@ -105,31 +100,42 @@ public class DataTableModel extends AbstractTableModel {
         }
         rangeYStringBuilder.append("))");
         String rangeY = rangeYStringBuilder.toString();
-        if ("acf".equals(plotFunction) || "pacf".equals(plotFunction)) {
+        if ("acf".equals(par.getPlotFunction()) || "pacf".equals(par.getPlotFunction())) {
             rangeY = "range(c(-1,1))";
         }
         
+        String rangeX = "range(c(0, " + getRowCount() + "))";
+        
+        return drawPlotGeneral(par, rangeX, rangeY);
+    }
+    
+    public List<BasicStats> drawPlotGeneral(CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
+        MainFrame.drawNowToThisGDCanvas = par.getCanvasToUse();
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(JavaGD)");
+        rengine.eval("JavaGD()");
         
         List<BasicStats> basicStatss = new ArrayList<>();
         
-        next = false;
+        boolean next = false;
         int colourNumber = 0;
         List<String> names = new ArrayList<>();
         List<String> colours = new ArrayList<>();
-        for (String col : colnames) {
+        for (String col : par.getColnames()) {
             List<Double> data = values.get(col);
             final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
             rengine.assign(TRAINDATA, Utils.listToArray(data));
             if (next) {
                 rengine.eval("par(new=TRUE)");
-                rengine.eval(plotFunction + "(" + TRAINDATA + additionalArgs + ", "
+                rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
                         + "axes=FALSE, ann=FALSE, "
-                        + "ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
             } else {
                 next = true;
-                rengine.eval(plotFunction + "(" + TRAINDATA + additionalArgs + ", "
+                rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
                         + "ylab=NULL, "
-                        + "ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
             }
             names.add(col);
             colours.add(PlotDrawer.COLOURS[colourNumber]);
@@ -165,11 +171,12 @@ public class DataTableModel extends AbstractTableModel {
         double[] maxY = getMaxY.asDoubleArray();
         PlotStateKeeper.setLastDrawnCrispXmax(getRowCount());
         PlotStateKeeper.setLastDrawnCrispYmax(maxY[0]);
+        PlotStateKeeper.setLastCallParams(par);
         
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDCanvas is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
-        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDCanvas.initRefresh();
         
         return basicStatss;

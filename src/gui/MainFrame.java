@@ -52,7 +52,6 @@ import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
 import utils.MyRengine;
-import utils.PlotStateKeeper;
 import utils.R_Bool;
 import utils.Utils;
 import utils.imlp.ExcelWriter;
@@ -66,6 +65,10 @@ import utils.imlp.dist.Distance;
 import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
+import utils.ugliez.CallParamsDrawPlotGeneral;
+import utils.ugliez.CallParamsDrawPlots;
+import utils.ugliez.CallParamsDrawPlotsITS;
+import utils.ugliez.PlotStateKeeper;
 
 public class MainFrame extends javax.swing.JFrame {
 
@@ -553,16 +556,25 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel89.setText("Zoom CTS axis x: from");
 
         textFieldPlotRangeCTSXfrom.setText("0");
+        textFieldPlotRangeCTSXfrom.setEnabled(false);
 
         jLabel126.setText("to");
+
+        textFieldPlotRangeCTSXto.setText("0");
+        textFieldPlotRangeCTSXto.setEnabled(false);
 
         jLabel127.setText("Zoom CTS axis y: from");
 
         textFieldPlotRangeCTSYfrom.setText("0");
+        textFieldPlotRangeCTSYfrom.setEnabled(false);
 
         jLabel128.setText("to");
 
+        textFieldPlotRangeCTSYto.setText("0");
+        textFieldPlotRangeCTSYto.setEnabled(false);
+
         buttonPlotRestoreCTSRangeX.setText("<-restore all");
+        buttonPlotRestoreCTSRangeX.setEnabled(false);
         buttonPlotRestoreCTSRangeX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonPlotRestoreCTSRangeXActionPerformed(evt);
@@ -570,26 +582,64 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         buttonPlotRestoreCTSRangeY.setText("<-restore all");
+        buttonPlotRestoreCTSRangeY.setEnabled(false);
+        buttonPlotRestoreCTSRangeY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotRestoreCTSRangeYActionPerformed(evt);
+            }
+        });
 
         jLabel129.setText("Zoom ITS axis x: from");
 
         jLabel130.setText("Zoom ITS axis y: from");
 
         textFieldPlotRangeIntTSYfrom.setText("0");
+        textFieldPlotRangeIntTSYfrom.setEnabled(false);
 
         textFieldPlotRangeIntTSXfrom.setText("0");
+        textFieldPlotRangeIntTSXfrom.setEnabled(false);
 
         jLabel131.setText("to");
 
         jLabel132.setText("to");
 
+        textFieldPlotRangeIntTSYto.setText("0");
+        textFieldPlotRangeIntTSYto.setEnabled(false);
+
+        textFieldPlotRangeIntTSXto.setText("0");
+        textFieldPlotRangeIntTSXto.setEnabled(false);
+
         buttonPlotRestoreIntTSRangeX.setText("<-restore all");
+        buttonPlotRestoreIntTSRangeX.setEnabled(false);
+        buttonPlotRestoreIntTSRangeX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotRestoreIntTSRangeXActionPerformed(evt);
+            }
+        });
 
         buttonPlotRestoreIntTSRangeY.setText("<-restore all");
+        buttonPlotRestoreIntTSRangeY.setEnabled(false);
+        buttonPlotRestoreIntTSRangeY.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotRestoreIntTSRangeYActionPerformed(evt);
+            }
+        });
 
         buttonPlotZoomCTS.setText("Zoom CTS");
+        buttonPlotZoomCTS.setEnabled(false);
+        buttonPlotZoomCTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotZoomCTSActionPerformed(evt);
+            }
+        });
 
         buttonPlotZoomIntTS.setText("Zoom ITS");
+        buttonPlotZoomIntTS.setEnabled(false);
+        buttonPlotZoomIntTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotZoomIntTSActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
         panelChart.setLayout(panelChartLayout);
@@ -3569,8 +3619,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawPlotsITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
-                listITSPlotCentreRadius, listITSPlotLowerUpper);
+        PlotDrawer.drawPlotsITS(new CallParamsDrawPlotsITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
+                listITSPlotCentreRadius, listITSPlotLowerUpper));
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, dataTableModel.getRowCount());
@@ -4023,8 +4073,8 @@ public class MainFrame extends javax.swing.JFrame {
         int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        PlotDrawer.drawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
-            numForecasts, reportsCTS, reportsITS, from, to, colname_CTS);
+        PlotDrawer.drawPlots(new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
+            numForecasts, reportsCTS, reportsITS, from, to, colname_CTS));
         setPlotRanges(dataTableModel.getRowCount(), dataTableModel.getRowCount());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -4119,8 +4169,62 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRunRestoreRangeAllActionPerformed
 
     private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed
-        // TODO add your handling code here:
+        textFieldPlotRangeCTSXfrom.setText("0");
+        textFieldPlotRangeCTSXto.setText("" + dataTableModel.getRowCount()); //TODO opravit podla Run: rangeFrom, To
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeXActionPerformed
+
+    private void buttonPlotRestoreCTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeYActionPerformed
+        textFieldPlotRangeCTSYfrom.setText("0");
+        textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
+    }//GEN-LAST:event_buttonPlotRestoreCTSRangeYActionPerformed
+
+    private void buttonPlotRestoreIntTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeXActionPerformed
+        textFieldPlotRangeIntTSXfrom.setText("0");
+        textFieldPlotRangeIntTSXto.setText("" + dataTableModel.getRowCount()); //TODO opravit podla Run: rangeFrom, To
+    }//GEN-LAST:event_buttonPlotRestoreIntTSRangeXActionPerformed
+
+    private void buttonPlotRestoreIntTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeYActionPerformed
+        textFieldPlotRangeIntTSYfrom.setText("0");
+        textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
+    }//GEN-LAST:event_buttonPlotRestoreIntTSRangeYActionPerformed
+
+    private void buttonPlotZoomCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotZoomCTSActionPerformed
+        if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlots) {
+            String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
+            String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
+            String rangeXInt = "range(c(0,0))";
+            String rangeYInt = "range(c(0,0))";
+                    
+            PlotDrawer.drawPlots((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+            setPlotRanges(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS().size(),
+                          ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS().size());
+        } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
+            String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
+            String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
+            
+            dataTableModel.drawPlotGeneral((CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
+            setPlotRanges(1, 0); //hack - cokolvek ine ako nula na prvom mieste
+        }
+    }//GEN-LAST:event_buttonPlotZoomCTSActionPerformed
+
+    private void buttonPlotZoomIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotZoomIntTSActionPerformed
+        if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlots) {
+            String rangeXCrisp = "range(c(0,0))";
+            String rangeYCrisp = "range(c(0,0))";
+            String rangeXInt = "range(c(" + textFieldPlotRangeIntTSXfrom.getText() + "," + textFieldPlotRangeIntTSXto.getText() + "))";
+            String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
+                    
+            PlotDrawer.drawPlots((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+            setPlotRanges(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS().size(),
+                          ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS().size());
+        } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
+            String rangeXInt = "range(c(" + textFieldPlotRangeIntTSXfrom.getText() + "," + textFieldPlotRangeIntTSXto.getText() + "))";
+            String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
+            
+            PlotDrawer.drawPlotsITS((CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+            setPlotRanges(0, 1); //hack, cokolvek ine ako 0 znamena enable
+        }
+    }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
     
     /**
      * @param args the command line arguments
@@ -4574,7 +4678,7 @@ public class MainFrame extends javax.swing.JFrame {
         //String colname = comboBoxColnames.getSelectedItem().toString();
         List<String> colnames = listColnames.getSelectedValuesList();
         
-        List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs);
+        List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(new CallParamsDrawPlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs));
         buttonPlotExportPlot.setEnabled(true);
         
         //mean, standard deviation, median
@@ -5174,61 +5278,56 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void setPlotRanges(int sizeCTS, int sizeIntTS) {
         if ((sizeCTS == 0) && (sizeIntTS == 0)) {
-            textFieldPlotRangeCTSXfrom.setEnabled(false);
-            textFieldPlotRangeCTSXto.setEnabled(false);
-            textFieldPlotRangeCTSYfrom.setEnabled(false);
-            textFieldPlotRangeCTSYto.setEnabled(false);
-            
-            textFieldPlotRangeIntTSXfrom.setEnabled(false);
-            textFieldPlotRangeIntTSXto.setEnabled(false);
-            textFieldPlotRangeIntTSYfrom.setEnabled(false);
-            textFieldPlotRangeIntTSYto.setEnabled(false);
+            enableZoomPlotCTS(false);
+            enableZoomPlotIntTS(false);
         } else if (sizeIntTS == 0) {
-            textFieldPlotRangeCTSXfrom.setEnabled(true);
-            textFieldPlotRangeCTSXto.setEnabled(true);
-            textFieldPlotRangeCTSYfrom.setEnabled(true);
-            textFieldPlotRangeCTSYto.setEnabled(true);
+            enableZoomPlotCTS(true);
             textFieldPlotRangeCTSXfrom.setText("0");
             textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
             textFieldPlotRangeCTSYfrom.setText("0");
             textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
             
-            textFieldPlotRangeIntTSXfrom.setEnabled(false);
-            textFieldPlotRangeIntTSXto.setEnabled(false);
-            textFieldPlotRangeIntTSYfrom.setEnabled(false);
-            textFieldPlotRangeIntTSYto.setEnabled(false);
+            enableZoomPlotIntTS(false);
         } else if (sizeCTS == 0) {
-            textFieldPlotRangeCTSXfrom.setEnabled(false);
-            textFieldPlotRangeCTSXto.setEnabled(false);
-            textFieldPlotRangeCTSYfrom.setEnabled(false);
-            textFieldPlotRangeCTSYto.setEnabled(false);
+            enableZoomPlotCTS(false);
             
-            textFieldPlotRangeIntTSXfrom.setEnabled(true);
-            textFieldPlotRangeIntTSXto.setEnabled(true);
-            textFieldPlotRangeIntTSYfrom.setEnabled(true);
-            textFieldPlotRangeIntTSYto.setEnabled(true);
+            enableZoomPlotIntTS(true);
             textFieldPlotRangeIntTSXfrom.setText("0");
             textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
             textFieldPlotRangeIntTSYfrom.setText("0");
             textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         } else {
-            textFieldPlotRangeCTSXfrom.setEnabled(true);
-            textFieldPlotRangeCTSXto.setEnabled(true);
-            textFieldPlotRangeCTSYfrom.setEnabled(true);
-            textFieldPlotRangeCTSYto.setEnabled(true);
+            enableZoomPlotCTS(true);
             textFieldPlotRangeCTSXfrom.setText("0");
             textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
             textFieldPlotRangeCTSYfrom.setText("0");
             textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
             
-            textFieldPlotRangeIntTSXfrom.setEnabled(true);
-            textFieldPlotRangeIntTSXto.setEnabled(true);
-            textFieldPlotRangeIntTSYfrom.setEnabled(true);
-            textFieldPlotRangeIntTSYto.setEnabled(true);
+            enableZoomPlotIntTS(true);
             textFieldPlotRangeIntTSXfrom.setText("0");
             textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
             textFieldPlotRangeIntTSYfrom.setText("0");
             textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         }
+    }
+    
+    private void enableZoomPlotCTS(boolean trueFalse) {
+        textFieldPlotRangeCTSXfrom.setEnabled(trueFalse);
+        textFieldPlotRangeCTSXto.setEnabled(trueFalse);
+        textFieldPlotRangeCTSYfrom.setEnabled(trueFalse);
+        textFieldPlotRangeCTSYto.setEnabled(trueFalse);
+        buttonPlotRestoreCTSRangeX.setEnabled(trueFalse);
+        buttonPlotRestoreCTSRangeY.setEnabled(trueFalse);
+        buttonPlotZoomCTS.setEnabled(trueFalse);
+    }
+    
+    private void enableZoomPlotIntTS(boolean trueFalse) {
+        textFieldPlotRangeIntTSXfrom.setEnabled(trueFalse);
+        textFieldPlotRangeIntTSXto.setEnabled(trueFalse);
+        textFieldPlotRangeIntTSYfrom.setEnabled(trueFalse);
+        textFieldPlotRangeIntTSYto.setEnabled(trueFalse);
+        buttonPlotRestoreIntTSRangeX.setEnabled(trueFalse);
+        buttonPlotRestoreIntTSRangeY.setEnabled(trueFalse);
+        buttonPlotZoomIntTS.setEnabled(trueFalse);
     }
 }

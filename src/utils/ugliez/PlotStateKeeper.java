@@ -1,4 +1,4 @@
-package utils;
+package utils.ugliez;
 
 public class PlotStateKeeper {
     
@@ -6,6 +6,7 @@ public class PlotStateKeeper {
     private static double lastDrawnCrispYmax;
     private static int lastDrawnIntXmax;
     private static double lastDrawnIntYmax;
+    private static CallParams lastCallParams;
 
     public static int getLastDrawnCrispXmax() {
         return lastDrawnCrispXmax;
@@ -37,5 +38,13 @@ public class PlotStateKeeper {
 
     public static void setLastDrawnIntYmax(double lastDrawnIntYmax) {
         PlotStateKeeper.lastDrawnIntYmax = lastDrawnIntYmax;
+    }
+    
+    public static CallParams getLastCallParams() {
+        return lastCallParams;
+    }
+
+    public static void setLastCallParams(CallParams lastCallParams) {
+        PlotStateKeeper.lastCallParams = lastCallParams;
     }
 }
