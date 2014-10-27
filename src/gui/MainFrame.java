@@ -5275,32 +5275,19 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     private void setPlotRanges(int sizeCTS, int sizeIntTS) {
-        if ((sizeCTS == 0) && (sizeIntTS == 0)) {
+        if (sizeCTS == 0) {
             enableZoomPlotCTS(false);
-            enableZoomPlotIntTS(false);
-        } else if (sizeIntTS == 0) {
-            enableZoomPlotCTS(true);
-            textFieldPlotRangeCTSXfrom.setText("" + PlotStateKeeper.getLastDrawnCrispXmin());
-            textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
-            textFieldPlotRangeCTSYfrom.setText("" + PlotStateKeeper.getLastDrawnCrispYmin());
-            textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
-            
-            enableZoomPlotIntTS(false);
-        } else if (sizeCTS == 0) {
-            enableZoomPlotCTS(false);
-            
-            enableZoomPlotIntTS(true);
-            textFieldPlotRangeIntTSXfrom.setText("" + PlotStateKeeper.getLastDrawnIntXmin());
-            textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
-            textFieldPlotRangeIntTSYfrom.setText("" + PlotStateKeeper.getLastDrawnIntYmin());
-            textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         } else {
             enableZoomPlotCTS(true);
             textFieldPlotRangeCTSXfrom.setText("" + PlotStateKeeper.getLastDrawnCrispXmin());
             textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
             textFieldPlotRangeCTSYfrom.setText("" + PlotStateKeeper.getLastDrawnCrispYmin());
             textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
-            
+        }
+        
+        if (sizeIntTS == 0) {
+            enableZoomPlotIntTS(false);
+        } else {
             enableZoomPlotIntTS(true);
             textFieldPlotRangeIntTSXfrom.setText("" + PlotStateKeeper.getLastDrawnIntXmin());
             textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
