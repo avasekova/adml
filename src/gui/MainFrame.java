@@ -429,10 +429,10 @@ public class MainFrame extends javax.swing.JFrame {
         buttonTrainAndTest = new javax.swing.JButton();
         checkBoxRunKNNfnn = new javax.swing.JCheckBox();
         jLabel49 = new javax.swing.JLabel();
-        labelRunMLPintCenter = new javax.swing.JLabel();
+        labelRunMLPintLower = new javax.swing.JLabel();
         comboBoxRunMLPintCenter = new javax.swing.JComboBox();
         comboBoxRunMLPintRadius = new javax.swing.JComboBox();
-        labelRunMLPintRadius = new javax.swing.JLabel();
+        labelRunMLPintUpper = new javax.swing.JLabel();
         checkBoxRunMLPintNnetar = new javax.swing.JCheckBox();
         checkBoxRunKNNinterval = new javax.swing.JCheckBox();
         checkBoxRunKNNcustom = new javax.swing.JCheckBox();
@@ -446,12 +446,12 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         textFieldRunDataRangeTo = new javax.swing.JTextField();
         buttonRunExportErrorMeasures = new javax.swing.JButton();
-        labelRunMLPintLower = new javax.swing.JLabel();
-        labelRunMLPintUpper = new javax.swing.JLabel();
+        labelRunMLPintCenter = new javax.swing.JLabel();
+        labelRunMLPintRadius = new javax.swing.JLabel();
         comboBoxRunMLPintLower = new javax.swing.JComboBox();
         comboBoxRunMLPintUpper = new javax.swing.JComboBox();
-        radioButtonRunMLPintCenterRadius = new javax.swing.JRadioButton();
         radioButtonRunMLPintLowerUpper = new javax.swing.JRadioButton();
+        radioButtonRunMLPintCenterRadius = new javax.swing.JRadioButton();
         checkBoxRunMLPintNnet = new javax.swing.JCheckBox();
         buttonRunRestoreRangeAll = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -468,8 +468,8 @@ public class MainFrame extends javax.swing.JFrame {
         buttonGroup_paramsNnetExclusive.add(paramNnet_radioButtonLoglinSoftmax);
         buttonGroup_paramsNnetExclusive.add(paramNnet_radioButtonCensoredOn);
 
-        buttonGroup_runMLPintCRLBUB.add(radioButtonRunMLPintCenterRadius);
         buttonGroup_runMLPintCRLBUB.add(radioButtonRunMLPintLowerUpper);
+        buttonGroup_runMLPintCRLBUB.add(radioButtonRunMLPintCenterRadius);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -3164,13 +3164,15 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel49.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel49.setText("MLP(i):");
 
-        labelRunMLPintCenter.setText("Center:");
+        labelRunMLPintLower.setText("Lower bound");
 
         comboBoxRunMLPintCenter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxRunMLPintCenter.setEnabled(false);
 
         comboBoxRunMLPintRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxRunMLPintRadius.setEnabled(false);
 
-        labelRunMLPintRadius.setText("Radius:");
+        labelRunMLPintUpper.setText("Upper bound");
 
         checkBoxRunMLPintNnetar.setText("MLP(i) (nnetar)");
 
@@ -3206,28 +3208,26 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        labelRunMLPintLower.setText("Lower bound:");
-        labelRunMLPintLower.setEnabled(false);
+        labelRunMLPintCenter.setText("Center");
+        labelRunMLPintCenter.setEnabled(false);
 
-        labelRunMLPintUpper.setText("Upper bound:");
-        labelRunMLPintUpper.setEnabled(false);
+        labelRunMLPintRadius.setText("Radius");
+        labelRunMLPintRadius.setEnabled(false);
 
         comboBoxRunMLPintLower.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxRunMLPintLower.setEnabled(false);
 
         comboBoxRunMLPintUpper.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxRunMLPintUpper.setEnabled(false);
 
-        radioButtonRunMLPintCenterRadius.setSelected(true);
-        radioButtonRunMLPintCenterRadius.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                radioButtonRunMLPintCenterRadiusActionPerformed(evt);
-            }
-        });
-
+        radioButtonRunMLPintLowerUpper.setSelected(true);
         radioButtonRunMLPintLowerUpper.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonRunMLPintLowerUpperActionPerformed(evt);
+            }
+        });
+
+        radioButtonRunMLPintCenterRadius.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radioButtonRunMLPintCenterRadiusActionPerformed(evt);
             }
         });
 
@@ -3269,36 +3269,35 @@ public class MainFrame extends javax.swing.JFrame {
                                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                         .addGap(11, 11, 11)
-                                                        .addComponent(radioButtonRunMLPintCenterRadius))
-                                                    .addComponent(radioButtonRunMLPintLowerUpper, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                        .addComponent(radioButtonRunMLPintLowerUpper))
+                                                    .addComponent(radioButtonRunMLPintCenterRadius, javax.swing.GroupLayout.Alignment.TRAILING))
                                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addComponent(labelRunMLPintCenter)
-                                                            .addComponent(labelRunMLPintRadius))
-                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                            .addComponent(labelRunMLPintLower)
+                                                            .addComponent(labelRunMLPintUpper))
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                            .addComponent(comboBoxRunMLPintLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                            .addComponent(comboBoxRunMLPintUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                         .addGap(1, 1, 1)
                                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                                .addComponent(labelRunMLPintUpper)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(comboBoxRunMLPintUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(labelRunMLPintRadius)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                                .addComponent(labelRunMLPintLower)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                .addComponent(comboBoxRunMLPintLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                                .addComponent(labelRunMLPintCenter)
+                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                                .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                             .addComponent(jLabel43))
-                                        .addGap(97, 97, 97)
-                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGap(189, 189, 189)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addGap(80, 80, 80)
                                                 .addComponent(jLabelTrainingInfo)
                                                 .addGap(16, 16, 16))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -3351,7 +3350,7 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(buttonRunRestoreRangeAll)
                                         .addGap(81, 81, 81)
                                         .addComponent(buttonRunExportErrorMeasures)))))
-                        .addGap(0, 201, Short.MAX_VALUE)))
+                        .addGap(0, 200, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -3393,28 +3392,28 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(labelRunMLPintCenter)
-                                    .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(labelRunMLPintRadius)))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(radioButtonRunMLPintCenterRadius)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelRunMLPintLower)
                                     .addComponent(comboBoxRunMLPintLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(labelRunMLPintUpper)
-                                    .addComponent(comboBoxRunMLPintUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(comboBoxRunMLPintUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(radioButtonRunMLPintLowerUpper)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labelRunMLPintCenter)
+                                    .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(labelRunMLPintRadius)
+                                    .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(radioButtonRunMLPintLowerUpper)
+                                .addComponent(radioButtonRunMLPintCenterRadius)
                                 .addGap(20, 20, 20)))
                         .addComponent(jLabel43))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -3829,19 +3828,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPintDistanceParams.repaint();
     }//GEN-LAST:event_comboBoxSettingsMLPintDistanceActionPerformed
 
-    private void radioButtonRunMLPintLowerUpperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonRunMLPintLowerUpperActionPerformed
-        if (radioButtonRunMLPintLowerUpper.isSelected()) {
-            labelRunMLPintLower.setEnabled(true);
-            labelRunMLPintUpper.setEnabled(true);
-            comboBoxRunMLPintLower.setEnabled(true);
-            comboBoxRunMLPintUpper.setEnabled(true);
-            labelRunMLPintCenter.setEnabled(false);
-            labelRunMLPintRadius.setEnabled(false);
-            comboBoxRunMLPintCenter.setEnabled(false);
-            comboBoxRunMLPintRadius.setEnabled(false);
-        }
-    }//GEN-LAST:event_radioButtonRunMLPintLowerUpperActionPerformed
-
     private void radioButtonRunMLPintCenterRadiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonRunMLPintCenterRadiusActionPerformed
         if (radioButtonRunMLPintCenterRadius.isSelected()) {
             labelRunMLPintCenter.setEnabled(true);
@@ -3854,6 +3840,19 @@ public class MainFrame extends javax.swing.JFrame {
             comboBoxRunMLPintUpper.setEnabled(false);
         }
     }//GEN-LAST:event_radioButtonRunMLPintCenterRadiusActionPerformed
+
+    private void radioButtonRunMLPintLowerUpperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonRunMLPintLowerUpperActionPerformed
+        if (radioButtonRunMLPintLowerUpper.isSelected()) {
+            labelRunMLPintLower.setEnabled(true);
+            labelRunMLPintUpper.setEnabled(true);
+            comboBoxRunMLPintLower.setEnabled(true);
+            comboBoxRunMLPintUpper.setEnabled(true);
+            labelRunMLPintCenter.setEnabled(false);
+            labelRunMLPintRadius.setEnabled(false);
+            comboBoxRunMLPintCenter.setEnabled(false);
+            comboBoxRunMLPintRadius.setEnabled(false);
+        }
+    }//GEN-LAST:event_radioButtonRunMLPintLowerUpperActionPerformed
 
     private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
         //TODO export with formatting - the highest, lowest vals highlighted etc.
