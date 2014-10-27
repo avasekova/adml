@@ -2,17 +2,17 @@ package utils.ugliez;
 
 public class PlotStateKeeper {
     
-    private static int lastDrawnCrispXmax;
+    private static double lastDrawnCrispXmax;
     private static double lastDrawnCrispYmax;
-    private static int lastDrawnIntXmax;
+    private static double lastDrawnIntXmax;
     private static double lastDrawnIntYmax;
     private static CallParams lastCallParams;
 
-    public static int getLastDrawnCrispXmax() {
+    public static double getLastDrawnCrispXmax() {
         return lastDrawnCrispXmax;
     }
 
-    public static void setLastDrawnCrispXmax(int lastDrawnCrispXmax) {
+    public static void setLastDrawnCrispXmax(double lastDrawnCrispXmax) {
         PlotStateKeeper.lastDrawnCrispXmax = lastDrawnCrispXmax;
     }
 
@@ -24,11 +24,11 @@ public class PlotStateKeeper {
         PlotStateKeeper.lastDrawnCrispYmax = lastDrawnCrispYmax;
     }
 
-    public static int getLastDrawnIntXmax() {
+    public static double getLastDrawnIntXmax() {
         return lastDrawnIntXmax;
     }
 
-    public static void setLastDrawnIntXmax(int lastDrawnIntXmax) {
+    public static void setLastDrawnIntXmax(double lastDrawnIntXmax) {
         PlotStateKeeper.lastDrawnIntXmax = lastDrawnIntXmax;
     }
 
