@@ -80,7 +80,7 @@ public class PlotDrawer {
         
         int colourNumber = 0;
         if (! reportsCTS.isEmpty()) { //plot CTS
-            allDataCTS = allDataCTS.subList(from, to);
+            allDataCTS = allDataCTS.subList(from, Math.min(to+numForecasts, allDataCTS.size()));
             
             List<String> names = new ArrayList<>();
             List<String> colours = new ArrayList<>();
@@ -112,7 +112,7 @@ public class PlotDrawer {
             rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.data), xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                     + "ylab=\"" + colname_CTS + "\","
                     + "lwd=2, col=\"#444444\")");
-            rengine.eval("abline(v = " + (allDataCTS.size() + par.getFrom()) + ", lty = 3)"); //dashed vertical line to separate forecasts
+            rengine.eval("abline(v = " + (to) + ", lty = 3)"); //dashed vertical line to separate forecasts
             
             //add legend
             rengine.eval("legend(\"topleft\", "      
