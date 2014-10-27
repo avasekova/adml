@@ -225,7 +225,7 @@ public class PlotDrawer {
                                 + "xpd = TRUE)");
             
             REXP getMaxX = rengine.eval(rangeXInt + "[2]");
-            int[] maxX = getMaxX.asIntArray();
+            double[] maxX = getMaxX.asDoubleArray();
             REXP getMaxY = rengine.eval(rangeYInt + "[2]");
             double[] maxY = getMaxY.asDoubleArray();
             PlotStateKeeper.setLastDrawnIntXmax(maxX[0]);
@@ -520,6 +520,7 @@ public class PlotDrawer {
         
         rangesX.append("))");
         
+        System.out.println(rangesX.toString());
         return rangesX.toString();
     }
     
