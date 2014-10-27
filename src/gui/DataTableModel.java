@@ -84,7 +84,7 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public List<BasicStats> drawPlotGeneral(CallParamsDrawPlotGeneral par) {
+    public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
         boolean next = false;
@@ -100,16 +100,20 @@ public class DataTableModel extends AbstractTableModel {
         }
         rangeYStringBuilder.append("))");
         String rangeY = rangeYStringBuilder.toString();
-        if ("acf".equals(par.getPlotFunction()) || "pacf".equals(par.getPlotFunction())) {
-            rangeY = "range(c(-1,1))";
-        }
-        
         String rangeX = "range(c(0, " + getRowCount() + "))";
         
-        return drawPlotGeneral(par, rangeX, rangeY);
+        if ("acf".equals(par.getPlotFunction()) || "pacf".equals(par.getPlotFunction())) {
+            rangeY = "range(c(-1,1))";
+            
+            //String rangeX = "range(c(0, " + getRowCount() + "))";
+            //default lagmax: 10*log10(N)
+            rangeX = "range(c(0,10*log10(" + getRowCount() + ")))";
+        }
+        
+        return drawPlotGeneral(drawNew, par, rangeX, rangeY);
     }
     
-    public List<BasicStats> drawPlotGeneral(CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
+    public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
         MainFrame.drawNowToThisGDCanvas = par.getCanvasToUse();
         
         Rengine rengine = MyRengine.getRengine();
@@ -167,10 +171,20 @@ public class DataTableModel extends AbstractTableModel {
                             + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                             + "xpd = TRUE)");
         
-        REXP getMaxY = rengine.eval(rangeY + "[2]");
-        double[] maxY = getMaxY.asDoubleArray();
-        PlotStateKeeper.setLastDrawnCrispXmax(getRowCount());
-        PlotStateKeeper.setLastDrawnCrispYmax(maxY[0]);
+        REXP getX = rengine.eval(rangeX);
+        double[] ranX = getX.asDoubleArray();
+        REXP getY = rengine.eval(rangeY);
+        double[] ranY = getY.asDoubleArray();
+        PlotStateKeeper.setLastDrawnCrispXmin(ranX[0]);
+        PlotStateKeeper.setLastDrawnCrispXmax(ranX[1]);
+        PlotStateKeeper.setLastDrawnCrispYmin(ranY[0]);
+        PlotStateKeeper.setLastDrawnCrispYmax(ranY[1]);
+        
+        if (drawNew) {
+            PlotStateKeeper.setCrispXmax(ranX[1]);
+            PlotStateKeeper.setCrispYmax(ranY[1]);
+        }
+        
         PlotStateKeeper.setLastCallParams(par);
         
         // R always draws a plot of a default size to the JavaGD device.

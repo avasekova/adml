@@ -30,7 +30,9 @@ public class PlotDrawer {
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
     
-    public static void drawPlots(CallParamsDrawPlots par) {
+    //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
+    //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
+    public static void drawPlots(boolean drawNew, CallParamsDrawPlots par) {
         String rangeXCrisp = "";
         String rangeYCrisp = "";
         String rangeXInt = "";
@@ -46,10 +48,10 @@ public class PlotDrawer {
             rangeYInt = getRangeYInterval(par.getReportsITS());
         }
         
-        drawPlots(par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+        drawPlots(drawNew, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
     }
     
-    public static void drawPlots(CallParamsDrawPlots par,
+    public static void drawPlots(boolean drawNew, CallParamsDrawPlots par,
                                  String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
         if (par.getReportsCTS().isEmpty() && par.getReportsITS().isEmpty()) {
             return;
@@ -122,10 +124,18 @@ public class PlotDrawer {
                                 + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
             
-            REXP getMaxY = rengine.eval(rangeYCrisp + "[2]");
-            double[] maxY = getMaxY.asDoubleArray();
-            PlotStateKeeper.setLastDrawnCrispXmax(allDataCTS.size() + numForecasts);
-            PlotStateKeeper.setLastDrawnCrispYmax(maxY[0]);
+            REXP getX = rengine.eval(rangeXCrisp);
+            double[] rangeX = getX.asDoubleArray();
+            REXP getY = rengine.eval(rangeYCrisp);
+            double[] rangeY = getY.asDoubleArray();
+            PlotStateKeeper.setLastDrawnCrispXmin(rangeX[0]);
+            PlotStateKeeper.setLastDrawnCrispXmax(rangeX[1]);
+            PlotStateKeeper.setLastDrawnCrispYmin(rangeY[0]);
+            PlotStateKeeper.setLastDrawnCrispYmax(rangeY[1]);
+            if (drawNew) {
+                PlotStateKeeper.setCrispXmax(rangeX[1]);
+                PlotStateKeeper.setCrispYmax(rangeY[1]);
+            }
         }
         
         if (! reportsITS.isEmpty()) { //plot ITS
@@ -224,12 +234,18 @@ public class PlotDrawer {
                                 + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
                                 + "xpd = TRUE)");
             
-            REXP getMaxX = rengine.eval(rangeXInt + "[2]");
-            double[] maxX = getMaxX.asDoubleArray();
-            REXP getMaxY = rengine.eval(rangeYInt + "[2]");
-            double[] maxY = getMaxY.asDoubleArray();
-            PlotStateKeeper.setLastDrawnIntXmax(maxX[0]);
-            PlotStateKeeper.setLastDrawnIntYmax(maxY[0]);
+            REXP getX = rengine.eval(rangeXInt);
+            double[] rangeX = getX.asDoubleArray();
+            REXP getY = rengine.eval(rangeYInt);
+            double[] rangeY = getY.asDoubleArray();
+            PlotStateKeeper.setLastDrawnIntXmin(rangeX[0]);
+            PlotStateKeeper.setLastDrawnIntXmax(rangeX[1]);
+            PlotStateKeeper.setLastDrawnIntYmin(rangeY[0]);
+            PlotStateKeeper.setLastDrawnIntYmax(rangeY[1]);
+            if (drawNew) {
+                PlotStateKeeper.setIntXmax(rangeX[1]);
+                PlotStateKeeper.setIntYmax(rangeY[1]);
+            }
         }
         
         PlotStateKeeper.setLastCallParams(par);
@@ -239,16 +255,16 @@ public class PlotDrawer {
         //TODO kresli sa dvakrat! skusit http://stackoverflow.com/questions/8067844/paint-in-java-applet-is-called-twice-for-no-reason
     }
     
-    public static void drawPlotsITS(CallParamsDrawPlotsITS par) {
+    public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         List<Double> allVals = getAllVals(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
 //        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
         String rangeY = getRangeYMultipleInterval(allVals);
         String rangeX = "range(c(0," + par.getDataTableModel().getRowCount() + "))";
         
-        drawPlotsITS(par, rangeX, rangeY);
+        drawPlotsITS(drawNew, par, rangeX, rangeY);
     }
     
-    public static void drawPlotsITS(CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
+    public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
         MainFrame.drawNowToThisGDCanvas = par.getCanvasToUse();
         
         Rengine rengine = MyRengine.getRengine();
@@ -304,10 +320,20 @@ public class PlotDrawer {
                                 + "xpd = TRUE)");
         }
         
-        REXP getMaxY = rengine.eval(rangeY + "[2]");
-        double[] maxY = getMaxY.asDoubleArray();
-        PlotStateKeeper.setLastDrawnIntXmax(par.getDataTableModel().getRowCount());
-        PlotStateKeeper.setLastDrawnIntYmax(maxY[0]);
+        REXP getRangeX = rengine.eval(rangeX);
+        double[] ranX = getRangeX.asDoubleArray();
+        REXP getRangeY = rengine.eval(rangeY);
+        double[] ranY = getRangeY.asDoubleArray();
+        PlotStateKeeper.setLastDrawnIntXmin(ranX[0]);
+        PlotStateKeeper.setLastDrawnIntXmax(ranX[1]);
+        PlotStateKeeper.setLastDrawnIntYmin(ranY[0]);
+        PlotStateKeeper.setLastDrawnIntYmax(ranY[1]);
+        
+        if (drawNew) {
+            PlotStateKeeper.setIntXmax(ranX[1]);
+            PlotStateKeeper.setIntYmax(ranY[1]);
+        }
+        
         PlotStateKeeper.setLastCallParams(par);
     }
     
