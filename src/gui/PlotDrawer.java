@@ -520,7 +520,6 @@ public class PlotDrawer {
         
         rangesX.append("))");
         
-        System.out.println(rangesX.toString());
         return rangesX.toString();
     }
     
