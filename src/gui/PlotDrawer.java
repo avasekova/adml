@@ -39,12 +39,12 @@ public class PlotDrawer {
         String rangeYInt = "";
         
         if (! par.getReportsCTS().isEmpty()) {
-            rangeXCrisp = getRangeXCrisp(par.getAllDataCTS(), par.getNumForecasts());
+            rangeXCrisp = getRangeXCrisp(par.getAllDataCTS(), par.getNumForecasts(), par.getFrom(), par.getTo());
             rangeYCrisp = getRangeYCrisp(par.getAllDataCTS(), par.getReportsCTS());
         }
         
         if (! par.getReportsITS().isEmpty()) {
-            rangeXInt = getRangeXInterval(par.getReportsITS(), par.getNumForecasts());
+            rangeXInt = getRangeXInterval(par.getSizeDataWithoutFromToCrop(), par.getNumForecasts(), par.getFrom(), par.getTo());
             rangeYInt = getRangeYInterval(par.getReportsITS());
         }
         
@@ -100,18 +100,19 @@ public class PlotDrawer {
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                         + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
+                plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
                 rengine.eval(plotCode.toString());
                 //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + r.getNumTrainingEntries() + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 colourNumber++;
             }
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.data, xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+            rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.data), xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                     + "ylab=\"" + colname_CTS + "\","
                     + "lwd=2, col=\"#444444\")");
-            rengine.eval("abline(v = " + allDataCTS.size() + ", lty = 3)"); //dashed vertical line to separate forecasts
+            rengine.eval("abline(v = " + (allDataCTS.size() + par.getFrom()) + ", lty = 3)"); //dashed vertical line to separate forecasts
             
             //add legend
             rengine.eval("legend(\"topleft\", "      
@@ -133,7 +134,7 @@ public class PlotDrawer {
             PlotStateKeeper.setLastDrawnCrispYmin(rangeY[0]);
             PlotStateKeeper.setLastDrawnCrispYmax(rangeY[1]);
             if (drawNew) {
-                PlotStateKeeper.setCrispXmax(rangeX[1]);
+                PlotStateKeeper.setCrispXmax(par.getSizeDataWithoutFromToCrop() + numForecasts);
                 PlotStateKeeper.setCrispYmax(rangeY[1]);
             }
         }
@@ -158,12 +159,14 @@ public class PlotDrawer {
                 final int sizeFitted = r.getFittedValues().size();
                 rengine.assign("lower", r.getFittedValuesLowers());
                 rengine.assign("upper", r.getFittedValuesUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                //hack - posunutie
+                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                //hack - posunutie
+                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("segments(1:" + sizeFitted + ", lower, 1:" + sizeFitted + ", upper, xlim = "
+                rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", lower, " + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", upper, xlim = "
                         + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 //naplotovat fitted values pre training data:
@@ -171,13 +174,15 @@ public class PlotDrawer {
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesTestLowers());
                 rengine.assign("upper", r.getForecastValuesTestUppers());
-                rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                //hack - posunutie
+                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                //hack - posunutie
+                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("segments(" + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", lower, "
-                        + (sizeFitted+1) + ":" + (sizeFitted+sizeForecastTest) + ", upper, xlim = " + rangeXInt
+                rengine.eval("segments(" + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", lower, "
+                        + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", upper, xlim = " + rangeXInt
                         + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 //naplotovat forecasty buduce:
@@ -186,20 +191,22 @@ public class PlotDrawer {
                     rengine.eval("par(new=TRUE)");
                     rengine.assign("lower", r.getForecastValuesFutureLowers());
                     rengine.assign("upper", r.getForecastValuesFutureUppers());
-                    rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                    //hack - posunutie
+                    rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("par(new=TRUE)");
-                    rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                    //hack - posunutie
+                    rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                    rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1) + ":"
-                            + (sizeFitted+sizeForecastTest+sizeForecastFuture) + ", lower, "
-                            + (sizeFitted+sizeForecastTest+1) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture)
+                    rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":"
+                            + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom()) + ", lower, "
+                            + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom())
                             + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
                             + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 }
                 
                 //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + sizeFitted + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 colourNumber++;
             }
@@ -214,14 +221,14 @@ public class PlotDrawer {
             rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers()));
 
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
-            rengine.eval("plot.ts(all.lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+            rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels
             rengine.eval("par(new=TRUE)");
-            rengine.eval("plot.ts(all.upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+            rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                     + "ylab=\"" +       "<<add the interval.toString() here>>"      + "\")");
-            rengine.eval("segments(1:" + size + ", all.lower, 1:" + size + ", all.upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", lwd=2, col=\"#444444\")");
+            rengine.eval("segments(" + (1+par.getFrom()) + ":" + (size+par.getFrom()) + ", all.lower, " + (1+par.getFrom()) + ":" + (size+par.getFrom()) + ", all.upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", lwd=2, col=\"#444444\")");
             //add a line separating real data from forecasts
-            rengine.eval("abline(v = " + size + ", lty = 3)");
+            rengine.eval("abline(v = " + (size+par.getFrom()) + ", lty = 3)");
             
             //add legend
             rengine.eval("legend(\"topleft\", "      
@@ -243,7 +250,7 @@ public class PlotDrawer {
             PlotStateKeeper.setLastDrawnIntYmin(rangeY[0]);
             PlotStateKeeper.setLastDrawnIntYmax(rangeY[1]);
             if (drawNew) {
-                PlotStateKeeper.setIntXmax(rangeX[1]);
+                PlotStateKeeper.setIntXmax(par.getSizeDataWithoutFromToCrop() + numForecasts);
                 PlotStateKeeper.setIntYmax(rangeY[1]);
             }
         }
@@ -527,26 +534,18 @@ public class PlotDrawer {
         return rangesY.toString();
     }
     
-    private static String getRangeXCrisp(List<Double> allData, int numForecasts) {
-        return "range(c(0, " + (allData.size() + numForecasts) + "))";
+    private static String getRangeXCrisp(List<Double> allData, int numForecasts, int from, int to) {
+        String rangeX = "range(c(0, " + (allData.size() + numForecasts) + "))";
+        //works with allData.size, because allData isn't cropped by fromTo
+        String rangeXrestrictedFromTo = "range(c(max(" + from + "," + rangeX + "[1]), min(" + to + "," + rangeX + "[2])))";
+        return rangeXrestrictedFromTo;
     }
     
-    private static String getRangeXInterval(List<TrainAndTestReportInterval> reports, int numForecasts) {
-        StringBuilder rangesX = new StringBuilder("range(c(0, ");
-        boolean next = false;
-        for (TrainAndTestReportInterval r : reports) {
-            if (next) {
-                rangesX.append(", ");
-            } else {
-                next = true;
-            }
-            
-            rangesX.append((r.getRealValuesLowers().size() + numForecasts));
-        }
+    private static String getRangeXInterval(int sizeDataWithoutFromToCrop, int numForecasts, int from, int to) {
+        String rangesX = "range(c(0, " + sizeDataWithoutFromToCrop + "))";
         
-        rangesX.append("))");
-        
-        return rangesX.toString();
+        String rangesXrestrictedFromTo = "range(c(max(" + from + "," + rangesX + "[1]), min(" + to + "," + rangesX + "[2])))";
+        return rangesXrestrictedFromTo;
     }
     
     public static String getRString(List<String> list) {

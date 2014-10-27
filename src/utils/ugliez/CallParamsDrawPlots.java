@@ -9,19 +9,21 @@ public class CallParamsDrawPlots extends CallParams {
     private GDCanvas canvasToUse;
     private int width;
     private int height;
-    private List<Double> allDataCTS;
+    private List<Double> allDataCTS; //vsetky data, naozaj vsetky, neosekane podla fromTo!
+    private int sizeDataWithoutFromToCrop;
     private int numForecasts;
-    private List<TrainAndTestReportCrisp> reportsCTS;
+    private List<TrainAndTestReportCrisp> reportsCTS; //obsahuje ako realne data uz odseknute data podla fromTo
     private List<TrainAndTestReportInterval> reportsITS;
     private int from;
     private int to;
     private String colname_CTS;
 
-    public CallParamsDrawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS) {
+    public CallParamsDrawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS) {
         this.canvasToUse = canvasToUse;
         this.width = width;
         this.height = height;
         this.allDataCTS = allDataCTS;
+        this.sizeDataWithoutFromToCrop = sizeDataWithoutFromToCrop;
         this.numForecasts = numForecasts;
         this.reportsCTS = reportsCTS;
         this.reportsITS = reportsITS;
@@ -60,6 +62,14 @@ public class CallParamsDrawPlots extends CallParams {
 
     public void setAllDataCTS(List<Double> allDataCTS) {
         this.allDataCTS = allDataCTS;
+    }
+
+    public int getSizeDataWithoutFromToCrop() {
+        return sizeDataWithoutFromToCrop;
+    }
+
+    public void setSizeDataWithoutFromToCrop(int sizeDataWithoutFromToCrop) {
+        this.sizeDataWithoutFromToCrop = sizeDataWithoutFromToCrop;
     }
 
     public int getNumForecasts() {
