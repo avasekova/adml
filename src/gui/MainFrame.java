@@ -4139,7 +4139,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
         JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
         fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.setSelectedFile(new File("plotExport.png"));
+        fileChooser.setSelectedFile(new File("plotExport.ps"));
         
         if (evt.getSource() == buttonPlotExportPlot) {
             switch (fileChooser.showSaveDialog(this)) {
@@ -4148,7 +4148,7 @@ public class MainFrame extends javax.swing.JFrame {
                     //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     //drawNowToThisGDCanvas = gdCanvasPlot;
                     Rengine rengine = MyRengine.getRengine();
-                    rengine.eval("dev.print(png, file=\"" + plotFile.getPath().replace("\\", "\\\\") + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+                    rengine.eval("dev.print(postscript, file=\"" + plotFile.getPath().replace("\\", "\\\\") + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
                     rengine.eval("dev.off()");
                     break;
                 case JFileChooser.CANCEL_OPTION:
