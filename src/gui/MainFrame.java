@@ -3577,7 +3577,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
         drawPlotGeneral(true, "plot.ts", "");
-        setPlotRanges(dataTableModel.getRowCount(), 0);
+        setPlotRanges(1, 0);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void textFieldPercentTrainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPercentTrainActionPerformed
@@ -3621,7 +3621,7 @@ public class MainFrame extends javax.swing.JFrame {
                 listITSPlotCentreRadius, listITSPlotLowerUpper));
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
-        setPlotRanges(0, dataTableModel.getRowCount());
+        setPlotRanges(0, 1);
     }//GEN-LAST:event_buttonPlotAllITSActionPerformed
 
     private void sliderPercentTrainIntervalMLPStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainIntervalMLPStateChanged
@@ -4073,7 +4073,7 @@ public class MainFrame extends javax.swing.JFrame {
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
             numForecasts, reportsCTS, reportsITS, from, to, colname_CTS));
-        setPlotRanges(dataTableModel.getRowCount(), dataTableModel.getRowCount());
+        setPlotRanges(reportsCTS.size(), reportsITS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         //this.repaint();
