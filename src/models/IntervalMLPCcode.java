@@ -16,6 +16,8 @@ import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.ExplanatoryVariable;
 import utils.imlp.Interval;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
 import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
@@ -213,13 +215,13 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             List<Double> centers;
             List<Double> radii;
             
-            if (var.isCenterRadius()) {
-                centers = dataTableModel.getDataForColname(var.getFirst()).subList(from, to);
-                radii = dataTableModel.getDataForColname(var.getSecond()).subList(from, to);
+            if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
+                centers = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
+                radii = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
             } else {
                 //we have LB and UB
-                List<Double> lowers = dataTableModel.getDataForColname(var.getFirst()).subList(from, to);
-                List<Double> uppers = dataTableModel.getDataForColname(var.getSecond()).subList(from, to);
+                List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
+                List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
                 centers = new ArrayList<>();
                 radii = new ArrayList<>();
                 for (int i = 0; i < lowers.size(); i++) {
@@ -239,13 +241,13 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             List<Double> centers;
             List<Double> radii;
             
-            if (var.isCenterRadius()) {
-                centers = dataTableModel.getDataForColname(var.getFirst()).subList(from, to);
-                radii = dataTableModel.getDataForColname(var.getSecond()).subList(from, to);
+            if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
+                centers = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
+                radii = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
             } else {
                 //we have LB and UB
-                List<Double> lowers = dataTableModel.getDataForColname(var.getFirst()).subList(from, to);
-                List<Double> uppers = dataTableModel.getDataForColname(var.getSecond()).subList(from, to);
+                List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
+                List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
                 centers = new ArrayList<>();
                 radii = new ArrayList<>();
                 for (int i = 0; i < lowers.size(); i++) {

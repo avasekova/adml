@@ -1,13 +1,9 @@
 package utils.imlp;
 
-public class ExplanatoryVariable { //TODO refactor this! pouzit Interval miesto boolCenterRad a first a second
-                                   // potom netreba vzdy ifovat, ale staci si vypytat od toho intervalu upper a lower
-                                   // alebo center a rad podla potreby. a tiez maju toString.
+public class ExplanatoryVariable {
     
     private String name;
-    private boolean centerRadius;
-    private String first;
-    private String second;
+    private IntervalNames intervalNames;
     private int lag;
 
     public String getName() {
@@ -18,28 +14,12 @@ public class ExplanatoryVariable { //TODO refactor this! pouzit Interval miesto 
         this.name = name;
     }
 
-    public boolean isCenterRadius() {
-        return centerRadius;
+    public IntervalNames getIntervalNames() {
+        return intervalNames;
     }
-    
-    public void setCenterRadius(boolean centerRadius) {
-        this.centerRadius = centerRadius;
-    }
-    
-    public String getFirst() {
-        return first;
-    }
-    
-    public void setFirst(String first) {
-        this.first = first;
-    }
-    
-    public String getSecond() {
-        return second;
-    }
-    
-    public void setSecond(String second) {
-        this.second = second;
+
+    public void setIntervalNames(IntervalNames intervalNames) {
+        this.intervalNames = intervalNames;
     }
 
     public int getLag() {
@@ -62,17 +42,14 @@ public class ExplanatoryVariable { //TODO refactor this! pouzit Interval miesto 
         
         final ExplanatoryVariable other = (ExplanatoryVariable) obj;
         
-        return (this.name.equals(other.name)) && (this.lag == other.lag) && (this.centerRadius == other.centerRadius)
-            && (this.first.equals(other.first)) && this.second.equals(other.second);
+        return (this.name.equals(other.name)) && (this.lag == other.lag) && (this.intervalNames.equals(other.intervalNames));
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 17 * hash + this.name.hashCode();
-        hash = 17 * hash + ((this.centerRadius)?1:0);
-        hash = 17 * hash + this.first.hashCode();
-        hash = 17 * hash + this.second.hashCode();
+        hash = 17 * hash + this.intervalNames.hashCode();
         hash = 17 * hash + this.lag;
         return hash;
     }

@@ -3927,8 +3927,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
             if (((ExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables().isEmpty() ||
-                ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "At least one explanatory and one output variable need to be selected for the iMLP C code to run.");
+                ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty() ||
+                (((DefaultListModel)listSettingsIntervalMLPDistancesUsed.getModel()).toArray().length == 0)) {
+                JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the iMLP C code to run.");
             } else {
                 List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode();
                 

@@ -1,6 +1,6 @@
 package utils.imlp;
 
-public class IntervalNamesLowerUpper {
+public class IntervalNamesLowerUpper extends IntervalNames {
     
     private final String lowerBound;
     private final String upperBound;

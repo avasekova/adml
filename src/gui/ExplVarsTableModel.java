@@ -5,11 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import utils.imlp.ExplanatoryVariable;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 
 public class ExplVarsTableModel extends AbstractTableModel {
     
     private List<ExplanatoryVariable> variables = new ArrayList<>();
-    private final String[] columnNames = new String[]{ "Name", "At time", "", "" };
+    private final String[] columnNames = new String[]{ "Name", "At time", ""};
     
     public void addVariable(ExplanatoryVariable var) {
         if (! variables.contains(var)) {
@@ -58,9 +60,11 @@ public class ExplVarsTableModel extends AbstractTableModel {
             case 1:
                 return "(t-" + var.getLag() + ")";
             case 2:
-                return var.getFirst();
-            case 3:
-                return var.getSecond();
+                if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
+                    return ((IntervalNamesCentreRadius) var.getIntervalNames()).toString();
+                } else {
+                    return ((IntervalNamesLowerUpper) var.getIntervalNames()).toString();
+                }
         }
         
         return "(NA)";

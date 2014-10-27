@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
 
 public class OutVarsTableModel extends AbstractTableModel {
 
     private List<OutputVariable> variables = new ArrayList<>();
-    private final String[] columnNames = new String[]{ "Name", "", "" };
+    private final String[] columnNames = new String[]{ "Name", "" };
     
     public void addVariable(OutputVariable var) {
         if (! variables.contains(var)) {
@@ -56,9 +58,11 @@ public class OutVarsTableModel extends AbstractTableModel {
             case 0:
                 return var.getName();
             case 1:
-                return var.getFirst();
-            case 2:
-                return var.getSecond();
+                if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
+                    return ((IntervalNamesCentreRadius) var.getIntervalNames()).toString();
+                } else {
+                    return ((IntervalNamesLowerUpper) var.getIntervalNames()).toString();
+                }
         }
         
         return "(NA)";

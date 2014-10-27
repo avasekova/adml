@@ -1,6 +1,6 @@
 package utils.imlp;
 
-public class IntervalNamesCentreRadius {
+public class IntervalNamesCentreRadius extends IntervalNames {
 
     private final String centre;
     private final String radius;

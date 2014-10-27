@@ -4,6 +4,9 @@ import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
 import utils.imlp.ExplanatoryVariable;
+import utils.imlp.IntervalNames;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 
 public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
     
@@ -221,13 +224,13 @@ public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
         var.setLag(Integer.parseInt(spinnerAddExplVarLag.getValue().toString()));
             
         if (radioButtonAddExplVarCenterRadius.isSelected()) {
-            var.setCenterRadius(true);
-            var.setFirst(comboBoxAddExplVarCenter.getSelectedItem().toString());
-            var.setSecond(comboBoxAddExplVarRadius.getSelectedItem().toString());
+            IntervalNames names = new IntervalNamesCentreRadius(comboBoxAddExplVarCenter.getSelectedItem().toString(),
+                    comboBoxAddExplVarRadius.getSelectedItem().toString());
+            var.setIntervalNames(names);
         } else {
-            var.setCenterRadius(false);
-            var.setFirst(comboBoxAddExplVarLower.getSelectedItem().toString());
-            var.setSecond(comboBoxAddExplVarUpper.getSelectedItem().toString());
+            IntervalNames names = new IntervalNamesLowerUpper(comboBoxAddExplVarLower.getSelectedItem().toString(),
+                    comboBoxAddExplVarUpper.getSelectedItem().toString());
+            var.setIntervalNames(names);
         }
         
         ((MainFrame)(this.getParent())).addToExplVarsTableModel(var);

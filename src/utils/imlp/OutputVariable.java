@@ -3,9 +3,7 @@ package utils.imlp;
 public class OutputVariable {
     
     private String name;
-    private boolean centerRadius;
-    private String first;
-    private String second;
+    private IntervalNames intervalNames;
 
     public String getName() {
         return name;
@@ -15,28 +13,12 @@ public class OutputVariable {
         this.name = name;
     }
 
-    public boolean isCenterRadius() {
-        return centerRadius;
+    public IntervalNames getIntervalNames() {
+        return intervalNames;
     }
 
-    public void setCenterRadius(boolean centerRadius) {
-        this.centerRadius = centerRadius;
-    }
-
-    public String getFirst() {
-        return first;
-    }
-
-    public void setFirst(String first) {
-        this.first = first;
-    }
-
-    public String getSecond() {
-        return second;
-    }
-
-    public void setSecond(String second) {
-        this.second = second;
+    public void setIntervalNames(IntervalNames intervalNames) {
+        this.intervalNames = intervalNames;
     }
     
     @Override
@@ -51,17 +33,14 @@ public class OutputVariable {
         
         final OutputVariable other = (OutputVariable) obj;
         
-        return (this.name.equals(other.name)) && (this.centerRadius == other.centerRadius)
-            && (this.first.equals(other.first)) && this.second.equals(other.second);
+        return (this.name.equals(other.name)) && (this.intervalNames.equals(other.intervalNames));
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 17 * hash + this.name.hashCode();
-        hash = 17 * hash + ((this.centerRadius)?1:0);
-        hash = 17 * hash + this.first.hashCode();
-        hash = 17 * hash + this.second.hashCode();
+        hash = 17 * hash + this.intervalNames.hashCode();
         return hash;
     }
 }

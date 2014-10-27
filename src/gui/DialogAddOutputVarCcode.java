@@ -2,6 +2,9 @@ package gui;
 
 import java.awt.event.WindowEvent;
 import java.util.List;
+import utils.imlp.IntervalNames;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
 
 public class DialogAddOutputVarCcode extends javax.swing.JDialog {
@@ -191,13 +194,13 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
         var.setName(textFieldAddOutVarName.getText());
             
         if (radioButtonAddExplVarCenterRadius.isSelected()) {
-            var.setCenterRadius(true);
-            var.setFirst(comboBoxAddOutVarCenter.getSelectedItem().toString());
-            var.setSecond(comboBoxAddOutVarRadius.getSelectedItem().toString());
+            IntervalNames names = new IntervalNamesCentreRadius(comboBoxAddOutVarCenter.getSelectedItem().toString(),
+                    comboBoxAddOutVarRadius.getSelectedItem().toString());
+            var.setIntervalNames(names);
         } else {
-            var.setCenterRadius(false);
-            var.setFirst(comboBoxAddOutVarLower.getSelectedItem().toString());
-            var.setSecond(comboBoxAddOutVarUpper.getSelectedItem().toString());
+            IntervalNames names = new IntervalNamesLowerUpper(comboBoxAddOutVarLower.getSelectedItem().toString(),
+                    comboBoxAddOutVarUpper.getSelectedItem().toString());
+            var.setIntervalNames(names);
         }
         
         ((MainFrame)(this.getParent())).addToOutVarsTableModel(var);
