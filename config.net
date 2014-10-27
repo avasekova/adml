@@ -1,0 +1,6 @@
+mp(1,1,1)
+learn
+nco(500)
+wd(0.001)
+ftrain(train.dat)
+ftest(test.dat)

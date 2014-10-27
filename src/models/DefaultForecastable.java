@@ -14,5 +14,4 @@ public class DefaultForecastable implements Forecastable {
     public String getOptionalParams(Params parameters) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
-    
 }

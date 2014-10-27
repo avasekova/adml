@@ -6,6 +6,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
 public class TableBothHeadersCellColorRenderer extends DefaultTableCellRenderer { //TODO pouzit aj na stredny riadok
+    //TODO vyrobit len Renderer na hrubsie pismo, a potom ho aplikovat nie na celu tabulku, ale na niektore riadky a stlpce
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,

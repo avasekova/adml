@@ -1,103 +1,134 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
 import params.NnetParams;
 import params.Params;
-import rcaller.RCaller;
-import rcaller.RCode;
 import utils.Const;
-import utils.RCodeSession;
+import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
+import utils.MyRengine;
 import utils.Utils;
 
-public class Nnet implements Forecastable {
+public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a jeden vystup! inak treba zovseobecnit kopu
+    //           veci, napr. scaling, a dalsie volania rengine
 
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
-        final String INPUTDATA = Const.INPUT + RCodeSession.INSTANCE.getCounter();
-        final String OUTPUTDATA = Const.OUTPUT + RCodeSession.INSTANCE.getCounter();
-        final String NNETWORK = Const.NNETWORK + RCodeSession.INSTANCE.getCounter();
-        final String TESTDATA = Const.TEST + RCodeSession.INSTANCE.getCounter();
-        final String FORECASTMODEL = Const.FORECAST_MODEL + RCodeSession.INSTANCE.getCounter();
-        
+        final String INPUT = Const.INPUT + Utils.getCounter();
+        final String SCALED_INPUT = "scaled." + INPUT;
+        final String OUTPUT = Const.OUTPUT + Utils.getCounter();
+        final String SCALED_OUTPUT = "scaled." + OUTPUT;
+        final String ORIGINAL_INPUT = "original." + INPUT;
+        final String ORIGINAL_OUTPUT = "original." + OUTPUT;
+        final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
+        final String SCALED_INPUT_TRAIN = "scaled." + INPUT_TRAIN;
+        final String INPUT_TEST = Const.INPUT + Utils.getCounter();
+        final String SCALED_INPUT_TEST = "scaled." + INPUT_TEST;
+        final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
+        final String SCALED_OUTPUT_TRAIN = "scaled." + OUTPUT_TRAIN;
+        final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
+        final String SCALED_OUTPUT_TEST = "scaled." + OUTPUT_TEST;
+        final String NNETWORK = Const.NNETWORK + Utils.getCounter();
+        final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
+        final String FITTED_VALS = Const.FIT + Utils.getCounter();
+        final String UNSCALED_FITTED_VALS = "unscaled." + FITTED_VALS;
+        final String UNSCALED_FORECAST_VALS = "unscaled." + FORECAST_VALS;
+        final String ALL_AUX = "aux" + Utils.getCounter();
+        final String FINAL_UNSCALED_FITTED_VALS = "final." + UNSCALED_FITTED_VALS;
+        final String FINAL_UNSCALED_FORECAST_VALS = "final." + UNSCALED_FORECAST_VALS;
         
         NnetParams params = (NnetParams) parameters;
-        TrainAndTestReport report = new TrainAndTestReport("nnet");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet(lag=" + params.getLag() + ",hid=" + params.getNumNodesHiddenLayer() + ")");
+        List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
-        RCaller caller = Utils.getCleanRCaller();
-        caller.deleteTempFiles();
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(nnet)");
 
-        RCode code = RCodeSession.INSTANCE.getRCode();
+        rengine.assign(ORIGINAL_INPUT, Utils.listToArray(dataToUse));
+        rengine.assign(ORIGINAL_OUTPUT, Utils.listToArray(dataToUse));
         
-        code.R_require("nnet");
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
-        List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
-        report.setTrainData(trainingPortionOfData);
-        List<Double> trainingPortionOfInputValues = params.getInputs().subList(0, numTrainingEntries);
+        rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + ORIGINAL_INPUT + ")");
+        rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + ORIGINAL_OUTPUT + ")");
         
-        List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
-        report.setTestData(testingPortionOfData);
-        List<Double> testingPortionOfInputValues = params.getInputs().subList(numTrainingEntries, params.getInputs().size());
-
-        code.addDoubleArray(INPUTDATA, Utils.listToArray(trainingPortionOfInputValues));
-        code.addDoubleArray(OUTPUTDATA, Utils.listToArray(trainingPortionOfData));
+        rengine.eval(INPUT + " <- " + ORIGINAL_INPUT + "[1:(length(" + ORIGINAL_INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
+        rengine.eval(OUTPUT + " <- " + ORIGINAL_OUTPUT + "[(1 + " + params.getLag() + "):length(" + ORIGINAL_OUTPUT + ")]"); //(1+lag):length
+        
+        rengine.eval(SCALED_INPUT + " <- " + SCALED_INPUT + "[1:(length(" + SCALED_INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
+        rengine.eval(SCALED_OUTPUT + " <- " + SCALED_OUTPUT + "[(1 + " + params.getLag() + "):length(" + SCALED_OUTPUT + ")]"); //(1+lag):length
+        
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
+        report.setNumTrainingEntries(numTrainingEntries);
+        
+        rengine.eval(SCALED_INPUT_TRAIN + " <- " + SCALED_INPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(SCALED_INPUT_TEST + " <- " + SCALED_INPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_INPUT + ")]");
+        
+        rengine.eval(OUTPUT_TRAIN +        " <- " +        OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
+        
+        rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[(" + numTrainingEntries + " + 1):length(" +        OUTPUT + ")]");
+        rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_OUTPUT + ")]");
+        
+        REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
+        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
+        
+        REXP getTestingOutputs = rengine.eval(OUTPUT_TEST);
+        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        
+        
         String optionalParams = getOptionalParams(params);
-        
-        code.addRCode(NNETWORK + " <- nnet(" + INPUTDATA + ", " + OUTPUTDATA + optionalParams + ", linout = TRUE)"); //TODO !
+        rengine.eval(NNETWORK + " <- nnet::nnet(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + optionalParams + ", linout = TRUE)");
         //TODO potom tu nemat natvrdo linout!
         //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
+        rengine.eval(FITTED_VALS + " <- fitted.values(" + NNETWORK + ")");
+        rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + ORIGINAL_OUTPUT + ")");
         
-        //toto pouzit na spocitanie tych error measures - napredikuje hodnoty, ktore sa to ucilo:
-        //code.addRCode(Const.FORECAST_MODEL + " <- predict(" + Const.NNETWORK + ", type='raw')");
+        rengine.eval(FORECAST_VALS + " <- predict(" + NNETWORK + ", data.frame(" + SCALED_INPUT_TEST + "), type='raw')");
+        rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + ORIGINAL_OUTPUT + ")");
         
-        code.addDoubleArray(TESTDATA, Utils.listToArray(testingPortionOfInputValues));
-        code.addRCode(FORECASTMODEL + " <- predict(" + NNETWORK + ", data.frame(" + TESTDATA + "), type=\"raw\")");
+        //a teraz to cele posuniem o lag, aby to davalo normalne vysledky:
+        //povodne: -----fit-----|---forecast--|--nothin--
+        //teraz:   --nothin--|-----fit-----|---forecast--
+        rengine.eval(ALL_AUX + " <- c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + ")");
+        rengine.eval(ALL_AUX + " <- c(rep(NA, " + params.getLag() + "), " + ALL_AUX + ")");
+        rengine.eval(FINAL_UNSCALED_FITTED_VALS + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FINAL_UNSCALED_FORECAST_VALS + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
+                "length(" + ORIGINAL_INPUT + ")]");
         
+        REXP getFittedVals = rengine.eval(FINAL_UNSCALED_FITTED_VALS);
+        double[] fittedVals = getFittedVals.asDoubleArray();
+        REXP getForecastVals = rengine.eval(FINAL_UNSCALED_FORECAST_VALS);
+        double[] forecastVals = getForecastVals.asDoubleArray();
         
-        caller.setRCode(code);
-        caller.runAndReturnResult(FORECASTMODEL);
-        double[] forecasted = caller.getParser().getAsDoubleArray(FORECASTMODEL);
-        report.setForecastData(Utils.arrayToList(forecasted));
-        //..
-        //..
-        //tu pokracovat: spocitat tie error measures (zatial len tie, co mal nnetar), a zobrazit graf forecasted vals
-        //TODO spocitat naozaj tie error measures
-        //zatial len dummy data
-        List<Double> dummyErrorMeasures = new ArrayList<>();
-        dummyErrorMeasures.add(0.0);
-        dummyErrorMeasures.add(0.1);
-        dummyErrorMeasures.add(0.2);
-        dummyErrorMeasures.add(0.3);
-        dummyErrorMeasures.add(0.4);
-        dummyErrorMeasures.add(0.5);
-        dummyErrorMeasures.add(0.6);
-        dummyErrorMeasures.add(0.7);
-        dummyErrorMeasures.add(0.8);
-        dummyErrorMeasures.add(0.9);
-        dummyErrorMeasures.add(1.0);
-        dummyErrorMeasures.add(1.1);
-        report.setErrorMeasures(dummyErrorMeasures);
+        report.setFittedValues(fittedVals);
+        report.setForecastValuesTest(forecastVals);
+//        report.setForecastValuesFuture(); //nothing yet
+        //TODO: it _could_ forecast as long as it does not have expl vars, only lag
         
-//        caller = Utils.getCleanRCaller();
-//        code.addDoubleArray(Const.TEST, Utils.listToArray(testingPortionOfData));
-//        code.addRCode(Const.ACC + " <- accuracy(" + Const.FORECAST_MODEL + ", " + Const.TEST + ")");
-//
-//        caller.setRCode(code);
-//        caller.runAndReturnResult(Const.ACC);
-//
-//        double[] acc = caller.getParser().getAsDoubleArray(Const.ACC); //pozor na poradie vysledkov, ochenta setenta...
-//        //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
-//
-//        //dalo by sa aj maticu, ale momentalne mi staci ten list:
-//        //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
-//
-//        report.setErrorMeasures(Utils.arrayToList(acc));
+        //TODO spocitat zbytok tych error measures
+        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setMPEtest(ErrorMeasuresUtils.MPE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setMAPEtest(ErrorMeasuresUtils.MAPE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setMASEtest(ErrorMeasuresUtils.MASE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
+        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        report.setErrorMeasures(errorMeasures);
         
-        //TODO inak spravit ten plot. takto jednoducho to pre nnet nejde. treba asi rucne
-        report.setForecastPlotCode("plot(" + FORECASTMODEL + ", type=\"l\")");
+        report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + "))");
         
-        RCodeSession.INSTANCE.setRCode(code);
+        report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + ")");
         
         return report;
     }
@@ -111,6 +142,8 @@ public class Nnet implements Forecastable {
         
         if (params.getNumNodesHiddenLayer() != null) {
             optionalParams.append(", size = ").append(params.getNumNodesHiddenLayer());
+        } else {
+            optionalParams.append(", size = 1 ");
         }
         
         //Wts
@@ -168,5 +201,4 @@ public class Nnet implements Forecastable {
         
         return optionalParams.toString();
     }
-    
 }

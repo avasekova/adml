@@ -1,12 +1,10 @@
 package params;
 
-import java.util.List;
 import utils.R_Bool;
 
 public class NnetParams extends Params {
     
-    private String inputColname;
-    private List<Double> inputs;
+    private int lag;
     private Double abstol;
     private Double reltol;
     private R_Bool skipLayerConnections = null;
@@ -22,20 +20,12 @@ public class NnetParams extends Params {
     private R_Bool traceOptimization = null;
     private Integer maxNumOfWeights;
 
-    public String getInputColname() {
-        return inputColname;
+    public int getLag() {
+        return lag;
     }
 
-    public void setInputColname(String inputColname) {
-        this.inputColname = inputColname;
-    }
-
-    public List<Double> getInputs() {
-        return inputs;
-    }
-
-    public void setInputs(List<Double> inputs) {
-        this.inputs = inputs;
+    public void setLag(Integer lag) {
+        this.lag = lag;
     }
     
     public Double getAbstol() {
@@ -150,4 +140,34 @@ public class NnetParams extends Params {
         this.maxNumOfWeights = maxNumOfWeights;
     }
     
+    @Override
+    public NnetParams getClone() {
+        NnetParams param = new NnetParams();
+        param.setDataRangeFrom(this.getDataRangeFrom());
+        param.setDataRangeTo(this.getDataRangeTo());
+        param.setAbstol(abstol);
+        param.setCensoredOnElseOff(censoredOnElseOff);
+        param.setHessian(hessian);
+        param.setInitWeightsRange(initWeightsRange);
+        param.setLag(lag);
+        param.setLeastSqrsElseMaxCondLikelihood(leastSqrsElseMaxCondLikelihood);
+        param.setLinearElseLogistic(linearElseLogistic);
+        param.setLoglinSoftmaxElseMaxCondLikelihood(loglinSoftmaxElseMaxCondLikelihood);
+        param.setMaxIterations(maxIterations);
+        param.setMaxNumOfWeights(maxNumOfWeights);
+        param.setNumForecasts(this.getNumForecasts());
+        param.setNumNodesHiddenLayer(numNodesHiddenLayer);
+        param.setPercentTrain(this.getPercentTrain());
+        param.setReltol(reltol);
+        param.setSkipLayerConnections(skipLayerConnections);
+        param.setTraceOptimization(traceOptimization);
+        param.setWeightDecay(weightDecay);
+        
+        return param;
+    }
+
+    @Override
+    public String toString() {
+        return "NnetParams{" + "lag=" + lag + ", abstol=" + abstol + ", reltol=" + reltol + ", skipLayerConnections=" + skipLayerConnections + ", initWeightsRange=" + initWeightsRange + ", maxIterations=" + maxIterations + ", numNodesHiddenLayer=" + numNodesHiddenLayer + ", linearElseLogistic=" + linearElseLogistic + ", leastSqrsElseMaxCondLikelihood=" + leastSqrsElseMaxCondLikelihood + ", loglinSoftmaxElseMaxCondLikelihood=" + loglinSoftmaxElseMaxCondLikelihood + ", censoredOnElseOff=" + censoredOnElseOff + ", weightDecay=" + weightDecay + ", hessian=" + hessian + ", traceOptimization=" + traceOptimization + ", maxNumOfWeights=" + maxNumOfWeights + "}\n";
+    }
 }

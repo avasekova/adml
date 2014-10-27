@@ -1,76 +1,99 @@
 package models;
 
+import java.util.Collections;
 import java.util.List;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
 import params.NnetarParams;
 import params.Params;
-import rcaller.RCaller;
-import rcaller.RCode;
 import utils.Const;
-import utils.RCodeSession;
+import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
+import utils.MyRengine;
 import utils.Utils;
 
 public class Nnetar implements Forecastable {
     
     @Override
     public TrainAndTestReport forecast(List<Double> allData, Params parameters){
-        final String TRAINDATA = Const.TRAINDATA + RCodeSession.INSTANCE.getCounter();
-        final String NNETWORK = Const.NNETWORK + RCodeSession.INSTANCE.getCounter();
-        final String FORECASTMODEL = Const.FORECAST_MODEL + RCodeSession.INSTANCE.getCounter();
-        final String FORECASTVALS = Const.FORECAST_VALS + RCodeSession.INSTANCE.getCounter();
-        final String TESTDATA = Const.TEST + RCodeSession.INSTANCE.getCounter();
-        final String ACCURACY = Const.ACC + RCodeSession.INSTANCE.getCounter();
+        final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
+        final String NNETWORK = Const.NNETWORK + Utils.getCounter();
+        final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
+        final String TEST = Const.TEST + Utils.getCounter();
+        final String FIT = Const.FIT + Utils.getCounter();
+        final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
         
         NnetarParams params = (NnetarParams) parameters;
-        TrainAndTestReport report = new TrainAndTestReport("nnetar");
-
-        RCaller caller = Utils.getCleanRCaller();
-        caller.deleteTempFiles();
-
-        RCode code = RCodeSession.INSTANCE.getRCode();
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar(lagSeas=" + params.getNumSeasonalLags()
+         + ",lagNon=" + params.getNumNonSeasonalLags() + ",hid=" + params.getNumNodesHidden() + ")");
+        List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
-        code.R_require("forecast");
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*allData.size());
-        List<Double> trainingPortionOfData = allData.subList(0, numTrainingEntries);
-        report.setTrainData(trainingPortionOfData);
-        List<Double> testingPortionOfData = allData.subList(numTrainingEntries, allData.size());
-        report.setTestData(testingPortionOfData);
-
-        code.addDoubleArray(TRAINDATA, Utils.listToArray(trainingPortionOfData));
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(forecast)");
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
+        report.setNumTrainingEntries(numTrainingEntries);
+        List<Double> trainingPortionOfData = dataToUse.subList(0, numTrainingEntries);
+        List<Double> testingPortionOfData = dataToUse.subList(numTrainingEntries, dataToUse.size());
+        
+        rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
-        code.addRCode(NNETWORK + " <- nnetar(" + TRAINDATA + optionalParams + ")");
-
-        int numForecasts = testingPortionOfData.size();
-        numForecasts += params.getNumForecasts();
-        code.addRCode(FORECASTMODEL + " <- forecast(" + NNETWORK + ", " + numForecasts + ")");
+        rengine.eval(NNETWORK + " <- forecast::nnetar(" + TRAINDATA + optionalParams + ")");
+        
+        int numForecasts = testingPortionOfData.size() + params.getNumForecasts();
+        rengine.eval(FORECAST_MODEL + " <- forecast::forecast(" + NNETWORK + ", " + numForecasts + ")");
         //skoro ma svihlo, kym som na to prisla, ale:
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
-        code.addRCode(FORECASTVALS + " <- " + FORECASTMODEL + "$mean[1:" + testingPortionOfData.size() + "]");
-
-        caller.setRCode(code);
-        caller.runAndReturnResult(FORECASTVALS);
-        double[] forecasted = caller.getParser().getAsDoubleArray(FORECASTVALS);
-        report.setForecastData(Utils.arrayToList(forecasted));
-            
-        caller = Utils.getCleanRCaller();
-        code.addDoubleArray(TESTDATA, Utils.listToArray(testingPortionOfData));
-        code.addRCode(ACCURACY + " <- accuracy(" + FORECASTMODEL + ", " + TESTDATA + ")[1:12]"); //TODO [1:12] preto, ze v novej verzii
+        rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
+        REXP getForecastValsAll = rengine.eval(FORECAST_VALS);
+        double[] forecastAll = getForecastValsAll.asDoubleArray();
+        List<Double> allForecastsList = Utils.arrayToList(forecastAll);
+        List<Double> forecastTest = allForecastsList.subList(0, testingPortionOfData.size());
+        report.setForecastValuesTest(Utils.listToArray(forecastTest));
+        report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(testingPortionOfData.size(), allForecastsList.size())));
+        
+        rengine.assign(TEST, Utils.listToArray(testingPortionOfData));
+        //TODO mozno iba accuracy(model) miesto accuracy(model, testingData)? zistit!!!
+        REXP getAcc = rengine.eval("forecast::accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
         // tam pribudla aj ACF a niekedy robi problemy
-
-        caller.setRCode(code);
-        caller.runAndReturnResult(ACCURACY);
-
-        double[] acc = caller.getParser().getAsDoubleArray(ACCURACY); //pozor na poradie vysledkov, ochenta setenta...
+        double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         //nova verzia vracia aj ACF1
-
-        //dalo by sa aj maticu, ale momentalne mi staci ten list:
-        //double[][] acc2 = caller.getParser().getAsDoubleMatrix(ACC, 6, 2);
-
-        report.setErrorMeasures(Utils.arrayToList(acc));
-        report.setForecastPlotCode("plot(" + FORECASTMODEL + ", type=\"l\")");
         
-        RCodeSession.INSTANCE.setRCode(code);
+        rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
+        REXP getFittedVals = rengine.eval(FIT);
+        double[] fitted = getFittedVals.asDoubleArray();
+        report.setFittedValues(fitted);
+        
+        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+        errorMeasures.setMEtrain(acc[0]);
+        errorMeasures.setMEtest(acc[1]);
+        errorMeasures.setRMSEtrain(acc[2]);
+        errorMeasures.setRMSEtest(acc[3]);
+        errorMeasures.setMAEtrain(acc[4]);
+        errorMeasures.setMAEtest(acc[5]);
+        errorMeasures.setMPEtrain(acc[6]);
+        errorMeasures.setMPEtest(acc[7]);
+        errorMeasures.setMAPEtrain(acc[8]);
+        errorMeasures.setMAPEtest(acc[9]);
+        errorMeasures.setMASEtrain(acc[10]);
+        errorMeasures.setMASEtest(acc[11]);
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(trainingPortionOfData, Utils.arrayToList(fitted)));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, forecastTest));
+        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(trainingPortionOfData),
+                Collections.unmodifiableList(Utils.arrayToList(fitted))));
+        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(testingPortionOfData),
+                Collections.unmodifiableList(forecastTest)));
+        
+        report.setErrorMeasures(errorMeasures);
+        
+        
+        
+        //report.setForecastPlotCode("plot(" + FORECAST_MODEL + ")"); //vykresli aj tie modre forecasty
+        report.setPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))"); //vykresli iba fitted values
+        
+        //TODO neskor vybrat najlepsi a ten naplotovat! zatial plotuje prvy :/
+        report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + "$model[[1]]$wts, struct = " + NNETWORK + "$model[[1]]$n)");
         
         return report;
     }
@@ -89,7 +112,7 @@ public class Nnetar implements Forecastable {
         
         if (params.getNumNodesHidden() != null) {
             optionalParams.append(", size = ").append(params.getNumNodesHidden());
-}
+        }
         
         if (params.getNumReps() != null) {
             optionalParams.append(", repeats = ").append(params.getNumReps());
