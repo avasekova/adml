@@ -454,6 +454,8 @@ public class MainFrame extends javax.swing.JFrame {
         radioButtonRunMLPintCenterRadius = new javax.swing.JRadioButton();
         checkBoxRunMLPintNnet = new javax.swing.JCheckBox();
         buttonRunRestoreRangeAll = new javax.swing.JButton();
+        panelForecastValsAll = new javax.swing.JPanel();
+        buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
         scrollPaneForecastVals = new javax.swing.JScrollPane();
         panelDiagramsNNs = new javax.swing.JPanel();
@@ -744,7 +746,6 @@ public class MainFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonPlotAllITS)))
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelChartLayout.createSequentialGroup()
                         .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -787,7 +788,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel128)
                             .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(9, 9, 9)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 397, Short.MAX_VALUE)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -804,7 +805,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
         );
 
         panelEverything.addTab("Data", panelData);
@@ -966,7 +967,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(paramNnetar_textFieldLambda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(367, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnetar, "panelSettingsMLPPackage_nnetar");
@@ -987,7 +988,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(477, Short.MAX_VALUE))
+                .addContainerGap(482, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_neuralnet, "panelSettingsMLPPackage_neuralnet");
@@ -1746,7 +1747,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel86)
                                     .addComponent(paramMLPint_radius_textFieldLambda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addContainerGap(246, Short.MAX_VALUE))
         );
 
         panelSettingsMLPintPackage.add(panelSettingsMLPintPackage_nnetar, "panelSettingsMLPintPackage_nnetar");
@@ -2265,7 +2266,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxRPackageMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.PREFERRED_SIZE, 396, Short.MAX_VALUE)
+                .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel48)
@@ -2274,10 +2275,10 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel63)
                 .addGap(29, 29, 29))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 570, Short.MAX_VALUE))
+                .addGap(0, 575, Short.MAX_VALUE))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
-                    .addContainerGap(529, Short.MAX_VALUE)
+                    .addContainerGap(534, Short.MAX_VALUE)
                     .addComponent(panelSettingsMLPintDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
@@ -2632,7 +2633,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
                     .addComponent(jLabel40))
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addContainerGap(151, Short.MAX_VALUE))
         );
 
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeCcode, "panelSettingsIntervalMLPModeCcode");
@@ -2653,7 +2654,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsIntervalMLPModeNeuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel32)
-                .addContainerGap(472, Short.MAX_VALUE))
+                .addContainerGap(477, Short.MAX_VALUE))
         );
 
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeNeuralnet, "panelSettingsIntervalMLPModeNeuralnet");
@@ -2925,7 +2926,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(textFieldKNNfnnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_FNN, "panelSettingsKNNoptions_FNN");
@@ -3000,7 +3001,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxKNNcombination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel70))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addContainerGap(315, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_custom, "panelSettingsKNNoptions_custom");
@@ -3044,7 +3045,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel74)
                     .addComponent(textFieldKNNkknnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(408, Short.MAX_VALUE))
+                .addContainerGap(413, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_kknn, "panelSettingsKNNoptions_kknn");
@@ -3122,7 +3123,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 280, Short.MAX_VALUE)
+            .addGap(0, 285, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -3437,18 +3438,43 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Run", panelRunOutside);
 
+        buttonExportForecastValues.setText("Export these values");
+        buttonExportForecastValues.setEnabled(false);
+        buttonExportForecastValues.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportForecastValuesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelForecastValsLayout = new javax.swing.GroupLayout(panelForecastVals);
         panelForecastVals.setLayout(panelForecastValsLayout);
         panelForecastValsLayout.setHorizontalGroup(
             panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 1178, Short.MAX_VALUE)
+            .addComponent(scrollPaneForecastVals)
         );
         panelForecastValsLayout.setVerticalGroup(
             panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
         );
 
-        panelEverything.addTab("Forecast values", panelForecastVals);
+        javax.swing.GroupLayout panelForecastValsAllLayout = new javax.swing.GroupLayout(panelForecastValsAll);
+        panelForecastValsAll.setLayout(panelForecastValsAllLayout);
+        panelForecastValsAllLayout.setHorizontalGroup(
+            panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelForecastValsAllLayout.createSequentialGroup()
+                .addComponent(buttonExportForecastValues)
+                .addGap(0, 1049, Short.MAX_VALUE))
+            .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelForecastValsAllLayout.setVerticalGroup(
+            panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelForecastValsAllLayout.createSequentialGroup()
+                .addComponent(buttonExportForecastValues)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelEverything.addTab("Forecast values", panelForecastValsAll);
 
         gdCanvasDiagramsNNs = new GDCanvas(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());
         panelDiagramsNNs.add(gdCanvasDiagramsNNs, BorderLayout.CENTER);
@@ -3462,7 +3488,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelDiagramsNNsLayout.setVerticalGroup(
             panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 575, Short.MAX_VALUE)
+            .addGap(0, 580, Short.MAX_VALUE)
         );
 
         panelEverything.addTab("Diagrams of NNs", panelDiagramsNNs);
@@ -3862,11 +3888,11 @@ public class MainFrame extends javax.swing.JFrame {
         if (evt.getSource() == buttonRunExportErrorMeasures) {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
-                File errorMeasuresFile = fileChooser.getSelectedFile();
-                //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
-                ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
-                    (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_ITS.getModel()), errorMeasuresFile);
-                break;
+                    File errorMeasuresFile = fileChooser.getSelectedFile();
+                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
+                    ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
+                        (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_ITS.getModel()), errorMeasuresFile);
+                    break;
                 case JFileChooser.CANCEL_OPTION:
                 default:
                 //nothing
@@ -3879,6 +3905,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
         buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
+        buttonExportForecastValues.setEnabled(true);
 
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
         List<Double> data = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(colname_CTS)));
@@ -4079,14 +4106,14 @@ public class MainFrame extends javax.swing.JFrame {
         //this.repaint();
 
         //and show forecast values in the other pane
-        JTable tableForecastValues = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        tableForecastValues.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
-        TableColumn firstColumn = tableForecastValues.getColumnModel().getColumn(0);
+        forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        forecastValuesLatest.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
+        TableColumn firstColumn = forecastValuesLatest.getColumnModel().getColumn(0);
         firstColumn.setMinWidth(10);
         firstColumn.setMaxWidth(50);
-        tableForecastValues.setVisible(true);
+        forecastValuesLatest.setVisible(true);
         panelForecastVals.removeAll();
-        scrollPaneForecastVals.setViewportView(tableForecastValues);
+        scrollPaneForecastVals.setViewportView(forecastValuesLatest);
         panelForecastVals.add(scrollPaneForecastVals);
         panelForecastVals.repaint();
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
@@ -4223,6 +4250,27 @@ public class MainFrame extends javax.swing.JFrame {
             setPlotRanges(0, 1); //hack, cokolvek ine ako 0 znamena enable
         }
     }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
+
+    private void buttonExportForecastValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportForecastValuesActionPerformed
+        JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("forecast_values.xls"));
+        if (evt.getSource() == buttonExportForecastValues) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File forecastValuesFile = fileChooser.getSelectedFile();
+                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
+                    ExcelWriter.forecastJTableToExcel((ForecastValsTableModel)(forecastValuesLatest.getModel()), forecastValuesFile);
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
+
+        //a na zaver to disablovat, aby sa na to netukalo furt
+        buttonExportForecastValues.setEnabled(false);
+    }//GEN-LAST:event_buttonExportForecastValuesActionPerformed
     
     /**
      * @param args the command line arguments
@@ -4280,6 +4328,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
+    private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.ButtonGroup buttonGroup_paramsNnetExclusive;
     private javax.swing.ButtonGroup buttonGroup_runMLPintCRLBUB;
     private javax.swing.JButton buttonIMLPAddExplVar;
@@ -4513,6 +4562,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelDiagramsNNs;
     private javax.swing.JTabbedPane panelEverything;
     private javax.swing.JPanel panelForecastVals;
+    private javax.swing.JPanel panelForecastValsAll;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSettingsIntervalMLPDistanceParams;
@@ -4663,6 +4713,7 @@ public class MainFrame extends javax.swing.JFrame {
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS;
     private JTable errorMeasuresLatest_ITS;
+    private JTable forecastValuesLatest;
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
     private List<IntervalNamesLowerUpper> listITSPlotLowerUpper = new ArrayList<>();
     private boolean continueWithTooManyModels = true;
