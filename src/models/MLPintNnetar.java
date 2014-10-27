@@ -93,7 +93,9 @@ public class MLPintNnetar implements Forecastable {
         errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, forecastsTest));
         errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervalsWithoutNaN, fittedValsWithoutNaN));
         errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
-        
+        errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(trainingIntervals, fittedValsWithoutNaN));
+        errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(testingIntervals, forecastsTest));
+
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)(" + ((MLPintNnetarParams)parameters).getDistanceFunction() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

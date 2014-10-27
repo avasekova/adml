@@ -2,13 +2,15 @@ package utils;
 
 public class ErrorMeasuresInterval extends ErrorMeasures {
     
-    private static final String[] NAMES = new String[]{ "Mean coverage", "Mean efficiency" };
+    private static final String[] NAMES = new String[]{ "Mean coverage", "Mean efficiency", "Theil's U(i)" };
     
     private double meanCoverageTrain;
     private double meanCoverageTest;
     private double meanEfficiencyTrain;
     private double meanEfficiencyTest;
-    
+    private double theilsUintervalTrain;
+    private double theilsUintervalTest;
+
     public static int numberOfSupportedMeasures() {
         return NAMES.length + ErrorMeasures.numberOfSupportedMeasures();
     }
@@ -54,6 +56,22 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
         this.meanEfficiencyTest = meanEfficiencyTest;
     }
     
+    public double getTheilsUintervalTrain() {
+        return theilsUintervalTrain;
+    }
+
+    public void setTheilsUintervalTrain(double theilsUintervalTrain) {
+        this.theilsUintervalTrain = theilsUintervalTrain;
+    }
+
+    public double getTheilsUintervalTest() {
+        return theilsUintervalTest;
+    }
+
+    public void setTheilsUintervalTest(double theilsUintervalTest) {
+        this.theilsUintervalTest = theilsUintervalTest;
+    }
+    
     @Override
     public double[] serializeToArray() {
         double[] measures = new double[numberOfSupportedMeasures()*2 + ErrorMeasures.numberOfSupportedMeasures()*2];
@@ -66,7 +84,9 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
         measures[i] = meanCoverageTrain; i++;
         measures[i] = meanCoverageTest; i++;
         measures[i] = meanEfficiencyTrain; i++;
-        measures[i] = meanEfficiencyTest;
+        measures[i] = meanEfficiencyTest; i++;
+        measures[i] = theilsUintervalTrain; i++;
+        measures[i] = theilsUintervalTest;
         
         return measures;
     }

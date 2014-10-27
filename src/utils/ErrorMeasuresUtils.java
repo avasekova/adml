@@ -155,6 +155,25 @@ public class ErrorMeasuresUtils {
         return Math.sqrt(numerator/denominator);
     }
     
+    public static double theilsUInterval(List<Interval> real, List<Interval> forecast) {
+        double numerator = 0;
+        double denominator = 0;
+        
+        //idem po size-1, hoci oficialny vzorec kazal ist po size.
+        //ale v oficialnom vzorci je furt j+1, takze by mi to vyliezlo z rozsahu
+        for (int i = 1; i < forecast.size(); i++) {
+            Interval re = real.get(i);
+            Interval fore = forecast.get(i);
+            numerator += Math.pow(re.getUpperBound() - fore.getUpperBound(),2);
+            numerator += Math.pow(re.getLowerBound() - fore.getLowerBound(),2);
+            
+            denominator += Math.pow(re.getUpperBound() - real.get(i-1).getUpperBound(), 2);
+            denominator += Math.pow(re.getLowerBound() - real.get(i-1).getLowerBound(), 2);
+        }
+        
+        return Math.sqrt(numerator/denominator);
+    }
+    
     public static double coverage(Interval real, Interval forecast) {
         double widthReal = real.getUpperBound() - real.getLowerBound();
         if (widthReal == 0) {

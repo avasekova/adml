@@ -296,6 +296,7 @@
             </Component>
             <Container class="javax.swing.JPanel" name="panelPlot">
               <AuxValues>
+                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="gdCanvasPlot = new GDCanvas(panelPlot.getWidth(), panelPlot.getHeight());&#xa;panelPlot.add(gdCanvasPlot, BorderLayout.CENTER);"/>
               </AuxValues>
 
