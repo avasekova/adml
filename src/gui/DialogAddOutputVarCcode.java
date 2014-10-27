@@ -43,6 +43,7 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        radioButtonAddExplVarLBUB.setSelected(true);
         radioButtonAddExplVarLBUB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonAddExplVarLBUBActionPerformed(evt);
@@ -51,7 +52,6 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
 
         jLabel1.setText("Name:");
 
-        radioButtonAddExplVarCenterRadius.setSelected(true);
         radioButtonAddExplVarCenterRadius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonAddExplVarCenterRadiusActionPerformed(evt);
@@ -59,24 +59,24 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
         });
 
         labelLB.setText("Lower bound:");
-        labelLB.setEnabled(false);
 
         labelUB.setText("Upper bound:");
-        labelUB.setEnabled(false);
 
         comboBoxAddOutVarLower.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxAddOutVarLower.setEnabled(false);
 
         comboBoxAddOutVarUpper.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxAddOutVarUpper.setEnabled(false);
 
         labelCenter.setText("Center:");
+        labelCenter.setEnabled(false);
 
         labelRadius.setText("Radius:");
+        labelRadius.setEnabled(false);
 
         comboBoxAddOutVarCenter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxAddOutVarCenter.setEnabled(false);
 
         comboBoxAddOutVarRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxAddOutVarRadius.setEnabled(false);
 
         buttonOKAddOutVar.setText("OK");
         buttonOKAddOutVar.addActionListener(new java.awt.event.ActionListener() {
