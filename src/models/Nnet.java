@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -38,6 +39,11 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         final String ALL_AUX = "aux" + Utils.getCounter();
         final String FINAL_UNSCALED_FITTED_VALS = "final." + UNSCALED_FITTED_VALS;
         final String FINAL_UNSCALED_FORECAST_VALS = "final." + UNSCALED_FORECAST_VALS;
+        
+        final String FUTURE_FORECASTS = "future." + Const.FORECAST_VALS + Utils.getCounter();
+        final String VAL = "val" + Utils.getCounter();
+        final String MIN = Const.MIN + Utils.getCounter();
+        final String MAX = Const.MAX + Utils.getCounter();
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet(lag=" + params.getLag() + ",hid=" + params.getNumNodesHiddenLayer() + ")");
@@ -126,7 +132,41 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
         report.setErrorMeasures(errorMeasures);
         
-        report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + "))");
+        if (params.getNumForecasts() > 0) {
+            //now try to compute future forecasts. funguje to takto: prvy forecast viem spocitat vzdy, lebo si vezmem proste
+            //  tu expl var lagnutu (lag bude minimalne 1, takze to bude maximalne posledna hodnota, co mam. kolko bude lag,
+            //  tolko poslednych hodnot viem vyuzit na forecasty).
+            //vzdy ked spocitam jeden forecast, prilepim si ho za realne hodnoty a pokracujem az kym ich nespocitam vsetky
+            //  takto si ich tam nasyslim potrebny pocet (budu scaled), a potom si ich odrezem, unscalujem, a poslem von
+            rengine.eval(INPUT + " <- " + ORIGINAL_INPUT); //unscaled
+            rengine.eval(MIN + " <- min(" + INPUT + ")");
+            rengine.eval(MAX + " <- max(" + INPUT + ")");
+            for (int i = 0; i < params.getNumForecasts(); i++) {
+                //vezmi si hodnotu expl var, tj. tolkatu od konca aktualnych vals, kolko ma hodnotu lag.
+                //konkretne pre R plati, ze chcem: values[length(values)+1-lag]
+                //v ORIGINAL_INPUT a ORIGINAL_OUTPUT mam vsetky data. z nich si potrebujem vytiahnut input na predikciu
+                rengine.eval(VAL + " <- " + INPUT + "[length(" + INPUT + ") + 1 - " + params.getLag() + "]");
+                //scale podla INPUT. ak to je nieco, co tam uz bolo, nascaluje sa to rovnako ako predtym; ak to tam este
+                //  nebolo, moze to potencialne vybehnut z 0..1, ale co uz. neviem ako inak na to.
+                rengine.eval(VAL + " <- (" + VAL + " - " + MIN + ")/(" + MAX + " - " + MIN + ")"); //scale
+
+                //now predict
+                rengine.eval(FORECAST_VALS + " <- predict(" + NNETWORK + ", " + VAL + ", type='raw')");
+                //and unscale based on the same thing that was used to scale it, i.e. on ORIGINAL_INPUT
+                rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + ORIGINAL_INPUT + ")");
+
+                //add the predicted vals to the input
+                rengine.eval(INPUT + " <- c(" + INPUT + ", " + UNSCALED_FORECAST_VALS + ")");
+            }
+            //now cut the number of forecasts from the end of INPUT:
+            rengine.eval(FUTURE_FORECASTS + " <- " + INPUT + "[(length(" + INPUT + ") + 1 - " + params.getNumForecasts() + "):length(" + INPUT + ")]");
+            REXP getFutureForecasts = rengine.eval(FUTURE_FORECASTS);
+            double[] futureForecasts = getFutureForecasts.asDoubleArray();
+            report.setForecastValuesFuture(futureForecasts);
+            report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + ", " + FUTURE_FORECASTS + "))");
+        } else {
+            report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + "))");
+        }
         
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + ")");
         

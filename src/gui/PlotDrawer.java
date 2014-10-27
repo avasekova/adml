@@ -537,14 +537,14 @@ public class PlotDrawer {
     private static String getRangeXCrisp(List<Double> allData, int numForecasts, int from, int to) {
         String rangeX = "range(c(0, " + (allData.size() + numForecasts) + "))";
         //works with allData.size, because allData isn't cropped by fromTo
-        String rangeXrestrictedFromTo = "range(c(max(" + from + "," + rangeX + "[1]), min(" + to + "," + rangeX + "[2])))";
+        String rangeXrestrictedFromTo = "range(c(max(" + from + "," + rangeX + "[1]), min(" + (to+numForecasts) + "," + rangeX + "[2])))";
         return rangeXrestrictedFromTo;
     }
     
     private static String getRangeXInterval(int sizeDataWithoutFromToCrop, int numForecasts, int from, int to) {
-        String rangesX = "range(c(0, " + sizeDataWithoutFromToCrop + "))";
+        String rangesX = "range(c(0, " + (sizeDataWithoutFromToCrop + numForecasts) + "))";
         
-        String rangesXrestrictedFromTo = "range(c(max(" + from + "," + rangesX + "[1]), min(" + to + "," + rangesX + "[2])))";
+        String rangesXrestrictedFromTo = "range(c(max(" + from + "," + rangesX + "[1]), min(" + (to+numForecasts) + "," + rangesX + "[2])))";
         return rangesXrestrictedFromTo;
     }
     
