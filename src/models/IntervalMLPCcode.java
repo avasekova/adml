@@ -194,6 +194,8 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
             errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(trainingIntervals, forecastsTrain));
             errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(testingIntervals, forecastsTest));
+            errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(trainingIntervals, forecastsTrain));
+            errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(testingIntervals, forecastsTest));
         }
         
         report.setErrorMeasures(errorMeasures);

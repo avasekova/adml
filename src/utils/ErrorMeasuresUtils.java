@@ -174,6 +174,33 @@ public class ErrorMeasuresUtils {
         return Math.sqrt(numerator/denominator);
     }
     
+    public static double ARVinterval(List<Interval> real, List<Interval> forecast) {
+        //first get the average of upper and lower bounds:
+        double avgLower = 0;
+        double avgUpper = 0;
+        for (Interval i : real) {
+            avgLower += i.getLowerBound();
+            avgUpper += i.getUpperBound();
+        }
+        avgLower /= real.size();
+        avgUpper /= real.size();
+        
+        //now compute the ARV
+        double numerator = 0;
+        double denominator = 0;
+        for (int i = 0; i < forecast.size(); i++) {
+            Interval re = real.get(i);
+            Interval fore = forecast.get(i);
+            numerator += Math.pow(re.getUpperBound() - fore.getUpperBound(),2);
+            numerator += Math.pow(re.getLowerBound() - fore.getLowerBound(),2);
+            
+            denominator += Math.pow(re.getUpperBound() - avgUpper, 2);
+            denominator += Math.pow(re.getLowerBound() - avgLower, 2);
+        }
+        
+        return Math.sqrt(numerator/denominator);
+    }
+    
     public static double coverage(Interval real, Interval forecast) {
         double widthReal = real.getUpperBound() - real.getLowerBound();
         if (widthReal == 0) {
