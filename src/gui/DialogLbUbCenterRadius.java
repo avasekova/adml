@@ -58,24 +58,20 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         labelLB.setText("Lower Bound:");
-        labelLB.setEnabled(false);
 
         comboBoxLowerBound.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxLowerBound.setEnabled(false);
 
         labelUB.setText("Upper Bound:");
-        labelUB.setEnabled(false);
 
         comboBoxUpperBound.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxUpperBound.setEnabled(false);
 
+        radioButtonLbUb.setSelected(true);
         radioButtonLbUb.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonLbUbActionPerformed(evt);
             }
         });
 
-        radioButtonCenterRadius.setSelected(true);
         radioButtonCenterRadius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 radioButtonCenterRadiusActionPerformed(evt);
@@ -83,12 +79,16 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
         });
 
         labelCenter.setText("Center:");
+        labelCenter.setEnabled(false);
 
         labelRadius.setText("Radius:");
+        labelRadius.setEnabled(false);
 
         comboBoxCenter.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxCenter.setEnabled(false);
 
         comboBoxRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxRadius.setEnabled(false);
 
         buttonOKPlotITS.setText("OK");
         buttonOKPlotITS.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +156,6 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
                     .addGroup(panelDialogLbUbCenterRadiusLayout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addComponent(radioButtonLbUb)))
-                .addGap(18, 18, 18)
                 .addGroup(panelDialogLbUbCenterRadiusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDialogLbUbCenterRadiusLayout.createSequentialGroup()
                         .addGroup(panelDialogLbUbCenterRadiusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)

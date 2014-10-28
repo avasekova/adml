@@ -140,7 +140,6 @@
         <Component class="javax.swing.JLabel" name="labelLB">
           <Properties>
             <Property name="text" type="java.lang.String" value="Lower Bound:"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboBoxLowerBound">
@@ -148,13 +147,11 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelUB">
           <Properties>
             <Property name="text" type="java.lang.String" value="Upper Bound:"/>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboBoxUpperBound">
@@ -162,18 +159,17 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
             </Property>
-            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioButtonLbUb">
+          <Properties>
+            <Property name="selected" type="boolean" value="true"/>
+          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonLbUbActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JRadioButton" name="radioButtonCenterRadius">
-          <Properties>
-            <Property name="selected" type="boolean" value="true"/>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonCenterRadiusActionPerformed"/>
           </Events>
@@ -181,11 +177,13 @@
         <Component class="javax.swing.JLabel" name="labelCenter">
           <Properties>
             <Property name="text" type="java.lang.String" value="Center:"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labelRadius">
           <Properties>
             <Property name="text" type="java.lang.String" value="Radius:"/>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboBoxCenter">
@@ -193,6 +191,7 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="comboBoxRadius">
@@ -200,6 +199,7 @@
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
             </Property>
+            <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="buttonOKPlotITS">
