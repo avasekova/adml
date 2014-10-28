@@ -4208,15 +4208,14 @@ public class MainFrame extends javax.swing.JFrame {
                     Rengine rengine = MyRengine.getRengine();
                     rengine.eval("dev.print(postscript, file=\"" + plotFile.getPath().replace("\\", "\\\\") + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
                     rengine.eval("dev.off()");
+                    //a na zaver to disablovat, aby sa na to netukalo furt
+                    buttonPlotExportPlot.setEnabled(false);
                     break;
                 case JFileChooser.CANCEL_OPTION:
                 default:
                 //nothing
             }
         }
-
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonPlotExportPlot.setEnabled(false);
     }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
 
     private void buttonRunRestoreRangeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunRestoreRangeAllActionPerformed
