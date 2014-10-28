@@ -98,7 +98,8 @@ public class MLPintNnet implements Forecastable {
         errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(trainingIntervals, fittedValsWithoutNaN));
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(testingIntervals, forecastsTest));
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnet)(" + ((MLPintNnetParams)parameters).getDistanceFunction() + ")");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnet)");
+        report.setModelDescription("(" + ((MLPintNnetParams)parameters).getDistanceFunction() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

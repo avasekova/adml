@@ -40,7 +40,8 @@ public class KNNfnn implements Forecastable {
         final String SCALED_OUTPUT = "scaled." + OUTPUT;
         
         KNNfnnParams params = (KNNfnnParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (FNN)(" + params.getNumNeighbours() + ")");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (FNN)");
+        report.setModelDescription("(" + params.getNumNeighbours() + ")");
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();

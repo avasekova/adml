@@ -6,6 +6,7 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
     //                                       dat pracovat jednotne...
     
     private final String modelName;
+    private String modelDescription;
     private ErrorMeasures errorMeasures;
     private int numTrainingEntries;
     private String nnDiagramPlotCode = "";
@@ -16,6 +17,14 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
 
     public String getModelName() {
         return modelName;
+    }
+
+    public String getModelDescription() {
+        return modelDescription;
+    }
+
+    public void setModelDescription(String modelDescription) {
+        this.modelDescription = modelDescription;
     }
     
     public ErrorMeasures getErrorMeasures() {

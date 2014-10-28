@@ -98,7 +98,8 @@ public class MLPintNnetar implements Forecastable {
         errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(trainingIntervals, fittedValsWithoutNaN));
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(testingIntervals, forecastsTest));
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)(" + ((MLPintNnetarParams)parameters).getDistanceFunction() + ")");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)");
+        report.setModelDescription("(" + ((MLPintNnetarParams)parameters).getDistanceFunction() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

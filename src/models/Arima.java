@@ -32,9 +32,9 @@ public class Arima implements Forecastable {
         ArimaParams params = (ArimaParams) parameters;
         String arimaDescription;
         if (params.isOptimize()) {
-            arimaDescription = "ARIMA(optimized)";
+            arimaDescription = "(optimized)";
         } else {
-            arimaDescription = "ARIMA(" + params.getNonSeasP() + "," + 
+            arimaDescription = "(" + params.getNonSeasP() + "," + 
                 params.getNonSeasD() + "," + params.getNonSeasQ() + ")(" + params.getSeasP() + "," +
                 params.getSeasD() + "," + params.getSeasQ() + ")";
             if (params.isWithConstant()) {
@@ -118,7 +118,8 @@ public class Arima implements Forecastable {
         errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(testingPortionOfData, Utils.arrayToList(forecastsTest)));
         
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(arimaDescription);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
+        report.setModelDescription(arimaDescription);
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fitted);
         

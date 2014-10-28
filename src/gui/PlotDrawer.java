@@ -93,7 +93,7 @@ public class PlotDrawer {
                 }
 
                 //remember these for the legend
-                names.add(r.getModelName());
+                names.add(r.getModelName() + r.getModelDescription());
                 colours.add(COLOURS[colourNumber % COLOURS.length]);
                 
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
@@ -152,7 +152,7 @@ public class PlotDrawer {
                 }
                 
                 //remember these for the legend
-                names.add(r.getModelName());
+                names.add(r.getModelName() + r.getModelDescription());
                 colours.add(COLOURS[colourNumber % COLOURS.length]);
                 
                 //naplotovat fitted values:
@@ -581,16 +581,16 @@ public class PlotDrawer {
                     //fuj, hack, TODO spravit lepsie ako split na dva, resp. prisposobovat v buducnosti
                     String firstPlot = r.getNnDiagramPlotCode().split(";")[0];
                     StringBuilder diagramPlotCode = new StringBuilder(firstPlot);
-                    diagramPlotCode.insert(firstPlot.length() - 1, ", main=\"" + r.getModelName() + " (Center)\"");
+                    diagramPlotCode.insert(firstPlot.length() - 1, ", main=\"" + r.getModelName() + r.getModelDescription() + " (Center)\"");
                     diagramPlots.add(diagramPlotCode.toString());
                     
                     String secondPlot = r.getNnDiagramPlotCode().split(";")[1];
                     diagramPlotCode = new StringBuilder(secondPlot);
-                    diagramPlotCode.insert(secondPlot.length() - 1, ", main=\"" + r.getModelName() + " (Radius)\"");
+                    diagramPlotCode.insert(secondPlot.length() - 1, ", main=\"" + r.getModelName() + r.getModelDescription() + " (Radius)\"");
                     diagramPlots.add(diagramPlotCode.toString());
                 } else {
                     StringBuilder diagramPlotCode = new StringBuilder(r.getNnDiagramPlotCode());
-                    diagramPlotCode.insert(r.getNnDiagramPlotCode().length() - 1, ", main=\"" + r.getModelName() + "\"");
+                    diagramPlotCode.insert(r.getNnDiagramPlotCode().length() - 1, ", main=\"" + r.getModelName() + r.getModelDescription() + "\"");
                     diagramPlots.add(diagramPlotCode.toString());
                 }
             }

@@ -20,7 +20,7 @@ public class ForecastValsTableModel extends AbstractTableModel {
         this.reports = reports;
         List<String> colnames = new ArrayList<>();
         for (TrainAndTestReport r : reports) {
-            colnames.add(r.getModelName());
+            colnames.add(r.getModelName() + r.getModelDescription());
         }
         this.columnNames = colnames;
     }

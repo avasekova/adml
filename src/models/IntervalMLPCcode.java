@@ -62,7 +62,8 @@ public class IntervalMLPCcode implements ForecastableIntervals {
     //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
     private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP (C code)(" + params.getDistanceFunction() + ")");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP(C code)");
+        report.setModelDescription("(" + params.getDistanceFunction() + ")");
         
         //delete any previous files:
         File file = new File("config.res");
