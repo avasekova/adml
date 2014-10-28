@@ -4197,7 +4197,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
         JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
         fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.setSelectedFile(new File("plotExport.ps"));
+        fileChooser.setSelectedFile(new File("plotExport.eps"));
         
         if (evt.getSource() == buttonPlotExportPlot) {
             switch (fileChooser.showSaveDialog(this)) {
