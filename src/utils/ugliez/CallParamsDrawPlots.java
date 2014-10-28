@@ -17,8 +17,14 @@ public class CallParamsDrawPlots extends CallParams {
     private int from;
     private int to;
     private String colname_CTS;
+    private boolean plotAvgCTS;
+    private boolean plotAvgIntTS;
+    private boolean plotAvgONLY;
 
-    public CallParamsDrawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS, int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS) {
+    public CallParamsDrawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS,
+            int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
+            List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
+            boolean plotAvgCTS, boolean plotAvgIntTS, boolean plotAvgOnly) {
         this.canvasToUse = canvasToUse;
         this.width = width;
         this.height = height;
@@ -30,6 +36,9 @@ public class CallParamsDrawPlots extends CallParams {
         this.from = from;
         this.to = to;
         this.colname_CTS = colname_CTS;
+        this.plotAvgCTS = plotAvgCTS;
+        this.plotAvgIntTS = plotAvgIntTS;
+        this.plotAvgONLY = plotAvgOnly;
     }
 
     public GDCanvas getCanvasToUse() {
@@ -118,5 +127,29 @@ public class CallParamsDrawPlots extends CallParams {
 
     public void setColname_CTS(String colname_CTS) {
         this.colname_CTS = colname_CTS;
+    }
+
+    public boolean isPlotAvgCTS() {
+        return plotAvgCTS;
+    }
+
+    public void setPlotAvgCTS(boolean plotAvgCTS) {
+        this.plotAvgCTS = plotAvgCTS;
+    }
+
+    public boolean isPlotAvgIntTS() {
+        return plotAvgIntTS;
+    }
+
+    public void setPlotAvgIntTS(boolean plotAvgIntTS) {
+        this.plotAvgIntTS = plotAvgIntTS;
+    }
+
+    public boolean isPlotAvgONLY() {
+        return plotAvgONLY;
+    }
+
+    public void setPlotAvgONLY(boolean plotAvgONLY) {
+        this.plotAvgONLY = plotAvgONLY;
     }
 }

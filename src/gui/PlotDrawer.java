@@ -3,7 +3,9 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -67,6 +69,9 @@ public class PlotDrawer {
         int from = par.getFrom();
         int to = par.getTo();
         String colname_CTS = par.getColname_CTS();
+        boolean avgCTS = par.isPlotAvgCTS();
+        boolean avgIntTS = par.isPlotAvgIntTS();
+        boolean avgONLY = par.isPlotAvgONLY();
         
         MainFrame.drawNowToThisGDCanvas = canvasToUse;
         
@@ -85,26 +90,75 @@ public class PlotDrawer {
             List<String> names = new ArrayList<>();
             List<String> colours = new ArrayList<>();
             boolean next = false;
+            Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
             for (TrainAndTestReportCrisp r : reportsCTS) {
-                if (next) {
+                if (next && !(avgCTS && avgONLY)) {
                     rengine.eval("par(new=TRUE)");
                 } else {
                     next = true;
                 }
 
-                //remember these for the legend
-                names.add(r.getModelName() + r.getModelDescription());
-                colours.add(COLOURS[colourNumber % COLOURS.length]);
-                
+                if (avgCTS) {
+                    if (mapForAvg.containsKey(r.getModelName())) {
+                        mapForAvg.get(r.getModelName()).add(r);
+                    } else {
+                        List<TrainAndTestReportCrisp> l = new ArrayList<>();
+                        l.add(r);
+                        mapForAvg.put(r.getModelName(), l);
+                    }
+                }
+
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                         + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
                 plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
-                rengine.eval(plotCode.toString());
-                //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                
+                if (!(avgCTS && avgONLY)) {
+                    rengine.eval(plotCode.toString());
+                    //add a dashed vertical line to separate test and train
+                    rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    //remember these for the legend
+                    names.add(r.getModelName() + r.getModelDescription());
+                    colours.add(COLOURS[colourNumber % COLOURS.length]);
+                }
+                
                 colourNumber++;
+            }
+            
+            //now draw the average series
+            if (avgCTS) {
+                for (String name : mapForAvg.keySet()) {
+                    List<TrainAndTestReportCrisp> l = mapForAvg.get(name);
+                    if (l.size() > 1) { //does not make sense to compute average over one series
+                        StringBuilder avgAll = new StringBuilder("(");
+                        next = false;
+                        for (TrainAndTestReportCrisp r : l) {
+                            if (next) {
+                                avgAll.append(" + ");
+                            } else {
+                                next = true;
+                            }
+                            //this will take the vector: c(rep(NA, something), fit, test, future)
+                            String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
+                            avgAll.append(justData);
+                        }
+                        avgAll.append(")/").append(l.size());
+                        
+                        //aaaand draw the average
+                        rengine.eval("par(new=TRUE)");
+                        rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+                                + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
+                                + "lty=2, lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        //add a dashed vertical line to separate test and train
+                        rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        
+                        //pridat do legendy
+                        names.add(name + "(avg)");
+                        colours.add(COLOURS[colourNumber % COLOURS.length]);
+                        colourNumber++;
+                    }
+                }
             }
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));

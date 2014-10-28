@@ -454,6 +454,9 @@ public class MainFrame extends javax.swing.JFrame {
         radioButtonRunMLPintCenterRadius = new javax.swing.JRadioButton();
         checkBoxRunMLPintNnet = new javax.swing.JCheckBox();
         buttonRunRestoreRangeAll = new javax.swing.JButton();
+        checkBoxRunPlotAverageCTS = new javax.swing.JCheckBox();
+        checkBoxRunAverageIntTS = new javax.swing.JCheckBox();
+        checkBoxRunPlotAvgONLY = new javax.swing.JCheckBox();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -3123,7 +3126,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 285, Short.MAX_VALUE)
+            .addGap(0, 274, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -3241,6 +3244,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        checkBoxRunPlotAverageCTS.setText("plot average CTS for each method");
+
+        checkBoxRunAverageIntTS.setText("plot average ITS for each method");
+        checkBoxRunAverageIntTS.setEnabled(false);
+
+        checkBoxRunPlotAvgONLY.setText("plot ONLY averages");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -3251,106 +3261,110 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                        .addComponent(jLabel41)
-                                                        .addGap(42, 42, 42))
-                                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
-                                                        .addComponent(jLabel42)
-                                                        .addGap(26, 26, 26)))
-                                                .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jLabel49)
+                                                .addComponent(jLabel41)
+                                                .addGap(42, 42, 42))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(jLabel42)
+                                                .addGap(26, 26, 26)))
+                                        .addComponent(comboBoxColnamesRun, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel49)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGap(11, 11, 11)
+                                                .addComponent(radioButtonRunMLPintLowerUpper))
+                                            .addComponent(radioButtonRunMLPintCenterRadius, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(labelRunMLPintLower)
+                                                    .addComponent(labelRunMLPintUpper))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(comboBoxRunMLPintLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(comboBoxRunMLPintUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGap(1, 1, 1)
                                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                        .addGap(11, 11, 11)
-                                                        .addComponent(radioButtonRunMLPintLowerUpper))
-                                                    .addComponent(radioButtonRunMLPintCenterRadius, javax.swing.GroupLayout.Alignment.TRAILING))
-                                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                            .addComponent(labelRunMLPintLower)
-                                                            .addComponent(labelRunMLPintUpper))
+                                                        .addComponent(labelRunMLPintRadius)
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(comboBoxRunMLPintLower, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                            .addComponent(comboBoxRunMLPintUpper, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                        .addGap(1, 1, 1)
-                                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                                .addComponent(labelRunMLPintRadius)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(comboBoxRunMLPintRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                                .addComponent(labelRunMLPintCenter)
-                                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                                .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                                            .addComponent(jLabel43))
-                                        .addGap(189, 189, 189)
-                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(jLabelTrainingInfo)
-                                                .addGap(16, 16, 16))
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                                                        .addComponent(labelRunMLPintCenter)
+                                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                        .addComponent(comboBoxRunMLPintCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(jLabel43))
+                                .addGap(189, 189, 189)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(jLabel71)
+                                        .addComponent(jLabelTrainingInfo)
+                                        .addGap(16, 16, 16))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(jLabel71)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(134, 134, 134))
+                            .addComponent(jLabel8))
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunPlotAverageCTS)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunAverageIntTS)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunPlotAvgONLY))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunMLPintNnetar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPintNnet))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunMLPnnetar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPneuralnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPnnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunARIMA)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunKNNfnn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunKNNcustom)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunKNNkknn))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGap(400, 400, 400)
+                                .addComponent(jLabel72))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(buttonTrainAndTest)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(134, 134, 134)))
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunMLPintNnetar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPintNnet))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunMLPnnetar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPneuralnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPnnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunARIMA)
+                                        .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunKNNfnn)
+                                        .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel44)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunKNNcustom)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunKNNkknn))
+                                        .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addGap(400, 400, 400)
-                                        .addComponent(jLabel72))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(buttonTrainAndTest)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel9)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jLabel44)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(checkBoxRunIntervalMLPCcode)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunIntervalMLPneuralnet)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunKNNinterval)
-                                                .addGap(13, 13, 13)))
+                                        .addComponent(checkBoxRunIntervalMLPCcode)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonRunRestoreRangeAll)
-                                        .addGap(81, 81, 81)
-                                        .addComponent(buttonRunExportErrorMeasures)))))
+                                        .addComponent(checkBoxRunIntervalMLPneuralnet)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunKNNinterval)
+                                        .addGap(13, 13, 13)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonRunRestoreRangeAll)
+                                .addGap(81, 81, 81)
+                                .addComponent(buttonRunExportErrorMeasures)))
                         .addGap(0, 200, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -3429,8 +3443,16 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonRunExportErrorMeasures)
                     .addComponent(buttonRunRestoreRangeAll))
-                .addGap(1, 1, 1)
-                .addComponent(jLabel8)
+                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(jLabel8))
+                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBoxRunPlotAverageCTS)
+                            .addComponent(checkBoxRunAverageIntTS)
+                            .addComponent(checkBoxRunPlotAvgONLY))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -4098,8 +4120,10 @@ public class MainFrame extends javax.swing.JFrame {
         int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel.getDataForColname(colname_CTS),
-            dataTableModel.getRowCount(), numForecasts, reportsCTS, reportsITS, from, to, colname_CTS));
+        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(),
+                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
+                reportsITS, from, to, colname_CTS, checkBoxRunPlotAverageCTS.isSelected(), 
+                checkBoxRunAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
         setPlotRanges(reportsCTS.size(), reportsITS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -4353,6 +4377,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonSettingsIntervalMLPDistancesRemove;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
+    private javax.swing.JCheckBox checkBoxRunAverageIntTS;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunKNNcustom;
@@ -4364,6 +4389,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnetar;
+    private javax.swing.JCheckBox checkBoxRunPlotAverageCTS;
+    private javax.swing.JCheckBox checkBoxRunPlotAvgONLY;
     private javax.swing.JCheckBox checkBoxSettingsARIMAconstant;
     private javax.swing.JCheckBox checkBoxSettingsARIMAoptimize;
     private javax.swing.JComboBox comboBoxColnamesRun;
