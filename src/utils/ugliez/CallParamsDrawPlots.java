@@ -17,6 +17,7 @@ public class CallParamsDrawPlots extends CallParams {
     private int from;
     private int to;
     private String colname_CTS;
+    private boolean plotAvgCTSperMethod;
     private boolean plotAvgCTS;
     private boolean plotAvgIntTS;
     private boolean plotAvgONLY;
@@ -24,7 +25,7 @@ public class CallParamsDrawPlots extends CallParams {
     public CallParamsDrawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS,
             int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
             List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
-            boolean plotAvgCTS, boolean plotAvgIntTS, boolean plotAvgOnly) {
+            boolean plotAvgCTSperMethod, boolean plotAvgCTS, boolean plotAvgIntTS, boolean plotAvgOnly) {
         this.canvasToUse = canvasToUse;
         this.width = width;
         this.height = height;
@@ -36,6 +37,7 @@ public class CallParamsDrawPlots extends CallParams {
         this.from = from;
         this.to = to;
         this.colname_CTS = colname_CTS;
+        this.plotAvgCTSperMethod = plotAvgCTSperMethod;
         this.plotAvgCTS = plotAvgCTS;
         this.plotAvgIntTS = plotAvgIntTS;
         this.plotAvgONLY = plotAvgOnly;
@@ -127,6 +129,14 @@ public class CallParamsDrawPlots extends CallParams {
 
     public void setColname_CTS(String colname_CTS) {
         this.colname_CTS = colname_CTS;
+    }
+
+    public boolean isPlotAvgCTSperMethod() {
+        return plotAvgCTSperMethod;
+    }
+
+    public void setPlotAvgCTSperMethod(boolean plotAvgCTSperMethod) {
+        this.plotAvgCTSperMethod = plotAvgCTSperMethod;
     }
 
     public boolean isPlotAvgCTS() {

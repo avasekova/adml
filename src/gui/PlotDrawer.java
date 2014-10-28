@@ -69,6 +69,7 @@ public class PlotDrawer {
         int from = par.getFrom();
         int to = par.getTo();
         String colname_CTS = par.getColname_CTS();
+        boolean avgCTSperMethod = par.isPlotAvgCTSperMethod();
         boolean avgCTS = par.isPlotAvgCTS();
         boolean avgIntTS = par.isPlotAvgIntTS();
         boolean avgONLY = par.isPlotAvgONLY();
@@ -92,13 +93,13 @@ public class PlotDrawer {
             boolean next = false;
             Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
             for (TrainAndTestReportCrisp r : reportsCTS) {
-                if (next && !(avgCTS && avgONLY)) {
+                if (next && !(avgONLY)) {
                     rengine.eval("par(new=TRUE)");
                 } else {
                     next = true;
                 }
 
-                if (avgCTS) {
+                if (avgCTSperMethod) {
                     if (mapForAvg.containsKey(r.getModelName())) {
                         mapForAvg.get(r.getModelName()).add(r);
                     } else {
@@ -114,7 +115,7 @@ public class PlotDrawer {
                         + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
                 plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
                 
-                if (!(avgCTS && avgONLY)) {
+                if (!(avgONLY)) {
                     rengine.eval(plotCode.toString());
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
@@ -127,12 +128,12 @@ public class PlotDrawer {
             }
             
             //now draw the average series
-            if (avgCTS) {
+            if (avgCTSperMethod) {
                 for (String name : mapForAvg.keySet()) {
                     List<TrainAndTestReportCrisp> l = mapForAvg.get(name);
                     if (l.size() > 1) { //does not make sense to compute average over one series
-                        StringBuilder avgAll = new StringBuilder("(");
-                        next = false;
+                    StringBuilder avgAll = new StringBuilder("(");
+                    next = false;
                         for (TrainAndTestReportCrisp r : l) {
                             if (next) {
                                 avgAll.append(" + ");
@@ -144,20 +145,53 @@ public class PlotDrawer {
                             avgAll.append(justData);
                         }
                         avgAll.append(")/").append(l.size());
-                        
+
                         //aaaand draw the average
                         rengine.eval("par(new=TRUE)");
                         rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                                 + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
-                                + "lty=2, lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                                + "lty=2, lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         //add a dashed vertical line to separate test and train
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
-                        
+
                         //pridat do legendy
                         names.add(name + "(avg)");
                         colours.add(COLOURS[colourNumber % COLOURS.length]);
                         colourNumber++;
                     }
+                }
+            }
+            
+            //and draw the average of all CTS methods that were run
+            if (avgCTS) {
+                if (reportsCTS.size() > 1) { //does not make sense to compute average over one series
+                    StringBuilder avgAll = new StringBuilder("(");
+                    next = false;
+                    for (TrainAndTestReportCrisp r : reportsCTS) {
+                        if (next) {
+                            avgAll.append(" + ");
+                        } else {
+                            next = true;
+                        }
+                        //this will take the vector: c(rep(NA, something), fit, test, future)
+                        String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
+                        avgAll.append(justData);
+                    }
+                    avgAll.append(")/").append(reportsCTS.size());
+
+                    //aaaand draw the average
+                    rengine.eval("par(new=TRUE)");
+                    rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+                            + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
+                            + "lty=2, lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    //add a dashed vertical line to separate test and train
+                    //not really possible cause the methods may have different train-test ratio
+                    //rengine.eval("abline(v = " + (reportsCTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+
+                    //pridat do legendy
+                    names.add("(avg)");
+                    colours.add(COLOURS[colourNumber % COLOURS.length]);
+                    colourNumber++;
                 }
             }
             

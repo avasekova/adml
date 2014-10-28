@@ -1334,10 +1334,6 @@
                                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                                       <Component id="comboBoxSettingsMLPintDistance" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                                      <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
                                               </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
@@ -1402,9 +1398,7 @@
                                   <Component id="jLabel48" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="comboBoxSettingsMLPintDistance" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel63" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                               <EmptySpace min="0" pref="575" max="32767" attributes="0"/>
@@ -1666,14 +1660,6 @@
                         </Container>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel63">
-                      <Properties>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="33" green="0" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="(not enabled yet)"/>
-                      </Properties>
-                    </Component>
                     <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage">
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
@@ -4136,22 +4122,19 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel71" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="textFieldRunNumForecasts" min="-2" pref="35" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textFieldRunNumForecasts" min="-2" pref="35" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="checkBoxRunPlotAverageCTS" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunAverageIntTS" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunPlotAvgONLY" min="-2" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -4203,8 +4186,19 @@
                                       <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
                                       <Component id="buttonRunExportErrorMeasures" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="checkBoxRunPlotAverageCTSperMethod" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunPlotAverageCTS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunPlotAverageIntTSperMethod" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunPlotAverageIntTS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunPlotAvgONLY" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="0" pref="200" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -4312,9 +4306,11 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="checkBoxRunPlotAverageCTS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="checkBoxRunAverageIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunPlotAverageCTSperMethod" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunPlotAverageIntTSperMethod" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunPlotAvgONLY" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunPlotAverageCTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunPlotAverageIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -4588,20 +4584,31 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRunRestoreRangeAllActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageCTS">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageCTSperMethod">
               <Properties>
-                <Property name="text" type="java.lang.String" value="plot average CTS for each method"/>
+                <Property name="text" type="java.lang.String" value="plot avg CTS per method"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunAverageIntTS">
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageIntTSperMethod">
               <Properties>
-                <Property name="text" type="java.lang.String" value="plot average ITS for each method"/>
+                <Property name="text" type="java.lang.String" value="plot avg ITS per method"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAvgONLY">
               <Properties>
-                <Property name="text" type="java.lang.String" value="plot ONLY averages"/>
+                <Property name="text" type="java.lang.String" value="do not show the values, just the average"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageCTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="plot avg CTS"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageIntTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="plot avg ITS"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
