@@ -51,34 +51,20 @@ public class MLPintNnet implements Forecastable {
         TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnet.forecast(dataRadius, paramsRadius);
         
         //sublistovat tie centers a radii az tu, ked uz to neovplyvni nnet
-        List<Interval> realDataInterval = Utils.zipCentersRadiiToIntervals(
-                dataCenter.subList((paramsCenter.getDataRangeFrom() - 1), paramsCenter.getDataRangeTo()),
-                dataRadius.subList((paramsRadius.getDataRangeFrom() - 1), paramsRadius.getDataRangeTo()));
+        List<Interval> realOutputsIntervalTrain = Utils.zipCentersRadiiToIntervals(
+                Utils.arrayToList(reportCenter.getRealOutputsTrain()), Utils.arrayToList(reportRadius.getRealOutputsTrain()));
+        List<Interval> realOutputsIntervalTest = Utils.zipCentersRadiiToIntervals(
+                Utils.arrayToList(reportCenter.getRealOutputsTest()), Utils.arrayToList(reportRadius.getRealOutputsTest()));
         List<Interval> fittedVals = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getFittedValues()),
                 Utils.arrayToList(reportRadius.getFittedValues()));
-        
-        List<Interval> trainingIntervals = realDataInterval.subList(0, reportCenter.getNumTrainingEntries());
-        List<Interval> testingIntervals = realDataInterval.subList(reportCenter.getNumTrainingEntries(), realDataInterval.size());
-        
         List<Interval> forecastsTest = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesTest()),
                 Utils.arrayToList(reportRadius.getForecastValuesTest()));
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        //trim to rectangle:
-        List<Interval> fittedValsWithoutNaN = new ArrayList<>();
-        List<Interval> trainingIntervalsWithoutNaN = new ArrayList<>();
-        for (int i = 0; i < Math.min(trainingIntervals.size(), fittedVals.size()); i++) {
-            if (!(((Double) fittedVals.get(i).getCentre()).isNaN()) &&
-                !(((Double) fittedVals.get(i).getRadius()).isNaN())) {
-                fittedValsWithoutNaN.add(fittedVals.get(i));
-                trainingIntervalsWithoutNaN.add(trainingIntervals.get(i));
-            }
-        }
-        
         //TODO nechat vybrat distance!
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervalsWithoutNaN, fittedValsWithoutNaN, ((MLPintNnetParams)parameters).getDistanceFunction());
-        List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, ((MLPintNnetParams)parameters).getDistanceFunction());
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetParams)parameters).getDistanceFunction());
+        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetParams)parameters).getDistanceFunction());
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
@@ -89,22 +75,19 @@ public class MLPintNnet implements Forecastable {
         errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
         errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
         errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
-        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainingIntervalsWithoutNaN, fittedValsWithoutNaN));
-        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, forecastsTest));
-        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervalsWithoutNaN, fittedValsWithoutNaN));
-        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, forecastsTest));
-        errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(trainingIntervals, fittedValsWithoutNaN));
-        errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(testingIntervals, forecastsTest));
-        errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(trainingIntervals, fittedValsWithoutNaN));
-        errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(testingIntervals, forecastsTest));
+        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(realOutputsIntervalTrain, fittedVals));
+        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(realOutputsIntervalTest, forecastsTest));
+        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(realOutputsIntervalTrain, fittedVals));
+        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(realOutputsIntervalTest, forecastsTest));
+        errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(realOutputsIntervalTrain, fittedVals));
+        errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(realOutputsIntervalTest, forecastsTest));
+        errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTrain, fittedVals));
+        errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnet)");
         report.setModelDescription("(" + ((MLPintNnetParams)parameters).getDistanceFunction() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
-        
-        //mam realDataInterval, chcem z toho centers a radii
-        report.setRealValues(realDataInterval);
         
         report.setFittedValues(fittedVals);
         report.setForecastValuesTest(forecastsTest);
@@ -114,6 +97,9 @@ public class MLPintNnet implements Forecastable {
         
         //hack, aby sme mohli mat oba ploty v jednej premennej
         report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
+        
+        realOutputsIntervalTrain.addAll(realOutputsIntervalTest);
+        report.setRealValues(realOutputsIntervalTrain);
         
         return report;
     }

@@ -39,6 +39,8 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         final String ALL_AUX = "aux" + Utils.getCounter();
         final String FINAL_UNSCALED_FITTED_VALS = "final." + UNSCALED_FITTED_VALS;
         final String FINAL_UNSCALED_FORECAST_VALS = "final." + UNSCALED_FORECAST_VALS;
+        final String FINAL_OUTPUT_TRAIN = "final." + OUTPUT_TRAIN;
+        final String FINAL_OUTPUT_TEST = "final." + OUTPUT_TEST;
         
         final String FUTURE_FORECASTS = "future." + Const.FORECAST_VALS + Utils.getCounter();
         final String VAL = "val" + Utils.getCounter();
@@ -77,11 +79,18 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[(" + numTrainingEntries + " + 1):length(" +        OUTPUT + ")]");
         rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_OUTPUT + ")]");
         
-        REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
+        //vybavit lag:
+        rengine.eval(ALL_AUX + " <- c(" + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
+        rengine.eval(ALL_AUX + " <- c(rep(NA, " + params.getLag() + "), " + ALL_AUX + ")");
+        rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FINAL_OUTPUT_TEST + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
+                "length(" + ORIGINAL_OUTPUT + ")]");
+        REXP getTrainingOutputs = rengine.eval(FINAL_OUTPUT_TRAIN);
         double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
-        
-        REXP getTestingOutputs = rengine.eval(OUTPUT_TEST);
+        REXP getTestingOutputs = rengine.eval(FINAL_OUTPUT_TEST);
         double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        report.setRealOutputsTrain(trainingOutputs);
+        report.setRealOutputsTest(testingOutputs);
         
         
         String optionalParams = getOptionalParams(params);

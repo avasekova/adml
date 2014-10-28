@@ -2,6 +2,8 @@ package models;
 
 public class TrainAndTestReportCrisp extends TrainAndTestReport {
 
+    private double[] realOutputsTrain;
+    private double[] realOutputsTest;
     private double[] fittedValues;
     private double[] forecastValuesTest = new double[] {};
     private double[] forecastValuesFuture = new double[] {};
@@ -9,6 +11,22 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
     
     public TrainAndTestReportCrisp(String modelName) {
         super(modelName);
+    }
+
+    public double[] getRealOutputsTrain() {
+        return realOutputsTrain;
+    }
+
+    public void setRealOutputsTrain(double[] realOutputsTrain) {
+        this.realOutputsTrain = realOutputsTrain;
+    }
+
+    public double[] getRealOutputsTest() {
+        return realOutputsTest;
+    }
+
+    public void setRealOutputsTest(double[] realOutputsTest) {
+        this.realOutputsTest = realOutputsTest;
     }
     
     public double[] getFittedValues() {

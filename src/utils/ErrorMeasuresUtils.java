@@ -9,66 +9,96 @@ public class ErrorMeasuresUtils {
     
     public static double ME(List<Double> errors) {
         double sum = 0;
+        int countNaN = 0;
         
         for (double e : errors) {
-            sum += e;
+            if (Double.isNaN(e)) {
+                countNaN++;
+            } else {
+                sum += e;
+            }
         }
         
-        return sum/errors.size();
+        return sum/(errors.size() - countNaN);
     }
     
     public static double ME(List<Double> realData, List<Double> forecastData) {
         double sum = 0;
+        int countNaN = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
-            double err = realData.get(i) - forecastData.get(i);
-            sum += err;
+        for (int i = 0; i < forecastData.size(); i++) {
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                countNaN++;
+            } else {
+                double err = realData.get(i) - forecastData.get(i);
+                sum += err;
+            }
         }
         
-        return sum/realData.size();
+        return sum/(forecastData.size() - countNaN);
     }
     
     public static double MAE(List<Double> errors) {
         double sum = 0;
+        int countNaN = 0;
         
         for (double e : errors) {
-            sum += Math.abs(e);
+            if (Double.isNaN(e)) {
+                countNaN++;
+            } else {
+                sum += Math.abs(e);
+            }
         }
         
-        return sum/errors.size();
+        return sum/(errors.size() - countNaN);
     }
     
     public static double MAE(List<Double> realData, List<Double> forecastData) {
         double sum = 0;
+        int countNaN = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
-            double err = realData.get(i) - forecastData.get(i);
-            sum += Math.abs(err);
+        for (int i = 0; i < forecastData.size(); i++) {
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                countNaN++;
+            } else {
+                double err = realData.get(i) - forecastData.get(i);
+                sum += Math.abs(err);
+            }
         }
         
-        return sum/realData.size();
+        return sum/(forecastData.size() - countNaN);
     }
     
     public static double MPE(List<Double> realData, List<Double> forecastData) {
         double sum = 0;
+        int countNaN = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
-            double pe = ((realData.get(i) - forecastData.get(i))/realData.get(i))*100;
-            sum += pe;
+        for (int i = 0; i < forecastData.size(); i++) {
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                countNaN++;
+            } else {
+                double pe = ((realData.get(i) - forecastData.get(i))/realData.get(i))*100;
+                sum += pe;
+            }
         }
         
-        return sum/realData.size();
+        return sum/(forecastData.size() - countNaN);
     }
     
     public static double MAPE(List<Double> realData, List<Double> forecastData) {
         double sum = 0;
+        int countNaN = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
-            double pe = ((realData.get(i) - forecastData.get(i))/realData.get(i))*100;
-            sum += Math.abs(pe);
+        for (int i = 0; i < forecastData.size(); i++) {
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                countNaN++;
+            } else {
+                double pe = ((realData.get(i) - forecastData.get(i))/realData.get(i))*100;
+                sum += Math.abs(pe);
+            }
         }
         
-        return sum/realData.size();
+        return sum/(forecastData.size() - countNaN);
     }
     
     public static double RMSE(List<Double> errors) {
@@ -81,36 +111,45 @@ public class ErrorMeasuresUtils {
     
     public static double MASE(List<Double> realData, List<Double> forecastData) {
         double sumNaive = 0;
-        for (int i = 1; i < realData.size(); i++) {
+        for (int i = 1; i < forecastData.size(); i++) {
             sumNaive = Math.abs(realData.get(i) - realData.get(i-1));
         }
-        double resultNaive = sumNaive/(realData.size() - 1);
+        double resultNaive = sumNaive/(forecastData.size() - 1);
         
         double sum = 0;
-        
-        for (int i = 0; i < realData.size(); i++) {
-            double err = realData.get(i) - forecastData.get(i);
-            sum += Math.abs(err) / resultNaive;
+        int countNaN = 0;
+        for (int i = 0; i < forecastData.size(); i++) {
+            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
+                countNaN++;
+            } else {
+                double err = realData.get(i) - forecastData.get(i);
+                sum += Math.abs(err) / resultNaive;
+            }
         }
         
-        return sum/realData.size();
+        return sum/(forecastData.size() - countNaN);
     }
     
     public static double MSE(List<Double> errors) {
         double sum = 0;
+        int countNaN = 0;
         
         for (double err : errors) {
-            sum += Math.pow(err,2);
+            if (Double.isNaN(err)) {
+                countNaN++;
+            } else {
+                sum += Math.pow(err,2);
+            }
         }
         
-        return sum/errors.size();
+        return sum/(errors.size() - countNaN);
     }
     
     public static double MSE(List<Double> realData, List<Double> forecastData) {
         double sum = 0;
         int countNaN = 0;
         
-        for (int i = 0; i < realData.size(); i++) {
+        for (int i = 0; i < forecastData.size(); i++) {
             if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
                 countNaN++;
             } else {
@@ -119,35 +158,29 @@ public class ErrorMeasuresUtils {
             }
         }
         
-        return sum/(realData.size() - countNaN);
+        return sum/(forecastData.size() - countNaN);
     }
     
     public static double theilsU(List<Double> rData, List<Double> fData) {
-        //no idea why it throws ConcurrentModificationE if I do not do this :/
-        List<Double> realData = new ArrayList<>(rData);
-        List<Double> forecastData = new ArrayList<>(fData);
+        List<Double> realData = new ArrayList<>();
+        List<Double> forecastData = new ArrayList<>();
         double numerator = 0;
         double denominator = 0;
         
-        //najprv zmazat vsetky NaN
-        List<Double> toDeleteReal = new ArrayList<>();
-        List<Double> toDelete4cast = new ArrayList<>();
-        for (int i = 0; i < realData.size(); i++) {
-            if (realData.get(i).isNaN() || forecastData.get(i).isNaN()) {
-                toDeleteReal.add(realData.get(i));
-                toDelete4cast.add(forecastData.get(i));
+        //najprv "zmazat" vsetky NaN
+        for (int i = 0; i < fData.size(); i++) {
+            if (!(rData.get(i).isNaN() || fData.get(i).isNaN())) {
+                realData.add(rData.get(i));
+                forecastData.add(fData.get(i));
             }
         }
         
-        realData.removeAll(toDeleteReal);
-        forecastData.removeAll(toDelete4cast);
-        
-        for (int i = 0; i < realData.size() - 1; i++) {
+        for (int i = 0; i < forecastData.size() - 1; i++) {
             double aux = (forecastData.get(i+1) - realData.get(i+1))/realData.get(i);
             numerator += Math.pow(aux,2);
         }
         
-        for (int i = 0; i < realData.size() - 1; i++) {
+        for (int i = 0; i < forecastData.size() - 1; i++) {
             double aux = (realData.get(i+1) - realData.get(i))/realData.get(i);
             denominator += Math.pow(aux,2);
         }
@@ -155,42 +188,69 @@ public class ErrorMeasuresUtils {
         return Math.sqrt(numerator/denominator);
     }
     
-    public static double theilsUInterval(List<Interval> real, List<Interval> forecast) {
+    public static double theilsUInterval(List<Interval> rData, List<Interval> fData) {
+        List<Interval> realData = new ArrayList<>();
+        List<Interval> forecastData = new ArrayList<>();
         double numerator = 0;
         double denominator = 0;
         
+        //najprv "zmazat" vsetky NaN
+        for (int i = 0; i < fData.size(); i++) {
+            if (!(Double.isNaN(rData.get(i).getLowerBound()) ||
+                Double.isNaN(rData.get(i).getUpperBound()) ||
+                Double.isNaN(fData.get(i).getLowerBound()) ||
+                Double.isNaN(fData.get(i).getUpperBound()))) {
+                realData.add(rData.get(i));
+                forecastData.add(fData.get(i));
+            }
+        }
+        
         //idem po size-1, hoci oficialny vzorec kazal ist po size.
         //ale v oficialnom vzorci je furt j+1, takze by mi to vyliezlo z rozsahu
-        for (int i = 1; i < forecast.size(); i++) {
-            Interval re = real.get(i);
-            Interval fore = forecast.get(i);
+        for (int i = 1; i < forecastData.size(); i++) {
+            Interval re = realData.get(i);
+            Interval fore = forecastData.get(i);
             numerator += Math.pow(re.getUpperBound() - fore.getUpperBound(),2);
             numerator += Math.pow(re.getLowerBound() - fore.getLowerBound(),2);
             
-            denominator += Math.pow(re.getUpperBound() - real.get(i-1).getUpperBound(), 2);
-            denominator += Math.pow(re.getLowerBound() - real.get(i-1).getLowerBound(), 2);
+            denominator += Math.pow(re.getUpperBound() - realData.get(i-1).getUpperBound(), 2);
+            denominator += Math.pow(re.getLowerBound() - realData.get(i-1).getLowerBound(), 2);
         }
         
         return Math.sqrt(numerator/denominator);
     }
     
-    public static double ARVinterval(List<Interval> real, List<Interval> forecast) {
+    public static double ARVinterval(List<Interval> rData, List<Interval> fData) {
+        List<Interval> realData = new ArrayList<>();
+        List<Interval> forecastData = new ArrayList<>();
+        
+        //najprv "zmazat" vsetky NaN
+        for (int i = 0; i < fData.size(); i++) {
+            if (!(Double.isNaN(rData.get(i).getLowerBound()) ||
+                Double.isNaN(rData.get(i).getUpperBound()) ||
+                Double.isNaN(fData.get(i).getLowerBound()) ||
+                Double.isNaN(fData.get(i).getUpperBound()))) {
+                realData.add(rData.get(i));
+                forecastData.add(fData.get(i));
+            }
+        }
+        
         //first get the average of upper and lower bounds:
         double avgLower = 0;
         double avgUpper = 0;
-        for (Interval i : real) {
+        for (Interval i : realData) {
             avgLower += i.getLowerBound();
             avgUpper += i.getUpperBound();
         }
-        avgLower /= real.size();
-        avgUpper /= real.size();
+        avgLower /= realData.size();
+        avgUpper /= realData.size();
         
         //now compute the ARV
         double numerator = 0;
         double denominator = 0;
-        for (int i = 0; i < forecast.size(); i++) {
-            Interval re = real.get(i);
-            Interval fore = forecast.get(i);
+        for (int i = 0; i < forecastData.size(); i++) {
+            Interval re = realData.get(i);
+            Interval fore = forecastData.get(i);
             numerator += Math.pow(re.getUpperBound() - fore.getUpperBound(),2);
             numerator += Math.pow(re.getLowerBound() - fore.getLowerBound(),2);
             
@@ -202,6 +262,14 @@ public class ErrorMeasuresUtils {
     }
     
     public static double coverage(Interval real, Interval forecast) {
+        //NaN checks:
+        if (Double.isNaN(real.getLowerBound()) ||
+            Double.isNaN(real.getUpperBound()) ||
+            Double.isNaN(forecast.getLowerBound()) ||
+            Double.isNaN(forecast.getUpperBound())) {
+            return -1;
+        }
+        
         double widthReal = real.getUpperBound() - real.getLowerBound();
         if (widthReal == 0) {
             if ((real.getUpperBound() < forecast.getLowerBound()) || (real.getUpperBound() > forecast.getUpperBound())) {
@@ -216,8 +284,17 @@ public class ErrorMeasuresUtils {
     }
     
     public static double efficiency(Interval real, Interval forecast) {
+        //NaN checks:
+        if (Double.isNaN(real.getLowerBound()) ||
+            Double.isNaN(real.getUpperBound()) ||
+            Double.isNaN(forecast.getLowerBound()) ||
+            Double.isNaN(forecast.getUpperBound())) {
+            return -1;
+        }
+        
         //kvoli problemom s delenim nulou, ak je forecastInterval len cislo, tj radius nula:
-        if (Utils.equalsDoubles(forecast.getUpperBound(), forecast.getLowerBound())) {
+        if (Utils.equalsDoubles(forecast.getUpperBound(), forecast.getLowerBound()) ||
+            Utils.equalsDoubles(real.getUpperBound(), real.getLowerBound())) {
             if ((real.getLowerBound() <= forecast.getLowerBound()) &&
                 (real.getUpperBound() >= forecast.getLowerBound())) { //takze forecast je obsiahnuty
                 return 100;
@@ -232,22 +309,32 @@ public class ErrorMeasuresUtils {
     
     public static double meanCoverage(List<Interval> realData, List<Interval> forecastData) {
         double mean = 0;
+        int countNaN = 0;
         
         for (int i = 0; i < forecastData.size(); i++) {
-            mean += coverage(realData.get(i), forecastData.get(i));
+            if (coverage(realData.get(i), forecastData.get(i)) == -1) {
+                countNaN++;
+            } else {
+                mean += coverage(realData.get(i), forecastData.get(i));
+            }
         }
         
-        return mean/forecastData.size();
+        return mean/(forecastData.size() - countNaN);
     }
     
     public static double meanEfficiency(List<Interval> realData, List<Interval> forecastData) {
         double mean = 0;
+        int countNaN = 0;
         
         for (int i = 0; i < forecastData.size(); i++) {
-            mean += efficiency(realData.get(i), forecastData.get(i));
+            if (efficiency(realData.get(i), forecastData.get(i)) == -1) {
+                countNaN++;
+            } else {
+                mean += efficiency(realData.get(i), forecastData.get(i));
+            }
         }
         
-        return mean/forecastData.size();
+        return mean/(forecastData.size() - countNaN);
     }
     
     public static double widthIntersection(Interval first, Interval second) {

@@ -22,6 +22,13 @@ public class Nnetar implements Forecastable {
         final String TEST = Const.TEST + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
         final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
+        final String OUTPUT = Const.OUTPUT + Utils.getCounter();
+        final String ORIGINAL_OUTPUT = "original." + OUTPUT;
+        final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
+        final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
+        final String ALL_AUX = "aux" + Utils.getCounter();
+        final String FINAL_OUTPUT_TRAIN = "final." + OUTPUT_TRAIN;
+        final String FINAL_OUTPUT_TEST = "final." + OUTPUT_TEST;
         
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
@@ -33,8 +40,28 @@ public class Nnetar implements Forecastable {
         rengine.eval("require(forecast)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
+        
+        
+        rengine.assign(ORIGINAL_OUTPUT, Utils.listToArray(dataToUse));
+        rengine.eval(OUTPUT + " <- " + ORIGINAL_OUTPUT + "[(1 + " + params.getNumNonSeasonalLags() + "):length(" + ORIGINAL_OUTPUT + ")]"); //(1+lag):length
+        rengine.eval(OUTPUT_TRAIN +       " <- " +        OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[(" + numTrainingEntries + " + 1):length(" +        OUTPUT + ")]");
         List<Double> trainingPortionOfData = dataToUse.subList(0, numTrainingEntries);
         List<Double> testingPortionOfData = dataToUse.subList(numTrainingEntries, dataToUse.size());
+        //vybavit lag:
+        rengine.eval(ALL_AUX + " <- c(" + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
+        rengine.eval(ALL_AUX + " <- c(rep(NA, " + params.getNumNonSeasonalLags() + "), " + ALL_AUX + ")");
+        rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FINAL_OUTPUT_TEST + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
+                "length(" + ORIGINAL_OUTPUT + ")]");
+        REXP getTrainingOutputs = rengine.eval(FINAL_OUTPUT_TRAIN);
+        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
+        REXP getTestingOutputs = rengine.eval(FINAL_OUTPUT_TEST);
+        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        report.setRealOutputsTrain(trainingOutputs);
+        report.setRealOutputsTest(testingOutputs);
+        
+        
         
         rengine.assign(TRAINDATA, Utils.listToArray(trainingPortionOfData));
         String optionalParams = getOptionalParams(params);
@@ -79,12 +106,11 @@ public class Nnetar implements Forecastable {
         errorMeasures.setMAPEtest(acc[9]);
         errorMeasures.setMASEtrain(acc[10]);
         errorMeasures.setMASEtest(acc[11]);
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(trainingPortionOfData, Utils.arrayToList(fitted)));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(testingPortionOfData, forecastTest));
-        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(trainingPortionOfData),
-                Collections.unmodifiableList(Utils.arrayToList(fitted))));
-        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Collections.unmodifiableList(testingPortionOfData),
-                Collections.unmodifiableList(forecastTest)));
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fitted)));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(Utils.arrayToList(testingOutputs), forecastTest));
+        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Utils.arrayToList(trainingOutputs),
+                Utils.arrayToList(fitted)));
+        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), forecastTest));
         report.setErrorMeasures(errorMeasures);
         
         
