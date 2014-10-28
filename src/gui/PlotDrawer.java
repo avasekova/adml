@@ -65,12 +65,13 @@ public class PlotDrawer {
         List<Double> allDataCTS = par.getAllDataCTS();
         int numForecasts = par.getNumForecasts();
         List<TrainAndTestReportCrisp> reportsCTS = par.getReportsCTS();
-        List<TrainAndTestReportInterval> reportsITS = par.getReportsITS();
+        List<TrainAndTestReportInterval> reportsIntTS = par.getReportsITS();
         int from = par.getFrom();
         int to = par.getTo();
         String colname_CTS = par.getColname_CTS();
         boolean avgCTSperMethod = par.isPlotAvgCTSperMethod();
         boolean avgCTS = par.isPlotAvgCTS();
+        boolean avgIntTSperMethod = par.isPlotAvgIntTSperMethod();
         boolean avgIntTS = par.isPlotAvgIntTS();
         boolean avgONLY = par.isPlotAvgONLY();
         
@@ -80,7 +81,7 @@ public class PlotDrawer {
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
-        if ((! reportsCTS.isEmpty()) && (! reportsITS.isEmpty())) { //budem vykreslovat oba naraz
+        if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //budem vykreslovat oba naraz
             rengine.eval("par(mfrow=c(1,2))"); //daj dva grafy vedla seba. potom normalne zavolat dva ploty.
         }
         
@@ -227,58 +228,45 @@ public class PlotDrawer {
             }
         }
         
-        if (! reportsITS.isEmpty()) { //plot ITS
-            //plot all reports, the underlying data first! and then the fitted and forecasted vals:
+        if (! reportsIntTS.isEmpty()) { //plot ITS
             List<String> names = new ArrayList<>();
             List<String> colours = new ArrayList<>();
             boolean next = false;
-            for (TrainAndTestReportInterval r : reportsITS) {
-                if (next) {
+            Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
+            List<Double> listAllLowersEver = new ArrayList<>();
+            List<Double> listAllUppersEver = new ArrayList<>();
+            for (TrainAndTestReportInterval r : reportsIntTS) {
+                if (next && !(avgONLY)) {
                     rengine.eval("par(new=TRUE)");
                 } else {
                     next = true;
                 }
                 
-                //remember these for the legend
-                names.add(r.getModelName() + r.getModelDescription());
-                colours.add(COLOURS[colourNumber % COLOURS.length]);
+                if (avgIntTSperMethod) {
+                    if (mapForAvg.containsKey(r.getModelName())) {
+                        mapForAvg.get(r.getModelName()).add(r);
+                    } else {
+                        List<TrainAndTestReportInterval> l = new ArrayList<>();
+                        l.add(r);
+                        mapForAvg.put(r.getModelName(), l);
+                    }
+                }
                 
-                //naplotovat fitted values:
-                final int sizeFitted = r.getFittedValues().size();
-                rengine.assign("lower", r.getFittedValuesLowers());
-                rengine.assign("upper", r.getFittedValuesUppers());
-                //hack - posunutie
-                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
-                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("par(new=TRUE)");
-                //hack - posunutie
-                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
-                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", lower, " + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", upper, xlim = "
-                        + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                if (avgIntTS) { //nasysli si ciselka
+                    listAllLowersEver.addAll(Utils.arrayToList(r.getFittedValuesLowers()));
+                    listAllLowersEver.addAll(Utils.arrayToList(r.getForecastValuesTestLowers()));
+                    listAllLowersEver.addAll(Utils.arrayToList(r.getForecastValuesFutureLowers()));
+                    
+                    listAllUppersEver.addAll(Utils.arrayToList(r.getFittedValuesUppers()));
+                    listAllUppersEver.addAll(Utils.arrayToList(r.getForecastValuesTestUppers()));
+                    listAllUppersEver.addAll(Utils.arrayToList(r.getForecastValuesFutureUppers()));
+                }
                 
-                //naplotovat fitted values pre training data:
-                final int sizeForecastTest = r.getForecastValuesTest().size();
-                rengine.eval("par(new=TRUE)");
-                rengine.assign("lower", r.getForecastValuesTestLowers());
-                rengine.assign("upper", r.getForecastValuesTestUppers());
-                //hack - posunutie
-                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
-                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("par(new=TRUE)");
-                //hack - posunutie
-                rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
-                        + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                rengine.eval("segments(" + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", lower, "
-                        + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", upper, xlim = " + rangeXInt
-                        + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
-                
-                //naplotovat forecasty buduce:
-                final int sizeForecastFuture = r.getForecastValuesFuture().size();
-                if (sizeForecastFuture > 0) {
-                    rengine.eval("par(new=TRUE)");
-                    rengine.assign("lower", r.getForecastValuesFutureLowers());
-                    rengine.assign("upper", r.getForecastValuesFutureUppers());
+                if (!(avgONLY)) {
+                    //naplotovat fitted values:
+                    final int sizeFitted = r.getFittedValues().size();
+                    rengine.assign("lower", r.getFittedValuesLowers());
+                    rengine.assign("upper", r.getFittedValuesUppers());
                     //hack - posunutie
                     rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
@@ -286,27 +274,194 @@ public class PlotDrawer {
                     //hack - posunutie
                     rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                    rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":"
-                            + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom()) + ", lower, "
-                            + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom())
-                            + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
-                            + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", lower, " + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", upper, xlim = "
+                            + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+
+                    //naplotovat fitted values pre training data:
+                    final int sizeForecastTest = r.getForecastValuesTest().size();
+                    rengine.eval("par(new=TRUE)");
+                    rengine.assign("lower", r.getForecastValuesTestLowers());
+                    rengine.assign("upper", r.getForecastValuesTestUppers());
+                    //hack - posunutie
+                    rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                            + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                    rengine.eval("par(new=TRUE)");
+                    //hack - posunutie
+                    rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                            + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                    rengine.eval("segments(" + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", lower, "
+                            + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", upper, xlim = " + rangeXInt
+                            + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+
+                    //naplotovat forecasty buduce:
+                    final int sizeForecastFuture = r.getForecastValuesFuture().size();
+                    if (sizeForecastFuture > 0) {
+                        rengine.eval("par(new=TRUE)");
+                        rengine.assign("lower", r.getForecastValuesFutureLowers());
+                        rengine.assign("upper", r.getForecastValuesFutureUppers());
+                        //hack - posunutie
+                        rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                                + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                        rengine.eval("par(new=TRUE)");
+                        //hack - posunutie
+                        rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                                + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                        rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":"
+                                + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom()) + ", lower, "
+                                + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom())
+                                + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
+                                + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    }
+
+                    //add a dashed vertical line to separate test and train
+                    rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    
+                    //remember these for the legend
+                    names.add(r.getModelName() + r.getModelDescription());
+                    colours.add(COLOURS[colourNumber % COLOURS.length]);
                 }
-                
-                //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                 
                 colourNumber++;
             }
+            
+            
+            
+            
+            
+            //now draw the average series
+            if (avgIntTSperMethod) {
+                for (String name : mapForAvg.keySet()) {
+                    List<TrainAndTestReportInterval> l = mapForAvg.get(name);
+                    if (l.size() > 1) { //does not make sense to compute average over one series
+                        StringBuilder avgAllLowers = new StringBuilder("(");
+                        StringBuilder avgAllUppers = new StringBuilder("(");
+                        next = false;
+                        int size = 0;
+                        for (TrainAndTestReportInterval r : l) {
+                            if (next) {
+                                avgAllLowers.append(" + ");
+                                avgAllUppers.append(" + ");
+                            } else {
+                                next = true;
+                            }
+                            avgAllLowers.append("c(");
+                            avgAllLowers.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
+                            avgAllLowers.append(",");
+                            avgAllLowers.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
+                            avgAllLowers.append(",");
+                            avgAllLowers.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
+                            avgAllLowers.append(")");
+
+                            avgAllUppers.append("c(");
+                            avgAllUppers.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
+                            avgAllUppers.append(",");
+                            avgAllUppers.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
+                            avgAllUppers.append(",");
+                            avgAllUppers.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                            avgAllUppers.append(")");
+                            
+                            size = Math.max(size, r.getFittedValues().size()+r.getForecastValuesTest().size()+r.getForecastValuesFuture().size());
+                        }
+                        avgAllLowers.append(")/").append(l.size());
+                        avgAllUppers.append(")/").append(l.size());
+
+                        //aaaand draw the average
+                        rengine.eval("par(new=TRUE)");
+                        rengine.eval("lower <- " + avgAllLowers.toString());
+                        rengine.eval("upper <- " + avgAllUppers.toString());
+                        rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                                + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                        rengine.eval("par(new=TRUE)");
+                        rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                                + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                        rengine.eval("segments(" + par.getFrom() + ":" + (size+par.getFrom()) + ", lower, "
+                                + par.getFrom() + ":" + (size+par.getFrom())
+                                + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
+                                + ", lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        
+                        //pridat do legendy
+                        names.add(name + "(avg)");
+                        colours.add(COLOURS[colourNumber % COLOURS.length]);
+                        colourNumber++;
+                    }
+                }
+            }
+            
+            //and draw the average of all ITS methods that were run
+            if (avgIntTS) {
+                if (reportsIntTS.size() > 1) { //does not make sense to compute average over one series
+                    StringBuilder avgAllLowers = new StringBuilder("(");
+                    StringBuilder avgAllUppers = new StringBuilder("(");
+                    next = false;
+                    int size = 0;
+                    for (TrainAndTestReportInterval r : reportsIntTS) {
+                        if (next) {
+                            avgAllLowers.append(" + ");
+                            avgAllUppers.append(" + ");
+                        } else {
+                            next = true;
+                        }
+                        
+                        avgAllLowers.append("c(");
+                        avgAllLowers.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
+                        avgAllLowers.append(",");
+                        avgAllLowers.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
+                        avgAllLowers.append(",");
+                        avgAllLowers.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
+                        avgAllLowers.append(")");
+
+                        avgAllUppers.append("c(");
+                        avgAllUppers.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
+                        avgAllUppers.append(",");
+                        avgAllUppers.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
+                        avgAllUppers.append(",");
+                        avgAllUppers.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                        avgAllUppers.append(")");
+                        
+                        size = Math.max(size, r.getFittedValues().size()+r.getForecastValuesTest().size()+r.getForecastValuesFuture().size());
+                    }
+                    avgAllLowers.append(")/").append(reportsIntTS.size());
+                    avgAllUppers.append(")/").append(reportsIntTS.size());
+
+                    //aaaand draw the average
+                    rengine.eval("par(new=TRUE)");
+                    rengine.eval("lower <- " + avgAllLowers.toString());
+                    rengine.eval("upper <- " + avgAllUppers.toString());
+                    rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                            + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                    rengine.eval("par(new=TRUE)");
+                    rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                            + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
+                    rengine.eval("segments(" + par.getFrom() + ":" + (size+par.getFrom()) + ", lower, "
+                            + par.getFrom() + ":" + (size+par.getFrom())
+                            + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
+                            + ", lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    
+                    //pridat do legendy
+                    names.add("(avg)");
+                    colours.add(COLOURS[colourNumber % COLOURS.length]);
+                    colourNumber++;
+                }
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             rengine.eval("par(new=TRUE)");
                 
             //a na ne vsetky naplotovat realne data:
             //TODO hack, zatial beriem data z prveho reportu. potom nejak vymysliet :(
-            int size = reportsITS.get(reportsITS.size() - 1).getRealValuesLowers().size();
+            int size = reportsIntTS.get(reportsIntTS.size() - 1).getRealValuesLowers().size();
             //tu ich uz nesublistuj! v realData v reporte je to uz orezane podla range zadaneho na vstupe
-            rengine.assign("all.lower", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesLowers()));
-            rengine.assign("all.upper", Utils.listToArray(reportsITS.get(reportsITS.size() - 1).getRealValuesUppers()));
+            rengine.assign("all.lower", Utils.listToArray(reportsIntTS.get(reportsIntTS.size() - 1).getRealValuesLowers()));
+            rengine.assign("all.upper", Utils.listToArray(reportsIntTS.get(reportsIntTS.size() - 1).getRealValuesUppers()));
 
             //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
             rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "

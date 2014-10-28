@@ -3240,14 +3240,12 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunPlotAverageCTSperMethod.setText("plot avg CTS per method");
 
         checkBoxRunPlotAverageIntTSperMethod.setText("plot avg ITS per method");
-        checkBoxRunPlotAverageIntTSperMethod.setEnabled(false);
 
-        checkBoxRunPlotAvgONLY.setText("do not show the values, just the average");
+        checkBoxRunPlotAvgONLY.setText("do not show all plots, just the average");
 
         checkBoxRunPlotAverageCTS.setText("plot avg CTS");
 
         checkBoxRunPlotAverageIntTS.setText("plot avg ITS");
-        checkBoxRunPlotAverageIntTS.setEnabled(false);
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
@@ -4129,8 +4127,8 @@ public class MainFrame extends javax.swing.JFrame {
         PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
                 reportsITS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
-                checkBoxRunPlotAverageCTS.isSelected(),
-                checkBoxRunPlotAverageIntTSperMethod.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
+                checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
+                checkBoxRunPlotAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
         setPlotRanges(reportsCTS.size(), reportsITS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);

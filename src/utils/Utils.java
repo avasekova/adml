@@ -272,4 +272,14 @@ public class Utils {
     public static double valToDecPoints(double value) {
         return Math.round(value * (Math.pow(10, Utils.NUM_DECIMAL_POINTS)))/Math.pow(10, Utils.NUM_DECIMAL_POINTS);
     }
+
+    public static String arrayToRVectorString(double[] array) {
+        List<Double> list = Utils.arrayToList(array);
+        StringBuilder string = new StringBuilder(list.toString());
+        
+        string.replace(0, 1, "c(");
+        string.replace(string.length()-1, string.length(), ")");
+        
+        return string.toString();
+    }
 }

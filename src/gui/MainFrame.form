@@ -4592,12 +4592,11 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageIntTSperMethod">
               <Properties>
                 <Property name="text" type="java.lang.String" value="plot avg ITS per method"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAvgONLY">
               <Properties>
-                <Property name="text" type="java.lang.String" value="do not show the values, just the average"/>
+                <Property name="text" type="java.lang.String" value="do not show all plots, just the average"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageCTS">
@@ -4608,7 +4607,6 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAverageIntTS">
               <Properties>
                 <Property name="text" type="java.lang.String" value="plot avg ITS"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
