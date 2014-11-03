@@ -4173,7 +4173,7 @@ public class MainFrame extends javax.swing.JFrame {
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
         forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        forecastValuesLatest.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
+        forecastValuesLatest.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         TableColumn firstColumn = forecastValuesLatest.getColumnModel().getColumn(0);
         firstColumn.setMinWidth(10);
         firstColumn.setMaxWidth(50);
