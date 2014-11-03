@@ -2,20 +2,20 @@ package utils.ugliez;
 
 import gui.DataTableModel;
 import java.util.List;
-import org.rosuda.javaGD.GDCanvas;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
 public class CallParamsDrawPlotsITS extends CallParams {
     
-    private GDCanvas canvasToUse;
+    private JGDBufferedPanel canvasToUse;
     private int width;
     private int height;
     private DataTableModel dataTableModel;
     private List<IntervalNamesCentreRadius> listCentreRadius;
     private List<IntervalNamesLowerUpper> listLowerUpper;
 
-    public CallParamsDrawPlotsITS(GDCanvas canvasToUse, int width, int height, DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
+    public CallParamsDrawPlotsITS(JGDBufferedPanel canvasToUse, int width, int height, DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
         this.canvasToUse = canvasToUse;
         this.width = width;
         this.height = height;
@@ -24,11 +24,11 @@ public class CallParamsDrawPlotsITS extends CallParams {
         this.listLowerUpper = listLowerUpper;
     }
     
-    public GDCanvas getCanvasToUse() {
+    public JGDBufferedPanel getCanvasToUse() {
         return canvasToUse;
     }
 
-    public void setCanvasToUse(GDCanvas canvasToUse) {
+    public void setCanvasToUse(JGDBufferedPanel canvasToUse) {
         this.canvasToUse = canvasToUse;
     }
 

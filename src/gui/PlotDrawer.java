@@ -11,7 +11,7 @@ import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-import org.rosuda.javaGD.GDCanvas;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresUtils;
@@ -61,7 +61,7 @@ public class PlotDrawer {
             return;
         }
         
-        GDCanvas canvasToUse = par.getCanvasToUse();
+        JGDBufferedPanel canvasToUse = par.getCanvasToUse();
         int width = par.getWidth();
         int height = par.getHeight();
         List<Double> allDataCTS = par.getAllDataCTS();
@@ -77,7 +77,7 @@ public class PlotDrawer {
         boolean avgIntTS = par.isPlotAvgIntTS();
         boolean avgONLY = par.isPlotAvgONLY();
         
-        MainFrame.drawNowToThisGDCanvas = canvasToUse;
+        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
@@ -587,8 +587,8 @@ public class PlotDrawer {
         
         PlotStateKeeper.setLastCallParams(par);
 
-        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.drawNowToThisGDCanvas.initRefresh();
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
         //TODO kresli sa dvakrat! skusit http://stackoverflow.com/questions/8067844/paint-in-java-applet-is-called-twice-for-no-reason
     }
     
@@ -602,7 +602,7 @@ public class PlotDrawer {
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
-        MainFrame.drawNowToThisGDCanvas = par.getCanvasToUse();
+        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
@@ -731,8 +731,8 @@ public class PlotDrawer {
         
         
         
-        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height));
-        MainFrame.drawNowToThisGDCanvas.initRefresh();
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
     }
 
     private static String getRangeYMultipleInterval(List<Double> allVals) {
@@ -894,12 +894,12 @@ public class PlotDrawer {
         return rString.toString();
     }
     
-    public static void drawDiagrams(GDCanvas canvasToUse, int width, int height, List<TrainAndTestReport> reports) {
+    public static void drawDiagrams(JGDBufferedPanel canvasToUse, int width, int height, List<TrainAndTestReport> reports) {
         if (reports.isEmpty()) {
             return;
         }
         
-        MainFrame.drawNowToThisGDCanvas = canvasToUse;
+        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
@@ -941,8 +941,8 @@ public class PlotDrawer {
             }
         }
         
-        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(width, height));
-        MainFrame.drawNowToThisGDCanvas.initRefresh();
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
     }
     
 //    private static String getStrWidth(List<String> list) {

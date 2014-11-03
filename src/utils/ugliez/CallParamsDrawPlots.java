@@ -3,10 +3,10 @@ package utils.ugliez;
 import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import org.rosuda.javaGD.GDCanvas;
+import org.rosuda.javaGD.JGDBufferedPanel;
 
 public class CallParamsDrawPlots extends CallParams {
-    private GDCanvas canvasToUse;
+    private JGDBufferedPanel canvasToUse;
     private int width;
     private int height;
     private List<Double> allDataCTS; //vsetky data, naozaj vsetky, neosekane podla fromTo!
@@ -23,7 +23,7 @@ public class CallParamsDrawPlots extends CallParams {
     private boolean plotAvgIntTS;
     private boolean plotAvgONLY;
 
-    public CallParamsDrawPlots(GDCanvas canvasToUse, int width, int height, List<Double> allDataCTS,
+    public CallParamsDrawPlots(JGDBufferedPanel canvasToUse, int width, int height, List<Double> allDataCTS,
             int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
             List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
             boolean plotAvgCTSperMethod, boolean plotAvgCTS, boolean plotAvgIntTSperMethod,
@@ -46,11 +46,11 @@ public class CallParamsDrawPlots extends CallParams {
         this.plotAvgONLY = plotAvgOnly;
     }
 
-    public GDCanvas getCanvasToUse() {
+    public JGDBufferedPanel getCanvasToUse() {
         return canvasToUse;
     }
 
-    public void setCanvasToUse(GDCanvas canvasToUse) {
+    public void setCanvasToUse(JGDBufferedPanel canvasToUse) {
         this.canvasToUse = canvasToUse;
     }
 

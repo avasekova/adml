@@ -1,18 +1,18 @@
 package utils.ugliez;
 
 import java.util.List;
-import org.rosuda.javaGD.GDCanvas;
+import org.rosuda.javaGD.JGDBufferedPanel;
 
 public class CallParamsDrawPlotGeneral extends CallParams {
     
-    private GDCanvas canvasToUse;
+    private JGDBufferedPanel canvasToUse;
     private int width;
     private int height;
     private List<String> colnames;
     private String plotFunction;
     private String additionalArgs;
 
-    public CallParamsDrawPlotGeneral(GDCanvas canvasToUse, int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
+    public CallParamsDrawPlotGeneral(JGDBufferedPanel canvasToUse, int width, int height, List<String> colnames, String plotFunction, String additionalArgs) {
         this.canvasToUse = canvasToUse;
         this.width = width;
         this.height = height;
@@ -21,11 +21,11 @@ public class CallParamsDrawPlotGeneral extends CallParams {
         this.additionalArgs = additionalArgs;
     }
     
-    public GDCanvas getCanvasToUse() {
+    public JGDBufferedPanel getGDBufferedPanel() {
         return canvasToUse;
     }
 
-    public void setCanvasToUse(GDCanvas canvasToUse) {
+    public void setCanvasToUse(JGDBufferedPanel canvasToUse) {
         this.canvasToUse = canvasToUse;
     }
 

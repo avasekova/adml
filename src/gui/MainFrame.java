@@ -47,7 +47,7 @@ import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.Rengine;
-import org.rosuda.javaGD.GDCanvas;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import params.ArimaParams;
 import params.BasicStats;
 import params.IntervalMLPCcodeParams;
@@ -505,8 +505,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        gdCanvasPlot = new GDCanvas(panelPlot.getWidth(), panelPlot.getHeight());
-        panelPlot.add(gdCanvasPlot, BorderLayout.CENTER);
+        gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());
+        panelPlot.add(gdBufferedPanelPlot, BorderLayout.CENTER);
         panelPlot.setLayout(new java.awt.BorderLayout());
 
         buttonACF.setText("Autocorrelation Plot");
@@ -3563,8 +3563,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Forecast values", panelForecastValsAll);
 
-        gdCanvasDiagramsNNs = new GDCanvas(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());
-        panelDiagramsNNs.add(gdCanvasDiagramsNNs, BorderLayout.CENTER);
+        gdBufferedPanelDiagramsNNs = new JGDBufferedPanel(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());
+        panelDiagramsNNs.add(gdBufferedPanelDiagramsNNs, BorderLayout.CENTER);
         panelDiagramsNNs.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout panelDiagramsNNsLayout = new javax.swing.GroupLayout(panelDiagramsNNs);
@@ -3713,7 +3713,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
+        PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), dataTableModel,
                 listITSPlotCentreRadius, listITSPlotLowerUpper));
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -4161,13 +4161,13 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReport> allReports = new ArrayList<>();
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
-        PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
+        PlotDrawer.drawDiagrams(gdBufferedPanelDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
 
         //show Forecast plot
         int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(),
+        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
                 checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
@@ -4241,7 +4241,6 @@ public class MainFrame extends javax.swing.JFrame {
                 case JFileChooser.APPROVE_OPTION:
                     File plotFile = fileChooser.getSelectedFile();
                     //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
-                    //drawNowToThisGDCanvas = gdCanvasPlot;
                     Rengine rengine = MyRengine.getRengine();
                     
                     String device = "";
@@ -4825,9 +4824,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private File loadedFile;
     private static final DataTableModel dataTableModel = new DataTableModel();
-    public static GDCanvas drawNowToThisGDCanvas;
-    private static GDCanvas gdCanvasPlot;
-    private static GDCanvas gdCanvasDiagramsNNs;
+    public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
+    private static JGDBufferedPanel gdBufferedPanelPlot;
+    private static JGDBufferedPanel gdBufferedPanelDiagramsNNs;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReportCrisp>()));
     private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReportInterval>())));
@@ -4845,7 +4844,7 @@ public class MainFrame extends javax.swing.JFrame {
         //String colname = comboBoxColnames.getSelectedItem().toString();
         List<String> colnames = listColnames.getSelectedValuesList();
         
-        List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs));
+        List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs));
         buttonPlotExportPlot.setEnabled(true);
         
         //mean, standard deviation, median

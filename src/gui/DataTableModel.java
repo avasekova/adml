@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-import org.rosuda.javaGD.GDCanvas;
 import params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
@@ -114,7 +113,7 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
-        MainFrame.drawNowToThisGDCanvas = par.getCanvasToUse();
+        MainFrame.drawNowToThisGDBufferedPanel = par.getGDBufferedPanel();
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
@@ -188,10 +187,10 @@ public class DataTableModel extends AbstractTableModel {
         PlotStateKeeper.setLastCallParams(par);
         
         // R always draws a plot of a default size to the JavaGD device.
-        // But our GDCanvas is supposed to have a different size, so
+        // But our GDBufferedPanel is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
-        MainFrame.drawNowToThisGDCanvas.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.drawNowToThisGDCanvas.initRefresh();
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
         
         return basicStatss;
     }

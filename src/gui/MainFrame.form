@@ -297,7 +297,7 @@
             <Container class="javax.swing.JPanel" name="panelPlot">
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
-                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="gdCanvasPlot = new GDCanvas(panelPlot.getWidth(), panelPlot.getHeight());&#xa;panelPlot.add(gdCanvasPlot, BorderLayout.CENTER);"/>
+                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());&#xa;panelPlot.add(gdBufferedPanelPlot, BorderLayout.CENTER);"/>
               </AuxValues>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -4725,7 +4725,7 @@
         </Container>
         <Container class="javax.swing.JPanel" name="panelDiagramsNNs">
           <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="gdCanvasDiagramsNNs = new GDCanvas(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());&#xa;panelDiagramsNNs.add(gdCanvasDiagramsNNs, BorderLayout.CENTER);&#xa;panelDiagramsNNs.setLayout(new java.awt.BorderLayout());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="gdBufferedPanelDiagramsNNs = new JGDBufferedPanel(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());&#xa;panelDiagramsNNs.add(gdBufferedPanelDiagramsNNs, BorderLayout.CENTER);&#xa;panelDiagramsNNs.setLayout(new java.awt.BorderLayout());"/>
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
