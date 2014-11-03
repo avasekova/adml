@@ -19,12 +19,14 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableColumn;
@@ -4210,27 +4212,10 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_paramMLPintNnet_initRangeRadiusActionPerformed
 
     private void buttonSettingsIntervalMLPDistancesAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsIntervalMLPDistancesAddActionPerformed
-        switch (comboBoxSettingsIMLPcCodeDistance.getSelectedItem().toString()) {
-            case "Euclidean distance":
-                double beta = Double.parseDouble(textFieldIntervalMLPDistanceParam_euclid_beta.getText());
-                ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(new WeightedEuclideanDistance(beta));
-                break;
-            case "Hausdorff distance":
-                ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(new HausdorffDistance());
-                break;
-            case "Ichino-Yaguchi distance":
-                double gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_ichino_gamma.getText());
-                ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(new IchinoYaguchiDistance(gamma));
-                break;
-            case "De Carvalho distance":
-                gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_decarvalho_gamma.getText());
-                ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(new DeCarvalhoDistance(gamma));
-                break;
-            case "Bertoluzza distance":
-                gamma = Double.parseDouble(textFieldIntervalMLPDistanceParam_bertoluzza_beta.getText());
-                ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(new BertoluzzaDistance(gamma));
-                break;
-        }
+        Distance distance = getSelectedDistance(comboBoxSettingsIMLPcCodeDistance, textFieldIntervalMLPDistanceParam_euclid_beta, 
+                textFieldIntervalMLPDistanceParam_ichino_gamma, textFieldIntervalMLPDistanceParam_decarvalho_gamma, 
+                textFieldIntervalMLPDistanceParam_bertoluzza_beta);
+        ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(distance);
     }//GEN-LAST:event_buttonSettingsIntervalMLPDistancesAddActionPerformed
 
     private void buttonSettingsIntervalMLPDistancesRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsIntervalMLPDistancesRemoveActionPerformed
@@ -5104,32 +5089,9 @@ public class MainFrame extends javax.swing.JFrame {
         List<MLPintNnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        Distance distanceFunction = null;
-        switch (comboBoxSettingsMLPintDistance.getSelectedItem().toString()) {
-            case "Euclidean distance":
-                double beta = Double.parseDouble(textFieldMLPintDistanceParam_euclid_beta.getText());
-                WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
-                distanceFunction = euclid;
-                break;
-            case "Hausdorff distance":
-                distanceFunction = new HausdorffDistance();
-                break;
-            case "Ichino-Yaguchi distance":
-                double gamma = Double.parseDouble(textFieldMLPintDistanceParam_ichino_gamma.getText());
-                IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
-                distanceFunction = ichino;
-                break;
-            case "De Carvalho distance":
-                gamma = Double.parseDouble(textFieldMLPintDistanceParam_decarvalho_gamma.getText());
-                DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
-                distanceFunction = decarvalho;
-                break;
-            case "Bertoluzza distance":
-                gamma = Double.parseDouble(textFieldMLPintDistanceParam_bertoluzza_beta.getText());
-                BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
-                distanceFunction = bertoluzza;
-                break;
-        }
+        Distance distanceFunction = getSelectedDistance(comboBoxSettingsMLPintDistance, textFieldMLPintDistanceParam_euclid_beta,
+                textFieldMLPintDistanceParam_ichino_gamma, textFieldMLPintDistanceParam_decarvalho_gamma,
+                textFieldMLPintDistanceParam_bertoluzza_beta);
         setSomethingOneValueAnyParams(MLPintNnetarParams.class, workingList, resultList, "setDistanceFunction",
                 Distance.class, distanceFunction);
         setSomethingListAnyParams(MLPintNnetarParams.class, workingList, resultList, "setParamsCenter",
@@ -5233,32 +5195,9 @@ public class MainFrame extends javax.swing.JFrame {
         List<MLPintNnetParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        Distance distanceFunction = null;
-        switch (comboBoxSettingsMLPintDistance.getSelectedItem().toString()) {
-            case "Euclidean distance":
-                double beta = Double.parseDouble(textFieldMLPintDistanceParam_euclid_beta.getText());
-                WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
-                distanceFunction = euclid;
-                break;
-            case "Hausdorff distance":
-                distanceFunction = new HausdorffDistance();
-                break;
-            case "Ichino-Yaguchi distance":
-                double gamma = Double.parseDouble(textFieldMLPintDistanceParam_ichino_gamma.getText());
-                IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
-                distanceFunction = ichino;
-                break;
-            case "De Carvalho distance":
-                gamma = Double.parseDouble(textFieldMLPintDistanceParam_decarvalho_gamma.getText());
-                DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
-                distanceFunction = decarvalho;
-                break;
-            case "Bertoluzza distance":
-                gamma = Double.parseDouble(textFieldMLPintDistanceParam_bertoluzza_beta.getText());
-                BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
-                distanceFunction = bertoluzza;
-                break;
-        }
+        Distance distanceFunction = getSelectedDistance(comboBoxSettingsMLPintDistance, textFieldMLPintDistanceParam_euclid_beta,
+                textFieldMLPintDistanceParam_ichino_gamma, textFieldMLPintDistanceParam_decarvalho_gamma, 
+                textFieldMLPintDistanceParam_bertoluzza_beta);
         setSomethingOneValueAnyParams(MLPintNnetParams.class, workingList, resultList, "setDistanceFunction",
                 Distance.class, distanceFunction);
         setSomethingListAnyParams(MLPintNnetParams.class, workingList, resultList, "setParamsCenter",
@@ -5405,33 +5344,9 @@ public class MainFrame extends javax.swing.JFrame {
             List<Interval> dataRandomWalk = Utils.zipLowerUpperToIntervals(dataTableModel.getDataForColname(colnameLower),
                     dataTableModel.getDataForColname(colnameUpper));
 
-            //TODO refactor this switch
-            Distance distanceFunction = null;
-            switch (comboBoxSettingsMLPintDistance.getSelectedItem().toString()) {
-                case "Euclidean distance":
-                    double beta = Double.parseDouble(textFieldMLPintDistanceParam_euclid_beta.getText());
-                    WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
-                    distanceFunction = euclid;
-                    break;
-                case "Hausdorff distance":
-                    distanceFunction = new HausdorffDistance();
-                    break;
-                case "Ichino-Yaguchi distance":
-                    double gamma = Double.parseDouble(textFieldMLPintDistanceParam_ichino_gamma.getText());
-                    IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
-                    distanceFunction = ichino;
-                    break;
-                case "De Carvalho distance":
-                    gamma = Double.parseDouble(textFieldMLPintDistanceParam_decarvalho_gamma.getText());
-                    DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
-                    distanceFunction = decarvalho;
-                    break;
-                case "Bertoluzza distance":
-                    gamma = Double.parseDouble(textFieldMLPintDistanceParam_bertoluzza_beta.getText());
-                    BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
-                    distanceFunction = bertoluzza;
-                    break;
-            }
+            Distance distanceFunction = getSelectedDistance(comboBoxSettingsMLPintDistance, textFieldMLPintDistanceParam_euclid_beta,
+                    textFieldMLPintDistanceParam_ichino_gamma, textFieldMLPintDistanceParam_decarvalho_gamma,
+                    textFieldMLPintDistanceParam_bertoluzza_beta);
             RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
             params.setPercentTrain(sliderPercentTrainMLPint.getValue()); //TODO prerobit? zatial berie tento
             params.setDistance(distanceFunction);
@@ -5544,5 +5459,26 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotRestoreIntTSRangeX.setEnabled(trueFalse);
         buttonPlotRestoreIntTSRangeY.setEnabled(trueFalse);
         buttonPlotZoomIntTS.setEnabled(trueFalse);
+    }
+
+    private Distance getSelectedDistance(JComboBox comboBoxDistance, JTextField euclid_beta, JTextField ichino_gamma, JTextField decarvalho_gamma, JTextField bertoluzza_beta) {
+        switch (comboBoxDistance.getSelectedItem().toString()) {
+            case "Euclidean distance":
+                double beta = Double.parseDouble(euclid_beta.getText());
+                return new WeightedEuclideanDistance(beta);
+            case "Hausdorff distance":
+                return new HausdorffDistance();
+            case "Ichino-Yaguchi distance":
+                double gamma = Double.parseDouble(ichino_gamma.getText());
+                return new IchinoYaguchiDistance(gamma);
+            case "De Carvalho distance":
+                gamma = Double.parseDouble(decarvalho_gamma.getText());
+                return new DeCarvalhoDistance(gamma);
+            case "Bertoluzza distance":
+                gamma = Double.parseDouble(bertoluzza_beta.getText());
+                return new BertoluzzaDistance(gamma);
+            default:
+                return null;
+        }
     }
 }
