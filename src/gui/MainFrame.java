@@ -3261,14 +3261,35 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         checkBoxRunPlotAverageCTSperMethod.setText("plot avg CTS per method");
+        checkBoxRunPlotAverageCTSperMethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRunPlotAverageCTSperMethodActionPerformed(evt);
+            }
+        });
 
         checkBoxRunPlotAverageIntTSperMethod.setText("plot avg ITS per method");
+        checkBoxRunPlotAverageIntTSperMethod.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRunPlotAverageIntTSperMethodActionPerformed(evt);
+            }
+        });
 
         checkBoxRunPlotAvgONLY.setText("do not show all plots, just the average");
+        checkBoxRunPlotAvgONLY.setEnabled(false);
 
         checkBoxRunPlotAverageCTS.setText("plot avg CTS");
+        checkBoxRunPlotAverageCTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRunPlotAverageCTSActionPerformed(evt);
+            }
+        });
 
         checkBoxRunPlotAverageIntTS.setText("plot avg ITS");
+        checkBoxRunPlotAverageIntTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRunPlotAverageIntTSActionPerformed(evt);
+            }
+        });
 
         checkBoxRunIntervalRandomWalk.setText("random walk for ITS");
 
@@ -4336,6 +4357,48 @@ public class MainFrame extends javax.swing.JFrame {
         //a na zaver to disablovat, aby sa na to netukalo furt
         buttonExportForecastValues.setEnabled(false);
     }//GEN-LAST:event_buttonExportForecastValuesActionPerformed
+
+    private void checkBoxRunPlotAverageCTSperMethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunPlotAverageCTSperMethodActionPerformed
+        if (checkBoxRunPlotAverageCTSperMethod.isSelected()) { //ak sa to prave zafajklo
+            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxRunPlotAverageCTSperMethodActionPerformed
+
+    private void checkBoxRunPlotAverageCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunPlotAverageCTSActionPerformed
+        if (checkBoxRunPlotAverageCTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxRunPlotAverageCTSActionPerformed
+
+    private void checkBoxRunPlotAverageIntTSperMethodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunPlotAverageIntTSperMethodActionPerformed
+        if (checkBoxRunPlotAverageIntTSperMethod.isSelected()) { //ak sa to prave zafajklo
+            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxRunPlotAverageIntTSperMethodActionPerformed
+
+    private void checkBoxRunPlotAverageIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunPlotAverageIntTSActionPerformed
+        if (checkBoxRunPlotAverageIntTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxRunPlotAverageIntTSActionPerformed
+    
+    private void maybeTurnOffPlotAvgONLY() {
+        if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
+            (! checkBoxRunPlotAverageCTSperMethod.isSelected()) &&
+            (! checkBoxRunPlotAverageIntTS.isSelected()) &&
+            (! checkBoxRunPlotAverageIntTSperMethod.isSelected())) {
+            checkBoxRunPlotAvgONLY.setSelected(false);
+            checkBoxRunPlotAvgONLY.setEnabled(false);
+        }
+    }
     
     /**
      * @param args the command line arguments
