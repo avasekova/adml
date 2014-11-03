@@ -123,6 +123,9 @@ public class Arima implements Forecastable {
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fitted);
         
+        report.setRealOutputsTrain(trainingPortionOfDataArray);
+        report.setRealOutputsTest(testingPortionOfDataArray);
+        
         report.setForecastValuesTest(Utils.listToArray(allForecastsList.subList(0, dataToUse.size() - numTrainingEntries)));
         report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(dataToUse.size() - numTrainingEntries, allForecastsList.size())));
         

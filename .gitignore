@@ -1,1 +1,10 @@
 /dist/
+*.xlsx
+*.xls
+*.eps
+*.net
+*.out
+*.res
+*.wgt
+*.dat
+*.log
