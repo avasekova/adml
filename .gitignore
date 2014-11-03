@@ -8,3 +8,5 @@
 *.wgt
 *.dat
 *.log
+/nbproject/
+/build/
