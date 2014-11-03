@@ -13,6 +13,8 @@ import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.GDCanvas;
 import utils.Const;
+import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.IntervalNamesCentreRadius;
@@ -128,24 +130,45 @@ public class PlotDrawer {
                 colourNumber++;
             }
             
+            List<TrainAndTestReportCrisp> avgReportsToAdd = new ArrayList<>();
             //now draw the average series
             if (avgCTSperMethod) {
                 for (String name : mapForAvg.keySet()) {
                     List<TrainAndTestReportCrisp> l = mapForAvg.get(name);
                     if (l.size() > 1) { //does not make sense to compute average over one series
-                    StringBuilder avgAll = new StringBuilder("(");
-                    next = false;
+                        StringBuilder avgAll = new StringBuilder("("); //mozno neskor zrusit toto a poskladat to z tych troch?
+                        StringBuilder fittedValsAvgAll = new StringBuilder("(");
+                        StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
+                        StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
+                        next = false;
+                        int numForecastsAvg = 0;
                         for (TrainAndTestReportCrisp r : l) {
                             if (next) {
                                 avgAll.append(" + ");
+                                fittedValsAvgAll.append(" + ");
+                                forecastValsTestAvgAll.append(" + ");
+                                forecastValsFutureAvgAll.append(" + ");
                             } else {
                                 next = true;
                             }
                             //this will take the vector: c(rep(NA, something), fit, test, future)
+                            //TODO tu sa nemoze brat aj future! niektore to maju a niektore nie, tak sa priemeruje zle...
                             String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
                             avgAll.append(justData);
+                            fittedValsAvgAll.append(Utils.arrayToRVectorString(r.getFittedValues()));
+                            forecastValsTestAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesTest()));
+                            
+                            if (r.getForecastValuesFuture().length > 0) {
+                                forecastValsFutureAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesFuture()));
+                                numForecastsAvg++;
+                            } else {
+                                forecastValsFutureAvgAll.append("0");
+                            }
                         }
                         avgAll.append(")/").append(l.size());
+                        fittedValsAvgAll.append(")/").append(l.size());
+                        forecastValsTestAvgAll.append(")/").append(l.size());
+                        forecastValsFutureAvgAll.append(")/").append(numForecastsAvg);
 
                         //aaaand draw the average
                         rengine.eval("par(new=TRUE)");
@@ -159,6 +182,22 @@ public class PlotDrawer {
                         names.add(name + "(avg)");
                         colours.add(COLOURS[colourNumber % COLOURS.length]);
                         colourNumber++;
+                        
+                        //vyrobit pre tento average novy report a pridat ho do reportsCTS:
+                        TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(avg)");
+                        REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
+                        double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
+                        REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
+                        double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
+                        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils
+                                .computeAllErrorMeasuresCrisp(Utils.arrayToList(l.get(0).getRealOutputsTrain()),
+                                Utils.arrayToList(l.get(0).getRealOutputsTest()), Utils.arrayToList(fittedValsAvg),
+                                Utils.arrayToList(forecastValsTestAvg));
+                        thisAvgReport.setErrorMeasures(errorMeasures);
+                        REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
+                        double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
+                        thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
+                        avgReportsToAdd.add(thisAvgReport);
                     }
                 }
             }
@@ -167,18 +206,38 @@ public class PlotDrawer {
             if (avgCTS) {
                 if (reportsCTS.size() > 1) { //does not make sense to compute average over one series
                     StringBuilder avgAll = new StringBuilder("(");
+                    StringBuilder fittedValsAvgAll = new StringBuilder("(");
+                    StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
+                    StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
                     next = false;
+                    int numForecastsAvg = 0;
                     for (TrainAndTestReportCrisp r : reportsCTS) {
                         if (next) {
                             avgAll.append(" + ");
+                            fittedValsAvgAll.append(" + ");
+                            forecastValsTestAvgAll.append(" + ");
+                            forecastValsFutureAvgAll.append(" + ");
                         } else {
                             next = true;
                         }
                         //this will take the vector: c(rep(NA, something), fit, test, future)
                         String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
                         avgAll.append(justData);
+                        fittedValsAvgAll.append(Utils.arrayToRVectorString(r.getFittedValues()));
+                        forecastValsTestAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesTest()));
+                        
+                        if (r.getForecastValuesFuture().length > 0) {
+                            forecastValsFutureAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesFuture()));
+                            numForecastsAvg++;
+                        } else {
+                            forecastValsFutureAvgAll.append("0");
+                        }
+                       
                     }
                     avgAll.append(")/").append(reportsCTS.size());
+                    fittedValsAvgAll.append(")/").append(reportsCTS.size());
+                    forecastValsTestAvgAll.append(")/").append(reportsCTS.size());
+                    forecastValsFutureAvgAll.append(")/").append(numForecastsAvg);
 
                     //aaaand draw the average
                     rengine.eval("par(new=TRUE)");
@@ -193,8 +252,49 @@ public class PlotDrawer {
                     names.add("(avg)");
                     colours.add(COLOURS[colourNumber % COLOURS.length]);
                     colourNumber++;
+                    
+                    //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
+                    TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp("(avg)");
+                    REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
+                    double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
+                    REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
+                    double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
+                    ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+                    List<Double> allRealDataTrainAndTest = new ArrayList<>(); //will have the NA vals of the first report
+                    //but they would've gotten erased anyway
+                    allRealDataTrainAndTest.addAll(Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()));
+                    allRealDataTrainAndTest.addAll(Utils.arrayToList(reportsCTS.get(0).getRealOutputsTest()));
+                    List<Double> allFitDataTrainAndTest = new ArrayList<>();
+                    allFitDataTrainAndTest.addAll(Utils.arrayToList(fittedValsAvg));
+                    allFitDataTrainAndTest.addAll(Utils.arrayToList(forecastValsTestAvg));
+                    errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setMEtest(0.0);
+                    errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setRMSEtest(0.0);
+                    errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setMAEtest(0.0);
+                    errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setMPEtest(0.0);
+                    errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setMAPEtest(0.00);
+                    errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setMASEtest(0.0);
+                    errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setMSEtest(0.0);
+                    errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(allRealDataTrainAndTest, allFitDataTrainAndTest));
+                    errorMeasures.setTheilUtest(0.0);
+                    
+                    thisAvgReport.setErrorMeasures(errorMeasures);
+                    REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
+                    double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
+                    thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
+                    avgReportsToAdd.add(thisAvgReport);
                 }
             }
+            
+            //na zaver slavnostne pridat nove reporty do reportsCTS, ked to uz neschaosi nic ine:
+            reportsCTS.addAll(avgReportsToAdd);
+            
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
             rengine.eval("par(new=TRUE)");
@@ -324,10 +424,6 @@ public class PlotDrawer {
                 colourNumber++;
             }
             
-            
-            
-            
-            
             //now draw the average series
             if (avgIntTSperMethod) {
                 for (String name : mapForAvg.keySet()) {
@@ -444,15 +540,6 @@ public class PlotDrawer {
                     colourNumber++;
                 }
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
             
             rengine.eval("par(new=TRUE)");
                 
