@@ -34,6 +34,7 @@ import models.MLPintNnetar;
 import models.Neuralnet;
 import models.Nnet;
 import models.Nnetar;
+import models.RandomWalkInterval;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -51,11 +52,15 @@ import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
+import params.RandomWalkIntervalParams;
+import utils.ErrorMeasuresInterval;
+import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.R_Bool;
 import utils.Utils;
 import utils.imlp.ExcelWriter;
 import utils.imlp.ExplanatoryVariable;
+import utils.imlp.Interval;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.OutputVariable;
@@ -305,6 +310,8 @@ public class MainFrame extends javax.swing.JFrame {
         paramMLPintNnet_reltolRadius = new javax.swing.JTextField();
         jLabelRPkg1 = new javax.swing.JLabel();
         comboBoxRPackageMLPint = new javax.swing.JComboBox();
+        jLabel63 = new javax.swing.JLabel();
+        textFieldNumNetworksToTrainMLPint = new javax.swing.JTextField();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         sliderPercentTrainIntervalMLP = new javax.swing.JSlider();
@@ -458,6 +465,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunPlotAvgONLY = new javax.swing.JCheckBox();
         checkBoxRunPlotAverageCTS = new javax.swing.JCheckBox();
         checkBoxRunPlotAverageIntTS = new javax.swing.JCheckBox();
+        checkBoxRunIntervalRandomWalk = new javax.swing.JCheckBox();
+        jLabel133 = new javax.swing.JLabel();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -792,7 +801,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel128)
                             .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(9, 9, 9)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -809,7 +818,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
         );
 
         panelEverything.addTab("Data", panelData);
@@ -971,7 +980,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel5)
                     .addComponent(paramNnetar_textFieldLambda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(372, Short.MAX_VALUE))
+                .addContainerGap(373, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnetar, "panelSettingsMLPPackage_nnetar");
@@ -992,7 +1001,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(482, Short.MAX_VALUE))
+                .addContainerGap(483, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_neuralnet, "panelSettingsMLPPackage_neuralnet");
@@ -1748,7 +1757,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel86)
                                     .addComponent(paramMLPint_radius_textFieldLambda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(246, Short.MAX_VALUE))
+                .addContainerGap(244, Short.MAX_VALUE))
         );
 
         panelSettingsMLPintPackage.add(panelSettingsMLPintPackage_nnetar, "panelSettingsMLPintPackage_nnetar");
@@ -2205,6 +2214,10 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jLabel63.setText("Num of networks to train (show best based on efficiency+coverage):");
+
+        textFieldNumNetworksToTrainMLPint.setText("1");
+
         javax.swing.GroupLayout paneSettingsMethodsMLPintLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLPint);
         paneSettingsMethodsMLPint.setLayout(paneSettingsMethodsMLPintLayout);
         paneSettingsMethodsMLPintLayout.setHorizontalGroup(
@@ -2239,6 +2252,12 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelPercentSign1)
                         .addGap(202, 202, 202))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel63)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldNumNetworksToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(151, 151, 151))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 1124, Short.MAX_VALUE))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2269,12 +2288,16 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel48)
                     .addComponent(comboBoxSettingsMLPintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49))
+                .addGap(21, 21, 21)
+                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel63)
+                    .addComponent(textFieldNumNetworksToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 575, Short.MAX_VALUE))
+                .addGap(0, 576, Short.MAX_VALUE))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
-                    .addContainerGap(534, Short.MAX_VALUE)
+                    .addContainerGap(535, Short.MAX_VALUE)
                     .addComponent(panelSettingsMLPintDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
@@ -2629,7 +2652,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
                     .addComponent(jLabel40))
-                .addContainerGap(151, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeCcode, "panelSettingsIntervalMLPModeCcode");
@@ -2650,7 +2673,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsIntervalMLPModeNeuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel32)
-                .addContainerGap(477, Short.MAX_VALUE))
+                .addContainerGap(478, Short.MAX_VALUE))
         );
 
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeNeuralnet, "panelSettingsIntervalMLPModeNeuralnet");
@@ -2922,7 +2945,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(textFieldKNNfnnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(413, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_FNN, "panelSettingsKNNoptions_FNN");
@@ -2997,7 +3020,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBoxKNNcombination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel70))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(316, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_custom, "panelSettingsKNNoptions_custom");
@@ -3041,7 +3064,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel74)
                     .addComponent(textFieldKNNkknnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(413, Short.MAX_VALUE))
+                .addContainerGap(414, Short.MAX_VALUE))
         );
 
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_kknn, "panelSettingsKNNoptions_kknn");
@@ -3119,7 +3142,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGap(0, 275, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -3247,6 +3270,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunPlotAverageIntTS.setText("plot avg ITS");
 
+        checkBoxRunIntervalRandomWalk.setText("random walk for ITS");
+
+        jLabel133.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel133.setText("(takes values from MLP(i) (nnet)!");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -3335,24 +3363,15 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(400, 400, 400)
                                 .addComponent(jLabel72))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(buttonTrainAndTest)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel44)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunIntervalMLPCcode)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunIntervalMLPneuralnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunKNNinterval)
-                                        .addGap(13, 13, 13)))
+                                .addComponent(buttonTrainAndTest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel44)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonRunRestoreRangeAll)
                                 .addGap(81, 81, 81)
@@ -3366,7 +3385,18 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkBoxRunPlotAverageIntTS)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBoxRunPlotAvgONLY)))
+                                .addComponent(checkBoxRunPlotAvgONLY))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunIntervalMLPCcode)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunIntervalMLPneuralnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunKNNinterval)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunIntervalRandomWalk)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel133)
+                                .addGap(295, 295, 295)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -3395,7 +3425,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunKNNinterval)
                             .addComponent(checkBoxRunIntervalMLPneuralnet)
-                            .addComponent(checkBoxRunIntervalMLPCcode)))
+                            .addComponent(checkBoxRunIntervalMLPCcode)
+                            .addComponent(checkBoxRunIntervalRandomWalk)
+                            .addComponent(jLabel133)))
                     .addComponent(jLabelTrainingInfo)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(jLabel41)
@@ -3480,7 +3512,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelForecastValsLayout.setVerticalGroup(
             panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelForecastValsAllLayout = new javax.swing.GroupLayout(panelForecastValsAll);
@@ -3514,7 +3546,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelDiagramsNNsLayout.setVerticalGroup(
             panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 580, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
 
         panelEverything.addTab("Diagrams of NNs", panelDiagramsNNs);
@@ -3917,7 +3949,7 @@ public class MainFrame extends javax.swing.JFrame {
                     File errorMeasuresFile = fileChooser.getSelectedFile();
                     //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
-                        (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_ITS.getModel()), errorMeasuresFile);
+                        (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_IntTS.getModel()), errorMeasuresFile);
                     break;
                 case JFileChooser.CANCEL_OPTION:
                 default:
@@ -3937,7 +3969,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<Double> data = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(colname_CTS)));
         //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
         List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
-        List<TrainAndTestReportInterval> reportsITS = new ArrayList<>();
+        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
 
         if (checkBoxRunMLPnnetar.isSelected()) {
             List<NnetarParams> params = getParamsNnetar();
@@ -3991,7 +4023,7 @@ public class MainFrame extends javax.swing.JFrame {
                     ForecastableIntervals cCode = new IntervalMLPCcode();
                     for (IntervalMLPCcodeParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, p));
-                        reportsITS.add(report);
+                        reportsIntTS.add(report);
                     }
                 }
             }
@@ -4021,7 +4053,7 @@ public class MainFrame extends javax.swing.JFrame {
                 for (MLPintNnetarParams p : params) {
                     TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
                     Collections.unmodifiableList(dataMLPint), p));
-                    reportsITS.add(report);
+                    reportsIntTS.add(report);
                 }
             }
         }
@@ -4050,7 +4082,7 @@ public class MainFrame extends javax.swing.JFrame {
                 for (MLPintNnetParams p : params) {
                     TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(
                     Collections.unmodifiableList(dataMLPint), p));
-                    reportsITS.add(report);
+                    reportsIntTS.add(report);
                 }
             }
         }
@@ -4108,16 +4140,14 @@ public class MainFrame extends javax.swing.JFrame {
                 }
             }
         }
-
+        
         //add more methods/models here
 
-        drawOneOrTwoTables(reportsCTS, reportsITS);
-        
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
         //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
         List<TrainAndTestReport> allReports = new ArrayList<>();
         allReports.addAll(reportsCTS);
-        allReports.addAll(reportsITS);
+        allReports.addAll(reportsIntTS);
         PlotDrawer.drawDiagrams(gdCanvasDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
 
         //show Forecast plot
@@ -4126,15 +4156,22 @@ public class MainFrame extends javax.swing.JFrame {
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdCanvasPlot, panelPlot.getWidth(), panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsITS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
+                reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
                 checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
                 checkBoxRunPlotAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
-        setPlotRanges(reportsCTS.size(), reportsITS.size());
+        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
-        //this.repaint();
+        
+        //show errors
+        boolean includeRandomWalkCTS = false; //TODO add checkbox etc
+        boolean includeRandomWalkIntTS = checkBoxRunIntervalRandomWalk.isSelected();
+        drawOneOrTwoTablesErrorMeasures(reportsCTS, reportsIntTS, includeRandomWalkCTS, includeRandomWalkIntTS);
 
         //and show forecast values in the other pane
+        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsIntTS);
         forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
         forecastValuesLatest.setSize(panelForecastVals.getWidth(), panelForecastVals.getHeight()/2);
         TableColumn firstColumn = forecastValuesLatest.getColumnModel().getColumn(0);
@@ -4304,28 +4341,6 @@ public class MainFrame extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        //////////
-//        System.out.println("starting to hack Java");
-//        System.out.println(System.getProperty("java.library.path"));
-//        
-//        try {
-//        System.setProperty("java.library.path", System.getProperty("java.library.path")
-//                + ";" + System.getenv("R_HOME") + "\\bin\\x64"
-//                + ";" + System.getenv("R_HOME") + "\\library\\rJava\\jri\\x64"
-//                + ";" + System.getenv("R_HOME") + "\\library\\rJava\\jri" //hopefully not needed
-//                + ";" + System.getenv("R_HOME") + "\\library\\rJava\\libs\\x64" //ditto
-//                + ";" + System.getenv("JAVA_HOME") + "\\jre\\bin\\server"); //ditto
-//        Field fieldSysPath = ClassLoader.class.getDeclaredField("sys_paths");
-//        fieldSysPath.setAccessible(true);
-//        fieldSysPath.set(null, null);
-//        } catch (Exception ugly) {
-//            System.err.println(ugly.toString());
-//        }
-//        System.out.println(System.getProperty("java.library.path"));
-//        
-//        System.out.println("finished hacking Java, check for signs of life");
-        //////////
-        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -4383,6 +4398,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
+    private javax.swing.JCheckBox checkBoxRunIntervalRandomWalk;
     private javax.swing.JCheckBox checkBoxRunKNNcustom;
     private javax.swing.JCheckBox checkBoxRunKNNfnn;
     private javax.swing.JCheckBox checkBoxRunKNNinterval;
@@ -4451,6 +4467,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel130;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
+    private javax.swing.JLabel jLabel133;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -4505,6 +4522,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
+    private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
     private javax.swing.JLabel jLabel66;
@@ -4712,6 +4730,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldMLPintDistanceParam_decarvalho_gamma;
     private javax.swing.JTextField textFieldMLPintDistanceParam_euclid_beta;
     private javax.swing.JTextField textFieldMLPintDistanceParam_ichino_gamma;
+    private javax.swing.JTextField textFieldNumNetworksToTrainMLPint;
     private javax.swing.JTextField textFieldPercentTrain;
     private javax.swing.JTextField textFieldPercentTrainARIMA;
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
@@ -4738,13 +4757,13 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
-    private final DataTableModel dataTableModel = new DataTableModel();
+    public static final DataTableModel dataTableModel = new DataTableModel();
     public static GDCanvas drawNowToThisGDCanvas;
     private static GDCanvas gdCanvasPlot;
     private static GDCanvas gdCanvasDiagramsNNs;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
-    private JTable errorMeasuresLatest_CTS;
-    private JTable errorMeasuresLatest_ITS;
+    private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReportCrisp>()));
+    private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReportInterval>())));
     private JTable forecastValuesLatest;
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
     private List<IntervalNamesLowerUpper> listITSPlotLowerUpper = new ArrayList<>();
@@ -5166,6 +5185,8 @@ public class MainFrame extends javax.swing.JFrame {
                 NnetParams.class, resultListRadius);
         setSomethingOneValueAnyParams(MLPintNnetParams.class, workingList, resultList, "setCenterRadius",
                 Boolean.class, radioButtonRunMLPintCenterRadius.isSelected());
+        setSomethingListAnyParams(MLPintNnetParams.class, workingList, resultList, "setNumNetsToTrain",
+                Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainMLPint).subList(0, 1));
         
         return resultList;
     }
@@ -5287,8 +5308,57 @@ public class MainFrame extends javax.swing.JFrame {
         ((OutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).addVariable(var);
     }
     
-    private void drawOneOrTwoTables(List<TrainAndTestReportCrisp> reportsCTS,
-                                    List<TrainAndTestReportInterval> reportsIntTS) {
+    private void drawOneOrTwoTablesErrorMeasures(List<TrainAndTestReportCrisp> reportsCTS,
+                                                 List<TrainAndTestReportInterval> reportsIntTS,
+                                                 boolean includeRandomWalkCTS,
+                                                 boolean includeRandomWalkIntTS) {
+        if (includeRandomWalkCTS) {
+            //TODO
+        }
+        
+        if (includeRandomWalkIntTS) {
+            //random walk to the measures table
+            String colnameLower = comboBoxRunMLPintLower.getSelectedItem().toString();
+            String colnameUpper = comboBoxRunMLPintUpper.getSelectedItem().toString();
+            List<Interval> dataRandomWalk = Utils.zipLowerUpperToIntervals(dataTableModel.getDataForColname(colnameLower),
+                    dataTableModel.getDataForColname(colnameUpper));
+
+            //TODO refactor this switch
+            Distance distanceFunction = null;
+            switch (comboBoxSettingsMLPintDistance.getSelectedItem().toString()) {
+                case "Euclidean distance":
+                    double beta = Double.parseDouble(textFieldMLPintDistanceParam_euclid_beta.getText());
+                    WeightedEuclideanDistance euclid = new WeightedEuclideanDistance(beta);
+                    distanceFunction = euclid;
+                    break;
+                case "Hausdorff distance":
+                    distanceFunction = new HausdorffDistance();
+                    break;
+                case "Ichino-Yaguchi distance":
+                    double gamma = Double.parseDouble(textFieldMLPintDistanceParam_ichino_gamma.getText());
+                    IchinoYaguchiDistance ichino = new IchinoYaguchiDistance(gamma);
+                    distanceFunction = ichino;
+                    break;
+                case "De Carvalho distance":
+                    gamma = Double.parseDouble(textFieldMLPintDistanceParam_decarvalho_gamma.getText());
+                    DeCarvalhoDistance decarvalho = new DeCarvalhoDistance(gamma);
+                    distanceFunction = decarvalho;
+                    break;
+                case "Bertoluzza distance":
+                    gamma = Double.parseDouble(textFieldMLPintDistanceParam_bertoluzza_beta.getText());
+                    BertoluzzaDistance bertoluzza = new BertoluzzaDistance(gamma);
+                    distanceFunction = bertoluzza;
+                    break;
+            }
+            RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
+            params.setPercentTrain(sliderPercentTrainMLPint.getValue()); //TODO prerobit? zatial berie tento
+            params.setDistance(distanceFunction);
+            
+            RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
+            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
+            reportsIntTS.add(report);
+        }
+        
         panelSummary.removeAll();
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //kresli obe
             JTable errorMeasuresTable_CTS = new JTable();
@@ -5316,7 +5386,7 @@ public class MainFrame extends javax.swing.JFrame {
             scrollPaneErrorMeasuresITS.setSize(errorMeasuresTable_ITS.getSize());
             scrollPaneErrorMeasuresITS.setLocation(errorMeasuresTable_ITS.getLocation());
             panelSummary.add(scrollPaneErrorMeasuresITS);
-            errorMeasuresLatest_ITS = errorMeasuresTable_ITS; //and save it for possible future export
+            errorMeasuresLatest_IntTS = errorMeasuresTable_ITS; //and save it for possible future export
         } else {
             if (! reportsCTS.isEmpty()) { //takze IntTS je empty, CTS moze zaplnit cele miesto
                 JTable errorMeasuresTable_CTS = new JTable();
@@ -5342,7 +5412,7 @@ public class MainFrame extends javax.swing.JFrame {
                     JScrollPane scrollPaneErrorMeasuresITS = new JScrollPane(errorMeasuresTable_ITS);
                     scrollPaneErrorMeasuresITS.setSize(errorMeasuresTable_ITS.getSize());
                     panelSummary.add(scrollPaneErrorMeasuresITS);
-                    errorMeasuresLatest_ITS = errorMeasuresTable_ITS; //and save it for possible future export
+                    errorMeasuresLatest_IntTS = errorMeasuresTable_ITS; //and save it for possible future export
                 } //else do not draw anything
             }
         }

@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import utils.imlp.dist.Distance;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
+import utils.imlp.IntervalLowerUpper;
 
 public class Utils {
     
@@ -236,6 +237,30 @@ public class Utils {
         //teraz este doplnit tie NaN na zaciatok:
         for (int i = 0; i < Math.max(lastIndexCenters, lastIndexRadii); i++) {
             intervals.add(new IntervalCentreRadius(NaN, NaN));
+        }
+        
+        Collections.reverse(intervals);
+        
+        return intervals;
+    }
+    
+    public static List<Interval> zipLowerUpperToIntervals(List<Double> lowers, List<Double> uppers) {
+        List<Interval> intervals = new ArrayList<>();
+        
+        int lastIndexLowers = lowers.size() - 1;
+        int lastIndexUppers = uppers.size() - 1;
+        
+        //kvoli lagom to cele zarovna "doprava" a odreze predok, kde trci
+        while ((lastIndexLowers >= 0) && (lastIndexUppers >= 0)) {
+            Interval interval = new IntervalLowerUpper(lowers.get(lastIndexLowers), uppers.get(lastIndexUppers));
+            intervals.add(interval);
+            lastIndexLowers--;
+            lastIndexUppers--;
+        }
+        
+        //teraz este doplnit tie NaN na zaciatok:
+        for (int i = 0; i < Math.max(lastIndexLowers, lastIndexUppers); i++) {
+            intervals.add(new IntervalLowerUpper(NaN, NaN));
         }
         
         Collections.reverse(intervals);

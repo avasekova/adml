@@ -7,11 +7,11 @@ import utils.imlp.Interval;
 
 public class TrainAndTestReportInterval extends TrainAndTestReport {
     
-    private List<Interval> fittedValues;
+    private List<Interval> fittedValues = new ArrayList<>();
     private List<Interval> forecastValuesTest = new ArrayList<>();
     private List<Interval> forecastValuesFuture = new ArrayList<>();
-    private List<Double> realValuesLowers;
-    private List<Double> realValuesUppers;
+    private List<Double> realValuesLowers = new ArrayList<>();
+    private List<Double> realValuesUppers = new ArrayList<>();
     
     public TrainAndTestReportInterval(String modelName) {
         super(modelName);

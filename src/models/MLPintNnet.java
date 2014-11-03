@@ -47,7 +47,6 @@ public class MLPintNnet implements Forecastable {
         return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
     }
 
-    //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
     private TrainAndTestReport doTheActualForecast(List<Double> allData, Params parameters) {
         NnetParams paramsCenter = ((MLPintNnetParams)parameters).getParamsCenter();
         NnetParams paramsRadius = ((MLPintNnetParams)parameters).getParamsRadius();

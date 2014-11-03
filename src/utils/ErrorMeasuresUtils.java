@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.imlp.Interval;
 import utils.imlp.IntervalLowerUpper;
+import utils.imlp.dist.Distance;
 
 public class ErrorMeasuresUtils {
     
@@ -375,4 +376,70 @@ public class ErrorMeasuresUtils {
     public static double width(Interval interval) {
         return width(interval.getLowerBound(), interval.getUpperBound());
     }
+    
+    public static ErrorMeasuresCrisp computeAllErrorMeasuresCrisp(List<Double> realDataTrain, List<Double> realDataTest,
+                                                                  List<Double> fittedTrain, List<Double> forecastsTest) {
+        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+        errorMeasures.setMEtrain(ME(realDataTrain, fittedTrain));
+        errorMeasures.setMEtest(ME(realDataTest, forecastsTest));
+        errorMeasures.setRMSEtrain(RMSE(realDataTrain, fittedTrain));
+        errorMeasures.setRMSEtest(RMSE(realDataTest, forecastsTest));
+        errorMeasures.setMAEtrain(MAE(realDataTrain, fittedTrain));
+        errorMeasures.setMAEtest(MAE(realDataTest, forecastsTest));
+        errorMeasures.setMPEtrain(MPE(realDataTrain, fittedTrain));
+        errorMeasures.setMPEtest(MPE(realDataTest, forecastsTest));
+        errorMeasures.setMAPEtrain(MAPE(realDataTrain, fittedTrain));
+        errorMeasures.setMAPEtest(MAPE(realDataTest, forecastsTest));
+        errorMeasures.setMASEtrain(MASE(realDataTrain, fittedTrain));
+        errorMeasures.setMASEtest(MASE(realDataTest, forecastsTest));
+        errorMeasures.setMSEtrain(MSE(realDataTrain, fittedTrain));
+        errorMeasures.setMSEtest(MSE(realDataTest, forecastsTest));
+        errorMeasures.setTheilUtrain(theilsU(realDataTrain, fittedTrain));
+        errorMeasures.setTheilUtest(theilsU(realDataTest, forecastsTest));
+        
+        return errorMeasures;
+    }
+    
+    public static ErrorMeasuresInterval computeErrorMeasuresIntervalRandomWalk(List<Interval> realData, int percentTrain, Distance distance) {
+        int numTrainingEntries = Math.round(((float) percentTrain/100)*realData.size());
+        
+        List<Interval> trainRealOutputs = realData.subList(1, numTrainingEntries); //mozno chyba o jednicku, ale to je jedno
+        List<Interval> testRealOutputs = realData.subList(numTrainingEntries, realData.size());
+        List<Interval> trainForecastOutputs = realData.subList(0, numTrainingEntries-1);
+        List<Interval> testForecastOutputs = realData.subList(numTrainingEntries-1, realData.size()-1);
+        
+        
+        List<Double> errorsTrain = new ArrayList<>();
+        for (int i = 0; i < trainRealOutputs.size(); i++) {
+            //real = i; forecast = i-1
+            errorsTrain.add(distance.getDistance(trainForecastOutputs.get(i), trainRealOutputs.get(i)));
+        }
+        
+        List<Double> errorsTest = new ArrayList<>();
+        for (int i = 0; i < testRealOutputs.size(); i++) {
+            //real = i; forecast = i-1
+            errorsTest.add(distance.getDistance(testForecastOutputs.get(i), testRealOutputs.get(i)));
+        }
+        
+        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
+        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
+        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
+        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
+        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
+        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
+        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
+        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainRealOutputs, trainForecastOutputs));
+        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testRealOutputs, testForecastOutputs));
+        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainRealOutputs, trainForecastOutputs));
+        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testRealOutputs, testForecastOutputs));
+        errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(trainRealOutputs, trainForecastOutputs));
+        errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(testRealOutputs, testForecastOutputs));
+        errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(trainRealOutputs, trainForecastOutputs));
+        errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(testRealOutputs, testForecastOutputs));
+        
+        return errorMeasures;
+    }
+    
 }

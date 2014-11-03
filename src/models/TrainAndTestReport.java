@@ -6,9 +6,9 @@ public abstract class TrainAndTestReport { //TODO nejak vylepsit, *Interval a *C
     //                                       dat pracovat jednotne...
     
     private final String modelName;
-    private String modelDescription;
+    private String modelDescription = "";
     private ErrorMeasures errorMeasures;
-    private int numTrainingEntries;
+    private int numTrainingEntries = 1;
     private String nnDiagramPlotCode = "";
     
     public TrainAndTestReport(String modelName) { 
