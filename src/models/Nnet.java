@@ -122,24 +122,9 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
 //        report.setForecastValuesFuture(); //nothing yet
         //TODO: it _could_ forecast as long as it does not have expl vars, only lag
         
-        //TODO spocitat zbytok tych error measures
-        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
-        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setMPEtest(ErrorMeasuresUtils.MPE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setMAPEtest(ErrorMeasuresUtils.MAPE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setMASEtest(ErrorMeasuresUtils.MASE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
-        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fittedVals)));
-        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), Utils.arrayToList(forecastVals)));
+        
+        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs),
+                Utils.arrayToList(testingOutputs), Utils.arrayToList(fittedVals), Utils.arrayToList(forecastVals));
         report.setErrorMeasures(errorMeasures);
         
         if (params.getNumForecasts() > 0) {
