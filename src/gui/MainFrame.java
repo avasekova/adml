@@ -4820,7 +4820,7 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
-    public static final DataTableModel dataTableModel = new DataTableModel();
+    private static final DataTableModel dataTableModel = new DataTableModel();
     public static GDCanvas drawNowToThisGDCanvas;
     private static GDCanvas gdCanvasPlot;
     private static GDCanvas gdCanvasDiagramsNNs;
