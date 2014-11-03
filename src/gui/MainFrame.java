@@ -1,5 +1,10 @@
 package gui;
 
+import gui.filefilters.FileFilterEps;
+import gui.filefilters.FileFilterPdf;
+import gui.filefilters.FileFilterPng;
+import gui.filefilters.FileFilterPs;
+import gui.filefilters.FileFilterXlsXlsx;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.FocusEvent;
@@ -3614,26 +3619,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void menuFileLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileLoadActionPerformed
 
         //TODO odkomentovat------------------------------------------------------
-//        JFileChooser fileChooser = new JFileChooser();
+//        JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
 //        fileChooser.setMultiSelectionEnabled(false);
-//        FileFilter fileFilterXLS = new FileFilter() {
-//
-//            @Override
-//            public boolean accept(File f) {
-//                if (f.isDirectory()) {
-//                    return true;
-//                } else {
-//                    String extension = f.getName().substring(f.getName().lastIndexOf('.'));
-//                    return ".xls".equals(extension) || ".xlsx".equals(extension);
-//                }
-//            }
-//            
-//            @Override
-//            public String getDescription() {
-//                return "MS Excel files (.xls, .xlsx)";
-//            }
-//        };
-//        fileChooser.setFileFilter(fileFilterXLS);
+//        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
+//        fileChooser.setFileFilter(new FileFilterXlsXlsx());
 //        if (evt.getSource() == menuFileLoad) {
 //            switch (fileChooser.showOpenDialog(this)) {
 //                case JFileChooser.APPROVE_OPTION:
@@ -3665,7 +3654,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonIMLPAddOutVar.setEnabled(true);
                         buttonIMLPRemoveOutVar.setEnabled(true);
                     }
-//                    break;
+//                    break;filechooser
 //                case JFileChooser.CANCEL_OPTION:
 //                default:
 //                    this.loadedFile = null;
@@ -4255,6 +4244,12 @@ public class MainFrame extends javax.swing.JFrame {
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setSelectedFile(new File("plotExport.eps"));
         
+        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
+        fileChooser.addChoosableFileFilter(new FileFilterEps());
+        fileChooser.addChoosableFileFilter(new FileFilterPs());
+        fileChooser.addChoosableFileFilter(new FileFilterPng());
+        fileChooser.addChoosableFileFilter(new FileFilterPdf());
+        
         if (evt.getSource() == buttonPlotExportPlot) {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
@@ -4262,7 +4257,30 @@ public class MainFrame extends javax.swing.JFrame {
                     //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     //drawNowToThisGDCanvas = gdCanvasPlot;
                     Rengine rengine = MyRengine.getRengine();
-                    rengine.eval("dev.print(postscript, file=\"" + plotFile.getPath().replace("\\", "\\\\") + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+                    
+                    String device = "";
+                    String ext = "";
+                    if (fileChooser.getFileFilter() instanceof FileFilterEps) {
+                        device = "postscript";
+                        ext = "eps";
+                    }
+                    
+                    if (fileChooser.getFileFilter() instanceof FileFilterPs) {
+                        device = "postscript";
+                        ext = "ps";
+                    }
+                    
+                    if (fileChooser.getFileFilter() instanceof FileFilterPng) {
+                        device = "png";
+                        ext = "png";
+                    }
+                    
+                    if (fileChooser.getFileFilter() instanceof FileFilterPdf) {
+                        device = "pdf, paper=\"USr\""; //pdf needs to have the size specified. here = A4 (landscape)
+                        ext = "pdf";
+                    }
+                    
+                    rengine.eval("dev.print(" + device + ", file=\"" + plotFile.getPath().replace("\\", "\\\\") + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
                     rengine.eval("dev.off()");
                     //a na zaver to disablovat, aby sa na to netukalo furt
                     buttonPlotExportPlot.setEnabled(false);
