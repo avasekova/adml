@@ -7,6 +7,7 @@ import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
@@ -480,6 +481,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelForecastVals = new javax.swing.JPanel();
         scrollPaneForecastVals = new javax.swing.JScrollPane();
         panelDiagramsNNs = new javax.swing.JPanel();
+        scrollPaneDiagramsNNs = new javax.swing.JScrollPane();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -3563,20 +3565,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Forecast values", panelForecastValsAll);
 
-        gdBufferedPanelDiagramsNNs = new JGDBufferedPanel(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());
-        panelDiagramsNNs.add(gdBufferedPanelDiagramsNNs, BorderLayout.CENTER);
         panelDiagramsNNs.setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout panelDiagramsNNsLayout = new javax.swing.GroupLayout(panelDiagramsNNs);
-        panelDiagramsNNs.setLayout(panelDiagramsNNsLayout);
-        panelDiagramsNNsLayout.setHorizontalGroup(
-            panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1178, Short.MAX_VALUE)
-        );
-        panelDiagramsNNsLayout.setVerticalGroup(
-            panelDiagramsNNsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
-        );
+        panelDiagramsNNs.add(scrollPaneDiagramsNNs, java.awt.BorderLayout.CENTER);
 
         panelEverything.addTab("Diagrams of NNs", panelDiagramsNNs);
 
@@ -4161,8 +4151,13 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReport> allReports = new ArrayList<>();
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
+        gdBufferedPanelDiagramsNNs = new JGDBufferedPanel(panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight());
         PlotDrawer.drawDiagrams(gdBufferedPanelDiagramsNNs, panelDiagramsNNs.getWidth(), panelDiagramsNNs.getHeight(), allReports);
-
+        scrollPaneDiagramsNNs.setViewportView(drawNowToThisGDBufferedPanel);
+        panelDiagramsNNs.removeAll();
+        panelDiagramsNNs.add(scrollPaneDiagramsNNs);
+        panelDiagramsNNs.repaint();
+        
         //show Forecast plot
         int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
@@ -4768,6 +4763,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioButtonRunMLPintCenterRadius;
     private javax.swing.JRadioButton radioButtonRunMLPintLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
+    private javax.swing.JScrollPane scrollPaneDiagramsNNs;
     private javax.swing.JScrollPane scrollPaneForecastVals;
     private javax.swing.JScrollPane scrollPaneiMLPSettingsExplVars;
     private javax.swing.JScrollPane scrollPaneiMLPSettingsOutVars;

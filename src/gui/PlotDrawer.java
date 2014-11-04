@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JScrollPane;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -941,7 +942,8 @@ public class PlotDrawer {
             }
         }
         
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+        int numRows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, (height/3)*numRows));
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
     }
     
