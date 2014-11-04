@@ -3,14 +3,16 @@ package gui;
 import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
-import utils.imlp.ExplanatoryVariable;
+import utils.IntervalExplanatoryVariable;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
-public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
+public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     
-    public DialogAddExplanatoryVarCcode(java.awt.Frame parent, boolean modal) {
+    private IntervalExplVarsTableModel tableModel;
+    
+    public DialogAddIntervalExplanatoryVar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -192,6 +194,10 @@ public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setExplVarsTableModel(IntervalExplVarsTableModel tableModel) {
+        this.tableModel = tableModel;
+    }
+    
     private void radioButtonAddExplVarLBUBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonAddExplVarLBUBActionPerformed
         if (radioButtonAddExplVarLBUB.isSelected()) {
             labelLB.setEnabled(true);
@@ -219,7 +225,7 @@ public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
     }//GEN-LAST:event_radioButtonAddExplVarCenterRadiusActionPerformed
 
     private void buttonOKAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKAddExplVarActionPerformed
-        ExplanatoryVariable var = new ExplanatoryVariable();
+        IntervalExplanatoryVariable var = new IntervalExplanatoryVariable();
         var.setName(textFieldAddExplVarName.getText());
         var.setLag(Integer.parseInt(spinnerAddExplVarLag.getValue().toString()));
             
@@ -233,7 +239,7 @@ public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
             var.setIntervalNames(names);
         }
         
-        ((MainFrame)(this.getParent())).addToExplVarsTableModel(var);
+        tableModel.addVariable(var);
         
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_buttonOKAddExplVarActionPerformed
@@ -255,20 +261,20 @@ public class DialogAddExplanatoryVarCcode extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogAddExplanatoryVarCcode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAddIntervalExplanatoryVar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogAddExplanatoryVarCcode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAddIntervalExplanatoryVar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogAddExplanatoryVarCcode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAddIntervalExplanatoryVar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogAddExplanatoryVarCcode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAddIntervalExplanatoryVar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogAddExplanatoryVarCcode dialog = new DialogAddExplanatoryVarCcode(new javax.swing.JFrame(), true);
+                DialogAddIntervalExplanatoryVar dialog = new DialogAddIntervalExplanatoryVar(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

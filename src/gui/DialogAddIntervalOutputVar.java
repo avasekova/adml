@@ -5,11 +5,13 @@ import java.util.List;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.OutputVariable;
+import utils.IntervalOutputVariable;
 
-public class DialogAddOutputVarCcode extends javax.swing.JDialog {
+public class DialogAddIntervalOutputVar extends javax.swing.JDialog {
     
-    public DialogAddOutputVarCcode(java.awt.Frame parent, boolean modal) {
+    private IntervalOutVarsTableModel tableModel;
+    
+    public DialogAddIntervalOutputVar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -163,6 +165,10 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setOutVarsTableModel(IntervalOutVarsTableModel tableModel) {
+        this.tableModel = tableModel;
+    }
+    
     private void radioButtonAddExplVarLBUBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonAddExplVarLBUBActionPerformed
         if (radioButtonAddExplVarLBUB.isSelected()) {
             labelLB.setEnabled(true);
@@ -190,7 +196,7 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
     }//GEN-LAST:event_radioButtonAddExplVarCenterRadiusActionPerformed
 
     private void buttonOKAddOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKAddOutVarActionPerformed
-        OutputVariable var = new OutputVariable();
+        IntervalOutputVariable var = new IntervalOutputVariable();
         var.setName(textFieldAddOutVarName.getText());
             
         if (radioButtonAddExplVarCenterRadius.isSelected()) {
@@ -203,7 +209,7 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
             var.setIntervalNames(names);
         }
         
-        ((MainFrame)(this.getParent())).addToOutVarsTableModel(var);
+        tableModel.addVariable(var);
         
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_buttonOKAddOutVarActionPerformed
@@ -225,7 +231,7 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogAddOutputVarCcode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogAddIntervalOutputVar.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -233,7 +239,7 @@ public class DialogAddOutputVarCcode extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogAddOutputVarCcode dialog = new DialogAddOutputVarCcode(new javax.swing.JFrame(), true);
+                DialogAddIntervalOutputVar dialog = new DialogAddIntervalOutputVar(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

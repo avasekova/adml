@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import utils.imlp.ExplanatoryVariable;
+import utils.IntervalExplanatoryVariable;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
-public class ExplVarsTableModel extends AbstractTableModel {
+public class IntervalExplVarsTableModel extends AbstractTableModel {
     
-    private List<ExplanatoryVariable> variables = new ArrayList<>();
+    private List<IntervalExplanatoryVariable> variables = new ArrayList<>();
     private final String[] columnNames = new String[]{ "Name", "At time", ""};
     
-    public void addVariable(ExplanatoryVariable var) {
+    public void addVariable(IntervalExplanatoryVariable var) {
         if (! variables.contains(var)) {
             if ("".equals(var.getName())) {
                 var.setName("Variable" + (variables.size() + 1));
@@ -53,7 +53,7 @@ public class ExplVarsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        ExplanatoryVariable var = variables.get(rowIndex);
+        IntervalExplanatoryVariable var = variables.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return var.getName();
@@ -70,7 +70,7 @@ public class ExplVarsTableModel extends AbstractTableModel {
         return "(NA)";
     }
     
-    public List<ExplanatoryVariable> getVariables() {
+    public List<IntervalExplanatoryVariable> getVariables() {
         return Collections.unmodifiableList(variables);
     }
 }

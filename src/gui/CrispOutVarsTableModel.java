@@ -4,16 +4,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import utils.imlp.IntervalNamesCentreRadius;
-import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.OutputVariable;
+import utils.CrispOutputVariable;
 
-public class OutVarsTableModel extends AbstractTableModel {
+public class CrispOutVarsTableModel extends AbstractTableModel {
 
-    private List<OutputVariable> variables = new ArrayList<>();
+    private List<CrispOutputVariable> variables = new ArrayList<>();
     private final String[] columnNames = new String[]{ "Name", "" };
     
-    public void addVariable(OutputVariable var) {
+    public void addVariable(CrispOutputVariable var) {
         if (! variables.contains(var)) {
             if ("".equals(var.getName())) {
                 var.setName("Variable" + (variables.size() + 1));
@@ -53,22 +51,18 @@ public class OutVarsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        OutputVariable var = variables.get(rowIndex);
+        CrispOutputVariable var = variables.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return var.getName();
             case 1:
-                if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
-                    return ((IntervalNamesCentreRadius) var.getIntervalNames()).toString();
-                } else {
-                    return ((IntervalNamesLowerUpper) var.getIntervalNames()).toString();
-                }
+                return var.getFieldName();
         }
         
         return "(NA)";
     }
     
-    public List<OutputVariable> getVariables() {
+    public List<CrispOutputVariable> getVariables() {
         return Collections.unmodifiableList(variables);
     }
 }

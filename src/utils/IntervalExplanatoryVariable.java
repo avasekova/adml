@@ -1,9 +1,12 @@
-package utils.imlp;
+package utils;
 
-public class OutputVariable {
+import utils.imlp.IntervalNames;
+
+public class IntervalExplanatoryVariable {
     
     private String name;
     private IntervalNames intervalNames;
+    private int lag;
 
     public String getName() {
         return name;
@@ -20,6 +23,14 @@ public class OutputVariable {
     public void setIntervalNames(IntervalNames intervalNames) {
         this.intervalNames = intervalNames;
     }
+
+    public int getLag() {
+        return lag;
+    }
+
+    public void setLag(int lag) {
+        this.lag = lag;
+    }
     
     @Override
     public boolean equals(Object obj) {
@@ -31,9 +42,9 @@ public class OutputVariable {
             return false;
         }
         
-        final OutputVariable other = (OutputVariable) obj;
+        final IntervalExplanatoryVariable other = (IntervalExplanatoryVariable) obj;
         
-        return (this.name.equals(other.name)) && (this.intervalNames.equals(other.intervalNames));
+        return (this.name.equals(other.name)) && (this.lag == other.lag) && (this.intervalNames.equals(other.intervalNames));
     }
 
     @Override
@@ -41,6 +52,7 @@ public class OutputVariable {
         int hash = 3;
         hash = 17 * hash + this.name.hashCode();
         hash = 17 * hash + this.intervalNames.hashCode();
+        hash = 17 * hash + this.lag;
         return hash;
     }
 }

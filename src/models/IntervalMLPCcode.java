@@ -14,12 +14,12 @@ import params.Params;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
-import utils.imlp.ExplanatoryVariable;
+import utils.IntervalExplanatoryVariable;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.OutputVariable;
+import utils.IntervalOutputVariable;
 import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.HausdorffDistance;
@@ -229,13 +229,13 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         return report;
     }
     
-    private List<List<Double>> prepareData(DataTableModel dataTableModel, List<ExplanatoryVariable> explVars, 
-                                                                          List<OutputVariable> outVars,
+    private List<List<Double>> prepareData(DataTableModel dataTableModel, List<IntervalExplanatoryVariable> explVars, 
+                                                                          List<IntervalOutputVariable> outVars,
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
         int maxLag = 0;
-        for (ExplanatoryVariable var : explVars) {
+        for (IntervalExplanatoryVariable var : explVars) {
             List<Double> centers;
             List<Double> radii;
             
@@ -261,7 +261,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             maxLag = Math.max(maxLag, var.getLag());
         }
         
-        for (OutputVariable var : outVars) {
+        for (IntervalOutputVariable var : outVars) {
             List<Double> centers;
             List<Double> radii;
             
@@ -285,10 +285,10 @@ public class IntervalMLPCcode implements ForecastableIntervals {
             data.add(radii);
         }
         
-        return trimDataToRectangle(data, maxLag);
+        return IntervalMLPCcode.trimDataToRectangle(data, maxLag);
     }
 
-    private List<List<Double>> trimDataToRectangle(List<List<Double>> data, int maxLag) {
+    public static List<List<Double>> trimDataToRectangle(List<List<Double>> data, int maxLag) {
         List<List<Double>> trimmedData = new ArrayList<>();
         
         for (List<Double> column : data) {

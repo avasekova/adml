@@ -1,9 +1,11 @@
-package utils.imlp;
+package utils;
 
-public class ExplanatoryVariable {
+import utils.imlp.IntervalNames;
+
+public class CrispExplanatoryVariable {
     
     private String name;
-    private IntervalNames intervalNames;
+    private String fieldName;
     private int lag;
 
     public String getName() {
@@ -14,12 +16,12 @@ public class ExplanatoryVariable {
         this.name = name;
     }
 
-    public IntervalNames getIntervalNames() {
-        return intervalNames;
+    public String getFieldName() {
+        return fieldName;
     }
 
-    public void setIntervalNames(IntervalNames intervalNames) {
-        this.intervalNames = intervalNames;
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 
     public int getLag() {
@@ -40,16 +42,16 @@ public class ExplanatoryVariable {
             return false;
         }
         
-        final ExplanatoryVariable other = (ExplanatoryVariable) obj;
+        final CrispExplanatoryVariable other = (CrispExplanatoryVariable) obj;
         
-        return (this.name.equals(other.name)) && (this.lag == other.lag) && (this.intervalNames.equals(other.intervalNames));
+        return (this.name.equals(other.name)) && (this.lag == other.lag) && (this.fieldName.equals(other.fieldName));
     }
 
     @Override
     public int hashCode() {
         int hash = 3;
         hash = 17 * hash + this.name.hashCode();
-        hash = 17 * hash + this.intervalNames.hashCode();
+        hash = 17 * hash + this.fieldName.hashCode();
         hash = 17 * hash + this.lag;
         return hash;
     }
