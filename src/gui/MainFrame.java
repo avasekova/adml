@@ -16,7 +16,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -47,6 +49,7 @@ import models.RandomWalkInterval;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
+import models.VAR;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import params.ArimaParams;
@@ -62,6 +65,7 @@ import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
 import params.RandomWalkIntervalParams;
+import params.VARParams;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
@@ -427,6 +431,15 @@ public class MainFrame extends javax.swing.JFrame {
         spinnerKNNnumNeighboursKKNN = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
         jLabel75 = new javax.swing.JLabel();
         comboBoxKNNoptions = new javax.swing.JComboBox();
+        paneSettingsMethodsVAR = new javax.swing.JPanel();
+        jLabel134 = new javax.swing.JLabel();
+        textFieldSettingsVARlag = new javax.swing.JTextField();
+        jLabel135 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        listSettingsVAREndogenousVars = new javax.swing.JList();
+        jLabel136 = new javax.swing.JLabel();
+        comboBoxSettingsVARtype = new javax.swing.JComboBox();
+        jLabel138 = new javax.swing.JLabel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -476,6 +489,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunPlotAverageIntTS = new javax.swing.JCheckBox();
         checkBoxRunIntervalRandomWalk = new javax.swing.JCheckBox();
         jLabel133 = new javax.swing.JLabel();
+        checkBoxRunVAR = new javax.swing.JCheckBox();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -3129,6 +3143,64 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("kNN", paneSettingsMethodsKNN);
 
+        jLabel134.setText("Lag:");
+
+        textFieldSettingsVARlag.setText("1");
+
+        jLabel135.setText("Endogenous variables:");
+
+        listSettingsVAREndogenousVars.setModel(new DefaultListModel());
+        jScrollPane5.setViewportView(listSettingsVAREndogenousVars);
+
+        jLabel136.setText("Type of deterministic regressors to include:");
+
+        comboBoxSettingsVARtype.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "const", "trend", "both", "none" }));
+
+        jLabel138.setText("Shows fit and forecast for the var selected in CTS Run.");
+
+        javax.swing.GroupLayout paneSettingsMethodsVARLayout = new javax.swing.GroupLayout(paneSettingsMethodsVAR);
+        paneSettingsMethodsVAR.setLayout(paneSettingsMethodsVARLayout);
+        paneSettingsMethodsVARLayout.setHorizontalGroup(
+            paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
+                            .addComponent(jLabel134)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(textFieldSettingsVARlag, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel135)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
+                            .addComponent(jLabel136)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(comboBoxSettingsVARtype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel138))
+                .addContainerGap(823, Short.MAX_VALUE))
+        );
+        paneSettingsMethodsVARLayout.setVerticalGroup(
+            paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel135)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel134)
+                    .addComponent(textFieldSettingsVARlag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel136)
+                    .addComponent(comboBoxSettingsVARtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addComponent(jLabel138)
+                .addContainerGap(344, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("VAR", paneSettingsMethodsVAR);
+
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
@@ -3306,6 +3378,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel133.setForeground(new java.awt.Color(255, 0, 0));
         jLabel133.setText("(takes values from MLP(i) (nnet)!");
 
+        checkBoxRunVAR.setText("VAR");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -3389,7 +3463,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunKNNcustom)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBoxRunKNNkknn))
+                                .addComponent(checkBoxRunKNNkknn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunVAR))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addGap(400, 400, 400)
                                 .addComponent(jLabel72))
@@ -3445,7 +3521,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxRunARIMA)
                             .addComponent(checkBoxRunKNNfnn)
                             .addComponent(checkBoxRunKNNcustom)
-                            .addComponent(checkBoxRunKNNkknn))
+                            .addComponent(checkBoxRunKNNkknn)
+                            .addComponent(checkBoxRunVAR))
                         .addGap(1, 1, 1)
                         .addComponent(jLabel72)
                         .addGap(18, 18, 18)
@@ -3632,6 +3709,7 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxRunMLPintRadius.addItem(colname);
                         comboBoxRunMLPintLower.addItem(colname);
                         comboBoxRunMLPintUpper.addItem(colname);
+                        ((DefaultListModel)(listSettingsVAREndogenousVars.getModel())).addElement(colname);
                     }
                     
                     if (! dataTableModel.getColnames().isEmpty()) {
@@ -4144,6 +4222,19 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
+        if (checkBoxRunVAR.isSelected()) {
+            List<VARParams> params = getParamsVAR();
+            
+            showDialogTooManyModelsInCase(params.size(), "VAR");
+            if (continueWithTooManyModels) {
+                Forecastable var = new VAR();
+                for (VARParams p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (var.forecast(new ArrayList<Double>(), p));
+                    reportsCTS.add(report);
+                }
+            }
+        }
+        
         //add more methods/models here
 
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
@@ -4474,6 +4565,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunPlotAverageIntTS;
     private javax.swing.JCheckBox checkBoxRunPlotAverageIntTSperMethod;
     private javax.swing.JCheckBox checkBoxRunPlotAvgONLY;
+    private javax.swing.JCheckBox checkBoxRunVAR;
     private javax.swing.JCheckBox checkBoxSettingsARIMAconstant;
     private javax.swing.JCheckBox checkBoxSettingsARIMAoptimize;
     private javax.swing.JComboBox comboBoxColnamesRun;
@@ -4490,6 +4582,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxSettingsIMLPcCodeDistance;
     private javax.swing.JComboBox comboBoxSettingsIntervalMLPCriterion;
     private javax.swing.JComboBox comboBoxSettingsMLPintDistance;
+    private javax.swing.JComboBox comboBoxSettingsVARtype;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
@@ -4529,6 +4622,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
+    private javax.swing.JLabel jLabel134;
+    private javax.swing.JLabel jLabel135;
+    private javax.swing.JLabel jLabel136;
+    private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -4636,6 +4733,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -4656,6 +4754,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JList listColnames;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listSettingsIntervalMLPDistancesUsed;
+    private javax.swing.JList listSettingsVAREndogenousVars;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -4667,6 +4766,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel paneSettingsMethodsKNN;
     private javax.swing.JPanel paneSettingsMethodsMLP;
     private javax.swing.JPanel paneSettingsMethodsMLPint;
+    private javax.swing.JPanel paneSettingsMethodsVAR;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
@@ -4816,6 +4916,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldSettingsARIMAseasP;
     private javax.swing.JTextField textFieldSettingsARIMAseasQ;
     private javax.swing.JTextField textFieldSettingsIntervalMLPnumNetworks;
+    private javax.swing.JTextField textFieldSettingsVARlag;
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
@@ -5302,6 +5403,43 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(spinnerKNNnumNeighboursKKNN.getValue().toString()));
         setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setLag",
                 Integer.class, Utils.getIntegersOrDefault(textFieldKNNkknnLag));
+        
+        return resultList;
+    }
+    
+    private List<VARParams> getParamsVAR() {
+        List<VARParams> workingList = new ArrayList<>();
+        VARParams par = new VARParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(100); //uses all data for training
+        
+        List<VARParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        setSomethingListAnyParams(VARParams.class, workingList, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(VARParams.class, workingList, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingListAnyParams(VARParams.class, workingList, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setSomethingOneValueAnyParams(VARParams.class, workingList, resultList, "setEndogenousVars",
+                List.class, listSettingsVAREndogenousVars.getSelectedValuesList());
+        setSomethingListAnyParams(VARParams.class, workingList, resultList, "setLag",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsVARlag.getText()));
+        setSomethingOneValueAnyParams(VARParams.class, workingList, resultList, "setType",
+                String.class, comboBoxSettingsVARtype.getSelectedItem().toString());
+        setSomethingOneValueAnyParams(VARParams.class, workingList, resultList, "setOutputVarName",
+                String.class, comboBoxColnamesRun.getSelectedItem().toString());
+        setSomethingOneValueAnyParams(VARParams.class, workingList, resultList, "setOutputVarVals",
+                List.class, dataTableModel.getDataForColname(comboBoxColnamesRun.getSelectedItem().toString()));
+        
+        Map<String, List<Double>> data = new HashMap<>();
+        for (Object var : listSettingsVAREndogenousVars.getSelectedValuesList()) {
+            data.put(var.toString(), dataTableModel.getDataForColname(var.toString()));
+        }
+        setSomethingOneValueAnyParams(VARParams.class, workingList, resultList, "setData", Map.class, data);
+        
+        
         
         return resultList;
     }

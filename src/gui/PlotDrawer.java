@@ -812,9 +812,14 @@ public class PlotDrawer {
                 next = true;
             }
             rangesY.append(Utils.minArray(r.getFittedValues())).append(", ");
-            rangesY.append(Utils.maxArray(r.getFittedValues())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValuesTest())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValuesTest()));
+            rangesY.append(Utils.maxArray(r.getFittedValues()));
+            
+            if (r.getForecastValuesTest().length > 0) {
+                rangesY.append(", ");
+                rangesY.append(Utils.minArray(r.getForecastValuesTest())).append(", ");
+                rangesY.append(Utils.maxArray(r.getForecastValuesTest()));
+            }
+            
             if (r.getForecastValuesFuture().length > 0) {
                 rangesY.append(", ");
                 rangesY.append(Utils.minArray(r.getForecastValuesFuture())).append(", ");
