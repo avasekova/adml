@@ -7,7 +7,6 @@ import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
@@ -71,11 +70,7 @@ import params.RBFintParams;
 import params.RandomWalkIntervalParams;
 import params.VARParams;
 import utils.CrispOutputVariable;
-import utils.ErrorMeasuresInterval;
-import utils.ErrorMeasuresUtils;
 import utils.ExcelWriter;
-import utils.IntervalExplanatoryVariable;
-import utils.IntervalOutputVariable;
 import utils.MyRengine;
 import utils.R_Bool;
 import utils.Utils;
@@ -514,7 +509,6 @@ public class MainFrame extends javax.swing.JFrame {
         listSettingsVAREndogenousVars = new javax.swing.JList();
         jLabel136 = new javax.swing.JLabel();
         comboBoxSettingsVARtype = new javax.swing.JComboBox();
-        jLabel138 = new javax.swing.JLabel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -3235,31 +3229,30 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jLabel156))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(sliderPercentTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(scrollPaneRBFint_center_SettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                    .addComponent(jLabel145)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(buttonRBFint_center_AddExplVar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(buttonRBFint_center_RemoveExplVar))
-                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                    .addComponent(jLabel146)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(comboBoxSettingsRBFint_center_outputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel147))
-                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                    .addComponent(jLabel144)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textFieldSettingsRBFint_center_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel163))
-                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                    .addComponent(jLabel148)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(textFieldSettingsRBFint_center_maxIt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jLabel150)))
+                            .addComponent(scrollPaneRBFint_center_SettingsExplVars, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                .addComponent(jLabel145)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonRBFint_center_AddExplVar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonRBFint_center_RemoveExplVar))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                .addComponent(jLabel146)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(comboBoxSettingsRBFint_center_outputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel147))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                .addComponent(jLabel144)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldSettingsRBFint_center_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel163))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                .addComponent(jLabel148)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldSettingsRBFint_center_maxIt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel150, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addGap(9, 9, 9)
@@ -3775,27 +3768,23 @@ public class MainFrame extends javax.swing.JFrame {
 
         comboBoxSettingsVARtype.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "const", "trend", "both", "none" }));
 
-        jLabel138.setText("Shows fit and forecast for the var selected in CTS Run.");
-
         javax.swing.GroupLayout paneSettingsMethodsVARLayout = new javax.swing.GroupLayout(paneSettingsMethodsVAR);
         paneSettingsMethodsVAR.setLayout(paneSettingsMethodsVARLayout);
         paneSettingsMethodsVARLayout.setHorizontalGroup(
             paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
-                            .addComponent(jLabel134)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(textFieldSettingsVARlag, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel135)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
-                            .addComponent(jLabel136)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(comboBoxSettingsVARtype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jLabel138))
+                .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
+                        .addComponent(jLabel134)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldSettingsVARlag, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel135)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
+                        .addComponent(jLabel136)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboBoxSettingsVARtype, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(823, Short.MAX_VALUE))
         );
         paneSettingsMethodsVARLayout.setVerticalGroup(
@@ -3813,9 +3802,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel136)
                     .addComponent(comboBoxSettingsVARtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40)
-                .addComponent(jLabel138)
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(398, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("VAR", paneSettingsMethodsVAR);
@@ -4869,10 +4856,10 @@ public class MainFrame extends javax.swing.JFrame {
             
             showDialogTooManyModelsInCase(params.size(), "VAR");
             if (continueWithTooManyModels) {
-                Forecastable var = new VAR();
+                VAR var = new VAR();
                 for (VARParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (var.forecast(new ArrayList<Double>(), p));
-                    reportsCTS.add(report);
+                    List<TrainAndTestReportCrisp> reports = var.forecast(new ArrayList<Double>(), p);
+                    reportsCTS.addAll(reports);
                 }
             }
         }
@@ -5399,7 +5386,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel135;
     private javax.swing.JLabel jLabel136;
     private javax.swing.JLabel jLabel137;
-    private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel139;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel140;
