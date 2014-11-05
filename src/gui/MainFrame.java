@@ -397,6 +397,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldSettingsRBFnumHidden = new javax.swing.JTextField();
         jLabel141 = new javax.swing.JLabel();
         textFieldSettingsRBFmaxIt = new javax.swing.JTextField();
+        jLabel142 = new javax.swing.JLabel();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         labelSettingsARIMAnonseas = new javax.swing.JLabel();
         labelSettingsARIMAnonseasP = new javax.swing.JLabel();
@@ -2820,8 +2821,10 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel139.setText("Output variable:");
+        jLabel139.setEnabled(false);
 
         comboBoxSettingsRBFoutputVar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        comboBoxSettingsRBFoutputVar.setEnabled(false);
 
         jLabel140.setText("Number of neurons in the hidden layer:");
 
@@ -2830,6 +2833,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel141.setText("Maximum number of iterations:");
 
         textFieldSettingsRBFmaxIt.setText("1000");
+
+        jLabel142.setForeground(new java.awt.Color(255, 51, 0));
+        jLabel142.setText("(Takes the one selected in CTS Run.)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -2856,7 +2862,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel139)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel142))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel140)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2891,7 +2899,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel139)
-                    .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel142))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel141)
@@ -4834,6 +4843,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel140;
     private javax.swing.JLabel jLabel141;
+    private javax.swing.JLabel jLabel142;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -5679,9 +5689,9 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldSettingsRBFnumHidden));
         setSomethingOneValueAnyParams(RBFParams.class, workingList, resultList, "setExplVars",
                 List.class, ((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).getVariables());
-        CrispOutputVariable outVar = new CrispOutputVariable();
-        outVar.setName(comboBoxSettingsRBFoutputVar.getSelectedItem().toString() + comboBoxSettingsRBFoutputVar.getSelectedIndex());
-        outVar.setFieldName(comboBoxSettingsRBFoutputVar.getSelectedItem().toString());
+        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
+        outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
+        outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
         List<CrispOutputVariable> outVarList = new ArrayList<>();
         outVarList.add(outVar);
         setSomethingOneValueAnyParams(RBFParams.class, workingList, resultList, "setOutVars",
