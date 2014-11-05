@@ -3982,7 +3982,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunIntervalRandomWalk.setText("random walk for ITS");
 
         jLabel133.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel133.setText("(takes values from MLP(i) (nnet)!");
+        jLabel133.setText("(takes values from (i)TS lower upper! and distance from MLP(i)nnet)");
 
         checkBoxRunVAR.setText("VAR");
 
@@ -4901,6 +4901,31 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
+//        if (checkBoxRunCrispRandomWalk.isSelected()) {
+//            //TODO
+//        }
+        
+        if (checkBoxRunIntervalRandomWalk.isSelected()) {
+            String colnameLower = comboBoxRunFakeIntLower.getSelectedItem().toString();
+            String colnameUpper = comboBoxRunFakeIntUpper.getSelectedItem().toString();
+            List<Interval> dataRandomWalk = Utils.zipLowerUpperToIntervals(dataTableModel.getDataForColname(colnameLower),
+                    dataTableModel.getDataForColname(colnameUpper));
+
+            Distance distanceFunction = getSelectedDistance(comboBoxSettingsMLPintDistance, textFieldMLPintDistanceParam_euclid_beta,
+                    textFieldMLPintDistanceParam_ichino_gamma, textFieldMLPintDistanceParam_decarvalho_gamma,
+                    textFieldMLPintDistanceParam_bertoluzza_beta);
+            RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
+            params.setPercentTrain(sliderPercentTrainMLPint.getValue()); //TODO prerobit? zatial berie tento
+            params.setDistance(distanceFunction);
+            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+            
+            RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
+            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
+            reportsIntTS.add(report);
+        }
+        
         //add more methods/models here
 
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
@@ -4929,9 +4954,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotExportPlot.setEnabled(true);
         
         //show errors
-        boolean includeRandomWalkCTS = false; //TODO add checkbox etc
-        boolean includeRandomWalkIntTS = checkBoxRunIntervalRandomWalk.isSelected();
-        drawOneOrTwoTablesErrorMeasures(reportsCTS, reportsIntTS, includeRandomWalkCTS, includeRandomWalkIntTS);
+        drawOneOrTwoTablesErrorMeasures(reportsCTS, reportsIntTS);
 
         //and show forecast values in the other pane
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
@@ -6395,32 +6418,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private void drawOneOrTwoTablesErrorMeasures(List<TrainAndTestReportCrisp> reportsCTS,
-                                                 List<TrainAndTestReportInterval> reportsIntTS,
-                                                 boolean includeRandomWalkCTS,
-                                                 boolean includeRandomWalkIntTS) {
-        if (includeRandomWalkCTS) {
-            //TODO
-        }
-        
-        if (includeRandomWalkIntTS) {
-            //random walk to the measures table
-            String colnameLower = comboBoxRunFakeIntLower.getSelectedItem().toString();
-            String colnameUpper = comboBoxRunFakeIntUpper.getSelectedItem().toString();
-            List<Interval> dataRandomWalk = Utils.zipLowerUpperToIntervals(dataTableModel.getDataForColname(colnameLower),
-                    dataTableModel.getDataForColname(colnameUpper));
-
-            Distance distanceFunction = getSelectedDistance(comboBoxSettingsMLPintDistance, textFieldMLPintDistanceParam_euclid_beta,
-                    textFieldMLPintDistanceParam_ichino_gamma, textFieldMLPintDistanceParam_decarvalho_gamma,
-                    textFieldMLPintDistanceParam_bertoluzza_beta);
-            RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
-            params.setPercentTrain(sliderPercentTrainMLPint.getValue()); //TODO prerobit? zatial berie tento
-            params.setDistance(distanceFunction);
-            
-            RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
-            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
-            reportsIntTS.add(report);
-        }
-        
+                                                 List<TrainAndTestReportInterval> reportsIntTS) {
         panelSummary.removeAll();
         JTabbedPane tabbedPaneTablesErrors = new JTabbedPane(JTabbedPane.TOP);
         tabbedPaneTablesErrors.setSize(panelSummary.getWidth(), panelSummary.getHeight());
