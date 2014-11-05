@@ -35,9 +35,8 @@ public class RBFint {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        //TODO nechat vybrat distance! ((RBFintParams)parameters).getDistanceFunction()
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, new WeightedEuclideanDistance(0.5));
-        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, new WeightedEuclideanDistance(0.5));
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((RBFintParams)parameters).getDistance());
+        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((RBFintParams)parameters).getDistance());
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
@@ -58,7 +57,7 @@ public class RBFint {
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("RBF(i)");
-//        report.setModelDescription("(" + ((RBFintParams)parameters).getDistanceFunction() + ")");
+        report.setModelDescription("(" + ((RBFintParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

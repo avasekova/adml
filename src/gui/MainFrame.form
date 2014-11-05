@@ -3464,6 +3464,8 @@
                                       <Component id="jLabel140" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="textFieldSettingsRBFnumHidden" min="-2" pref="40" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel162" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel141" min="-2" max="-2" attributes="0"/>
@@ -3491,6 +3493,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel140" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="textFieldSettingsRBFnumHidden" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel162" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -3605,7 +3608,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="textFieldSettingsRBFnumHidden">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="1"/>
+                        <Property name="text" type="java.lang.String" value="2"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel141">
@@ -3624,6 +3627,14 @@
                           <Color blue="0" green="33" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="(Takes the one selected in CTS Run.)"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel162">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="For some reason crashes with num=1."/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -3645,43 +3656,52 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel143" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Component id="jLabelPercTrain4" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel156" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="sliderPercentTrainRBFint" min="-2" pref="270" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel157" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="comboBoxSettingsRBFintDistance" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="panelSettingsRBFintDistanceParams" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Component id="jLabelPercTrain4" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel156" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
-                                              <Component id="scrollPaneRBFint_center_SettingsExplVars" pref="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel145" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonRBFint_center_AddExplVar" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonRBFint_center_RemoveExplVar" min="-2" max="-2" attributes="0"/>
+                                              <Component id="sliderPercentTrainRBFint" min="-2" pref="270" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel146" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="comboBoxSettingsRBFint_center_outputVar" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jLabel147" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" alignment="0" groupAlignment="0" attributes="0">
+                                              <Component id="scrollPaneRBFint_center_SettingsExplVars" alignment="0" pref="0" max="32767" attributes="0"/>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel145" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="buttonRBFint_center_AddExplVar" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="buttonRBFint_center_RemoveExplVar" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel146" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxSettingsRBFint_center_outputVar" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel147" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel144" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="textFieldSettingsRBFint_center_numHidden" min="-2" pref="40" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="jLabel163" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Group type="102" alignment="0" attributes="0">
+                                                  <Component id="jLabel148" min="-2" max="-2" attributes="0"/>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="textFieldSettingsRBFint_center_maxIt" min="-2" pref="45" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="jLabel150" alignment="0" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel144" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="textFieldSettingsRBFint_center_numHidden" min="-2" pref="40" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel148" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="textFieldSettingsRBFint_center_maxIt" min="-2" pref="45" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="jLabel150" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
@@ -3707,6 +3727,8 @@
                                                       <Component id="jLabel149" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="textFieldSettingsRBFint_radius_numHidden" min="-2" pref="40" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel164" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="jLabel155" min="-2" max="-2" attributes="0"/>
@@ -3741,6 +3763,7 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="jLabel149" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="textFieldSettingsRBFint_radius_numHidden" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel164" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -3785,6 +3808,7 @@
                                               <Group type="103" groupAlignment="3" attributes="0">
                                                   <Component id="jLabel144" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   <Component id="textFieldSettingsRBFint_center_numHidden" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel163" alignment="3" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="3" attributes="0">
@@ -3813,7 +3837,15 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="270" max="32767" attributes="0"/>
+                              <EmptySpace min="59" pref="59" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="panelSettingsRBFintDistanceParams" alignment="0" min="-2" pref="20" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel157" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="comboBoxSettingsRBFintDistance" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="191" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -3859,7 +3891,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="textFieldSettingsRBFint_center_numHidden">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="1"/>
+                        <Property name="text" type="java.lang.String" value="2"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel145">
@@ -3962,7 +3994,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="textFieldSettingsRBFint_radius_numHidden">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="1"/>
+                        <Property name="text" type="java.lang.String" value="2"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel152">
@@ -4053,6 +4085,235 @@
                           <Color blue="0" green="0" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="(Only center and radius.)"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel157">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Distance to use for computing the error measures:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="comboBoxSettingsRBFintDistance">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Euclidean distance&quot;, &quot;Hausdorff distance&quot;, &quot;Ichino-Yaguchi distance&quot;, &quot;De Carvalho distance&quot;, &quot;Bertoluzza distance&quot; })" type="code"/>
+                        </Property>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxSettingsRBFintDistanceActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="panelSettingsRBFintDistanceParams">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="panelSettingsRBFintDistanceParams_euclid">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsRBFintDistanceParams_euclid"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel158" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="textFieldSettingsRBFintDistanceParams_euclid_beta" min="-2" pref="40" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="83" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel158" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldSettingsRBFintDistanceParams_euclid_beta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel158">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="beta:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="textFieldSettingsRBFintDistanceParams_euclid_beta">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.5"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsRBFintDistanceParams_hausdorff">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsRBFintDistanceParams_hausdorff"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <EmptySpace min="0" pref="159" max="32767" attributes="0"/>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsRBFintDistanceParams_ichino">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsRBFintDistanceParams_ichino"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel159" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="textFieldSettingsRBFintDistanceParams_ichino_gamma" min="-2" pref="42" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="75" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel159" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldSettingsRBFintDistanceParams_ichino_gamma" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel159">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="gamma:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="textFieldSettingsRBFintDistanceParams_ichino_gamma">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.5"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsRBFintDistanceParams_decarvalho">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsRBFintDistanceParams_decarvalho"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel160" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="textFieldSettingsRBFintDistanceParams_decarvalho_gamma" min="-2" pref="46" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="71" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel160" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldSettingsRBFintDistanceParams_decarvalho_gamma" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel160">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="gamma:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="textFieldSettingsRBFintDistanceParams_decarvalho_gamma">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.5"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsRBFintDistanceParams_bertoluzza">
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsRBFintDistanceParams_bertoluzza"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout>
+                            <DimensionLayout dim="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel161" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="textFieldSettingsRBFintDistanceParams_bertoluzza_beta" min="-2" pref="45" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="84" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                            <DimensionLayout dim="1">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel161" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldSettingsRBFintDistanceParams_bertoluzza_beta" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                            </DimensionLayout>
+                          </Layout>
+                          <SubComponents>
+                            <Component class="javax.swing.JLabel" name="jLabel161">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="beta:"/>
+                              </Properties>
+                            </Component>
+                            <Component class="javax.swing.JTextField" name="textFieldSettingsRBFintDistanceParams_bertoluzza_beta">
+                              <Properties>
+                                <Property name="text" type="java.lang.String" value="0.5"/>
+                              </Properties>
+                            </Component>
+                          </SubComponents>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel163">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="For some reason crashes with num=1."/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel164">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="For some reason crashes with num=1."/>
                       </Properties>
                     </Component>
                   </SubComponents>

@@ -400,6 +400,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel141 = new javax.swing.JLabel();
         textFieldSettingsRBFmaxIt = new javax.swing.JTextField();
         jLabel142 = new javax.swing.JLabel();
+        jLabel162 = new javax.swing.JLabel();
         paneSettingsMethodsRBFint = new javax.swing.JPanel();
         jLabel143 = new javax.swing.JLabel();
         jLabelPercTrain4 = new javax.swing.JLabel();
@@ -434,6 +435,24 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldSettingsRBFint_radius_maxIt = new javax.swing.JTextField();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel156 = new javax.swing.JLabel();
+        jLabel157 = new javax.swing.JLabel();
+        comboBoxSettingsRBFintDistance = new javax.swing.JComboBox();
+        panelSettingsRBFintDistanceParams = new javax.swing.JPanel();
+        panelSettingsRBFintDistanceParams_euclid = new javax.swing.JPanel();
+        jLabel158 = new javax.swing.JLabel();
+        textFieldSettingsRBFintDistanceParams_euclid_beta = new javax.swing.JTextField();
+        panelSettingsRBFintDistanceParams_hausdorff = new javax.swing.JPanel();
+        panelSettingsRBFintDistanceParams_ichino = new javax.swing.JPanel();
+        jLabel159 = new javax.swing.JLabel();
+        textFieldSettingsRBFintDistanceParams_ichino_gamma = new javax.swing.JTextField();
+        panelSettingsRBFintDistanceParams_decarvalho = new javax.swing.JPanel();
+        jLabel160 = new javax.swing.JLabel();
+        textFieldSettingsRBFintDistanceParams_decarvalho_gamma = new javax.swing.JTextField();
+        panelSettingsRBFintDistanceParams_bertoluzza = new javax.swing.JPanel();
+        jLabel161 = new javax.swing.JLabel();
+        textFieldSettingsRBFintDistanceParams_bertoluzza_beta = new javax.swing.JTextField();
+        jLabel163 = new javax.swing.JLabel();
+        jLabel164 = new javax.swing.JLabel();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         labelSettingsARIMAnonseas = new javax.swing.JLabel();
         labelSettingsARIMAnonseasP = new javax.swing.JLabel();
@@ -2865,7 +2884,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel140.setText("Number of neurons in the hidden layer:");
 
-        textFieldSettingsRBFnumHidden.setText("1");
+        textFieldSettingsRBFnumHidden.setText("2");
 
         jLabel141.setText("Maximum number of iterations:");
 
@@ -2873,6 +2892,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel142.setForeground(new java.awt.Color(255, 51, 0));
         jLabel142.setText("(Takes the one selected in CTS Run.)");
+
+        jLabel162.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel162.setText("For some reason crashes with num=1.");
 
         javax.swing.GroupLayout paneSettingsMethodsRBFLayout = new javax.swing.GroupLayout(paneSettingsMethodsRBF);
         paneSettingsMethodsRBF.setLayout(paneSettingsMethodsRBFLayout);
@@ -2905,7 +2927,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(jLabel140)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel162))
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(jLabel141)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2925,7 +2949,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel140)
-                    .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel162))
                 .addGap(18, 18, 18)
                 .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel137)
@@ -2971,7 +2996,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel144.setText("Number of neurons in the hidden layer:");
 
-        textFieldSettingsRBFint_center_numHidden.setText("1");
+        textFieldSettingsRBFint_center_numHidden.setText("2");
 
         jLabel145.setText("Explanatory variables:");
 
@@ -3016,7 +3041,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel149.setText("Number of neurons in the hidden layer:");
 
-        textFieldSettingsRBFint_radius_numHidden.setText("1");
+        textFieldSettingsRBFint_radius_numHidden.setText("2");
 
         jLabel152.setText("Explanatory variables:");
 
@@ -3058,6 +3083,136 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel156.setForeground(new java.awt.Color(255, 0, 0));
         jLabel156.setText("(Only center and radius.)");
 
+        jLabel157.setText("Distance to use for computing the error measures:");
+
+        comboBoxSettingsRBFintDistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Euclidean distance", "Hausdorff distance", "Ichino-Yaguchi distance", "De Carvalho distance", "Bertoluzza distance" }));
+        comboBoxSettingsRBFintDistance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxSettingsRBFintDistanceActionPerformed(evt);
+            }
+        });
+
+        panelSettingsRBFintDistanceParams.setLayout(new java.awt.CardLayout());
+
+        jLabel158.setText("beta:");
+
+        textFieldSettingsRBFintDistanceParams_euclid_beta.setText("0.5");
+
+        javax.swing.GroupLayout panelSettingsRBFintDistanceParams_euclidLayout = new javax.swing.GroupLayout(panelSettingsRBFintDistanceParams_euclid);
+        panelSettingsRBFintDistanceParams_euclid.setLayout(panelSettingsRBFintDistanceParams_euclidLayout);
+        panelSettingsRBFintDistanceParams_euclidLayout.setHorizontalGroup(
+            panelSettingsRBFintDistanceParams_euclidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_euclidLayout.createSequentialGroup()
+                .addComponent(jLabel158)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textFieldSettingsRBFintDistanceParams_euclid_beta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 83, Short.MAX_VALUE))
+        );
+        panelSettingsRBFintDistanceParams_euclidLayout.setVerticalGroup(
+            panelSettingsRBFintDistanceParams_euclidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_euclidLayout.createSequentialGroup()
+                .addGroup(panelSettingsRBFintDistanceParams_euclidLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel158)
+                    .addComponent(textFieldSettingsRBFintDistanceParams_euclid_beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panelSettingsRBFintDistanceParams.add(panelSettingsRBFintDistanceParams_euclid, "panelSettingsRBFintDistanceParams_euclid");
+
+        javax.swing.GroupLayout panelSettingsRBFintDistanceParams_hausdorffLayout = new javax.swing.GroupLayout(panelSettingsRBFintDistanceParams_hausdorff);
+        panelSettingsRBFintDistanceParams_hausdorff.setLayout(panelSettingsRBFintDistanceParams_hausdorffLayout);
+        panelSettingsRBFintDistanceParams_hausdorffLayout.setHorizontalGroup(
+            panelSettingsRBFintDistanceParams_hausdorffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 159, Short.MAX_VALUE)
+        );
+        panelSettingsRBFintDistanceParams_hausdorffLayout.setVerticalGroup(
+            panelSettingsRBFintDistanceParams_hausdorffLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 20, Short.MAX_VALUE)
+        );
+
+        panelSettingsRBFintDistanceParams.add(panelSettingsRBFintDistanceParams_hausdorff, "panelSettingsRBFintDistanceParams_hausdorff");
+
+        jLabel159.setText("gamma:");
+
+        textFieldSettingsRBFintDistanceParams_ichino_gamma.setText("0.5");
+
+        javax.swing.GroupLayout panelSettingsRBFintDistanceParams_ichinoLayout = new javax.swing.GroupLayout(panelSettingsRBFintDistanceParams_ichino);
+        panelSettingsRBFintDistanceParams_ichino.setLayout(panelSettingsRBFintDistanceParams_ichinoLayout);
+        panelSettingsRBFintDistanceParams_ichinoLayout.setHorizontalGroup(
+            panelSettingsRBFintDistanceParams_ichinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_ichinoLayout.createSequentialGroup()
+                .addComponent(jLabel159)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldSettingsRBFintDistanceParams_ichino_gamma, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 75, Short.MAX_VALUE))
+        );
+        panelSettingsRBFintDistanceParams_ichinoLayout.setVerticalGroup(
+            panelSettingsRBFintDistanceParams_ichinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_ichinoLayout.createSequentialGroup()
+                .addGroup(panelSettingsRBFintDistanceParams_ichinoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel159)
+                    .addComponent(textFieldSettingsRBFintDistanceParams_ichino_gamma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panelSettingsRBFintDistanceParams.add(panelSettingsRBFintDistanceParams_ichino, "panelSettingsRBFintDistanceParams_ichino");
+
+        jLabel160.setText("gamma:");
+
+        textFieldSettingsRBFintDistanceParams_decarvalho_gamma.setText("0.5");
+
+        javax.swing.GroupLayout panelSettingsRBFintDistanceParams_decarvalhoLayout = new javax.swing.GroupLayout(panelSettingsRBFintDistanceParams_decarvalho);
+        panelSettingsRBFintDistanceParams_decarvalho.setLayout(panelSettingsRBFintDistanceParams_decarvalhoLayout);
+        panelSettingsRBFintDistanceParams_decarvalhoLayout.setHorizontalGroup(
+            panelSettingsRBFintDistanceParams_decarvalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_decarvalhoLayout.createSequentialGroup()
+                .addComponent(jLabel160)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldSettingsRBFintDistanceParams_decarvalho_gamma, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 71, Short.MAX_VALUE))
+        );
+        panelSettingsRBFintDistanceParams_decarvalhoLayout.setVerticalGroup(
+            panelSettingsRBFintDistanceParams_decarvalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_decarvalhoLayout.createSequentialGroup()
+                .addGroup(panelSettingsRBFintDistanceParams_decarvalhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel160)
+                    .addComponent(textFieldSettingsRBFintDistanceParams_decarvalho_gamma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panelSettingsRBFintDistanceParams.add(panelSettingsRBFintDistanceParams_decarvalho, "panelSettingsRBFintDistanceParams_decarvalho");
+
+        jLabel161.setText("beta:");
+
+        textFieldSettingsRBFintDistanceParams_bertoluzza_beta.setText("0.5");
+
+        javax.swing.GroupLayout panelSettingsRBFintDistanceParams_bertoluzzaLayout = new javax.swing.GroupLayout(panelSettingsRBFintDistanceParams_bertoluzza);
+        panelSettingsRBFintDistanceParams_bertoluzza.setLayout(panelSettingsRBFintDistanceParams_bertoluzzaLayout);
+        panelSettingsRBFintDistanceParams_bertoluzzaLayout.setHorizontalGroup(
+            panelSettingsRBFintDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_bertoluzzaLayout.createSequentialGroup()
+                .addComponent(jLabel161)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldSettingsRBFintDistanceParams_bertoluzza_beta, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 84, Short.MAX_VALUE))
+        );
+        panelSettingsRBFintDistanceParams_bertoluzzaLayout.setVerticalGroup(
+            panelSettingsRBFintDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsRBFintDistanceParams_bertoluzzaLayout.createSequentialGroup()
+                .addGroup(panelSettingsRBFintDistanceParams_bertoluzzaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel161)
+                    .addComponent(textFieldSettingsRBFintDistanceParams_bertoluzza_beta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        panelSettingsRBFintDistanceParams.add(panelSettingsRBFintDistanceParams_bertoluzza, "panelSettingsRBFintDistanceParams_bertoluzza");
+
+        jLabel163.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel163.setText("For some reason crashes with num=1.");
+
+        jLabel164.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel164.setText("For some reason crashes with num=1.");
+
         javax.swing.GroupLayout paneSettingsMethodsRBFintLayout = new javax.swing.GroupLayout(paneSettingsMethodsRBFint);
         paneSettingsMethodsRBFint.setLayout(paneSettingsMethodsRBFintLayout);
         paneSettingsMethodsRBFintLayout.setHorizontalGroup(
@@ -3067,36 +3222,44 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel143)
                     .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                        .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                .addComponent(jLabel157)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboBoxSettingsRBFintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(panelSettingsRBFintDistanceParams, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabelPercTrain4)
+                                    .addComponent(jLabel156))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(sliderPercentTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(scrollPaneRBFint_center_SettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                 .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                    .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabelPercTrain4)
-                                        .addComponent(jLabel156))
+                                    .addComponent(jLabel145)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(sliderPercentTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(scrollPaneRBFint_center_SettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                .addComponent(jLabel145)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonRBFint_center_AddExplVar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonRBFint_center_RemoveExplVar))
-                            .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                .addComponent(jLabel146)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(comboBoxSettingsRBFint_center_outputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel147))
-                            .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                .addComponent(jLabel144)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldSettingsRBFint_center_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                .addComponent(jLabel148)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldSettingsRBFint_center_maxIt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel150))
+                                    .addComponent(buttonRBFint_center_AddExplVar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(buttonRBFint_center_RemoveExplVar))
+                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                    .addComponent(jLabel146)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(comboBoxSettingsRBFint_center_outputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel147))
+                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                    .addComponent(jLabel144)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textFieldSettingsRBFint_center_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel163))
+                                .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                    .addComponent(jLabel148)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(textFieldSettingsRBFint_center_maxIt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel150)))
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addGap(9, 9, 9)
@@ -3118,7 +3281,9 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                         .addComponent(jLabel149)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldSettingsRBFint_radius_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(textFieldSettingsRBFint_radius_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel164))
                                     .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                         .addComponent(jLabel155)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3142,7 +3307,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel149)
-                            .addComponent(textFieldSettingsRBFint_radius_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(textFieldSettingsRBFint_radius_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel164))
                         .addGap(18, 18, 18)
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel152)
@@ -3178,7 +3344,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel144)
-                                    .addComponent(textFieldSettingsRBFint_center_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(textFieldSettingsRBFint_center_numHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel163))
                                 .addGap(18, 18, 18)
                                 .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel145)
@@ -3198,7 +3365,13 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jSeparator5)))))
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsRBFintDistanceParams, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel157)
+                        .addComponent(comboBoxSettingsRBFintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(191, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("RBF(i)", paneSettingsMethodsRBFint);
@@ -4722,16 +4895,21 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunRBFint.isSelected()) {
-            List<RBFintParams> params = getParamsRBFint();
+            if (((CrispExplVarsTableModel)(tableRBFint_center_SettingsExplVars.getModel())).getVariables().isEmpty() ||
+                ((CrispExplVarsTableModel)(tableRBFint_radius_SettingsExplVars.getModel())).getVariables().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF(i) to run.");
+            } else {
+                List<RBFintParams> params = getParamsRBFint();
 
-            showDialogTooManyModelsInCase(params.size(), "RBF(i)");
-            if (continueWithTooManyModels) {
-                //run two separate forecasts, one for Center and the other for Radius
-                RBFint rbfInt = new RBFint();
+                showDialogTooManyModelsInCase(params.size(), "RBF(i)");
+                if (continueWithTooManyModels) {
+                    //run two separate forecasts, one for Center and the other for Radius
+                    RBFint rbfInt = new RBFint();
 
-                for (RBFintParams p : params) {
-                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (rbfInt.forecast(dataTableModel, p));
-                    reportsIntTS.add(report);
+                    for (RBFintParams p : params) {
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (rbfInt.forecast(dataTableModel, p));
+                        reportsIntTS.add(report);
+                    }
                 }
             }
         }
@@ -5039,6 +5217,28 @@ public class MainFrame extends javax.swing.JFrame {
         //TODO refactor tieto Add a Remove buttony, vsetky su rovnake len s inou tabulkou...
         ((CrispExplVarsTableModel)(tableRBFint_radius_SettingsExplVars.getModel())).removeRow(tableRBFint_radius_SettingsExplVars.getSelectedRow());
     }//GEN-LAST:event_buttonRBFint_radius_RemoveExplVarActionPerformed
+
+    private void comboBoxSettingsRBFintDistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSettingsRBFintDistanceActionPerformed
+        CardLayout card = (CardLayout)panelSettingsRBFintDistanceParams.getLayout();
+        switch (comboBoxSettingsRBFintDistance.getSelectedItem().toString()) {
+            case "Euclidean distance":
+                card.show(panelSettingsRBFintDistanceParams, "panelSettingsRBFintDistanceParams_euclid");
+                break;
+            case "Hausdorff distance":
+                card.show(panelSettingsRBFintDistanceParams, "panelSettingsRBFintDistanceParams_hausdorff");
+                break;
+            case "Ichino-Yaguchi distance":
+                card.show(panelSettingsRBFintDistanceParams, "panelSettingsRBFintDistanceParams_ichino");
+                break;
+            case "De Carvalho distance":
+                card.show(panelSettingsRBFintDistanceParams, "panelSettingsRBFintDistanceParams_decarvalho");
+                break;
+            case "Bertoluzza distance":
+                card.show(panelSettingsRBFintDistanceParams, "panelSettingsRBFintDistanceParams_bertoluzza");
+                break;
+        }
+        panelSettingsRBFintDistanceParams.repaint();
+    }//GEN-LAST:event_comboBoxSettingsRBFintDistanceActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -5151,6 +5351,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxSettingsIMLPcCodeDistance;
     private javax.swing.JComboBox comboBoxSettingsIntervalMLPCriterion;
     private javax.swing.JComboBox comboBoxSettingsMLPintDistance;
+    private javax.swing.JComboBox comboBoxSettingsRBFintDistance;
     private javax.swing.JComboBox comboBoxSettingsRBFint_center_outputVar;
     private javax.swing.JComboBox comboBoxSettingsRBFint_radius_outputVar;
     private javax.swing.JComboBox comboBoxSettingsRBFoutputVar;
@@ -5219,7 +5420,15 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel154;
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
+    private javax.swing.JLabel jLabel157;
+    private javax.swing.JLabel jLabel158;
+    private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel160;
+    private javax.swing.JLabel jLabel161;
+    private javax.swing.JLabel jLabel162;
+    private javax.swing.JLabel jLabel163;
+    private javax.swing.JLabel jLabel164;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -5400,6 +5609,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMLPintPackage;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnet;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar;
+    private javax.swing.JPanel panelSettingsRBFintDistanceParams;
+    private javax.swing.JPanel panelSettingsRBFintDistanceParams_bertoluzza;
+    private javax.swing.JPanel panelSettingsRBFintDistanceParams_decarvalho;
+    private javax.swing.JPanel panelSettingsRBFintDistanceParams_euclid;
+    private javax.swing.JPanel panelSettingsRBFintDistanceParams_hausdorff;
+    private javax.swing.JPanel panelSettingsRBFintDistanceParams_ichino;
     private javax.swing.JPanel panelSummary;
     private javax.swing.JTextField paramMLPintNnet_abstolCenter;
     private javax.swing.JTextField paramMLPintNnet_abstolRadius;
@@ -5524,6 +5739,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldSettingsARIMAseasP;
     private javax.swing.JTextField textFieldSettingsARIMAseasQ;
     private javax.swing.JTextField textFieldSettingsIntervalMLPnumNetworks;
+    private javax.swing.JTextField textFieldSettingsRBFintDistanceParams_bertoluzza_beta;
+    private javax.swing.JTextField textFieldSettingsRBFintDistanceParams_decarvalho_gamma;
+    private javax.swing.JTextField textFieldSettingsRBFintDistanceParams_euclid_beta;
+    private javax.swing.JTextField textFieldSettingsRBFintDistanceParams_ichino_gamma;
     private javax.swing.JTextField textFieldSettingsRBFint_center_maxIt;
     private javax.swing.JTextField textFieldSettingsRBFint_center_numHidden;
     private javax.swing.JTextField textFieldSettingsRBFint_radius_maxIt;
@@ -6170,6 +6389,11 @@ public class MainFrame extends javax.swing.JFrame {
                 RBFParams.class, resultListRadius);
         setSomethingOneValueAnyParams(RBFintParams.class, workingList, resultList, "setCenterRadius",
                 Boolean.class, radioButtonRunFakeIntCenterRadius.isSelected());
+        Distance distanceFunction = getSelectedDistance(comboBoxSettingsRBFintDistance, textFieldSettingsRBFintDistanceParams_euclid_beta,
+                textFieldSettingsRBFintDistanceParams_ichino_gamma, textFieldSettingsRBFintDistanceParams_decarvalho_gamma, 
+                textFieldSettingsRBFintDistanceParams_bertoluzza_beta);
+        setSomethingOneValueAnyParams(RBFintParams.class, workingList, resultList, "setDistance",
+                Distance.class, distanceFunction);
         
         return resultList;
     }

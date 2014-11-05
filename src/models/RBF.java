@@ -61,8 +61,8 @@ public class RBF {
             rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
             rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_OUTPUT + ")]");
             
-            rengine.eval(NNETWORK + " <- RSNNS::rbf(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + ", size=" + params.getNumNodesHidden()
-                          + ", maxit=" + params.getMaxIterations() + ", linOut=TRUE)");
+            rengine.eval(NNETWORK + " <- RSNNS::rbf(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + ", size=c(" + params.getNumNodesHidden()
+                          + "), maxit=" + params.getMaxIterations() + ", linOut=TRUE)");
             rengine.eval(FIT + " <- fitted(" + NNETWORK + ")");
             rengine.eval(UNSCALED_FIT + " <- MLPtoR.unscale(" + FIT + ", " + OUTPUT + ")");
             REXP getFittedVals = rengine.eval(UNSCALED_FIT);
