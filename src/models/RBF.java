@@ -20,13 +20,17 @@ public class RBF {
     private int maxLag = 0; //a stupid solution, but whatever
 
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
-        final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
-        final String INPUT_TEST = Const.INPUT + Utils.getCounter();
-        final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
-        final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
+        final String SCALED_INPUT_TRAIN = "scaled." + Const.INPUT + Utils.getCounter();
+        final String SCALED_INPUT_TEST = "scaled." + Const.INPUT + Utils.getCounter();
+        final String OUTPUT = Const.OUTPUT + Utils.getCounter();
+        final String SCALED_OUTPUT = Const.OUTPUT + Utils.getCounter();
+        final String SCALED_OUTPUT_TRAIN = "scaled." + Const.OUTPUT + Utils.getCounter();
+        final String SCALED_OUTPUT_TEST = "scaled." + Const.OUTPUT + Utils.getCounter();
         final String NNETWORK = Const.NNETWORK + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
+        final String UNSCALED_FIT = "unscaled." + FIT;
         final String FORECAST_TEST = Const.FORECAST_VALS + Utils.getCounter();
+        final String UNSCALED_FORECAST_TEST = "unscaled." + FORECAST_TEST;
         
         RBFParams params = (RBFParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("RBF");
@@ -37,42 +41,52 @@ public class RBF {
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*data.get(0).size());
         report.setNumTrainingEntries(numTrainingEntries);
+        numTrainingEntries -= maxLag;
         
         //most likely we will never allow more than 1... but whatever.
         if (params.getOutVars().size() == 1) {
-            List<Double> trainingOutputs = data.get(data.size() - 1).subList(0, numTrainingEntries);
-            List<Double> testingOutputs = data.get(data.size() - 1).subList(numTrainingEntries, data.get(0).size());
+            List<Double> allOutputs = data.get(data.size() - 1);
             
-            List<List<Double>> trainingInputs = getInputs(data, 1, 0, numTrainingEntries);
-            List<List<Double>> testingInputs = getInputs(data, 1, numTrainingEntries, data.get(0).size());
+            List<List<Double>> allInputsScaled = getScaledInputs(data, 1);
+            List<List<Double>> trainingInputsScaled = getInputsCut(allInputsScaled, 0, numTrainingEntries);
+            List<List<Double>> testingInputsScaled = getInputsCut(allInputsScaled, numTrainingEntries, allInputsScaled.get(0).size());
             
             Rengine rengine = MyRengine.getRengine();
             rengine.eval("require(RSNNS)");
             
-            ((MyRengine)rengine).assignMatrix(INPUT_TRAIN, trainingInputs);
-            ((MyRengine)rengine).assignMatrix(INPUT_TEST, testingInputs);
-            rengine.assign(OUTPUT_TRAIN, Utils.listToArray(trainingOutputs));
-            rengine.assign(OUTPUT_TEST, Utils.listToArray(testingOutputs));
+            ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
+            ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TEST, testingInputsScaled);
+            rengine.assign(OUTPUT, Utils.listToArray(allOutputs));
+            rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + OUTPUT + ")");
+            rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
+            rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_OUTPUT + ")]");
             
-            rengine.eval(NNETWORK + " <- RSNNS::rbf(" + INPUT_TRAIN + ", " + OUTPUT_TRAIN + ", size=" + params.getNumNodesHidden()
+            rengine.eval(NNETWORK + " <- RSNNS::rbf(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + ", size=" + params.getNumNodesHidden()
                           + ", maxit=" + params.getMaxIterations() + ", linOut=TRUE)");
             rengine.eval(FIT + " <- fitted(" + NNETWORK + ")");
-            REXP getFittedVals = rengine.eval(FIT);
+            rengine.eval(UNSCALED_FIT + " <- MLPtoR.unscale(" + FIT + ", " + OUTPUT + ")");
+            REXP getFittedVals = rengine.eval(UNSCALED_FIT);
             double[] fittedVals = getFittedVals.asDoubleArray();
             report.setFittedValues(fittedVals);
             
-            rengine.eval(FORECAST_TEST + " <- predict(" + NNETWORK + ", data.frame(" + INPUT_TEST + "))");
-            REXP getForecastValsTest = rengine.eval(FORECAST_TEST);
+            rengine.eval(FORECAST_TEST + " <- predict(" + NNETWORK + ", data.frame(" + SCALED_INPUT_TEST + "))");
+            rengine.eval(UNSCALED_FORECAST_TEST + " <- MLPtoR.unscale(" + FORECAST_TEST + ", " + OUTPUT + ")");
+            REXP getForecastValsTest = rengine.eval(UNSCALED_FORECAST_TEST);
             double[] forecastValsTest = getForecastValsTest.asDoubleArray();
             report.setForecastValuesTest(forecastValsTest);
             
-            report.setPlotCode("plot.ts(c(rep(NA, " + maxLag + "), " + FIT + ", " + FORECAST_TEST + "))");
+            report.setPlotCode("plot.ts(c(rep(NA, " + maxLag + "), " + UNSCALED_FIT + ", " + UNSCALED_FORECAST_TEST + "))");
             
-            report.setRealOutputsTrain(Utils.listToArray(trainingOutputs));
-            report.setRealOutputsTest(Utils.listToArray(testingOutputs));
+            REXP getOutputsTrain = rengine.eval("MLPtoR.unscale(" + SCALED_OUTPUT_TRAIN + ", " + OUTPUT + ")");
+            double[] trainingOutputs = getOutputsTrain.asDoubleArray();
+            report.setRealOutputsTrain(trainingOutputs);
+            REXP getOutputsTest = rengine.eval("MLPtoR.unscale(" + SCALED_OUTPUT_TEST + ", " + OUTPUT + ")");
+            double[] testingOutputs = getOutputsTest.asDoubleArray();
+            report.setRealOutputsTest(testingOutputs);
             
             ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
-                    trainingOutputs, testingOutputs, Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest));
+                    Utils.arrayToList(trainingOutputs), Utils.arrayToList(testingOutputs), 
+                    Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest));
             report.setErrorMeasures(errorMeasures);
             
             //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.
@@ -106,13 +120,41 @@ public class RBF {
         return IntervalMLPCcode.trimDataToRectangle(data, maximumLag);
     }
 
-    private List<List<Double>> getInputs(List<List<Double>> data, int numOutVars, int from, int to) {
+    private List<List<Double>> getInputsCut(List<List<Double>> data, int from, int to) {
         List<List<Double>> inputsTrainOrTest = new ArrayList<>();
         
-        for (int i = 0; i < (data.size() - numOutVars); i++) {
-            inputsTrainOrTest.add(data.get(i).subList(from, to));
+        for (List<Double> l : data) {
+            inputsTrainOrTest.add(l.subList(from, to));
         }
         
         return inputsTrainOrTest;
+    }
+
+    private List<List<Double>> getScaledInputs(List<List<Double>> data, int numOutVars) {
+        final String SCALED = "scaled." + Utils.getCounter();
+        final String LIST = Const.INPUT + Utils.getCounter();
+        
+        Rengine rengine = MyRengine.getRengine();
+        
+        List<List<Double>> inputs = new ArrayList<>();
+        
+        //first cut off the output vars
+        for (int i = 0; i < (data.size()-numOutVars); i++) {
+            inputs.add(data.get(i));
+        }
+        
+        //then go column by column and scale the vals:
+        //there's nothing wrong with scaling each column separately instead of scaling the whole matrix, is there?
+        //the only important thing is to scale the whole column, i.e. before separating the train and test data.
+        List<List<Double>> inputsScaled = new ArrayList<>();
+        for (List<Double> unscaled : inputs) {
+            rengine.assign(LIST, Utils.listToArray(unscaled));
+            rengine.eval(SCALED + " <- MLPtoR.scale(" + LIST + ")");
+            REXP getScaled = rengine.eval(SCALED);
+            double[] scaled = getScaled.asDoubleArray();
+            inputsScaled.add(Utils.arrayToList(scaled));
+        }
+        
+        return inputsScaled;
     }
 }
