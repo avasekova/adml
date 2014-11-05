@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.rosuda.JRI.Rengine;
@@ -93,6 +94,15 @@ public class MyRengine extends Rengine {
         sb.append(")");
         
         this.eval(name + " <- " + sb.toString());
+    }
+    
+    public void assignMatrix(String name, List<List<Double>> matrixColumns) {
+        Map<String, List<Double>> matrixColumnsWithNames = new HashMap<>();
+        for (List<Double> l : matrixColumns) {
+            matrixColumnsWithNames.put("" + Utils.getCounter(), l);
+        }
+        
+        assignMatrix(name, matrixColumnsWithNames);
     }
 
 }

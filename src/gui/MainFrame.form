@@ -3463,6 +3463,11 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="textFieldSettingsRBFnumHidden" min="-2" pref="40" max="-2" attributes="0"/>
                                   </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel141" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="textFieldSettingsRBFmaxIt" min="-2" pref="45" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace pref="552" max="32767" attributes="0"/>
                           </Group>
@@ -3498,7 +3503,12 @@
                                   <Component id="jLabel139" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="comboBoxSettingsRBFoutputVar" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace pref="339" max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel141" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textFieldSettingsRBFmaxIt" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace pref="308" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -3591,6 +3601,16 @@
                     <Component class="javax.swing.JTextField" name="textFieldSettingsRBFnumHidden">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="1"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel141">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Maximum number of iterations:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFmaxIt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1000"/>
                       </Properties>
                     </Component>
                   </SubComponents>

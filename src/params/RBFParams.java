@@ -2,14 +2,15 @@ package params;
 
 import java.util.ArrayList;
 import java.util.List;
-import utils.IntervalExplanatoryVariable;
-import utils.IntervalOutputVariable;
+import utils.CrispExplanatoryVariable;
+import utils.CrispOutputVariable;
 
 public class RBFParams extends Params {
     
     private Integer numNodesHidden;
-    private List<IntervalExplanatoryVariable> explVars = new ArrayList<>();
-    private List<IntervalOutputVariable> outVars = new ArrayList<>();
+    private List<CrispExplanatoryVariable> explVars = new ArrayList<>();
+    private List<CrispOutputVariable> outVars = new ArrayList<>();
+    private Integer maxIterations;
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -19,20 +20,28 @@ public class RBFParams extends Params {
         this.numNodesHidden = numNodesHidden;
     }
 
-    public List<IntervalExplanatoryVariable> getExplVars() {
+    public List<CrispExplanatoryVariable> getExplVars() {
         return explVars;
     }
 
-    public void setExplVars(List<IntervalExplanatoryVariable> explVars) {
+    public void setExplVars(List<CrispExplanatoryVariable> explVars) {
         this.explVars = explVars;
     }
 
-    public List<IntervalOutputVariable> getOutVars() {
+    public List<CrispOutputVariable> getOutVars() {
         return outVars;
     }
 
-    public void setOutVars(List<IntervalOutputVariable> outVars) {
+    public void setOutVars(List<CrispOutputVariable> outVars) {
         this.outVars = outVars;
+    }
+
+    public Integer getMaxIterations() {
+        return maxIterations;
+    }
+
+    public void setMaxIterations(Integer maxIterations) {
+        this.maxIterations = maxIterations;
     }
 
     @Override

@@ -255,8 +255,8 @@ public class IntervalMLPCcode implements ForecastableIntervals {
                 
             }
             
-            data.add(lagBy(var.getLag(), centers));
-            data.add(lagBy(var.getLag(), radii));
+            data.add(IntervalMLPCcode.lagBy(var.getLag(), centers));
+            data.add(IntervalMLPCcode.lagBy(var.getLag(), radii));
             
             maxLag = Math.max(maxLag, var.getLag());
         }
@@ -298,7 +298,7 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         return trimmedData;
     }
 
-    private List<Double> lagBy(int lag, List<Double> data) {
+    public static List<Double> lagBy(int lag, List<Double> data) {
         //output v case t chcem predikovat na zaklade inputu v case t-lag.
         // takze inputy musim posunut "dopredu" (zahodim niekolko poslednych)
         //je to spravne, nemazat!

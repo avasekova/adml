@@ -68,6 +68,7 @@ import params.Params;
 import params.RBFParams;
 import params.RandomWalkIntervalParams;
 import params.VARParams;
+import utils.CrispOutputVariable;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
@@ -394,6 +395,8 @@ public class MainFrame extends javax.swing.JFrame {
         comboBoxSettingsRBFoutputVar = new javax.swing.JComboBox();
         jLabel140 = new javax.swing.JLabel();
         textFieldSettingsRBFnumHidden = new javax.swing.JTextField();
+        jLabel141 = new javax.swing.JLabel();
+        textFieldSettingsRBFmaxIt = new javax.swing.JTextField();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         labelSettingsARIMAnonseas = new javax.swing.JLabel();
         labelSettingsARIMAnonseasP = new javax.swing.JLabel();
@@ -2824,6 +2827,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         textFieldSettingsRBFnumHidden.setText("1");
 
+        jLabel141.setText("Maximum number of iterations:");
+
+        textFieldSettingsRBFmaxIt.setText("1000");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -2853,7 +2860,11 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel140)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel141)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldSettingsRBFmaxIt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(552, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -2881,7 +2892,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel139)
                     .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(339, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel141)
+                    .addComponent(textFieldSettingsRBFmaxIt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(308, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("RBF", jPanel1);
@@ -4379,7 +4394,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunRBF.isSelected()) {
-            if (((IntervalExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).getVariables().isEmpty()) {
+            if (((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).getVariables().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
             } else {
                 List<RBFParams> params = getParamsRBF();
@@ -4818,6 +4833,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel139;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel140;
+    private javax.swing.JLabel jLabel141;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -5114,6 +5130,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldSettingsARIMAseasP;
     private javax.swing.JTextField textFieldSettingsARIMAseasQ;
     private javax.swing.JTextField textFieldSettingsIntervalMLPnumNetworks;
+    private javax.swing.JTextField textFieldSettingsRBFmaxIt;
     private javax.swing.JTextField textFieldSettingsRBFnumHidden;
     private javax.swing.JTextField textFieldSettingsVARlag;
     // End of variables declaration//GEN-END:variables
@@ -5647,7 +5664,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<RBFParams> workingList = new ArrayList<>();
         RBFParams par = new RBFParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(100); //uses all data for training
+        par.setPercentTrain(sliderPercentTrainRBF.getValue());
         
         List<RBFParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -5659,11 +5676,18 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(RBFParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingListAnyParams(RBFParams.class, workingList, resultList, "setNumNodesHidden",
-                Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumNeurons));
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsRBFnumHidden));
         setSomethingOneValueAnyParams(RBFParams.class, workingList, resultList, "setExplVars",
-                List.class, ((IntervalExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
+                List.class, ((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).getVariables());
+        CrispOutputVariable outVar = new CrispOutputVariable();
+        outVar.setName(comboBoxSettingsRBFoutputVar.getSelectedItem().toString() + comboBoxSettingsRBFoutputVar.getSelectedIndex());
+        outVar.setFieldName(comboBoxSettingsRBFoutputVar.getSelectedItem().toString());
+        List<CrispOutputVariable> outVarList = new ArrayList<>();
+        outVarList.add(outVar);
         setSomethingOneValueAnyParams(RBFParams.class, workingList, resultList, "setOutVars",
-                List.class, ((IntervalOutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
+                List.class, outVarList);
+        setSomethingListAnyParams(RBFParams.class, workingList, resultList, "setMaxIterations",
+                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsRBFmaxIt));
         
         return resultList;
     }
