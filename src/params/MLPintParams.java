@@ -5,7 +5,7 @@ import utils.imlp.dist.Distance;
 public abstract class MLPintParams extends Params {
     
     private Distance distanceFunction;
-    private boolean centerRadius; //TODO vymysliet krajsie?
+    private Boolean centerRadius = false; //TODO vymysliet krajsie?
 
     public Distance getDistanceFunction() {
         return distanceFunction;
@@ -15,7 +15,7 @@ public abstract class MLPintParams extends Params {
         this.distanceFunction = distanceFunction;
     }
     
-    public boolean isCenterRadius() {
+    public Boolean isCenterRadius() {
         return centerRadius;
     }
 

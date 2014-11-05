@@ -92,7 +92,6 @@ public class MLPintNnet implements Forecastable {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        //TODO nechat vybrat distance!
         List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetParams)parameters).getDistanceFunction());
         List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetParams)parameters).getDistanceFunction());
         

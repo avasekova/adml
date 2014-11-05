@@ -8,9 +8,9 @@
         <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup_paramsNnetExclusive.add(paramNnet_radioButtonLogistic);&#xa;buttonGroup_paramsNnetExclusive.add(paramNnet_radioButtonLeastSqrs);&#xa;buttonGroup_paramsNnetExclusive.add(paramNnet_radioButtonLoglinSoftmax);&#xa;buttonGroup_paramsNnetExclusive.add(paramNnet_radioButtonCensoredOn);"/>
       </AuxValues>
     </Component>
-    <Component class="javax.swing.ButtonGroup" name="buttonGroup_runMLPintCRLBUB">
+    <Component class="javax.swing.ButtonGroup" name="buttonGroup_runFakeIntCRLBUB">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup_runMLPintCRLBUB.add(radioButtonRunMLPintLowerUpper);&#xa;buttonGroup_runMLPintCRLBUB.add(radioButtonRunMLPintCenterRadius);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="buttonGroup_runFakeIntCRLBUB.add(radioButtonRunFakeIntLowerUpper);&#xa;buttonGroup_runFakeIntCRLBUB.add(radioButtonRunFakeIntCenterRadius);"/>
       </AuxValues>
     </Component>
     <Menu class="javax.swing.JMenuBar" name="menuBarMain">
@@ -3421,7 +3421,7 @@
                     </Component>
                   </SubComponents>
                 </Container>
-                <Container class="javax.swing.JPanel" name="jPanel1">
+                <Container class="javax.swing.JPanel" name="paneSettingsMethodsRBF">
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
                       <JTabbedPaneConstraints tabName="RBF">
@@ -3624,6 +3624,435 @@
                           <Color blue="0" green="33" red="ff" type="rgb"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="(Takes the one selected in CTS Run.)"/>
+                      </Properties>
+                    </Component>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="paneSettingsMethodsRBFint">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="RBF(i)">
+                        <Property name="tabTitle" type="java.lang.String" value="RBF(i)"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="jLabel143" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                              <Group type="102" attributes="0">
+                                                  <Group type="103" groupAlignment="0" attributes="0">
+                                                      <Component id="jLabelPercTrain4" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel156" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <EmptySpace max="-2" attributes="0"/>
+                                                  <Component id="sliderPercentTrainRBFint" min="-2" pref="270" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="scrollPaneRBFint_center_SettingsExplVars" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel145" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="buttonRBFint_center_AddExplVar" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="buttonRBFint_center_RemoveExplVar" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel146" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="comboBoxSettingsRBFint_center_outputVar" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel147" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel144" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="textFieldSettingsRBFint_center_numHidden" min="-2" pref="40" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel148" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="textFieldSettingsRBFint_center_maxIt" min="-2" pref="45" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="jLabel150" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                                              <Component id="jSeparator5" min="-2" pref="14" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="0" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel152" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="buttonRBFint_radius_AddExplVar" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="buttonRBFint_radius_RemoveExplVar" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel153" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                                      <Component id="comboBoxSettingsRBFint_radius_outputVar" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="jLabel154" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel149" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="textFieldSettingsRBFint_radius_numHidden" min="-2" pref="40" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel155" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="textFieldSettingsRBFint_radius_maxIt" min="-2" pref="45" max="-2" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="jLabel151" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="scrollPaneRBFint_radius_SettingsExplVars" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="textFieldPercentTrainRBFint" min="-2" pref="56" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabelPercentSign4" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="194" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel149" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldSettingsRBFint_radius_numHidden" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel152" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonRBFint_radius_AddExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonRBFint_radius_RemoveExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="scrollPaneRBFint_radius_SettingsExplVars" min="-2" pref="70" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel153" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxSettingsRBFint_radius_outputVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel154" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel155" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldSettingsRBFint_radius_maxIt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="jLabel143" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabelPercTrain4" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="jLabel156" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="textFieldPercentTrainRBFint" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabelPercentSign4" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="sliderPercentTrainRBFint" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                              <Component id="jLabel150" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel144" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="textFieldSettingsRBFint_center_numHidden" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel145" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="buttonRBFint_center_AddExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="buttonRBFint_center_RemoveExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="scrollPaneRBFint_center_SettingsExplVars" min="-2" pref="70" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel146" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="comboBoxSettingsRBFint_center_outputVar" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel147" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="3" attributes="0">
+                                                  <Component id="jLabel148" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="textFieldSettingsRBFint_center_maxIt" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                                              <Component id="jSeparator5" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace pref="270" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jLabel143">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Imitates iRBF by constructing an interval out of two separate forecasts for Center and Radius."/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabelPercTrain4">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Portion of data to use for training:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSlider" name="sliderPercentTrainRBFint">
+                      <Properties>
+                        <Property name="maximum" type="int" value="99"/>
+                        <Property name="minimum" type="int" value="1"/>
+                        <Property name="paintTicks" type="boolean" value="true"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sliderPercentTrainRBFintStateChanged"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="textFieldPercentTrainRBFint">
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textFieldPercentTrainRBFintActionPerformed"/>
+                      </Events>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textFieldPercentTrainRBFint.setText(&quot;&quot; + sliderPercentTrainRBFint.getValue());"/>
+                      </AuxValues>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabelPercentSign4">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="%"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel144">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Number of neurons in the hidden layer:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFint_center_numHidden">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel145">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Explanatory variables:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="buttonRBFint_center_AddExplVar">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Add"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRBFint_center_AddExplVarActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="buttonRBFint_center_RemoveExplVar">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Remove selected"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRBFint_center_RemoveExplVarActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="scrollPaneRBFint_center_SettingsExplVars">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTable" name="tableRBFint_center_SettingsExplVars">
+                          <Properties>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="new gui.CrispExplVarsTableModel()" type="code"/>
+                            </Property>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0"/>
+                            </Property>
+                            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                              <JTableSelectionModel selectionMode="0"/>
+                            </Property>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel146">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Output variable:"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="comboBoxSettingsRBFint_center_outputVar">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
+                        </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel147">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="33" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="(Takes the one selected in (i)TS Run Center.)"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel148">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Maximum number of iterations:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFint_center_maxIt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel150">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Center:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel151">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Radius:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel149">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Number of neurons in the hidden layer:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFint_radius_numHidden">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel152">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Explanatory variables:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="buttonRBFint_radius_AddExplVar">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Add"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRBFint_radius_AddExplVarActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="buttonRBFint_radius_RemoveExplVar">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Remove selected"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRBFint_radius_RemoveExplVarActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Container class="javax.swing.JScrollPane" name="scrollPaneRBFint_radius_SettingsExplVars">
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <SubComponents>
+                        <Component class="javax.swing.JTable" name="tableRBFint_radius_SettingsExplVars">
+                          <Properties>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="new gui.CrispExplVarsTableModel()" type="code"/>
+                            </Property>
+                            <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                              <TableColumnModel selectionModel="0"/>
+                            </Property>
+                            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                              <JTableSelectionModel selectionMode="0"/>
+                            </Property>
+                            <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
+                              <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                            </Property>
+                          </Properties>
+                        </Component>
+                      </SubComponents>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel153">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Output variable:"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JComboBox" name="comboBoxSettingsRBFint_radius_outputVar">
+                      <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
+                        </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel154">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="33" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="(Takes the one selected in (i)TS Run Radius.)"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel155">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Maximum number of iterations:"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFint_radius_maxIt">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="1000"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JSeparator" name="jSeparator5">
+                      <Properties>
+                        <Property name="orientation" type="int" value="1"/>
+                      </Properties>
+                    </Component>
+                    <Component class="javax.swing.JLabel" name="jLabel156">
+                      <Properties>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="0" green="0" red="ff" type="rgb"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="(Only center and radius.)"/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -4414,34 +4843,34 @@
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" attributes="0">
                                                       <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-                                                      <Component id="radioButtonRunMLPintLowerUpper" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="radioButtonRunFakeIntLowerUpper" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Component id="radioButtonRunMLPintCenterRadius" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="radioButtonRunFakeIntCenterRadius" alignment="1" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <Group type="103" groupAlignment="0" attributes="0">
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Group type="103" groupAlignment="1" attributes="0">
-                                                          <Component id="labelRunMLPintLower" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="labelRunMLPintUpper" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="labelRunFakeIntLower" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="labelRunFakeIntUpper" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="comboBoxRunMLPintLower" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="comboBoxRunMLPintUpper" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="comboBoxRunFakeIntLower" min="-2" max="-2" attributes="0"/>
+                                                          <Component id="comboBoxRunFakeIntUpper" min="-2" max="-2" attributes="0"/>
                                                       </Group>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                                       <Group type="103" groupAlignment="0" attributes="0">
                                                           <Group type="102" attributes="0">
-                                                              <Component id="labelRunMLPintRadius" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="labelRunFakeIntRadius" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="comboBoxRunMLPintRadius" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="comboBoxRunFakeIntRadius" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                           <Group type="102" alignment="0" attributes="0">
-                                                              <Component id="labelRunMLPintCenter" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="labelRunFakeIntCenter" min="-2" max="-2" attributes="0"/>
                                                               <EmptySpace max="-2" attributes="0"/>
-                                                              <Component id="comboBoxRunMLPintCenter" min="-2" max="-2" attributes="0"/>
+                                                              <Component id="comboBoxRunFakeIntCenter" min="-2" max="-2" attributes="0"/>
                                                           </Group>
                                                       </Group>
                                                   </Group>
@@ -4492,6 +4921,8 @@
                                               <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="checkBoxRunMLPintNnet" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunRBFint" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
@@ -4580,6 +5011,7 @@
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="checkBoxRunMLPintNnetar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunMLPintNnet" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunRBFint" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -4604,36 +5036,36 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labelRunMLPintLower" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunMLPintLower" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelRunFakeIntLower" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxRunFakeIntLower" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labelRunMLPintUpper" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunMLPintUpper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelRunFakeIntUpper" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxRunFakeIntUpper" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                                      <Component id="radioButtonRunMLPintLowerUpper" min="-2" max="-2" attributes="0"/>
+                                      <Component id="radioButtonRunFakeIntLowerUpper" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labelRunMLPintCenter" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunMLPintCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelRunFakeIntCenter" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxRunFakeIntCenter" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
-                                          <Component id="labelRunMLPintRadius" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          <Component id="comboBoxRunMLPintRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="labelRunFakeIntRadius" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBoxRunFakeIntRadius" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="radioButtonRunMLPintCenterRadius" min="-2" max="-2" attributes="0"/>
+                                      <Component id="radioButtonRunFakeIntCenterRadius" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
@@ -4784,15 +5216,15 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="14" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="MLP(i):"/>
+                <Property name="text" type="java.lang.String" value="(i)TS:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelRunMLPintLower">
+            <Component class="javax.swing.JLabel" name="labelRunFakeIntLower">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lower bound"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboBoxRunMLPintCenter">
+            <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntCenter">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
@@ -4800,7 +5232,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboBoxRunMLPintRadius">
+            <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntRadius">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
@@ -4808,7 +5240,7 @@
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelRunMLPintUpper">
+            <Component class="javax.swing.JLabel" name="labelRunFakeIntUpper">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Upper bound"/>
               </Properties>
@@ -4887,43 +5319,43 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRunExportErrorMeasuresActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelRunMLPintCenter">
+            <Component class="javax.swing.JLabel" name="labelRunFakeIntCenter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Center"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="labelRunMLPintRadius">
+            <Component class="javax.swing.JLabel" name="labelRunFakeIntRadius">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Radius"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboBoxRunMLPintLower">
+            <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntLower">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="comboBoxRunMLPintUpper">
+            <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntUpper">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="radioButtonRunMLPintLowerUpper">
+            <Component class="javax.swing.JRadioButton" name="radioButtonRunFakeIntLowerUpper">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunMLPintLowerUpperActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunFakeIntLowerUpperActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JRadioButton" name="radioButtonRunMLPintCenterRadius">
+            <Component class="javax.swing.JRadioButton" name="radioButtonRunFakeIntCenterRadius">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunMLPintCenterRadiusActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunFakeIntCenterRadiusActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPintNnet">
@@ -4998,6 +5430,11 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunRBF">
               <Properties>
                 <Property name="text" type="java.lang.String" value="RBF"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunRBFint">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="RBF(i)"/>
               </Properties>
             </Component>
           </SubComponents>
