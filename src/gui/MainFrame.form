@@ -1334,9 +1334,10 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="panelSettingsRBFMain" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabelPercTrain3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1345,36 +1346,10 @@
                                       <Component id="textFieldPercentTrainRBF" min="-2" pref="56" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabelPercentSign3" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="scrollPaneRBFSettingsExplVars" alignment="0" min="-2" pref="562" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel137" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonRBFAddExplVar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="buttonRBFRemoveExplVar" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="comboBoxSettingsRBFoutputVar" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel142" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel140" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textFieldSettingsRBFnumHidden" min="-2" pref="40" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel162" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel141" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textFieldSettingsRBFmaxIt" min="-2" pref="45" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="631" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1390,32 +1365,9 @@
                                   </Group>
                                   <Component id="sliderPercentTrainRBF" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel140" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFieldSettingsRBFnumHidden" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel162" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel137" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonRBFAddExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonRBFRemoveExplVar" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="panelSettingsRBFMain" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="scrollPaneRBFSettingsExplVars" min="-2" pref="70" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel139" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="comboBoxSettingsRBFoutputVar" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel142" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel141" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFieldSettingsRBFmaxIt" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1449,95 +1401,13 @@
                         <Property name="text" type="java.lang.String" value="%"/>
                       </Properties>
                     </Component>
-                    <Container class="javax.swing.JScrollPane" name="scrollPaneRBFSettingsExplVars">
+                    <Container class="javax.swing.JPanel" name="panelSettingsRBFMain">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RBFSettingsPanel()"/>
+                      </AuxValues>
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-                      <SubComponents>
-                        <Component class="javax.swing.JTable" name="tableRBFSettingsExplVars">
-                          <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new gui.CrispExplVarsTableModel()" type="code"/>
-                            </Property>
-                            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
-                              <JTableSelectionModel selectionMode="0"/>
-                            </Property>
-                          </Properties>
-                        </Component>
-                      </SubComponents>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel137">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Explanatory variables:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="buttonRBFAddExplVar">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Add"/>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRBFAddExplVarActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JButton" name="buttonRBFRemoveExplVar">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Remove selected"/>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonRBFRemoveExplVarActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel139">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Output variable:"/>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="comboBoxSettingsRBFoutputVar">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
-                        </Property>
-                        <Property name="enabled" type="boolean" value="false"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel140">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Number of neurons in the hidden layer:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFnumHidden">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="2"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel141">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Maximum number of iterations:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="textFieldSettingsRBFmaxIt">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="1000"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel142">
-                      <Properties>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="0" green="33" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="(Takes the one selected in CTS Run.)"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel162">
-                      <Properties>
-                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="0" green="0" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="For some reason crashes with num=1."/>
-                      </Properties>
-                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="paneSettingsMethodsRBFint">

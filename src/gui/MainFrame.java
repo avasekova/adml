@@ -1,14 +1,15 @@
 package gui;
 
-import gui.settingspanels.MLPNnetarSettingsPanel;
-import gui.settingspanels.DistanceSettingsPanel;
-import gui.settingspanels.MLPNnetSettingsPanel;
-import gui.settingspanels.IntMLPCcodeSettingsPanel;
 import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.IntMLPCcodeSettingsPanel;
+import gui.settingspanels.MLPNnetSettingsPanel;
+import gui.settingspanels.MLPNnetarSettingsPanel;
+import gui.settingspanels.RBFSettingsPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.FocusEvent;
@@ -207,19 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
         sliderPercentTrainRBF = new javax.swing.JSlider();
         textFieldPercentTrainRBF = new javax.swing.JTextField();
         jLabelPercentSign3 = new javax.swing.JLabel();
-        scrollPaneRBFSettingsExplVars = new javax.swing.JScrollPane();
-        tableRBFSettingsExplVars = new javax.swing.JTable();
-        jLabel137 = new javax.swing.JLabel();
-        buttonRBFAddExplVar = new javax.swing.JButton();
-        buttonRBFRemoveExplVar = new javax.swing.JButton();
-        jLabel139 = new javax.swing.JLabel();
-        comboBoxSettingsRBFoutputVar = new javax.swing.JComboBox();
-        jLabel140 = new javax.swing.JLabel();
-        textFieldSettingsRBFnumHidden = new javax.swing.JTextField();
-        jLabel141 = new javax.swing.JLabel();
-        textFieldSettingsRBFmaxIt = new javax.swing.JTextField();
-        jLabel142 = new javax.swing.JLabel();
-        jLabel162 = new javax.swing.JLabel();
+        panelSettingsRBFMain = new RBFSettingsPanel();
         paneSettingsMethodsRBFint = new javax.swing.JPanel();
         jLabel143 = new javax.swing.JLabel();
         jLabelPercTrain4 = new javax.swing.JLabel();
@@ -1146,48 +1135,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelPercentSign3.setText("%");
 
-        tableRBFSettingsExplVars.setModel(new gui.CrispExplVarsTableModel());
-        tableRBFSettingsExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scrollPaneRBFSettingsExplVars.setViewportView(tableRBFSettingsExplVars);
-
-        jLabel137.setText("Explanatory variables:");
-
-        buttonRBFAddExplVar.setText("Add");
-        buttonRBFAddExplVar.setEnabled(false);
-        buttonRBFAddExplVar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRBFAddExplVarActionPerformed(evt);
-            }
-        });
-
-        buttonRBFRemoveExplVar.setText("Remove selected");
-        buttonRBFRemoveExplVar.setEnabled(false);
-        buttonRBFRemoveExplVar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRBFRemoveExplVarActionPerformed(evt);
-            }
-        });
-
-        jLabel139.setText("Output variable:");
-        jLabel139.setEnabled(false);
-
-        comboBoxSettingsRBFoutputVar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-        comboBoxSettingsRBFoutputVar.setEnabled(false);
-
-        jLabel140.setText("Number of neurons in the hidden layer:");
-
-        textFieldSettingsRBFnumHidden.setText("2");
-
-        jLabel141.setText("Maximum number of iterations:");
-
-        textFieldSettingsRBFmaxIt.setText("1000");
-
-        jLabel142.setForeground(new java.awt.Color(255, 51, 0));
-        jLabel142.setText("(Takes the one selected in CTS Run.)");
-
-        jLabel162.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel162.setText("For some reason crashes with num=1.");
-
         javax.swing.GroupLayout paneSettingsMethodsRBFLayout = new javax.swing.GroupLayout(paneSettingsMethodsRBF);
         paneSettingsMethodsRBF.setLayout(paneSettingsMethodsRBFLayout);
         paneSettingsMethodsRBFLayout.setHorizontalGroup(
@@ -1195,6 +1142,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(jLabelPercTrain3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1202,31 +1150,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldPercentTrainRBF, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercentSign3))
-                    .addComponent(scrollPaneRBFSettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
-                        .addComponent(jLabel137)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonRBFAddExplVar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonRBFRemoveExplVar))
-                    .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
-                        .addComponent(jLabel139)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel142))
-                    .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
-                        .addComponent(jLabel140)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel162))
-                    .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
-                        .addComponent(jLabel141)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldSettingsRBFmaxIt, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelPercentSign3)
+                        .addGap(0, 631, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         paneSettingsMethodsRBFLayout.setVerticalGroup(
             paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1238,28 +1164,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(textFieldPercentTrainRBF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelPercentSign3))
                     .addComponent(sliderPercentTrainRBF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
-                .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel140)
-                    .addComponent(textFieldSettingsRBFnumHidden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel162))
                 .addGap(18, 18, 18)
-                .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel137)
-                    .addComponent(buttonRBFAddExplVar)
-                    .addComponent(buttonRBFRemoveExplVar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneRBFSettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel139)
-                    .addComponent(comboBoxSettingsRBFoutputVar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel142))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel141)
-                    .addComponent(textFieldSettingsRBFmaxIt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         paneSettingsMethods.addTab("RBF", paneSettingsMethodsRBF);
@@ -2512,7 +2419,6 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxRunFakeIntLower.addItem(colname);
                         comboBoxRunFakeIntUpper.addItem(colname);
                         ((DefaultListModel)(listSettingsVAREndogenousVars.getModel())).addElement(colname);
-                        comboBoxSettingsRBFoutputVar.addItem(colname);
                     }
                     DialogAddIntervalExplanatoryVar.setColNames(dataTableModel.getColnames());
                     DialogAddIntervalOutputVar.setColNames(dataTableModel.getColnames());
@@ -2527,8 +2433,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonPlotAddITS.setEnabled(true);
                         buttonPlotRemoveITS.setEnabled(true);
                         ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
-                        buttonRBFAddExplVar.setEnabled(true);
-                        buttonRBFRemoveExplVar.setEnabled(true);
+                        ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons();
                         buttonRBFint_center_AddExplVar.setEnabled(true);
                         buttonRBFint_center_RemoveExplVar.setEnabled(true);
                         buttonRBFint_radius_AddExplVar.setEnabled(true);
@@ -2973,7 +2878,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunRBF.isSelected()) {
-            if (((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).getVariables().isEmpty()) {
+            if (((RBFSettingsPanel)panelSettingsRBFMain).getExplVars().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
             } else {
                 List<RBFParams> params = getParamsRBF();
@@ -3265,16 +3170,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_textFieldPercentTrainRBFActionPerformed
 
-    private void buttonRBFAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRBFAddExplVarActionPerformed
-        DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(this, true);
-        dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel()));
-        dialogAddExplVar.setVisible(true);
-    }//GEN-LAST:event_buttonRBFAddExplVarActionPerformed
-
-    private void buttonRBFRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRBFRemoveExplVarActionPerformed
-        ((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).removeRow(tableRBFSettingsExplVars.getSelectedRow());
-    }//GEN-LAST:event_buttonRBFRemoveExplVarActionPerformed
-
     private void sliderPercentTrainRBFintStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainRBFintStateChanged
         textFieldPercentTrainRBFint.setText("" + sliderPercentTrainRBFint.getValue());
     }//GEN-LAST:event_sliderPercentTrainRBFintStateChanged
@@ -3367,8 +3262,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotRestoreIntTSRangeY;
     private javax.swing.JButton buttonPlotZoomCTS;
     private javax.swing.JButton buttonPlotZoomIntTS;
-    private javax.swing.JButton buttonRBFAddExplVar;
-    private javax.swing.JButton buttonRBFRemoveExplVar;
     private javax.swing.JButton buttonRBFint_center_AddExplVar;
     private javax.swing.JButton buttonRBFint_center_RemoveExplVar;
     private javax.swing.JButton buttonRBFint_radius_AddExplVar;
@@ -3412,7 +3305,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxRunFakeIntUpper;
     private javax.swing.JComboBox comboBoxSettingsRBFint_center_outputVar;
     private javax.swing.JComboBox comboBoxSettingsRBFint_radius_outputVar;
-    private javax.swing.JComboBox comboBoxSettingsRBFoutputVar;
     private javax.swing.JComboBox comboBoxSettingsVARtype;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -3427,12 +3319,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel134;
     private javax.swing.JLabel jLabel135;
     private javax.swing.JLabel jLabel136;
-    private javax.swing.JLabel jLabel137;
     private javax.swing.JLabel jLabel138;
-    private javax.swing.JLabel jLabel139;
-    private javax.swing.JLabel jLabel140;
-    private javax.swing.JLabel jLabel141;
-    private javax.swing.JLabel jLabel142;
     private javax.swing.JLabel jLabel143;
     private javax.swing.JLabel jLabel144;
     private javax.swing.JLabel jLabel145;
@@ -3448,7 +3335,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel157;
-    private javax.swing.JLabel jLabel162;
     private javax.swing.JLabel jLabel163;
     private javax.swing.JLabel jLabel164;
     private javax.swing.JLabel jLabel28;
@@ -3567,13 +3453,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar_center;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar_radius;
+    private javax.swing.JPanel panelSettingsRBFMain;
     private javax.swing.JPanel panelSummary;
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneDiagramsNNs;
     private javax.swing.JScrollPane scrollPaneForecastVals;
-    private javax.swing.JScrollPane scrollPaneRBFSettingsExplVars;
     private javax.swing.JScrollPane scrollPaneRBFint_center_SettingsExplVars;
     private javax.swing.JScrollPane scrollPaneRBFint_radius_SettingsExplVars;
     private javax.swing.JSlider sliderPercentTrain;
@@ -3586,7 +3472,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner spinnerKNNnumNeighboursCustom;
     private javax.swing.JSpinner spinnerKNNnumNeighboursFNN;
     private javax.swing.JSpinner spinnerKNNnumNeighboursKKNN;
-    private javax.swing.JTable tableRBFSettingsExplVars;
     private javax.swing.JTable tableRBFint_center_SettingsExplVars;
     private javax.swing.JTable tableRBFint_radius_SettingsExplVars;
     private javax.swing.JTextArea textAreaPlotBasicStats;
@@ -3624,8 +3509,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldSettingsRBFint_center_numHidden;
     private javax.swing.JTextField textFieldSettingsRBFint_radius_maxIt;
     private javax.swing.JTextField textFieldSettingsRBFint_radius_numHidden;
-    private javax.swing.JTextField textFieldSettingsRBFmaxIt;
-    private javax.swing.JTextField textFieldSettingsRBFnumHidden;
     private javax.swing.JTextField textFieldSettingsVARlag;
     // End of variables declaration//GEN-END:variables
 
@@ -4163,9 +4046,9 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(RBFParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingListAnyParams(RBFParams.class, workingList, resultList, "setNumNodesHidden",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsRBFnumHidden));
+                Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFMain).getNumHidden()));
         setSomethingOneValueAnyParams(RBFParams.class, workingList, resultList, "setExplVars",
-                List.class, ((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel())).getVariables());
+                List.class, ((RBFSettingsPanel)panelSettingsRBFMain).getExplVars());
         CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
         outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
         outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
@@ -4174,7 +4057,7 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingOneValueAnyParams(RBFParams.class, workingList, resultList, "setOutVars",
                 List.class, outVarList);
         setSomethingListAnyParams(RBFParams.class, workingList, resultList, "setMaxIterations",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsRBFmaxIt));
+                Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFMain).getMaxIt()));
         
         return resultList;
     }
