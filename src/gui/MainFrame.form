@@ -150,7 +150,7 @@
                                           <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" pref="407" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane4" pref="460" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -269,7 +269,7 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="panelPlot" pref="414" max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="425" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -571,12 +571,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="1178" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="1231" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="586" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="597" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -740,7 +740,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="1057" max="32767" attributes="0"/>
+                                      <EmptySpace pref="1110" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -749,7 +749,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="488" max="32767" attributes="0"/>
+                                      <EmptySpace pref="499" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -863,7 +863,7 @@
                               </Group>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1167" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1177" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -887,7 +887,7 @@
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelSettingsMLPintPackage" pref="407" max="32767" attributes="0"/>
+                              <Component id="panelSettingsMLPintPackage" pref="418" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -901,7 +901,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="581" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="592" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -969,7 +969,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="519" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="529" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
@@ -1054,7 +1054,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="1039" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="1049" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
                                       </Group>
@@ -1281,7 +1281,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="973" max="32767" attributes="0"/>
+                                      <EmptySpace pref="1026" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1290,7 +1290,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel32" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="483" max="32767" attributes="0"/>
+                                      <EmptySpace pref="494" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1348,7 +1348,7 @@
                                       <Component id="jLabelPercentSign3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="641" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1457,7 +1457,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="panelSettingsRBFint_radius" pref="500" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsRBFint_radius" pref="510" max="32767" attributes="0"/>
                                           <Component id="jLabelPercentSign4" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -1638,7 +1638,7 @@
                               <Component id="textFieldPercentTrainARIMA" min="-2" pref="56" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabelPercentSign2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="522" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
@@ -1868,88 +1868,54 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="panelSettingsVARMain" alignment="0" pref="1157" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="textFieldSettingsVARlag" min="-2" pref="44" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel135" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jScrollPane5" alignment="0" min="-2" pref="291" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="comboBoxSettingsVARtype" max="32767" attributes="0"/>
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jLabel135" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="95" max="-2" attributes="0"/>
+                              <Component id="panelSettingsVARMain" pref="550" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel134" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFieldSettingsVARlag" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel136" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="comboBoxSettingsVARtype" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
                   </Layout>
                   <SubComponents>
-                    <Component class="javax.swing.JLabel" name="jLabel134">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Lag:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JTextField" name="textFieldSettingsVARlag">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="1"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JLabel" name="jLabel135">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="Endogenous variables:"/>
-                      </Properties>
-                    </Component>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane5">
+                    <Container class="javax.swing.JPanel" name="panelSettingsVARMain">
                       <AuxValues>
-                        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()"/>
                       </AuxValues>
 
-                      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JList" name="listSettingsVAREndogenousVars">
-                          <Properties>
-                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="new DefaultListModel()" type="code"/>
-                            </Property>
-                          </Properties>
-                        </Component>
+                        <Container class="javax.swing.JPanel" name="panelSettingsVARMainInsideBecauseX">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new VARSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
+                              <BorderConstraints direction="Center"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JLabel" name="jLabel136">
+                    <Component class="javax.swing.JLabel" name="jLabel1">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Type of deterministic regressors to include:"/>
-                      </Properties>
-                    </Component>
-                    <Component class="javax.swing.JComboBox" name="comboBoxSettingsVARtype">
-                      <Properties>
-                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;const&quot;, &quot;trend&quot;, &quot;both&quot;, &quot;none&quot; })" type="code"/>
-                        </Property>
+                        <Property name="text" type="java.lang.String" value=" "/>
                       </Properties>
                     </Component>
                   </SubComponents>
@@ -2274,12 +2240,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1168" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1221" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="280" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="291" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -2606,7 +2572,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="buttonExportForecastValues" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="1049" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1102" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelForecastVals" max="32767" attributes="0"/>
               </Group>
@@ -2641,7 +2607,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneForecastVals" alignment="0" pref="557" max="32767" attributes="0"/>
+                      <Component id="scrollPaneForecastVals" alignment="0" pref="568" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
