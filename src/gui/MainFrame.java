@@ -8,13 +8,14 @@ import gui.filefilters.FileFilterXlsXlsx;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.IntMLPCcodeSettingsPanel;
+import gui.settingspanels.KNNCustomSettingsPanel;
+import gui.settingspanels.KNNFNNSettingsPanel;
+import gui.settingspanels.KNNkknnSettingsPanel;
 import gui.settingspanels.MLPNnetSettingsPanel;
 import gui.settingspanels.MLPNnetarSettingsPanel;
 import gui.settingspanels.RBFSettingsPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -239,29 +240,9 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel35 = new javax.swing.JLabel();
         jLabel64 = new javax.swing.JLabel();
         panelSettingsKNNoptions = new javax.swing.JPanel();
-        panelSettingsKNNoptions_FNN = new javax.swing.JPanel();
-        spinnerKNNnumNeighboursFNN = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-        jLabel46 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        textFieldKNNfnnLag = new javax.swing.JTextField();
-        panelSettingsKNNoptions_custom = new javax.swing.JPanel();
-        jLabel65 = new javax.swing.JLabel();
-        spinnerKNNnumNeighboursCustom = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-        jLabel66 = new javax.swing.JLabel();
-        textFieldKNNlengthHistory = new javax.swing.JTextField();
-        jLabel67 = new javax.swing.JLabel();
-        textFieldKNNcustomLag = new javax.swing.JTextField();
-        jLabel68 = new javax.swing.JLabel();
-        jLabel69 = new javax.swing.JLabel();
-        comboBoxKNNdistance = new javax.swing.JComboBox();
-        jLabel70 = new javax.swing.JLabel();
-        comboBoxKNNcombination = new javax.swing.JComboBox();
-        panelSettingsKNNoptions_kknn = new javax.swing.JPanel();
-        jLabel73 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        textFieldKNNkknnLag = new javax.swing.JTextField();
-        spinnerKNNnumNeighboursKKNN = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-        jLabel75 = new javax.swing.JLabel();
+        panelSettingsKNNoptions_FNN = new KNNFNNSettingsPanel();
+        panelSettingsKNNoptions_custom = new KNNCustomSettingsPanel();
+        panelSettingsKNNoptions_kknn = new KNNkknnSettingsPanel();
         comboBoxKNNoptions = new javax.swing.JComboBox();
         paneSettingsMethodsVAR = new javax.swing.JPanel();
         jLabel134 = new javax.swing.JLabel();
@@ -1328,161 +1309,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel64.setText("Select method:");
 
         panelSettingsKNNoptions.setLayout(new java.awt.CardLayout());
-
-        jLabel46.setText("Number of neighbours considered:");
-
-        jLabel7.setText("Lag:");
-
-        textFieldKNNfnnLag.setText("1");
-
-        javax.swing.GroupLayout panelSettingsKNNoptions_FNNLayout = new javax.swing.GroupLayout(panelSettingsKNNoptions_FNN);
-        panelSettingsKNNoptions_FNN.setLayout(panelSettingsKNNoptions_FNNLayout);
-        panelSettingsKNNoptions_FNNLayout.setHorizontalGroup(
-            panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsKNNoptions_FNNLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel46)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(spinnerKNNnumNeighboursFNN, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                    .addComponent(textFieldKNNfnnLag))
-                .addContainerGap(900, Short.MAX_VALUE))
-        );
-        panelSettingsKNNoptions_FNNLayout.setVerticalGroup(
-            panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsKNNoptions_FNNLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel46)
-                    .addComponent(spinnerKNNnumNeighboursFNN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsKNNoptions_FNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(textFieldKNNfnnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(419, Short.MAX_VALUE))
-        );
-
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_FNN, "panelSettingsKNNoptions_FNN");
-
-        jLabel65.setText("Number of neighbours considered:");
-
-        jLabel66.setText("Length of history considered:");
-
-        textFieldKNNlengthHistory.setText("1");
-
-        jLabel67.setText("Lag:");
-
-        textFieldKNNcustomLag.setText("1");
-
-        jLabel68.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel68.setText("so far only one expl. var. and only autoregression");
-
-        jLabel69.setText("Distance measure:");
-
-        comboBoxKNNdistance.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "absolute difference" }));
-
-        jLabel70.setText("Neighbour combination function:");
-
-        comboBoxKNNcombination.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "average" }));
-
-        javax.swing.GroupLayout panelSettingsKNNoptions_customLayout = new javax.swing.GroupLayout(panelSettingsKNNoptions_custom);
-        panelSettingsKNNoptions_custom.setLayout(panelSettingsKNNoptions_customLayout);
-        panelSettingsKNNoptions_customLayout.setHorizontalGroup(
-            panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsKNNoptions_customLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel65)
-                    .addComponent(jLabel66)
-                    .addComponent(jLabel67)
-                    .addComponent(jLabel69)
-                    .addComponent(jLabel70))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSettingsKNNoptions_customLayout.createSequentialGroup()
-                        .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(spinnerKNNnumNeighboursCustom, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
-                            .addComponent(textFieldKNNlengthHistory)
-                            .addComponent(textFieldKNNcustomLag))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel68))
-                    .addComponent(comboBoxKNNdistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboBoxKNNcombination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(649, Short.MAX_VALUE))
-        );
-        panelSettingsKNNoptions_customLayout.setVerticalGroup(
-            panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsKNNoptions_customLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel65)
-                    .addComponent(spinnerKNNnumNeighboursCustom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel66)
-                    .addComponent(textFieldKNNlengthHistory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel67)
-                    .addComponent(textFieldKNNcustomLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel68))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel69)
-                    .addComponent(comboBoxKNNdistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsKNNoptions_customLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(comboBoxKNNcombination, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel70))
-                .addContainerGap(321, Short.MAX_VALUE))
-        );
-
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_custom, "panelSettingsKNNoptions_custom");
-
-        jLabel73.setText("Maximum number of neighbours considered:");
-
-        jLabel74.setText("Lag:");
-
-        textFieldKNNkknnLag.setText("1");
-
-        jLabel75.setText("(optimizes the number of neighbours)");
-
-        javax.swing.GroupLayout panelSettingsKNNoptions_kknnLayout = new javax.swing.GroupLayout(panelSettingsKNNoptions_kknn);
-        panelSettingsKNNoptions_kknn.setLayout(panelSettingsKNNoptions_kknnLayout);
-        panelSettingsKNNoptions_kknnLayout.setHorizontalGroup(
-            panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
-                        .addComponent(jLabel74)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textFieldKNNkknnLag, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
-                        .addComponent(jLabel73, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(spinnerKNNnumNeighboursKKNN, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel75)
-                .addContainerGap(657, Short.MAX_VALUE))
-        );
-        panelSettingsKNNoptions_kknnLayout.setVerticalGroup(
-            panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsKNNoptions_kknnLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel73)
-                    .addComponent(spinnerKNNnumNeighboursKKNN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel75))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsKNNoptions_kknnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel74)
-                    .addComponent(textFieldKNNkknnLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(419, Short.MAX_VALUE))
-        );
-
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_kknn, "panelSettingsKNNoptions_kknn");
 
         comboBoxKNNoptions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "package FNN", "package kknn", "Custom R implementation" }));
@@ -1513,7 +1341,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(panelSettingsKNNoptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsKNNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelSettingsKNNoptions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneSettingsMethodsKNNLayout.setVerticalGroup(
             paneSettingsMethodsKNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2920,8 +2750,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunVAR;
     private javax.swing.JComboBox comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxIntervalMLPMode;
-    private javax.swing.JComboBox comboBoxKNNcombination;
-    private javax.swing.JComboBox comboBoxKNNdistance;
     private javax.swing.JComboBox comboBoxKNNoptions;
     private javax.swing.JComboBox comboBoxRPackage;
     private javax.swing.JComboBox comboBoxRPackageMLPint;
@@ -2959,25 +2787,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel69;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel70;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
-    private javax.swing.JLabel jLabel73;
-    private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
@@ -3073,14 +2890,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSlider sliderPercentTrainMLPint;
     private javax.swing.JSlider sliderPercentTrainRBF;
     private javax.swing.JSlider sliderPercentTrainRBFint;
-    private javax.swing.JSpinner spinnerKNNnumNeighboursCustom;
-    private javax.swing.JSpinner spinnerKNNnumNeighboursFNN;
-    private javax.swing.JSpinner spinnerKNNnumNeighboursKKNN;
     private javax.swing.JTextArea textAreaPlotBasicStats;
-    private javax.swing.JTextField textFieldKNNcustomLag;
-    private javax.swing.JTextField textFieldKNNfnnLag;
-    private javax.swing.JTextField textFieldKNNkknnLag;
-    private javax.swing.JTextField textFieldKNNlengthHistory;
     private javax.swing.JTextField textFieldNumNetworksToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
     private javax.swing.JTextField textFieldPercentTrain;
@@ -3528,11 +3338,11 @@ public class MainFrame extends javax.swing.JFrame {
         params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
         params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
         params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        params.setNumNeighbours(Integer.parseInt(spinnerKNNnumNeighboursCustom.getValue().toString()));
-        params.setLengthHistory(Integer.parseInt(textFieldKNNlengthHistory.getText()));
-        params.setLag(Integer.parseInt(textFieldKNNcustomLag.getText()));
-        params.setDistanceMethodName(comboBoxKNNdistance.getSelectedItem().toString());
-        params.setCombinationMethodName(comboBoxKNNcombination.getSelectedItem().toString());
+        params.setNumNeighbours(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getNumNeighbours()));
+        params.setLengthHistory(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLengthHistory()));
+        params.setLag(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLag()));
+        params.setDistanceMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getDistance());
+        params.setCombinationMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getCombination());
         
         List<KNNcustomParams> resultList = new ArrayList<>();
         resultList.add(params);
@@ -3555,9 +3365,9 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(KNNfnnParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingListAnyParams(KNNfnnParams.class, workingList, resultList, "setNumNeighbours",
-                Integer.class, Utils.getIntegersOrDefault(spinnerKNNnumNeighboursFNN.getValue().toString()));
+                Integer.class, Utils.getIntegersOrDefault(((KNNFNNSettingsPanel)panelSettingsKNNoptions_FNN).getNumNeighbours()));
         setSomethingListAnyParams(KNNfnnParams.class, workingList, resultList, "setLag",
-                Integer.class, Utils.getIntegersOrDefault(textFieldKNNfnnLag));
+                Integer.class, Utils.getIntegersOrDefault(((KNNFNNSettingsPanel)panelSettingsKNNoptions_FNN).getLag()));
         
         return resultList;
     }
@@ -3578,9 +3388,9 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setMaxNeighbours",
-                Integer.class, Utils.getIntegersOrDefault(spinnerKNNnumNeighboursKKNN.getValue().toString()));
+                Integer.class, Utils.getIntegersOrDefault(((KNNkknnSettingsPanel)panelSettingsKNNoptions_kknn).getNumNeighbours()));
         setSomethingListAnyParams(KNNkknnParams.class, workingList, resultList, "setLag",
-                Integer.class, Utils.getIntegersOrDefault(textFieldKNNkknnLag));
+                Integer.class, Utils.getIntegersOrDefault(((KNNkknnSettingsPanel)panelSettingsKNNoptions_kknn).getLag()));
         
         return resultList;
     }
