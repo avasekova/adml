@@ -1,6 +1,7 @@
 package models;
 
 import gui.DataTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import params.Params;
 import params.RBFParams;
@@ -9,11 +10,41 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
-import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class RBFint {
     
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+        List<TrainAndTestReportInterval> reports = new ArrayList<>();
+        //train some number of networks
+        for (int i = 0; i < ((RBFintParams)parameters).getNumNetsToTrain(); i++) {
+            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters)));
+        }
+        
+        //and then determine which one is the best
+        //TODO for now coverage+efficiency, later allow to customize
+        TrainAndTestReportInterval bestReport = reports.get(0);
+        double bestMeasures = computeCriterion(bestReport);
+        if (reports.size() > 1) {
+            for (int i = 1; i < reports.size(); i++) {
+                double currentMeasures = computeCriterion(reports.get(i));
+                if (currentMeasures > bestMeasures) {
+                    bestMeasures = currentMeasures;
+                    bestReport = reports.get(i);
+                }
+            }
+        }
+        
+        return bestReport;
+    }
+    
+    //TODO refactor this somewhere out, static
+    private double computeCriterion(TrainAndTestReportInterval report) {
+        ErrorMeasuresInterval m = (ErrorMeasuresInterval)(report.getErrorMeasures());
+        //sum of coverages and efficiencies
+        return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
+    }
+
+    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         RBFParams paramsCenter = ((RBFintParams)parameters).getParamsCenter();
         RBFParams paramsRadius = ((RBFintParams)parameters).getParamsRadius();
         

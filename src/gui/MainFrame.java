@@ -438,6 +438,8 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldSettingsRBFintDistanceParams_bertoluzza_beta = new javax.swing.JTextField();
         jLabel163 = new javax.swing.JLabel();
         jLabel164 = new javax.swing.JLabel();
+        jLabel138 = new javax.swing.JLabel();
+        textFieldNumNetworksToTrainRBFint = new javax.swing.JTextField();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         labelSettingsARIMAnonseas = new javax.swing.JLabel();
         labelSettingsARIMAnonseasP = new javax.swing.JLabel();
@@ -3049,6 +3051,10 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel164.setForeground(new java.awt.Color(255, 0, 0));
         jLabel164.setText("For some reason crashes with num=1.");
 
+        jLabel138.setText("Num of networks to train (show best based on efficiency+coverage):");
+
+        textFieldNumNetworksToTrainRBFint.setText("1");
+
         javax.swing.GroupLayout paneSettingsMethodsRBFintLayout = new javax.swing.GroupLayout(paneSettingsMethodsRBFint);
         paneSettingsMethodsRBFint.setLayout(paneSettingsMethodsRBFintLayout);
         paneSettingsMethodsRBFintLayout.setHorizontalGroup(
@@ -3129,8 +3135,12 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(textFieldPercentTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabelPercentSign4)))))
-                .addContainerGap(194, Short.MAX_VALUE))
+                                .addComponent(jLabelPercentSign4))))
+                    .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                        .addComponent(jLabel138)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldNumNetworksToTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(237, Short.MAX_VALUE))
         );
         paneSettingsMethodsRBFintLayout.setVerticalGroup(
             paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3206,7 +3216,11 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel157)
                         .addComponent(comboBoxSettingsRBFintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(191, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
+                .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel138)
+                    .addComponent(textFieldNumNetworksToTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("RBF(i)", paneSettingsMethodsRBFint);
@@ -5250,6 +5264,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel135;
     private javax.swing.JLabel jLabel136;
     private javax.swing.JLabel jLabel137;
+    private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel139;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel140;
@@ -5555,6 +5570,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldMLPintDistanceParam_euclid_beta;
     private javax.swing.JTextField textFieldMLPintDistanceParam_ichino_gamma;
     private javax.swing.JTextField textFieldNumNetworksToTrainMLPint;
+    private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
     private javax.swing.JTextField textFieldPercentTrain;
     private javax.swing.JTextField textFieldPercentTrainARIMA;
     private javax.swing.JTextField textFieldPercentTrainIntervalMLP;
@@ -6235,6 +6251,8 @@ public class MainFrame extends javax.swing.JFrame {
                 textFieldSettingsRBFintDistanceParams_bertoluzza_beta);
         setSomethingOneValueAnyParams(RBFintParams.class, workingList, resultList, "setDistance",
                 Distance.class, distanceFunction);
+        setSomethingListAnyParams(RBFintParams.class, workingList, resultList, "setNumNetsToTrain",
+                Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainRBFint));
         
         return resultList;
     }

@@ -9,6 +9,7 @@ public class RBFintParams extends Params {
     private RBFParams paramsCenter;
     private RBFParams paramsRadius;
     private Distance distance;
+    private Integer numNetsToTrain;
     
     public Boolean isCenterRadius() {
         return centerRadius;
@@ -42,6 +43,14 @@ public class RBFintParams extends Params {
         this.distance = distance;
     }
 
+    public Integer getNumNetsToTrain() {
+        return numNetsToTrain;
+    }
+
+    public void setNumNetsToTrain(Integer numNetsToTrain) {
+        this.numNetsToTrain = numNetsToTrain;
+    }
+
     @Override
     public Params getClone() {
         RBFintParams param = new RBFintParams();
@@ -52,6 +61,7 @@ public class RBFintParams extends Params {
         param.setParamsRadius(paramsRadius);
         param.setCenterRadius(centerRadius);
         param.setDistance(distance);
+        param.setNumNetsToTrain(numNetsToTrain);
         param.setPercentTrain(this.getPercentTrain());
         
         return param;
