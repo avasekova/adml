@@ -96,7 +96,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -193,34 +193,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldPercentTrainIntervalMLP = new javax.swing.JTextField();
         jLabel30 = new javax.swing.JLabel();
         panelSettingsIntervalMLPMode = new javax.swing.JPanel();
-        panelSettingsIntervalMLPModeCcode = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        textFieldIntervalMLPCcodeNumNeurons = new javax.swing.JTextField();
-        jLabel33 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
-        textFieldIntervalMLPCcodeNumIterations = new javax.swing.JTextField();
-        jLabel39 = new javax.swing.JLabel();
-        jLabel40 = new javax.swing.JLabel();
-        scrollPaneiMLPSettingsExplVars = new javax.swing.JScrollPane();
-        tableiMLPSettingsExplVars = new javax.swing.JTable();
-        scrollPaneiMLPSettingsOutVars = new javax.swing.JScrollPane();
-        tableiMLPSettingsOutVars = new javax.swing.JTable();
-        buttonIMLPAddExplVar = new javax.swing.JButton();
-        buttonIMLPRemoveExplVar = new javax.swing.JButton();
-        buttonIMLPAddOutVar = new javax.swing.JButton();
-        buttonIMLPRemoveOutVar = new javax.swing.JButton();
-        jLabel45 = new javax.swing.JLabel();
-        jLabel58 = new javax.swing.JLabel();
-        textFieldSettingsIntervalMLPnumNetworks = new javax.swing.JTextField();
-        jLabel59 = new javax.swing.JLabel();
-        comboBoxSettingsIntervalMLPCriterion = new javax.swing.JComboBox();
-        jLabel60 = new javax.swing.JLabel();
-        buttonSettingsIntervalMLPDistancesAdd = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        listSettingsIntervalMLPDistancesUsed = new javax.swing.JList();
-        buttonSettingsIntervalMLPDistancesRemove = new javax.swing.JButton();
-        panelIntMLPSettingsDistance = new DistanceSettingsPanel();
+        panelSettingsIntervalMLPModeCcode = new IntMLPCcodeSettingsPanel();
         panelSettingsIntervalMLPModeNeuralnet = new javax.swing.JPanel();
         jLabel32 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -1071,205 +1044,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel30.setText("%");
 
         panelSettingsIntervalMLPMode.setLayout(new java.awt.CardLayout());
-
-        jLabel34.setText("Explanatory variables:");
-
-        jLabel36.setText("Number of neurons in the (single) hidden layer:");
-
-        textFieldIntervalMLPCcodeNumNeurons.setText("1");
-
-        jLabel33.setText("Output variables:");
-
-        jLabel38.setText("Number of iterations:");
-
-        textFieldIntervalMLPCcodeNumIterations.setText("500");
-
-        jLabel39.setText("Regularization term:");
-
-        jLabel40.setText("(For now, disabled and set to 0.001)");
-        jLabel40.setEnabled(false);
-
-        tableiMLPSettingsExplVars.setModel(new gui.IntervalExplVarsTableModel());
-        tableiMLPSettingsExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        scrollPaneiMLPSettingsExplVars.setViewportView(tableiMLPSettingsExplVars);
-
-        tableiMLPSettingsOutVars.setModel(new gui.IntervalOutVarsTableModel());
-        scrollPaneiMLPSettingsOutVars.setViewportView(tableiMLPSettingsOutVars);
-
-        buttonIMLPAddExplVar.setText("Add");
-        buttonIMLPAddExplVar.setEnabled(false);
-        buttonIMLPAddExplVar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIMLPAddExplVarActionPerformed(evt);
-            }
-        });
-
-        buttonIMLPRemoveExplVar.setText("Remove selected");
-        buttonIMLPRemoveExplVar.setEnabled(false);
-        buttonIMLPRemoveExplVar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIMLPRemoveExplVarActionPerformed(evt);
-            }
-        });
-
-        buttonIMLPAddOutVar.setText("Add");
-        buttonIMLPAddOutVar.setEnabled(false);
-        buttonIMLPAddOutVar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIMLPAddOutVarActionPerformed(evt);
-            }
-        });
-
-        buttonIMLPRemoveOutVar.setText("Remove selected");
-        buttonIMLPRemoveOutVar.setEnabled(false);
-        buttonIMLPRemoveOutVar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonIMLPRemoveOutVarActionPerformed(evt);
-            }
-        });
-
-        jLabel45.setText("(Only one variable allowed. Can be extended to more.)");
-        jLabel45.setEnabled(false);
-
-        jLabel58.setText("Number of networks to train:");
-
-        textFieldSettingsIntervalMLPnumNetworks.setText("1");
-
-        jLabel59.setText("Choose the best according to:");
-
-        comboBoxSettingsIntervalMLPCriterion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mean coverage + Mean efficiency" }));
-
-        jLabel60.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel60.setText("no other options for now");
-
-        buttonSettingsIntervalMLPDistancesAdd.setText("-> Use this distance ->");
-        buttonSettingsIntervalMLPDistancesAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSettingsIntervalMLPDistancesAddActionPerformed(evt);
-            }
-        });
-
-        listSettingsIntervalMLPDistancesUsed.setModel(new DefaultListModel());
-        jScrollPane3.setViewportView(listSettingsIntervalMLPDistancesUsed);
-
-        buttonSettingsIntervalMLPDistancesRemove.setText("Remove selected distance");
-        buttonSettingsIntervalMLPDistancesRemove.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSettingsIntervalMLPDistancesRemoveActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelSettingsIntervalMLPModeCcodeLayout = new javax.swing.GroupLayout(panelSettingsIntervalMLPModeCcode);
-        panelSettingsIntervalMLPModeCcode.setLayout(panelSettingsIntervalMLPModeCcodeLayout);
-        panelSettingsIntervalMLPModeCcodeLayout.setHorizontalGroup(
-            panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneiMLPSettingsOutVars, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addComponent(jLabel33)
-                        .addGap(31, 31, 31)
-                        .addComponent(buttonIMLPAddOutVar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonIMLPRemoveOutVar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel45))
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel38)
-                            .addComponent(jLabel39))
-                        .addGap(142, 142, 142)
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel40)
-                            .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                                .addGap(244, 244, 244)
-                                .addComponent(textFieldSettingsIntervalMLPnumNetworks, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel58))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel59)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comboBoxSettingsIntervalMLPCriterion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel60))
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addComponent(jLabel36)
-                        .addGap(18, 18, 18)
-                        .addComponent(textFieldIntervalMLPCcodeNumNeurons, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(scrollPaneiMLPSettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 562, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                                .addComponent(panelIntMLPSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonSettingsIntervalMLPDistancesAdd))
-                            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                                .addComponent(jLabel34)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonIMLPAddExplVar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonIMLPRemoveExplVar)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonSettingsIntervalMLPDistancesRemove)))
-                .addContainerGap(252, Short.MAX_VALUE))
-        );
-        panelSettingsIntervalMLPModeCcodeLayout.setVerticalGroup(
-            panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(buttonSettingsIntervalMLPDistancesAdd))
-                            .addComponent(panelIntMLPSettingsDistance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel34)
-                            .addComponent(buttonIMLPAddExplVar)
-                            .addComponent(buttonIMLPRemoveExplVar)))
-                    .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonSettingsIntervalMLPDistancesRemove)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneiMLPSettingsExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
-                    .addComponent(textFieldIntervalMLPCcodeNumNeurons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel33)
-                    .addComponent(buttonIMLPAddOutVar)
-                    .addComponent(buttonIMLPRemoveOutVar)
-                    .addComponent(jLabel45))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollPaneiMLPSettingsOutVars, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel38)
-                    .addComponent(textFieldIntervalMLPCcodeNumIterations, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(9, 9, 9)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel58)
-                    .addComponent(textFieldSettingsIntervalMLPnumNetworks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel59)
-                    .addComponent(comboBoxSettingsIntervalMLPCriterion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel60))
-                .addGap(18, 18, 18)
-                .addGroup(panelSettingsIntervalMLPModeCcodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel39)
-                    .addComponent(jLabel40))
-                .addContainerGap(151, Short.MAX_VALUE))
-        );
-
         panelSettingsIntervalMLPMode.add(panelSettingsIntervalMLPModeCcode, "panelSettingsIntervalMLPModeCcode");
 
         jLabel32.setText("neuralnet - to be finished");
@@ -2736,6 +2510,9 @@ public class MainFrame extends javax.swing.JFrame {
                         ((DefaultListModel)(listSettingsVAREndogenousVars.getModel())).addElement(colname);
                         comboBoxSettingsRBFoutputVar.addItem(colname);
                     }
+                    DialogAddIntervalExplanatoryVar.setColNames(dataTableModel.getColnames());
+                    DialogAddIntervalOutputVar.setColNames(dataTableModel.getColnames());
+                    DialogAddCrispExplanatoryVar.setColNames(dataTableModel.getColnames());
                     
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
@@ -2745,10 +2522,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonPlotAllITS.setEnabled(true);
                         buttonPlotAddITS.setEnabled(true);
                         buttonPlotRemoveITS.setEnabled(true);
-                        buttonIMLPAddExplVar.setEnabled(true);
-                        buttonIMLPRemoveExplVar.setEnabled(true);
-                        buttonIMLPAddOutVar.setEnabled(true);
-                        buttonIMLPRemoveOutVar.setEnabled(true);
+                        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
                         buttonRBFAddExplVar.setEnabled(true);
                         buttonRBFRemoveExplVar.setEnabled(true);
                         buttonRBFint_center_AddExplVar.setEnabled(true);
@@ -2841,32 +2615,6 @@ public class MainFrame extends javax.swing.JFrame {
         
         panelSettingsMLPPackage.repaint();
     }//GEN-LAST:event_comboBoxIntervalMLPModeActionPerformed
-
-    private void buttonIMLPAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPAddExplVarActionPerformed
-        DialogAddIntervalExplanatoryVar dialogAddExplVar = new DialogAddIntervalExplanatoryVar(this, true);
-        dialogAddExplVar.setColnames(dataTableModel.getColnames());
-        dialogAddExplVar.setExplVarsTableModel((IntervalExplVarsTableModel)(tableiMLPSettingsExplVars.getModel()));
-        dialogAddExplVar.setVisible(true);
-    }//GEN-LAST:event_buttonIMLPAddExplVarActionPerformed
-
-    private void buttonIMLPRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPRemoveExplVarActionPerformed
-        ((IntervalExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).removeRow(tableiMLPSettingsExplVars.getSelectedRow());
-    }//GEN-LAST:event_buttonIMLPRemoveExplVarActionPerformed
-
-    private void buttonIMLPAddOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPAddOutVarActionPerformed
-        DialogAddIntervalOutputVar dialogAddOutVar = new DialogAddIntervalOutputVar(this, true);
-        dialogAddOutVar.setColnames(dataTableModel.getColnames());
-        dialogAddOutVar.setOutVarsTableModel((IntervalOutVarsTableModel)(tableiMLPSettingsOutVars.getModel()));
-        dialogAddOutVar.setVisible(true);
-        buttonIMLPAddOutVar.setEnabled(false);
-    }//GEN-LAST:event_buttonIMLPAddOutVarActionPerformed
-
-    private void buttonIMLPRemoveOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIMLPRemoveOutVarActionPerformed
-        ((IntervalOutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).removeRow(tableiMLPSettingsOutVars.getSelectedRow());
-        if (((IntervalOutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty()) {
-            buttonIMLPAddOutVar.setEnabled(true);
-        }
-    }//GEN-LAST:event_buttonIMLPRemoveOutVarActionPerformed
 
     private void sliderPercentTrainKNNStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderPercentTrainKNNStateChanged
         textFieldPercentTrainKNN.setText("" + sliderPercentTrainKNN.getValue());
@@ -3077,9 +2825,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
-            if (((IntervalExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables().isEmpty() ||
-                ((IntervalOutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables().isEmpty() ||
-                (((DefaultListModel)listSettingsIntervalMLPDistancesUsed.getModel()).toArray().length == 0)) {
+            if (((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getExplVars().isEmpty() ||
+                ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getOutVars().isEmpty() ||
+                (((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getDistancesUsed().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the iMLP C code to run.");
             } else {
                 List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode();
@@ -3332,18 +3080,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPintPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageMLPintActionPerformed
 
-    private void buttonSettingsIntervalMLPDistancesAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsIntervalMLPDistancesAddActionPerformed
-        Distance distance = ((DistanceSettingsPanel)panelIntMLPSettingsDistance).getSelectedDistance();
-        ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).addElement(distance);
-    }//GEN-LAST:event_buttonSettingsIntervalMLPDistancesAddActionPerformed
-
-    private void buttonSettingsIntervalMLPDistancesRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsIntervalMLPDistancesRemoveActionPerformed
-        List<Object> values = listSettingsIntervalMLPDistancesUsed.getSelectedValuesList();
-        for (Object val : values) {
-            ((DefaultListModel)(listSettingsIntervalMLPDistancesUsed.getModel())).removeElement(val);
-        }
-    }//GEN-LAST:event_buttonSettingsIntervalMLPDistancesRemoveActionPerformed
-
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
         JFileChooser fileChooser = new JFileChooser(new File(System.getProperty("user.dir")));
         fileChooser.setMultiSelectionEnabled(false);
@@ -3527,7 +3263,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonRBFAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRBFAddExplVarActionPerformed
         DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(this, true);
-        dialogAddExplVar.setColnames(dataTableModel.getColnames());
         dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableRBFSettingsExplVars.getModel()));
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonRBFAddExplVarActionPerformed
@@ -3551,7 +3286,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonRBFint_center_AddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRBFint_center_AddExplVarActionPerformed
         DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(this, true);
-        dialogAddExplVar.setColnames(dataTableModel.getColnames());
         dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableRBFint_center_SettingsExplVars.getModel()));
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonRBFint_center_AddExplVarActionPerformed
@@ -3562,7 +3296,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonRBFint_radius_AddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRBFint_radius_AddExplVarActionPerformed
         DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(this, true);
-        dialogAddExplVar.setColnames(dataTableModel.getColnames());
         dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableRBFint_radius_SettingsExplVars.getModel()));
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonRBFint_radius_AddExplVarActionPerformed
@@ -3618,10 +3351,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
-    private javax.swing.JButton buttonIMLPAddExplVar;
-    private javax.swing.JButton buttonIMLPAddOutVar;
-    private javax.swing.JButton buttonIMLPRemoveExplVar;
-    private javax.swing.JButton buttonIMLPRemoveOutVar;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
@@ -3642,8 +3371,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonRBFint_radius_RemoveExplVar;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonRunRestoreRangeAll;
-    private javax.swing.JButton buttonSettingsIntervalMLPDistancesAdd;
-    private javax.swing.JButton buttonSettingsIntervalMLPDistancesRemove;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
@@ -3679,7 +3406,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxRunFakeIntLower;
     private javax.swing.JComboBox comboBoxRunFakeIntRadius;
     private javax.swing.JComboBox comboBoxRunFakeIntUpper;
-    private javax.swing.JComboBox comboBoxSettingsIntervalMLPCriterion;
     private javax.swing.JComboBox comboBoxSettingsRBFint_center_outputVar;
     private javax.swing.JComboBox comboBoxSettingsRBFint_radius_outputVar;
     private javax.swing.JComboBox comboBoxSettingsRBFoutputVar;
@@ -3725,27 +3451,17 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
-    private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel58;
-    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
@@ -3782,7 +3498,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
@@ -3804,7 +3519,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelSettingsARIMAseasQ;
     private javax.swing.JList listColnames;
     private javax.swing.JList listPlotITSspecs;
-    private javax.swing.JList listSettingsIntervalMLPDistancesUsed;
     private javax.swing.JList listSettingsVAREndogenousVars;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
@@ -3827,7 +3541,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelEverything;
     private javax.swing.JPanel panelForecastVals;
     private javax.swing.JPanel panelForecastValsAll;
-    private javax.swing.JPanel panelIntMLPSettingsDistance;
     private javax.swing.JPanel panelMLPintSettingsDistance;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRBFintSettingsDistance;
@@ -3859,8 +3572,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPaneRBFSettingsExplVars;
     private javax.swing.JScrollPane scrollPaneRBFint_center_SettingsExplVars;
     private javax.swing.JScrollPane scrollPaneRBFint_radius_SettingsExplVars;
-    private javax.swing.JScrollPane scrollPaneiMLPSettingsExplVars;
-    private javax.swing.JScrollPane scrollPaneiMLPSettingsOutVars;
     private javax.swing.JSlider sliderPercentTrain;
     private javax.swing.JSlider sliderPercentTrainARIMA;
     private javax.swing.JSlider sliderPercentTrainIntervalMLP;
@@ -3874,11 +3585,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTable tableRBFSettingsExplVars;
     private javax.swing.JTable tableRBFint_center_SettingsExplVars;
     private javax.swing.JTable tableRBFint_radius_SettingsExplVars;
-    private javax.swing.JTable tableiMLPSettingsExplVars;
-    private javax.swing.JTable tableiMLPSettingsOutVars;
     private javax.swing.JTextArea textAreaPlotBasicStats;
-    private javax.swing.JTextField textFieldIntervalMLPCcodeNumIterations;
-    private javax.swing.JTextField textFieldIntervalMLPCcodeNumNeurons;
     private javax.swing.JTextField textFieldKNNcustomLag;
     private javax.swing.JTextField textFieldKNNfnnLag;
     private javax.swing.JTextField textFieldKNNkknnLag;
@@ -3909,7 +3616,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldSettingsARIMAseasD;
     private javax.swing.JTextField textFieldSettingsARIMAseasP;
     private javax.swing.JTextField textFieldSettingsARIMAseasQ;
-    private javax.swing.JTextField textFieldSettingsIntervalMLPnumNetworks;
     private javax.swing.JTextField textFieldSettingsRBFint_center_maxIt;
     private javax.swing.JTextField textFieldSettingsRBFint_center_numHidden;
     private javax.swing.JTextField textFieldSettingsRBFint_radius_maxIt;
@@ -4104,22 +3810,19 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         
-        List<Distance> distanceFunctions = new ArrayList<>();
-        for (Object obj : ((DefaultListModel)listSettingsIntervalMLPDistancesUsed.getModel()).toArray()) {
-            distanceFunctions.add((Distance) obj);
-        }
+        List<Distance> distanceFunctions = ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getDistancesUsed();
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setDistanceFunction",
                 Distance.class, distanceFunctions);
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNodesHidden",
-                Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumNeurons));
+                Integer.class, Utils.getIntegersOrDefault(((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getNumHidden()));
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumIterations",
-                Integer.class, Utils.getIntegersOrDefault(textFieldIntervalMLPCcodeNumIterations));
+                Integer.class, Utils.getIntegersOrDefault(((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getNumIterations()));
         setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setExplVars",
-                List.class, ((IntervalExplVarsTableModel)(tableiMLPSettingsExplVars.getModel())).getVariables());
+                List.class, ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getExplVars());
         setSomethingOneValueAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setOutVars",
-                List.class, ((IntervalOutVarsTableModel)(tableiMLPSettingsOutVars.getModel())).getVariables());
+                List.class, ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getOutVars());
         setSomethingListAnyParams(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNetworks",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsIntervalMLPnumNetworks));
+                Integer.class, Utils.getIntegersOrDefault(((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getNumNetsToTrain()));
         //TODO add the criterion here
         
         return resultList;

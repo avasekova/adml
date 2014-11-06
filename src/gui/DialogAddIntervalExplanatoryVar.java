@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
 import utils.IntervalExplanatoryVariable;
@@ -11,10 +12,21 @@ import utils.imlp.IntervalNamesLowerUpper;
 public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     
     private IntervalExplVarsTableModel tableModel;
+    private static List<String> colNames = new ArrayList<>();
     
     public DialogAddIntervalExplanatoryVar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        for (String c : DialogAddIntervalExplanatoryVar.colNames) {
+            comboBoxAddExplVarLower.addItem(c);
+            comboBoxAddExplVarUpper.addItem(c);
+            comboBoxAddExplVarCenter.addItem(c);
+            comboBoxAddExplVarRadius.addItem(c);
+        }
+    }
+    
+    public static void setColNames(List<String> colNames) {
+        DialogAddIntervalExplanatoryVar.colNames = colNames;
     }
 
     /**
@@ -307,12 +319,4 @@ public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     private javax.swing.JTextField textFieldAddExplVarName;
     // End of variables declaration//GEN-END:variables
 
-    public void setColnames(List<String> colnames) {
-        for (String c : colnames) {
-            comboBoxAddExplVarLower.addItem(c);
-            comboBoxAddExplVarUpper.addItem(c);
-            comboBoxAddExplVarCenter.addItem(c);
-            comboBoxAddExplVarRadius.addItem(c);
-        }
-    }
 }

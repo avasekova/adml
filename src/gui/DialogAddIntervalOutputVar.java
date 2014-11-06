@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
@@ -10,12 +11,23 @@ import utils.IntervalOutputVariable;
 public class DialogAddIntervalOutputVar extends javax.swing.JDialog {
     
     private IntervalOutVarsTableModel tableModel;
+    private static List<String> colNames = new ArrayList<>();
     
     public DialogAddIntervalOutputVar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        for (String c : DialogAddIntervalOutputVar.colNames) {
+            comboBoxAddOutVarLower.addItem(c);
+            comboBoxAddOutVarUpper.addItem(c);
+            comboBoxAddOutVarCenter.addItem(c);
+            comboBoxAddOutVarRadius.addItem(c);
+        }
     }
 
+    public static void setColNames(List<String> colNames) {
+        DialogAddIntervalOutputVar.colNames = colNames;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -268,12 +280,4 @@ public class DialogAddIntervalOutputVar extends javax.swing.JDialog {
     private javax.swing.JTextField textFieldAddOutVarName;
     // End of variables declaration//GEN-END:variables
 
-    public void setColnames(List<String> colnames) {
-        for (String c : colnames) {
-            comboBoxAddOutVarLower.addItem(c);
-            comboBoxAddOutVarUpper.addItem(c);
-            comboBoxAddOutVarCenter.addItem(c);
-            comboBoxAddOutVarRadius.addItem(c);
-        }
-    }
 }

@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
 import utils.CrispExplanatoryVariable;
@@ -8,10 +9,18 @@ import utils.CrispExplanatoryVariable;
 public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
     
     private CrispExplVarsTableModel tableModel;
+    private static List<String> colNames = new ArrayList<>();
     
     public DialogAddCrispExplanatoryVar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        for (String c : DialogAddCrispExplanatoryVar.colNames) {
+            comboBoxAddExplVar.addItem(c);
+        }
+    }
+    
+    public static void setColNames(List<String> colNames) {
+        DialogAddCrispExplanatoryVar.colNames = colNames;
     }
 
     /**
@@ -181,9 +190,4 @@ public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
     private javax.swing.JTextField textFieldAddExplVarName;
     // End of variables declaration//GEN-END:variables
 
-    public void setColnames(List<String> colnames) {
-        for (String c : colnames) {
-            comboBoxAddExplVar.addItem(c);
-        }
-    }
 }
