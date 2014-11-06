@@ -294,14 +294,19 @@ public class ErrorMeasuresUtils {
         }
         
         //kvoli problemom s delenim nulou, ak je forecastInterval len cislo, tj radius nula:
-        if (Utils.equalsDoubles(forecast.getUpperBound(), forecast.getLowerBound()) ||
-            Utils.equalsDoubles(real.getUpperBound(), real.getLowerBound())) {
+        if (forecast.getUpperBound() == forecast.getLowerBound()) {
             if ((real.getLowerBound() <= forecast.getLowerBound()) &&
                 (real.getUpperBound() >= forecast.getLowerBound())) { //takze forecast je obsiahnuty
                 return 100;
             } else {
                 return 0;
             }
+        }
+        
+        //realInterval len cislo, tj radius nula:
+        double widthReal = real.getUpperBound() - real.getLowerBound();
+        if (widthReal == 0) {
+            return 0;
         }
         
         double widthForecast = forecast.getUpperBound() - forecast.getLowerBound();
@@ -353,8 +358,13 @@ public class ErrorMeasuresUtils {
         //now check if they overlap
         if (lefter.getUpperBound() <= righter.getLowerBound()) { //no overlap
             return 0;
-        } else { //get the width of the overlap
-            return width(righter.getLowerBound(), Math.min(lefter.getUpperBound(), righter.getUpperBound()));
+        } else {
+            //if one of them has width = 0, they do not overlap
+            if ((lefter.getUpperBound() == lefter.getLowerBound()) || (righter.getUpperBound() == righter.getLowerBound())) {
+                return 0;
+            } else { //get the width of the overlap
+                return width(righter.getLowerBound(), Math.min(lefter.getUpperBound(), righter.getUpperBound()));
+            }
         }
     }
     
