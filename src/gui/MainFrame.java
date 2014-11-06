@@ -192,71 +192,11 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPintPackage_nnetar_center = new MLPNnetarSettingsPanel();
         panelSettingsMLPintPackage_nnetar_radius = new MLPNnetarSettingsPanel();
         panelSettingsMLPintPackage_nnet = new javax.swing.JPanel();
-        jLabel90 = new javax.swing.JLabel();
-        jLabel50 = new javax.swing.JLabel();
-        jLabel51 = new javax.swing.JLabel();
-        jLabel52 = new javax.swing.JLabel();
-        jLabel91 = new javax.swing.JLabel();
-        jLabel96 = new javax.swing.JLabel();
-        paramMLPintNnet_lagCenter = new javax.swing.JTextField();
-        paramMLPintNnet_numNodesHiddenLayerCenter = new javax.swing.JTextField();
-        jLabel97 = new javax.swing.JLabel();
-        jLabel98 = new javax.swing.JLabel();
-        jLabel99 = new javax.swing.JLabel();
-        paramMLPintNnet_radioButtonLogisticCenter = new javax.swing.JRadioButton();
-        paramMLPintNnet_radioButtonLeastSqrsCenter = new javax.swing.JRadioButton();
-        paramMLPintNnet_radioButtonLoglinSoftmaxCenter = new javax.swing.JRadioButton();
-        paramMLPintNnet_radioButtonCensoredOnCenter = new javax.swing.JRadioButton();
-        jLabel102 = new javax.swing.JLabel();
-        paramMLPintNnet_checkBoxSkipConnCenter = new javax.swing.JCheckBox();
-        jLabel103 = new javax.swing.JLabel();
-        paramMLPintNnet_labelInitRangeMirrorCenter = new javax.swing.JLabel();
-        paramMLPintNnet_initRangeCenter = new javax.swing.JTextField();
-        jLabel104 = new javax.swing.JLabel();
-        jLabel105 = new javax.swing.JLabel();
-        paramMLPintNnet_weightDecayCenter = new javax.swing.JTextField();
-        jLabel106 = new javax.swing.JLabel();
-        paramMLPintNnet_maxitCenter = new javax.swing.JTextField();
-        jLabel107 = new javax.swing.JLabel();
-        paramMLPintNnet_traceOptimizationCenter = new javax.swing.JCheckBox();
-        jLabel108 = new javax.swing.JLabel();
-        paramMLPintNnet_abstolCenter = new javax.swing.JTextField();
-        jLabel109 = new javax.swing.JLabel();
-        paramMLPintNnet_reltolCenter = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel100 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
-        jLabel110 = new javax.swing.JLabel();
-        paramMLPintNnet_lagRadius = new javax.swing.JTextField();
-        jLabel53 = new javax.swing.JLabel();
-        jLabel111 = new javax.swing.JLabel();
-        jLabel112 = new javax.swing.JLabel();
-        paramMLPintNnet_numNodesHiddenLayerRadius = new javax.swing.JTextField();
-        jLabel113 = new javax.swing.JLabel();
-        jLabel114 = new javax.swing.JLabel();
-        jLabel115 = new javax.swing.JLabel();
-        jLabel116 = new javax.swing.JLabel();
-        jLabel117 = new javax.swing.JLabel();
-        paramMLPintNnet_radioButtonLogisticRadius = new javax.swing.JRadioButton();
-        paramMLPintNnet_radioButtonLeastSqrsRadius = new javax.swing.JRadioButton();
-        paramMLPintNnet_radioButtonLoglinSoftmaxRadius = new javax.swing.JRadioButton();
-        paramMLPintNnet_radioButtonCensoredOnRadius = new javax.swing.JRadioButton();
-        jLabel118 = new javax.swing.JLabel();
-        jLabel119 = new javax.swing.JLabel();
-        paramMLPintNnet_labelInitRangeMirrorRadius = new javax.swing.JLabel();
-        paramMLPintNnet_initRangeRadius = new javax.swing.JTextField();
-        paramMLPintNnet_checkBoxSkipConnRadius = new javax.swing.JCheckBox();
-        jLabel120 = new javax.swing.JLabel();
-        paramMLPintNnet_weightDecayRadius = new javax.swing.JTextField();
-        jLabel121 = new javax.swing.JLabel();
-        jLabel122 = new javax.swing.JLabel();
-        paramMLPintNnet_maxitRadius = new javax.swing.JTextField();
-        jLabel123 = new javax.swing.JLabel();
-        paramMLPintNnet_traceOptimizationRadius = new javax.swing.JCheckBox();
-        jLabel124 = new javax.swing.JLabel();
-        paramMLPintNnet_abstolRadius = new javax.swing.JTextField();
-        jLabel125 = new javax.swing.JLabel();
-        paramMLPintNnet_reltolRadius = new javax.swing.JTextField();
+        panelSettingsMLPintPackage_nnet_center = new MLPNnetSettingsPanel();
+        panelSettingsMLPintPackage_nnet_radius = new MLPNnetSettingsPanel();
         jLabelRPkg1 = new javax.swing.JLabel();
         comboBoxRPackageMLPint = new javax.swing.JComboBox();
         jLabel63 = new javax.swing.JLabel();
@@ -1141,80 +1081,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSettingsMLPintPackage.add(panelSettingsMLPintPackage_nnetar, "panelSettingsMLPintPackage_nnetar");
 
-        jLabel90.setText("Lag:");
-
-        jLabel50.setText("Weights:");
-
-        jLabel51.setText("Number of nodes in the (single) hidden layer:");
-
-        jLabel52.setText("Initial parameter vector:");
-
-        jLabel91.setText("Which parameters to optimize:");
-
-        jLabel96.setText("Output units:");
-        jLabel96.setEnabled(false);
-
-        paramMLPintNnet_lagCenter.setText("1");
-
-        paramMLPintNnet_numNodesHiddenLayerCenter.setText("1");
-
-        jLabel97.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel97.setText("(not enabled yet)");
-
-        jLabel98.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel98.setText("(not enabled yet)");
-
-        jLabel99.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel99.setText("(not enabled yet. Default: all)");
-
-        paramMLPintNnet_radioButtonLogisticCenter.setSelected(true);
-        paramMLPintNnet_radioButtonLogisticCenter.setText("Logistic (if not selected, linear)");
-        paramMLPintNnet_radioButtonLogisticCenter.setEnabled(false);
-
-        paramMLPintNnet_radioButtonLeastSqrsCenter.setText("Maximum conditional likelihood fitting (if not selected, least squares fitting)");
-        paramMLPintNnet_radioButtonLeastSqrsCenter.setEnabled(false);
-
-        paramMLPintNnet_radioButtonLoglinSoftmaxCenter.setText("Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)");
-        paramMLPintNnet_radioButtonLoglinSoftmaxCenter.setEnabled(false);
-
-        paramMLPintNnet_radioButtonCensoredOnCenter.setText("censored on");
-        paramMLPintNnet_radioButtonCensoredOnCenter.setEnabled(false);
-
-        jLabel102.setText("Add skip-layer connections from input to output:");
-
-        jLabel103.setText("Initial random weights in range:");
-
-        paramMLPintNnet_labelInitRangeMirrorCenter.setText("[-" + paramMLPintNnet_initRangeCenter.getText() + ";");
-
-        paramMLPintNnet_initRangeCenter.setText("0.7");
-        paramMLPintNnet_initRangeCenter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paramMLPintNnet_initRangeCenterActionPerformed(evt);
-            }
-        });
-
-        jLabel104.setText("]");
-
-        jLabel105.setText("Weight decay:");
-
-        paramMLPintNnet_weightDecayCenter.setText("0");
-
-        jLabel106.setText("Max iterations:");
-
-        paramMLPintNnet_maxitCenter.setText("100");
-
-        jLabel107.setText("Trace optimization:");
-
-        paramMLPintNnet_traceOptimizationCenter.setSelected(true);
-
-        jLabel108.setText("Stop if the fit criterion falls below");
-
-        paramMLPintNnet_abstolCenter.setText("0.0001");
-
-        jLabel109.setText("Stop if the optimizer cannot reduce the fit criterion by a factor of at least 1 -");
-
-        paramMLPintNnet_reltolCenter.setText("0.00000001");
-
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel100.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -1223,80 +1089,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel101.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel101.setText("Radius:");
 
-        jLabel110.setText("Lag:");
-
-        paramMLPintNnet_lagRadius.setText("1");
-
-        jLabel53.setText("Weights:");
-
-        jLabel111.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel111.setText("(not enabled yet)");
-
-        jLabel112.setText("Number of nodes in the (single) hidden layer:");
-
-        paramMLPintNnet_numNodesHiddenLayerRadius.setText("1");
-
-        jLabel113.setText("Initial parameter vector:");
-
-        jLabel114.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel114.setText("(not enabled yet)");
-
-        jLabel115.setText("Which parameters to optimize:");
-
-        jLabel116.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel116.setText("(not enabled yet. Default: all)");
-
-        jLabel117.setText("Output units:");
-        jLabel117.setEnabled(false);
-
-        paramMLPintNnet_radioButtonLogisticRadius.setSelected(true);
-        paramMLPintNnet_radioButtonLogisticRadius.setText("Logistic (if not selected, linear)");
-        paramMLPintNnet_radioButtonLogisticRadius.setEnabled(false);
-
-        paramMLPintNnet_radioButtonLeastSqrsRadius.setText("Maximum conditional likelihood fitting (if not selected, least squares fitting)");
-        paramMLPintNnet_radioButtonLeastSqrsRadius.setEnabled(false);
-
-        paramMLPintNnet_radioButtonLoglinSoftmaxRadius.setText("Log-linear model (softmax) (if not selected, maximum conditional likelihood fitting)");
-        paramMLPintNnet_radioButtonLoglinSoftmaxRadius.setEnabled(false);
-
-        paramMLPintNnet_radioButtonCensoredOnRadius.setText("censored on");
-        paramMLPintNnet_radioButtonCensoredOnRadius.setEnabled(false);
-
-        jLabel118.setText("Add skip-layer connections from input to output:");
-
-        jLabel119.setText("Initial random weights in range:");
-
-        paramMLPintNnet_labelInitRangeMirrorRadius.setText("[-" + paramMLPintNnet_initRangeRadius.getText() + ";");
-
-        paramMLPintNnet_initRangeRadius.setText("0.7");
-        paramMLPintNnet_initRangeRadius.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paramMLPintNnet_initRangeRadiusActionPerformed(evt);
-            }
-        });
-
-        jLabel120.setText("]");
-
-        paramMLPintNnet_weightDecayRadius.setText("0");
-
-        jLabel121.setText("Weight decay:");
-
-        jLabel122.setText("Max iterations:");
-
-        paramMLPintNnet_maxitRadius.setText("100");
-
-        jLabel123.setText("Trace optimization:");
-
-        paramMLPintNnet_traceOptimizationRadius.setSelected(true);
-
-        jLabel124.setText("Stop if the fit criterion falls below");
-
-        paramMLPintNnet_abstolRadius.setText("0.0001");
-
-        jLabel125.setText("Stop if the optimizer cannot reduce the fit criterion by a factor of at least 1 -");
-
-        paramMLPintNnet_reltolRadius.setText("0.00000001");
-
         javax.swing.GroupLayout panelSettingsMLPintPackage_nnetLayout = new javax.swing.GroupLayout(panelSettingsMLPintPackage_nnet);
         panelSettingsMLPintPackage_nnet.setLayout(panelSettingsMLPintPackage_nnetLayout);
         panelSettingsMLPintPackage_nnetLayout.setHorizontalGroup(
@@ -1304,143 +1096,18 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel100)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel51)
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel52)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel98)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(paramMLPintNnet_numNodesHiddenLayerCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel91)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel99))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel50)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel97))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel100)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel90)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(paramMLPintNnet_lagCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel109)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paramMLPintNnet_reltolCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel105)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paramMLPintNnet_weightDecayCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel107)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(paramMLPintNnet_traceOptimizationCenter))
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel96)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(paramMLPintNnet_radioButtonLoglinSoftmaxCenter)
-                                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                        .addComponent(paramMLPintNnet_radioButtonCensoredOnCenter)
-                                        .addGap(83, 83, 83)
-                                        .addComponent(paramMLPintNnet_checkBoxSkipConnCenter))
-                                    .addComponent(paramMLPintNnet_radioButtonLeastSqrsCenter)
-                                    .addComponent(paramMLPintNnet_radioButtonLogisticCenter)))
-                            .addComponent(jLabel102)
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel103)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paramMLPintNnet_labelInitRangeMirrorCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(paramMLPintNnet_initRangeCenter, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel104))
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                    .addComponent(jLabel106)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(paramMLPintNnet_maxitCenter)
-                                    .addGap(84, 84, 84))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                    .addComponent(jLabel108)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(paramMLPintNnet_abstolCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(13, 13, 13)
+                        .addComponent(panelSettingsMLPintPackage_nnet_center, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel112)
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(jLabel113)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel114)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(paramMLPintNnet_numNodesHiddenLayerRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel115)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel116))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel53)
-                        .addGap(64, 64, 64)
-                        .addComponent(jLabel111))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(jLabel101)
-                        .addGap(35, 35, 35)
-                        .addComponent(jLabel110)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(paramMLPintNnet_lagRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel125)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(paramMLPintNnet_reltolRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel121)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(paramMLPintNnet_weightDecayRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel123)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(paramMLPintNnet_traceOptimizationRadius))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel117)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(paramMLPintNnet_radioButtonLoglinSoftmaxRadius)
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addComponent(paramMLPintNnet_radioButtonCensoredOnRadius)
-                                .addGap(83, 83, 83)
-                                .addComponent(paramMLPintNnet_checkBoxSkipConnRadius))
-                            .addComponent(paramMLPintNnet_radioButtonLeastSqrsRadius)
-                            .addComponent(paramMLPintNnet_radioButtonLogisticRadius)))
-                    .addComponent(jLabel118)
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                        .addComponent(jLabel119)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(paramMLPintNnet_labelInitRangeMirrorRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(paramMLPintNnet_initRangeRadius, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel120))
-                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                            .addComponent(jLabel122)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(paramMLPintNnet_maxitRadius)
-                            .addGap(84, 84, 84))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                            .addComponent(jLabel124)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(paramMLPintNnet_abstolRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(97, Short.MAX_VALUE))
+                        .addGap(0, 572, Short.MAX_VALUE))
+                    .addComponent(panelSettingsMLPintPackage_nnet_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         panelSettingsMLPintPackage_nnetLayout.setVerticalGroup(
             panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1450,135 +1117,12 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jSeparator4)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel110)
-                                    .addComponent(paramMLPintNnet_lagRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel101))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel53)
-                                    .addComponent(jLabel111))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel112)
-                                    .addComponent(paramMLPintNnet_numNodesHiddenLayerRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel113)
-                                    .addComponent(jLabel114))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel115)
-                                    .addComponent(jLabel116))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                                .addComponent(jLabel117)
-                                                .addGap(84, 84, 84)
-                                                .addComponent(jLabel118))
-                                            .addComponent(paramMLPintNnet_checkBoxSkipConnRadius))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel119)
-                                            .addComponent(paramMLPintNnet_labelInitRangeMirrorRadius)
-                                            .addComponent(paramMLPintNnet_initRangeRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel120))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel121)
-                                            .addComponent(paramMLPintNnet_weightDecayRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel122)
-                                            .addComponent(paramMLPintNnet_maxitRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                        .addComponent(paramMLPintNnet_radioButtonLogisticRadius)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paramMLPintNnet_radioButtonLeastSqrsRadius)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paramMLPintNnet_radioButtonLoglinSoftmaxRadius)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paramMLPintNnet_radioButtonCensoredOnRadius)))
-                                .addGap(2, 2, 2)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel123)
-                                    .addComponent(paramMLPintNnet_traceOptimizationRadius))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel124)
-                                    .addComponent(paramMLPintNnet_abstolRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel125)
-                                    .addComponent(paramMLPintNnet_reltolRadius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel90)
-                                    .addComponent(paramMLPintNnet_lagCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel100))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel50)
-                                    .addComponent(jLabel97))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel51)
-                                    .addComponent(paramMLPintNnet_numNodesHiddenLayerCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel52)
-                                    .addComponent(jLabel98))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel91)
-                                    .addComponent(jLabel99))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                                .addComponent(jLabel96)
-                                                .addGap(84, 84, 84)
-                                                .addComponent(jLabel102))
-                                            .addComponent(paramMLPintNnet_checkBoxSkipConnCenter))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel103)
-                                            .addComponent(paramMLPintNnet_labelInitRangeMirrorCenter)
-                                            .addComponent(paramMLPintNnet_initRangeCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel104))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel105)
-                                            .addComponent(paramMLPintNnet_weightDecayCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                            .addComponent(jLabel106)
-                                            .addComponent(paramMLPintNnet_maxitCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
-                                        .addComponent(paramMLPintNnet_radioButtonLogisticCenter)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paramMLPintNnet_radioButtonLeastSqrsCenter)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paramMLPintNnet_radioButtonLoglinSoftmaxCenter)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(paramMLPintNnet_radioButtonCensoredOnCenter)))
-                                .addGap(2, 2, 2)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel107)
-                                    .addComponent(paramMLPintNnet_traceOptimizationCenter))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel108)
-                                    .addComponent(paramMLPintNnet_abstolCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel109)
-                                    .addComponent(paramMLPintNnet_reltolCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(jLabel101)
+                            .addComponent(jLabel100))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelSettingsMLPintPackage_nnet_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelSettingsMLPintPackage_nnet_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
 
@@ -4270,14 +3814,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPintPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageMLPintActionPerformed
 
-    private void paramMLPintNnet_initRangeCenterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramMLPintNnet_initRangeCenterActionPerformed
-        paramMLPintNnet_labelInitRangeMirrorCenter.setText("[-" + paramMLPintNnet_initRangeCenter.getText() + ";");
-    }//GEN-LAST:event_paramMLPintNnet_initRangeCenterActionPerformed
-
-    private void paramMLPintNnet_initRangeRadiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_paramMLPintNnet_initRangeRadiusActionPerformed
-        paramMLPintNnet_labelInitRangeMirrorRadius.setText("[-" + paramMLPintNnet_initRangeRadius.getText() + ";");
-    }//GEN-LAST:event_paramMLPintNnet_initRangeRadiusActionPerformed
-
     private void buttonSettingsIntervalMLPDistancesAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsIntervalMLPDistancesAddActionPerformed
         Distance distance = getSelectedDistance(comboBoxSettingsIMLPcCodeDistance, textFieldIntervalMLPDistanceParam_euclid_beta, 
                 textFieldIntervalMLPDistanceParam_ichino_gamma, textFieldIntervalMLPDistanceParam_decarvalho_gamma, 
@@ -4659,30 +4195,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxSettingsVARtype;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel102;
-    private javax.swing.JLabel jLabel103;
-    private javax.swing.JLabel jLabel104;
-    private javax.swing.JLabel jLabel105;
-    private javax.swing.JLabel jLabel106;
-    private javax.swing.JLabel jLabel107;
-    private javax.swing.JLabel jLabel108;
-    private javax.swing.JLabel jLabel109;
-    private javax.swing.JLabel jLabel110;
-    private javax.swing.JLabel jLabel111;
-    private javax.swing.JLabel jLabel112;
-    private javax.swing.JLabel jLabel113;
-    private javax.swing.JLabel jLabel114;
-    private javax.swing.JLabel jLabel115;
-    private javax.swing.JLabel jLabel116;
-    private javax.swing.JLabel jLabel117;
-    private javax.swing.JLabel jLabel118;
-    private javax.swing.JLabel jLabel119;
-    private javax.swing.JLabel jLabel120;
-    private javax.swing.JLabel jLabel121;
-    private javax.swing.JLabel jLabel122;
-    private javax.swing.JLabel jLabel123;
-    private javax.swing.JLabel jLabel124;
-    private javax.swing.JLabel jLabel125;
     private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
@@ -4743,10 +4255,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
     private javax.swing.JLabel jLabel54;
     private javax.swing.JLabel jLabel55;
     private javax.swing.JLabel jLabel56;
@@ -4776,16 +4284,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel88;
     private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JLabel jLabel90;
-    private javax.swing.JLabel jLabel91;
     private javax.swing.JLabel jLabel92;
     private javax.swing.JLabel jLabel93;
     private javax.swing.JLabel jLabel94;
     private javax.swing.JLabel jLabel95;
-    private javax.swing.JLabel jLabel96;
-    private javax.swing.JLabel jLabel97;
-    private javax.swing.JLabel jLabel98;
-    private javax.swing.JLabel jLabel99;
     private javax.swing.JLabel jLabelPercTrain;
     private javax.swing.JLabel jLabelPercTrain1;
     private javax.swing.JLabel jLabelPercTrain2;
@@ -4873,6 +4375,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMLPintDistanceParams_ichino;
     private javax.swing.JPanel panelSettingsMLPintPackage;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnet;
+    private javax.swing.JPanel panelSettingsMLPintPackage_nnet_center;
+    private javax.swing.JPanel panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar_center;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar_radius;
@@ -4883,34 +4387,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsRBFintDistanceParams_hausdorff;
     private javax.swing.JPanel panelSettingsRBFintDistanceParams_ichino;
     private javax.swing.JPanel panelSummary;
-    private javax.swing.JTextField paramMLPintNnet_abstolCenter;
-    private javax.swing.JTextField paramMLPintNnet_abstolRadius;
-    private javax.swing.JCheckBox paramMLPintNnet_checkBoxSkipConnCenter;
-    private javax.swing.JCheckBox paramMLPintNnet_checkBoxSkipConnRadius;
-    private javax.swing.JTextField paramMLPintNnet_initRangeCenter;
-    private javax.swing.JTextField paramMLPintNnet_initRangeRadius;
-    private javax.swing.JLabel paramMLPintNnet_labelInitRangeMirrorCenter;
-    private javax.swing.JLabel paramMLPintNnet_labelInitRangeMirrorRadius;
-    private javax.swing.JTextField paramMLPintNnet_lagCenter;
-    private javax.swing.JTextField paramMLPintNnet_lagRadius;
-    private javax.swing.JTextField paramMLPintNnet_maxitCenter;
-    private javax.swing.JTextField paramMLPintNnet_maxitRadius;
-    private javax.swing.JTextField paramMLPintNnet_numNodesHiddenLayerCenter;
-    private javax.swing.JTextField paramMLPintNnet_numNodesHiddenLayerRadius;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonCensoredOnCenter;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonCensoredOnRadius;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonLeastSqrsCenter;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonLeastSqrsRadius;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonLogisticCenter;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonLogisticRadius;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonLoglinSoftmaxCenter;
-    private javax.swing.JRadioButton paramMLPintNnet_radioButtonLoglinSoftmaxRadius;
-    private javax.swing.JTextField paramMLPintNnet_reltolCenter;
-    private javax.swing.JTextField paramMLPintNnet_reltolRadius;
-    private javax.swing.JCheckBox paramMLPintNnet_traceOptimizationCenter;
-    private javax.swing.JCheckBox paramMLPintNnet_traceOptimizationRadius;
-    private javax.swing.JTextField paramMLPintNnet_weightDecayCenter;
-    private javax.swing.JTextField paramMLPintNnet_weightDecayRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
@@ -5288,31 +4764,31 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingListAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setLag", 
-                Integer.class, Utils.getIntegersOrDefault(paramMLPintNnet_lagCenter));
+                Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getLag()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setAbstol", 
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_abstolCenter));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getAbstol()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setReltol", 
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_reltolCenter));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getReltol()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setSkipLayerConnections",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_checkBoxSkipConnCenter.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isSkipConn()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setInitWeightsRange",
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_initRangeCenter));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getInitRange()));
         setSomethingListAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setMaxIterations",
-                Integer.class, Utils.getIntegersOrDefault(paramMLPintNnet_maxitCenter));
+                Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getMaxit()));
         setSomethingListAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setNumNodesHiddenLayer",
-                Integer.class, Utils.getIntegersOrDefault(paramMLPintNnet_numNodesHiddenLayerCenter));
+                Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getNumNodesHidden()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setLinearElseLogistic",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonLogisticCenter.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isLogistic()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setLeastSqrsElseMaxCondLikelihood",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonLeastSqrsCenter.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isLeastSqrs()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setLoglinSoftmaxElseMaxCondLikelihood",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonLoglinSoftmaxCenter.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isLoglinSoftmax()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setCensoredOnElseOff",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonCensoredOnCenter.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isCensoredOn()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setWeightDecay",
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_weightDecayCenter));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getWeightDecay()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListCenter, resultListCenter, "setTraceOptimization",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_traceOptimizationCenter.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isTraceOptimization()));
         
         List<NnetParams> workingListRadius = new ArrayList<>();
         NnetParams parRadius = new NnetParams();
@@ -5329,31 +4805,31 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingListAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setLag", 
-                Integer.class, Utils.getIntegersOrDefault(paramMLPintNnet_lagRadius));
+                Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getLag()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setAbstol", 
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_abstolRadius));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getAbstol()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setReltol", 
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_reltolRadius));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getReltol()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setSkipLayerConnections",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_checkBoxSkipConnRadius.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isSkipConn()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setInitWeightsRange",
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_initRangeRadius));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getInitRange()));
         setSomethingListAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setMaxIterations",
-                Integer.class, Utils.getIntegersOrDefault(paramMLPintNnet_maxitRadius));
+                Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getMaxit()));
         setSomethingListAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setNumNodesHiddenLayer",
-                Integer.class, Utils.getIntegersOrDefault(paramMLPintNnet_numNodesHiddenLayerRadius));
+                Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getNumNodesHidden()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setLinearElseLogistic",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonLogisticRadius.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isLogistic()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setLeastSqrsElseMaxCondLikelihood",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonLeastSqrsRadius.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isLeastSqrs()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setLoglinSoftmaxElseMaxCondLikelihood",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonLoglinSoftmaxRadius.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isLoglinSoftmax()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setCensoredOnElseOff",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_radioButtonCensoredOnRadius.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isCensoredOn()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setWeightDecay",
-                Double.class, Utils.getDoubleOrDefault(paramMLPintNnet_weightDecayRadius));
+                Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getWeightDecay()));
         setSomethingOneValueAnyParams(NnetParams.class, workingListRadius, resultListRadius, "setTraceOptimization",
-                R_Bool.class, Utils.booleanToRBool(paramMLPintNnet_traceOptimizationRadius.isSelected()));
+                R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isTraceOptimization()));
         
         
         List<MLPintNnetParams> workingList = new ArrayList<>();
