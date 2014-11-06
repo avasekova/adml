@@ -1,5 +1,9 @@
 package gui;
 
+import gui.settingspanels.MLPNnetarSettingsPanel;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.MLPNnetSettingsPanel;
+import gui.settingspanels.IntMLPCcodeSettingsPanel;
 import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;

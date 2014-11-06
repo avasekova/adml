@@ -1,4 +1,4 @@
-package gui;
+package gui.settingspanels;
 
 public class MLPNnetSettingsPanel extends javax.swing.JPanel {
 

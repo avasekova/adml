@@ -1,4 +1,4 @@
-package gui;
+package gui.settingspanels;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;

@@ -1,4 +1,4 @@
-package gui;
+package gui.settingspanels;
 
 import java.awt.CardLayout;
 import utils.imlp.dist.BertoluzzaDistance;

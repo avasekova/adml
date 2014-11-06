@@ -1,5 +1,10 @@
-package gui;
+package gui.settingspanels;
 
+import gui.DialogAddIntervalExplanatoryVar;
+import gui.DialogAddIntervalOutputVar;
+import gui.IntervalExplVarsTableModel;
+import gui.IntervalOutVarsTableModel;
+import gui.MainFrame;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
