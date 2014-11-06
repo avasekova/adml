@@ -1569,49 +1569,20 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel77" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel78" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel79" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel81" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="paramMLPint_center_textFieldLambda" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jLabel87" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
+                                          <Component id="panelSettingsMLPintPackage_nnetar_center" min="-2" pref="567" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jSeparator3" min="-2" pref="2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel82" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel83" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                  <Component id="paramMLPint_radius_textFieldLambda" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumReps" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="1" max="32767" attributes="0"/>
-                                                  <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="0" min="-2" pref="56" max="-2" attributes="0"/>
-                                              </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="519" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
-                                      <EmptySpace pref="384" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1619,71 +1590,16 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel87" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel88" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                          <Component id="jLabel77" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_center_textFieldNumNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                          <Component id="jLabel78" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_center_textFieldNumNonSeasonalLags" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel79" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_center_textFieldNumSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel80" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_center_textFieldNumReps" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel81" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_center_textFieldLambda" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                          <Component id="jLabel82" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_radius_textFieldNumNodesHiddenLayer" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="3" attributes="0">
-                                                          <Component id="jLabel83" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_radius_textFieldNumNonSeasonalLags" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel84" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_radius_textFieldNumSeasonalLags" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel85" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_radius_textFieldNumReps" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Group type="103" groupAlignment="0" attributes="0">
-                                                          <Component id="jLabel86" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                          <Component id="paramMLPint_radius_textFieldLambda" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                          </Group>
-                                          <Component id="jSeparator3" min="-2" pref="144" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel87" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel88" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace pref="244" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="panelSettingsMLPintPackage_nnetar_center" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -1697,72 +1613,6 @@
                                 <Property name="text" type="java.lang.String" value="Center:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel77">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel78">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of non-seasonal lags to be used as inputs:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel79">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of seasonal lags to be used as inputs:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel80">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of repetitions:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel81">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Lambda (Box-Cox transformation):"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNodesHiddenLayer">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumNodesHiddenLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumNodesHiddenLayer.getText())) {&#xa;            paramMLPint_center_textFieldNumNodesHiddenLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumNodesHiddenLayer.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumNodesHiddenLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumNonSeasonalLags">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                                <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumNonSeasonalLags.getText())) {&#xa;            paramMLPint_center_textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumSeasonalLags">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumSeasonalLags.getText())) {&#xa;            paramMLPint_center_textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldNumReps">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="20"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldNumReps.getText())) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_center_textFieldLambda">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_center_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_center_textFieldLambda.getText())) {&#xa;            paramMLPint_center_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_center_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramMLPint_center_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
                             <Component class="javax.swing.JLabel" name="jLabel88">
                               <Properties>
                                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -1771,77 +1621,20 @@
                                 <Property name="text" type="java.lang.String" value="Radius:"/>
                               </Properties>
                             </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel82">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of nodes in the (single) hidden layer:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel83">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of non-seasonal lags to be used as inputs:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel84">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of seasonal lags to be used as inputs:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel85">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Number of repetitions:"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JLabel" name="jLabel86">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="Lambda (Box-Cox transformation):"/>
-                              </Properties>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNodesHiddenLayer">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                              </Properties>
+                            <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnetar_center">
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumNodesHiddenLayer.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumNodesHiddenLayer.getText())) {&#xa;            paramMLPint_radius_textFieldNumNodesHiddenLayer.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumNodesHiddenLayer.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumNodesHiddenLayer.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetarSettingsPanel()"/>
                               </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumNonSeasonalLags">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="1"/>
-                                <Property name="toolTipText" type="java.lang.String" value="The default is the optimal number of lags (according to the AIC) for a linear AR(p) model."/>
-                              </Properties>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                            </Container>
+                            <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnetar_radius">
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumNonSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumNonSeasonalLags.getText())) {&#xa;            paramMLPint_radius_textFieldNumNonSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumNonSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumNonSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetarSettingsPanel()"/>
                               </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumSeasonalLags">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumSeasonalLags.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumSeasonalLags.getText())) {&#xa;            paramMLPint_radius_textFieldNumSeasonalLags.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumSeasonalLags.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumSeasonalLags.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldNumReps">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="20"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldNumReps.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldNumReps.getText())) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldNumReps.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldNumReps.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JTextField" name="paramMLPint_radius_textFieldLambda">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="&lt;default&gt;"/>
-                              </Properties>
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="paramMLPint_radius_textFieldLambda.addFocusListener(new FocusListener() {&#xa;&#xa;    @Override&#xa;    public void focusGained(FocusEvent fe) {&#xa;        if (&quot;&lt;default&gt;&quot;.equals(paramMLPint_radius_textFieldLambda.getText())) {&#xa;            paramMLPint_radius_textFieldLambda.setText(&quot;&quot;);&#xa;        }&#xa;    }&#xa;&#xa;    @Override&#xa;    public void focusLost(FocusEvent fe) {&#xa;        if (paramMLPint_radius_textFieldLambda.getText().length() &lt; 1) {&#xa;            paramMLPint_radius_textFieldLambda.setText(&quot;&lt;default&gt;&quot;);&#xa;        }&#xa;    }&#xa;});"/>
-                              </AuxValues>
-                            </Component>
-                            <Component class="javax.swing.JSeparator" name="jSeparator3">
-                              <Properties>
-                                <Property name="orientation" type="int" value="1"/>
-                              </Properties>
-                            </Component>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                            </Container>
                           </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnet">
