@@ -5,6 +5,7 @@ import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
+import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.IntMLPCcodeSettingsPanel;
 import gui.settingspanels.MLPNnetSettingsPanel;
@@ -226,27 +227,11 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsRBFint_center = new RBFSettingsPanel();
         panelSettingsRBFint_radius = new RBFSettingsPanel();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
-        labelSettingsARIMAnonseas = new javax.swing.JLabel();
-        labelSettingsARIMAnonseasP = new javax.swing.JLabel();
-        textFieldSettingsARIMAnonseasP = new javax.swing.JTextField();
-        labelSettingsARIMAnonseasQ = new javax.swing.JLabel();
-        textFieldSettingsARIMAnonseasQ = new javax.swing.JTextField();
-        labelSettingsARIMAnonseasD = new javax.swing.JLabel();
-        textFieldSettingsARIMAnonseasD = new javax.swing.JTextField();
-        labelSettingsARIMAseas = new javax.swing.JLabel();
-        labelSettingsARIMAseasP = new javax.swing.JLabel();
-        textFieldSettingsARIMAseasP = new javax.swing.JTextField();
-        labelSettingsARIMAseasD = new javax.swing.JLabel();
-        textFieldSettingsARIMAseasD = new javax.swing.JTextField();
-        labelSettingsARIMAseasQ = new javax.swing.JLabel();
-        textFieldSettingsARIMAseasQ = new javax.swing.JTextField();
-        jLabel62 = new javax.swing.JLabel();
         jLabelPercTrain2 = new javax.swing.JLabel();
         sliderPercentTrainARIMA = new javax.swing.JSlider();
         textFieldPercentTrainARIMA = new javax.swing.JTextField();
         jLabelPercentSign2 = new javax.swing.JLabel();
-        checkBoxSettingsARIMAoptimize = new javax.swing.JCheckBox();
-        checkBoxSettingsARIMAconstant = new javax.swing.JCheckBox();
+        panelSettingsARIMAMain = new ARIMASettingsPanel();
         paneSettingsMethodsKNN = new javax.swing.JPanel();
         jLabel37 = new javax.swing.JLabel();
         sliderPercentTrainKNN = new javax.swing.JSlider();
@@ -1264,37 +1249,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("RBF(i)", paneSettingsMethodsRBFint);
 
-        labelSettingsARIMAnonseas.setText("Non-seasonal part:");
-
-        labelSettingsARIMAnonseasP.setText("p =");
-
-        textFieldSettingsARIMAnonseasP.setText("0");
-
-        labelSettingsARIMAnonseasQ.setText("q =");
-
-        textFieldSettingsARIMAnonseasQ.setText("0");
-
-        labelSettingsARIMAnonseasD.setText("d =");
-
-        textFieldSettingsARIMAnonseasD.setText("0");
-
-        labelSettingsARIMAseas.setText("Seasonal part:");
-
-        labelSettingsARIMAseasP.setText("P =");
-
-        textFieldSettingsARIMAseasP.setText("0");
-
-        labelSettingsARIMAseasD.setText("D =");
-
-        textFieldSettingsARIMAseasD.setText("0");
-
-        labelSettingsARIMAseasQ.setText("Q =");
-
-        textFieldSettingsARIMAseasQ.setText("0");
-
-        jLabel62.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel62.setText("TODO other params of stats.arima + add <default> labels");
-
         jLabelPercTrain2.setText("Portion of data to use for training:");
 
         sliderPercentTrainARIMA.setMaximum(99);
@@ -1315,68 +1269,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelPercentSign2.setText("%");
 
-        checkBoxSettingsARIMAoptimize.setText("optimize the parameters");
-        checkBoxSettingsARIMAoptimize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxSettingsARIMAoptimizeActionPerformed(evt);
-            }
-        });
-
-        checkBoxSettingsARIMAconstant.setText("include constant");
-
         javax.swing.GroupLayout paneSettingsMethodsARIMALayout = new javax.swing.GroupLayout(paneSettingsMethodsARIMA);
         paneSettingsMethodsARIMA.setLayout(paneSettingsMethodsARIMALayout);
         paneSettingsMethodsARIMALayout.setHorizontalGroup(
             paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jLabelPercTrain2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(sliderPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(textFieldPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelPercentSign2)
+                .addContainerGap(522, Short.MAX_VALUE))
+            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxSettingsARIMAoptimize)
-                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                .addComponent(labelSettingsARIMAnonseas)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelSettingsARIMAnonseasP)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldSettingsARIMAnonseasP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                .addComponent(labelSettingsARIMAseas)
-                                .addGap(28, 28, 28)
-                                .addComponent(labelSettingsARIMAseasP)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldSettingsARIMAseasP, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                        .addComponent(labelSettingsARIMAnonseasD)
-                                        .addGap(5, 5, 5)
-                                        .addComponent(textFieldSettingsARIMAnonseasD, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(labelSettingsARIMAnonseasQ)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldSettingsARIMAnonseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                                        .addComponent(labelSettingsARIMAseasD)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldSettingsARIMAseasD, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(labelSettingsARIMAseasQ)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldSettingsARIMAseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(49, 49, 49)
-                        .addComponent(jLabel62))
-                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                        .addGap(119, 119, 119)
-                        .addComponent(jLabelPercTrain2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sliderPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPercentSign2))
-                    .addComponent(checkBoxSettingsARIMAconstant))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         paneSettingsMethodsARIMALayout.setVerticalGroup(
             paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1388,34 +1298,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(textFieldPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabelPercentSign2))
                     .addComponent(sliderPercentTrainARIMA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                        .addGap(7, 7, 7)
-                        .addComponent(checkBoxSettingsARIMAoptimize)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelSettingsARIMAnonseas)
-                            .addComponent(labelSettingsARIMAnonseasP)
-                            .addComponent(textFieldSettingsARIMAnonseasP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldSettingsARIMAnonseasD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelSettingsARIMAnonseasD)
-                            .addComponent(labelSettingsARIMAnonseasQ)
-                            .addComponent(textFieldSettingsARIMAnonseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelSettingsARIMAseas)
-                            .addComponent(textFieldSettingsARIMAseasP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelSettingsARIMAseasP)
-                            .addComponent(labelSettingsARIMAseasD)
-                            .addComponent(textFieldSettingsARIMAseasD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelSettingsARIMAseasQ)
-                            .addComponent(textFieldSettingsARIMAseasQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(jLabel62)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(checkBoxSettingsARIMAconstant)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(11, 11, 11)
+                .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         paneSettingsMethods.addTab("ARIMA", paneSettingsMethodsARIMA);
@@ -2385,42 +2270,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsKNNoptions.repaint();
     }//GEN-LAST:event_comboBoxKNNoptionsActionPerformed
 
-    private void checkBoxSettingsARIMAoptimizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxSettingsARIMAoptimizeActionPerformed
-        if (checkBoxSettingsARIMAoptimize.isSelected()) {
-            labelSettingsARIMAnonseas.setEnabled(false);
-            labelSettingsARIMAnonseasP.setEnabled(false);
-            labelSettingsARIMAnonseasD.setEnabled(false);
-            labelSettingsARIMAnonseasQ.setEnabled(false);
-            labelSettingsARIMAseas.setEnabled(false);
-            labelSettingsARIMAseasP.setEnabled(false);
-            labelSettingsARIMAseasD.setEnabled(false);
-            labelSettingsARIMAseasQ.setEnabled(false);
-            textFieldSettingsARIMAnonseasP.setEnabled(false);
-            textFieldSettingsARIMAnonseasD.setEnabled(false);
-            textFieldSettingsARIMAnonseasQ.setEnabled(false);
-            textFieldSettingsARIMAseasP.setEnabled(false);
-            textFieldSettingsARIMAseasD.setEnabled(false);
-            textFieldSettingsARIMAseasQ.setEnabled(false);
-            checkBoxSettingsARIMAconstant.setEnabled(false);
-        } else {
-            labelSettingsARIMAnonseas.setEnabled(true);
-            labelSettingsARIMAnonseasP.setEnabled(true);
-            labelSettingsARIMAnonseasD.setEnabled(true);
-            labelSettingsARIMAnonseasQ.setEnabled(true);
-            labelSettingsARIMAseas.setEnabled(true);
-            labelSettingsARIMAseasP.setEnabled(true);
-            labelSettingsARIMAseasD.setEnabled(true);
-            labelSettingsARIMAseasQ.setEnabled(true);
-            textFieldSettingsARIMAnonseasP.setEnabled(true);
-            textFieldSettingsARIMAnonseasD.setEnabled(true);
-            textFieldSettingsARIMAnonseasQ.setEnabled(true);
-            textFieldSettingsARIMAseasP.setEnabled(true);
-            textFieldSettingsARIMAseasD.setEnabled(true);
-            textFieldSettingsARIMAseasQ.setEnabled(true);
-            checkBoxSettingsARIMAconstant.setEnabled(true);
-        }
-    }//GEN-LAST:event_checkBoxSettingsARIMAoptimizeActionPerformed
-
     private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
         dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
         dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
@@ -3069,8 +2918,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunRBF;
     private javax.swing.JCheckBox checkBoxRunRBFint;
     private javax.swing.JCheckBox checkBoxRunVAR;
-    private javax.swing.JCheckBox checkBoxSettingsARIMAconstant;
-    private javax.swing.JCheckBox checkBoxSettingsARIMAoptimize;
     private javax.swing.JComboBox comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxIntervalMLPMode;
     private javax.swing.JComboBox comboBoxKNNcombination;
@@ -3117,7 +2964,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
@@ -3164,14 +3010,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelRunFakeIntLower;
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
-    private javax.swing.JLabel labelSettingsARIMAnonseas;
-    private javax.swing.JLabel labelSettingsARIMAnonseasD;
-    private javax.swing.JLabel labelSettingsARIMAnonseasP;
-    private javax.swing.JLabel labelSettingsARIMAnonseasQ;
-    private javax.swing.JLabel labelSettingsARIMAseas;
-    private javax.swing.JLabel labelSettingsARIMAseasD;
-    private javax.swing.JLabel labelSettingsARIMAseasP;
-    private javax.swing.JLabel labelSettingsARIMAseasQ;
     private javax.swing.JList listColnames;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listSettingsVAREndogenousVars;
@@ -3200,6 +3038,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRBFintSettingsDistance;
     private javax.swing.JPanel panelRunOutside;
+    private javax.swing.JPanel panelSettingsARIMAMain;
     private javax.swing.JPanel panelSettingsIntervalMLPMode;
     private javax.swing.JPanel panelSettingsIntervalMLPModeCcode;
     private javax.swing.JPanel panelSettingsIntervalMLPModeNeuralnet;
@@ -3262,12 +3101,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldRunDataRangeFrom;
     private javax.swing.JTextField textFieldRunDataRangeTo;
     private javax.swing.JTextField textFieldRunNumForecasts;
-    private javax.swing.JTextField textFieldSettingsARIMAnonseasD;
-    private javax.swing.JTextField textFieldSettingsARIMAnonseasP;
-    private javax.swing.JTextField textFieldSettingsARIMAnonseasQ;
-    private javax.swing.JTextField textFieldSettingsARIMAseasD;
-    private javax.swing.JTextField textFieldSettingsARIMAseasP;
-    private javax.swing.JTextField textFieldSettingsARIMAseasQ;
     private javax.swing.JTextField textFieldSettingsVARlag;
     // End of variables declaration//GEN-END:variables
 
@@ -3669,21 +3502,21 @@ public class MainFrame extends javax.swing.JFrame {
         setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         setSomethingOneValueAnyParams(ArimaParams.class, workingList, resultList, "setOptimize",
-                Boolean.class, checkBoxSettingsARIMAoptimize.isSelected());
-        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasP",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAnonseasP));
-        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasD",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAnonseasD));
-        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasQ",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAnonseasQ));
-        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasP",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasP));
-        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasD",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasD));
-        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasQ",
-                Integer.class, Utils.getIntegersOrDefault(textFieldSettingsARIMAseasQ));
+                Boolean.class, ((ARIMASettingsPanel)panelSettingsARIMAMain).isOptimize());
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasPotato",
+                Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getNonSeasLowercasePotato()));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasDonkey",
+                Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getNonSeasLowercaseDonkey()));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setNonSeasQuark",
+                Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getNonSeasLowercaseQuark()));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasPotato",
+                Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getSeasUppercasePotato()));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasDonkey",
+                Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getSeasUppercaseDonkey()));
+        setSomethingListAnyParams(ArimaParams.class, workingList, resultList, "setSeasQuark",
+                Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getSeasUppercaseQuark()));
         setSomethingOneValueAnyParams(ArimaParams.class, workingList, resultList, "setWithConstant",
-                Boolean.class, checkBoxSettingsARIMAconstant.isSelected());
+                Boolean.class, ((ARIMASettingsPanel)panelSettingsARIMAMain).isConstant());
         
         return resultList;
     }

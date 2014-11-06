@@ -2,61 +2,61 @@ package params;
 
 public class ArimaParams extends Params {
     
-    private int nonSeasP;
-    private int nonSeasD;
-    private int nonSeasQ;
-    private int seasP;
-    private int seasD;
-    private int seasQ;
+    private int nonSeasPotato;
+    private int nonSeasDonkey;
+    private int nonSeasQuark;
+    private int seasPotato;
+    private int seasDonkey;
+    private int seasQuark;
     private boolean optimize;
     private boolean withConstant;
 
-    public int getNonSeasP() {
-        return nonSeasP;
+    public int getNonSeasPotato() {
+        return nonSeasPotato;
     }
 
-    public void setNonSeasP(Integer nonSeasP) {
-        this.nonSeasP = nonSeasP;
+    public void setNonSeasPotato(Integer nonSeasPotato) {
+        this.nonSeasPotato = nonSeasPotato;
     }
 
-    public int getNonSeasD() {
-        return nonSeasD;
+    public int getNonSeasDonkey() {
+        return nonSeasDonkey;
     }
 
-    public void setNonSeasD(Integer nonSeasD) {
-        this.nonSeasD = nonSeasD;
+    public void setNonSeasDonkey(Integer nonSeasDonkey) {
+        this.nonSeasDonkey = nonSeasDonkey;
     }
 
-    public int getNonSeasQ() {
-        return nonSeasQ;
+    public int getNonSeasQuark() {
+        return nonSeasQuark;
     }
 
-    public void setNonSeasQ(Integer nonSeasQ) {
-        this.nonSeasQ = nonSeasQ;
+    public void setNonSeasQuark(Integer nonSeasQuark) {
+        this.nonSeasQuark = nonSeasQuark;
     }
 
-    public int getSeasP() {
-        return seasP;
+    public int getSeasPotato() {
+        return seasPotato;
     }
 
-    public void setSeasP(Integer seasP) {
-        this.seasP = seasP;
+    public void setSeasPotato(Integer seasPotato) {
+        this.seasPotato = seasPotato;
     }
 
-    public int getSeasD() {
-        return seasD;
+    public int getSeasDonkey() {
+        return seasDonkey;
     }
 
-    public void setSeasD(Integer seasD) {
-        this.seasD = seasD;
+    public void setSeasDonkey(Integer seasDonkey) {
+        this.seasDonkey = seasDonkey;
     }
 
-    public int getSeasQ() {
-        return seasQ;
+    public int getSeasQuark() {
+        return seasQuark;
     }
 
-    public void setSeasQ(Integer seasQ) {
-        this.seasQ = seasQ;
+    public void setSeasQuark(Integer seasQuark) {
+        this.seasQuark = seasQuark;
     }
 
     public boolean isOptimize() {
@@ -80,15 +80,15 @@ public class ArimaParams extends Params {
         ArimaParams param = new ArimaParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
-        param.setNonSeasD(nonSeasD);
-        param.setNonSeasP(nonSeasP);
-        param.setNonSeasQ(nonSeasQ);
+        param.setNonSeasDonkey(nonSeasDonkey);
+        param.setNonSeasPotato(nonSeasPotato);
+        param.setNonSeasQuark(nonSeasQuark);
         param.setNumForecasts(this.getNumForecasts());
         param.setOptimize(optimize);
         param.setPercentTrain(this.getPercentTrain());
-        param.setSeasD(seasD);
-        param.setSeasP(seasP);
-        param.setSeasQ(seasQ);
+        param.setSeasDonkey(seasDonkey);
+        param.setSeasPotato(seasPotato);
+        param.setSeasQuark(seasQuark);
         param.setWithConstant(withConstant);
         
         return param;
@@ -96,6 +96,6 @@ public class ArimaParams extends Params {
 
     @Override
     public String toString() {
-        return "ArimaParams{" + "nonSeasP=" + nonSeasP + ", nonSeasD=" + nonSeasD + ", nonSeasQ=" + nonSeasQ + ", seasP=" + seasP + ", seasD=" + seasD + ", seasQ=" + seasQ + ", optimize=" + optimize + ", withConstant=" + withConstant + "}\n";
+        return "ArimaParams{" + "nonSeasP=" + nonSeasPotato + ", nonSeasD=" + nonSeasDonkey + ", nonSeasQ=" + nonSeasQuark + ", seasP=" + seasPotato + ", seasD=" + seasDonkey + ", seasQ=" + seasQuark + ", optimize=" + optimize + ", withConstant=" + withConstant + "}\n";
     }
 }

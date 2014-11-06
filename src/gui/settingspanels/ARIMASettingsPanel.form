@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Component id="checkBoxOptimize" alignment="0" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labelSettingsARIMAnonseas" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="labelNonseasLowercasePotato" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="textFieldNonseasLowercasePotato" min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="labelSettingsARIMAseas" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <Component id="labelSeasUppercasePotato" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="textFieldSeasUppercasePotato" min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelNonseasLowercaseDonkey" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Component id="textFieldNonseasLowercaseDonkey" min="-2" pref="24" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="labelNonseasLowercaseQuark" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="textFieldNonseasLowercaseQuark" min="-2" pref="24" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="labelSeasUppercaseDonkey" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="textFieldSeasUppercaseDonkey" min="-2" pref="23" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="labelSeasUppercaseQuark" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="textFieldSeasUppercaseQuark" min="-2" pref="22" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
+          </Group>
+          <Component id="checkBoxConstant" alignment="0" min="-2" max="-2" attributes="0"/>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="checkBoxOptimize" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelSettingsARIMAnonseas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelNonseasLowercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldNonseasLowercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldNonseasLowercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelNonseasLowercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelNonseasLowercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldNonseasLowercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="labelSettingsARIMAseas" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldSeasUppercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelSeasUppercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelSeasUppercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldSeasUppercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="labelSeasUppercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textFieldSeasUppercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                      <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="checkBoxConstant" min="-2" max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JCheckBox" name="checkBoxOptimize">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="optimize the parameters"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxOptimizeActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSettingsARIMAnonseas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Non-seasonal part:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSettingsARIMAseas">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Seasonal part:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxConstant">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="include constant"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSeasUppercasePotato">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="P ="/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelNonseasLowercasePotato">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="p ="/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldNonseasLowercasePotato">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldSeasUppercasePotato">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelNonseasLowercaseDonkey">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="d ="/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSeasUppercaseDonkey">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="D ="/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldNonseasLowercaseDonkey">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldSeasUppercaseDonkey">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelNonseasLowercaseQuark">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="q ="/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="labelSeasUppercaseQuark">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Q ="/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldNonseasLowercaseQuark">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="textFieldSeasUppercaseQuark">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="0"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel62">
+      <Properties>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="0" red="ff" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="TODO other params of stats.arima + add &lt;default&gt; labels"/>
+      </Properties>
+    </Component>
+  </SubComponents>
+</Form>

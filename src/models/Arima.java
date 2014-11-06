@@ -34,9 +34,9 @@ public class Arima implements Forecastable {
         if (params.isOptimize()) {
             arimaDescription = "(optimized)";
         } else {
-            arimaDescription = "(" + params.getNonSeasP() + "," + 
-                params.getNonSeasD() + "," + params.getNonSeasQ() + ")(" + params.getSeasP() + "," +
-                params.getSeasD() + "," + params.getSeasQ() + ")";
+            arimaDescription = "(" + params.getNonSeasPotato() + "," + 
+                params.getNonSeasDonkey() + "," + params.getNonSeasQuark() + ")(" + params.getSeasPotato() + "," +
+                params.getSeasDonkey() + "," + params.getSeasQuark() + ")";
             if (params.isWithConstant()) {
                 arimaDescription += ",const.";
             }
@@ -60,12 +60,12 @@ public class Arima implements Forecastable {
         if (params.isOptimize()) {
             rengine.eval(MODEL + " <- forecast::auto.arima(" + SCALED_INPUT_TRAIN + ")");
         } else {
-            rengine.eval(MODEL + " <- forecast::Arima(" + SCALED_INPUT_TRAIN + ", order = c(" + params.getNonSeasP() + ", "
-                                                                       + params.getNonSeasD() + ", "
-                                                                       + params.getNonSeasQ()
-                                     + "), seasonal = list(order=c(" + params.getSeasP() + ", "
-                                                                       + params.getSeasD() + ", "
-                                                                       + params.getNonSeasQ()
+            rengine.eval(MODEL + " <- forecast::Arima(" + SCALED_INPUT_TRAIN + ", order = c(" + params.getNonSeasPotato() + ", "
+                                                                       + params.getNonSeasDonkey() + ", "
+                                                                       + params.getNonSeasQuark()
+                                     + "), seasonal = list(order=c(" + params.getSeasPotato() + ", "
+                                                                       + params.getSeasDonkey() + ", "
+                                                                       + params.getNonSeasQuark()
                                      + "), period=NA), include.constant = " + Utils.booleanToRBool(params.isWithConstant()) + ", "
                                      + "method=\"ML\")");
         }
