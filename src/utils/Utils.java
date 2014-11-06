@@ -93,6 +93,15 @@ public class Utils {
         }
     }
     
+    public static Double getDoubleOrDefault(String text) {
+        try {
+            return Double.parseDouble(text);
+        } catch (NumberFormatException e) {
+            //TODO log? resp. bude sa pouzivat defaultna hodnota
+            return null;
+        }
+    }
+    
     public static R_Bool booleanToRBool(boolean truefalse) {
         if (truefalse) {
             return R_Bool.TRUE;
