@@ -1,6 +1,7 @@
 package models;
 
 import gui.DataTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import params.ArimaParams;
 import params.HybridParams;
@@ -79,8 +80,13 @@ public class Hybrid implements Forecastable {
                 Utils.arrayToList(reportRadius.getFittedValues()));
         List<Interval> forecastsTest = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesTest()),
                 Utils.arrayToList(reportRadius.getForecastValuesTest()));
-        List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
+        
+        List<Interval> forecastsFuture = new ArrayList<>();
+        if ((reportCenter.getForecastValuesFuture().length != 0) && (reportRadius.getForecastValuesFuture().length != 0)) {
+            forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
+        }
+        
         
         List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((HybridParams)parameters).getDistance());
         List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((HybridParams)parameters).getDistance());

@@ -1813,6 +1813,8 @@ public class MainFrame extends javax.swing.JFrame {
                         ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons();
                         ((RBFSettingsPanel)panelSettingsRBFint_center).enableAllButtons();
                         ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons();
+                        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons();
+                        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons();
                     }
 //                    break;filechooser
 //                case JFileChooser.CANCEL_OPTION:

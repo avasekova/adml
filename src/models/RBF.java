@@ -92,7 +92,7 @@ public class RBF implements Forecastable {
             
             //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.
             //TODO doplnit, ked budem doplnat aj do iMLP C code, lebo to bude fungovat tak isto.
-        }
+            }
         
         return report;
     }
