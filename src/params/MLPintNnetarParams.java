@@ -1,7 +1,5 @@
 package params;
 
-import utils.imlp.dist.Distance;
-
 public class MLPintNnetarParams extends MLPintParams {
     
     private NnetarParams paramsCenter;
@@ -32,7 +30,6 @@ public class MLPintNnetarParams extends MLPintParams {
         param.setNumForecasts(this.getNumForecasts());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
-        param.setCenterRadius(this.isCenterRadius());
         param.setPercentTrain(this.getPercentTrain());
         
         return param;

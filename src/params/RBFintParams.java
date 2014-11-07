@@ -4,20 +4,10 @@ import utils.imlp.dist.Distance;
 
 public class RBFintParams extends Params {
     
-    //zatial na tomto nic nezavisi, tj aj ked je to false, pocita sa s tym ako keby to bol center a radius
-    private Boolean centerRadius; //TODO vymysliet krajsie?
     private RBFParams paramsCenter;
     private RBFParams paramsRadius;
     private Distance distance;
     private Integer numNetsToTrain;
-    
-    public Boolean isCenterRadius() {
-        return centerRadius;
-    }
-
-    public void setCenterRadius(Boolean centerRadius) {
-        this.centerRadius = centerRadius;
-    }
 
     public RBFParams getParamsCenter() {
         return paramsCenter;
@@ -59,7 +49,6 @@ public class RBFintParams extends Params {
         param.setNumForecasts(this.getNumForecasts());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
-        param.setCenterRadius(centerRadius);
         param.setDistance(distance);
         param.setNumNetsToTrain(numNetsToTrain);
         param.setPercentTrain(this.getPercentTrain());

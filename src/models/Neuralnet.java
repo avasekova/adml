@@ -1,13 +1,13 @@
 package models;
 
-import java.util.List;
+import gui.DataTableModel;
 import params.NeuralnetParams;
 import params.Params;
 
 public class Neuralnet implements Forecastable {
 
     @Override
-    public TrainAndTestReportCrisp forecast(List<Double> allData, Params parameters) {
+    public TrainAndTestReportCrisp forecast(DataTableModel dataTableModel, Params parameters) {
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("neuralnet");
         
         return report;

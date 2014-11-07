@@ -15,10 +15,11 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
-public class RBF {
+public class RBF implements Forecastable {
     
     private int maxLag = 0; //a stupid solution, but whatever
 
+    @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         final String SCALED_INPUT_TRAIN = "scaled." + Const.INPUT + Utils.getCounter();
         final String SCALED_INPUT_TEST = "scaled." + Const.INPUT + Utils.getCounter();
@@ -156,5 +157,10 @@ public class RBF {
         }
         
         return inputsScaled;
+    }
+
+    @Override
+    public String getOptionalParams(Params parameters) {
+        return "";
     }
 }

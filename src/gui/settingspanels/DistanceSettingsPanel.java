@@ -1,6 +1,8 @@
 package gui.settingspanels;
 
 import java.awt.CardLayout;
+import java.util.List;
+import params.Params;
 import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.Distance;
@@ -8,7 +10,7 @@ import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
-public class DistanceSettingsPanel extends javax.swing.JPanel {
+public class DistanceSettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form DistanceSettingsPanel
@@ -255,5 +257,10 @@ public class DistanceSettingsPanel extends javax.swing.JPanel {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

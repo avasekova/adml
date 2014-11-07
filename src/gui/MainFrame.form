@@ -150,7 +150,7 @@
                                           <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" pref="462" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane4" pref="663" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
@@ -269,7 +269,7 @@
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                      <Component id="panelPlot" pref="425" max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="431" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -571,12 +571,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="1233" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="1434" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="597" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="603" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -724,7 +724,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="1112" max="32767" attributes="0"/>
+                                      <EmptySpace pref="1313" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -733,7 +733,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="487" max="32767" attributes="0"/>
+                                      <EmptySpace pref="493" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -819,7 +819,7 @@
                               </Group>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1380" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -838,7 +838,7 @@
                                   <Component id="panelMLPintPercentTrain" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="panelSettingsMLPintPackage" pref="406" max="32767" attributes="0"/>
+                              <Component id="panelSettingsMLPintPackage" pref="412" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -852,7 +852,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="592" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="598" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -892,7 +892,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="531" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="732" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
@@ -977,7 +977,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="1051" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="1252" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
                                       </Group>
@@ -1230,7 +1230,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="panelSettingsRBFMain" min="-2" pref="516" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="643" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="844" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="panelRBFPercentTrain" max="32767" attributes="0"/>
                               </Group>
@@ -1244,7 +1244,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelRBFPercentTrain" min="-2" pref="31" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelSettingsRBFMain" pref="521" max="32767" attributes="0"/>
+                              <Component id="panelSettingsRBFMain" pref="527" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1309,7 +1309,7 @@
                                               <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="panelSettingsRBFint_radius" pref="500" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsRBFint_radius" pref="701" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="130" pref="130" max="-2" attributes="0"/>
                                   </Group>
@@ -1344,7 +1344,7 @@
                                       <Component id="panelSettingsRBFint_radius" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="29" max="32767" attributes="0"/>
+                              <EmptySpace pref="35" max="32767" attributes="0"/>
                               <Component id="jLabel157" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="panelRBFintSettingsDistance" min="-2" pref="41" max="-2" attributes="0"/>
@@ -1453,7 +1453,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSettingsARIMAMain" pref="1159" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsARIMAMain" pref="1360" max="32767" attributes="0"/>
                                   <Component id="panelARIMAPercTrain" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1466,7 +1466,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelARIMAPercTrain" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelSettingsARIMAMain" pref="519" max="32767" attributes="0"/>
+                              <Component id="panelSettingsARIMAMain" pref="525" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1502,25 +1502,25 @@
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="panelSettingsKNNoptions" max="32767" attributes="0"/>
-                                  </Group>
                                   <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="panelSettingsKNNoptions" alignment="0" max="32767" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="comboBoxKNNoptions" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="750" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="510" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="panelKNNPercTrain" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="comboBoxKNNoptions" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="549" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="510" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelKNNPercTrain" max="32767" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1535,7 +1535,7 @@
                                   <Component id="comboBoxKNNoptions" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="panelSettingsKNNoptions" pref="487" max="32767" attributes="0"/>
+                              <Component id="panelSettingsKNNoptions" pref="493" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1622,7 +1622,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSettingsVARMain" alignment="0" pref="1159" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsVARMain" alignment="0" pref="1360" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1638,7 +1638,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelSettingsVARMain" pref="550" max="32767" attributes="0"/>
+                              <Component id="panelSettingsVARMain" pref="556" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1687,23 +1687,29 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelSettingsHybridPercentTrain" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="comboBoxSettingsHybridMethod_center" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="panelSettingsHybrid_centerMain" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="panelSettingsHybrid_centerMain" min="-2" pref="570" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                                      <Component id="jSeparator3" min="-2" pref="17" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="comboBoxSettingsHybridMethod_radius" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="668" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="panelSettingsHybrid_radiusMain" min="-2" max="-2" attributes="0"/>
+                                  <Component id="panelSettingsHybridDistance" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsHybrid_radiusMain" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1713,16 +1719,22 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelSettingsHybridDistance" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsHybridPercentTrain" pref="41" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="comboBoxSettingsHybridMethod_center" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="comboBoxSettingsHybridMethod_radius" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSettingsHybrid_centerMain" max="32767" attributes="0"/>
-                                  <Component id="panelSettingsHybrid_radiusMain" max="32767" attributes="0"/>
+                                  <Component id="jSeparator3" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsHybrid_radiusMain" pref="493" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsHybrid_centerMain" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1744,6 +1756,9 @@
                           <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnetar)&quot;, &quot;MLP (nnet)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot; })" type="code"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxSettingsHybridMethod_centerActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel4">
                       <Properties>
@@ -1759,6 +1774,9 @@
                           <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnetar)&quot;, &quot;MLP (nnet)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot; })" type="code"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="comboBoxSettingsHybridMethod_radiusActionPerformed"/>
+                      </Events>
                     </Component>
                     <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain">
 
@@ -1776,22 +1794,164 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_MLPnnet">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_centerMain_MLPnnet"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_RBF">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RBFSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_centerMain_RBF"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_ARIMA">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ARIMASettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_centerMain_ARIMA"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_KNNFNN">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new KNNFNNSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_centerMain_KNNFNN"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_KNNkknn">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new KNNkknnSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_centerMain_KNNkknn"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
                       </SubComponents>
                     </Container>
+                    <Component class="javax.swing.JSeparator" name="jSeparator3">
+                      <Properties>
+                        <Property name="orientation" type="int" value="1"/>
+                      </Properties>
+                    </Component>
                     <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain">
 
-                      <Layout>
-                        <DimensionLayout dim="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="570" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                        <DimensionLayout dim="1">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                          </Group>
-                        </DimensionLayout>
-                      </Layout>
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
+                      <SubComponents>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_MLPnnetar">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetarSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_MLPnnetar"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_MLPnnet">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_MLPnnet"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_RBF">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new RBFSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_RBF"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_ARIMA">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new ARIMASettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_ARIMA"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_KNNFNN">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new KNNFNNSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_KNNFNN"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_KNNkknn">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new KNNkknnSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_KNNkknn"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                      </SubComponents>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="panelSettingsHybridPercentTrain">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PercentTrainSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="panelSettingsHybridDistance">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new DistanceSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
                   </SubComponents>
                 </Container>
@@ -1912,13 +2072,6 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunMLPintNnet" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunRBFint" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
                                               <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="jLabel9" min="-2" max="-2" attributes="0"/>
@@ -1971,6 +2124,17 @@
                                                   </Group>
                                               </Group>
                                           </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunMLPintNnet" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunRBFint" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunHybrid" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
@@ -2001,13 +2165,15 @@
                               </Group>
                               <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                               <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="checkBoxRunMLPintNnetar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunMLPintNnet" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunRBFint" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunHybrid" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="checkBoxRunKNNinterval" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunIntervalMLPneuralnet" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -2115,12 +2281,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1223" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1424" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="291" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="297" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -2216,6 +2382,7 @@
             <Component class="javax.swing.JLabel" name="labelRunFakeIntLower">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Lower bound"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntCenter">
@@ -2223,7 +2390,6 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntRadius">
@@ -2231,12 +2397,12 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelRunFakeIntUpper">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Upper bound"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunMLPintNnetar">
@@ -2316,13 +2482,11 @@
             <Component class="javax.swing.JLabel" name="labelRunFakeIntCenter">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Center"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="labelRunFakeIntRadius">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Radius"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntLower">
@@ -2330,6 +2494,7 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JComboBox" name="comboBoxRunFakeIntUpper">
@@ -2337,17 +2502,21 @@
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                   <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
                 </Property>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioButtonRunFakeIntLowerUpper">
               <Properties>
-                <Property name="selected" type="boolean" value="true"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunFakeIntLowerUpperActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="radioButtonRunFakeIntCenterRadius">
+              <Properties>
+                <Property name="selected" type="boolean" value="true"/>
+              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="radioButtonRunFakeIntCenterRadiusActionPerformed"/>
               </Events>
@@ -2431,6 +2600,19 @@
                 <Property name="text" type="java.lang.String" value="RBF(i)"/>
               </Properties>
             </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunHybrid">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hybrid(i)"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel3">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="0" green="0" red="ff" type="rgb"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="TODO allow to specify Lower and Upper bound (but still compute with Center and Radius)"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelForecastValsAll">
@@ -2447,7 +2629,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="buttonExportForecastValues" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="1104" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1305" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelForecastVals" max="32767" attributes="0"/>
               </Group>
@@ -2482,7 +2664,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneForecastVals" alignment="0" pref="568" max="32767" attributes="0"/>
+                      <Component id="scrollPaneForecastVals" alignment="0" pref="574" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>

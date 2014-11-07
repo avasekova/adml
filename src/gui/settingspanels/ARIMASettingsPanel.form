@@ -18,45 +18,41 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="checkBoxOptimize" alignment="0" min="-2" max="-2" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
+              <Component id="labelSettingsARIMAnonseas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="labelNonseasLowercasePotato" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="textFieldNonseasLowercasePotato" min="-2" pref="24" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Component id="labelSettingsARIMAseas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+              <Component id="labelSeasUppercasePotato" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="textFieldSeasUppercasePotato" min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelSettingsARIMAnonseas" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelNonseasLowercaseDonkey" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                      <Component id="textFieldNonseasLowercaseDonkey" min="-2" pref="24" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="labelNonseasLowercaseQuark" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="labelNonseasLowercasePotato" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldNonseasLowercasePotato" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="textFieldNonseasLowercaseQuark" min="-2" pref="24" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="labelSettingsARIMAseas" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                      <Component id="labelSeasUppercasePotato" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSeasUppercaseDonkey" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textFieldSeasUppercasePotato" min="-2" pref="24" max="-2" attributes="0"/>
+                      <Component id="textFieldSeasUppercaseDonkey" min="-2" pref="23" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelNonseasLowercaseDonkey" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                              <Component id="textFieldNonseasLowercaseDonkey" min="-2" pref="24" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="labelNonseasLowercaseQuark" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldNonseasLowercaseQuark" min="-2" pref="24" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="labelSeasUppercaseDonkey" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldSeasUppercaseDonkey" min="-2" pref="23" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="labelSeasUppercaseQuark" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="textFieldSeasUppercaseQuark" min="-2" pref="22" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <Component id="labelSeasUppercaseQuark" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="textFieldSeasUppercaseQuark" min="-2" pref="22" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-              <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
           </Group>
           <Component id="checkBoxConstant" alignment="0" min="-2" max="-2" attributes="0"/>
       </Group>
@@ -64,36 +60,31 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <Component id="checkBoxOptimize" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelSettingsARIMAnonseas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelNonseasLowercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldNonseasLowercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldNonseasLowercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelNonseasLowercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelNonseasLowercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldNonseasLowercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="labelSettingsARIMAseas" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldSeasUppercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelSeasUppercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelSeasUppercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldSeasUppercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="labelSeasUppercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textFieldSeasUppercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                      <Component id="jLabel62" min="-2" max="-2" attributes="0"/>
-                  </Group>
+              <Component id="checkBoxOptimize" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="labelSettingsARIMAnonseas" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelNonseasLowercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textFieldNonseasLowercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textFieldNonseasLowercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelNonseasLowercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labelNonseasLowercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textFieldNonseasLowercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labelSettingsARIMAseas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textFieldSeasUppercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSeasUppercasePotato" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSeasUppercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textFieldSeasUppercaseDonkey" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelSeasUppercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="textFieldSeasUppercaseQuark" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Component id="jLabel62" alignment="1" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="checkBoxConstant" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>

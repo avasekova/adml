@@ -40,7 +40,6 @@ public class MLPintNnetParams extends MLPintParams {
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
         param.setNumNetsToTrain(numNetsToTrain);
-        param.setCenterRadius(this.isCenterRadius());
         param.setPercentTrain(this.getPercentTrain());
         
         return param;

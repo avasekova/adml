@@ -1,27 +1,24 @@
 package models;
 
+import gui.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import params.MLPintNnetParams;
 import params.NnetParams;
 import params.Params;
-import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
 
 public class MLPintNnet implements Forecastable {
     
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
+    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
         for (int i = 0; i < ((MLPintNnetParams)parameters).getNumNetsToTrain(); i++) {
-            reports.add((TrainAndTestReportInterval)(doTheActualForecast(allData, parameters)));
+            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters)));
         }
         
         //and then determine which one is the best
@@ -47,38 +44,13 @@ public class MLPintNnet implements Forecastable {
         return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
     }
 
-    private TrainAndTestReport doTheActualForecast(List<Double> allData, Params parameters) {
+    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         NnetParams paramsCenter = ((MLPintNnetParams)parameters).getParamsCenter();
         NnetParams paramsRadius = ((MLPintNnetParams)parameters).getParamsRadius();
         
-        List<Double> dataFirst = allData.subList(0, allData.size()/2);
-        List<Double> dataSecond = allData.subList(allData.size()/2, allData.size());
-        //nesublistovat! urobi sa to este raz v nnet, a potom hadze IndexOUBounds!
-        
-        //make sure we have data for centers and radii:
-        List<Double> dataCenter;
-        List<Double> dataRadius;
-        if (((MLPintNnetParams)parameters).isCenterRadius()) {
-            dataCenter = dataFirst;
-            dataRadius = dataSecond;
-        } else {
-            final String LOWER = Const.INPUT + Utils.getCounter();
-            final String UPPER = Const.INPUT + Utils.getCounter();
-            
-            Rengine rengine = MyRengine.getRengine();
-            rengine.assign(LOWER, Utils.listToArray(dataFirst));
-            rengine.assign(UPPER, Utils.listToArray(dataSecond));
-            REXP getCenter = rengine.eval("(" + UPPER + " + " + LOWER + ")/2");
-            REXP getRadius = rengine.eval("(" + UPPER + " - " + LOWER + ")/2");
-            double[] centers = getCenter.asDoubleArray();
-            double[] radii = getRadius.asDoubleArray();
-            dataCenter = Utils.arrayToList(centers);
-            dataRadius = Utils.arrayToList(radii);
-        }
-        
         Nnet nnet = new Nnet();
-        TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnet.forecast(dataCenter, paramsCenter);
-        TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnet.forecast(dataRadius, paramsRadius);
+        TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnet.forecast(dataTableModel, paramsCenter);
+        TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnet.forecast(dataTableModel, paramsRadius);
         
         //sublistovat tie centers a radii az tu, ked uz to neovplyvni nnet
         List<Interval> realOutputsIntervalTrain = Utils.zipCentersRadiiToIntervals(

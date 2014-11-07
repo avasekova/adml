@@ -1,6 +1,6 @@
 package params;
 
-public abstract class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
+public class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
     
     private int percentTrain;
     private int numForecasts;
@@ -45,5 +45,13 @@ public abstract class Params { //do not add futureForecastValues to params - no 
         this.dataRangeTo = dataRangeTo;
     }
     
-    public abstract Params getClone();
+    public Params getClone() {
+        Params param = new Params();
+        param.setDataRangeFrom(dataRangeFrom);
+        param.setDataRangeTo(dataRangeTo);
+        param.setNumForecasts(numForecasts);
+        param.setPercentTrain(percentTrain);
+        
+        return param;
+    }
 }

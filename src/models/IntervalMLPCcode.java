@@ -26,7 +26,7 @@ import utils.imlp.dist.HausdorffDistance;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
-public class IntervalMLPCcode implements ForecastableIntervals {
+public class IntervalMLPCcode implements Forecastable {
     
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
@@ -310,5 +310,10 @@ public class IntervalMLPCcode implements ForecastableIntervals {
         lagged.addAll(data.subList(0, data.size() - lag));
         
         return lagged;
+    }
+
+    @Override
+    public String getOptionalParams(Params parameters) {
+        return "";
     }
 }

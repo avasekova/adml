@@ -2,8 +2,18 @@ package params;
 
 public class KNNkknnParams extends Params {
     
+    private String colName;
+    
     private int maxNeighbours;
     private int lag;
+
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
 
     public int getMaxNeighbours() {
         return maxNeighbours;
@@ -30,6 +40,7 @@ public class KNNkknnParams extends Params {
         param.setMaxNeighbours(maxNeighbours);
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
+        param.setColName(colName);
         
         return param;
     }

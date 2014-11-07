@@ -9,7 +9,7 @@ import utils.imlp.Interval;
 import utils.imlp.IntervalLowerUpper;
 import utils.imlp.dist.Distance;
 
-public class RandomWalkInterval {
+public class RandomWalkInterval { //TODO implements Forecastable!
 
     public TrainAndTestReport forecast(List<Interval> allData, RandomWalkIntervalParams params) {
         List<Interval> dataToUse = allData.subList(params.getDataRangeFrom(), params.getDataRangeTo());

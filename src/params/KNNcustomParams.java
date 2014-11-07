@@ -2,12 +2,22 @@ package params;
 
 public class KNNcustomParams extends Params {
     
+    private String colName;
+    
     private int numNeighbours;
     private int lengthHistory;
     private int lag;
     private String distanceMethodName;
     private String combinationMethodName;
 
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
+    
     public int getNumNeighbours() {
         return numNeighbours;
     }
@@ -60,6 +70,7 @@ public class KNNcustomParams extends Params {
         param.setNumForecasts(this.getNumForecasts());
         param.setNumNeighbours(numNeighbours);
         param.setPercentTrain(this.getPercentTrain());
+        param.setColName(colName);
         
         return param;
     }

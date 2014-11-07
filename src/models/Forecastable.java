@@ -1,11 +1,11 @@
 package models;
 
-import java.util.List;
+import gui.DataTableModel;
 import params.Params;
 
 public interface Forecastable {
     
-    TrainAndTestReport forecast(List<Double> allData, Params parameters);
+    TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters);
     String getOptionalParams(Params parameters);
     
 }

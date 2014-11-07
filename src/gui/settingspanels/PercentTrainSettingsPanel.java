@@ -1,6 +1,9 @@
 package gui.settingspanels;
 
-public class PercentTrainSettingsPanel extends javax.swing.JPanel {
+import java.util.List;
+import params.Params;
+
+public class PercentTrainSettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form PercentTrainSettingsPanel
@@ -92,5 +95,10 @@ public class PercentTrainSettingsPanel extends javax.swing.JPanel {
 
     public String getPercentTrain() {
         return textFieldPercentTrain.getText();
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

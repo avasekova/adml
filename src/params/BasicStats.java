@@ -1,6 +1,5 @@
 package params;
 
-import java.util.Locale;
 import utils.Utils;
 
 public class BasicStats {

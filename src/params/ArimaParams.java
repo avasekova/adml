@@ -2,6 +2,8 @@ package params;
 
 public class ArimaParams extends Params {
     
+    private String colName;
+    
     private int nonSeasPotato;
     private int nonSeasDonkey;
     private int nonSeasQuark;
@@ -11,6 +13,14 @@ public class ArimaParams extends Params {
     private boolean optimize;
     private boolean withConstant;
 
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
+    
     public int getNonSeasPotato() {
         return nonSeasPotato;
     }
@@ -90,6 +100,7 @@ public class ArimaParams extends Params {
         param.setSeasPotato(seasPotato);
         param.setSeasQuark(seasQuark);
         param.setWithConstant(withConstant);
+        param.setColName(colName);
         
         return param;
     }

@@ -1,5 +1,6 @@
 package models;
 
+import gui.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -14,7 +15,7 @@ import utils.Utils;
 public class KNNkknn implements Forecastable {
 
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
+    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
@@ -27,6 +28,8 @@ public class KNNkknn implements Forecastable {
         final String BEST_K = "bestk" + Utils.getCounter();
         
         KNNkknnParams params = (KNNkknnParams) parameters;
+        
+        List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();

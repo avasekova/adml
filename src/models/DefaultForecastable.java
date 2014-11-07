@@ -1,12 +1,12 @@
 package models;
 
-import java.util.List;
+import gui.DataTableModel;
 import params.Params;
 
 public class DefaultForecastable implements Forecastable {
 
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
+    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
 

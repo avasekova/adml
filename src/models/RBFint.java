@@ -11,8 +11,9 @@ import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
 
-public class RBFint {
+public class RBFint implements Forecastable {
     
+    @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
@@ -106,5 +107,10 @@ public class RBFint {
         report.setRealValues(realOutputsIntervalTrain);
         
         return report;
+    }
+
+    @Override
+    public String getOptionalParams(Params parameters) {
+        return "";
     }
 }

@@ -1,6 +1,9 @@
 package gui.settingspanels;
 
-public class MLPNnetSettingsPanel extends javax.swing.JPanel {
+import java.util.List;
+import params.Params;
+
+public class MLPNnetSettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form MLPNnetSettingsPanel
@@ -387,6 +390,11 @@ public class MLPNnetSettingsPanel extends javax.swing.JPanel {
     
     public String getWeightDecay() {
         return textFieldWeightDecay.getText();
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

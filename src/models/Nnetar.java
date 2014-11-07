@@ -1,5 +1,7 @@
 package models;
 
+import gui.DataTableModel;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.rosuda.JRI.REXP;
@@ -15,7 +17,7 @@ import utils.Utils;
 public class Nnetar implements Forecastable {
     
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters){
+    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters){
         final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
         final String NNETWORK = Const.NNETWORK + Utils.getCounter();
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
@@ -34,6 +36,8 @@ public class Nnetar implements Forecastable {
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
         report.setModelDescription("(lagSeas=" + params.getNumSeasonalLags()
          + ",lagNon=" + params.getNumNonSeasonalLags() + ",hid=" + params.getNumNodesHidden() + ")");
+        
+        List<Double> allData = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(params.getColName())));
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         Rengine rengine = MyRengine.getRengine();

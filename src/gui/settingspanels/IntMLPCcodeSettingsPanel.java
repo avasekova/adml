@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingUtilities;
+import params.Params;
 import utils.IntervalExplanatoryVariable;
 import utils.IntervalOutputVariable;
 import utils.imlp.dist.Distance;
 
-public class IntMLPCcodeSettingsPanel extends javax.swing.JPanel {
+public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     
     /**
      * Creates new form IntMLPCcodeSettingsPanel
@@ -362,5 +363,10 @@ public class IntMLPCcodeSettingsPanel extends javax.swing.JPanel {
         buttonRemoveExplVar.setEnabled(true);
         buttonAddOutVar.setEnabled(true);
         buttonRemoveOutVar.setEnabled(true);
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

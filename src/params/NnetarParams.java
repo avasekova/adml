@@ -2,11 +2,21 @@ package params;
 
 public class NnetarParams extends Params {
     
+    private String colName;
+    
     private Integer numNodesHidden;
     private Integer numSeasonalLags;
     private Integer numNonSeasonalLags;
     private Integer numReps;
     private Double lambda;
+
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
     
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -59,6 +69,7 @@ public class NnetarParams extends Params {
         param.setNumNonSeasonalLags(numNonSeasonalLags);
         param.setNumReps(numReps);
         param.setNumSeasonalLags(numSeasonalLags);
+        param.setColName(colName);
         param.setPercentTrain(this.getPercentTrain());
         
         return param;

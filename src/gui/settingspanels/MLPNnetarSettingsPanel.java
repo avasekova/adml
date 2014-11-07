@@ -2,8 +2,12 @@ package gui.settingspanels;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.List;
+import params.NnetarParams;
+import params.Params;
+import utils.Utils;
 
-public class MLPNnetarSettingsPanel extends javax.swing.JPanel {
+public class MLPNnetarSettingsPanel extends SettingsPanel {
 
     public MLPNnetarSettingsPanel() {
         initComponents();
@@ -224,6 +228,25 @@ public class MLPNnetarSettingsPanel extends javax.swing.JPanel {
     
     public String getNumSeasonalLags() {
         return textFieldNumSeasonalLags.getText();
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    //TODO z tohto spravit addSpecificParams s jednym listom! ked odmazeme workingList
+    public void setSpecificParams(List<NnetarParams> workingList, List<NnetarParams> resultList) {
+        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumNodesHidden",
+                Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
+        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(getNumSeasonalLags()));
+        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumNonSeasonalLags",
+                Integer.class, Utils.getIntegersOrDefault(getNumNonSeasonalLags()));
+        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumReps",
+                Integer.class, Utils.getIntegersOrDefault(getNumReps()));
+        SettingsPanel.setSomethingOneValue(NnetarParams.class, workingList, resultList, "setLambda", 
+                Double.class, Utils.getDoubleOrDefault(getLambda()));
     }
     
 }

@@ -4,6 +4,8 @@ import utils.R_Bool;
 
 public class NnetParams extends Params {
     
+    private String colName;
+    
     private int lag;
     private Double abstol;
     private Double reltol;
@@ -19,6 +21,14 @@ public class NnetParams extends Params {
     private R_Bool hessian = null;
     private R_Bool traceOptimization = null;
     private Integer maxNumOfWeights;
+
+    public String getColName() {
+        return colName;
+    }
+
+    public void setColName(String colName) {
+        this.colName = colName;
+    }
 
     public int getLag() {
         return lag;
@@ -162,6 +172,7 @@ public class NnetParams extends Params {
         param.setSkipLayerConnections(skipLayerConnections);
         param.setTraceOptimization(traceOptimization);
         param.setWeightDecay(weightDecay);
+        param.setColName(colName);
         
         return param;
     }

@@ -3,8 +3,9 @@ package gui.settingspanels;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import params.Params;
 
-public class VARSettingsPanel extends javax.swing.JPanel {
+public class VARSettingsPanel extends SettingsPanel {
     
     private static List<String> colNames = new ArrayList<>();
 
@@ -111,5 +112,10 @@ public class VARSettingsPanel extends javax.swing.JPanel {
     
     public String getLag() {
         return textFieldLag.getText();
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

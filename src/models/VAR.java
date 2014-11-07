@@ -14,9 +14,9 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
-public class VAR {
+public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleReports
 
-    public List<TrainAndTestReportCrisp> forecast(List<Double> alllllData, Params parameters) {
+    public List<TrainAndTestReportCrisp> forecast(Params parameters) {
         //alllllData is not used, is empty!
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String INPUT = Const.INPUT + Utils.getCounter();

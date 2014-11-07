@@ -1,5 +1,6 @@
 package models;
 
+import gui.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -15,7 +16,7 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
     //           veci, napr. scaling, a dalsie volania rengine
 
     @Override
-    public TrainAndTestReport forecast(List<Double> allData, Params parameters) {
+    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String SCALED_INPUT = "scaled." + INPUT;
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
@@ -49,6 +50,8 @@ public class Nnet implements Forecastable { //TODO note: berie len jeden vstup a
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
         report.setModelDescription("(lag=" + params.getLag() + ",hid=" + params.getNumNodesHiddenLayer() + ")");
+        
+        List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         Rengine rengine = MyRengine.getRengine();

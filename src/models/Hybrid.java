@@ -2,7 +2,7 @@ package models;
 
 import gui.DataTableModel;
 import java.util.List;
-import params.MLPintNnetarParams;
+import params.HybridParams;
 import params.NnetarParams;
 import params.Params;
 import utils.ErrorMeasuresInterval;
@@ -10,18 +10,32 @@ import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
 
-public class MLPintNnetar implements Forecastable {
-
+public class Hybrid implements Forecastable {
+    
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
-        NnetarParams paramsCenter = ((MLPintNnetarParams)parameters).getParamsCenter();
-        NnetarParams paramsRadius = ((MLPintNnetarParams)parameters).getParamsRadius();
+        Params paramsCenter = ((HybridParams)parameters).getParamsCenter();
+        Params paramsRadius = ((HybridParams)parameters).getParamsRadius();
         
-        Nnetar nnetar = new Nnetar();
-        TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataTableModel, paramsCenter);
-        TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnetar.forecast(dataTableModel, paramsRadius);
+        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
+        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
         
-        //sublistovat tie centers a radii az tu, ked uz to neovplyvni nnetar
+        TrainAndTestReportCrisp reportCenter = null;
+        TrainAndTestReportCrisp reportRadius = null;
+        
+        if (paramsCenter instanceof NnetarParams) {
+            Nnetar nnetar = new Nnetar();
+            reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataTableModel, paramsCenter);
+        }
+        ////tu pokracovat so vsetkymi modelmi pre center, potom to iste pre radius. a zbytok uz bude
+        if (paramsRadius instanceof NnetarParams) {
+            Nnetar nnetar = new Nnetar();
+            reportRadius = (TrainAndTestReportCrisp) nnetar.forecast(dataTableModel, paramsRadius);
+        }
+        
+        
+        
+        
         List<Interval> realOutputsIntervalTrain = Utils.zipCentersRadiiToIntervals(
                 Utils.arrayToList(reportCenter.getRealOutputsTrain()), Utils.arrayToList(reportRadius.getRealOutputsTrain()));
         List<Interval> realOutputsIntervalTest = Utils.zipCentersRadiiToIntervals(
@@ -33,9 +47,8 @@ public class MLPintNnetar implements Forecastable {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        //TODO nechat vybrat distance!
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetarParams)parameters).getDistanceFunction());
-        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetarParams)parameters).getDistanceFunction());
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((HybridParams)parameters).getDistance());
+        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((HybridParams)parameters).getDistance());
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
@@ -55,8 +68,8 @@ public class MLPintNnetar implements Forecastable {
         errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTrain, fittedVals));
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)");
-        report.setModelDescription("(" + ((MLPintNnetarParams)parameters).getDistanceFunction() + ")");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("RBF(i)");
+        report.setModelDescription("(" + ((HybridParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         
@@ -67,7 +80,8 @@ public class MLPintNnetar implements Forecastable {
         report.setErrorMeasures(errorMeasures);
         
         //hack, aby sme mohli mat oba ploty v jednej premennej
-        report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
+        //TODO produce NN diagram?
+//        report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
         
         realOutputsIntervalTrain.addAll(realOutputsIntervalTest);
         report.setRealValues(realOutputsIntervalTrain);

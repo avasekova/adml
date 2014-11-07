@@ -5,9 +5,10 @@ import gui.DialogAddCrispExplanatoryVar;
 import gui.MainFrame;
 import java.util.List;
 import javax.swing.SwingUtilities;
+import params.Params;
 import utils.CrispExplanatoryVariable;
 
-public class RBFSettingsPanel extends javax.swing.JPanel {
+public class RBFSettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form RBFSettingsPanel
@@ -189,5 +190,10 @@ public class RBFSettingsPanel extends javax.swing.JPanel {
     public void enableAllButtons() {
         buttonAddExplVar.setEnabled(true);
         buttonRemoveExplVar.setEnabled(true);
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

@@ -1,8 +1,10 @@
 package gui.settingspanels;
 
+import java.util.List;
 import javax.swing.SpinnerNumberModel;
+import params.Params;
 
-public class KNNCustomSettingsPanel extends javax.swing.JPanel {
+public class KNNCustomSettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form KNNCustomSettingsPanel
@@ -135,5 +137,10 @@ public class KNNCustomSettingsPanel extends javax.swing.JPanel {
     
     public String getLengthHistory() {
         return textFieldLengthHistory.getText();
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

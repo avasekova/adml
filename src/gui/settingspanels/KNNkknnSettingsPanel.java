@@ -1,8 +1,10 @@
 package gui.settingspanels;
 
+import java.util.List;
 import javax.swing.SpinnerNumberModel;
+import params.Params;
 
-public class KNNkknnSettingsPanel extends javax.swing.JPanel {
+public class KNNkknnSettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form KNNkknnSettingsPanel
@@ -80,6 +82,11 @@ public class KNNkknnSettingsPanel extends javax.swing.JPanel {
     
     public String getLag() {
         return textFieldLag.getText();
+    }
+
+    @Override
+    public List<Params> addSpecificParams(List<Params> resultList) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
