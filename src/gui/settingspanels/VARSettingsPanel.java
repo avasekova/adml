@@ -3,6 +3,7 @@ package gui.settingspanels;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import params.Params;
 import utils.Utils;
 
@@ -117,6 +118,11 @@ public class VARSettingsPanel extends SettingsPanel {
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        if (getEndogenousVars().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "At least one endogenous variable needs to be selected for the VAR to run.");
+            throw new IllegalArgumentException("VAR insufficient endogenous vars");
+        }
+        
         SettingsPanel.setSomethingOneValue(classss, resultList, "setEndogenousVars", List.class, getEndogenousVars());
         SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setType", String.class, getType());

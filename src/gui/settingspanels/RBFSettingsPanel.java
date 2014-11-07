@@ -4,6 +4,7 @@ import gui.CrispExplVarsTableModel;
 import gui.DialogAddCrispExplanatoryVar;
 import gui.MainFrame;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import params.Params;
 import utils.CrispExplanatoryVariable;
@@ -194,7 +195,12 @@ public class RBFSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
+        if (getExplVars().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
+            throw new IllegalArgumentException("RBF insufficient expl vars");
+        }
+        
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumHidden()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
         //POZOR, OutVars sa nastavuju vonku v getParamsRBF! zatial. TODO prerobit sem?

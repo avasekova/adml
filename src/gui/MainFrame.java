@@ -20,7 +20,6 @@ import gui.settingspanels.VARSettingsPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.WindowEvent;
-import java.awt.peer.PanelPeer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +29,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
@@ -41,7 +39,6 @@ import models.Arima;
 import models.Forecastable;
 import models.Hybrid;
 import models.IntervalMLPCcode;
-import models.KNNcustom;
 import models.KNNfnn;
 import models.KNNkknn;
 import models.MLPintNnet;
@@ -62,7 +59,6 @@ import params.ArimaParams;
 import params.BasicStats;
 import params.HybridParams;
 import params.IntervalMLPCcodeParams;
-import params.KNNcustomParams;
 import params.KNNfnnParams;
 import params.KNNkknnParams;
 import params.MLPintNnetParams;
@@ -77,7 +73,6 @@ import params.VARParams;
 import utils.CrispOutputVariable;
 import utils.ExcelWriter;
 import utils.MyRengine;
-import utils.R_Bool;
 import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.IntervalNamesCentreRadius;
@@ -2011,13 +2006,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
-            if (((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getExplVars().isEmpty() ||
-                ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getOutVars().isEmpty() ||
-                (((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getDistancesUsed().isEmpty())) {
-                JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the iMLP C code to run.");
-            } else {
+            try {
                 List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
-                
+
                 showDialogTooManyModelsInCase(params.size(), "iMLP");
                 if (continueWithTooManyModels) {
                     Forecastable cCode = new IntervalMLPCcode();
@@ -2026,6 +2017,8 @@ public class MainFrame extends javax.swing.JFrame {
                         reportsIntTS.add(report);
                     }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
         }
 
@@ -2118,24 +2111,26 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunVAR.isSelected()) {
-            List<VARParams> params = getParamsVAR(comboBoxColnamesRun, panelSettingsVARMainInsideBecauseX);
-            
-            showDialogTooManyModelsInCase(params.size(), "VAR");
-            if (continueWithTooManyModels) {
-                VAR var = new VAR();
-                for (VARParams p : params) {
-                    List<TrainAndTestReportCrisp> reports = var.forecast(p);
-                    reportsCTS.addAll(reports);
+            try {
+                List<VARParams> params = getParamsVAR(comboBoxColnamesRun, panelSettingsVARMainInsideBecauseX);
+
+                showDialogTooManyModelsInCase(params.size(), "VAR");
+                if (continueWithTooManyModels) {
+                    VAR var = new VAR();
+                    for (VARParams p : params) {
+                        List<TrainAndTestReportCrisp> reports = var.forecast(p);
+                        reportsCTS.addAll(reports);
+                    }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
         }
         
         if (checkBoxRunRBF.isSelected()) {
-            if (((RBFSettingsPanel)panelSettingsRBFMain).getExplVars().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
-            } else {
+            try {
                 List<RBFParams> params = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
-                
+
                 showDialogTooManyModelsInCase(params.size(), "RBF");
                 if (continueWithTooManyModels) {
                     Forecastable rbf = new RBF();
@@ -2144,18 +2139,18 @@ public class MainFrame extends javax.swing.JFrame {
                         reportsCTS.add(report);
                     }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
+            
         }
         
         if (checkBoxRunRBFint.isSelected()) {
-            if (((RBFSettingsPanel)panelSettingsRBFint_center).getExplVars().isEmpty() ||
-                ((RBFSettingsPanel)panelSettingsRBFint_radius).getExplVars().isEmpty()) {
-                JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF(i) to run.");
-            } else {
+            try {
                 List<RBFintParams> params = getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
-                        panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
-                        panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint);
-                
+                    panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
+                    panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint);
+
                 showDialogTooManyModelsInCase(params.size(), "RBF(i)");
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
@@ -2166,6 +2161,8 @@ public class MainFrame extends javax.swing.JFrame {
                         reportsIntTS.add(report);
                     }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
         }
         
@@ -2823,7 +2820,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JPanel panelSettingsIMLPCcode) {
+            javax.swing.JPanel panelSettingsIMLPCcode) throws IllegalArgumentException {
         IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
@@ -2977,7 +2974,7 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<VARParams> getParamsVAR(javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsVAR) {
+    private List<VARParams> getParamsVAR(javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsVAR) throws IllegalArgumentException {
         VARParams par = new VARParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(100); //uses all data for training
@@ -3008,7 +3005,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<RBFParams> getParamsRBF(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsRBF) {
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsRBF) throws IllegalArgumentException {
         RBFParams par = new RBFParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
@@ -3038,7 +3035,7 @@ public class MainFrame extends javax.swing.JFrame {
             javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsRBF_center,
             javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
             javax.swing.JPanel panelSettingsRBF_radius, javax.swing.JPanel panelSettingsDistance,
-            javax.swing.JTextField numNetsToTrainField) {
+            javax.swing.JTextField numNetsToTrainField) throws IllegalArgumentException {
         List<RBFParams> resultListCenter = getParamsRBF(percentTrainSettingsPanel_center, comboBoxColName_center,
                 panelSettingsRBF_center);
         List<RBFParams> resultListRadius = getParamsRBF(percentTrainSettingsPanel_radius, comboBoxColName_radius,

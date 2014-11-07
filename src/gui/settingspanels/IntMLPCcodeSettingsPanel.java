@@ -8,6 +8,7 @@ import gui.MainFrame;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import params.Params;
 import utils.IntervalExplanatoryVariable;
@@ -367,7 +368,12 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
+        if (getExplVars().isEmpty() || getOutVars().isEmpty() || getDistancesUsed().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the iMLP C code to run.");
+            throw new IllegalArgumentException("iMLP insufficient expl/out/dist params");
+        }
+        
         SettingsPanel.setSomethingList(classss, resultList, "setDistance", Distance.class, getDistancesUsed());
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumHidden()));
         SettingsPanel.setSomethingList(classss, resultList, "setNumIterations", Integer.class, Utils.getIntegersOrDefault(getNumIterations()));
