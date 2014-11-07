@@ -20,6 +20,7 @@ import gui.settingspanels.VARSettingsPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.WindowEvent;
+import java.awt.peer.PanelPeer;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -244,8 +245,9 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_radiusMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_radiusMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_radiusMain_KNNkknn = new KNNkknnSettingsPanel();
-        panelSettingsHybridPercentTrain = new PercentTrainSettingsPanel();
+        panelSettingsHybridPercentTrain_center = new PercentTrainSettingsPanel();
         panelSettingsHybridDistance = new DistanceSettingsPanel();
+        panelSettingsHybridPercentTrain_radius = new PercentTrainSettingsPanel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -1213,25 +1215,29 @@ public class MainFrame extends javax.swing.JFrame {
             paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSettingsHybridPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxSettingsHybridMethod_center, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
-                        .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                            .addComponent(panelSettingsHybridPercentTrain_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 668, Short.MAX_VALUE))
-                    .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
+                        .addComponent(panelSettingsHybridPercentTrain_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         paneSettingsMethodsHybridLayout.setVerticalGroup(
@@ -1239,8 +1245,10 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelSettingsHybridPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
+                    .addComponent(panelSettingsHybridPercentTrain_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+                    .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelSettingsHybridPercentTrain_center, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -1970,7 +1978,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
 
         if (checkBoxRunMLPnnetar.isSelected()) {
-            List<NnetarParams> params = getParamsNnetar();
+            List<NnetarParams> params = getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
             
             showDialogTooManyModelsInCase(params.size(), "nnetar");
             if (continueWithTooManyModels) {
@@ -2657,7 +2665,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSettingsARIMAMain;
     private javax.swing.JPanel panelSettingsHybridDistance;
-    private javax.swing.JPanel panelSettingsHybridPercentTrain;
+    private javax.swing.JPanel panelSettingsHybridPercentTrain_center;
+    private javax.swing.JPanel panelSettingsHybridPercentTrain_radius;
     private javax.swing.JPanel panelSettingsHybrid_centerMain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_ARIMA;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_KNNFNN;
@@ -2751,11 +2760,13 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
-    private List<NnetarParams> getParamsNnetar() { //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
+    //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
+    private List<NnetarParams> getParamsNnetar(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnetar) {
         NnetarParams par = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain()));
-        par.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         
         List<NnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -2766,7 +2777,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((MLPNnetarSettingsPanel)panelSettingsMLPPackage_nnetar).setSpecificParams(NnetarParams.class, resultList);
+        ((MLPNnetarSettingsPanel)panelSettingsNnetar).setSpecificParams(NnetarParams.class, resultList);
         
         return resultList;
     }
@@ -3152,24 +3163,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
             case "MLP (nnetar)":
-                NnetarParams params = new NnetarParams();
-                params.setColName(comboBoxRunFakeIntCenter.getSelectedItem().toString());
-                List<NnetarParams> resultListCenter = new ArrayList<>();
-                resultListCenter.add(params);
-                //najprv vseobecne
-                SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumForecasts", 
-                        Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeFrom",
-                        Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeTo",
-                        Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-                //potom percenttrain
-                SettingsPanel.setSomethingOneValue(NnetarParams.class, resultListCenter, "setPercentTrain",
-                        Integer.class, Utils.getIntegersOrDefault(((PercentTrainSettingsPanel)panelSettingsHybridPercentTrain).getPercentTrain()).get(0)); //multiple vals not supported; will work with the first
-                //potom specialne pre tento model
-                ((MLPNnetarSettingsPanel)panelSettingsHybrid_centerMain_MLPnnetar).setSpecificParams(NnetarParams.class, resultListCenter);
-                //po tomto sa zmeni resultListCenter a mozem ho setnut do hlavnych parametrov
-                
+                List<NnetarParams> resultListCenter = getParamsNnetar(panelSettingsHybridPercentTrain_center,
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnetar);
+                                
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetarParams.class, resultListCenter);
                 break;
@@ -3198,23 +3194,8 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
             case "MLP (nnetar)":
-                NnetarParams params = new NnetarParams();
-                params.setColName(comboBoxRunFakeIntRadius.getSelectedItem().toString());
-                List<NnetarParams> resultListRadius = new ArrayList<>();
-                resultListRadius.add(params);
-                //najprv vseobecne
-                SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumForecasts", 
-                        Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeFrom",
-                        Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeTo",
-                        Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-                //potom percenttrain
-                SettingsPanel.setSomethingOneValue(NnetarParams.class, resultListRadius, "setPercentTrain",
-                        Integer.class, Utils.getIntegersOrDefault(((PercentTrainSettingsPanel)panelSettingsHybridPercentTrain).getPercentTrain()).get(0)); //multiple vals not supported; will work with the first
-                //potom specialne pre tento model
-                ((MLPNnetarSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnetar).setSpecificParams(NnetarParams.class, resultListRadius);
-                //po tomto sa zmeni resultListCenter a mozem ho nasetovat do tych hlavnych params
+                List<NnetarParams> resultListRadius = getParamsNnetar(panelSettingsHybridPercentTrain_radius,
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnetar);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetarParams.class, resultListRadius);
