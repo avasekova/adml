@@ -2225,16 +2225,17 @@ public class MainFrame extends javax.swing.JFrame {
         
         //show Forecast plot
         int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
-//        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
-//        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-//        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(),
-//                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-//                reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
-//                checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
-//                checkBoxRunPlotAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
-//        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-//        textAreaPlotBasicStats.setText("");
-//        buttonPlotExportPlot.setEnabled(true);
+        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
+        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
+        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(),
+                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
+                reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
+                checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
+                checkBoxRunPlotAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
+        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
+        textAreaPlotBasicStats.setText("");
+        buttonPlotExportPlot.setEnabled(true);
         
         //show errors
         drawOneOrTwoTablesErrorMeasures(reportsCTS, reportsIntTS);
@@ -3101,7 +3102,7 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case "kNN (kknn)":
                 List<KNNkknnParams> resultListCenterKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
-                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnet);
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNkknnParams.class, resultListCenterKNNkknn);
