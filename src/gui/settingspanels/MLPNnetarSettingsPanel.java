@@ -231,21 +231,14 @@ public class MLPNnetarSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    public void setSpecificParams(List<NnetarParams> resultList) {
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumNodesHidden",
-                Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumSeasonalLags",
-                Integer.class, Utils.getIntegersOrDefault(getNumSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumNonSeasonalLags",
-                Integer.class, Utils.getIntegersOrDefault(getNumNonSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumReps",
-                Integer.class, Utils.getIntegersOrDefault(getNumReps()));
-        SettingsPanel.setSomethingOneValue(NnetarParams.class, resultList, "setLambda", 
-                Double.class, Utils.getDoubleOrDefault(getLambda()));
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        //TODO toto mozno vymysliet inak :( classss by mala byt furt NnetarParams, a neviem, ci je dobre alebo zle, ze
+        //   je tu tym padom povolene dodat aj nieco ine.
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumSeasonalLags", Integer.class, Utils.getIntegersOrDefault(getNumSeasonalLags()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNonSeasonalLags", Integer.class, Utils.getIntegersOrDefault(getNumNonSeasonalLags()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumReps", Integer.class, Utils.getIntegersOrDefault(getNumReps()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setLambda", Double.class, Utils.getDoubleOrDefault(getLambda()));
     }
     
 }

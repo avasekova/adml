@@ -98,7 +98,7 @@ public class PercentTrainSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

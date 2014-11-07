@@ -4,13 +4,13 @@ import utils.imlp.dist.Distance;
 
 public abstract class MLPintParams extends Params {
     
-    private Distance distanceFunction;
+    private Distance distance;
 
-    public Distance getDistanceFunction() {
-        return distanceFunction;
+    public Distance getDistance() {
+        return distance;
     }
 
-    public void setDistanceFunction(Distance distanceFunction) {
-        this.distanceFunction = distanceFunction;
+    public void setDistance(Distance distance) {
+        this.distance = distance;
     }
 }

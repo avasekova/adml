@@ -12,7 +12,7 @@ import params.Params;
 
 public abstract class SettingsPanel extends JPanel {
     
-    public abstract List<Params> addSpecificParams(List<Params> resultList);
+    public abstract <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList);
     
     public static <T extends Params, Q> List<T> setSomethingOneValue(Class<T> classs,
             List<T> resultList, String methodName, Class<Q> classsQ, Q valueQ) {

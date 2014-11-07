@@ -260,7 +260,7 @@ public class DistanceSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setDistance", Distance.class, getSelectedDistance());
     }
 }

@@ -35,7 +35,7 @@ public class MLPintNnetParams extends MLPintParams {
         MLPintNnetParams param = new MLPintNnetParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
-        param.setDistanceFunction(this.getDistanceFunction());
+        param.setDistance(this.getDistance());
         param.setNumForecasts(this.getNumForecasts());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
@@ -47,6 +47,6 @@ public class MLPintNnetParams extends MLPintParams {
 
     @Override
     public String toString() {
-        return "MLPintNnetParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distanceFunction=" + getDistanceFunction() + "}\n";
+        return "MLPintNnetParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + getDistance() + "}\n";
     }
 }

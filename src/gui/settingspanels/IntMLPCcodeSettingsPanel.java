@@ -12,6 +12,7 @@ import javax.swing.SwingUtilities;
 import params.Params;
 import utils.IntervalExplanatoryVariable;
 import utils.IntervalOutputVariable;
+import utils.Utils;
 import utils.imlp.dist.Distance;
 
 public class IntMLPCcodeSettingsPanel extends SettingsPanel {
@@ -334,9 +335,9 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         return distancesUsed;
     }
     
-    public Distance getSelectedDistance() {
-        return ((DistanceSettingsPanel) panelDistance).getSelectedDistance();
-    }
+//    public Distance getSelectedDistance() {
+//        return ((DistanceSettingsPanel) panelDistance).getSelectedDistance();
+//    }
     
     public List<IntervalExplanatoryVariable> getExplVars() {
         return ((IntervalExplVarsTableModel) tableExplVars.getModel()).getVariables();
@@ -366,7 +367,12 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingList(classss, resultList, "setDistance", Distance.class, getDistancesUsed());
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumHidden()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumIterations", Integer.class, Utils.getIntegersOrDefault(getNumIterations()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setOutVars", List.class, getOutVars());
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNetworks", Integer.class, Utils.getIntegersOrDefault(getNumNetsToTrain()));
     }
 }

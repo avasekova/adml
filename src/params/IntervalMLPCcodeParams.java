@@ -12,7 +12,7 @@ public class IntervalMLPCcodeParams extends Params {
     private Integer numIterations;
     private List<IntervalExplanatoryVariable> explVars = new ArrayList<>();
     private List<IntervalOutputVariable> outVars = new ArrayList<>();
-    private Distance distanceFunction;
+    private Distance distance;
     private int numNetworks;
 //    private String??? criterion; //error measure based on which it will choose the best network
 
@@ -48,12 +48,12 @@ public class IntervalMLPCcodeParams extends Params {
         this.outVars = outVars;
     }
 
-    public Distance getDistanceFunction() {
-        return distanceFunction;
+    public Distance getDistance() {
+        return distance;
     }
 
-    public void setDistanceFunction(Distance distanceFunction) {
-        this.distanceFunction = distanceFunction;
+    public void setDistance(Distance distance) {
+        this.distance = distance;
     }
 
     public int getNumNetworks() {
@@ -69,7 +69,7 @@ public class IntervalMLPCcodeParams extends Params {
         IntervalMLPCcodeParams param = new IntervalMLPCcodeParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
-        param.setDistanceFunction(distanceFunction);
+        param.setDistance(distance);
         param.setExplVars(explVars);
         param.setNumForecasts(this.getNumForecasts());
         param.setNumIterations(numIterations);

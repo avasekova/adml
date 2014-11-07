@@ -68,8 +68,8 @@ public class Hybrid implements Forecastable {
         errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTrain, fittedVals));
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("RBF(i)");
-        report.setModelDescription("(" + ((HybridParams)parameters).getDistance() + ")");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("Hybrid(i)");
+        report.setModelDescription("(TODO desc.)");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

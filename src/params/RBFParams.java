@@ -53,6 +53,7 @@ public class RBFParams extends Params {
         param.setNumForecasts(this.getNumForecasts());
         param.setNumNodesHidden(numNodesHidden);
         param.setOutVars(outVars);
+        param.setMaxIterations(maxIterations);
         param.setPercentTrain(this.getPercentTrain());
         
         return param;

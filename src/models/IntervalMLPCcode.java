@@ -64,7 +64,7 @@ public class IntervalMLPCcode implements Forecastable {
     private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP(C code)");
-        report.setModelDescription("(" + params.getDistanceFunction() + ")");
+        report.setModelDescription("(" + params.getDistance() + ")");
         
         //delete any previous files:
         File file = new File("config.res");
@@ -117,16 +117,16 @@ public class IntervalMLPCcode implements Forecastable {
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             fw.write("mp(" + params.getExplVars().size() + "," + params.getNumNodesHidden() + "," + params.getOutVars().size() + ")");
             fw.newLine();
-            if (params.getDistanceFunction() instanceof BertoluzzaDistance) {
-                fw.write("bertoluzza(" + ((BertoluzzaDistance)(params.getDistanceFunction())).getBeta() + ")");
-            } else if (params.getDistanceFunction() instanceof WeightedEuclideanDistance) {
-                fw.write("euclid(" + ((WeightedEuclideanDistance)(params.getDistanceFunction())).getBeta() + ")");
-            } else if (params.getDistanceFunction() instanceof HausdorffDistance) {
+            if (params.getDistance() instanceof BertoluzzaDistance) {
+                fw.write("bertoluzza(" + ((BertoluzzaDistance)(params.getDistance())).getBeta() + ")");
+            } else if (params.getDistance() instanceof WeightedEuclideanDistance) {
+                fw.write("euclid(" + ((WeightedEuclideanDistance)(params.getDistance())).getBeta() + ")");
+            } else if (params.getDistance() instanceof HausdorffDistance) {
                 fw.write("hausdorff");
-            } else if (params.getDistanceFunction() instanceof DeCarvalhoDistance) {
-                fw.write("decarvalho(" + ((DeCarvalhoDistance)(params.getDistanceFunction())).getGamma() + ")");
-            } else if (params.getDistanceFunction() instanceof IchinoYaguchiDistance) {
-                fw.write("ichino(" + ((IchinoYaguchiDistance)(params.getDistanceFunction())).getGamma() + ")");
+            } else if (params.getDistance() instanceof DeCarvalhoDistance) {
+                fw.write("decarvalho(" + ((DeCarvalhoDistance)(params.getDistance())).getGamma() + ")");
+            } else if (params.getDistance() instanceof IchinoYaguchiDistance) {
+                fw.write("ichino(" + ((IchinoYaguchiDistance)(params.getDistance())).getGamma() + ")");
             }
             fw.newLine();
             fw.write("learn");
@@ -174,9 +174,9 @@ public class IntervalMLPCcode implements Forecastable {
             List<Double> testingPortionOfRadius = data.get(data.size() - 1).subList(numTrainingEntries, data.get(data.size() - 1).size());
             
             List<Interval> trainingIntervals = Utils.zipCentersRadiiToIntervals(trainingPortionOfCenter, trainingPortionOfRadius);
-            List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, params.getDistanceFunction());
+            List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, params.getDistance());
             List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
-            List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, params.getDistanceFunction());
+            List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, params.getDistance());
 
             
             

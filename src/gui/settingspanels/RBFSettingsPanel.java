@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.SwingUtilities;
 import params.Params;
 import utils.CrispExplanatoryVariable;
+import utils.Utils;
 
 public class RBFSettingsPanel extends SettingsPanel {
 
@@ -193,7 +194,17 @@ public class RBFSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumHidden()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
+        //POZOR, OutVars sa nastavuju vonku v getParamsRBF! zatial. TODO prerobit sem?
+//        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
+//        outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
+//        outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
+//        List<CrispOutputVariable> outVarList = new ArrayList<>();
+//        outVarList.add(outVar);
+//        SettingsPanel.setSomethingOneValue(classss, resultList, "setOutVars",
+//                List.class, outVarList);
+        SettingsPanel.setSomethingList(classss, resultList, "setMaxIterations", Integer.class, Utils.getIntegersOrDefault(getMaxIt()));
     }
 }

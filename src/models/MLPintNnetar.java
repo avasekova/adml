@@ -34,8 +34,8 @@ public class MLPintNnetar implements Forecastable {
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
         //TODO nechat vybrat distance!
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetarParams)parameters).getDistanceFunction());
-        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetarParams)parameters).getDistanceFunction());
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetarParams)parameters).getDistance());
+        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetarParams)parameters).getDistance());
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
@@ -56,7 +56,7 @@ public class MLPintNnetar implements Forecastable {
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)");
-        report.setModelDescription("(" + ((MLPintNnetarParams)parameters).getDistanceFunction() + ")");
+        report.setModelDescription("(" + ((MLPintNnetarParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

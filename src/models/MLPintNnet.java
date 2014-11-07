@@ -64,8 +64,8 @@ public class MLPintNnet implements Forecastable {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetParams)parameters).getDistanceFunction());
-        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetParams)parameters).getDistanceFunction());
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetParams)parameters).getDistance());
+        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetParams)parameters).getDistance());
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
@@ -86,7 +86,7 @@ public class MLPintNnet implements Forecastable {
         errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnet)");
-        report.setModelDescription("(" + ((MLPintNnetParams)parameters).getDistanceFunction() + ")");
+        report.setModelDescription("(" + ((MLPintNnetParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

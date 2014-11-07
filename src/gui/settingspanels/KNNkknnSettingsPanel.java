@@ -3,6 +3,7 @@ package gui.settingspanels;
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
 import params.Params;
+import utils.Utils;
 
 public class KNNkknnSettingsPanel extends SettingsPanel {
 
@@ -85,8 +86,9 @@ public class KNNkknnSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingList(classss, resultList, "setMaxNeighbours", Integer.class, Utils.getIntegersOrDefault(getNumNeighbours()));
+        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
     }
 
 }

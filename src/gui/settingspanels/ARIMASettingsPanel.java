@@ -2,6 +2,7 @@ package gui.settingspanels;
 
 import java.util.List;
 import params.Params;
+import utils.Utils;
 
 public class ARIMASettingsPanel extends SettingsPanel {
 
@@ -237,7 +238,14 @@ public class ARIMASettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setOptimize", Boolean.class, isOptimize());
+        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasPotato", Integer.class, Utils.getIntegersOrDefault(getNonSeasLowercasePotato()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasDonkey", Integer.class, Utils.getIntegersOrDefault(getNonSeasLowercaseDonkey()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasQuark", Integer.class, Utils.getIntegersOrDefault(getNonSeasLowercaseQuark()));
+        SettingsPanel.setSomethingList(classss, resultList, "setSeasPotato", Integer.class, Utils.getIntegersOrDefault(getSeasUppercasePotato()));
+        SettingsPanel.setSomethingList(classss, resultList, "setSeasDonkey", Integer.class, Utils.getIntegersOrDefault(getSeasUppercaseDonkey()));
+        SettingsPanel.setSomethingList(classss, resultList, "setSeasQuark", Integer.class, Utils.getIntegersOrDefault(getSeasUppercaseQuark()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setWithConstant", Boolean.class, isConstant());
     }
 }

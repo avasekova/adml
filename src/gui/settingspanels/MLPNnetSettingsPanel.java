@@ -2,6 +2,8 @@ package gui.settingspanels;
 
 import java.util.List;
 import params.Params;
+import utils.R_Bool;
+import utils.Utils;
 
 public class MLPNnetSettingsPanel extends SettingsPanel {
 
@@ -393,8 +395,21 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setAbstol", Double.class, Utils.getDoubleOrDefault(getAbstol()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setReltol", Double.class, Utils.getDoubleOrDefault(getReltol()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setSkipLayerConnections", R_Bool.class, Utils.booleanToRBool(isSkipConn()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setInitWeightsRange", Double.class, Utils.getDoubleOrDefault(getInitRange()));
+        SettingsPanel.setSomethingList(classss, resultList, "setMaxIterations", Integer.class, Utils.getIntegersOrDefault(getMaxit()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHiddenLayer", Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setLinearElseLogistic", R_Bool.class, Utils.booleanToRBool(isLogistic()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setLeastSqrsElseMaxCondLikelihood", R_Bool.class, Utils.booleanToRBool(isLeastSqrs()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setLoglinSoftmaxElseMaxCondLikelihood", R_Bool.class, Utils.booleanToRBool(isLoglinSoftmax()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setCensoredOnElseOff", R_Bool.class, Utils.booleanToRBool(isCensoredOn()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setWeightDecay", Double.class, Utils.getDoubleOrDefault(getWeightDecay()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setTraceOptimization", R_Bool.class, Utils.booleanToRBool(isTraceOptimization()));
+        
     }
 
 }

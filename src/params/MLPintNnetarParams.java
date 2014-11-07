@@ -26,7 +26,7 @@ public class MLPintNnetarParams extends MLPintParams {
         MLPintNnetarParams param = new MLPintNnetarParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
-        param.setDistanceFunction(this.getDistanceFunction());
+        param.setDistance(this.getDistance());
         param.setNumForecasts(this.getNumForecasts());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
@@ -37,6 +37,6 @@ public class MLPintNnetarParams extends MLPintParams {
     
     @Override
     public String toString() {
-        return "MLPintNnetarParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distanceFunction=" + getDistanceFunction() + "}\n";
+        return "MLPintNnetarParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + getDistance() + "}\n";
     }
 }

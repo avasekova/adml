@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import params.Params;
+import utils.Utils;
 
 public class VARSettingsPanel extends SettingsPanel {
     
@@ -115,7 +116,11 @@ public class VARSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public List<Params> addSpecificParams(List<Params> resultList) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setEndogenousVars", List.class, getEndogenousVars());
+        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setType", String.class, getType());
+        
+        //pozor, zbytok sa setuje v getParamsVAR
     }
 }
