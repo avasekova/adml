@@ -235,17 +235,16 @@ public class MLPNnetarSettingsPanel extends SettingsPanel {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    //TODO z tohto spravit addSpecificParams s jednym listom! ked odmazeme workingList
-    public void setSpecificParams(List<NnetarParams> workingList, List<NnetarParams> resultList) {
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumNodesHidden",
+    public void setSpecificParams(List<NnetarParams> resultList) {
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(getNumSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumNonSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumNonSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(getNumNonSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumReps",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumReps",
                 Integer.class, Utils.getIntegersOrDefault(getNumReps()));
-        SettingsPanel.setSomethingOneValue(NnetarParams.class, workingList, resultList, "setLambda", 
+        SettingsPanel.setSomethingOneValue(NnetarParams.class, resultList, "setLambda", 
                 Double.class, Utils.getDoubleOrDefault(getLambda()));
     }
     

@@ -3,6 +3,7 @@ package gui.settingspanels;
 import gui.MainFrame;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,10 +14,9 @@ public abstract class SettingsPanel extends JPanel {
     
     public abstract List<Params> addSpecificParams(List<Params> resultList);
     
-    //does not support multiple values yet
     public static <T extends Params, Q> List<T> setSomethingOneValue(Class<T> classs,
-            List<T> workingList, List<T> resultList, String methodName, Class<Q> classsQ, Q valueQ) {
-        workingList.clear();
+            List<T> resultList, String methodName, Class<Q> classsQ, Q valueQ) {
+        List<T> workingList = new ArrayList<>();
         workingList.addAll(resultList);
         resultList.clear();
         
@@ -35,8 +35,8 @@ public abstract class SettingsPanel extends JPanel {
     }
     
     public static <T extends Params, Q> List<T> setSomethingList(Class<T> classs,
-            List<T> workingList, List<T> resultList, String methodName, Class<Q> classsQ, List<Q> valuesQ) {
-        workingList.clear();
+            List<T> resultList, String methodName, Class<Q> classsQ, List<Q> valuesQ) {
+        List<T> workingList = new ArrayList<>();
         workingList.addAll(resultList);
         resultList.clear();
         for (Q i : valuesQ) {
@@ -56,8 +56,8 @@ public abstract class SettingsPanel extends JPanel {
     }
     
     public static <T extends Params, Q extends Params> List<T> setSomethingListForHybrid(Class<T> classs,
-            List<T> workingList, List<T> resultList, String methodName, Class<Q> classsQ, List<Q> valuesQ) {
-        workingList.clear();
+            List<T> resultList, String methodName, Class<Q> classsQ, List<Q> valuesQ) {
+        List<T> workingList = new ArrayList<>();
         workingList.addAll(resultList);
         resultList.clear();
         for (Q i : valuesQ) {

@@ -2752,7 +2752,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<NnetarParams> getParamsNnetar() { //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
-        List<NnetarParams> workingList = new ArrayList<>();
         NnetarParams par = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain()));
@@ -2761,21 +2760,21 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPPackage_nnetar).getNumNodesHidden()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPPackage_nnetar).getNumSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumNonSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumNonSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPPackage_nnetar).getNumNonSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingList, resultList, "setNumReps",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumReps",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPPackage_nnetar).getNumReps()));
-        SettingsPanel.setSomethingOneValue(NnetarParams.class, workingList, resultList, "setLambda", 
+        SettingsPanel.setSomethingOneValue(NnetarParams.class, resultList, "setLambda", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPPackage_nnetar).getLambda()));
         
         return resultList;
@@ -2801,7 +2800,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<NnetParams> getParamsNnet() {
-        List<NnetParams> workingList = new ArrayList<>();
         NnetParams par = new NnetParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain()));
@@ -2810,44 +2808,43 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(NnetParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingList, resultList, "setLag", 
+        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setLag", 
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getLag()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setAbstol", 
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setAbstol", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getAbstol()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setReltol", 
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setReltol", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getReltol()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setSkipLayerConnections",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setSkipLayerConnections",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).isSkipConn()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setInitWeightsRange",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setInitWeightsRange",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getInitRange()));
-        SettingsPanel.setSomethingList(NnetParams.class, workingList, resultList, "setMaxIterations",
+        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setMaxIterations",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getMaxit()));
-        SettingsPanel.setSomethingList(NnetParams.class, workingList, resultList, "setNumNodesHiddenLayer",
+        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setNumNodesHiddenLayer",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getNumNodesHidden()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setLinearElseLogistic",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setLinearElseLogistic",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).isLogistic()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setLeastSqrsElseMaxCondLikelihood",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setLeastSqrsElseMaxCondLikelihood",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).isLeastSqrs()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setLoglinSoftmaxElseMaxCondLikelihood",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setLoglinSoftmaxElseMaxCondLikelihood",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).isLoglinSoftmax()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setCensoredOnElseOff",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setCensoredOnElseOff",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).isCensoredOn()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setWeightDecay",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setWeightDecay",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).getWeightDecay()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingList, resultList, "setTraceOptimization",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultList, "setTraceOptimization",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).isTraceOptimization()));
         
         return resultList;
     }
     
     private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode() {
-        List<IntervalMLPCcodeParams> workingList = new ArrayList<>();
         IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelIntMLPPercentTrain).getPercentTrain()));
@@ -2855,25 +2852,25 @@ public class MainFrame extends javax.swing.JFrame {
         List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         
         List<Distance> distanceFunctions = ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getDistancesUsed();
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setDistanceFunction",
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setDistanceFunction",
                 Distance.class, distanceFunctions);
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getNumHidden()));
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setNumIterations",
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setNumIterations",
                 Integer.class, Utils.getIntegersOrDefault(((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getNumIterations()));
-        SettingsPanel.setSomethingOneValue(IntervalMLPCcodeParams.class, workingList, resultList, "setExplVars",
+        SettingsPanel.setSomethingOneValue(IntervalMLPCcodeParams.class, resultList, "setExplVars",
                 List.class, ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getExplVars());
-        SettingsPanel.setSomethingOneValue(IntervalMLPCcodeParams.class, workingList, resultList, "setOutVars",
+        SettingsPanel.setSomethingOneValue(IntervalMLPCcodeParams.class, resultList, "setOutVars",
                 List.class, ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getOutVars());
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, workingList, resultList, "setNumNetworks",
+        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setNumNetworks",
                 Integer.class, Utils.getIntegersOrDefault(((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getNumNetsToTrain()));
         //TODO add the criterion here
         
@@ -2881,7 +2878,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<MLPintNnetarParams> getParamsMLPintNnetar() {
-        List<NnetarParams> workingListCenter = new ArrayList<>();
         NnetarParams parCenter = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
         parCenter.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
@@ -2890,25 +2886,24 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetarParams> resultListCenter = new ArrayList<>();
         resultListCenter.add(parCenter);
         
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setNumForecasts", 
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setDataRangeTo",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_center).getNumNodesHidden()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setNumSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_center).getNumSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setNumNonSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumNonSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_center).getNumNonSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setNumReps",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumReps",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_center).getNumReps()));
-        SettingsPanel.setSomethingOneValue(NnetarParams.class, workingListCenter, resultListCenter, "setLambda",
+        SettingsPanel.setSomethingOneValue(NnetarParams.class, resultListCenter, "setLambda",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_center).getLambda()));
         
         
-        List<NnetarParams> workingListRadius = new ArrayList<>();
         NnetarParams parRadius = new NnetarParams();
         //zohnat vsetky parametre pre dany model:
         parRadius.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
@@ -2917,25 +2912,23 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetarParams> resultListRadius = new ArrayList<>();
         resultListRadius.add(parRadius);
         
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setNumForecasts", 
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setDataRangeTo",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_radius).getNumNodesHidden()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setNumSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_radius).getNumSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setNumNonSeasonalLags",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumNonSeasonalLags",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_radius).getNumNonSeasonalLags()));
-        SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setNumReps",
+        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumReps",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_radius).getNumReps()));
-        SettingsPanel.setSomethingOneValue(NnetarParams.class, workingListRadius, resultListRadius, "setLambda",
+        SettingsPanel.setSomethingOneValue(NnetarParams.class, resultListRadius, "setLambda",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_radius).getLambda()));
         
-        
-        List<MLPintNnetarParams> workingList = new ArrayList<>();
         
         MLPintNnetarParams par = new MLPintNnetarParams();
         
@@ -2943,18 +2936,17 @@ public class MainFrame extends javax.swing.JFrame {
         resultList.add(par);
         
         Distance distanceFunction = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
-        SettingsPanel.setSomethingOneValue(MLPintNnetarParams.class, workingList, resultList, "setDistanceFunction",
+        SettingsPanel.setSomethingOneValue(MLPintNnetarParams.class, resultList, "setDistanceFunction",
                 Distance.class, distanceFunction);
-        SettingsPanel.setSomethingList(MLPintNnetarParams.class, workingList, resultList, "setParamsCenter",
+        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsCenter",
                 NnetarParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(MLPintNnetarParams.class, workingList, resultList, "setParamsRadius",
+        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsRadius",
                 NnetarParams.class, resultListRadius);
         
         return resultList;
     }
     
     private List<MLPintNnetParams> getParamsMLPintNnet() {
-        List<NnetParams> workingListCenter = new ArrayList<>();
         NnetParams parCenter = new NnetParams();
         //zohnat vsetky parametre pre dany model:
         parCenter.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
@@ -2963,40 +2955,39 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> resultListCenter = new ArrayList<>();
         resultListCenter.add(parCenter);
         
-        SettingsPanel.setSomethingList(NnetParams.class, workingListCenter, resultListCenter, "setNumForecasts", 
+        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingListCenter, resultListCenter, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingListCenter, resultListCenter, "setDataRangeTo",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingListCenter, resultListCenter, "setLag", 
+        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setLag", 
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getLag()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setAbstol", 
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setAbstol", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getAbstol()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setReltol", 
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setReltol", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getReltol()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setSkipLayerConnections",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setSkipLayerConnections",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isSkipConn()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setInitWeightsRange",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setInitWeightsRange",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getInitRange()));
-        SettingsPanel.setSomethingList(NnetParams.class, workingListCenter, resultListCenter, "setMaxIterations",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setMaxIterations",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getMaxit()));
-        SettingsPanel.setSomethingList(NnetParams.class, workingListCenter, resultListCenter, "setNumNodesHiddenLayer",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setNumNodesHiddenLayer",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getNumNodesHidden()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setLinearElseLogistic",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setLinearElseLogistic",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isLogistic()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setLeastSqrsElseMaxCondLikelihood",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setLeastSqrsElseMaxCondLikelihood",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isLeastSqrs()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setLoglinSoftmaxElseMaxCondLikelihood",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setLoglinSoftmaxElseMaxCondLikelihood",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isLoglinSoftmax()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setCensoredOnElseOff",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setCensoredOnElseOff",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isCensoredOn()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setWeightDecay",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setWeightDecay",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).getWeightDecay()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListCenter, resultListCenter, "setTraceOptimization",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListCenter, "setTraceOptimization",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).isTraceOptimization()));
         
-        List<NnetParams> workingListRadius = new ArrayList<>();
         NnetParams parRadius = new NnetParams();
         //zohnat vsetky parametre pre dany model:
         parRadius.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
@@ -3005,41 +2996,39 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> resultListRadius = new ArrayList<>();
         resultListRadius.add(parRadius);
         
-        SettingsPanel.setSomethingList(NnetParams.class, workingListRadius, resultListRadius, "setNumForecasts", 
+        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingListRadius, resultListRadius, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingListRadius, resultListRadius, "setDataRangeTo",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, workingListRadius, resultListRadius, "setLag", 
+        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setLag", 
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getLag()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setAbstol", 
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setAbstol", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getAbstol()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setReltol", 
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setReltol", 
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getReltol()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setSkipLayerConnections",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setSkipLayerConnections",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isSkipConn()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setInitWeightsRange",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setInitWeightsRange",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getInitRange()));
-        SettingsPanel.setSomethingList(NnetParams.class, workingListRadius, resultListRadius, "setMaxIterations",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setMaxIterations",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getMaxit()));
-        SettingsPanel.setSomethingList(NnetParams.class, workingListRadius, resultListRadius, "setNumNodesHiddenLayer",
+        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setNumNodesHiddenLayer",
                 Integer.class, Utils.getIntegersOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getNumNodesHidden()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setLinearElseLogistic",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setLinearElseLogistic",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isLogistic()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setLeastSqrsElseMaxCondLikelihood",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setLeastSqrsElseMaxCondLikelihood",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isLeastSqrs()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setLoglinSoftmaxElseMaxCondLikelihood",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setLoglinSoftmaxElseMaxCondLikelihood",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isLoglinSoftmax()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setCensoredOnElseOff",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setCensoredOnElseOff",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isCensoredOn()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setWeightDecay",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setWeightDecay",
                 Double.class, Utils.getDoubleOrDefault(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).getWeightDecay()));
-        SettingsPanel.setSomethingOneValue(NnetParams.class, workingListRadius, resultListRadius, "setTraceOptimization",
+        SettingsPanel.setSomethingOneValue(NnetParams.class, resultListRadius, "setTraceOptimization",
                 R_Bool.class, Utils.booleanToRBool(((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).isTraceOptimization()));
         
-        
-        List<MLPintNnetParams> workingList = new ArrayList<>();
         
         MLPintNnetParams par = new MLPintNnetParams();
         
@@ -3047,20 +3036,19 @@ public class MainFrame extends javax.swing.JFrame {
         resultList.add(par);
         
         Distance distanceFunction = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
-        SettingsPanel.setSomethingOneValue(MLPintNnetParams.class, workingList, resultList, "setDistanceFunction",
+        SettingsPanel.setSomethingOneValue(MLPintNnetParams.class, resultList, "setDistanceFunction",
                 Distance.class, distanceFunction);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, workingList, resultList, "setParamsCenter",
+        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsCenter",
                 NnetParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, workingList, resultList, "setParamsRadius",
+        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
                 NnetParams.class, resultListRadius);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, workingList, resultList, "setNumNetsToTrain",
+        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainMLPint).subList(0, 1));
         
         return resultList;
     }
     
     private List<ArimaParams> getParamsArima() {
-        List<ArimaParams> workingList = new ArrayList<>();
         ArimaParams par = new ArimaParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelARIMAPercTrain).getPercentTrain()));
@@ -3069,27 +3057,27 @@ public class MainFrame extends javax.swing.JFrame {
         List<ArimaParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingOneValue(ArimaParams.class, workingList, resultList, "setOptimize",
+        SettingsPanel.setSomethingOneValue(ArimaParams.class, resultList, "setOptimize",
                 Boolean.class, ((ARIMASettingsPanel)panelSettingsARIMAMain).isOptimize());
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setNonSeasPotato",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setNonSeasPotato",
                 Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getNonSeasLowercasePotato()));
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setNonSeasDonkey",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setNonSeasDonkey",
                 Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getNonSeasLowercaseDonkey()));
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setNonSeasQuark",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setNonSeasQuark",
                 Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getNonSeasLowercaseQuark()));
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setSeasPotato",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setSeasPotato",
                 Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getSeasUppercasePotato()));
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setSeasDonkey",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setSeasDonkey",
                 Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getSeasUppercaseDonkey()));
-        SettingsPanel.setSomethingList(ArimaParams.class, workingList, resultList, "setSeasQuark",
+        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setSeasQuark",
                 Integer.class, Utils.getIntegersOrDefault(((ARIMASettingsPanel)panelSettingsARIMAMain).getSeasUppercaseQuark()));
-        SettingsPanel.setSomethingOneValue(ArimaParams.class, workingList, resultList, "setWithConstant",
+        SettingsPanel.setSomethingOneValue(ArimaParams.class, resultList, "setWithConstant",
                 Boolean.class, ((ARIMASettingsPanel)panelSettingsARIMAMain).isConstant());
         
         return resultList;
@@ -3115,7 +3103,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<KNNfnnParams> getParamsKNNfnn() {
-        List<KNNfnnParams> workingList = new ArrayList<>();
         KNNfnnParams par = new KNNfnnParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
@@ -3124,22 +3111,21 @@ public class MainFrame extends javax.swing.JFrame {
         List<KNNfnnParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(KNNfnnParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNfnnParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNfnnParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNfnnParams.class, workingList, resultList, "setNumNeighbours",
+        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setNumNeighbours",
                 Integer.class, Utils.getIntegersOrDefault(((KNNFNNSettingsPanel)panelSettingsKNNoptions_FNN).getNumNeighbours()));
-        SettingsPanel.setSomethingList(KNNfnnParams.class, workingList, resultList, "setLag",
+        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setLag",
                 Integer.class, Utils.getIntegersOrDefault(((KNNFNNSettingsPanel)panelSettingsKNNoptions_FNN).getLag()));
         
         return resultList;
     }
     
     private List<KNNkknnParams> getParamsKNNkknn() {
-        List<KNNkknnParams> workingList = new ArrayList<>();
         KNNkknnParams par = new KNNkknnParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
@@ -3148,22 +3134,21 @@ public class MainFrame extends javax.swing.JFrame {
         List<KNNkknnParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(KNNkknnParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNkknnParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNkknnParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNkknnParams.class, workingList, resultList, "setMaxNeighbours",
+        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setMaxNeighbours",
                 Integer.class, Utils.getIntegersOrDefault(((KNNkknnSettingsPanel)panelSettingsKNNoptions_kknn).getNumNeighbours()));
-        SettingsPanel.setSomethingList(KNNkknnParams.class, workingList, resultList, "setLag",
+        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setLag",
                 Integer.class, Utils.getIntegersOrDefault(((KNNkknnSettingsPanel)panelSettingsKNNoptions_kknn).getLag()));
         
         return resultList;
     }
     
     private List<VARParams> getParamsVAR() {
-        List<VARParams> workingList = new ArrayList<>();
         VARParams par = new VARParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(100); //uses all data for training
@@ -3171,28 +3156,28 @@ public class MainFrame extends javax.swing.JFrame {
         List<VARParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(VARParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(VARParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(VARParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(VARParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(VARParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(VARParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingOneValue(VARParams.class, workingList, resultList, "setEndogenousVars",
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setEndogenousVars",
                 List.class, ((VARSettingsPanel)panelSettingsVARMainInsideBecauseX).getEndogenousVars());
-        SettingsPanel.setSomethingList(VARParams.class, workingList, resultList, "setLag",
+        SettingsPanel.setSomethingList(VARParams.class, resultList, "setLag",
                 Integer.class, Utils.getIntegersOrDefault(((VARSettingsPanel)panelSettingsVARMainInsideBecauseX).getLag()));
-        SettingsPanel.setSomethingOneValue(VARParams.class, workingList, resultList, "setType",
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setType",
                 String.class, ((VARSettingsPanel)panelSettingsVARMainInsideBecauseX).getType());
-        SettingsPanel.setSomethingOneValue(VARParams.class, workingList, resultList, "setOutputVarName",
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
                 String.class, comboBoxColnamesRun.getSelectedItem().toString());
-        SettingsPanel.setSomethingOneValue(VARParams.class, workingList, resultList, "setOutputVarVals",
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarVals",
                 List.class, dataTableModel.getDataForColname(comboBoxColnamesRun.getSelectedItem().toString()));
         
         Map<String, List<Double>> data = new HashMap<>();
         for (Object var : ((VARSettingsPanel)panelSettingsVARMainInsideBecauseX).getEndogenousVars()) {
             data.put(var.toString(), dataTableModel.getDataForColname(var.toString()));
         }
-        SettingsPanel.setSomethingOneValue(VARParams.class, workingList, resultList, "setData", Map.class, data);
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setData", Map.class, data);
         
         
         
@@ -3200,7 +3185,6 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<RBFParams> getParamsRBF() {
-        List<RBFParams> workingList = new ArrayList<>();
         RBFParams par = new RBFParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelRBFPercentTrain).getPercentTrain()));
@@ -3208,31 +3192,30 @@ public class MainFrame extends javax.swing.JFrame {
         List<RBFParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(RBFParams.class, workingList, resultList, "setNumForecasts", 
+        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingList, resultList, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingList, resultList, "setDataRangeTo",
+        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingList, resultList, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFMain).getNumHidden()));
-        SettingsPanel.setSomethingOneValue(RBFParams.class, workingList, resultList, "setExplVars",
+        SettingsPanel.setSomethingOneValue(RBFParams.class, resultList, "setExplVars",
                 List.class, ((RBFSettingsPanel)panelSettingsRBFMain).getExplVars());
         CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
         outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
         outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
         List<CrispOutputVariable> outVarList = new ArrayList<>();
         outVarList.add(outVar);
-        SettingsPanel.setSomethingOneValue(RBFParams.class, workingList, resultList, "setOutVars",
+        SettingsPanel.setSomethingOneValue(RBFParams.class, resultList, "setOutVars",
                 List.class, outVarList);
-        SettingsPanel.setSomethingList(RBFParams.class, workingList, resultList, "setMaxIterations",
+        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setMaxIterations",
                 Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFMain).getMaxIt()));
         
         return resultList;
     }
     
     private List<RBFintParams> getParamsRBFint() {
-        List<RBFParams> workingListCenter = new ArrayList<>();
         RBFParams parCenter = new RBFParams();
         //zohnat vsetky parametre pre dany model:
         parCenter.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelRBFintPercentTrain).getPercentTrain()));
@@ -3240,15 +3223,15 @@ public class MainFrame extends javax.swing.JFrame {
         List<RBFParams> resultListCenter = new ArrayList<>();
         resultListCenter.add(parCenter);
         
-        SettingsPanel.setSomethingList(RBFParams.class, workingListCenter, resultListCenter, "setNumForecasts", 
+        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingListCenter, resultListCenter, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingListCenter, resultListCenter, "setDataRangeTo",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingListCenter, resultListCenter, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFint_center).getNumHidden()));
-        SettingsPanel.setSomethingOneValue(RBFParams.class, workingListCenter, resultListCenter, "setExplVars",
+        SettingsPanel.setSomethingOneValue(RBFParams.class, resultListCenter, "setExplVars",
                 List.class, ((RBFSettingsPanel)panelSettingsRBFint_center).getExplVars());
         CrispOutputVariable outVarCenter = new CrispOutputVariable(); //berie hodnoty z (i)TS Run
         if (radioButtonRunFakeIntCenterRadius.isSelected()) {
@@ -3260,13 +3243,12 @@ public class MainFrame extends javax.swing.JFrame {
         }
         List<CrispOutputVariable> outVarListCenter = new ArrayList<>();
         outVarListCenter.add(outVarCenter);
-        SettingsPanel.setSomethingOneValue(RBFParams.class, workingListCenter, resultListCenter, "setOutVars",
+        SettingsPanel.setSomethingOneValue(RBFParams.class, resultListCenter, "setOutVars",
                 List.class, outVarListCenter);
-        SettingsPanel.setSomethingList(RBFParams.class, workingListCenter, resultListCenter, "setMaxIterations",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setMaxIterations",
                 Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFint_center).getMaxIt()));
         
         
-        List<RBFParams> workingListRadius = new ArrayList<>();
         RBFParams parRadius = new RBFParams();
         //zohnat vsetky parametre pre dany model:
         parRadius.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelRBFintPercentTrain).getPercentTrain()));
@@ -3274,15 +3256,15 @@ public class MainFrame extends javax.swing.JFrame {
         List<RBFParams> resultListRadius = new ArrayList<>();
         resultListRadius.add(parRadius);
         
-        SettingsPanel.setSomethingList(RBFParams.class, workingListRadius, resultListRadius, "setNumForecasts", 
+        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setNumForecasts", 
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingListRadius, resultListRadius, "setDataRangeFrom",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setDataRangeFrom",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingListRadius, resultListRadius, "setDataRangeTo",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, workingListRadius, resultListRadius, "setNumNodesHidden",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setNumNodesHidden",
                 Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFint_radius).getNumHidden()));
-        SettingsPanel.setSomethingOneValue(RBFParams.class, workingListRadius, resultListRadius, "setExplVars",
+        SettingsPanel.setSomethingOneValue(RBFParams.class, resultListRadius, "setExplVars",
                 List.class, ((RBFSettingsPanel)panelSettingsRBFint_radius).getExplVars());
         CrispOutputVariable outVarRadius = new CrispOutputVariable(); //berie hodnoty z (i)TS Run
         if (radioButtonRunFakeIntCenterRadius.isSelected()) {
@@ -3294,25 +3276,24 @@ public class MainFrame extends javax.swing.JFrame {
         }
         List<CrispOutputVariable> outVarListRadius = new ArrayList<>();
         outVarListRadius.add(outVarRadius);
-        SettingsPanel.setSomethingOneValue(RBFParams.class, workingListRadius, resultListRadius, "setOutVars",
+        SettingsPanel.setSomethingOneValue(RBFParams.class, resultListRadius, "setOutVars",
                 List.class, outVarListRadius);
-        SettingsPanel.setSomethingList(RBFParams.class, workingListRadius, resultListRadius, "setMaxIterations",
+        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setMaxIterations",
                 Integer.class, Utils.getIntegersOrDefault(((RBFSettingsPanel)panelSettingsRBFint_radius).getMaxIt()));
         
         
-        List<RBFintParams> workingList = new ArrayList<>();
         RBFintParams par = new RBFintParams();
         
         List<RBFintParams> resultList = new ArrayList<>();
         resultList.add(par);
-        SettingsPanel.setSomethingList(RBFintParams.class, workingList, resultList, "setParamsCenter",
+        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsCenter",
                 RBFParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(RBFintParams.class, workingList, resultList, "setParamsRadius",
+        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsRadius",
                 RBFParams.class, resultListRadius);
         Distance distanceFunction = ((DistanceSettingsPanel)panelRBFintSettingsDistance).getSelectedDistance();
-        SettingsPanel.setSomethingOneValue(RBFintParams.class, workingList, resultList, "setDistance",
+        SettingsPanel.setSomethingOneValue(RBFintParams.class, resultList, "setDistance",
                 Distance.class, distanceFunction);
-        SettingsPanel.setSomethingList(RBFintParams.class, workingList, resultList, "setNumNetsToTrain",
+        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainRBFint));
         
         return resultList;
@@ -3321,7 +3302,6 @@ public class MainFrame extends javax.swing.JFrame {
     private List<HybridParams> getParamsHybrid() {
         //TODO refactor this........... je to vsetko rovnake, len pretypovava sa to na nieco ine
         
-        List<HybridParams> workingList = new ArrayList<>();
         HybridParams par = new HybridParams();
         
         List<HybridParams> resultList = new ArrayList<>();
@@ -3330,29 +3310,26 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
             case "MLP (nnetar)":
-                List<NnetarParams> workingListCenter = new ArrayList<>();
                 NnetarParams params = new NnetarParams();
                 params.setColName(comboBoxRunFakeIntCenter.getSelectedItem().toString());
                 List<NnetarParams> resultListCenter = new ArrayList<>();
                 resultListCenter.add(params);
                 //najprv vseobecne
-                SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setNumForecasts", 
+                SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumForecasts", 
                         Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setDataRangeFrom",
+                SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeFrom",
                         Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, workingListCenter, resultListCenter, "setDataRangeTo",
+                SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeTo",
                         Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
                 //potom percenttrain
-                SettingsPanel.setSomethingOneValue(NnetarParams.class, workingListCenter, resultListCenter, "setPercentTrain",
+                SettingsPanel.setSomethingOneValue(NnetarParams.class, resultListCenter, "setPercentTrain",
                         Integer.class, Utils.getIntegersOrDefault(((PercentTrainSettingsPanel)panelSettingsHybridPercentTrain).getPercentTrain()).get(0)); //multiple vals not supported; will work with the first
                 //potom specialne pre tento model
-                ((MLPNnetarSettingsPanel)panelSettingsHybrid_centerMain_MLPnnetar).setSpecificParams(workingListCenter, resultListCenter);
+                ((MLPNnetarSettingsPanel)panelSettingsHybrid_centerMain_MLPnnetar).setSpecificParams(resultListCenter);
                 //po tomto sa zmeni resultListCenter a mozem ho setnut do hlavnych parametrov
                 
-                SettingsPanel.setSomethingListForHybrid(HybridParams.class, workingList, resultList, "setParamsCenter",
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetarParams.class, resultListCenter);
-//                SettingsPanel.setSomethingList(RBFintParams.class, workingList, resultList, "setParamsCenter",
-//                RBFParams.class, resultListCenter);
                 break;
             case "MLP (nnet)":
 //                centerClass = NnetParams.class;
@@ -3379,26 +3356,25 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
             case "MLP (nnetar)":
-                List<NnetarParams> workingListRadius = new ArrayList<>();
                 NnetarParams params = new NnetarParams();
                 params.setColName(comboBoxRunFakeIntRadius.getSelectedItem().toString());
                 List<NnetarParams> resultListRadius = new ArrayList<>();
                 resultListRadius.add(params);
                 //najprv vseobecne
-                SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setNumForecasts", 
+                SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumForecasts", 
                         Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setDataRangeFrom",
+                SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeFrom",
                         Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-                SettingsPanel.setSomethingList(NnetarParams.class, workingListRadius, resultListRadius, "setDataRangeTo",
+                SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeTo",
                         Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
                 //potom percenttrain
-                SettingsPanel.setSomethingOneValue(NnetarParams.class, workingListRadius, resultListRadius, "setPercentTrain",
+                SettingsPanel.setSomethingOneValue(NnetarParams.class, resultListRadius, "setPercentTrain",
                         Integer.class, Utils.getIntegersOrDefault(((PercentTrainSettingsPanel)panelSettingsHybridPercentTrain).getPercentTrain()).get(0)); //multiple vals not supported; will work with the first
                 //potom specialne pre tento model
-                ((MLPNnetarSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnetar).setSpecificParams(workingListRadius, resultListRadius);
+                ((MLPNnetarSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnetar).setSpecificParams(resultListRadius);
                 //po tomto sa zmeni resultListCenter a mozem ho nasetovat do tych hlavnych params
                 
-                SettingsPanel.setSomethingListForHybrid(HybridParams.class, workingList, resultList, "setParamsRadius",
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetarParams.class, resultListRadius);
                 break;
             case "MLP (nnet)":
@@ -3422,9 +3398,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         Distance distanceFunction = ((DistanceSettingsPanel)panelSettingsHybridDistance).getSelectedDistance();
-        SettingsPanel.setSomethingOneValue(HybridParams.class, workingList, resultList, "setDistance",
+        SettingsPanel.setSomethingOneValue(HybridParams.class, resultList, "setDistance",
                 Distance.class, distanceFunction);
-        SettingsPanel.setSomethingList(HybridParams.class, workingList, resultList, "setNumNetsToTrain",
+        SettingsPanel.setSomethingList(HybridParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainRBFint));
         
         return resultList;
