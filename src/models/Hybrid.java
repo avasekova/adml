@@ -2,9 +2,14 @@ package models;
 
 import gui.DataTableModel;
 import java.util.List;
+import params.ArimaParams;
 import params.HybridParams;
+import params.KNNfnnParams;
+import params.KNNkknnParams;
+import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
+import params.RBFParams;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -23,19 +28,49 @@ public class Hybrid implements Forecastable {
         TrainAndTestReportCrisp reportCenter = null;
         TrainAndTestReportCrisp reportRadius = null;
         
+        //center
         if (paramsCenter instanceof NnetarParams) {
             Nnetar nnetar = new Nnetar();
             reportCenter = (TrainAndTestReportCrisp) nnetar.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof NnetParams) {
+            Nnet nnet = new Nnet();
+            reportCenter = (TrainAndTestReportCrisp) nnet.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof RBFParams) {
+            RBF rbf = new RBF();
+            reportCenter = (TrainAndTestReportCrisp) rbf.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof ArimaParams) {
+            Arima arima = new Arima();
+            reportCenter = (TrainAndTestReportCrisp) arima.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof KNNfnnParams) {
+            KNNfnn knnFnn = new KNNfnn();
+            reportCenter = (TrainAndTestReportCrisp) knnFnn.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof KNNkknnParams) {
+            KNNkknn knnKknn = new KNNkknn();
+            reportCenter = (TrainAndTestReportCrisp) knnKknn.forecast(dataTableModel, paramsCenter);
         }
-        ////tu pokracovat so vsetkymi modelmi pre center, potom to iste pre radius. a zbytok uz bude
+        
+        //radius
         if (paramsRadius instanceof NnetarParams) {
             Nnetar nnetar = new Nnetar();
             reportRadius = (TrainAndTestReportCrisp) nnetar.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof NnetParams) {
+            Nnet nnet = new Nnet();
+            reportRadius = (TrainAndTestReportCrisp) nnet.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof RBFParams) {
+            RBF rbf = new RBF();
+            reportRadius = (TrainAndTestReportCrisp) rbf.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof ArimaParams) {
+            Arima arima = new Arima();
+            reportRadius = (TrainAndTestReportCrisp) arima.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof KNNfnnParams) {
+            KNNfnn knnFnn = new KNNfnn();
+            reportRadius = (TrainAndTestReportCrisp) knnFnn.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof KNNkknnParams) {
+            KNNkknn knnKknn = new KNNkknn();
+            reportRadius = (TrainAndTestReportCrisp) knnKknn.forecast(dataTableModel, paramsRadius);
         }
         
-        
-        
-        
+        //zbytok je potom taky isty
         List<Interval> realOutputsIntervalTrain = Utils.zipCentersRadiiToIntervals(
                 Utils.arrayToList(reportCenter.getRealOutputsTrain()), Utils.arrayToList(reportRadius.getRealOutputsTrain()));
         List<Interval> realOutputsIntervalTest = Utils.zipCentersRadiiToIntervals(

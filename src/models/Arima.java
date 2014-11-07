@@ -96,7 +96,7 @@ public class Arima implements Forecastable {
         REXP getTrainingPortionOfData = rengine.eval(INPUT_TRAIN);
         double[] trainingPortionOfDataArray = getTrainingPortionOfData.asDoubleArray();
         List<Double> trainingPortionOfData = Utils.arrayToList(trainingPortionOfDataArray);
-        REXP getTestingPortionOfData = rengine.eval(INPUT_TRAIN);
+        REXP getTestingPortionOfData = rengine.eval(INPUT_TEST);
         double[] testingPortionOfDataArray = getTestingPortionOfData.asDoubleArray();
         List<Double> testingPortionOfData = Utils.arrayToList(testingPortionOfDataArray);
         

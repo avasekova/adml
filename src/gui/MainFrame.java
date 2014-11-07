@@ -245,9 +245,8 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_radiusMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_radiusMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_radiusMain_KNNkknn = new KNNkknnSettingsPanel();
-        panelSettingsHybridPercentTrain_center = new PercentTrainSettingsPanel();
+        panelSettingsHybridPercentTrain = new PercentTrainSettingsPanel();
         panelSettingsHybridDistance = new DistanceSettingsPanel();
-        panelSettingsHybridPercentTrain_radius = new PercentTrainSettingsPanel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         panelSummary = new javax.swing.JPanel();
@@ -1223,7 +1222,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-                            .addComponent(panelSettingsHybridPercentTrain_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(panelSettingsHybridPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1233,11 +1232,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
-                        .addComponent(panelSettingsHybridPercentTrain_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 668, Short.MAX_VALUE))
+                    .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         paneSettingsMethodsHybridLayout.setVerticalGroup(
@@ -1245,10 +1241,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSettingsHybridPercentTrain_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelSettingsHybridPercentTrain_center, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)))
+                    .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSettingsHybridPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -2004,7 +1998,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunMLPnnet.isSelected()) {
-            List<NnetParams> params = getParamsNnet();
+            List<NnetParams> params = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
             
             showDialogTooManyModelsInCase(params.size(), "nnet");
             if (continueWithTooManyModels) {
@@ -2022,7 +2016,7 @@ public class MainFrame extends javax.swing.JFrame {
                 (((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).getDistancesUsed().isEmpty())) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the iMLP C code to run.");
             } else {
-                List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode();
+                List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
                 
                 showDialogTooManyModelsInCase(params.size(), "iMLP");
                 if (continueWithTooManyModels) {
@@ -2036,8 +2030,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunMLPintNnetar.isSelected()) {
-            List<MLPintNnetarParams> params = getParamsMLPintNnetar();
-
+            List<MLPintNnetarParams> params = getParamsMLPintNnetar(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                    panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
+                    panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance);
+            
             showDialogTooManyModelsInCase(params.size(), "MLP(i) (nnetar)");
             if (continueWithTooManyModels) {
                 //run two separate forecasts, one for Center and the other for Radius
@@ -2051,8 +2047,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunMLPintNnet.isSelected()) {
-            List<MLPintNnetParams> params = getParamsMLPintNnet();
-
+            List<MLPintNnetParams> params = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                    panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
+                    panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetworksToTrainMLPint);
+            
             showDialogTooManyModelsInCase(params.size(), "MLP(i) (nnet)");
             if (continueWithTooManyModels) {
                 //run two separate forecasts, one for Center and the other for Radius
@@ -2066,7 +2064,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunARIMA.isSelected()) {
-            List<ArimaParams> params = getParamsArima();
+            List<ArimaParams> params = getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
             
             showDialogTooManyModelsInCase(params.size(), "ARIMA");
             if (continueWithTooManyModels) {
@@ -2081,7 +2079,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunKNNfnn.isSelected()) {
-            List<KNNfnnParams> params = getParamsKNNfnn();
+            List<KNNfnnParams> params = getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
             
             showDialogTooManyModelsInCase(params.size(), "kNN (fnn)");
             if (continueWithTooManyModels) {
@@ -2093,21 +2091,21 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
 
-        if (checkBoxRunKNNcustom.isSelected()) {
-            List<KNNcustomParams> params = getParamsKNNcustom();
-            
-            showDialogTooManyModelsInCase(params.size(), "kNN (custom)");
-            if (continueWithTooManyModels) {
-                Forecastable kNNcustom = new KNNcustom();
-                for (KNNcustomParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(dataTableModel, p));
-                    reportsCTS.add(report);
-                }
-            }
-        }
+//        if (checkBoxRunKNNcustom.isSelected()) {
+//            List<KNNcustomParams> params = getParamsKNNcustom();
+//            
+//            showDialogTooManyModelsInCase(params.size(), "kNN (custom)");
+//            if (continueWithTooManyModels) {
+//                Forecastable kNNcustom = new KNNcustom();
+//                for (KNNcustomParams p : params) {
+//                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(dataTableModel, p));
+//                    reportsCTS.add(report);
+//                }
+//            }
+//        }
 
         if (checkBoxRunKNNkknn.isSelected()) {
-            List<KNNkknnParams> params = getParamsKNNkknn();
+            List<KNNkknnParams> params = getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
             
             showDialogTooManyModelsInCase(params.size(), "kNN (kknn)");
             if (continueWithTooManyModels) {
@@ -2120,7 +2118,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunVAR.isSelected()) {
-            List<VARParams> params = getParamsVAR();
+            List<VARParams> params = getParamsVAR(comboBoxColnamesRun, panelSettingsVARMainInsideBecauseX);
             
             showDialogTooManyModelsInCase(params.size(), "VAR");
             if (continueWithTooManyModels) {
@@ -2136,7 +2134,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (((RBFSettingsPanel)panelSettingsRBFMain).getExplVars().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
             } else {
-                List<RBFParams> params = getParamsRBF();
+                List<RBFParams> params = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
                 
                 showDialogTooManyModelsInCase(params.size(), "RBF");
                 if (continueWithTooManyModels) {
@@ -2154,8 +2152,10 @@ public class MainFrame extends javax.swing.JFrame {
                 ((RBFSettingsPanel)panelSettingsRBFint_radius).getExplVars().isEmpty()) {
                 JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF(i) to run.");
             } else {
-                List<RBFintParams> params = getParamsRBFint();
-
+                List<RBFintParams> params = getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
+                        panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
+                        panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint);
+                
                 showDialogTooManyModelsInCase(params.size(), "RBF(i)");
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
@@ -2665,8 +2665,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSettingsARIMAMain;
     private javax.swing.JPanel panelSettingsHybridDistance;
-    private javax.swing.JPanel panelSettingsHybridPercentTrain_center;
-    private javax.swing.JPanel panelSettingsHybridPercentTrain_radius;
+    private javax.swing.JPanel panelSettingsHybridPercentTrain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_ARIMA;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_KNNFNN;
@@ -2801,11 +2800,12 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<NnetParams> getParamsNnet() {
+    private List<NnetParams> getParamsNnet(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnet) {
         NnetParams par = new NnetParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain()));
-        par.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         
         List<NnetParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -2816,15 +2816,16 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(NnetParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).setSpecificParams(NnetParams.class, resultList);
+        ((MLPNnetSettingsPanel)panelSettingsNnet).setSpecificParams(NnetParams.class, resultList);
         
         return resultList;
     }
     
-    private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode() {
+    private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JPanel panelSettingsIMLPCcode) {
         IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelIntMLPPercentTrain).getPercentTrain()));
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -2835,54 +2836,28 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).setSpecificParams(IntervalMLPCcodeParams.class, resultList);
+        ((IntMLPCcodeSettingsPanel)panelSettingsIMLPCcode).setSpecificParams(IntervalMLPCcodeParams.class, resultList);
         
         //TODO add the criterion here
         
         return resultList;
     }
     
-    private List<MLPintNnetarParams> getParamsMLPintNnetar() {
-        NnetarParams parCenter = new NnetarParams();
-        //zohnat vsetky parametre pre dany model:
-        parCenter.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
-        parCenter.setColName(comboBoxRunFakeIntCenter.getSelectedItem().toString()); //data
-        
-        List<NnetarParams> resultListCenter = new ArrayList<>();
-        resultListCenter.add(parCenter);
-        
-        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, resultListCenter, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_center).setSpecificParams(NnetarParams.class, resultListCenter);
-        
-        
-        NnetarParams parRadius = new NnetarParams();
-        //zohnat vsetky parametre pre dany model:
-        parRadius.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
-        parRadius.setColName(comboBoxRunFakeIntRadius.getSelectedItem().toString()); //data
-        
-        List<NnetarParams> resultListRadius = new ArrayList<>();
-        resultListRadius.add(parRadius);
-        
-        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, resultListRadius, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((MLPNnetarSettingsPanel)panelSettingsMLPintPackage_nnetar_radius).setSpecificParams(NnetarParams.class, resultListRadius);
-        
+    private List<MLPintNnetarParams> getParamsMLPintNnetar(javax.swing.JPanel percentTrainSettingsPanel_center,
+            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnetar_center,
+            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
+            javax.swing.JPanel panelSettingsNnetar_radius, javax.swing.JPanel panelSettingsDistance) {
+        List<NnetarParams> resultListCenter = getParamsNnetar(percentTrainSettingsPanel_center, comboBoxColName_center, 
+                panelSettingsNnetar_center);
+        List<NnetarParams> resultListRadius = getParamsNnetar(percentTrainSettingsPanel_radius, comboBoxColName_radius, 
+                panelSettingsNnetar_radius);
         
         MLPintNnetarParams par = new MLPintNnetarParams();
         
         List<MLPintNnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        ((DistanceSettingsPanel)panelMLPintSettingsDistance).setSpecificParams(MLPintNnetarParams.class, resultList);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetarParams.class, resultList);
         SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsCenter",
                 NnetarParams.class, resultListCenter);
         SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsRadius",
@@ -2891,38 +2866,15 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<MLPintNnetParams> getParamsMLPintNnet() {
-        NnetParams parCenter = new NnetParams();
-        //zohnat vsetky parametre pre dany model:
-        parCenter.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
-        parCenter.setColName(comboBoxRunFakeIntCenter.getSelectedItem().toString()); //data
-        
-        List<NnetParams> resultListCenter = new ArrayList<>();
-        resultListCenter.add(parCenter);
-        
-        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, resultListCenter, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).setSpecificParams(NnetParams.class, resultListCenter);
-        
-        NnetParams parRadius = new NnetParams();
-        //zohnat vsetky parametre pre dany model:
-        parRadius.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain()));
-        parRadius.setColName(comboBoxRunFakeIntRadius.getSelectedItem().toString()); //data
-        
-        List<NnetParams> resultListRadius = new ArrayList<>();
-        resultListRadius.add(parRadius);
-        
-        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, resultListRadius, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).setSpecificParams(NnetParams.class, resultListRadius);
+    private List<MLPintNnetParams> getParamsMLPintNnet(javax.swing.JPanel percentTrainSettingsPanel_center,
+            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnet_center,
+            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
+            javax.swing.JPanel panelSettingsNnet_radius, javax.swing.JPanel panelSettingsDistance,
+            javax.swing.JTextField numNetsToTrainField) {
+        List<NnetParams> resultListCenter = getParamsNnet(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsNnet_center);
+        List<NnetParams> resultListRadius = getParamsNnet(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsNnet_radius);
         
         
         MLPintNnetParams par = new MLPintNnetParams();
@@ -2930,22 +2882,23 @@ public class MainFrame extends javax.swing.JFrame {
         List<MLPintNnetParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        ((DistanceSettingsPanel)panelMLPintSettingsDistance).setSpecificParams(MLPintNnetParams.class, resultList);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetParams.class, resultList);
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsCenter",
                 NnetParams.class, resultListCenter);
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
                 NnetParams.class, resultListRadius);
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainMLPint).subList(0, 1));
+                Integer.class, Utils.getIntegersOrDefault(numNetsToTrainField).subList(0, 1));
         
         return resultList;
     }
     
-    private List<ArimaParams> getParamsArima() {
+    private List<ArimaParams> getParamsArima(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsArima) {
         ArimaParams par = new ArimaParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelARIMAPercTrain).getPercentTrain()));
-        par.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         
         List<ArimaParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -2956,36 +2909,37 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((ARIMASettingsPanel)panelSettingsARIMAMain).setSpecificParams(ArimaParams.class, resultList);
+        ((ARIMASettingsPanel)panelSettingsArima).setSpecificParams(ArimaParams.class, resultList);
         
         return resultList;
     }
     
-    private List<KNNcustomParams> getParamsKNNcustom() { //TODO multiple vals
-        KNNcustomParams params = new KNNcustomParams();
-        //zohnat vsetky parametre pre dany model:
-        params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
-        params.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
-        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
-        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-        //TODO setSpecific params
-        params.setNumNeighbours(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getNumNeighbours()));
-        params.setLengthHistory(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLengthHistory()));
-        params.setLag(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLag()));
-        params.setDistanceMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getDistance());
-        params.setCombinationMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getCombination());
-        
-        List<KNNcustomParams> resultList = new ArrayList<>();
-        resultList.add(params);
-        return resultList;
-    }
+//    private List<KNNcustomParams> getParamsKNNcustom() { //TODO multiple vals
+//        KNNcustomParams params = new KNNcustomParams();
+//        //zohnat vsetky parametre pre dany model:
+//        params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
+//        params.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
+//        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
+//        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+//        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+//        //TODO setSpecific params
+//        params.setNumNeighbours(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getNumNeighbours()));
+//        params.setLengthHistory(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLengthHistory()));
+//        params.setLag(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLag()));
+//        params.setDistanceMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getDistance());
+//        params.setCombinationMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getCombination());
+//        
+//        List<KNNcustomParams> resultList = new ArrayList<>();
+//        resultList.add(params);
+//        return resultList;
+//    }
     
-    private List<KNNfnnParams> getParamsKNNfnn() {
+    private List<KNNfnnParams> getParamsKNNfnn(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNfnn) {
         KNNfnnParams par = new KNNfnnParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
-        par.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         
         List<KNNfnnParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -2996,16 +2950,17 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((KNNFNNSettingsPanel)panelSettingsKNNoptions_FNN).setSpecificParams(KNNfnnParams.class, resultList);
+        ((KNNFNNSettingsPanel)panelSettingsKNNfnn).setSpecificParams(KNNfnnParams.class, resultList);
         
         return resultList;
     }
     
-    private List<KNNkknnParams> getParamsKNNkknn() {
+    private List<KNNkknnParams> getParamsKNNkknn(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNkknn) {
         KNNkknnParams par = new KNNkknnParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
-        par.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         
         List<KNNkknnParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -3016,12 +2971,12 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((KNNkknnSettingsPanel)panelSettingsKNNoptions_kknn).setSpecificParams(KNNkknnParams.class, resultList);
+        ((KNNkknnSettingsPanel)panelSettingsKNNkknn).setSpecificParams(KNNkknnParams.class, resultList);
         
         return resultList;
     }
     
-    private List<VARParams> getParamsVAR() {
+    private List<VARParams> getParamsVAR(javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsVAR) {
         VARParams par = new VARParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(100); //uses all data for training
@@ -3035,28 +2990,27 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(VARParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((VARSettingsPanel)panelSettingsVARMainInsideBecauseX).setSpecificParams(VARParams.class, resultList);
+        ((VARSettingsPanel)panelSettingsVAR).setSpecificParams(VARParams.class, resultList);
         //TODO prehodit dnu?
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
-                String.class, comboBoxColnamesRun.getSelectedItem().toString());
+                String.class, comboBoxColName.getSelectedItem().toString());
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarVals",
-                List.class, dataTableModel.getDataForColname(comboBoxColnamesRun.getSelectedItem().toString()));
+                List.class, dataTableModel.getDataForColname(comboBoxColName.getSelectedItem().toString()));
         
         Map<String, List<Double>> data = new HashMap<>();
-        for (Object var : ((VARSettingsPanel)panelSettingsVARMainInsideBecauseX).getEndogenousVars()) {
+        for (Object var : ((VARSettingsPanel)panelSettingsVAR).getEndogenousVars()) {
             data.put(var.toString(), dataTableModel.getDataForColname(var.toString()));
         }
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setData", Map.class, data);
         
-        
-        
         return resultList;
     }
     
-    private List<RBFParams> getParamsRBF() {
+    private List<RBFParams> getParamsRBF(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsRBF) {
         RBFParams par = new RBFParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelRBFPercentTrain).getPercentTrain()));
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<RBFParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -3067,11 +3021,11 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(RBFParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((RBFSettingsPanel)panelSettingsRBFMain).setSpecificParams(RBFParams.class, resultList);
+        ((RBFSettingsPanel)panelSettingsRBF).setSpecificParams(RBFParams.class, resultList);
         //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
         CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
-        outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
-        outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
+        outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
+        outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
         List<CrispOutputVariable> outVarList = new ArrayList<>();
         outVarList.add(outVar);
         SettingsPanel.setSomethingOneValue(RBFParams.class, resultList, "setOutVars", List.class, outVarList);
@@ -3079,63 +3033,15 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<RBFintParams> getParamsRBFint() {
-        RBFParams parCenter = new RBFParams();
-        //zohnat vsetky parametre pre dany model:
-        parCenter.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelRBFintPercentTrain).getPercentTrain()));
-        
-        List<RBFParams> resultListCenter = new ArrayList<>();
-        resultListCenter.add(parCenter);
-        
-        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, resultListCenter, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((RBFSettingsPanel)panelSettingsRBFint_center).setSpecificParams(RBFParams.class, resultListCenter);
-        //TODO prehodit dnu
-        CrispOutputVariable outVarCenter = new CrispOutputVariable(); //berie hodnoty z (i)TS Run
-        if (radioButtonRunFakeIntCenterRadius.isSelected()) {
-            outVarCenter.setName(comboBoxRunFakeIntCenter.getSelectedItem().toString() + comboBoxRunFakeIntCenter.getSelectedIndex());
-            outVarCenter.setFieldName(comboBoxRunFakeIntCenter.getSelectedItem().toString());
-        } else {
-            outVarCenter.setName(comboBoxRunFakeIntLower.getSelectedItem().toString() + comboBoxRunFakeIntLower.getSelectedIndex());
-            outVarCenter.setFieldName(comboBoxRunFakeIntLower.getSelectedItem().toString());
-        }
-        List<CrispOutputVariable> outVarListCenter = new ArrayList<>();
-        outVarListCenter.add(outVarCenter);
-        SettingsPanel.setSomethingOneValue(RBFParams.class, resultListCenter, "setOutVars",
-                List.class, outVarListCenter);
-        
-        
-        RBFParams parRadius = new RBFParams();
-        //zohnat vsetky parametre pre dany model:
-        parRadius.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelRBFintPercentTrain).getPercentTrain()));
-        
-        List<RBFParams> resultListRadius = new ArrayList<>();
-        resultListRadius.add(parRadius);
-        
-        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, resultListRadius, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
-        ((RBFSettingsPanel)panelSettingsRBFint_radius).setSpecificParams(RBFParams.class, resultListRadius);
-        CrispOutputVariable outVarRadius = new CrispOutputVariable(); //berie hodnoty z (i)TS Run
-        if (radioButtonRunFakeIntCenterRadius.isSelected()) {
-            outVarRadius.setName(comboBoxRunFakeIntRadius.getSelectedItem().toString() + comboBoxRunFakeIntRadius.getSelectedIndex());
-            outVarRadius.setFieldName(comboBoxRunFakeIntRadius.getSelectedItem().toString());
-        } else {
-            outVarRadius.setName(comboBoxRunFakeIntUpper.getSelectedItem().toString() + comboBoxRunFakeIntUpper.getSelectedIndex());
-            outVarRadius.setFieldName(comboBoxRunFakeIntUpper.getSelectedItem().toString());
-        }
-        List<CrispOutputVariable> outVarListRadius = new ArrayList<>();
-        outVarListRadius.add(outVarRadius);
-        SettingsPanel.setSomethingOneValue(RBFParams.class, resultListRadius, "setOutVars",
-                List.class, outVarListRadius);
-        
+    private List<RBFintParams> getParamsRBFint(javax.swing.JPanel percentTrainSettingsPanel_center,
+            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsRBF_center,
+            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
+            javax.swing.JPanel panelSettingsRBF_radius, javax.swing.JPanel panelSettingsDistance,
+            javax.swing.JTextField numNetsToTrainField) {
+        List<RBFParams> resultListCenter = getParamsRBF(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsRBF_center);
+        List<RBFParams> resultListRadius = getParamsRBF(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsRBF_radius);
         
         RBFintParams par = new RBFintParams();
         
@@ -3145,48 +3051,63 @@ public class MainFrame extends javax.swing.JFrame {
                 RBFParams.class, resultListCenter);
         SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsRadius",
                 RBFParams.class, resultListRadius);
-        ((DistanceSettingsPanel)panelRBFintSettingsDistance).setSpecificParams(RBFintParams.class, resultList);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(RBFintParams.class, resultList);
         SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainRBFint));
+                Integer.class, Utils.getIntegersOrDefault(numNetsToTrainField));
         
         return resultList;
     }
     
     private List<HybridParams> getParamsHybrid() {
-        //TODO refactor this........... je to vsetko rovnake, len pretypovava sa to na nieco ine
-        
         HybridParams par = new HybridParams();
-        
         List<HybridParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        
         switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
             case "MLP (nnetar)":
-                List<NnetarParams> resultListCenter = getParamsNnetar(panelSettingsHybridPercentTrain_center,
+                List<NnetarParams> resultListCenterNnetar = getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
-                        NnetarParams.class, resultListCenter);
+                        NnetarParams.class, resultListCenterNnetar);
                 break;
             case "MLP (nnet)":
-//                centerClass = NnetParams.class;
-                //TODo nezabudnut vsade nasetovat colname! resp. refactorovat a zavolat tie jednotlive getParams metody
+                List<NnetParams> resultListCenterNnet = getParamsNnet(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnet);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        NnetParams.class, resultListCenterNnet);
                 break;
             case "RBF":
-//                centerClass = RBFParams.class;
+                List<RBFParams> resultListCenterRBF = getParamsRBF(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_RBF);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        RBFParams.class, resultListCenterRBF);
                 break;
             case "ARIMA":
-//                centerClass = ArimaParams.class;
+                List<ArimaParams> resultListCenterARIMA = getParamsArima(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_ARIMA);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        ArimaParams.class, resultListCenterARIMA);
                 break;
             case "kNN (FNN)":
-//                centerClass = KNNfnnParams.class;
+                List<KNNfnnParams> resultListCenterKNNFNN = getParamsKNNfnn(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNFNN);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        KNNfnnParams.class, resultListCenterKNNFNN);
                 break;
             case "kNN (kknn)":
-//                centerClass = KNNkknnParams.class;
+                List<KNNkknnParams> resultListCenterKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnet);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        KNNkknnParams.class, resultListCenterKNNkknn);
                 break;
             default:
-//                centerClass = Params.class;
+                //do not do anything, this should never happen. maybe throw an exception? 
                 break;
         }
         
@@ -3194,29 +3115,49 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
             case "MLP (nnetar)":
-                List<NnetarParams> resultListRadius = getParamsNnetar(panelSettingsHybridPercentTrain_radius,
+                List<NnetarParams> resultListRadiusNnetar = getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnetar);
-                
+                                
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
-                        NnetarParams.class, resultListRadius);
+                        NnetarParams.class, resultListRadiusNnetar);
                 break;
             case "MLP (nnet)":
-//                centerClass = NnetParams.class;
+                List<NnetParams> resultListRadiusNnet = getParamsNnet(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnet);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        NnetParams.class, resultListRadiusNnet);
                 break;
             case "RBF":
-//                centerClass = RBFParams.class;
+                List<RBFParams> resultListRadiusRBF = getParamsRBF(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_RBF);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        RBFParams.class, resultListRadiusRBF);
                 break;
             case "ARIMA":
-//                centerClass = ArimaParams.class;
+                List<ArimaParams> resultListRadiusARIMA = getParamsArima(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_ARIMA);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        ArimaParams.class, resultListRadiusARIMA);
                 break;
             case "kNN (FNN)":
-//                centerClass = KNNfnnParams.class;
+                List<KNNfnnParams> resultListRadiusKNNFNN = getParamsKNNfnn(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNFNN);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        KNNfnnParams.class, resultListRadiusKNNFNN);
                 break;
             case "kNN (kknn)":
-//                centerClass = KNNkknnParams.class;
+                List<KNNkknnParams> resultListRadiusKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNkknn);
+                                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        KNNkknnParams.class, resultListRadiusKNNkknn);
                 break;
             default:
-//                centerClass = Params.class;
+                //do not do anything, this should never happen. maybe throw an exception? 
                 break;
         }
         
