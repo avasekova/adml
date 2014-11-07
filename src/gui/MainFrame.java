@@ -2174,10 +2174,10 @@ public class MainFrame extends javax.swing.JFrame {
 //        }
         
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
-            String colnameLower = comboBoxRunFakeIntLower.getSelectedItem().toString();
-            String colnameUpper = comboBoxRunFakeIntUpper.getSelectedItem().toString();
-            List<Interval> dataRandomWalk = Utils.zipLowerUpperToIntervals(dataTableModel.getDataForColname(colnameLower),
-                    dataTableModel.getDataForColname(colnameUpper));
+            String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
+            String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
+            List<Interval> dataRandomWalk = Utils.zipCentersRadiiToIntervals(dataTableModel.getDataForColname(colnameCenter),
+                    dataTableModel.getDataForColname(colnameRadius));
 
             Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
             RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
