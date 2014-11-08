@@ -2240,12 +2240,14 @@ public class MainFrame extends javax.swing.JFrame {
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+        System.out.println("reportscts " + reportsCTS.size());
         PlotDrawer.drawPlots(true, new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
                 checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
                 checkBoxRunPlotAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
+        System.out.println("reportscts " + reportsCTS.size());
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);

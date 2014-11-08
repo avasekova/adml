@@ -13,7 +13,7 @@ public abstract class TrainAndTestReport implements Plottable {
     private int numTrainingEntries = 1;
     private String nnDiagramPlotCode = "";
     
-    private String colourInPlot = "white"; //the name of R colour used in the last plot for this Report
+    private String colourInPlot = "#FFFFFF"; //the name of R colour used in the last plot for this Report
     
     public TrainAndTestReport(String modelName) { 
         this.modelName = modelName;

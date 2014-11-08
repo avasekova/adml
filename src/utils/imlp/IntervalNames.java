@@ -4,7 +4,7 @@ import gui.Plottable;
 
 public abstract class IntervalNames implements Plottable {
     
-    private String colourInPlot = "#000000";
+    private String colourInPlot = "#FFFFFF";
     
     @Override
     public abstract String toString();

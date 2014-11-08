@@ -913,7 +913,9 @@ public class PlotDrawer {
     public static void drawLegend(JList listPlotLegend, List<Plottable> plots) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
         for (Plottable p : plots) {
-            ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
+            if (! "#FFFFFF".equals(p.getColourInPlot())) {
+                ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
+            }
         }
         listPlotLegend.repaint();
     }
