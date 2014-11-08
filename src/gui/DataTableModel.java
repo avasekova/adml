@@ -113,7 +113,7 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
-        MainFrame.drawNowToThisGDBufferedPanel = par.getGDBufferedPanel();
+        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
@@ -123,8 +123,7 @@ public class DataTableModel extends AbstractTableModel {
         
         boolean next = false;
         int colourNumber = 0;
-        List<String> names = new ArrayList<>();
-        List<String> colours = new ArrayList<>();
+        List<Plottable> plots = new ArrayList<>();
         for (String col : par.getColnames()) {
             List<Double> data = values.get(col);
             final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
@@ -140,8 +139,8 @@ public class DataTableModel extends AbstractTableModel {
                         + "ylab=NULL, "
                         + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
             }
-            names.add(col);
-            colours.add(PlotDrawer.COLOURS[colourNumber]);
+            
+            plots.add(new DefaultPlottable(PlotDrawer.COLOURS[colourNumber], col));
             colourNumber++;
             
             //and compute basic statistics of the data:
@@ -160,15 +159,7 @@ public class DataTableModel extends AbstractTableModel {
         }
         
         //add legend
-        rengine.eval("legend(\"topleft\", "      
-                            + "inset = c(0,-0.11), "
-                            + "legend = " + PlotDrawer.getRString(names) + ", "
-                            + "fill = " + PlotDrawer.getRString(colours) + ", "
-                            + "horiz = TRUE, "
-                            + "box.lty = 0, "
-                            + "cex = 0.8, "
-                            + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
-                            + "xpd = TRUE)");
+        PlotDrawer.drawLegend(par.getListPlotLegend(), plots);
         
         REXP getX = rengine.eval(rangeX);
         double[] ranX = getX.asDoubleArray();

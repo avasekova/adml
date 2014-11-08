@@ -1,14 +1,13 @@
 package utils.ugliez;
 
 import java.util.List;
+import javax.swing.JList;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.javaGD.JGDBufferedPanel;
 
 public class CallParamsDrawPlots extends CallParams {
-    private JGDBufferedPanel canvasToUse;
-    private int width;
-    private int height;
+    
     private List<Double> allDataCTS; //vsetky data, naozaj vsetky, neosekane podla fromTo!
     private int sizeDataWithoutFromToCrop;
     private int numForecasts;
@@ -23,14 +22,13 @@ public class CallParamsDrawPlots extends CallParams {
     private boolean plotAvgIntTS;
     private boolean plotAvgONLY;
 
-    public CallParamsDrawPlots(JGDBufferedPanel canvasToUse, int width, int height, List<Double> allDataCTS,
+    public CallParamsDrawPlots(JList plotListLegend, JGDBufferedPanel canvasToUse, int width, int height, 
+            List<Double> allDataCTS,
             int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
             List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
             boolean plotAvgCTSperMethod, boolean plotAvgCTS, boolean plotAvgIntTSperMethod,
             boolean plotAvgIntTS, boolean plotAvgOnly) {
-        this.canvasToUse = canvasToUse;
-        this.width = width;
-        this.height = height;
+        super(plotListLegend, canvasToUse, width, height);
         this.allDataCTS = allDataCTS;
         this.sizeDataWithoutFromToCrop = sizeDataWithoutFromToCrop;
         this.numForecasts = numForecasts;
@@ -45,31 +43,7 @@ public class CallParamsDrawPlots extends CallParams {
         this.plotAvgIntTS = plotAvgIntTS;
         this.plotAvgONLY = plotAvgOnly;
     }
-
-    public JGDBufferedPanel getCanvasToUse() {
-        return canvasToUse;
-    }
-
-    public void setCanvasToUse(JGDBufferedPanel canvasToUse) {
-        this.canvasToUse = canvasToUse;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
+    
     public List<Double> getAllDataCTS() {
         return allDataCTS;
     }

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -23,12 +26,7 @@ import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
-//TODO preco po vykresleni grafu ten obrazok blikne? niekde sa nieco kresli dvakrat.
 public class PlotDrawer {
-    //TODO pridat abline pre kazde oddelenie training a testing data! ptz rozne metody maju rozne pomery.
-    //  (alebo nejak inak odlisit. trosku ina farba? iny styl ciary? ina hrubka? vsetko sa mi zda zle.)
-    
-    
     //TODO toto by cele chcelo upratat, prekopar, mozno refaktorovat do viacerych tried
     //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
     
@@ -77,10 +75,10 @@ public class PlotDrawer {
         boolean avgIntTS = par.isPlotAvgIntTS();
         boolean avgONLY = par.isPlotAvgONLY();
         
-        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
-        
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
+        
+        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
         rengine.eval("JavaGD()");
         
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //budem vykreslovat oba naraz
@@ -91,8 +89,6 @@ public class PlotDrawer {
         if (! reportsCTS.isEmpty()) { //plot CTS
             allDataCTS = allDataCTS.subList(from, Math.min(to+numForecasts, allDataCTS.size()));
             
-            List<String> names = new ArrayList<>();
-            List<String> colours = new ArrayList<>();
             boolean next = false;
             Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
             for (TrainAndTestReportCrisp r : reportsCTS) {
@@ -122,9 +118,7 @@ public class PlotDrawer {
                     rengine.eval(plotCode.toString());
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
-                    //remember these for the legend
-                    names.add(r.getModelName() + r.getModelDescription());
-                    colours.add(COLOURS[colourNumber % COLOURS.length]);
+                    r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                 }
                 
                 colourNumber++;
@@ -178,11 +172,6 @@ public class PlotDrawer {
                         //add a dashed vertical line to separate test and train
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
 
-                        //pridat do legendy
-                        names.add(name + "(avg)");
-                        colours.add(COLOURS[colourNumber % COLOURS.length]);
-                        colourNumber++;
-                        
                         //vyrobit pre tento average novy report a pridat ho do reportsCTS:
                         TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(avg)");
                         REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
@@ -197,7 +186,10 @@ public class PlotDrawer {
                         REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
                         double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
                         thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
+                        thisAvgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                         avgReportsToAdd.add(thisAvgReport);
+                        
+                        colourNumber++;
                     }
                 }
             }
@@ -248,11 +240,6 @@ public class PlotDrawer {
                     //not really possible cause the methods may have different train-test ratio
                     //rengine.eval("abline(v = " + (reportsCTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
 
-                    //pridat do legendy
-                    names.add("(avg)");
-                    colours.add(COLOURS[colourNumber % COLOURS.length]);
-                    colourNumber++;
-                    
                     //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
                     TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp("(avg)");
                     REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
@@ -288,7 +275,10 @@ public class PlotDrawer {
                     REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
                     double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
                     thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
+                    thisAvgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                     avgReportsToAdd.add(thisAvgReport);
+                    
+                    colourNumber++;
                 }
             }
             
@@ -302,17 +292,6 @@ public class PlotDrawer {
                     + "ylab=\"" + colname_CTS + "\","
                     + "lwd=2, col=\"#444444\")");
             rengine.eval("abline(v = " + (to) + ", lty = 3)"); //dashed vertical line to separate forecasts
-            
-            //add legend
-            rengine.eval("legend(\"topleft\", "      
-                                + "inset = c(0,-0.11), "
-                                + "legend = " + getRString(names) + ", "
-                                + "fill = " + getRString(colours) + ", "
-                                + "horiz = TRUE, "
-                                + "box.lty = 0, "
-                                + "cex = 0.8, "
-                                + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
-                                + "xpd = TRUE)");
             
             REXP getX = rengine.eval(rangeXCrisp);
             double[] rangeX = getX.asDoubleArray();
@@ -329,8 +308,6 @@ public class PlotDrawer {
         }
         
         if (! reportsIntTS.isEmpty()) { //plot ITS
-            List<String> names = new ArrayList<>();
-            List<String> colours = new ArrayList<>();
             boolean next = false;
             Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
             List<Double> listAllLowersEver = new ArrayList<>();
@@ -416,9 +393,7 @@ public class PlotDrawer {
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                     
-                    //remember these for the legend
-                    names.add(r.getModelName() + r.getModelDescription());
-                    colours.add(COLOURS[colourNumber % COLOURS.length]);
+                    r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                 }
                 
                 colourNumber++;
@@ -476,9 +451,9 @@ public class PlotDrawer {
                                 + ", lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         
-                        //pridat do legendy
-                        names.add(name + "(avg)");
-                        colours.add(COLOURS[colourNumber % COLOURS.length]);
+                        ////////////TODO add report!
+//                        avgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        ////////////TODO
                         colourNumber++;
                     }
                 }
@@ -534,9 +509,8 @@ public class PlotDrawer {
                             + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
                             + ", lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                     
-                    //pridat do legendy
-                    names.add("(avg)");
-                    colours.add(COLOURS[colourNumber % COLOURS.length]);
+                    /////////TODO
+//                    avgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                     colourNumber++;
                 }
             }
@@ -560,17 +534,6 @@ public class PlotDrawer {
             //add a line separating real data from forecasts
             rengine.eval("abline(v = " + (size+par.getFrom()) + ", lty = 3)");
             
-            //add legend
-            rengine.eval("legend(\"topleft\", "      
-                                + "inset = c(0,-0.11), "
-                                + "legend = " + getRString(names) + ", "
-                                + "fill = " + getRString(colours) + ", "
-                                + "horiz = TRUE, "
-                                + "box.lty = 0, "
-                                + "cex = 0.8, "
-                                + "text.width = 3, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
-                                + "xpd = TRUE)");
-            
             REXP getX = rengine.eval(rangeXInt);
             double[] rangeX = getX.asDoubleArray();
             REXP getY = rengine.eval(rangeYInt);
@@ -589,7 +552,14 @@ public class PlotDrawer {
 
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
-        //TODO kresli sa dvakrat! skusit http://stackoverflow.com/questions/8067844/paint-in-java-applet-is-called-twice-for-no-reason
+        
+        //TODO avgITS nie je myslim dokoncene! minimalne sa teda nepridavaju reporty do reportov.
+        
+        //and draw the legend
+        List<Plottable> allReports = new ArrayList<>();
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsIntTS);
+        drawLegend(par.getListPlotLegend(), allReports);
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
@@ -608,15 +578,12 @@ public class PlotDrawer {
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
-        List<String> names = new ArrayList<>();
-        List<String> colours = new ArrayList<>();
         int colourNumber = 0;
         
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
-            //remember these for the legend
-            names.add(interval.toString());
-            colours.add(COLOURS[colourNumber % COLOURS.length]);
+            //remember the colour for the legend
+            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
             
             String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
             drawPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
@@ -631,8 +598,7 @@ public class PlotDrawer {
         next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            names.add(interval.toString());
-            colours.add(COLOURS[colourNumber % COLOURS.length]);
+            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
             
             String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
             drawPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
@@ -644,18 +610,11 @@ public class PlotDrawer {
             colourNumber++;
         }
         
-        if ((! par.getListCentreRadius().isEmpty()) || (! par.getListLowerUpper().isEmpty())) {
-            //add legend
-            rengine.eval("legend(\"topleft\", "      
-                                + "inset = c(0,-0.11), "
-                                + "legend = " + getRString(names) + ", "
-                                + "fill = " + getRString(colours) + ", "
-                                + "horiz = TRUE, "
-                                + "box.lty = 0, "
-                                + "cex = 0.8, "
-                                + "text.width = 15, " //TODO pohrat sa s tymto, a urobit to nejak univerzalne, aby tam vzdy vosli vsetky nazvy
-                                + "xpd = TRUE)");
-        }
+        //draw legend
+        List<Plottable> plots = new ArrayList<>();
+        plots.addAll(par.getListCentreRadius());
+        plots.addAll(par.getListLowerUpper());
+        drawLegend(par.getListPlotLegend(), plots);
         
         REXP getRangeX = rengine.eval(rangeX);
         double[] ranX = getRangeX.asDoubleArray();
@@ -787,9 +746,9 @@ public class PlotDrawer {
     
     public static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
         //TODO urgentne pridat viac farieb, aby to nebolo treba modulit!
-        "magenta",
-        "blue",
-        "green3",
+        "#FF00FF",
+        "#0000FF",
+        "#00CD00",
         "#42E99D", //tyrkysova
         "#FF7A4B", //oranzova
         "#EA0D5B", //ruzova
@@ -949,6 +908,14 @@ public class PlotDrawer {
         int numRows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, (height/3)*numRows));
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+    }
+
+    public static void drawLegend(JList listPlotLegend, List<Plottable> plots) {
+        ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
+        for (Plottable p : plots) {
+            ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
+        }
+        listPlotLegend.repaint();
     }
     
 //    private static String getStrWidth(List<String> list) {
