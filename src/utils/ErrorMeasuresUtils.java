@@ -410,4 +410,32 @@ public class ErrorMeasuresUtils {
         return errorMeasures;
     }
     
+    public static ErrorMeasuresInterval computeAllErrorMeasuresInterval(List<Interval> realDataTrain, List<Interval> realDataTest,
+                                                                        List<Interval> fittedTrain, List<Interval> forecastsTest,
+                                                                        Distance distance) {
+        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
+        
+        List<Double> errorsTrain = Utils.getErrorsForIntervals(realDataTrain, fittedTrain, distance);
+        List<Double> errorsTest = Utils.getErrorsForIntervals(realDataTest, forecastsTest, distance);
+        
+        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
+        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
+        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
+        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
+        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
+        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
+        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
+        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
+        errorMeasures.setMeanCoverageTrain(meanCoverage(realDataTrain, fittedTrain));
+        errorMeasures.setMeanCoverageTest(meanCoverage(realDataTest, forecastsTest));
+        errorMeasures.setMeanEfficiencyTrain(meanEfficiency(realDataTrain, fittedTrain));
+        errorMeasures.setMeanEfficiencyTest(meanEfficiency(realDataTest, forecastsTest));
+        errorMeasures.setTheilsUintervalTrain(theilsUInterval(realDataTrain, fittedTrain));
+        errorMeasures.setTheilsUintervalTest(theilsUInterval(realDataTest, forecastsTest));
+        errorMeasures.setArvIntervalTrain(ARVinterval(realDataTrain, fittedTrain));
+        errorMeasures.setArvIntervalTest(ARVinterval(realDataTest, forecastsTest));
+        
+        return errorMeasures;
+    }
+    
 }

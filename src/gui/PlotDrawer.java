@@ -17,11 +17,14 @@ import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
+import utils.imlp.Interval;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
+import utils.imlp.dist.WeightedEuclideanDistance;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
@@ -310,8 +313,6 @@ public class PlotDrawer {
         if (! reportsIntTS.isEmpty()) { //plot ITS
             boolean next = false;
             Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
-            List<Double> listAllLowersEver = new ArrayList<>();
-            List<Double> listAllUppersEver = new ArrayList<>();
             for (TrainAndTestReportInterval r : reportsIntTS) {
                 if (next && !(avgONLY)) {
                     rengine.eval("par(new=TRUE)");
@@ -327,16 +328,6 @@ public class PlotDrawer {
                         l.add(r);
                         mapForAvg.put(r.getModelName(), l);
                     }
-                }
-                
-                if (avgIntTS) { //nasysli si ciselka
-                    listAllLowersEver.addAll(Utils.arrayToList(r.getFittedValuesLowers()));
-                    listAllLowersEver.addAll(Utils.arrayToList(r.getForecastValuesTestLowers()));
-                    listAllLowersEver.addAll(Utils.arrayToList(r.getForecastValuesFutureLowers()));
-                    
-                    listAllUppersEver.addAll(Utils.arrayToList(r.getFittedValuesUppers()));
-                    listAllUppersEver.addAll(Utils.arrayToList(r.getForecastValuesTestUppers()));
-                    listAllUppersEver.addAll(Utils.arrayToList(r.getForecastValuesFutureUppers()));
                 }
                 
                 if (!(avgONLY)) {
@@ -404,56 +395,109 @@ public class PlotDrawer {
                 for (String name : mapForAvg.keySet()) {
                     List<TrainAndTestReportInterval> l = mapForAvg.get(name);
                     if (l.size() > 1) { //does not make sense to compute average over one series
-                        StringBuilder avgAllLowers = new StringBuilder("(");
-                        StringBuilder avgAllUppers = new StringBuilder("(");
+                        StringBuilder avgAllLowersTrain = new StringBuilder("(");
+                        StringBuilder avgAllLowersTest = new StringBuilder("(");
+                        StringBuilder avgAllLowersFuture = new StringBuilder("(");
+                        StringBuilder avgAllUppersTrain = new StringBuilder("(");
+                        StringBuilder avgAllUppersTest = new StringBuilder("(");
+                        StringBuilder avgAllUppersFuture = new StringBuilder("(");
                         next = false;
-                        int size = 0;
+                        int sizeTrain = 0;
+                        int sizeTest = 0;
+                        int sizeFuture = 0;
                         for (TrainAndTestReportInterval r : l) {
                             if (next) {
-                                avgAllLowers.append(" + ");
-                                avgAllUppers.append(" + ");
+                                avgAllLowersTrain.append(" + ");
+                                avgAllLowersTest.append(" + ");
+                                avgAllLowersFuture.append(" + ");
+                                avgAllUppersTrain.append(" + ");
+                                avgAllUppersTest.append(" + ");
+                                avgAllUppersFuture.append(" + ");
                             } else {
                                 next = true;
                             }
-                            avgAllLowers.append("c(");
-                            avgAllLowers.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
-                            avgAllLowers.append(",");
-                            avgAllLowers.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
-                            avgAllLowers.append(",");
-                            avgAllLowers.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
-                            avgAllLowers.append(")");
-
-                            avgAllUppers.append("c(");
-                            avgAllUppers.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
-                            avgAllUppers.append(",");
-                            avgAllUppers.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
-                            avgAllUppers.append(",");
-                            avgAllUppers.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
-                            avgAllUppers.append(")");
                             
-                            size = Math.max(size, r.getFittedValues().size()+r.getForecastValuesTest().size()+r.getForecastValuesFuture().size());
+                            avgAllLowersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
+                            avgAllLowersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
+                            avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
+                            
+                            avgAllUppersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
+                            avgAllUppersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
+                            avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                            
+                            sizeTrain = Math.max(sizeTrain, r.getFittedValues().size());
+                            sizeTest = Math.max(sizeTest, r.getForecastValuesTest().size());
+                            sizeFuture = Math.max(sizeFuture, r.getForecastValuesFuture().size());
                         }
-                        avgAllLowers.append(")/").append(l.size());
-                        avgAllUppers.append(")/").append(l.size());
-
+                        avgAllLowersTrain.append(")/").append(l.size());
+                        avgAllLowersTest.append(")/").append(l.size());
+                        avgAllLowersFuture.append(")/").append(l.size());
+                        avgAllUppersTrain.append(")/").append(l.size());
+                        avgAllUppersTest.append(")/").append(l.size());
+                        avgAllUppersFuture.append(")/").append(l.size());
+                        
                         //aaaand draw the average
                         rengine.eval("par(new=TRUE)");
-                        rengine.eval("lower <- " + avgAllLowers.toString());
-                        rengine.eval("upper <- " + avgAllUppers.toString());
+                        rengine.eval("lowerTrain <- " + avgAllLowersTrain.toString());
+                        rengine.eval("lowerTest <- " + avgAllLowersTest.toString());
+                        rengine.eval("lowerFuture <- " + avgAllLowersFuture);
+                        rengine.eval("lower <- c(lowerTrain, lowerTest, lowerFuture)");
+                        rengine.eval("upperTrain <- " + avgAllUppersTrain.toString());
+                        rengine.eval("upperTest <- " + avgAllUppersTest.toString());
+                        rengine.eval("upperFuture <- " + avgAllUppersFuture);
+                        rengine.eval("upper <- c(upperTrain, upperTest, upperFuture)");
                         rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                                 + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                         rengine.eval("par(new=TRUE)");
                         rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                                 + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                        rengine.eval("segments(" + par.getFrom() + ":" + (size+par.getFrom()) + ", lower, "
-                                + par.getFrom() + ":" + (size+par.getFrom())
+                        rengine.eval("segments(" + par.getFrom() + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom()) + ", lower, "
+                                + par.getFrom() + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom())
                                 + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
                                 + ", lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         
-                        ////////////TODO add report!
-//                        avgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
-                        ////////////TODO
+                        
+                        //add report:
+                        REXP getAllLowersTrain = rengine.eval("lowerTrain");
+                        double[] allLowersTrain = getAllLowersTrain.asDoubleArray();
+                        List<Double> allLowersTrainList = Utils.arrayToList(allLowersTrain);
+                        REXP getAllLowersTest = rengine.eval("lowerTest");
+                        double[] allLowersTest = getAllLowersTest.asDoubleArray();
+                        List<Double> allLowersTestList = Utils.arrayToList(allLowersTest);
+                        REXP getAllUppersTrain = rengine.eval("upperTrain");
+                        double[] allUppersTrain = getAllUppersTrain.asDoubleArray();
+                        List<Double> allUppersTrainList = Utils.arrayToList(allUppersTrain);
+                        REXP getAllUppersTest = rengine.eval("upperTest");
+                        double[] allUppersTest = getAllUppersTest.asDoubleArray();
+                        List<Double> allUppersTestList = Utils.arrayToList(allUppersTest);
+                        List<Interval> allIntervalsTrain = Utils.zipLowerUpperToIntervals(allLowersTrainList, allUppersTrainList);
+                        List<Interval> allIntervalsTest = Utils.zipLowerUpperToIntervals(allLowersTestList, allUppersTestList);
+                        
+                        //TODO mozno prerobit? zatial to rata s tym, ze vsetky v ramci 1 metody maju rovnake realValues
+                        List<Double> realValuesLowersTrain = l.get(0).getRealValuesLowers()
+                                .subList(0, l.get(0).getFittedValues().size());
+                        List<Double> realValuesUppersTrain = l.get(0).getRealValuesUppers()
+                                .subList(0, l.get(0).getFittedValues().size());
+                        List<Double> realValuesLowersTest = l.get(0).getRealValuesLowers()
+                                .subList(l.get(0).getFittedValues().size(), 
+                                         l.get(0).getRealValuesLowers().size() - l.get(0).getForecastValuesFuture().size());
+                        List<Double> realValuesUppersTest = l.get(0).getRealValuesUppers()
+                                .subList(l.get(0).getFittedValues().size(), 
+                                         l.get(0).getRealValuesUppers().size() - l.get(0).getForecastValuesFuture().size());
+                        List<Interval> realValuesTrain = Utils.zipLowerUpperToIntervals(realValuesLowersTrain, realValuesUppersTrain);
+                        List<Interval> realValuesTest = Utils.zipLowerUpperToIntervals(realValuesLowersTest, realValuesUppersTest);
+
+                        ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValuesTrain, 
+                                realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5));
+                        //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
+                        
+                        TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)");
+                        reportAvgMethod.setErrorMeasures(errorMeasures);
+                        reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        
+                        reportsIntTS.add(reportAvgMethod);
+                        
                         colourNumber++;
                     }
                 }
