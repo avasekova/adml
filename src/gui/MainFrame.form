@@ -232,54 +232,49 @@
                                           <Component id="buttonPlotRestoreCTSRangeY" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel89" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeCTSXfrom" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel126" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="buttonPlotExportPlot" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="jLabel127" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeCTSYfrom" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeCTSYto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="buttonPlotRestoreIntTSRangeX" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeIntTSXto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeIntTSXfrom" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel129" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
-                                                  <Component id="jLabel131" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="3" attributes="0">
-                                                  <Component id="buttonPlotRestoreIntTSRangeY" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeIntTSYto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="textFieldPlotRangeIntTSYfrom" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel130" alignment="3" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel132" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-                                              <Component id="buttonPlotZoomIntTS" min="-2" max="-2" attributes="0"/>
-                                          </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel89" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeCTSXfrom" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel126" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonPlotExportPlot" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel127" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeCTSYfrom" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel128" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeCTSYto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="buttonPlotRestoreIntTSRangeX" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeIntTSXto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeIntTSXfrom" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel129" alignment="3" min="-2" pref="14" max="-2" attributes="0"/>
+                                          <Component id="jLabel131" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="buttonPlotRestoreIntTSRangeY" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeIntTSYto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="textFieldPlotRangeIntTSYfrom" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel130" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel132" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                      <Component id="buttonPlotZoomIntTS" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Component id="jSeparator2" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
                           <Component id="jScrollPane3" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="1" max="32767" attributes="0"/>
-                      <Component id="panelPlot" pref="439" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="445" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -605,7 +600,7 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="603" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="615" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -762,7 +757,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="493" max="32767" attributes="0"/>
+                                      <EmptySpace pref="505" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -867,7 +862,7 @@
                                   <Component id="panelMLPintPercentTrain" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="panelSettingsMLPintPackage" pref="412" max="32767" attributes="0"/>
+                              <Component id="panelSettingsMLPintPackage" pref="424" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -881,7 +876,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="598" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="610" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1273,7 +1268,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelRBFPercentTrain" min="-2" pref="31" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelSettingsRBFMain" pref="527" max="32767" attributes="0"/>
+                              <Component id="panelSettingsRBFMain" pref="539" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1373,7 +1368,7 @@
                                       <Component id="panelSettingsRBFint_radius" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="35" max="32767" attributes="0"/>
+                              <EmptySpace pref="47" max="32767" attributes="0"/>
                               <Component id="jLabel157" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="panelRBFintSettingsDistance" min="-2" pref="41" max="-2" attributes="0"/>
@@ -1495,7 +1490,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelARIMAPercTrain" min="-2" pref="33" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelSettingsARIMAMain" pref="525" max="32767" attributes="0"/>
+                              <Component id="panelSettingsARIMAMain" pref="537" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1564,7 +1559,7 @@
                                   <Component id="comboBoxKNNoptions" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="panelSettingsKNNoptions" pref="493" max="32767" attributes="0"/>
+                              <Component id="panelSettingsKNNoptions" pref="505" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1667,7 +1662,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelSettingsVARMain" pref="556" max="32767" attributes="0"/>
+                              <Component id="panelSettingsVARMain" pref="568" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1764,7 +1759,7 @@
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jSeparator3" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="panelSettingsHybrid_radiusMain" pref="493" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsHybrid_radiusMain" pref="505" max="32767" attributes="0"/>
                                   <Component id="panelSettingsHybrid_centerMain" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2317,7 +2312,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="297" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="309" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -2695,7 +2690,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneForecastVals" alignment="0" pref="574" max="32767" attributes="0"/>
+                      <Component id="scrollPaneForecastVals" alignment="0" pref="586" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -2717,17 +2712,51 @@
             </Constraint>
           </Constraints>
 
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="panelDiagramsNNsInside" min="-2" max="-2" attributes="0"/>
+                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="panelDiagramsNNsInside" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
           <SubComponents>
-            <Container class="javax.swing.JScrollPane" name="scrollPaneDiagramsNNs">
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                  <BorderConstraints direction="Center"/>
-                </Constraint>
-              </Constraints>
+            <Container class="javax.swing.JPanel" name="panelDiagramsNNsInside">
 
-              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="tabbedPaneDiagramsNNs" alignment="0" pref="1434" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="tabbedPaneDiagramsNNs" alignment="0" pref="586" max="32767" attributes="0"/>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Container class="javax.swing.JTabbedPane" name="tabbedPaneDiagramsNNs">
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
+                </Container>
+              </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="jButton1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export these diagrams"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

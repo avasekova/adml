@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -34,6 +33,7 @@ public class PlotDrawer {
     //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
+    private static final int ROWS_DIAGRAMSNN = 3;
     
     //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
@@ -902,16 +902,14 @@ public class PlotDrawer {
         return rString.toString();
     }
     
-    public static void drawDiagrams(JGDBufferedPanel canvasToUse, int width, int height, List<TrainAndTestReport> reports) {
+    public static List<JGDBufferedPanel> drawDiagrams(int width, int height, List<TrainAndTestReport> reports) {
+        List<JGDBufferedPanel> panelsList = new ArrayList<>();
+        
         if (reports.isEmpty()) {
-            return;
+            return panelsList;
         }
         
-        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
-        Rengine rengine = MyRengine.getRengine();
-        rengine.eval("require(JavaGD)");
-        rengine.eval("JavaGD()");
-        
+        //najprv si nasysli vsetky diagramy
         List<String> diagramPlots = new ArrayList<>();
         for (TrainAndTestReport r : reports) {
             if (! "".equals(r.getNnDiagramPlotCode())) {
@@ -919,39 +917,53 @@ public class PlotDrawer {
                     //fuj, hack, TODO spravit lepsie ako split na dva, resp. prisposobovat v buducnosti
                     String firstPlot = r.getNnDiagramPlotCode().split(";")[0];
                     StringBuilder diagramPlotCode = new StringBuilder(firstPlot);
-                    diagramPlotCode.insert(firstPlot.length() - 1, ", main=\"" + r.getModelName() + r.getModelDescription() + " (Center)\"");
+                    diagramPlotCode.insert(firstPlot.length() - 1, ", main=\"" + r.toString() + " (Center)\"");
                     diagramPlots.add(diagramPlotCode.toString());
                     
                     String secondPlot = r.getNnDiagramPlotCode().split(";")[1];
                     diagramPlotCode = new StringBuilder(secondPlot);
-                    diagramPlotCode.insert(secondPlot.length() - 1, ", main=\"" + r.getModelName() + r.getModelDescription() + " (Radius)\"");
+                    diagramPlotCode.insert(secondPlot.length() - 1, ", main=\"" + r.toString() + " (Radius)\"");
                     diagramPlots.add(diagramPlotCode.toString());
                 } else {
                     StringBuilder diagramPlotCode = new StringBuilder(r.getNnDiagramPlotCode());
-                    diagramPlotCode.insert(r.getNnDiagramPlotCode().length() - 1, ", main=\"" + r.getModelName() + r.getModelDescription() + "\"");
+                    diagramPlotCode.insert(r.getNnDiagramPlotCode().length() - 1, ", main=\"" + r.toString() + "\"");
                     diagramPlots.add(diagramPlotCode.toString());
                 }
             }
         }
         
+        //potom ich kresli
         if (! diagramPlots.isEmpty()) {
-        int rows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
-            rengine.eval("par(mfrow=c(" + rows + "," + COLUMNS_DIAGRAMSNN + "))"); //narobim si mriezku
+            Rengine rengine = MyRengine.getRengine();
+            rengine.eval("require(JavaGD)");
             
-            //a teraz idem postupne vyplnat mriezku diagramami:
-            for (String dPlot : diagramPlots) {
-                rengine.eval(dPlot);
-            }
-            
-            //nakoniec doplnim prazdne policka do mriezky plotov, lebo to na ne caka a mohlo by to nerobit dobrotu
-            for (int i = 0; i < (rows*COLUMNS_DIAGRAMSNN)-diagramPlots.size(); i++) { //kolko mam este nevyplnenych
-                rengine.eval("plot.new()");
+            int currentIndex = 0;
+            while (currentIndex < diagramPlots.size()) {
+                JGDBufferedPanel panel = new JGDBufferedPanel(width, height);
+                MainFrame.drawNowToThisGDBufferedPanel = panel;
+                rengine.eval("JavaGD()");
+                rengine.eval("par(mfrow=c(" + ROWS_DIAGRAMSNN + "," + COLUMNS_DIAGRAMSNN + "))"); //narobim si mriezku
+                
+                int counter = COLUMNS_DIAGRAMSNN*ROWS_DIAGRAMSNN;
+                while ((counter > 0) && (currentIndex < diagramPlots.size())) {
+                    rengine.eval(diagramPlots.get(currentIndex));
+                    currentIndex++;
+                    counter--;
+                }
+                
+                while ((counter > 0) && (currentIndex == diagramPlots.size())) { //dosli mi diagramy a este nie je plna mriezka
+                    rengine.eval("plot.new()");
+                    counter--;
+                }
+                
+                MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+                MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+                
+                panelsList.add(panel);
             }
         }
         
-        int numRows = diagramPlots.size()/COLUMNS_DIAGRAMSNN + 1;
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, (height/3)*numRows));
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        return panelsList;
     }
 
     public static void drawLegend(JList listPlotLegend, List<Plottable> plots) {
