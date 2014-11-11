@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class VARParams extends Params {
     
-    List<String> endogenousVars = new ArrayList<>();
-    Integer lag;
-    String type;
-    Map<String, List<Double>> data = new HashMap<>();
-    String outputVarName;
-    List<Double> outputVarVals;
+    private List<String> endogenousVars = new ArrayList<>();
+    private Integer lag;
+    private String type;
+    private Map<String, List<Double>> data = new HashMap<>();
+    private String outputVarName;
+    private List<Double> outputVarVals;
 
     public List<String> getEndogenousVars() {
         return endogenousVars;

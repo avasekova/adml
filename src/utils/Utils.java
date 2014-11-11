@@ -237,14 +237,20 @@ public class Utils {
         
         //kvoli lagom to cele zarovna "doprava" a odreze predok, kde trci
         while ((lastIndexCenters >= 0) && (lastIndexRadii >= 0)) {
-            Interval interval = new IntervalCentreRadius(centers.get(lastIndexCenters), radii.get(lastIndexRadii));
+            Interval interval;
+            if (centers.get(lastIndexCenters).isNaN() || radii.get(lastIndexRadii).isNaN()) {
+                interval = new IntervalCentreRadius(NaN, NaN);
+            } else {
+                interval = new IntervalCentreRadius(centers.get(lastIndexCenters), radii.get(lastIndexRadii));
+            }
+            
             intervals.add(interval);
             lastIndexCenters--;
             lastIndexRadii--;
         }
         
         //teraz este doplnit tie NaN na zaciatok:
-        for (int i = 0; i < Math.max(lastIndexCenters, lastIndexRadii); i++) {
+        for (int i = 0; i <= Math.max(lastIndexCenters, lastIndexRadii); i++) {
             intervals.add(new IntervalCentreRadius(NaN, NaN));
         }
         
@@ -268,7 +274,7 @@ public class Utils {
         }
         
         //teraz este doplnit tie NaN na zaciatok:
-        for (int i = 0; i < Math.max(lastIndexLowers, lastIndexUppers); i++) {
+        for (int i = 0; i <= Math.max(lastIndexLowers, lastIndexUppers); i++) {
             intervals.add(new IntervalLowerUpper(NaN, NaN));
         }
         

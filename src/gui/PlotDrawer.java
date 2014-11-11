@@ -847,11 +847,14 @@ public class PlotDrawer {
             rangesY.append(Utils.minArray(r.getFittedValuesLowers())).append(", ");
             rangesY.append(Utils.maxArray(r.getFittedValuesLowers())).append(", ");
             rangesY.append(Utils.minArray(r.getFittedValuesUppers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getFittedValuesUppers())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValuesTestLowers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValuesTestLowers())).append(", ");
-            rangesY.append(Utils.minArray(r.getForecastValuesTestUppers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getForecastValuesTestUppers()));
+            rangesY.append(Utils.maxArray(r.getFittedValuesUppers()));
+            if (! r.getForecastValuesTest().isEmpty()) {
+                rangesY.append(", ");
+                rangesY.append(Utils.minArray(r.getForecastValuesTestLowers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getForecastValuesTestLowers())).append(", ");
+                rangesY.append(Utils.minArray(r.getForecastValuesTestUppers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getForecastValuesTestUppers()));
+            }
             if (! r.getForecastValuesFuture().isEmpty()) {
                 rangesY.append(", ");
                 rangesY.append(Utils.minArray(r.getForecastValuesFutureLowers())).append(", ");
