@@ -42,9 +42,6 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1366, 664]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="menuBarMain"/>
@@ -739,17 +736,23 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JPanel" name="panelSettingsMLPPackage_nnet">
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
-                          </AuxValues>
+                        <Container class="javax.swing.JScrollPane" name="scrollPane_panelSettingsMLPPackage_nnet">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                               <CardConstraints cardName="panelSettingsMLPPackage_nnet"/>
                             </Constraint>
                           </Constraints>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="javax.swing.JPanel" name="panelSettingsMLPPackage_nnet">
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                              </AuxValues>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                            </Container>
+                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="panelSettingsMLPPackage_nnetar">
                           <AuxValues>
@@ -878,7 +881,7 @@
                                   <Component id="panelMLPintPercentTrain" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                              <Component id="panelSettingsMLPintPackage" pref="424" max="32767" attributes="0"/>
+                              <Component id="panelSettingsMLPintPackage" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -925,20 +928,18 @@
                                   <Group type="102" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel100" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" attributes="0">
-                                              <Component id="panelSettingsMLPintPackage_nnet_center" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
+                                              <Component id="jLabel100" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="582" max="32767" attributes="0"/>
                                           </Group>
+                                          <Component id="scrollPane_panelSettingsMLPintPackage_nnet_center" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" attributes="0">
-                                              <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="1179" max="32767" attributes="0"/>
-                                          </Group>
-                                          <Component id="panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
+                                          <Component id="scrollPane_panelSettingsMLPintPackage_nnet_radius" min="-2" pref="622" max="-2" attributes="0"/>
+                                          <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -957,8 +958,8 @@
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="panelSettingsMLPintPackage_nnet_center" max="32767" attributes="0"/>
-                                                  <Component id="panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
+                                                  <Component id="scrollPane_panelSettingsMLPintPackage_nnet_center" pref="382" max="32767" attributes="0"/>
+                                                  <Component id="scrollPane_panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
                                       </Group>
@@ -989,19 +990,31 @@
                                 <Property name="text" type="java.lang.String" value="Radius:"/>
                               </Properties>
                             </Component>
-                            <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnet_center">
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
-                              </AuxValues>
+                            <Container class="javax.swing.JScrollPane" name="scrollPane_panelSettingsMLPintPackage_nnet_center">
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnet_center">
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                                </Container>
+                              </SubComponents>
                             </Container>
-                            <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnet_radius">
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
-                              </AuxValues>
+                            <Container class="javax.swing.JScrollPane" name="scrollPane_panelSettingsMLPintPackage_nnet_radius">
 
-                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                              <SubComponents>
+                                <Container class="javax.swing.JPanel" name="panelSettingsMLPintPackage_nnet_radius">
+                                  <AuxValues>
+                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                                  </AuxValues>
+
+                                  <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                                </Container>
+                              </SubComponents>
                             </Container>
                           </SubComponents>
                         </Container>
@@ -1791,30 +1804,33 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="comboBoxSettingsHybridMethod_center" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                          <Component id="panelSettingsHybrid_centerMain" pref="570" max="32767" attributes="0"/>
-                                          <Component id="panelSettingsHybridPercentTrain" max="32767" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      <Component id="jSeparator3" min="-2" pref="17" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSettingsHybrid_radiusMain" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="comboBoxSettingsHybridMethod_radius" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="595" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="comboBoxSettingsHybridMethod_center" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Component id="panelSettingsHybridPercentTrain" min="-2" pref="570" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                                      <Component id="panelSettingsHybridDistance" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="panelSettingsHybridDistance" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Component id="panelSettingsHybrid_centerMain" min="-2" pref="635" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jSeparator3" min="-2" pref="5" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
+                                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="comboBoxSettingsHybridMethod_radius" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="546" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="panelSettingsHybrid_radiusMain" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -1887,17 +1903,23 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_MLPnnet">
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
-                          </AuxValues>
+                        <Container class="javax.swing.JScrollPane" name="scrollPane_panelSettingsHybrid_centerMain_MLPnnet">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                               <CardConstraints cardName="panelSettingsHybrid_centerMain_MLPnnet"/>
                             </Constraint>
                           </Constraints>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_MLPnnet">
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                              </AuxValues>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                            </Container>
+                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_MLPnnetar">
                           <AuxValues>
@@ -1970,17 +1992,23 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_MLPnnet">
-                          <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
-                          </AuxValues>
+                        <Container class="javax.swing.JScrollPane" name="scrollPane_panelSettingsHybrid_radiusMain_MLPnnet">
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                               <CardConstraints cardName="panelSettingsHybrid_radiusMain_MLPnnet"/>
                             </Constraint>
                           </Constraints>
 
-                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                          <SubComponents>
+                            <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_MLPnnet">
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new MLPNnetSettingsPanel()"/>
+                              </AuxValues>
+
+                              <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                            </Container>
+                          </SubComponents>
                         </Container>
                         <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_MLPnnetar">
                           <AuxValues>
