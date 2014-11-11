@@ -42,15 +42,15 @@ public class RBF implements Forecastable {
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*data.get(0).size());
         report.setNumTrainingEntries(numTrainingEntries);
-        numTrainingEntries -= maxLag;
+        numTrainingEntries -= maxLag; //TODO not sure about this!
         
         //most likely we will never allow more than 1... but whatever.
         if (params.getOutVars().size() == 1) {
             List<Double> allOutputs = data.get(data.size() - 1);
             
-            List<List<Double>> allInputsScaled = getScaledInputs(data, 1);
-            List<List<Double>> trainingInputsScaled = getInputsCut(allInputsScaled, 0, numTrainingEntries);
-            List<List<Double>> testingInputsScaled = getInputsCut(allInputsScaled, numTrainingEntries, allInputsScaled.get(0).size());
+            List<List<Double>> allInputsScaled = RBF.getScaledInputs(data, 1);
+            List<List<Double>> trainingInputsScaled = RBF.getInputsCut(allInputsScaled, 0, numTrainingEntries);
+            List<List<Double>> testingInputsScaled = RBF.getInputsCut(allInputsScaled, numTrainingEntries, allInputsScaled.get(0).size());
             
             Rengine rengine = MyRengine.getRengine();
             rengine.eval("require(RSNNS)");
@@ -121,7 +121,7 @@ public class RBF implements Forecastable {
         return IntervalMLPCcode.trimDataToRectangle(data, maximumLag);
     }
 
-    private List<List<Double>> getInputsCut(List<List<Double>> data, int from, int to) {
+    public static List<List<Double>> getInputsCut(List<List<Double>> data, int from, int to) {
         List<List<Double>> inputsTrainOrTest = new ArrayList<>();
         
         for (List<Double> l : data) {
@@ -131,7 +131,7 @@ public class RBF implements Forecastable {
         return inputsTrainOrTest;
     }
 
-    private List<List<Double>> getScaledInputs(List<List<Double>> data, int numOutVars) {
+    public static List<List<Double>> getScaledInputs(List<List<Double>> data, int numOutVars) {
         final String SCALED = "scaled." + Utils.getCounter();
         final String LIST = Const.INPUT + Utils.getCounter();
         

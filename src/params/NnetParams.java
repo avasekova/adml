@@ -1,12 +1,14 @@
 package params;
 
+import java.util.ArrayList;
+import java.util.List;
+import utils.CrispExplanatoryVariable;
 import utils.R_Bool;
 
 public class NnetParams extends Params {
     
+    private List<CrispExplanatoryVariable> explVars = new ArrayList<>();
     private String colName;
-    
-    private int lag;
     private Double abstol;
     private Double reltol;
     private R_Bool skipLayerConnections = null;
@@ -22,20 +24,20 @@ public class NnetParams extends Params {
     private R_Bool traceOptimization = null;
     private Integer maxNumOfWeights;
 
+    public List<CrispExplanatoryVariable> getExplVars() {
+        return explVars;
+    }
+
+    public void setExplVars(List<CrispExplanatoryVariable> explVars) {
+        this.explVars = explVars;
+    }
+    
     public String getColName() {
         return colName;
     }
-
+    
     public void setColName(String colName) {
         this.colName = colName;
-    }
-
-    public int getLag() {
-        return lag;
-    }
-
-    public void setLag(Integer lag) {
-        this.lag = lag;
     }
     
     public Double getAbstol() {
@@ -159,7 +161,6 @@ public class NnetParams extends Params {
         param.setCensoredOnElseOff(censoredOnElseOff);
         param.setHessian(hessian);
         param.setInitWeightsRange(initWeightsRange);
-        param.setLag(lag);
         param.setLeastSqrsElseMaxCondLikelihood(leastSqrsElseMaxCondLikelihood);
         param.setLinearElseLogistic(linearElseLogistic);
         param.setLoglinSoftmaxElseMaxCondLikelihood(loglinSoftmaxElseMaxCondLikelihood);
@@ -173,12 +174,13 @@ public class NnetParams extends Params {
         param.setTraceOptimization(traceOptimization);
         param.setWeightDecay(weightDecay);
         param.setColName(colName);
+        param.setExplVars(explVars);
         
         return param;
     }
 
     @Override
     public String toString() {
-        return "NnetParams{" + "lag=" + lag + ", abstol=" + abstol + ", reltol=" + reltol + ", skipLayerConnections=" + skipLayerConnections + ", initWeightsRange=" + initWeightsRange + ", maxIterations=" + maxIterations + ", numNodesHiddenLayer=" + numNodesHiddenLayer + ", linearElseLogistic=" + linearElseLogistic + ", leastSqrsElseMaxCondLikelihood=" + leastSqrsElseMaxCondLikelihood + ", loglinSoftmaxElseMaxCondLikelihood=" + loglinSoftmaxElseMaxCondLikelihood + ", censoredOnElseOff=" + censoredOnElseOff + ", weightDecay=" + weightDecay + ", hessian=" + hessian + ", traceOptimization=" + traceOptimization + ", maxNumOfWeights=" + maxNumOfWeights + "}\n";
+        return "NnetParams{" + "abstol=" + abstol + ", reltol=" + reltol + ", skipLayerConnections=" + skipLayerConnections + ", initWeightsRange=" + initWeightsRange + ", maxIterations=" + maxIterations + ", numNodesHiddenLayer=" + numNodesHiddenLayer + ", linearElseLogistic=" + linearElseLogistic + ", leastSqrsElseMaxCondLikelihood=" + leastSqrsElseMaxCondLikelihood + ", loglinSoftmaxElseMaxCondLikelihood=" + loglinSoftmaxElseMaxCondLikelihood + ", censoredOnElseOff=" + censoredOnElseOff + ", weightDecay=" + weightDecay + ", hessian=" + hessian + ", traceOptimization=" + traceOptimization + ", maxNumOfWeights=" + maxNumOfWeights + "}\n";
     }
 }

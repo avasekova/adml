@@ -1,7 +1,13 @@
 package gui.settingspanels;
 
+import gui.CrispExplVarsTableModel;
+import gui.DialogAddCrispExplanatoryVar;
+import gui.MainFrame;
 import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import params.Params;
+import utils.CrispExplanatoryVariable;
 import utils.R_Bool;
 import utils.Utils;
 
@@ -24,8 +30,6 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     private void initComponents() {
 
         buttonGroup_paramsNnetExclusive = new javax.swing.ButtonGroup();
-        jLabel76 = new javax.swing.JLabel();
-        textFieldLag = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
@@ -58,15 +62,16 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         textFieldAbstol = new javax.swing.JTextField();
         jLabel22 = new javax.swing.JLabel();
         textFieldReltol = new javax.swing.JTextField();
+        jLabel137 = new javax.swing.JLabel();
+        buttonAddExplVar = new javax.swing.JButton();
+        buttonRemoveExplVar = new javax.swing.JButton();
+        scrollPaneExplVars = new javax.swing.JScrollPane();
+        tableExplVars = new javax.swing.JTable();
 
         buttonGroup_paramsNnetExclusive.add(radioButtonLogistic);
         buttonGroup_paramsNnetExclusive.add(radioButtonLeastSqrs);
         buttonGroup_paramsNnetExclusive.add(radioButtonLoglinSoftmax);
         buttonGroup_paramsNnetExclusive.add(radioButtonCensoredOn);
-
-        jLabel76.setText("Lag:");
-
-        textFieldLag.setText("1");
 
         jLabel10.setText("Weights:");
 
@@ -146,90 +151,115 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
 
         textFieldReltol.setText("0.00000001");
 
+        jLabel137.setText("Explanatory variables:");
+
+        buttonAddExplVar.setText("Add");
+        buttonAddExplVar.setEnabled(false);
+        buttonAddExplVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAddExplVarActionPerformed(evt);
+            }
+        });
+
+        buttonRemoveExplVar.setText("Remove selected");
+        buttonRemoveExplVar.setEnabled(false);
+        buttonRemoveExplVar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveExplVarActionPerformed(evt);
+            }
+        });
+
+        tableExplVars.setModel(new gui.CrispExplVarsTableModel());
+        tableExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        scrollPaneExplVars.setViewportView(tableExplVars);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(scrollPaneExplVars)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel137)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonAddExplVar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonRemoveExplVar)
+                            .addGap(221, 221, 221)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel76)
-                                .addGap(186, 186, 186)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(textFieldLag, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel24)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxTraceOptimization))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(228, 228, 228)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textFieldMaxit, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                                    .addComponent(textFieldWeightDecay))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel17)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(radioButtonLogistic)
+                            .addComponent(radioButtonLoglinSoftmax)
+                            .addComponent(radioButtonCensoredOn)
+                            .addComponent(radioButtonLeastSqrs)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel12)
-                                    .addComponent(jLabel13)
-                                    .addComponent(jLabel15))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel16)
-                                    .addComponent(jLabel14)
-                                    .addComponent(textFieldNumNodesHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(checkBoxSkipConn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel20)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(labelInitRangeMirror, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textFieldInitRange, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel23))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(212, 212, 212)
-                                .addComponent(jLabel25))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel17)
-                                    .addComponent(jLabel18))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(radioButtonLogistic)
-                                    .addComponent(radioButtonLoglinSoftmax)
-                                    .addComponent(radioButtonCensoredOn)
-                                    .addComponent(radioButtonLeastSqrs)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldAbstol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel29))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel22)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldReltol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel15))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel16)
+                            .addComponent(jLabel14)
+                            .addComponent(textFieldNumNodesHidden, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkBoxSkipConn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(labelInitRangeMirror, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldInitRange, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel23))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(212, 212, 212)
+                        .addComponent(jLabel25))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldAbstol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel29))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldReltol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(207, 207, 207)
+                        .addComponent(jLabel11))
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel24)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(checkBoxTraceOptimization))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(228, 228, 228)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textFieldMaxit)
+                            .addComponent(textFieldWeightDecay, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel76)
-                    .addComponent(textFieldLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel137)
+                    .addComponent(buttonAddExplVar)
+                    .addComponent(buttonRemoveExplVar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -293,8 +323,7 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(textFieldReltol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(textFieldReltol, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -302,15 +331,28 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         labelInitRangeMirror.setText("[-" + textFieldInitRange.getText() + ";");
     }//GEN-LAST:event_textFieldInitRangeActionPerformed
 
+    private void buttonAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddExplVarActionPerformed
+        DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(((MainFrame)SwingUtilities.windowForComponent(this)), true);
+        dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableExplVars.getModel()));
+        dialogAddExplVar.setVisible(true);
+    }//GEN-LAST:event_buttonAddExplVarActionPerformed
+
+    private void buttonRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveExplVarActionPerformed
+        ((CrispExplVarsTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
+    }//GEN-LAST:event_buttonRemoveExplVarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonAddExplVar;
     private javax.swing.ButtonGroup buttonGroup_paramsNnetExclusive;
+    private javax.swing.JButton buttonRemoveExplVar;
     private javax.swing.JCheckBox checkBoxSkipConn;
     private javax.swing.JCheckBox checkBoxTraceOptimization;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel137;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -326,21 +368,24 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel29;
-    private javax.swing.JLabel jLabel76;
     private javax.swing.JLabel labelInitRangeMirror;
     private javax.swing.JRadioButton radioButtonCensoredOn;
     private javax.swing.JRadioButton radioButtonLeastSqrs;
     private javax.swing.JRadioButton radioButtonLogistic;
     private javax.swing.JRadioButton radioButtonLoglinSoftmax;
+    private javax.swing.JScrollPane scrollPaneExplVars;
+    private javax.swing.JTable tableExplVars;
     private javax.swing.JTextField textFieldAbstol;
     private javax.swing.JTextField textFieldInitRange;
-    private javax.swing.JTextField textFieldLag;
     private javax.swing.JTextField textFieldMaxit;
     private javax.swing.JTextField textFieldNumNodesHidden;
     private javax.swing.JTextField textFieldReltol;
     private javax.swing.JTextField textFieldWeightDecay;
     // End of variables declaration//GEN-END:variables
 
+    public List<CrispExplanatoryVariable> getExplVars() {
+        return ((CrispExplVarsTableModel)tableExplVars.getModel()).getVariables();
+    }
 
     public boolean isSkipConn() {
         return checkBoxSkipConn.isSelected();
@@ -374,10 +419,6 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         return textFieldInitRange.getText();
     }
     
-    public String getLag() {
-        return textFieldLag.getText();
-    }
-    
     public String getMaxit() {
         return textFieldMaxit.getText();
     }
@@ -393,10 +434,20 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     public String getWeightDecay() {
         return textFieldWeightDecay.getText();
     }
+    
+    public void enableAllButtons() {
+        buttonAddExplVar.setEnabled(true);
+        buttonRemoveExplVar.setEnabled(true);
+    }
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
-        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
+        if (getExplVars().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for nnet to run.");
+            throw new IllegalArgumentException("nnet insufficient expl vars");
+        }
+        
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAbstol", Double.class, Utils.getDoubleOrDefault(getAbstol()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setReltol", Double.class, Utils.getDoubleOrDefault(getReltol()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setSkipLayerConnections", R_Bool.class, Utils.booleanToRBool(isSkipConn()));
@@ -409,7 +460,6 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setCensoredOnElseOff", R_Bool.class, Utils.booleanToRBool(isCensoredOn()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setWeightDecay", Double.class, Utils.getDoubleOrDefault(getWeightDecay()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setTraceOptimization", R_Bool.class, Utils.booleanToRBool(isTraceOptimization()));
-        
     }
 
 }

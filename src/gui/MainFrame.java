@@ -1933,6 +1933,11 @@ public class MainFrame extends javax.swing.JFrame {
                         ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons();
                         ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons();
                         ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons();
+                        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).enableAllButtons();
+                        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).enableAllButtons();
+                        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons();
+                        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons();
+                        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons();
                     }
 //                    break;filechooser
 //                case JFileChooser.CANCEL_OPTION:
@@ -2114,15 +2119,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         if (checkBoxRunMLPnnet.isSelected()) {
-            List<NnetParams> params = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
-            
-            showDialogTooManyModelsInCase(params.size(), "nnet");
-            if (continueWithTooManyModels) {
-                Forecastable nnet = new Nnet();
-                for (NnetParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel, p));
-                    reportsCTS.add(report);
+            try {
+                List<NnetParams> params = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
+
+                showDialogTooManyModelsInCase(params.size(), "nnet");
+                if (continueWithTooManyModels) {
+                    Forecastable nnet = new Nnet();
+                    for (NnetParams p : params) {
+                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel, p));
+                        reportsCTS.add(report);
+                    }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
         }
 
@@ -2161,19 +2170,23 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunMLPintNnet.isSelected()) {
-            List<MLPintNnetParams> params = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
-                    panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                    panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetworksToTrainMLPint);
-            
-            showDialogTooManyModelsInCase(params.size(), "MLP(i) (nnet)");
-            if (continueWithTooManyModels) {
-                //run two separate forecasts, one for Center and the other for Radius
-                Forecastable mlpInt = new MLPintNnet();
+            try {
+                List<MLPintNnetParams> params = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                        panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
+                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetworksToTrainMLPint);
 
-                for (MLPintNnetParams p : params) {
-                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(dataTableModel, p));
-                    reportsIntTS.add(report);
+                showDialogTooManyModelsInCase(params.size(), "MLP(i) (nnet)");
+                if (continueWithTooManyModels) {
+                    //run two separate forecasts, one for Center and the other for Radius
+                    Forecastable mlpInt = new MLPintNnet();
+
+                    for (MLPintNnetParams p : params) {
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(dataTableModel, p));
+                        reportsIntTS.add(report);
+                    }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
         }
 
@@ -2328,19 +2341,23 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (checkBoxRunHybrid.isSelected()) {
-            //TODO checks etc. - potom, ked sa presunut getParams metody do SettingsPanelov
-            
-            List<HybridParams> params = getParamsHybrid();
+            try {
+                //TODO checks etc. - potom, ked sa presunut getParams metody do SettingsPanelov
 
-            showDialogTooManyModelsInCase(params.size(), "Hybrid(i)");
-            if (continueWithTooManyModels) {
-                //run two separate forecasts, one for Center and the other for Radius
-                Forecastable hybrid = new Hybrid();
+                List<HybridParams> params = getParamsHybrid();
 
-                for (HybridParams p : params) {
-                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (hybrid.forecast(dataTableModel, p));
-                    reportsIntTS.add(report);
+                showDialogTooManyModelsInCase(params.size(), "Hybrid(i)");
+                if (continueWithTooManyModels) {
+                    //run two separate forecasts, one for Center and the other for Radius
+                    Forecastable hybrid = new Hybrid();
+
+                    for (HybridParams p : params) {
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (hybrid.forecast(dataTableModel, p));
+                        reportsIntTS.add(report);
+                    }
                 }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
             }
         }
         
@@ -2955,7 +2972,7 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     private List<NnetParams> getParamsNnet(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnet) {
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnet) throws IllegalArgumentException {
         NnetParams par = new NnetParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
@@ -3024,7 +3041,7 @@ public class MainFrame extends javax.swing.JFrame {
             javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnet_center,
             javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
             javax.swing.JPanel panelSettingsNnet_radius, javax.swing.JPanel panelSettingsDistance,
-            javax.swing.JTextField numNetsToTrainField) {
+            javax.swing.JTextField numNetsToTrainField) throws IllegalArgumentException {
         List<NnetParams> resultListCenter = getParamsNnet(percentTrainSettingsPanel_center, comboBoxColName_center,
                 panelSettingsNnet_center);
         List<NnetParams> resultListRadius = getParamsNnet(percentTrainSettingsPanel_radius, comboBoxColName_radius,
@@ -3231,7 +3248,7 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<HybridParams> getParamsHybrid() {
+    private List<HybridParams> getParamsHybrid() throws IllegalArgumentException {
         HybridParams par = new HybridParams();
         List<HybridParams> resultList = new ArrayList<>();
         resultList.add(par);
