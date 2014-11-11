@@ -20,6 +20,10 @@
               <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
               <Component id="textFieldLag" min="-2" pref="44" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="checkBoxOptimizeLag" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="comboBoxCriterionOptimizeLag" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel136" min="-2" max="-2" attributes="0"/>
@@ -58,9 +62,13 @@
                       <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                       <Component id="jLabel134" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="textFieldLag" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="textFieldLag" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="checkBoxOptimizeLag" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboBoxCriterionOptimizeLag" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+              <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
@@ -75,7 +83,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel134">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Lag:"/>
+        <Property name="text" type="java.lang.String" value="Lag (max. lag if optimize):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textFieldLag">
@@ -116,6 +124,18 @@
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { })" type="code"/>
+        </Property>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="checkBoxOptimizeLag">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="find the best lag according to:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="comboBoxCriterionOptimizeLag">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;AIC&quot;, &quot;HQ&quot;, &quot;SC&quot;, &quot;FPE&quot; })" type="code"/>
         </Property>
       </Properties>
     </Component>

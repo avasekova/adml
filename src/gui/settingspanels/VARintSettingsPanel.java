@@ -38,8 +38,10 @@ public class VARintSettingsPanel extends SettingsPanel {
         comboBoxCenter = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         comboBoxRadius = new javax.swing.JComboBox();
+        checkBoxOptimizeLag = new javax.swing.JCheckBox();
+        comboBoxCriterionOptimizeLag = new javax.swing.JComboBox();
 
-        jLabel134.setText("Lag:");
+        jLabel134.setText("Lag (max. lag if optimize):");
 
         textFieldLag.setText("1");
 
@@ -55,6 +57,10 @@ public class VARintSettingsPanel extends SettingsPanel {
 
         comboBoxRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
 
+        checkBoxOptimizeLag.setText("find the best lag according to:");
+
+        comboBoxCriterionOptimizeLag.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AIC", "HQ", "SC", "FPE" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -62,7 +68,11 @@ public class VARintSettingsPanel extends SettingsPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel134)
                 .addGap(4, 4, 4)
-                .addComponent(textFieldLag, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(textFieldLag, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(checkBoxOptimizeLag)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboBoxCriterionOptimizeLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel136)
                 .addGap(4, 4, 4)
@@ -92,8 +102,11 @@ public class VARintSettingsPanel extends SettingsPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel134))
-                    .addComponent(textFieldLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(6, 6, 6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textFieldLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(checkBoxOptimizeLag)
+                        .addComponent(comboBoxCriterionOptimizeLag, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
@@ -104,7 +117,9 @@ public class VARintSettingsPanel extends SettingsPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxOptimizeLag;
     private javax.swing.JComboBox comboBoxCenter;
+    private javax.swing.JComboBox comboBoxCriterionOptimizeLag;
     private javax.swing.JComboBox comboBoxRadius;
     private javax.swing.JComboBox comboBoxType;
     private javax.swing.JLabel jLabel1;
@@ -129,6 +144,14 @@ public class VARintSettingsPanel extends SettingsPanel {
     public String getLag() {
         return textFieldLag.getText();
     }
+    
+    public Boolean isOptimizeLag() {
+        return checkBoxOptimizeLag.isSelected();
+    }
+    
+    public String getCriterionOptimizeLag() {
+        return comboBoxCriterionOptimizeLag.getSelectedItem().toString();
+    }
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
@@ -136,5 +159,7 @@ public class VARintSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setRadius", String.class, getRadius());
         SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setType", String.class, getType());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setOptimizeLag", Boolean.class, isOptimizeLag());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setCriterionOptimizeLag", String.class, getCriterionOptimizeLag());
     }
 }

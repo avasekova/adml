@@ -33,9 +33,6 @@ public class VARint implements Forecastable {
         final String REAL_OUTPUT_CENTER = REAL_OUTPUT + ".center";
         final String REAL_OUTPUT_RADIUS = REAL_OUTPUT + ".radius";
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("VAR(i)");
-        report.setModelDescription("(TODO)");
-        
         VARintParams params = (VARintParams) parameters;
         
         List<Double> inputsCenter = dataTableModel.getDataForColname(params.getCenter()).subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
@@ -44,7 +41,6 @@ public class VARint implements Forecastable {
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(vars)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*inputsCenter.size());
-        report.setNumTrainingEntries(numTrainingEntries);
         
         rengine.assign(INPUTCENTER, Utils.listToArray(inputsCenter));
         rengine.assign(INPUTRADIUS, Utils.listToArray(inputsRadius));
@@ -60,21 +56,33 @@ public class VARint implements Forecastable {
         List<Double> realOutputCenter = Utils.arrayToList(getRealOutputCenter.asDoubleArray());
         List<Double> realOutputRadius = Utils.arrayToList(getRealOutputRadius.asDoubleArray());
         List<Interval> realOutputs = Utils.zipCentersRadiiToIntervals(realOutputCenter, realOutputRadius);
-        report.setRealValues(realOutputs);
         
         //nepridavat NA nikam, prida sa pri plotovani!
         //TODO zostavit si prirucku, kde co treba spravit... co sa robi v plotDraweri a co v jednotlivych Forecastable
-        rengine.eval(FORECAST_MODEL + " <- vars::VAR(" + INPUT + ", p=" + params.getLag() + ", type=\"" + params.getType() + "\")");
+        long finalLag;
+        if (params.isOptimizeLag()) {
+            rengine.eval(FORECAST_MODEL + " <- vars::VAR(" + INPUT + ", lag.max=" + params.getLag() + ", ic=\"" + params.getCriterionOptimizeLag() + "\", type=\"" + params.getType() + "\")");
+            REXP getFinalLag = rengine.eval(FORECAST_MODEL + "$p");
+            finalLag = Math.round(getFinalLag.asDoubleArray()[0]);
+        } else {
+            rengine.eval(FORECAST_MODEL + " <- vars::VAR(" + INPUT + ", p=" + params.getLag() + ", type=\"" + params.getType() + "\")");
+            finalLag = params.getLag();
+        }
         rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")");
-        rengine.eval(FIT_CENTER + " <- c(rep(NA," + params.getLag() + "), as.vector(" + FIT + "[,\"center\"]" + "))");
-        rengine.eval(FIT_RADIUS + " <- c(rep(NA," + params.getLag() + "), as.vector(" + FIT + "[,\"radius\"]" + "))");
+        rengine.eval(FIT_CENTER + " <- c(rep(NA," + finalLag + "), as.vector(" + FIT + "[,\"center\"]" + "))");
+        rengine.eval(FIT_RADIUS + " <- c(rep(NA," + finalLag + "), as.vector(" + FIT + "[,\"radius\"]" + "))");
         REXP getFitCenter = rengine.eval(FIT_CENTER);
         REXP getFitRadius = rengine.eval(FIT_RADIUS);
         List<Double> fitCenter = Utils.arrayToList(getFitCenter.asDoubleArray());
         List<Double> fitRadius = Utils.arrayToList(getFitRadius.asDoubleArray());
         List<Interval> fitted = Utils.zipCentersRadiiToIntervals(fitCenter, fitRadius);
-        report.setFittedValues(fitted);
         
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval("VAR(i)");
+        report.setModelDescription("(lag=" + finalLag + ")");
+        
+        report.setNumTrainingEntries(numTrainingEntries);
+        report.setRealValues(realOutputs);
+        report.setFittedValues(fitted);
         report.setForecastValuesTest(new ArrayList<Interval>());
         
         int numFutureForecasts = params.getNumForecasts();

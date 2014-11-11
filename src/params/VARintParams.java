@@ -6,6 +6,8 @@ public class VARintParams extends Params {
     private String radius;
     private Integer lag;
     private String type;
+    private Boolean optimizeLag;
+    private String criterionOptimizeLag;
 
     public String getCenter() {
         return center;
@@ -38,6 +40,22 @@ public class VARintParams extends Params {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Boolean isOptimizeLag() {
+        return optimizeLag;
+    }
+
+    public void setOptimizeLag(Boolean optimizeLag) {
+        this.optimizeLag = optimizeLag;
+    }
+
+    public String getCriterionOptimizeLag() {
+        return criterionOptimizeLag;
+    }
+
+    public void setCriterionOptimizeLag(String criterionOptimizeLag) {
+        this.criterionOptimizeLag = criterionOptimizeLag;
+    }
     
     @Override
     public VARintParams getClone() {
@@ -50,6 +68,8 @@ public class VARintParams extends Params {
         param.setType(type);
         param.setCenter(center);
         param.setRadius(radius);
+        param.setOptimizeLag(optimizeLag);
+        param.setCriterionOptimizeLag(criterionOptimizeLag);
         
         return param;
     }
