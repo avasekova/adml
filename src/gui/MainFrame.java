@@ -159,26 +159,26 @@ public class MainFrame extends javax.swing.JFrame {
         jLabelRPkg = new javax.swing.JLabel();
         comboBoxRPackage = new javax.swing.JComboBox();
         panelSettingsMLPPackage = new javax.swing.JPanel();
+        panelSettingsMLPPackage_nnet = new MLPNnetSettingsPanel();
         panelSettingsMLPPackage_nnetar = new MLPNnetarSettingsPanel();
         panelSettingsMLPPackage_neuralnet = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        panelSettingsMLPPackage_nnet = new MLPNnetSettingsPanel();
         panelMLPPercentTrain = new PercentTrainSettingsPanel();
         paneSettingsMethodsMLPint = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
         panelSettingsMLPintPackage = new javax.swing.JPanel();
-        panelSettingsMLPintPackage_nnetar = new javax.swing.JPanel();
-        jLabel87 = new javax.swing.JLabel();
-        jLabel88 = new javax.swing.JLabel();
-        panelSettingsMLPintPackage_nnetar_center = new MLPNnetarSettingsPanel();
-        panelSettingsMLPintPackage_nnetar_radius = new MLPNnetarSettingsPanel();
         panelSettingsMLPintPackage_nnet = new javax.swing.JPanel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel100 = new javax.swing.JLabel();
         jLabel101 = new javax.swing.JLabel();
         panelSettingsMLPintPackage_nnet_center = new MLPNnetSettingsPanel();
         panelSettingsMLPintPackage_nnet_radius = new MLPNnetSettingsPanel();
+        panelSettingsMLPintPackage_nnetar = new javax.swing.JPanel();
+        jLabel87 = new javax.swing.JLabel();
+        jLabel88 = new javax.swing.JLabel();
+        panelSettingsMLPintPackage_nnetar_center = new MLPNnetarSettingsPanel();
+        panelSettingsMLPintPackage_nnetar_radius = new MLPNnetarSettingsPanel();
         jLabelRPkg1 = new javax.swing.JLabel();
         comboBoxRPackageMLPint = new javax.swing.JComboBox();
         jLabel63 = new javax.swing.JLabel();
@@ -230,16 +230,16 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         comboBoxSettingsHybridMethod_radius = new javax.swing.JComboBox();
         panelSettingsHybrid_centerMain = new javax.swing.JPanel();
-        panelSettingsHybrid_centerMain_MLPnnetar = new MLPNnetarSettingsPanel();
         panelSettingsHybrid_centerMain_MLPnnet = new MLPNnetSettingsPanel();
+        panelSettingsHybrid_centerMain_MLPnnetar = new MLPNnetarSettingsPanel();
         panelSettingsHybrid_centerMain_RBF = new RBFSettingsPanel();
         panelSettingsHybrid_centerMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_centerMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_centerMain_KNNkknn = new KNNkknnSettingsPanel();
         jSeparator3 = new javax.swing.JSeparator();
         panelSettingsHybrid_radiusMain = new javax.swing.JPanel();
-        panelSettingsHybrid_radiusMain_MLPnnetar = new MLPNnetarSettingsPanel();
         panelSettingsHybrid_radiusMain_MLPnnet = new MLPNnetSettingsPanel();
+        panelSettingsHybrid_radiusMain_MLPnnetar = new MLPNnetarSettingsPanel();
         panelSettingsHybrid_radiusMain_RBF = new RBFSettingsPanel();
         panelSettingsHybrid_radiusMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_radiusMain_KNNFNN = new KNNFNNSettingsPanel();
@@ -318,6 +318,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonGroup_runFakeIntCRLBUB.add(radioButtonRunFakeIntCenterRadius);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1366, 664));
 
         buttonPlotColname.setText("Plot data");
         buttonPlotColname.setEnabled(false);
@@ -665,7 +666,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelRPkg.setText("R package:");
 
-        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnetar", "neuralnet", "nnet" }));
+        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnet", "nnetar", "neuralnet" }));
         comboBoxRPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRPackageActionPerformed(evt);
@@ -673,6 +674,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         panelSettingsMLPPackage.setLayout(new java.awt.CardLayout());
+        panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnet, "panelSettingsMLPPackage_nnet");
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnetar, "panelSettingsMLPPackage_nnetar");
 
         jLabel6.setText("(TODO)");
@@ -695,7 +697,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_neuralnet, "panelSettingsMLPPackage_neuralnet");
-        panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnet, "panelSettingsMLPPackage_nnet");
 
         javax.swing.GroupLayout paneSettingsMethodsMLPLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLP);
         paneSettingsMethodsMLP.setLayout(paneSettingsMethodsMLPLayout);
@@ -735,46 +736,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel48.setText("Distance to use for computing the error measures:");
 
         panelSettingsMLPintPackage.setLayout(new java.awt.CardLayout());
-
-        jLabel87.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel87.setText("Center:");
-
-        jLabel88.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel88.setText("Radius:");
-
-        javax.swing.GroupLayout panelSettingsMLPintPackage_nnetarLayout = new javax.swing.GroupLayout(panelSettingsMLPintPackage_nnetar);
-        panelSettingsMLPintPackage_nnetar.setLayout(panelSettingsMLPintPackage_nnetarLayout);
-        panelSettingsMLPintPackage_nnetarLayout.setHorizontalGroup(
-            panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel87)
-                    .addComponent(panelSettingsMLPintPackage_nnetar_center, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
-                        .addComponent(jLabel88)
-                        .addGap(0, 732, Short.MAX_VALUE))
-                    .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
-                        .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
-        );
-        panelSettingsMLPintPackage_nnetarLayout.setVerticalGroup(
-            panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel87)
-                    .addComponent(jLabel88))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsMLPintPackage_nnetar_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        panelSettingsMLPintPackage.add(panelSettingsMLPintPackage_nnetar, "panelSettingsMLPintPackage_nnetar");
 
         jSeparator4.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -823,9 +784,49 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSettingsMLPintPackage.add(panelSettingsMLPintPackage_nnet, "panelSettingsMLPintPackage_nnet");
 
+        jLabel87.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel87.setText("Center:");
+
+        jLabel88.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel88.setText("Radius:");
+
+        javax.swing.GroupLayout panelSettingsMLPintPackage_nnetarLayout = new javax.swing.GroupLayout(panelSettingsMLPintPackage_nnetar);
+        panelSettingsMLPintPackage_nnetar.setLayout(panelSettingsMLPintPackage_nnetarLayout);
+        panelSettingsMLPintPackage_nnetarLayout.setHorizontalGroup(
+            panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel87)
+                    .addComponent(panelSettingsMLPintPackage_nnetar_center, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
+                        .addComponent(jLabel88)
+                        .addGap(0, 732, Short.MAX_VALUE))
+                    .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
+                        .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+        );
+        panelSettingsMLPintPackage_nnetarLayout.setVerticalGroup(
+            panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel87)
+                    .addComponent(jLabel88))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsMLPintPackage_nnetar_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+
+        panelSettingsMLPintPackage.add(panelSettingsMLPintPackage_nnetar, "panelSettingsMLPintPackage_nnetar");
+
         jLabelRPkg1.setText("R package:");
 
-        comboBoxRPackageMLPint.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnetar", "nnet" }));
+        comboBoxRPackageMLPint.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnet", "nnetar" }));
         comboBoxRPackageMLPint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRPackageMLPintActionPerformed(evt);
@@ -1181,7 +1182,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
 
-        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnetar)", "MLP (nnet)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)" }));
+        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)" }));
         comboBoxSettingsHybridMethod_center.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_centerActionPerformed(evt);
@@ -1191,7 +1192,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Radius:");
 
-        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnetar)", "MLP (nnet)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)" }));
+        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)" }));
         comboBoxSettingsHybridMethod_radius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_radiusActionPerformed(evt);
@@ -1199,8 +1200,8 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         panelSettingsHybrid_centerMain.setLayout(new java.awt.CardLayout());
-        panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_MLPnnetar, "panelSettingsHybrid_centerMain_MLPnnetar");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_MLPnnet, "panelSettingsHybrid_centerMain_MLPnnet");
+        panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_MLPnnetar, "panelSettingsHybrid_centerMain_MLPnnetar");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_RBF, "panelSettingsHybrid_centerMain_RBF");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_ARIMA, "panelSettingsHybrid_centerMain_ARIMA");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_KNNFNN, "panelSettingsHybrid_centerMain_KNNFNN");
@@ -1209,8 +1210,8 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         panelSettingsHybrid_radiusMain.setLayout(new java.awt.CardLayout());
-        panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_MLPnnetar, "panelSettingsHybrid_radiusMain_MLPnnetar");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_MLPnnet, "panelSettingsHybrid_radiusMain_MLPnnet");
+        panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_MLPnnetar, "panelSettingsHybrid_radiusMain_MLPnnetar");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_RBF, "panelSettingsHybrid_radiusMain_RBF");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_ARIMA, "panelSettingsHybrid_radiusMain_ARIMA");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_KNNFNN, "panelSettingsHybrid_radiusMain_KNNFNN");
@@ -1286,7 +1287,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSummary.setLayout(panelSummaryLayout);
         panelSummaryLayout.setHorizontalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1424, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1463,7 +1464,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                        .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -1532,7 +1535,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(checkBoxRunIntervalRandomWalk)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel133)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 189, Short.MAX_VALUE))
+                                .addContainerGap(402, Short.MAX_VALUE))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -1592,8 +1595,7 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(checkBoxRunHybrid)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel3)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         panelRunOutsideLayout.setVerticalGroup(
             panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
