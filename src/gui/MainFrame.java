@@ -7,6 +7,7 @@ import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.HoltSettingsPanel;
 import gui.settingspanels.IntMLPCcodeSettingsPanel;
 import gui.settingspanels.KNNCustomSettingsPanel;
 import gui.settingspanels.KNNFNNSettingsPanel;
@@ -40,6 +41,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableColumn;
 import models.Arima;
 import models.Forecastable;
+import models.Holt;
 import models.Hybrid;
 import models.IntervalMLPCcode;
 import models.KNNfnn;
@@ -61,6 +63,7 @@ import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import params.ArimaParams;
 import params.BasicStats;
+import params.HoltParams;
 import params.HybridParams;
 import params.IntervalMLPCcodeParams;
 import params.KNNfnnParams;
@@ -236,6 +239,9 @@ public class MainFrame extends javax.swing.JFrame {
         panelVARintInsideBecause = new VARintSettingsPanel();
         panelVARintPercentTrain = new PercentTrainSettingsPanel();
         panelVARintDistance = new DistanceSettingsPanel();
+        panelSettingsMethodsHolt = new javax.swing.JPanel();
+        panelHoltPercentTrain = new PercentTrainSettingsPanel();
+        panelHoltInside = new HoltSettingsPanel();
         paneSettingsMethodsHybrid = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         comboBoxSettingsHybridMethod_center = new javax.swing.JComboBox();
@@ -315,6 +321,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHybrid = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
         checkBoxRunVARint = new javax.swing.JCheckBox();
+        checkBoxRunHolt = new javax.swing.JCheckBox();
         panelModelDescriptions = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tabbedPaneModelDescriptions = new javax.swing.JTabbedPane();
@@ -711,7 +718,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(1240, Short.MAX_VALUE))
+                .addContainerGap(1234, Short.MAX_VALUE))
         );
         panelSettingsMLPPackage_neuralnetLayout.setVerticalGroup(
             panelSettingsMLPPackage_neuralnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -783,7 +790,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(jLabel100)
-                        .addGap(0, 582, Short.MAX_VALUE))
+                        .addGap(0, 576, Short.MAX_VALUE))
                     .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -831,7 +838,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(jLabel88)
-                        .addGap(0, 659, Short.MAX_VALUE))
+                        .addGap(0, 653, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -897,7 +904,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(textFieldNumNetworksToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(151, 151, 151))))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 1307, Short.MAX_VALUE))
+                .addGap(0, 1301, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
             paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1002,7 +1009,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 771, Short.MAX_VALUE))
+                        .addGap(0, 765, Short.MAX_VALUE))
                     .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1067,7 +1074,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(jLabel151)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE))
+                            .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE))
                         .addGap(130, 130, 130))))
         );
         paneSettingsMethodsRBFintLayout.setVerticalGroup(
@@ -1112,7 +1119,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1287, Short.MAX_VALUE)
+                    .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1281, Short.MAX_VALUE)
                     .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1156,7 +1163,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel64)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 677, Short.MAX_VALUE)))
+                                .addGap(0, 671, Short.MAX_VALUE)))
                         .addGap(510, 510, 510))
                     .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
                         .addComponent(panelKNNPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1189,7 +1196,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsVARMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1287, Short.MAX_VALUE)
+                    .addComponent(panelSettingsVARMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1281, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1226,7 +1233,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                         .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)))
+                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsVARintLayout.setVerticalGroup(
@@ -1244,6 +1251,29 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         paneSettingsMethods.addTab("VAR(i)", panelSettingsMethodsVARint);
+
+        javax.swing.GroupLayout panelSettingsMethodsHoltLayout = new javax.swing.GroupLayout(panelSettingsMethodsHolt);
+        panelSettingsMethodsHolt.setLayout(panelSettingsMethodsHoltLayout);
+        panelSettingsMethodsHoltLayout.setHorizontalGroup(
+            panelSettingsMethodsHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsHoltLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsMethodsHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1281, Short.MAX_VALUE)
+                    .addComponent(panelHoltInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelSettingsMethodsHoltLayout.setVerticalGroup(
+            panelSettingsMethodsHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsHoltLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelHoltInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        paneSettingsMethods.addTab("Holt", panelSettingsMethodsHolt);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
@@ -1315,7 +1345,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 546, Short.MAX_VALUE))
+                                .addGap(0, 540, Short.MAX_VALUE))
                             .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -1340,7 +1370,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        paneSettingsMethods.addTab("Hybrid", paneSettingsMethodsHybrid);
+        paneSettingsMethods.addTab("[Hybrid]", paneSettingsMethodsHybrid);
 
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
@@ -1536,6 +1566,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunVARint.setText("VAR(i)");
 
+        checkBoxRunHolt.setText("Holt");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1647,6 +1679,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGap(129, 129, 129)
+                                        .addComponent(jLabel72))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(checkBoxRunARIMA)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(checkBoxRunKNNfnn)
@@ -1655,10 +1690,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(checkBoxRunKNNkknn)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunVAR))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addGap(129, 129, 129)
-                                        .addComponent(jLabel72))))
+                                        .addComponent(checkBoxRunVAR)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunHolt))))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunMLPintNnetar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1690,7 +1724,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxRunKNNcustom)
                             .addComponent(checkBoxRunKNNkknn)
                             .addComponent(checkBoxRunVAR)
-                            .addComponent(checkBoxRunRBF))
+                            .addComponent(checkBoxRunRBF)
+                            .addComponent(checkBoxRunHolt))
                         .addGap(1, 1, 1)
                         .addComponent(jLabel72)
                         .addGap(80, 80, 80)
@@ -2401,6 +2436,23 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
+        if (checkBoxRunHolt.isSelected()) {
+            try {
+                List<HoltParams> params = getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
+
+                showDialogTooManyModelsInCase(params.size(), "Holt");
+                if (continueWithTooManyModels) {
+                    Forecastable holt = new Holt();
+                    for (HoltParams p : params) {
+                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (holt.forecast(dataTableModel, p));
+                        reportsCTS.add(report);
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
+            }
+        }
+        
         //add more methods/models here
 
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
@@ -2738,6 +2790,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
+    private javax.swing.JCheckBox checkBoxRunHolt;
     private javax.swing.JCheckBox checkBoxRunHybrid;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
@@ -2857,6 +2910,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane panelEverything;
     private javax.swing.JPanel panelForecastVals;
     private javax.swing.JPanel panelForecastValsAll;
+    private javax.swing.JPanel panelHoltInside;
+    private javax.swing.JPanel panelHoltPercentTrain;
     private javax.swing.JPanel panelIntMLPPercentTrain;
     private javax.swing.JPanel panelKNNPercTrain;
     private javax.swing.JPanel panelMLPPercentTrain;
@@ -2903,6 +2958,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar_center;
     private javax.swing.JPanel panelSettingsMLPintPackage_nnetar_radius;
+    private javax.swing.JPanel panelSettingsMethodsHolt;
     private javax.swing.JPanel panelSettingsMethodsVARint;
     private javax.swing.JPanel panelSettingsRBFMain;
     private javax.swing.JPanel panelSettingsRBFint_center;
@@ -3401,6 +3457,27 @@ public class MainFrame extends javax.swing.JFrame {
         ((DistanceSettingsPanel)panelSettingsHybridDistance).setSpecificParams(HybridParams.class, resultList);
         SettingsPanel.setSomethingList(HybridParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainRBFint));
+        
+        return resultList;
+    }
+    
+    private List<HoltParams> getParamsHolt(JPanel percentTrainSettingsPanel, JPanel panelSettingsHolt,
+            JComboBox comboBoxColName) throws IllegalArgumentException {
+        HoltParams par = new HoltParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
+        
+        List<HoltParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        SettingsPanel.setSomethingList(HoltParams.class, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        SettingsPanel.setSomethingList(HoltParams.class, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        SettingsPanel.setSomethingList(HoltParams.class, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        ((HoltSettingsPanel)panelSettingsHolt).setSpecificParams(HoltParams.class, resultList);
         
         return resultList;
     }

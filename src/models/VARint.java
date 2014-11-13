@@ -1,7 +1,6 @@
 package models;
 
 import gui.DataTableModel;
-import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -13,7 +12,6 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
-import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class VARint implements Forecastable {
 
@@ -59,7 +57,7 @@ public class VARint implements Forecastable {
         List<Double> realOutputRadius = Utils.arrayToList(getRealOutputRadius.asDoubleArray());
         List<Interval> realOutputs = Utils.zipCentersRadiiToIntervals(realOutputCenter, realOutputRadius);
         List<Interval> realOutputsTrain = realOutputs.subList(0, numTrainingEntries);
-        List<Interval> realOutpustTest = realOutputs.subList(numTrainingEntries+1, realOutputs.size());
+        List<Interval> realOutpustTest = realOutputs.subList(numTrainingEntries, realOutputs.size());
         
         //nepridavat NA nikam, prida sa pri plotovani!
         //TODO zostavit si prirucku, kde co treba spravit... co sa robi v plotDraweri a co v jednotlivych Forecastable
