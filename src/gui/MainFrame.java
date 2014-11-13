@@ -234,6 +234,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         panelVARintInside = new javax.swing.JPanel();
         panelVARintInsideBecause = new VARintSettingsPanel();
+        panelVARintPercentTrain = new PercentTrainSettingsPanel();
+        panelVARintDistance = new DistanceSettingsPanel();
         paneSettingsMethodsHybrid = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         comboBoxSettingsHybridMethod_center = new javax.swing.JComboBox();
@@ -1217,10 +1219,14 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsVARintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelVARintInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(0, 881, Short.MAX_VALUE))
-                    .addComponent(panelVARintInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
+                        .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsVARintLayout.setVerticalGroup(
@@ -1228,8 +1234,12 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel5)
-                .addGap(18, 18, 18)
-                .addComponent(panelVARintInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSettingsMethodsVARintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelVARintInside, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2332,7 +2342,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (checkBoxRunVARint.isSelected()) {
             try {
-                List<VARintParams> params = getParamsVARint(panelVARintInsideBecause);
+                List<VARintParams> params = getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
 
                 showDialogTooManyModelsInCase(params.size(), "VAR(i)");
                 if (continueWithTooManyModels) {
@@ -2900,8 +2910,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsVARMain;
     private javax.swing.JPanel panelSettingsVARMainInsideBecauseX;
     private javax.swing.JPanel panelSummary;
+    private javax.swing.JPanel panelVARintDistance;
     private javax.swing.JPanel panelVARintInside;
     private javax.swing.JPanel panelVARintInsideBecause;
+    private javax.swing.JPanel panelVARintPercentTrain;
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
@@ -3210,10 +3222,11 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<VARintParams> getParamsVARint(javax.swing.JPanel panelSettingsVARint) throws IllegalArgumentException {
+    private List<VARintParams> getParamsVARint(JPanel percentTrainSettingsPanel, JPanel distanceSettingsPanel, 
+            JPanel panelSettingsVARint) throws IllegalArgumentException {
         VARintParams par = new VARintParams();
         //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(100); //uses all data for training //TODO!!!
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<VARintParams> resultList = new ArrayList<>();
         resultList.add(par);
@@ -3225,6 +3238,7 @@ public class MainFrame extends javax.swing.JFrame {
         SettingsPanel.setSomethingList(VARintParams.class, resultList, "setDataRangeTo",
                 Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         ((VARintSettingsPanel)panelSettingsVARint).setSpecificParams(VARintParams.class, resultList);
+        ((DistanceSettingsPanel)distanceSettingsPanel).setSpecificParams(VARintParams.class, resultList);
         
         return resultList;
     }

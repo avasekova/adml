@@ -1,5 +1,7 @@
 package params;
 
+import utils.imlp.dist.Distance;
+
 public class VARintParams extends Params {
     
     private String center;
@@ -8,6 +10,7 @@ public class VARintParams extends Params {
     private String type;
     private Boolean optimizeLag;
     private String criterionOptimizeLag;
+    private Distance distance;
 
     public String getCenter() {
         return center;
@@ -56,6 +59,14 @@ public class VARintParams extends Params {
     public void setCriterionOptimizeLag(String criterionOptimizeLag) {
         this.criterionOptimizeLag = criterionOptimizeLag;
     }
+
+    public Distance getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Distance distance) {
+        this.distance = distance;
+    }
     
     @Override
     public VARintParams getClone() {
@@ -70,6 +81,7 @@ public class VARintParams extends Params {
         param.setRadius(radius);
         param.setOptimizeLag(optimizeLag);
         param.setCriterionOptimizeLag(criterionOptimizeLag);
+        param.setDistance(distance);
         
         return param;
     }
