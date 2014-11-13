@@ -53,11 +53,8 @@ public class IntervalHolt implements Forecastable {
         int num4castsTestAndTrain = inputTestCenter.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- A.holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndTrain + ", alpha=" + 
                 params.getAlpha() + ", beta=" + params.getBeta() + ", gamma=FALSE)");
-        System.out.println(FORECAST_MODEL + " <- A.holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndTrain + ", alpha=" + 
-                params.getAlpha() + ", beta=" + params.getBeta() + ", gamma=FALSE)");
         
         rengine.eval(FIT_LOWER + " <- fitted(" + FORECAST_MODEL + ")[,1][1:" + numTrainingEntries + "]");
-        System.out.println(FIT_LOWER + " <- fitted(" + FORECAST_MODEL + ")[,1][1:" + numTrainingEntries + "]");
         rengine.eval(FIT_UPPER + " <- fitted(" + FORECAST_MODEL + ")[,2][1:" + numTrainingEntries + "]");
         REXP getFitLower = rengine.eval(FIT_LOWER);
         List<Double> fitLower = Utils.arrayToList(getFitLower.asDoubleArray());
