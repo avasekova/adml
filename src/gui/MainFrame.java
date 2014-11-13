@@ -266,6 +266,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_centerMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_centerMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_centerMain_KNNkknn = new KNNkknnSettingsPanel();
+        panelSettingsHybrid_centerMain_Holt = new HoltSettingsPanel();
         jSeparator3 = new javax.swing.JSeparator();
         panelSettingsHybrid_radiusMain = new javax.swing.JPanel();
         scrollPane_panelSettingsHybrid_radiusMain_MLPnnet = new javax.swing.JScrollPane();
@@ -275,6 +276,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_radiusMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_radiusMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_radiusMain_KNNkknn = new KNNkknnSettingsPanel();
+        panelSettingsHybrid_radiusMain_Holt = new HoltSettingsPanel();
         panelSettingsHybridPercentTrain = new PercentTrainSettingsPanel();
         panelSettingsHybridDistance = new DistanceSettingsPanel();
         panelRunOutside = new javax.swing.JPanel();
@@ -1353,7 +1355,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
 
-        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)" }));
+        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "Holt" }));
         comboBoxSettingsHybridMethod_center.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_centerActionPerformed(evt);
@@ -1363,7 +1365,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Radius:");
 
-        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)" }));
+        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "Holt" }));
         comboBoxSettingsHybridMethod_radius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_radiusActionPerformed(evt);
@@ -1380,6 +1382,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_ARIMA, "panelSettingsHybrid_centerMain_ARIMA");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_KNNFNN, "panelSettingsHybrid_centerMain_KNNFNN");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_KNNkknn, "panelSettingsHybrid_centerMain_KNNkknn");
+        panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_Holt, "panelSettingsHybrid_centerMain_Holt");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -1393,6 +1396,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_ARIMA, "panelSettingsHybrid_radiusMain_ARIMA");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_KNNFNN, "panelSettingsHybrid_radiusMain_KNNFNN");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_KNNkknn, "panelSettingsHybrid_radiusMain_KNNkknn");
+        panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_Holt, "panelSettingsHybrid_radiusMain_Holt");
 
         javax.swing.GroupLayout paneSettingsMethodsHybridLayout = new javax.swing.GroupLayout(paneSettingsMethodsHybrid);
         paneSettingsMethodsHybrid.setLayout(paneSettingsMethodsHybridLayout);
@@ -1420,7 +1424,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 540, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -1440,7 +1444,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
+                    .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -2802,6 +2806,9 @@ public class MainFrame extends javax.swing.JFrame {
             case "kNN (kknn)":
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_KNNkknn");
                 break;
+            case "Holt":
+                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_Holt");
+                break;
         }
         panelSettingsHybrid_centerMain.repaint();
     }//GEN-LAST:event_comboBoxSettingsHybridMethod_centerActionPerformed
@@ -2826,6 +2833,9 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case "kNN (kknn)":
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_KNNkknn");
+                break;
+            case "Holt":
+                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_Holt");
                 break;
         }
         panelSettingsHybrid_radiusMain.repaint();
@@ -3040,6 +3050,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsHybridPercentTrain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_ARIMA;
+    private javax.swing.JPanel panelSettingsHybrid_centerMain_Holt;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_KNNFNN;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_KNNkknn;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_MLPnnet;
@@ -3047,6 +3058,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsHybrid_centerMain_RBF;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_ARIMA;
+    private javax.swing.JPanel panelSettingsHybrid_radiusMain_Holt;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_KNNFNN;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_KNNkknn;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_MLPnnet;
@@ -3512,6 +3524,13 @@ public class MainFrame extends javax.swing.JFrame {
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNkknnParams.class, resultListCenterKNNkknn);
                 break;
+            case "Holt":
+                List<HoltParams> resultListCenterHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
+                        panelSettingsHybrid_centerMain_Holt, comboBoxRunFakeIntCenter);
+                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        HoltParams.class, resultListCenterHolt);
+                break;
             default:
                 //do not do anything, this should never happen. maybe throw an exception? 
                 break;
@@ -3561,6 +3580,13 @@ public class MainFrame extends javax.swing.JFrame {
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNkknnParams.class, resultListRadiusKNNkknn);
+                break;
+            case "Holt":
+                List<HoltParams> resultListRadiusHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
+                        panelSettingsHybrid_radiusMain_Holt, comboBoxRunFakeIntRadius);
+                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        HoltParams.class, resultListRadiusHolt);
                 break;
             default:
                 //do not do anything, this should never happen. maybe throw an exception? 

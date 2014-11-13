@@ -4,6 +4,7 @@ import gui.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import params.ArimaParams;
+import params.HoltParams;
 import params.HybridParams;
 import params.KNNfnnParams;
 import params.KNNkknnParams;
@@ -18,6 +19,7 @@ import utils.imlp.Interval;
 
 public class Hybrid implements Forecastable {
     
+    //TODO napisat aj prirucku na pridavanie veci do Hybrid - kde vsade to treba pridat, bo su to asi 3-4 miesta v kode
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         Params paramsCenter = ((HybridParams)parameters).getParamsCenter();
@@ -48,6 +50,9 @@ public class Hybrid implements Forecastable {
         } else if (paramsCenter instanceof KNNkknnParams) {
             KNNkknn knnKknn = new KNNkknn();
             reportCenter = (TrainAndTestReportCrisp) knnKknn.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof HoltParams) {
+            Holt holt = new Holt();
+            reportCenter = (TrainAndTestReportCrisp) holt.forecast(dataTableModel, paramsCenter);
         }
         
         //radius
@@ -69,6 +74,9 @@ public class Hybrid implements Forecastable {
         } else if (paramsRadius instanceof KNNkknnParams) {
             KNNkknn knnKknn = new KNNkknn();
             reportRadius = (TrainAndTestReportCrisp) knnKknn.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof HoltParams) {
+            Holt holt = new Holt();
+            reportRadius = (TrainAndTestReportCrisp) holt.forecast(dataTableModel, paramsRadius);
         }
         
         //zbytok je potom taky isty
