@@ -1,3 +1,454 @@
+####hrozne hnusne upraveny, ale snad funkcny Holt pre intervaly. TODO skraslit! a skontrolovat, ci ide vobec ako ma.
+#volat ako "A.holt(daaata, h=10, alpha=alpha, beta=beta, gamma=FALSE)", kde daaata je dvojstlpcova matica, kde prvy stlpec je LB a druhy UB
+
+### Modelled on the HoltWinters() function but with more conventional
+### initialization.
+### Written by Zhenyu Zhou. 21 October 2012
+### Adapted for intervals by AV.
+
+A.HoltWintersZZ  <- function (x,
+                            # smoothing parameters
+                            alpha    = NULL, # level
+                            beta     = NULL, # trend
+                            gamma    = NULL, # seasonal component
+                            seasonal = c("additive", "multiplicative"),
+                            exponential = FALSE, # exponential
+                            phi = NULL # damp
+)
+{
+  x <- as.ts(x)
+  seasonal <- match.arg(seasonal)
+  m <- frequency(x)
+  lenx <- length(x)/2   #####################################A, bo mam dva stlpce!
+  
+  if(is.null(phi) || !is.numeric(phi))
+    phi <- 1
+  if(!is.null(alpha) && !is.numeric(alpha))
+    stop ("cannot fit models without level ('alpha' must not be 0 or FALSE).")
+  if(!all(is.null(c(alpha, beta, gamma))) &&
+       any(c(alpha, beta, gamma) < 0 || c(alpha, beta, gamma) > 1))
+    stop ("'alpha', 'beta' and 'gamma' must be within the unit interval.")
+  if((is.null(gamma) || gamma > 0)) {
+    if (seasonal == "multiplicative" && any(x <= 0))
+      stop ("data must be positive for multiplicative Holt-Winters.")
+  }
+  
+  if(m<=1)
+    gamma <- FALSE
+  
+  ## initialise l0, b0, s0
+  if(!is.null(gamma) && is.logical(gamma) && !gamma) {
+    seasonal <- "none"
+    l.start <- x[1L,]
+    s.start <- cbind(c(0,0))
+    if(is.null(beta) || !is.logical(beta) || beta){
+      if(!exponential)
+        b.start <- x[2L,] - x[1L,]
+      else
+        b.start <- x[2L,]%/%x[1L,]
+    }
+  } else {
+    ## seasonal Holt-Winters
+    l.start <- cbind(c(mean(x[1:m,]), mean(x[1:m,]))) #dvakrat to iste
+    b.start <- (mean(x[m+(1:m),]) - l.start)/m
+    if(seasonal=="additive")
+      s.start <- x[1:m,]-l.start
+    else
+      s.start <- x[1:m,]%/%l.start
+  }
+  
+  #initialise smoothing parameters
+  #lower=c(rep(0.0001,3), 0.8)
+  #upper=c(rep(0.9999,3),0.98)
+  lower <- c(0,0,0,0)
+  upper <- c(1,1,1,1)
+  
+  if(!is.null(beta) && is.logical(beta) && !beta)
+    trendtype <- "N"
+  else if(exponential)
+    trendtype <- "M"
+  else
+    trendtype <- "A"
+  
+  if(seasonal=="none")
+    seasontype <- "N"
+  else if(seasonal=="multiplicative")
+    seasontype <- "M"
+  else
+    seasontype <- "A"
+  
+  ## initialise smoothing parameter
+  optim.start <- A.initparam(alpha = alpha, beta = beta, gamma=gamma, phi=1,
+                           trendtype=trendtype, seasontype=seasontype, damped=FALSE, lower=lower, upper=upper, m=m)
+  
+  # if(!is.na(optim.start["alpha"]))
+  # 	alpha2 <- optim.start["alpha"]
+  # else
+  # 	alpha2 <- alpha
+  # if(!is.na(optim.start["beta"]))
+  # 	beta2 <- optim.start["beta"]
+  # else
+  # 	beta2 <- beta
+  # if(!is.na(optim.start["gamma"]))
+  # 	gamma2 <- optim.start["gamma"]
+  # else
+  # 	gamma2 <- gamma
+  
+  #	if(!check.param(alpha = alpha2,beta = beta2, gamma = gamma2,phi=1,lower,upper,bounds="haha",m=m))
+  #	{
+  #		print(paste("alpha=", alpha2, "beta=",beta2, "gamma=",gamma2))
+  #		stop("Parameters out of range")
+  #	}
+  
+  ###################################################################################
+  #optimisation: alpha, beta, gamma, if any of them is null, then optimise them
+  error <- function (p, select)
+  {
+    if(select[1]>0)
+      alpha <- p[1L]
+    if(select[2]>0)
+      beta <- p[1L+select[1]]
+    if(select[3]>0)
+      gamma <- p[1L+select[1]+select[2]]
+    
+    zzhw(x,lenx=lenx, alpha = alpha, beta=beta, gamma=gamma, seasonal=seasonal, m=m,
+         dotrend=(!is.logical(beta) || beta), doseasonal=(!is.logical(gamma) || gamma),
+         exponential=exponential, phi=phi, l.start=l.start, b.start=b.start, s.start=s.start)$SSE
+  }
+  select <- as.numeric(c(is.null(alpha),is.null(beta),is.null(gamma)))
+  
+  if(sum(select)>0) # There are parameters to optimize
+  {
+    sol <- optim(optim.start, error, method = "L-BFGS-B", lower = lower[select], upper = upper[select], select=select)
+    if(sol$convergence || any(sol$par < 0 | sol$par > 1)) {
+      if (sol$convergence > 50) {
+        warning(gettextf("optimization difficulties: %s", sol$message), domain = NA)
+      } else stop("optimization failure")
+    }
+    if(select[1]>0)
+      alpha <- sol$p[1L]
+    if(select[2]>0)
+      beta <- sol$p[1L+select[1]]
+    if(select[3]>0)
+      gamma <- sol$p[1L+select[1]+select[2]]
+  }
+  
+  final.fit <- A.zzhw(x, lenx=lenx, alpha = alpha, beta=beta, gamma=gamma, seasonal=seasonal, m=m,
+                    dotrend=(!is.logical(beta) || beta), doseasonal=(!is.logical(gamma) || gamma),
+                    exponential=exponential, phi=phi, l.start=l.start, b.start=b.start, s.start=s.start)
+  
+  tspx <- tsp(x)
+  fitted <- ts(final.fit$fitted,frequency=m,start=tspx[1])
+  states <- matrix(final.fit$level,ncol=1)
+  colnames(states) <- "l"
+  if(trendtype!="N")
+    states <- cbind(states,b=final.fit$trend)
+  if(seasontype!="N")
+  {
+    nr <- nrow(states)
+    nc <- ncol(states)
+    for(i in 1:m)
+      states <- cbind(states,final.fit$season[(m-i)+(1:nr)])
+    colnames(states)[nc+(1:m)] <- paste("s",1:m,sep="")
+  }
+  states <- ts(states,frequency=m,start=tspx[1]-1/m)
+  
+  # Package output as HoltWinters class
+  # structure(list(fitted    = fitted,
+  # 				x        = x,
+  # 				alpha    = alpha,
+  # 				beta     = beta,
+  # 				gamma    = gamma,
+  # 				coefficients = c(a = final.fit$level[lenx],
+  # 						b = if (!is.logical(beta) || beta) final.fit$trend[lenx],
+  # 						s = if (!is.logical(gamma) || gamma) final.fit$season[lenx - m + 1L:m]),
+  # 				seasonal  = seasonal,
+  # 				exponential = exponential,
+  # 				SSE       = final.fit$SSE,
+  # 				call      = match.call(),
+  # 				level = final.fit$level,
+  # 				trend = final.fit$trend,
+  # 				season = final.fit$season,
+  # 				phi = phi
+  # 		),
+  # 		class = "HoltWinters"
+  # )
+  # Package output as ets class
+  damped <- (phi<1.0)
+  if(seasonal=="additive") # This should not happen
+    components <- c("A",trendtype,seasontype,damped)
+  else if(seasonal=="multiplicative")
+    components <- c("M",trendtype,seasontype, damped)
+  else if(seasonal=="none" & exponential)
+    components <- c("M",trendtype,seasontype,damped)
+  else# if(seasonal=="none" & !exponential)
+    components <- c("A",trendtype,seasontype, damped)
+  
+  initstate <- states[1,]
+  param <- alpha
+  names(param) <- "alpha"
+  if(trendtype!="N")
+  {
+    param <- c(param,beta=beta)
+    names(param)[length(param)] <- "beta"
+  }
+  if(seasontype!="N")
+  {
+    param <- c(param,gamma=gamma)
+    names(param)[length(param)] <- "gamma"
+  }
+  if(damped)
+  {
+    param <- c(param,phi=phi)
+    names(param)[length(param)] <- "phi"
+  }
+  
+  if(components[1]=="A")
+    sigma2 <- mean(final.fit$residuals^2)
+  else
+    sigma2 <- mean((final.fit$residuals/fitted)^2)
+  structure(list(fitted    = fitted,
+                 residuals=final.fit$residuals,
+                 components=components,
+                 x        = x,
+                 par=c(param,initstate),
+                 initstate=initstate,
+                 states=states,
+                 SSE       = final.fit$SSE,
+                 sigma2 = sigma2,
+                 call      = match.call(),
+                 m = m
+  ),
+  class = "ets"
+  )
+}
+
+---
+
+###################################################################################
+#filter function
+A.zzhw <- function(x, lenx, alpha=NULL, beta=NULL, gamma=NULL, seasonal="additive", m,
+                 dotrend=FALSE, doseasonal=FALSE, l.start=NULL, exponential = NULL, phi=NULL,
+                 b.start=NULL, s.start=NULL)
+{
+  
+  if(exponential!=TRUE || is.null(exponential))
+    exponential <- FALSE
+  
+  if(is.null(phi) || !is.numeric(phi))
+    phi <- 1
+  
+  #initialise array of l, b, s
+  level <- trend <- season <- xfit <- residuals <- cbind(numeric(lenx), numeric(lenx)) ######zdvojila som to
+  SSE <- 0
+  
+  if(!dotrend){
+    beta <- cbind(c(0,0),c(0,0))
+    b.start <- cbind(c(0,0))
+  }
+  if(!doseasonal){
+    gamma <- cbind(c(0,0)) #gamma je tiez matica, alebo vektor?
+    s.start[1:length(s.start),] <- ifelse(seasonal=="additive",cbind(c(0,0)),cbind(c(1,1)))   ###A - 0 nahradena c(0,0), 1 nahradena c(1,1), ktovie, ci to je legalne...
+  }
+
+  lastlevel <- level0 <- l.start
+  lasttrend <- trend0 <- b.start
+  season0 <- s.start
+  
+  for(i in 1:lenx){
+    # definel l(t-1)
+    if(i>1)
+      lastlevel <- level[i-1,]
+    #define b(t-1)
+    if(i>1)
+      lasttrend <- trend[i-1,]
+    #define s(t-m)
+    if(i>m)
+      lastseason <- season[i-m,]
+    else
+      lastseason <- season0[,i]          ######################################################toto je asi zle! ,i miesto i,
+    if(is.na(lastseason[1]))       #######pridala som [1], sice to nerobi, co ma, ale nehubuju warningy
+      lastseason <- ifelse(seasonal=="additive",cbind(c(0,0)),cbind(c(1,1)))
+    
+    #forecast for this period i
+    if(seasonal=="additive"){
+      if(!exponential)
+        xhat <- lastlevel + phi*lasttrend + lastseason
+      else
+        xhat <- lastlevel * (lasttrend^phi) + lastseason    ###nemam tu maticove nasobenie...
+                                ####po novom nechavam maticove nasobenie len pri alpha a beta
+    }else {
+      if(!exponential)
+        xhat <- (lastlevel + phi*lasttrend)*lastseason      ###nemam tu maticove nasobenie...
+      else
+        xhat <- lastlevel * (lasttrend^phi) * lastseason    ###nemam tu maticove nasobenie...
+    }
+    
+    xfit[i,] <- xhat
+###A - ak je to len na vyplutie na konci, tak to nebudem pocitat. bolo by na to treba skor pustit nejaku Distance
+#     res <- x[i,] - xhat
+#     residuals[i,] <- res
+#     SSE <- SSE + res*res
+    
+    #calculate level[i]
+    if(seasonal=="additive"){
+      if(!exponential)
+        level[i,] <- alpha %*% (x[i,] - lastseason) + (diag(2) - alpha)%*%(lastlevel + phi*lasttrend) ###A
+      else
+        level[i,] <- alpha %*% (x[i,] - lastseason) + (diag(2) - alpha)%*%(lastlevel * (lasttrend^phi)) ###A
+    }
+    else {
+      if(!exponential)
+        level[i,] <- alpha %*% (x[i,] / lastseason) + (diag(2) - alpha)%*%(lastlevel + phi*lasttrend) ###A
+      else
+        level[i,] <- alpha %*% (x[i,] / lastseason) + (diag(2) - alpha)%*%(lastlevel * (lasttrend^phi)) ###A
+    }
+    
+    #calculate trend[i]
+    if(!exponential)
+      trend[i,] <- beta%*%(level[i,] - lastlevel) + (diag(2) - beta)%*% (phi*lasttrend)  ###A
+    else
+      trend[i,] <- beta%*%(level[i,] / lastlevel) + (diag(2) - beta)%*% (lasttrend^phi)  ###A
+    
+    #calculate season[i]
+##############zatial sem dam len taku hroznu blbost:
+      season[i,] <- cbind(c(1,1))
+#     if(seasonal=="additive"){
+#       if(!exponential)
+#         season[i,] <- gamma%*%(x[i,] - lastlevel- phi*lasttrend) + (rbind(1,1) - gamma) %*% lastseason ###A
+#       else
+#         season[i,] <- gamma%*%(x[i,] - lastlevel%*%(lasttrend^phi)) + (rbind(1,1) - gamma) %*% lastseason ###A
+#     }else{
+#       if(!exponential)
+#         season[i,] <- gamma%*%(x[i,]/(lastlevel+phi*lasttrend)) + (rbind(1,1) - gamma) %*% lastseason ###A
+#       else
+#         season[i,] <- gamma%*%(x[i,]/(lastlevel%*%(lasttrend^phi))) + (rbind(1,1) - gamma) %*% lastseason ###A
+#     }
+  }
+  
+  list(SSE=SSE,
+       fitted= xfit,
+       residuals = residuals,
+       level = c(level0,level),
+       trend=c(trend0,trend),
+       season=c(season0,season),
+       phi = phi
+  )
+}
+
+---
+
+A.initparam <- function(alpha,beta,gamma,phi,trendtype,seasontype,damped,lower,upper,m)
+{
+  # Set up initial parameters
+  par <- numeric(0)
+  if(is.null(alpha))
+  {
+    if(m > 12)
+      alpha <- 0.0002
+    if(is.null(beta) & is.null(gamma))
+      alpha <- lower[1] + .5*(upper[1]-lower[1])
+    else if(is.null(gamma))
+      alpha <- beta+0.001
+    else if(is.null(beta))
+      alpha <- 0.999-gamma
+    else
+      alpha <- 0.5*(beta - gamma + 1)
+    if(alpha < lower[1] | alpha > upper[1])
+      stop("Inconsistent parameter limits")
+    par <- alpha
+    names(par) <- "alpha"
+  }
+  if(is.null(beta))
+  {
+    if(trendtype !="N")
+    {
+      if(m > 12)
+        beta <- 0.00015
+      else
+        beta <- lower[2] + .1*(upper[2]-lower[2])
+      if(beta > alpha)
+        beta <- min(alpha - 0.0001,0.0001)
+      if(beta < lower[2] | beta > upper[2])
+        stop("Can't find consistent starting parameters")
+      par <- c(par,beta)
+      names(par)[length(par)] <- "beta"
+    }
+  }
+  if(is.null(gamma))
+  {
+    if(seasontype !="N")
+    {
+      if(m > 12)
+        gamma <- 0.0002
+      else
+        gamma <- lower[3] + .01*(upper[3]-lower[3])
+      if(gamma > 1-alpha)
+        gamma <- min(0.999-alpha,0.001)
+      if(gamma < lower[3] | gamma > upper[3])
+        stop("Can't find consistent starting parameters")
+      par <- c(par,gamma)
+      names(par)[length(par)] <- "gamma"
+    }
+  }
+  if(is.null(phi))
+  {
+    if(damped)
+    {
+      phi <- lower[4] + .99*(upper[4]-lower[4])
+      par <- c(par,phi)
+      names(par)[length(par)] <- "phi"
+    }
+  }
+  
+  return(par)
+}
+
+---
+
+A.holt <- function (x, h = 10, damped = FALSE, level = c(80, 95), fan = FALSE,
+                  initial=c("optimal","simple"), exponential=FALSE, alpha=NULL, beta=NULL, ...)
+{
+  
+###A
+#   initial <- match.arg(initial)
+#   if(initial=="optimal" ) #| damped)
+#   {
+#     if(exponential) {
+#       fcast <- forecast(ets(x, "MMN", alpha=alpha, beta=beta, damped = damped, opt.crit="mse"), h, level = level, fan = fan, ...)
+#       stop("prve")
+#     }
+#     else {
+#     fcast <- forecast(ets(x, "AAN", alpha=alpha, beta=beta, damped = damped, opt.crit="mse"), h, level = level, fan = fan, ...)
+###A
+#     }
+#   }	  
+#   else {
+     fcast <- forecast(A.HoltWintersZZ(x, alpha=alpha, beta=beta, gamma=FALSE, exponential=exponential),
+                       h, level = level, fan = fan, ...)
+#     stop("vliezlo to sem")
+#   }
+###A
+#   if (damped)
+#   {
+#     fcast$method <- "Damped Holt's method"
+#     if(initial=="heuristic")
+#       warning("Damped Holt's method requires optimal initialization")
+#   }
+#   else
+    fcast$method <- "Holt's method"
+###A
+#   if(exponential)
+#     fcast$method <- paste(fcast$method,"with exponential trend")
+  fcast$model$call <- match.call()
+  return(fcast)
+}
+
+
+
+---
+
+
 plot.nnet <- function(mod.in,nid=T,all.out=T,all.in=T,bias=T,wts.only=F,rel.rsc=5,circle.cex=5,
                     node.labs=T,var.labs=T,x.lab=NULL,y.lab=NULL,line.stag=NULL,struct=NULL,cex.val=1,
                     alpha.val=1,circle.col='lightblue',pos.col='black',neg.col='grey', max.sp = F, ...){

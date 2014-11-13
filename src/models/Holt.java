@@ -18,7 +18,6 @@ public class Holt implements Forecastable {
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
-        final String INPUT_TEST = Const.INPUT + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
         final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
         
@@ -35,7 +34,6 @@ public class Holt implements Forecastable {
         List<Double> inputTest = dataToUse.subList(numTrainingEntries, dataToUse.size());
         
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
-        rengine.assign(INPUT_TEST, Utils.listToArray(inputTest));
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast::holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
