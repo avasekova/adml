@@ -59,6 +59,7 @@ import models.RBF;
 import models.RBFint;
 import models.RandomWalkInterval;
 import models.SES;
+import models.SESint;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -85,6 +86,7 @@ import params.RBFParams;
 import params.RBFintParams;
 import params.RandomWalkIntervalParams;
 import params.SESParams;
+import params.SESintParams;
 import params.VARParams;
 import params.VARintParams;
 import utils.CrispOutputVariable;
@@ -251,6 +253,15 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMethodsSES = new javax.swing.JPanel();
         panelSESpercentTrain = new PercentTrainSettingsPanel();
         panelSESmain = new SESSettingsPanel();
+        panelSettingsMethodsSESint = new javax.swing.JPanel();
+        jLabel51 = new javax.swing.JLabel();
+        panelSESintPercentTrain = new PercentTrainSettingsPanel();
+        panelSESint_center = new SESSettingsPanel();
+        jLabel154 = new javax.swing.JLabel();
+        jLabel155 = new javax.swing.JLabel();
+        panelSESint_radius = new SESSettingsPanel();
+        jSeparator7 = new javax.swing.JSeparator();
+        panelSESintDistance = new DistanceSettingsPanel();
         panelSettingsMethodsHolt = new javax.swing.JPanel();
         panelHoltPercentTrain = new PercentTrainSettingsPanel();
         panelHoltInside = new HoltSettingsPanel();
@@ -356,6 +367,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunIncludeRMSSE = new javax.swing.JCheckBox();
         textFieldRunRMSSESeasonality = new javax.swing.JTextField();
         checkBoxRunSES = new javax.swing.JCheckBox();
+        checkBoxRunSESint = new javax.swing.JCheckBox();
         panelModelDescriptions = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tabbedPaneModelDescriptions = new javax.swing.JTabbedPane();
@@ -1309,6 +1321,69 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("SES", panelSettingsMethodsSES);
 
+        jLabel51.setText("Constructs an interval out of two separate forecasts for Center and Radius.");
+
+        jLabel154.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel154.setText("Center:");
+
+        jLabel155.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel155.setText("Radius:");
+
+        jSeparator7.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        javax.swing.GroupLayout panelSettingsMethodsSESintLayout = new javax.swing.GroupLayout(panelSettingsMethodsSESint);
+        panelSettingsMethodsSESint.setLayout(panelSettingsMethodsSESintLayout);
+        panelSettingsMethodsSESintLayout.setHorizontalGroup(
+            panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
+                        .addComponent(jLabel51)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
+                        .addComponent(panelSESintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 571, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsSESintLayout.createSequentialGroup()
+                        .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
+                                .addComponent(jLabel154)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(panelSESint_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel155)
+                            .addComponent(panelSESint_radius, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        panelSettingsMethodsSESintLayout.setVerticalGroup(
+            panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel51)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSESintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
+                        .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel154)
+                            .addComponent(jLabel155))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelSESint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                            .addComponent(panelSESint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jSeparator7))
+                .addContainerGap())
+        );
+
+        paneSettingsMethods.addTab("SES(i)", panelSettingsMethodsSESint);
+
         javax.swing.GroupLayout panelSettingsMethodsHoltLayout = new javax.swing.GroupLayout(panelSettingsMethodsHolt);
         panelSettingsMethodsHolt.setLayout(panelSettingsMethodsHoltLayout);
         panelSettingsMethodsHoltLayout.setHorizontalGroup(
@@ -1749,6 +1824,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunSES.setText("SES");
 
+        checkBoxRunSESint.setText("SES(i)");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1852,18 +1929,6 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(checkBoxRunHybrid)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunMLPintNnetar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPintNnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunRBFint)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunVARint)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunHoltInt)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel3))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(checkBoxRunIntervalMLPCcode)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(checkBoxRunIntervalMLPneuralnet)
@@ -1901,7 +1966,21 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(checkBoxRunSES)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunHolt)))
+                                        .addComponent(checkBoxRunHolt))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunMLPintNnetar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunMLPintNnet)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunRBFint)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunVARint)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunSESint)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunHoltInt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel3)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
@@ -1935,7 +2014,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxRunRBFint)
                             .addComponent(jLabel3)
                             .addComponent(checkBoxRunVARint)
-                            .addComponent(checkBoxRunHoltInt))
+                            .addComponent(checkBoxRunHoltInt)
+                            .addComponent(checkBoxRunSESint))
                         .addGap(18, 18, 18)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunKNNinterval)
@@ -2710,6 +2790,27 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
+        if (checkBoxRunSESint.isSelected()) {
+            try {
+                List<SESintParams> params = getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
+                        comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
+                        panelSESintDistance);
+
+                showDialogTooManyModelsInCase(params.size(), "SES(i)");
+                if (continueWithTooManyModels) {
+                    //run two separate forecasts, one for Center and the other for Radius
+                    Forecastable sesInt = new SESint();
+
+                    for (SESintParams p : params) {
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (sesInt.forecast(dataTableModel, p));
+                        reportsIntTS.add(report);
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
+            }
+        }
+        
         //add more methods/models here
 
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
@@ -3086,6 +3187,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunRBF;
     private javax.swing.JCheckBox checkBoxRunRBFint;
     private javax.swing.JCheckBox checkBoxRunSES;
+    private javax.swing.JCheckBox checkBoxRunSESint;
     private javax.swing.JCheckBox checkBoxRunVAR;
     private javax.swing.JCheckBox checkBoxRunVARint;
     private javax.swing.JComboBox comboBoxColnamesRun;
@@ -3119,6 +3221,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel151;
     private javax.swing.JLabel jLabel152;
     private javax.swing.JLabel jLabel153;
+    private javax.swing.JLabel jLabel154;
+    private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel157;
     private javax.swing.JLabel jLabel2;
@@ -3135,6 +3239,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
@@ -3159,6 +3264,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTable jTableData;
     private javax.swing.JLabel labelRunFakeIntCenter;
     private javax.swing.JLabel labelRunFakeIntLower;
@@ -3211,6 +3317,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelRBFintPercentTrain;
     private javax.swing.JPanel panelRBFintSettingsDistance;
     private javax.swing.JPanel panelRunOutside;
+    private javax.swing.JPanel panelSESintDistance;
+    private javax.swing.JPanel panelSESintPercentTrain;
+    private javax.swing.JPanel panelSESint_center;
+    private javax.swing.JPanel panelSESint_radius;
     private javax.swing.JPanel panelSESmain;
     private javax.swing.JPanel panelSESpercentTrain;
     private javax.swing.JPanel panelSettingsARIMAMain;
@@ -3254,6 +3364,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMethodsHoltInt;
     private javax.swing.JPanel panelSettingsMethodsIntervalHolt;
     private javax.swing.JPanel panelSettingsMethodsSES;
+    private javax.swing.JPanel panelSettingsMethodsSESint;
     private javax.swing.JPanel panelSettingsMethodsVARint;
     private javax.swing.JPanel panelSettingsRBFMain;
     private javax.swing.JPanel panelSettingsRBFint_center;
@@ -3760,7 +3871,6 @@ public class MainFrame extends javax.swing.JFrame {
     private List<HoltIntParams> getParamsHoltInt(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsHolt_center,
                 JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsHolt_radius,
                 JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
-        //JPanel percentTrainSettingsPanel, JPanel panelSettingsHolt, JComboBox comboBoxColName
         List<HoltParams> resultListCenter = getParamsHolt(percentTrainSettingsPanel_center, panelSettingsHolt_center,
                 comboBoxColName_center);
         List<HoltParams> resultListRadius = getParamsHolt(percentTrainSettingsPanel_radius, panelSettingsHolt_radius,
@@ -3808,6 +3918,27 @@ public class MainFrame extends javax.swing.JFrame {
         
         setParamsGeneral(SESParams.class, resultList);
         ((SESSettingsPanel)main).setSpecificParams(SESParams.class, resultList);
+        
+        return resultList;
+    }
+    
+    private List<SESintParams> getParamsSESint(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsSES_center,
+                JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsSES_radius,
+                JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
+        List<SESParams> resultListCenter = getParamsSES(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsSES_center);
+        List<SESParams> resultListRadius = getParamsSES(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsSES_radius);
+        
+        SESintParams par = new SESintParams();
+        
+        List<SESintParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsCenter",
+                SESParams.class, resultListCenter);
+        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsRadius",
+                SESParams.class, resultListRadius);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(SESintParams.class, resultList);
         
         return resultList;
     }
