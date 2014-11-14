@@ -63,6 +63,7 @@ public class KNNcustomParams extends Params {
         KNNcustomParams param = new KNNcustomParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setCombinationMethodName(combinationMethodName);
         param.setDistanceMethodName(distanceMethodName);
         param.setLag(lag);

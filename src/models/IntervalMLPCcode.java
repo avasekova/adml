@@ -174,10 +174,8 @@ public class IntervalMLPCcode implements Forecastable {
             List<Double> testingPortionOfRadius = data.get(data.size() - 1).subList(numTrainingEntries, data.get(data.size() - 1).size());
             
             List<Interval> trainingIntervals = Utils.zipCentersRadiiToIntervals(trainingPortionOfCenter, trainingPortionOfRadius);
-            List<Double> errorsTrain = Utils.getErrorsForIntervals(trainingIntervals, forecastsTrain, params.getDistance());
             List<Interval> testingIntervals = Utils.zipCentersRadiiToIntervals(testingPortionOfCenter, testingPortionOfRadius);
-            List<Double> errorsTest = Utils.getErrorsForIntervals(testingIntervals, forecastsTest, params.getDistance());
-
+            
             
             
             
@@ -201,23 +199,9 @@ public class IntervalMLPCcode implements Forecastable {
             
             
 //            report.setForecastValuesFuture(); //nothing yet
-
-            errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
-            errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
-            errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
-            errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
-            errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
-            errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
-            errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
-            errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
-            errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(trainingIntervals, newForecastsTrain));
-            errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(testingIntervals, newForecastsTest));
-            errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(trainingIntervals, newForecastsTrain));
-            errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(testingIntervals, newForecastsTest));
-            errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(trainingIntervals, newForecastsTrain));
-            errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(testingIntervals, newForecastsTest));
-            errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(trainingIntervals, newForecastsTrain));
-            errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(testingIntervals, newForecastsTest));
+            
+            errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(trainingIntervals, testingIntervals, 
+                    newForecastsTrain, newForecastsTest, params.getDistance(), parameters.getSeasonality());
         }
         
         report.setErrorMeasures(errorMeasures);

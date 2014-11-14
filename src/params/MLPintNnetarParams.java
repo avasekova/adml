@@ -27,6 +27,7 @@ public class MLPintNnetarParams extends MLPintParams {
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setDistance(this.getDistance());
+        param.setSeasonality(this.getSeasonality());
         param.setNumForecasts(this.getNumForecasts());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);

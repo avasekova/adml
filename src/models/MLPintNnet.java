@@ -64,26 +64,9 @@ public class MLPintNnet implements Forecastable {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((MLPintNnetParams)parameters).getDistance());
-        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((MLPintNnetParams)parameters).getDistance());
-        
-        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
-        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
-        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
-        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
-        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
-        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
-        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
-        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(realOutputsIntervalTest, forecastsTest));
-        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(realOutputsIntervalTest, forecastsTest));
-        errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(realOutputsIntervalTest, forecastsTest));
-        errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
+        ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realOutputsIntervalTrain, 
+                realOutputsIntervalTest, fittedVals, forecastsTest, ((MLPintNnetParams)parameters).getDistance(), 
+                paramsCenter.getSeasonality());
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnet)");
         report.setModelDescription("(" + ((MLPintNnetParams)parameters).getDistance() + ")");

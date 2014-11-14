@@ -37,7 +37,8 @@ public class HoltInt implements Forecastable {
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realOutputsIntervalTrain, 
-                realOutputsIntervalTest, fittedVals, forecastsTest, ((HoltIntParams)parameters).getDistance());
+                realOutputsIntervalTest, fittedVals, forecastsTest, ((HoltIntParams)parameters).getDistance(), 
+                paramsCenter.getSeasonality());
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("Holt(i)");
         report.setModelDescription("(" + ((HoltIntParams)parameters).getDistance() + "," + 

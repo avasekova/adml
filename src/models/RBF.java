@@ -87,7 +87,7 @@ public class RBF implements Forecastable {
             
             ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
                     Utils.arrayToList(trainingOutputs), Utils.arrayToList(testingOutputs), 
-                    Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest));
+                    Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest), parameters.getSeasonality());
             report.setErrorMeasures(errorMeasures);
             
             //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.

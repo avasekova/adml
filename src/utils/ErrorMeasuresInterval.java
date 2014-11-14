@@ -2,7 +2,7 @@ package utils;
 
 public class ErrorMeasuresInterval extends ErrorMeasures {
     
-    private static final String[] NAMES = new String[]{ "Mean coverage", "Mean efficiency", "Theil's U(i)", "ARV(i)" };
+    private static final String[] NAMES = new String[]{ "RMSSE_1", "RMSSE_2", "Mean coverage", "Mean efficiency", "Theil's U(i)", "ARV(i)" };
     
     private double meanCoverageTrain;
     private double meanCoverageTest;
@@ -12,6 +12,10 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
     private double theilsUintervalTest;
     private double arvIntervalTrain;
     private double arvIntervalTest;
+    private double RMSSEtrain_1; //LB or C
+    private double RMSSEtest_1;  //UB or R
+    private double RMSSEtrain_2; //LB or C
+    private double RMSSEtest_2;  //UB or R
 
     public static int numberOfSupportedMeasures() {
         return NAMES.length + ErrorMeasures.numberOfSupportedMeasures();
@@ -89,6 +93,38 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
     public void setArvIntervalTest(double arvIntervalTest) {
         this.arvIntervalTest = arvIntervalTest;
     }
+
+    public double getRMSSEtrain_1() {
+        return RMSSEtrain_1;
+    }
+
+    public void setRMSSEtrain_1(double RMSSEtrain_1) {
+        this.RMSSEtrain_1 = RMSSEtrain_1;
+    }
+
+    public double getRMSSEtest_1() {
+        return RMSSEtest_1;
+    }
+
+    public void setRMSSEtest_1(double RMSSEtest_1) {
+        this.RMSSEtest_1 = RMSSEtest_1;
+    }
+
+    public double getRMSSEtrain_2() {
+        return RMSSEtrain_2;
+    }
+
+    public void setRMSSEtrain_2(double RMSSEtrain_2) {
+        this.RMSSEtrain_2 = RMSSEtrain_2;
+    }
+
+    public double getRMSSEtest_2() {
+        return RMSSEtest_2;
+    }
+
+    public void setRMSSEtest_2(double RMSSEtest_2) {
+        this.RMSSEtest_2 = RMSSEtest_2;
+    }
     
     @Override
     public double[] serializeToArray() {
@@ -99,6 +135,10 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
             measures[i] = super.serializeToArray()[i];
         }
         
+        measures[i] = RMSSEtrain_1; i++;
+        measures[i] = RMSSEtest_1; i++;
+        measures[i] = RMSSEtrain_2; i++;
+        measures[i] = RMSSEtest_2; i++;
         measures[i] = meanCoverageTrain; i++;
         measures[i] = meanCoverageTest; i++;
         measures[i] = meanEfficiencyTrain; i++;

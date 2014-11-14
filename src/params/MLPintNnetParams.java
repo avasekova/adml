@@ -37,6 +37,7 @@ public class MLPintNnetParams extends MLPintParams {
         param.setDataRangeTo(this.getDataRangeTo());
         param.setDistance(this.getDistance());
         param.setNumForecasts(this.getNumForecasts());
+        param.setSeasonality(this.getSeasonality());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
         param.setNumNetsToTrain(numNetsToTrain);

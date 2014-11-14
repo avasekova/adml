@@ -75,6 +75,7 @@ public class VARintParams extends Params {
         param.setDataRangeTo(this.getDataRangeTo());
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
+        param.setSeasonality(this.getSeasonality());
         param.setLag(lag);
         param.setType(type);
         param.setCenter(center);

@@ -157,6 +157,7 @@ public class NnetParams extends Params {
         NnetParams param = new NnetParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setAbstol(abstol);
         param.setCensoredOnElseOff(censoredOnElseOff);
         param.setHessian(hessian);

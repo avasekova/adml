@@ -36,6 +36,7 @@ public class KNNkknnParams extends Params {
         KNNkknnParams param = new KNNkknnParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setLag(lag);
         param.setMaxNeighbours(maxNeighbours);
         param.setNumForecasts(this.getNumForecasts());

@@ -77,23 +77,9 @@ public class KNNkknn implements Forecastable {
         double[] outputTest = getOutputTest.asDoubleArray();
         
         
-        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
-        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setMAPEtest(ErrorMeasuresUtils.MAPE(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setMASEtest(ErrorMeasuresUtils.MASE(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setMPEtest(ErrorMeasuresUtils.MPE(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
-        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Utils.arrayToList(outputTrain), Utils.arrayToList(trainingVals)));
-        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(outputTest), Utils.arrayToList(testingVals)));
+        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(outputTrain), 
+                Utils.arrayToList(outputTest), Utils.arrayToList(trainingVals), Utils.arrayToList(testingVals), 
+                parameters.getSeasonality());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (kknn)"); //MODEL$best.parameters$k
         report.setModelDescription("(" + bestK + ")");

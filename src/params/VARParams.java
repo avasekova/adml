@@ -69,6 +69,7 @@ public class VARParams extends Params {
         param.setDataRangeTo(this.getDataRangeTo());
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
+        param.setSeasonality(this.getSeasonality());
         param.setEndogenousVars(endogenousVars);
         param.setLag(lag);
         param.setType(type);

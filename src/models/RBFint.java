@@ -68,7 +68,8 @@ public class RBFint implements Forecastable {
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realOutputsIntervalTrain, 
-                realOutputsIntervalTest, fittedVals, forecastsTest, ((RBFintParams)parameters).getDistance());
+                realOutputsIntervalTest, fittedVals, forecastsTest, ((RBFintParams)parameters).getDistance(), 
+                paramsCenter.getSeasonality());
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("RBF(i)");
         report.setModelDescription("(" + ((RBFintParams)parameters).getDistance() + ")");

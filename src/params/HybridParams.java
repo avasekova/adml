@@ -48,6 +48,7 @@ public class HybridParams extends Params {
         param.setDataRangeTo(getDataRangeTo());
         param.setNumForecasts(getNumForecasts());
         param.setPercentTrain(getPercentTrain());
+        param.setSeasonality(this.getSeasonality());
         param.setDistance(distance);
         param.setNumNetsToTrain(numNetsToTrain);
         param.setParamsCenter(paramsCenter);

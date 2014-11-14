@@ -63,6 +63,7 @@ public class NnetarParams extends Params {
         NnetarParams param = new NnetarParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setLambda(lambda);
         param.setNumForecasts(this.getNumForecasts());
         param.setNumNodesHidden(numNodesHidden);

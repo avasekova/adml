@@ -78,6 +78,7 @@ import params.MLPintNnetarParams;
 import params.NeuralnetParams;
 import params.NnetParams;
 import params.NnetarParams;
+import params.Params;
 import params.RBFParams;
 import params.RBFintParams;
 import params.RandomWalkIntervalParams;
@@ -346,6 +347,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHolt = new javax.swing.JCheckBox();
         checkBoxRunHoltInt = new javax.swing.JCheckBox();
         checkBoxRunIntervalHolt = new javax.swing.JCheckBox();
+        checkBoxRunIncludeRMSSE = new javax.swing.JCheckBox();
+        textFieldRunRMSSESeasonality = new javax.swing.JTextField();
         panelModelDescriptions = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tabbedPaneModelDescriptions = new javax.swing.JTabbedPane();
@@ -1528,7 +1531,7 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 309, Short.MAX_VALUE)
+            .addGap(0, 311, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -1704,6 +1707,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunIntervalHolt.setText("iHolt");
 
+        checkBoxRunIncludeRMSSE.setText("include RMSSE with length of seasonality:");
+        checkBoxRunIncludeRMSSE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxRunIncludeRMSSEActionPerformed(evt);
+            }
+        });
+
+        textFieldRunRMSSESeasonality.setText("0");
+        textFieldRunRMSSESeasonality.setEnabled(false);
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1771,70 +1784,43 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunMLPnnetar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPneuralnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPnnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunRBF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(buttonTrainAndTest)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel44)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonRunRestoreRangeAll)
-                                        .addGap(81, 81, 81)
-                                        .addComponent(buttonRunExportErrorMeasures))
+                                        .addGap(129, 129, 129)
+                                        .addComponent(jLabel72))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunPlotAverageCTSperMethod)
+                                        .addComponent(checkBoxRunARIMA)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAverageCTS)
+                                        .addComponent(checkBoxRunKNNfnn)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunKNNcustom)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAverageIntTSperMethod)
+                                        .addComponent(checkBoxRunKNNkknn)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAverageIntTS)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAvgONLY))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunMLPnnetar)
+                                        .addComponent(checkBoxRunVAR)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPneuralnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPnnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunRBF)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addGap(129, 129, 129)
-                                                .addComponent(jLabel72))
-                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addComponent(checkBoxRunARIMA)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunKNNfnn)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(checkBoxRunKNNcustom)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunKNNkknn)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxRunVAR)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                .addComponent(checkBoxRunHolt))))
-                                    .addComponent(checkBoxRunHybrid)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunMLPintNnetar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPintNnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunRBFint)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunVARint)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunHoltInt)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel3)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(checkBoxRunHolt))))
+                            .addComponent(checkBoxRunHybrid)
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunMLPintNnetar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPintNnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunRBFint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunVARint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunHoltInt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3))
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunIntervalMLPCcode)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1846,7 +1832,40 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(checkBoxRunIntervalRandomWalk)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel133)))))
+                                .addComponent(jLabel133))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunPlotAverageCTSperMethod)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunPlotAverageCTS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunPlotAverageIntTSperMethod)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunPlotAverageIntTS))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(buttonTrainAndTest)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel9)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jLabel44)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonRunRestoreRangeAll)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunIncludeRMSSE, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldRunRMSSESeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunPlotAvgONLY)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(buttonRunExportErrorMeasures)))))))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -1926,29 +1945,33 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel43))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel71)
-                    .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonTrainAndTest)
-                    .addComponent(jLabel9)
-                    .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel44)
-                    .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(buttonRunExportErrorMeasures)
-                    .addComponent(buttonRunRestoreRangeAll))
+                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel71)
+                        .addComponent(textFieldRunNumForecasts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonTrainAndTest)
+                        .addComponent(jLabel9)
+                        .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel44)
+                        .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonRunRestoreRangeAll))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkBoxRunIncludeRMSSE)
+                        .addComponent(textFieldRunRMSSESeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel8))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunPlotAverageCTSperMethod)
                             .addComponent(checkBoxRunPlotAverageIntTSperMethod)
                             .addComponent(checkBoxRunPlotAvgONLY)
                             .addComponent(checkBoxRunPlotAverageCTS)
-                            .addComponent(checkBoxRunPlotAverageIntTS))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(checkBoxRunPlotAverageIntTS)
+                            .addComponent(buttonRunExportErrorMeasures))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -2916,6 +2939,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
         panelSettingsHybrid_radiusMain.repaint();
     }//GEN-LAST:event_comboBoxSettingsHybridMethod_radiusActionPerformed
+
+    private void checkBoxRunIncludeRMSSEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunIncludeRMSSEActionPerformed
+        if (checkBoxRunIncludeRMSSE.isSelected()) {
+            textFieldRunRMSSESeasonality.setEnabled(true);
+        } else {
+            textFieldRunRMSSESeasonality.setEnabled(false);
+        }
+    }//GEN-LAST:event_checkBoxRunIncludeRMSSEActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -2982,6 +3013,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunHolt;
     private javax.swing.JCheckBox checkBoxRunHoltInt;
     private javax.swing.JCheckBox checkBoxRunHybrid;
+    private javax.swing.JCheckBox checkBoxRunIncludeRMSSE;
     private javax.swing.JCheckBox checkBoxRunIntervalHolt;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPCcode;
     private javax.swing.JCheckBox checkBoxRunIntervalMLPneuralnet;
@@ -3203,6 +3235,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldRunDataRangeFrom;
     private javax.swing.JTextField textFieldRunDataRangeTo;
     private javax.swing.JTextField textFieldRunNumForecasts;
+    private javax.swing.JTextField textFieldRunRMSSESeasonality;
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
@@ -3239,6 +3272,21 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
+    private <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
+        SettingsPanel.setSomethingList(classss, resultList, "setNumForecasts", 
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+        SettingsPanel.setSomethingList(classss, resultList, "setDataRangeFrom",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+        SettingsPanel.setSomethingList(classss, resultList, "setDataRangeTo",
+                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        Integer seasonality = 0;
+        if (checkBoxRunIncludeRMSSE.isSelected()) {
+            seasonality = Integer.parseInt(textFieldRunRMSSESeasonality.getText());
+        }
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setSeasonality",
+                Integer.class, seasonality);
+    }
+    
     //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
     private List<NnetarParams> getParamsNnetar(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnetar) {
@@ -3250,12 +3298,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetarParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetarParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(NnetarParams.class, resultList);
         ((MLPNnetarSettingsPanel)panelSettingsNnetar).setSpecificParams(NnetarParams.class, resultList);
         
         return resultList;
@@ -3290,12 +3333,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<NnetParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(NnetParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(NnetParams.class, resultList);
         ((MLPNnetSettingsPanel)panelSettingsNnet).setSpecificParams(NnetParams.class, resultList);
         
         return resultList;
@@ -3310,12 +3348,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(IntervalMLPCcodeParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(IntervalMLPCcodeParams.class, resultList);
         ((IntMLPCcodeSettingsPanel)panelSettingsIMLPCcode).setSpecificParams(IntervalMLPCcodeParams.class, resultList);
         
         //TODO add the criterion here
@@ -3383,12 +3416,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<ArimaParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(ArimaParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(ArimaParams.class, resultList);
         ((ARIMASettingsPanel)panelSettingsArima).setSpecificParams(ArimaParams.class, resultList);
         
         return resultList;
@@ -3424,12 +3452,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<KNNfnnParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNfnnParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(KNNfnnParams.class, resultList);
         ((KNNFNNSettingsPanel)panelSettingsKNNfnn).setSpecificParams(KNNfnnParams.class, resultList);
         
         return resultList;
@@ -3445,12 +3468,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<KNNkknnParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(KNNkknnParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(KNNkknnParams.class, resultList);
         ((KNNkknnSettingsPanel)panelSettingsKNNkknn).setSpecificParams(KNNkknnParams.class, resultList);
         
         return resultList;
@@ -3464,12 +3482,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<VARParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(VARParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(VARParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(VARParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(VARParams.class, resultList);
         ((VARSettingsPanel)panelSettingsVAR).setSpecificParams(VARParams.class, resultList);
         //TODO prehodit dnu?
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
@@ -3495,12 +3508,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<VARintParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(VARintParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(VARintParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(VARintParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(VARintParams.class, resultList);
         ((VARintSettingsPanel)panelSettingsVARint).setSpecificParams(VARintParams.class, resultList);
         ((DistanceSettingsPanel)distanceSettingsPanel).setSpecificParams(VARintParams.class, resultList);
         
@@ -3516,12 +3524,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<RBFParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(RBFParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(RBFParams.class, resultList);
         ((RBFSettingsPanel)panelSettingsRBF).setSpecificParams(RBFParams.class, resultList);
         //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
         CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
@@ -3693,12 +3696,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<HoltParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(HoltParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(HoltParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(HoltParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(HoltParams.class, resultList);
         ((HoltSettingsPanel)panelSettingsHolt).setSpecificParams(HoltParams.class, resultList);
         
         return resultList;
@@ -3737,12 +3735,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<IntervalHoltParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        SettingsPanel.setSomethingList(IntervalHoltParams.class, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(IntervalHoltParams.class, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
-        SettingsPanel.setSomethingList(IntervalHoltParams.class, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+        setParamsGeneral(IntervalHoltParams.class, resultList);
         ((IntHoltSettingsPanel)panelSettingsHolt).setSpecificParams(IntervalHoltParams.class, resultList);
         ((DistanceSettingsPanel)distancePanel).setSpecificParams(IntervalHoltParams.class, resultList);
         

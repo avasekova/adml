@@ -96,27 +96,9 @@ public class Hybrid implements Forecastable {
         }
         
         
-        List<Double> errorsTrain = Utils.getErrorsForIntervals(realOutputsIntervalTrain, fittedVals, ((HybridParams)parameters).getDistance());
-        List<Double> errorsTest = Utils.getErrorsForIntervals(realOutputsIntervalTest, forecastsTest, ((HybridParams)parameters).getDistance());
+        ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realOutputsIntervalTrain, 
+                realOutputsIntervalTest, fittedVals, forecastsTest, ((HybridParams)parameters).getDistance(), parameters.getSeasonality());
         
-        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
-        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
-        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
-        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
-        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
-        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
-        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
-        errorMeasures.setMeanCoverageTrain(ErrorMeasuresUtils.meanCoverage(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setMeanCoverageTest(ErrorMeasuresUtils.meanCoverage(realOutputsIntervalTest, forecastsTest));
-        errorMeasures.setMeanEfficiencyTrain(ErrorMeasuresUtils.meanEfficiency(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setMeanEfficiencyTest(ErrorMeasuresUtils.meanEfficiency(realOutputsIntervalTest, forecastsTest));
-        errorMeasures.setTheilsUintervalTrain(ErrorMeasuresUtils.theilsUInterval(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setTheilsUintervalTest(ErrorMeasuresUtils.theilsUInterval(realOutputsIntervalTest, forecastsTest));
-        errorMeasures.setArvIntervalTrain(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTrain, fittedVals));
-        errorMeasures.setArvIntervalTest(ErrorMeasuresUtils.ARVinterval(realOutputsIntervalTest, forecastsTest));
-
         TrainAndTestReportInterval report = new TrainAndTestReportInterval("Hybrid(i)");
         report.setModelDescription("(" + reportCenter + "+" + reportRadius + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());

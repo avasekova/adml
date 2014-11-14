@@ -57,6 +57,7 @@ public class IntervalHoltParams extends Params {
         param.setDataRangeTo(this.getDataRangeTo());
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
+        param.setSeasonality(this.getSeasonality());
         param.setColNameCenter(colNameCenter);
         param.setColNameRadius(colNameRadius);
         param.setAlpha(alpha);

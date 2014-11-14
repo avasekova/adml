@@ -184,7 +184,7 @@ public class PlotDrawer {
                         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils
                                 .computeAllErrorMeasuresCrisp(Utils.arrayToList(l.get(0).getRealOutputsTrain()),
                                 Utils.arrayToList(l.get(0).getRealOutputsTest()), Utils.arrayToList(fittedValsAvg),
-                                Utils.arrayToList(forecastValsTestAvg));
+                                Utils.arrayToList(forecastValsTestAvg), 0);
                         thisAvgReport.setErrorMeasures(errorMeasures);
                         REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
                         double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
@@ -489,7 +489,7 @@ public class PlotDrawer {
                         List<Interval> realValuesTest = Utils.zipLowerUpperToIntervals(realValuesLowersTest, realValuesUppersTest);
 
                         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValuesTrain, 
-                                realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5));
+                                realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                         //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
                         
                         TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)");

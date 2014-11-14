@@ -88,7 +88,7 @@ public class Nnetar implements Forecastable {
         //TODO mozno iba accuracy(model) miesto accuracy(model, testingData)? zistit!!!
         REXP getAcc = rengine.eval("forecast::accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
         // tam pribudla aj ACF a niekedy robi problemy
-        double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
+//        double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
         //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
         //nova verzia vracia aj ACF1
         
@@ -97,24 +97,8 @@ public class Nnetar implements Forecastable {
         double[] fitted = getFittedVals.asDoubleArray();
         report.setFittedValues(fitted);
         
-        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
-        errorMeasures.setMEtrain(acc[0]);
-        errorMeasures.setMEtest(acc[1]);
-        errorMeasures.setRMSEtrain(acc[2]);
-        errorMeasures.setRMSEtest(acc[3]);
-        errorMeasures.setMAEtrain(acc[4]);
-        errorMeasures.setMAEtest(acc[5]);
-        errorMeasures.setMPEtrain(acc[6]);
-        errorMeasures.setMPEtest(acc[7]);
-        errorMeasures.setMAPEtrain(acc[8]);
-        errorMeasures.setMAPEtest(acc[9]);
-        errorMeasures.setMASEtrain(acc[10]);
-        errorMeasures.setMASEtest(acc[11]);
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(fitted)));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(Utils.arrayToList(testingOutputs), forecastTest));
-        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Utils.arrayToList(trainingOutputs),
-                Utils.arrayToList(fitted)));
-        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), forecastTest));
+        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 
+                Utils.arrayToList(testingOutputs), Utils.arrayToList(fitted), forecastTest, parameters.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
         

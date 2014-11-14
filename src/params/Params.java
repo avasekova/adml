@@ -6,6 +6,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
     private int numForecasts;
     private int dataRangeFrom;
     private int dataRangeTo;
+    private Integer seasonality = 0;
     
     public Params() { }
     
@@ -44,6 +45,14 @@ public class Params { //do not add futureForecastValues to params - no need to. 
     public void setDataRangeTo(Integer dataRangeTo) {
         this.dataRangeTo = dataRangeTo;
     }
+
+    public Integer getSeasonality() {
+        return seasonality;
+    }
+
+    public void setSeasonality(Integer seasonality) {
+        this.seasonality = seasonality;
+    }
     
     public Params getClone() {
         Params param = new Params();
@@ -51,6 +60,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
         param.setDataRangeTo(dataRangeTo);
         param.setNumForecasts(numForecasts);
         param.setPercentTrain(percentTrain);
+        param.setSeasonality(seasonality);
         
         return param;
     }

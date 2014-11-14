@@ -80,7 +80,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
 
             ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
                     Utils.arrayToList(realOutput), new ArrayList<Double>(),
-                    Utils.arrayToList(fittedOutput), new ArrayList<Double>());
+                    Utils.arrayToList(fittedOutput), new ArrayList<Double>(), params.getSeasonality());
             report.setErrorMeasures(errorMeasures);
 
 

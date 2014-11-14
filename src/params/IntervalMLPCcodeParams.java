@@ -69,6 +69,7 @@ public class IntervalMLPCcodeParams extends Params {
         IntervalMLPCcodeParams param = new IntervalMLPCcodeParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setDistance(distance);
         param.setExplVars(explVars);
         param.setNumForecasts(this.getNumForecasts());

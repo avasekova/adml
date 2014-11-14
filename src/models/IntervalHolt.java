@@ -86,7 +86,7 @@ public class IntervalHolt implements Forecastable {
         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(
                 Utils.zipCentersRadiiToIntervals(inputTrainCenter, inputTrainRadius), 
                 Utils.zipCentersRadiiToIntervals(inputTestCenter, inputTestRadius), 
-                fittedIntervals, forecastsTest, params.getDistance());
+                fittedIntervals, forecastsTest, params.getDistance(), params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
         return report;

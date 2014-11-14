@@ -162,6 +162,46 @@ public class ErrorMeasuresUtils {
         return sum/(forecastData.size() - countNaN);
     }
     
+    public static double RMSSE(List<Double> rData, List<Double> fData, int seasonality) {
+        List<Double> realData = new ArrayList<>();
+        List<Double> forecastData = new ArrayList<>();
+        
+        //najprv "zmazat" vsetky NaN
+        for (int i = 0; i < fData.size(); i++) {
+            if (!(rData.get(i).isNaN()) && !(fData.get(i).isNaN())) {
+                realData.add(rData.get(i));
+                forecastData.add(fData.get(i));
+            }
+        }
+        
+        List<Double> errors = new ArrayList<>();
+        
+        //TODO revise the indices
+        double denominator = 0;
+        for (int i = (seasonality-1); i < forecastData.size(); i++) {
+            double item = realData.get(i-(seasonality-1)) + ((realData.get(i-1) - realData.get(i-(seasonality-1))) 
+                                                             - (realData.get(i-2) - realData.get(i-(seasonality-2))));
+            
+            denominator += Math.pow(item,2);
+        }
+        
+        denominator /= (forecastData.size() - seasonality);
+        
+        for (int i = 0; i < forecastData.size(); i++) {
+            double numerator = Math.pow(realData.get(i)-forecastData.get(i),2);
+            errors.add(numerator/denominator);
+        }
+        
+        double mean = 0;
+        for (Double e : errors) {
+            mean += e;
+        }
+        
+        mean /= errors.size();
+        
+        return Math.sqrt(mean);
+    }
+    
     public static double theilsU(List<Double> rData, List<Double> fData) {
         List<Double> realData = new ArrayList<>();
         List<Double> forecastData = new ArrayList<>();
@@ -388,7 +428,8 @@ public class ErrorMeasuresUtils {
     }
     
     public static ErrorMeasuresCrisp computeAllErrorMeasuresCrisp(List<Double> realDataTrain, List<Double> realDataTest,
-                                                                  List<Double> fittedTrain, List<Double> forecastsTest) {
+                                                                  List<Double> fittedTrain, List<Double> forecastsTest, 
+                                                                  Integer seasonality) {
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMEtrain(ME(realDataTrain, fittedTrain));
         errorMeasures.setMEtest(ME(realDataTest, forecastsTest));
@@ -406,13 +447,20 @@ public class ErrorMeasuresUtils {
         errorMeasures.setMSEtest(MSE(realDataTest, forecastsTest));
         errorMeasures.setTheilUtrain(theilsU(realDataTrain, fittedTrain));
         errorMeasures.setTheilUtest(theilsU(realDataTest, forecastsTest));
+        if (seasonality == 0) {
+            errorMeasures.setRMSSEtrain(0);
+            errorMeasures.setRMSSEtest(0);
+        } else {
+            errorMeasures.setRMSSEtrain(RMSSE(realDataTrain, fittedTrain, seasonality));
+            errorMeasures.setRMSSEtest(RMSSE(realDataTest, forecastsTest, seasonality));
+        }
         
         return errorMeasures;
     }
     
     public static ErrorMeasuresInterval computeAllErrorMeasuresInterval(List<Interval> realDataTrain, List<Interval> realDataTest,
                                                                         List<Interval> fittedTrain, List<Interval> forecastsTest,
-                                                                        Distance distance) {
+                                                                        Distance distance, Integer seasonality) {
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
         
         List<Double> errorsTrain = Utils.getErrorsForIntervals(realDataTrain, fittedTrain, distance);
@@ -434,6 +482,21 @@ public class ErrorMeasuresUtils {
         errorMeasures.setTheilsUintervalTest(theilsUInterval(realDataTest, forecastsTest));
         errorMeasures.setArvIntervalTrain(ARVinterval(realDataTrain, fittedTrain));
         errorMeasures.setArvIntervalTest(ARVinterval(realDataTest, forecastsTest));
+        List<List<Double>> splitRealDataTrain = Utils.getFirstSecondFromIntervals(realDataTrain);
+        List<List<Double>> splitRealDataTest = Utils.getFirstSecondFromIntervals(realDataTest);
+        List<List<Double>> splitFitTrain = Utils.getFirstSecondFromIntervals(fittedTrain);
+        List<List<Double>> splitForecastTest = Utils.getFirstSecondFromIntervals(forecastsTest);
+        if (seasonality == 0) {
+            errorMeasures.setRMSSEtrain_1(0);
+            errorMeasures.setRMSSEtrain_2(0);
+            errorMeasures.setRMSSEtest_1(0);
+            errorMeasures.setRMSSEtest_2(0);
+        } else {
+            errorMeasures.setRMSSEtrain_1(RMSSE(splitRealDataTrain.get(0), splitFitTrain.get(0), seasonality));
+            errorMeasures.setRMSSEtrain_2(RMSSE(splitRealDataTrain.get(1), splitFitTrain.get(1), seasonality));
+            errorMeasures.setRMSSEtest_1(RMSSE(splitRealDataTest.get(0), splitForecastTest.get(0), seasonality));
+            errorMeasures.setRMSSEtest_2(RMSSE(splitRealDataTest.get(1), splitForecastTest.get(1), seasonality));
+        }
         
         return errorMeasures;
     }

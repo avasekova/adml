@@ -102,7 +102,8 @@ public class VARint implements Forecastable {
         report.setForecastValuesFuture(forecastsFuture);
         
         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(
-                realOutputsTrain, realOutpustTest, fitted, forecastsTest, params.getDistance());
+                realOutputsTrain, realOutpustTest, fitted, forecastsTest, params.getDistance(), 
+                params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
         

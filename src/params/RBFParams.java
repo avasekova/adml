@@ -49,6 +49,7 @@ public class RBFParams extends Params {
         RBFParams param = new RBFParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setExplVars(explVars);
         param.setNumForecasts(this.getNumForecasts());
         param.setNumNodesHidden(numNodesHidden);

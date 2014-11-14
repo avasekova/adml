@@ -37,6 +37,7 @@ public class HoltParams extends Params {
         param.setDataRangeTo(this.getDataRangeTo());
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
+        param.setSeasonality(this.getSeasonality());
         param.setColName(colName);
         param.setAlpha(alpha);
         param.setBeta(beta);

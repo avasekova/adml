@@ -90,6 +90,7 @@ public class ArimaParams extends Params {
         ArimaParams param = new ArimaParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
+        param.setSeasonality(this.getSeasonality());
         param.setNonSeasDonkey(nonSeasDonkey);
         param.setNonSeasPotato(nonSeasPotato);
         param.setNonSeasQuark(nonSeasQuark);

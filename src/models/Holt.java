@@ -66,7 +66,7 @@ public class Holt implements Forecastable {
         report.setRealOutputsTest(Utils.listToArray(inputTest));
         
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(inputTrain, inputTest, 
-                Utils.arrayToList(fittedVals), forecastTest);
+                Utils.arrayToList(fittedVals), forecastTest, params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
         return report;

@@ -283,6 +283,27 @@ public class Utils {
         return intervals;
     }
     
+    public static List<List<Double>> getFirstSecondFromIntervals(List<Interval> intervals) {
+        List<Double> first = new ArrayList<>();
+        List<Double> second = new ArrayList<>();
+        
+        for (Interval i : intervals) {
+            if (i instanceof IntervalCentreRadius) {
+                first.add(i.getCentre());
+                second.add(i.getRadius());
+            } else { //LB+UB
+                first.add(i.getLowerBound());
+                second.add(i.getUpperBound());
+            }
+        }
+        
+        List<List<Double>> resultEeew = new ArrayList<>();
+        resultEeew.add(first);
+        resultEeew.add(second);
+        
+        return resultEeew;
+    }
+    
     //riadne skareda, vrati v jednom dlhom liste najprv lower, potom upper, a treba ho sublistnut na prvu a druhu polku
     public static List<Double> getLowersUppersFromCentersRadii(List<Double> centers, List<Double> radii) {
         List<Double> lowers = new ArrayList<>();

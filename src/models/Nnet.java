@@ -124,7 +124,8 @@ public class Nnet implements Forecastable {
         
         
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs),
-                Utils.arrayToList(testingOutputs), Utils.arrayToList(fittedVals), Utils.arrayToList(forecastVals));
+                Utils.arrayToList(testingOutputs), Utils.arrayToList(fittedVals), Utils.arrayToList(forecastVals), 
+                params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
         //s expl vars zatial nebudem pocitat forecasty: zakomentovane

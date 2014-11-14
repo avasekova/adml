@@ -113,23 +113,9 @@ public class KNNfnn implements Forecastable {
         //TODO check the error measures, pretoze si myslim, ze to napriklad nepocita s tym posunom kvoli lagu. a potom
         // napriklad pre test data mam len par pozorovani, ale priemerne errory delim celkovym poctom testov, a vychadzaju
         // mi velmi male errory. bud je chybny graf alebo pocitanie errorov, pretoze na grafe su vyssie hodnoty
-        ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
-        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(Utils.arrayToList(residualsTrain)));
-        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTest)));
-        errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(predictedTrain)));
-        errorMeasures.setMAPEtest(ErrorMeasuresUtils.MAPE(Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTest)));
-        errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(predictedTrain)));
-        errorMeasures.setMASEtest(ErrorMeasuresUtils.MASE(Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTest)));
-        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(Utils.arrayToList(residualsTrain)));
-        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(Utils.arrayToList(residualsTest)));
-        errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(Utils.arrayToList(trainingOutputs), Utils.arrayToList(predictedTrain)));
-        errorMeasures.setMPEtest(ErrorMeasuresUtils.MPE(Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTest)));
-        errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(Utils.arrayToList(residualsTrain)));
-        errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(Utils.arrayToList(residualsTest)));
-        errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(Utils.arrayToList(residualsTrain)));
-        errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(Utils.arrayToList(residualsTest)));
-        errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(Utils.arrayToList(trainingOutputs), Utils.arrayToList(predictedTrain)));
-        errorMeasures.setTheilUtest(ErrorMeasuresUtils.theilsU(Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTest)));
+        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 
+                Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTrain), Utils.arrayToList(predictedTest), 
+                parameters.getSeasonality());
         
         report.setErrorMeasures(errorMeasures);
         
