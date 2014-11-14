@@ -808,13 +808,16 @@ public class PlotDrawer {
         StringBuilder rangesY = new StringBuilder("range(c(");
         boolean next = false;
         for (TrainAndTestReportCrisp r : reports) {
-            if (next) {
+            if (next && (r.getFittedValues().length > 0)) {
                 rangesY.append(", ");
             } else {
                 next = true;
             }
-            rangesY.append(Utils.minArray(r.getFittedValues())).append(", ");
-            rangesY.append(Utils.maxArray(r.getFittedValues()));
+            
+            if (r.getFittedValues().length > 0) {
+                rangesY.append(Utils.minArray(r.getFittedValues())).append(", ");
+                rangesY.append(Utils.maxArray(r.getFittedValues()));
+            }
             
             if (r.getForecastValuesTest().length > 0) {
                 rangesY.append(", ");
@@ -829,9 +832,12 @@ public class PlotDrawer {
             }
         }
         //a zahrnut aj povodne data:
-        rangesY.append(", ").append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
+        if (rangesY.length() > 8) { //velmi hlupy a ohavny sposob, ako zistovat, ze tam nic neni
+            rangesY.append(", ");
+        }
+        rangesY.append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
         rangesY.append("))");
-        
+        System.out.println(rangesY);
         return rangesY.toString();
     }
     

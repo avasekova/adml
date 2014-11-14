@@ -4,7 +4,7 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
 
     private double[] realOutputsTrain;
     private double[] realOutputsTest;
-    private double[] fittedValues;
+    private double[] fittedValues = new double[] {};
     private double[] forecastValuesTest = new double[] {};
     private double[] forecastValuesFuture = new double[] {};
     private String plotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
