@@ -1,26 +1,8 @@
 package params;
 
-public class HoltParams extends Params {
+public class HoltParams extends SESParams {
     
-    private String colName;
-    private String alpha;
     private String beta;
-
-    public String getColName() {
-        return colName;
-    }
-
-    public void setColName(String colName) {
-        this.colName = colName;
-    }
-    
-    public String getAlpha() {
-        return alpha;
-    }
-
-    public void setAlpha(String alpha) {
-        this.alpha = alpha;
-    }
 
     public String getBeta() {
         return beta;
@@ -38,8 +20,8 @@ public class HoltParams extends Params {
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
         param.setSeasonality(this.getSeasonality());
-        param.setColName(colName);
-        param.setAlpha(alpha);
+        param.setColName(this.getColName());
+        param.setAlpha(this.getAlpha());
         param.setBeta(beta);
         
         return param;
@@ -47,6 +29,6 @@ public class HoltParams extends Params {
 
     @Override
     public String toString() {
-        return "HoltParams{" + "alpha=" + alpha + ", beta=" + beta + "}\n";
+        return "HoltParams{" + "alpha=" + getAlpha() + ", beta=" + beta + "}\n";
     }
 }
