@@ -837,7 +837,7 @@ public class PlotDrawer {
         }
         rangesY.append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
         rangesY.append("))");
-        System.out.println(rangesY);
+        
         return rangesY.toString();
     }
     
