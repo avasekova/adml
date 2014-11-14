@@ -47,6 +47,7 @@ import models.Forecastable;
 import models.Holt;
 import models.HoltInt;
 import models.HoltWinters;
+import models.HoltWintersInt;
 import models.Hybrid;
 import models.IntervalHolt;
 import models.IntervalMLPCcode;
@@ -73,6 +74,7 @@ import params.ArimaParams;
 import params.BasicStats;
 import params.HoltIntParams;
 import params.HoltParams;
+import params.HoltWintersIntParams;
 import params.HoltWintersParams;
 import params.HybridParams;
 import params.IntervalHoltParams;
@@ -286,6 +288,15 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMethodsHoltWinters = new javax.swing.JPanel();
         panelHoltWintersPercentTrain = new PercentTrainSettingsPanel();
         panelHoltWintersInside = new HoltWintersSettingsPanel();
+        panelSettingsMethodsHoltWintersInt = new javax.swing.JPanel();
+        jLabel52 = new javax.swing.JLabel();
+        panelHoltWintersIntPercentTrain = new PercentTrainSettingsPanel();
+        panelHoltWintersIntDistance = new DistanceSettingsPanel();
+        jLabel158 = new javax.swing.JLabel();
+        panelHoltWintersInt_center = new HoltWintersSettingsPanel();
+        jSeparator8 = new javax.swing.JSeparator();
+        panelHoltWintersInt_radius = new HoltWintersSettingsPanel();
+        jLabel159 = new javax.swing.JLabel();
         paneSettingsMethodsHybrid = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         comboBoxSettingsHybridMethod_center = new javax.swing.JComboBox();
@@ -377,6 +388,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunSES = new javax.swing.JCheckBox();
         checkBoxRunSESint = new javax.swing.JCheckBox();
         checkBoxRunHoltWinters = new javax.swing.JCheckBox();
+        checkBoxRunHoltWintersInt = new javax.swing.JCheckBox();
         panelModelDescriptions = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tabbedPaneModelDescriptions = new javax.swing.JTabbedPane();
@@ -773,7 +785,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(1213, Short.MAX_VALUE))
+                .addContainerGap(1203, Short.MAX_VALUE))
         );
         panelSettingsMLPPackage_neuralnetLayout.setVerticalGroup(
             panelSettingsMLPPackage_neuralnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -845,7 +857,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(jLabel100)
-                        .addGap(0, 555, Short.MAX_VALUE))
+                        .addGap(0, 545, Short.MAX_VALUE))
                     .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -893,7 +905,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(jLabel88)
-                        .addGap(0, 632, Short.MAX_VALUE))
+                        .addGap(0, 622, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -959,7 +971,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(textFieldNumNetworksToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(151, 151, 151))))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 1280, Short.MAX_VALUE))
+                .addGap(0, 1270, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
             paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1064,7 +1076,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 744, Short.MAX_VALUE))
+                        .addGap(0, 734, Short.MAX_VALUE))
                     .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1129,7 +1141,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(jLabel151)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE))
+                            .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
                         .addGap(130, 130, 130))))
         );
         paneSettingsMethodsRBFintLayout.setVerticalGroup(
@@ -1174,7 +1186,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
                     .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1218,7 +1230,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel64)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 650, Short.MAX_VALUE)))
+                                .addGap(0, 640, Short.MAX_VALUE)))
                         .addGap(510, 510, 510))
                     .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
                         .addComponent(panelKNNPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1251,7 +1263,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsVARMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(panelSettingsVARMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -1288,7 +1300,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                         .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)))
+                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsVARintLayout.setVerticalGroup(
@@ -1314,7 +1326,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsSESLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsSESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
                     .addComponent(panelSESmain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1353,7 +1365,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
                         .addComponent(panelSESintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsSESintLayout.createSequentialGroup()
                         .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
@@ -1400,7 +1412,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsHoltLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
                     .addComponent(panelHoltInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1439,7 +1451,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsHoltIntLayout.createSequentialGroup()
                         .addComponent(panelHoltIntPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelHoltIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                        .addComponent(panelHoltIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsHoltIntLayout.createSequentialGroup()
                         .addGroup(panelSettingsMethodsHoltIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsHoltIntLayout.createSequentialGroup()
@@ -1495,7 +1507,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                         .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelIntervalHoltDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
+                        .addComponent(panelIntervalHoltDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
                     .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1528,7 +1540,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsHoltWintersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsHoltWintersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1260, Short.MAX_VALUE)
+                    .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
                     .addComponent(panelHoltWintersInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1543,6 +1555,69 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         paneSettingsMethods.addTab("Holt-Winters", panelSettingsMethodsHoltWinters);
+
+        jLabel52.setText("Constructs an interval out of two separate forecasts for Center and Radius.");
+
+        jLabel158.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel158.setText("Center:");
+
+        jSeparator8.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        jLabel159.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel159.setText("Radius:");
+
+        javax.swing.GroupLayout panelSettingsMethodsHoltWintersIntLayout = new javax.swing.GroupLayout(panelSettingsMethodsHoltWintersInt);
+        panelSettingsMethodsHoltWintersInt.setLayout(panelSettingsMethodsHoltWintersIntLayout);
+        panelSettingsMethodsHoltWintersIntLayout.setHorizontalGroup(
+            panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                        .addComponent(jLabel52)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                        .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelHoltWintersIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                        .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                                .addComponent(jLabel158)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(panelHoltWintersInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel159)
+                            .addComponent(panelHoltWintersInt_radius, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap())
+        );
+        panelSettingsMethodsHoltWintersIntLayout.setVerticalGroup(
+            panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel52)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelHoltWintersIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                        .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel158)
+                            .addComponent(jLabel159))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelHoltWintersInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, 492, Short.MAX_VALUE)
+                            .addComponent(panelHoltWintersInt_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jSeparator8))
+                .addContainerGap())
+        );
+
+        paneSettingsMethods.addTab("Holt-Winters(i)", panelSettingsMethodsHoltWintersInt);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
@@ -1862,6 +1937,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunHoltWinters.setText("Holt-Winters");
 
+        checkBoxRunHoltWintersInt.setText("Holt-Winters(i)");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -2018,6 +2095,8 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(checkBoxRunHoltInt)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunHoltWintersInt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel3)))
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
@@ -2054,7 +2133,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(checkBoxRunVARint)
                             .addComponent(checkBoxRunHoltInt)
-                            .addComponent(checkBoxRunSESint))
+                            .addComponent(checkBoxRunSESint)
+                            .addComponent(checkBoxRunHoltWintersInt))
                         .addGap(18, 18, 18)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunKNNinterval)
@@ -2868,6 +2948,27 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
+        if (checkBoxRunHoltWintersInt.isSelected()) {
+            try {
+                List<HoltWintersIntParams> params = getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
+                        panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
+                        panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
+
+                showDialogTooManyModelsInCase(params.size(), "Holt-Winters(i)");
+                if (continueWithTooManyModels) {
+                    //run two separate forecasts, one for Center and the other for Radius
+                    Forecastable holtWintersInt = new HoltWintersInt();
+
+                    for (HoltWintersIntParams p : params) {
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (holtWintersInt.forecast(dataTableModel, p));
+                        reportsIntTS.add(report);
+                    }
+                }
+            } catch (IllegalArgumentException e) {
+                //TODO log alebo nieco
+            }
+        }
+        
         //add more methods/models here
 
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
@@ -3228,6 +3329,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunHolt;
     private javax.swing.JCheckBox checkBoxRunHoltInt;
     private javax.swing.JCheckBox checkBoxRunHoltWinters;
+    private javax.swing.JCheckBox checkBoxRunHoltWintersInt;
     private javax.swing.JCheckBox checkBoxRunHybrid;
     private javax.swing.JCheckBox checkBoxRunIncludeRMSSE;
     private javax.swing.JCheckBox checkBoxRunIntervalHolt;
@@ -3289,6 +3391,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel155;
     private javax.swing.JLabel jLabel156;
     private javax.swing.JLabel jLabel157;
+    private javax.swing.JLabel jLabel158;
+    private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
@@ -3304,6 +3408,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
@@ -3329,6 +3434,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JTable jTableData;
     private javax.swing.JLabel labelRunFakeIntCenter;
     private javax.swing.JLabel labelRunFakeIntLower;
@@ -3368,6 +3474,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelHoltInt_radius;
     private javax.swing.JPanel panelHoltPercentTrain;
     private javax.swing.JPanel panelHoltWintersInside;
+    private javax.swing.JPanel panelHoltWintersIntDistance;
+    private javax.swing.JPanel panelHoltWintersIntPercentTrain;
+    private javax.swing.JPanel panelHoltWintersInt_center;
+    private javax.swing.JPanel panelHoltWintersInt_radius;
     private javax.swing.JPanel panelHoltWintersPercentTrain;
     private javax.swing.JPanel panelIntMLPPercentTrain;
     private javax.swing.JPanel panelIntervalHoltDistance;
@@ -3431,6 +3541,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMethodsHolt;
     private javax.swing.JPanel panelSettingsMethodsHoltInt;
     private javax.swing.JPanel panelSettingsMethodsHoltWinters;
+    private javax.swing.JPanel panelSettingsMethodsHoltWintersInt;
     private javax.swing.JPanel panelSettingsMethodsIntervalHolt;
     private javax.swing.JPanel panelSettingsMethodsSES;
     private javax.swing.JPanel panelSettingsMethodsSESint;
@@ -4038,6 +4149,27 @@ public class MainFrame extends javax.swing.JFrame {
         
         setParamsGeneral(HoltWintersParams.class, resultList);
         ((HoltWintersSettingsPanel)panelSettingsHoltWint).setSpecificParams(HoltWintersParams.class, resultList);
+        
+        return resultList;
+    }
+    
+    private List<HoltWintersIntParams> getParamsHoltWintersInt(JPanel percentTrainSettingsPanel_center, 
+                JPanel panelSettingsHolt_center, JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, 
+                JPanel panelSettingsHolt_radius, JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
+        List<HoltWintersParams> resultListCenter = getParamsHoltWinters(percentTrainSettingsPanel_center, 
+                panelSettingsHolt_center, comboBoxColName_center);
+        List<HoltWintersParams> resultListRadius = getParamsHoltWinters(percentTrainSettingsPanel_radius, 
+                panelSettingsHolt_radius, comboBoxColName_radius);
+        
+        HoltWintersIntParams par = new HoltWintersIntParams();
+        
+        List<HoltWintersIntParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        SettingsPanel.setSomethingList(HoltWintersIntParams.class, resultList, "setParamsCenter",
+                HoltWintersParams.class, resultListCenter);
+        SettingsPanel.setSomethingList(HoltWintersIntParams.class, resultList, "setParamsRadius",
+                HoltWintersParams.class, resultListRadius);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(HoltWintersIntParams.class, resultList);
         
         return resultList;
     }

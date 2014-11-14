@@ -779,7 +779,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace pref="1213" max="32767" attributes="0"/>
+                                      <EmptySpace pref="1203" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                             </DimensionLayout>
@@ -862,7 +862,7 @@
                               </Group>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1280" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1270" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -930,7 +930,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel100" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="555" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="545" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="scrollPane_panelSettingsMLPintPackage_nnet_center" max="32767" attributes="0"/>
                                       </Group>
@@ -1038,7 +1038,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="632" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="622" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
@@ -1283,7 +1283,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="panelSettingsRBFMain" min="-2" pref="516" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="744" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="734" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="panelRBFPercentTrain" max="32767" attributes="0"/>
                               </Group>
@@ -1362,7 +1362,7 @@
                                               <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="panelSettingsRBFint_radius" pref="601" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsRBFint_radius" pref="591" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="130" pref="130" max="-2" attributes="0"/>
                                   </Group>
@@ -1506,7 +1506,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSettingsARIMAMain" pref="1260" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsARIMAMain" pref="1250" max="32767" attributes="0"/>
                                   <Component id="panelARIMAPercTrain" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1564,7 +1564,7 @@
                                               <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="comboBoxKNNoptions" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="650" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="640" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="510" max="-2" attributes="0"/>
@@ -1675,7 +1675,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSettingsVARMain" alignment="0" pref="1260" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsVARMain" alignment="0" pref="1250" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -1749,7 +1749,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="panelVARintPercentTrain" min="-2" pref="800" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="panelVARintDistance" pref="450" max="32767" attributes="0"/>
+                                      <Component id="panelVARintDistance" pref="440" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1828,7 +1828,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelSESpercentTrain" pref="1260" max="32767" attributes="0"/>
+                                  <Component id="panelSESpercentTrain" pref="1250" max="32767" attributes="0"/>
                                   <Component id="panelSESmain" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1886,7 +1886,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="panelSESintPercentTrain" min="-2" pref="700" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="panelSESintDistance" pref="550" max="32767" attributes="0"/>
+                                      <Component id="panelSESintDistance" pref="540" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -2011,7 +2011,7 @@
                           <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelHoltPercentTrain" pref="1260" max="32767" attributes="0"/>
+                                  <Component id="panelHoltPercentTrain" pref="1250" max="32767" attributes="0"/>
                                   <Component id="panelHoltInside" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2069,7 +2069,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="panelHoltIntPercentTrain" min="-2" pref="700" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="panelHoltIntDistance" pref="550" max="32767" attributes="0"/>
+                                      <Component id="panelHoltIntDistance" pref="540" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -2198,7 +2198,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="panelIntervalHoltPercentTrain" min="-2" pref="700" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="panelIntervalHoltDistance" pref="550" max="32767" attributes="0"/>
+                                      <Component id="panelIntervalHoltDistance" pref="540" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -2283,7 +2283,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="panelHoltWintersPercentTrain" alignment="0" pref="1260" max="32767" attributes="0"/>
+                                  <Component id="panelHoltWintersPercentTrain" alignment="0" pref="1250" max="32767" attributes="0"/>
                                   <Component id="panelHoltWintersInside" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2317,6 +2317,138 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
+                  </SubComponents>
+                </Container>
+                <Container class="javax.swing.JPanel" name="panelSettingsMethodsHoltWintersInt">
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                      <JTabbedPaneConstraints tabName="Holt-Winters(i)">
+                        <Property name="tabTitle" type="java.lang.String" value="Holt-Winters(i)"/>
+                      </JTabbedPaneConstraints>
+                    </Constraint>
+                  </Constraints>
+
+                  <Layout>
+                    <DimensionLayout dim="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="panelHoltWintersIntPercentTrain" min="-2" pref="700" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="panelHoltWintersIntDistance" pref="540" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel158" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="panelHoltWintersInt_center" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jSeparator8" min="-2" pref="2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel159" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="panelHoltWintersInt_radius" alignment="0" min="-2" pref="635" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                    <DimensionLayout dim="1">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelHoltWintersIntDistance" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="panelHoltWintersIntPercentTrain" alignment="0" pref="40" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel158" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel159" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="panelHoltWintersInt_center" alignment="0" pref="492" max="32767" attributes="0"/>
+                                          <Component id="panelHoltWintersInt_radius" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="jSeparator8" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                    </DimensionLayout>
+                  </Layout>
+                  <SubComponents>
+                    <Component class="javax.swing.JLabel" name="jLabel52">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Constructs an interval out of two separate forecasts for Center and Radius."/>
+                      </Properties>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="panelHoltWintersIntPercentTrain">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new PercentTrainSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
+                    <Container class="javax.swing.JPanel" name="panelHoltWintersIntDistance">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new DistanceSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel158">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Center:"/>
+                      </Properties>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="panelHoltWintersInt_center">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new HoltWintersSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
+                    <Component class="javax.swing.JSeparator" name="jSeparator8">
+                      <Properties>
+                        <Property name="orientation" type="int" value="1"/>
+                      </Properties>
+                    </Component>
+                    <Container class="javax.swing.JPanel" name="panelHoltWintersInt_radius">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new HoltWintersSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
+                    <Component class="javax.swing.JLabel" name="jLabel159">
+                      <Properties>
+                        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                          <Font name="Tahoma" size="11" style="1"/>
+                        </Property>
+                        <Property name="text" type="java.lang.String" value="Radius:"/>
+                      </Properties>
+                    </Component>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="paneSettingsMethodsHybrid">
@@ -2875,6 +3007,8 @@
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="checkBoxRunHoltInt" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="checkBoxRunHoltWintersInt" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -2921,6 +3055,7 @@
                                   <Component id="checkBoxRunVARint" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunHoltInt" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="checkBoxRunSESint" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxRunHoltWintersInt" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -3420,6 +3555,11 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunHoltWinters">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Holt-Winters"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunHoltWintersInt">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Holt-Winters(i)"/>
               </Properties>
             </Component>
           </SubComponents>
