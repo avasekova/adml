@@ -1,5 +1,7 @@
 package utils.ugliez;
 
+import utils.Utils;
+
 public class PlotStateKeeper {
     
     private static double lastDrawnCrispXmin;//last call, tj. new alebo zoom
@@ -19,7 +21,7 @@ public class PlotStateKeeper {
     private static CallParams lastCallParams;
 
     public static double getLastDrawnCrispXmin() {
-        return lastDrawnCrispXmin;
+        return Utils.valToDecPoints(lastDrawnCrispXmin);
     }
 
     public static void setLastDrawnCrispXmin(double lastDrawnCrispXmin) {
@@ -27,7 +29,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnCrispXmax() {
-        return lastDrawnCrispXmax;
+        return Utils.valToDecPoints(lastDrawnCrispXmax);
     }
 
     public static void setLastDrawnCrispXmax(double lastDrawnCrispXmax) {
@@ -35,7 +37,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnCrispYmin() {
-        return lastDrawnCrispYmin;
+        return Utils.valToDecPoints(lastDrawnCrispYmin);
     }
 
     public static void setLastDrawnCrispYmin(double lastDrawnCrispYmin) {
@@ -43,7 +45,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnCrispYmax() {
-        return lastDrawnCrispYmax;
+        return Utils.valToDecPoints(lastDrawnCrispYmax);
     }
 
     public static void setLastDrawnCrispYmax(double lastDrawnCrispYmax) {
@@ -51,7 +53,7 @@ public class PlotStateKeeper {
     }
 
     public static double getCrispXmax() {
-        return crispXmax;
+        return Utils.valToDecPoints(crispXmax);
     }
 
     public static void setCrispXmax(double crispXmax) {
@@ -59,7 +61,7 @@ public class PlotStateKeeper {
     }
 
     public static double getCrispYmax() {
-        return crispYmax;
+        return Utils.valToDecPoints(crispYmax);
     }
 
     public static void setCrispYmax(double crispYmax) {
@@ -67,7 +69,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnIntXmin() {
-        return lastDrawnIntXmin;
+        return Utils.valToDecPoints(lastDrawnIntXmin);
     }
 
     public static void setLastDrawnIntXmin(double lastDrawnIntXmin) {
@@ -75,7 +77,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnIntXmax() {
-        return lastDrawnIntXmax;
+        return Utils.valToDecPoints(lastDrawnIntXmax);
     }
 
     public static void setLastDrawnIntXmax(double lastDrawnIntXmax) {
@@ -83,7 +85,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnIntYmin() {
-        return lastDrawnIntYmin;
+        return Utils.valToDecPoints(lastDrawnIntYmin);
     }
 
     public static void setLastDrawnIntYmin(double lastDrawnIntYmin) {
@@ -91,7 +93,7 @@ public class PlotStateKeeper {
     }
 
     public static double getLastDrawnIntYmax() {
-        return lastDrawnIntYmax;
+        return Utils.valToDecPoints(lastDrawnIntYmax);
     }
 
     public static void setLastDrawnIntYmax(double lastDrawnIntYmax) {
@@ -99,7 +101,7 @@ public class PlotStateKeeper {
     }
 
     public static double getIntXmax() {
-        return intXmax;
+        return Utils.valToDecPoints(intXmax);
     }
 
     public static void setIntXmax(double intXmax) {
@@ -107,7 +109,7 @@ public class PlotStateKeeper {
     }
 
     public static double getIntYmax() {
-        return intYmax;
+        return Utils.valToDecPoints(intYmax);
     }
 
     public static void setIntYmax(double intYmax) {
