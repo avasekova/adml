@@ -293,6 +293,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_centerMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_centerMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_centerMain_KNNkknn = new KNNkknnSettingsPanel();
+        panelSettingsHybrid_centerMain_SES = new SESSettingsPanel();
         panelSettingsHybrid_centerMain_Holt = new HoltSettingsPanel();
         jSeparator3 = new javax.swing.JSeparator();
         panelSettingsHybrid_radiusMain = new javax.swing.JPanel();
@@ -303,6 +304,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_radiusMain_ARIMA = new ARIMASettingsPanel();
         panelSettingsHybrid_radiusMain_KNNFNN = new KNNFNNSettingsPanel();
         panelSettingsHybrid_radiusMain_KNNkknn = new KNNkknnSettingsPanel();
+        panelSettingsHybrid_radiusMain_SES = new SESSettingsPanel();
         panelSettingsHybrid_radiusMain_Holt = new HoltSettingsPanel();
         panelSettingsHybridPercentTrain = new PercentTrainSettingsPanel();
         panelSettingsHybridDistance = new DistanceSettingsPanel();
@@ -1515,7 +1517,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
 
-        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "Holt" }));
+        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "SES", "Holt" }));
         comboBoxSettingsHybridMethod_center.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_centerActionPerformed(evt);
@@ -1525,7 +1527,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Radius:");
 
-        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "Holt" }));
+        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "SES", "Holt" }));
         comboBoxSettingsHybridMethod_radius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_radiusActionPerformed(evt);
@@ -1542,6 +1544,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_ARIMA, "panelSettingsHybrid_centerMain_ARIMA");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_KNNFNN, "panelSettingsHybrid_centerMain_KNNFNN");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_KNNkknn, "panelSettingsHybrid_centerMain_KNNkknn");
+        panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_SES, "panelSettingsHybrid_centerMain_SES");
         panelSettingsHybrid_centerMain.add(panelSettingsHybrid_centerMain_Holt, "panelSettingsHybrid_centerMain_Holt");
 
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
@@ -1556,6 +1559,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_ARIMA, "panelSettingsHybrid_radiusMain_ARIMA");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_KNNFNN, "panelSettingsHybrid_radiusMain_KNNFNN");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_KNNkknn, "panelSettingsHybrid_radiusMain_KNNkknn");
+        panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_SES, "panelSettingsHybrid_radiusMain_SES");
         panelSettingsHybrid_radiusMain.add(panelSettingsHybrid_radiusMain_Holt, "panelSettingsHybrid_radiusMain_Holt");
 
         javax.swing.GroupLayout paneSettingsMethodsHybridLayout = new javax.swing.GroupLayout(paneSettingsMethodsHybrid);
@@ -3057,6 +3061,9 @@ public class MainFrame extends javax.swing.JFrame {
             case "kNN (kknn)":
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_KNNkknn");
                 break;
+            case "SES":
+                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_SES");
+                break;
             case "Holt":
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_Holt");
                 break;
@@ -3084,6 +3091,9 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case "kNN (kknn)":
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_KNNkknn");
+                break;
+            case "SES":
+                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_SES");
                 break;
             case "Holt":
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_Holt");
@@ -3334,6 +3344,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsHybrid_centerMain_MLPnnet;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_MLPnnetar;
     private javax.swing.JPanel panelSettingsHybrid_centerMain_RBF;
+    private javax.swing.JPanel panelSettingsHybrid_centerMain_SES;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_ARIMA;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_Holt;
@@ -3342,6 +3353,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_MLPnnet;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_MLPnnetar;
     private javax.swing.JPanel panelSettingsHybrid_radiusMain_RBF;
+    private javax.swing.JPanel panelSettingsHybrid_radiusMain_SES;
     private javax.swing.JPanel panelSettingsIntervalMLPMode;
     private javax.swing.JPanel panelSettingsIntervalMLPModeCcode;
     private javax.swing.JPanel panelSettingsIntervalMLPModeNeuralnet;
@@ -3776,6 +3788,13 @@ public class MainFrame extends javax.swing.JFrame {
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNkknnParams.class, resultListCenterKNNkknn);
                 break;
+            case "SES":
+                List<SESParams> resultListCenterSES = getParamsSES(panelSettingsHybridPercentTrain, 
+                        comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_SES);
+                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
+                        SESParams.class, resultListCenterSES);
+                break;
             case "Holt":
                 List<HoltParams> resultListCenterHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_centerMain_Holt, comboBoxRunFakeIntCenter);
@@ -3832,6 +3851,13 @@ public class MainFrame extends javax.swing.JFrame {
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNkknnParams.class, resultListRadiusKNNkknn);
+                break;
+            case "SES":
+                List<SESParams> resultListRadiusSES = getParamsSES(panelSettingsHybridPercentTrain, 
+                        comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_SES);
+                
+                SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
+                        SESParams.class, resultListRadiusSES);
                 break;
             case "Holt":
                 List<HoltParams> resultListRadiusHolt = getParamsHolt(panelSettingsHybridPercentTrain, 

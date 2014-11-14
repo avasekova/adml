@@ -2353,7 +2353,7 @@
                     <Component class="javax.swing.JComboBox" name="comboBoxSettingsHybridMethod_center">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnet)&quot;, &quot;MLP (nnetar)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot;, &quot;Holt&quot; })" type="code"/>
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnet)&quot;, &quot;MLP (nnetar)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot;, &quot;SES&quot;, &quot;Holt&quot; })" type="code"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -2371,7 +2371,7 @@
                     <Component class="javax.swing.JComboBox" name="comboBoxSettingsHybridMethod_radius">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnet)&quot;, &quot;MLP (nnetar)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot;, &quot;Holt&quot; })" type="code"/>
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnet)&quot;, &quot;MLP (nnetar)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot;, &quot;SES&quot;, &quot;Holt&quot; })" type="code"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -2455,6 +2455,18 @@
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                               <CardConstraints cardName="panelSettingsHybrid_centerMain_KNNkknn"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_centerMain_SES">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new SESSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_centerMain_SES"/>
                             </Constraint>
                           </Constraints>
 
@@ -2556,6 +2568,18 @@
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
                               <CardConstraints cardName="panelSettingsHybrid_radiusMain_KNNkknn"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsHybrid_radiusMain_SES">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new SESSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="panelSettingsHybrid_radiusMain_SES"/>
                             </Constraint>
                           </Constraints>
 

@@ -12,6 +12,7 @@ import params.NnetParams;
 import params.NnetarParams;
 import params.Params;
 import params.RBFParams;
+import params.SESParams;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -53,6 +54,9 @@ public class Hybrid implements Forecastable {
         } else if (paramsCenter instanceof HoltParams) {
             Holt holt = new Holt();
             reportCenter = (TrainAndTestReportCrisp) holt.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof SESParams) {
+            SES ses = new SES();
+            reportCenter = (TrainAndTestReportCrisp) ses.forecast(dataTableModel, paramsCenter);
         }
         
         //radius
@@ -77,6 +81,9 @@ public class Hybrid implements Forecastable {
         } else if (paramsRadius instanceof HoltParams) {
             Holt holt = new Holt();
             reportRadius = (TrainAndTestReportCrisp) holt.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof SESParams) {
+            SES ses = new SES();
+            reportRadius = (TrainAndTestReportCrisp) ses.forecast(dataTableModel, paramsRadius);
         }
         
         //zbytok je potom taky isty
