@@ -3,6 +3,7 @@ package gui.settingspanels;
 import java.util.List;
 import javax.swing.JOptionPane;
 import params.Params;
+import utils.R_Bool;
 import utils.Utils;
 
 public class HoltSettingsPanel extends SettingsPanel {
@@ -29,6 +30,7 @@ public class HoltSettingsPanel extends SettingsPanel {
         textFieldBeta = new javax.swing.JTextField();
         checkBoxOptimizeAlpha = new javax.swing.JCheckBox();
         checkBoxOptimizeBeta = new javax.swing.JCheckBox();
+        checkBoxDamped = new javax.swing.JCheckBox();
 
         jLabel1.setText("Alpha (level):");
 
@@ -48,25 +50,30 @@ public class HoltSettingsPanel extends SettingsPanel {
             }
         });
 
+        checkBoxDamped.setText("damped");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldAlpha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textFieldBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkBoxOptimizeAlpha)
-                    .addComponent(checkBoxOptimizeBeta))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textFieldAlpha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(textFieldBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(checkBoxOptimizeAlpha)
+                            .addComponent(checkBoxOptimizeBeta)))
+                    .addComponent(checkBoxDamped))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -80,7 +87,10 @@ public class HoltSettingsPanel extends SettingsPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(textFieldBeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkBoxOptimizeBeta)))
+                    .addComponent(checkBoxOptimizeBeta))
+                .addGap(18, 18, 18)
+                .addComponent(checkBoxDamped)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -102,6 +112,7 @@ public class HoltSettingsPanel extends SettingsPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxDamped;
     private javax.swing.JCheckBox checkBoxOptimizeAlpha;
     private javax.swing.JCheckBox checkBoxOptimizeBeta;
     private javax.swing.JLabel jLabel1;
@@ -126,6 +137,10 @@ public class HoltSettingsPanel extends SettingsPanel {
         }
     }
     
+    public R_Bool isDamped() {
+        return Utils.booleanToRBool(checkBoxDamped.isSelected());
+    }
+    
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && 
@@ -136,5 +151,6 @@ public class HoltSettingsPanel extends SettingsPanel {
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
     }
 }

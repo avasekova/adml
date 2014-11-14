@@ -37,7 +37,7 @@ public class Holt implements Forecastable {
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast::holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
-                ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ")");
+                ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", damped=" + params.getDamped() + ")");
         
         rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
         REXP getFittedVals = rengine.eval(FIT);
