@@ -22,19 +22,15 @@
               <Component id="textFieldAlpha" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="checkBoxOptimizeAlpha" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="236" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textFieldAlpha" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="checkBoxOptimizeAlpha" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace min="0" pref="277" max="32767" attributes="0"/>
+          <Group type="103" groupAlignment="3" attributes="0">
+              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="textFieldAlpha" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="checkBoxOptimizeAlpha" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
