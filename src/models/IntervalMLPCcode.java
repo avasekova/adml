@@ -28,6 +28,8 @@ import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalMLPCcode implements Forecastable {
     
+    private int maxLag = 0;
+    
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
@@ -71,6 +73,20 @@ public class IntervalMLPCcode implements Forecastable {
         file.delete();
         file = new File("config.out");
         file.delete();
+        
+        
+        
+        
+        List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
+                .getIntervalNames()).getLowerBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+        List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
+                .getIntervalNames()).getUpperBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+        List<Interval> realData = Utils.zipLowerUpperToIntervals(lowers, uppers);
+        report.setRealValues(realData);
+        
+        
+        
+        
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), 
                 params.getOutVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
@@ -180,15 +196,14 @@ public class IntervalMLPCcode implements Forecastable {
             
             
             List<Interval> newForecastsTrain = new ArrayList<>();
-            int lag = 1;
-            for (int i = 0; i < lag; i++) {
+            for (int i = 0; i < maxLag; i++) {
                 newForecastsTrain.add(new IntervalCentreRadius(Double.NaN, Double.NaN));
             }
-            newForecastsTrain.addAll(forecastsTrain.subList(0, forecastsTrain.size()-lag));
+            newForecastsTrain.addAll(forecastsTrain.subList(0, forecastsTrain.size()-maxLag));
             
             List<Interval> newForecastsTest = new ArrayList<>();
-            newForecastsTest.addAll(forecastsTrain.subList(forecastsTrain.size()-lag, forecastsTrain.size()));
-            newForecastsTest.addAll(forecastsTest.subList(0, forecastsTest.size()-lag));
+            newForecastsTest.addAll(forecastsTrain.subList(forecastsTrain.size()-maxLag, forecastsTrain.size()));
+            newForecastsTest.addAll(forecastsTest.subList(0, forecastsTest.size()));
             
             
             
@@ -197,17 +212,17 @@ public class IntervalMLPCcode implements Forecastable {
             
             
             
-            
 //            report.setForecastValuesFuture(); //nothing yet
             
-            errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(trainingIntervals, testingIntervals, 
+            errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realData.subList(0, numTrainingEntries), 
+                    realData.subList(numTrainingEntries, realData.size()), 
                     newForecastsTrain, newForecastsTest, params.getDistance(), parameters.getSeasonality());
         }
         
         report.setErrorMeasures(errorMeasures);
         
         //real data: the last two columns in data are Center and Radius of real data.
-        report.setRealValues(data.get(data.size() - 2), data.get(data.size() - 1));
+//        report.setRealValues(data.get(data.size() - 2), data.get(data.size() - 1));
         
         //TODO add lag! resp. add lag do PlotDrawera, aby s tym vedel robit. nieco ako maxLag, tj zarezane spolocne
         return report;
@@ -218,7 +233,6 @@ public class IntervalMLPCcode implements Forecastable {
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
-        int maxLag = 0;
         for (IntervalExplanatoryVariable var : explVars) {
             List<Double> centers;
             List<Double> radii;
