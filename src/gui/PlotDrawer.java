@@ -50,6 +50,8 @@ public class PlotDrawer {
         
         if (! par.getReportsITS().isEmpty()) {
             rangeXInt = getRangeXInterval(par.getSizeDataWithoutFromToCrop(), par.getNumForecasts(), par.getFrom(), par.getTo());
+            List<TrainAndTestReportInterval> reportsIntTS = deleteEmpty(par.getReportsITS());
+            par.setReportsITS(reportsIntTS);
             rangeYInt = getRangeYInterval(par.getReportsITS());
         }
         
@@ -778,6 +780,19 @@ public class PlotDrawer {
         
         return allVals;
     }
+
+    private static List<TrainAndTestReportInterval> deleteEmpty(List<TrainAndTestReportInterval> reportsITS) {
+        List<TrainAndTestReportInterval> toDelete = new ArrayList<>();
+        
+        for (TrainAndTestReportInterval r : reportsITS) {
+            if (r.getFittedValues().isEmpty() && r.getForecastValuesTest().isEmpty() && r.getForecastValuesFuture().isEmpty()) {
+                toDelete.add(r);
+            }
+        }
+        
+        reportsITS.removeAll(toDelete);
+        return reportsITS;
+    }
     
     private List<Color> getNColours(int n) {
         //spocitat farby z HSV color space, resp. spocitat si prvych X (kde X je nejake rozumne cislo, napriklad 15), a potom
@@ -845,15 +860,19 @@ public class PlotDrawer {
         StringBuilder rangesY = new StringBuilder("range(c(");
         boolean next = false;
         for (TrainAndTestReportInterval r : reports) {
-            if (next) {
+            if (next && (! r.getFittedValues().isEmpty())) {
                 rangesY.append(", ");
             } else {
                 next = true;
             }
-            rangesY.append(Utils.minArray(r.getFittedValuesLowers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getFittedValuesLowers())).append(", ");
-            rangesY.append(Utils.minArray(r.getFittedValuesUppers())).append(", ");
-            rangesY.append(Utils.maxArray(r.getFittedValuesUppers()));
+            
+            if (! r.getFittedValues().isEmpty()) {
+                rangesY.append(Utils.minArray(r.getFittedValuesLowers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getFittedValuesLowers())).append(", ");
+                rangesY.append(Utils.minArray(r.getFittedValuesUppers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getFittedValuesUppers()));
+            }
+            
             if (! r.getForecastValuesTest().isEmpty()) {
                 rangesY.append(", ");
                 rangesY.append(Utils.minArray(r.getForecastValuesTestLowers())).append(", ");
@@ -872,7 +891,13 @@ public class PlotDrawer {
             //a zahrnut aj povodne data:
             List<Double> realDataLower = r.getRealValuesLowers();
             List<Double> realDataUpper = r.getRealValuesUppers();
-            rangesY.append(", ").append(Utils.minList(realDataLower)).append(", ").append(Utils.maxList(realDataLower));
+            
+            //a zahrnut aj povodne data:
+            if (rangesY.length() > 8) { //velmi hlupy a ohavny sposob, ako zistovat, ze tam nic neni
+                rangesY.append(", ");
+            }
+            
+            rangesY.append(Utils.minList(realDataLower)).append(", ").append(Utils.maxList(realDataLower));
             rangesY.append(", ").append(Utils.minList(realDataUpper)).append(", ").append(Utils.maxList(realDataUpper));
         }
         
