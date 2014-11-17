@@ -20,6 +20,8 @@ public class Holt implements Forecastable {
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
         final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
+        final String PRED_INT_LOWER = Const.OUTPUT + Utils.getCounter();
+        final String PRED_INT_UPPER = Const.OUTPUT + Utils.getCounter();
         
         HoltParams params = (HoltParams) parameters;
         
@@ -35,9 +37,17 @@ public class Holt implements Forecastable {
         
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
         
+        
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
-        rengine.eval(FORECAST_MODEL + " <- forecast::holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
+        if (params.getPredIntPercent() == 0) {
+            rengine.eval(FORECAST_MODEL + " <- forecast::holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
                 ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", damped=" + params.getDamped() + ")");
+        } else {
+            rengine.eval(FORECAST_MODEL + " <- forecast::holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
+                ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", damped=" + params.getDamped()
+                    + ", level=" + params.getPredIntPercent() + ")");
+        }
+        
         
         rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
         REXP getFittedVals = rengine.eval(FIT);
@@ -64,6 +74,20 @@ public class Holt implements Forecastable {
         report.setPlotCode("plot.ts(c(" + FIT + "," + FORECAST + "))");
         report.setRealOutputsTrain(Utils.listToArray(inputTrain));
         report.setRealOutputsTest(Utils.listToArray(inputTest));
+        
+        //prediction intervals:
+        if ((params.getPredIntPercent() != 0)) {
+            rengine.eval(PRED_INT_LOWER + " <- data.frame(" + FORECAST_MODEL + ")[\"Lo." + params.getPredIntPercent() + "\"]"
+                    + "[1:" + num4castsTestAndFuture + ",]");
+            rengine.eval(PRED_INT_UPPER + " <- data.frame(" + FORECAST_MODEL + ")[\"Hi." + params.getPredIntPercent() + "\"]"
+                    + "[1:" + num4castsTestAndFuture + ",]");
+            REXP getPredIntLowers = rengine.eval(PRED_INT_LOWER);
+            REXP getPredIntUppers = rengine.eval(PRED_INT_UPPER);
+            double[] predIntLowers = getPredIntLowers.asDoubleArray();
+            double[] predIntUppers = getPredIntUppers.asDoubleArray();
+            report.setPredictionIntervalsLowers(predIntLowers);
+            report.setPredictionIntervalsUppers(predIntUppers);
+        }
         
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(inputTrain, inputTest, 
                 Utils.arrayToList(fittedVals), forecastTest, params.getSeasonality());

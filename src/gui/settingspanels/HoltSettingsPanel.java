@@ -31,6 +31,9 @@ public class HoltSettingsPanel extends SettingsPanel {
         checkBoxOptimizeAlpha = new javax.swing.JCheckBox();
         checkBoxOptimizeBeta = new javax.swing.JCheckBox();
         checkBoxDamped = new javax.swing.JCheckBox();
+        checkBoxComputePredInts = new javax.swing.JCheckBox();
+        textFieldPredIntsPercent = new javax.swing.JTextField();
+        labelPercentSign = new javax.swing.JLabel();
 
         jLabel1.setText("Alpha (level):");
 
@@ -52,29 +55,45 @@ public class HoltSettingsPanel extends SettingsPanel {
 
         checkBoxDamped.setText("damped");
 
+        checkBoxComputePredInts.setText("compute prediction intervals:");
+        checkBoxComputePredInts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxComputePredIntsActionPerformed(evt);
+            }
+        });
+
+        textFieldPredIntsPercent.setText("95");
+        textFieldPredIntsPercent.setEnabled(false);
+
+        labelPercentSign.setText("%");
+        labelPercentSign.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(2, 2, 2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textFieldAlpha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(textFieldBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(checkBoxOptimizeAlpha)
-                            .addComponent(checkBoxOptimizeBeta)))
-                    .addComponent(checkBoxDamped))
-                .addContainerGap())
+                        .addComponent(textFieldAlpha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(textFieldBeta, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxOptimizeAlpha)
+                    .addComponent(checkBoxOptimizeBeta)))
+            .addComponent(checkBoxDamped)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(checkBoxComputePredInts)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textFieldPredIntsPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPercentSign))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +109,11 @@ public class HoltSettingsPanel extends SettingsPanel {
                     .addComponent(checkBoxOptimizeBeta))
                 .addGap(18, 18, 18)
                 .addComponent(checkBoxDamped)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkBoxComputePredInts)
+                    .addComponent(textFieldPredIntsPercent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPercentSign)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -110,15 +133,23 @@ public class HoltSettingsPanel extends SettingsPanel {
         }
     }//GEN-LAST:event_checkBoxOptimizeBetaActionPerformed
 
+    private void checkBoxComputePredIntsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxComputePredIntsActionPerformed
+        textFieldPredIntsPercent.setEnabled(checkBoxComputePredInts.isSelected());
+        labelPercentSign.setEnabled(checkBoxComputePredInts.isSelected());
+    }//GEN-LAST:event_checkBoxComputePredIntsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxComputePredInts;
     private javax.swing.JCheckBox checkBoxDamped;
     private javax.swing.JCheckBox checkBoxOptimizeAlpha;
     private javax.swing.JCheckBox checkBoxOptimizeBeta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel labelPercentSign;
     private javax.swing.JTextField textFieldAlpha;
     private javax.swing.JTextField textFieldBeta;
+    private javax.swing.JTextField textFieldPredIntsPercent;
     // End of variables declaration//GEN-END:variables
 
     public String getAlpha() {
@@ -141,6 +172,14 @@ public class HoltSettingsPanel extends SettingsPanel {
         return Utils.booleanToRBool(checkBoxDamped.isSelected());
     }
     
+    public String getPredIntPercent() {
+        if (textFieldPredIntsPercent.getText().isEmpty() || (!checkBoxComputePredInts.isSelected())) {
+            return "0";
+        } else {
+            return textFieldPredIntsPercent.getText();
+        }
+    }
+    
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && 
@@ -152,5 +191,6 @@ public class HoltSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, Utils.getIntegersOrDefault(getPredIntPercent()).get(0));
     }
 }

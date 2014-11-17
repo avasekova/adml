@@ -6,6 +6,8 @@ public class HoltParams extends SESParams {
     
     private String beta;
     private R_Bool damped;
+    
+    private Integer predIntPercent;
 
     public String getBeta() {
         return beta;
@@ -22,6 +24,14 @@ public class HoltParams extends SESParams {
     public void setDamped(R_Bool damped) {
         this.damped = damped;
     }
+
+    public Integer getPredIntPercent() {
+        return predIntPercent;
+    }
+
+    public void setPredIntPercent(Integer predIntPercent) {
+        this.predIntPercent = predIntPercent;
+    }
     
     @Override
     public HoltParams getClone() {
@@ -35,6 +45,7 @@ public class HoltParams extends SESParams {
         param.setAlpha(this.getAlpha());
         param.setBeta(beta);
         param.setDamped(damped);
+        param.setPredIntPercent(predIntPercent);
         
         return param;
     }
