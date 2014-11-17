@@ -1902,8 +1902,10 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunSESint.setText("SES(i)");
 
         checkBoxRunHoltWinters.setText("Holt-Winters");
+        checkBoxRunHoltWinters.setEnabled(false);
 
         checkBoxRunHoltWintersInt.setText("Holt-Winters(i)");
+        checkBoxRunHoltWintersInt.setEnabled(false);
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);

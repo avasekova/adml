@@ -3,6 +3,7 @@ package params;
 public class HoltWintersParams extends HoltParams {
     
     private String gamma;
+    private String frequency;
 
     public String getGamma() {
         return gamma;
@@ -10,6 +11,14 @@ public class HoltWintersParams extends HoltParams {
 
     public void setGamma(String gamma) {
         this.gamma = gamma;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
     }
     
     @Override
@@ -25,6 +34,7 @@ public class HoltWintersParams extends HoltParams {
         param.setBeta(this.getBeta());
         param.setDamped(this.getDamped());
         param.setGamma(gamma);
+        param.setFrequency(frequency);
         
         return param;
     }

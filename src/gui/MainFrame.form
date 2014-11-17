@@ -3489,11 +3489,13 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunHoltWinters">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Holt-Winters"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunHoltWintersInt">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Holt-Winters(i)"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>
