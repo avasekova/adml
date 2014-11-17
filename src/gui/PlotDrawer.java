@@ -272,7 +272,7 @@ public class PlotDrawer {
                     double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
                     REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
                     double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
-                    ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
+                    
                     List<Double> allRealDataTrainAndTest = new ArrayList<>(); //will have the NA vals of the first report
                     //but they would've gotten erased anyway
                     allRealDataTrainAndTest.addAll(Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()));
@@ -280,22 +280,9 @@ public class PlotDrawer {
                     List<Double> allFitDataTrainAndTest = new ArrayList<>();
                     allFitDataTrainAndTest.addAll(Utils.arrayToList(fittedValsAvg));
                     allFitDataTrainAndTest.addAll(Utils.arrayToList(forecastValsTestAvg));
-                    errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setMEtest(0.0);
-                    errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setRMSEtest(0.0);
-                    errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setMAEtest(0.0);
-                    errorMeasures.setMPEtrain(ErrorMeasuresUtils.MPE(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setMPEtest(0.0);
-                    errorMeasures.setMAPEtrain(ErrorMeasuresUtils.MAPE(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setMAPEtest(0.00);
-                    errorMeasures.setMASEtrain(ErrorMeasuresUtils.MASE(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setMASEtest(0.0);
-                    errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setMSEtest(0.0);
-                    errorMeasures.setTheilUtrain(ErrorMeasuresUtils.theilsU(allRealDataTrainAndTest, allFitDataTrainAndTest));
-                    errorMeasures.setTheilUtest(0.0);
+                    
+                    ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(allRealDataTrainAndTest, 
+                            new ArrayList<Double>(), allFitDataTrainAndTest, new ArrayList<Double>(), 0);
                     
                     thisAvgReport.setErrorMeasures(errorMeasures);
                     REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
