@@ -2350,13 +2350,13 @@ public class MainFrame extends javax.swing.JFrame {
                     DialogAddIntervalOutputVar.setColNames(dataTableModel.getColnames());
                     DialogAddCrispExplanatoryVar.setColNames(dataTableModel.getColnames());
                     VARSettingsPanel.setColNames(dataTableModel.getColnames());
-                    panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //musim ho znovu vytvorit, inak je uz vytvoreny a nema
-                                                                   //tam tie colnames.
-                    paneSettingsMethodsVAR.removeAll();
-                    panelSettingsVARMain.removeAll();
-                    panelSettingsVARMain.add(panelSettingsVARMainInsideBecauseX);
-                    paneSettingsMethodsVAR.add(panelSettingsVARMain);
-                    paneSettingsMethodsVAR.repaint();
+//                    panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //musim ho znovu vytvorit, inak je uz vytvoreny a nema
+//                                                                   //tam tie colnames.
+//                    paneSettingsMethodsVAR.removeAll();
+//                    panelSettingsVARMain.removeAll();
+//                    panelSettingsVARMain.add(panelSettingsVARMainInsideBecauseX);
+//                    paneSettingsMethodsVAR.add(panelSettingsVARMain);
+//                    paneSettingsMethodsVAR.repaint();
                     
                     VARintSettingsPanel.setColNames(dataTableModel.getColnames());
                     panelVARintInside.removeAll();
@@ -2689,22 +2689,22 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
         
-        if (checkBoxRunVAR.isSelected()) {
-            try {
-                List<VARParams> params = getParamsVAR(comboBoxColnamesRun, panelSettingsVARMainInsideBecauseX);
-
-                showDialogTooManyModelsInCase(params.size(), "VAR");
-                if (continueWithTooManyModels) {
-                    VAR var = new VAR();
-                    for (VARParams p : params) {
-                        List<TrainAndTestReportCrisp> reports = var.forecast(p);
-                        reportsCTS.addAll(reports);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
-        }
+//        if (checkBoxRunVAR.isSelected()) {
+//            try {
+//                List<VARParams> params = getParamsVAR(comboBoxColnamesRun, panelSettingsVARMainInsideBecauseX);
+//
+//                showDialogTooManyModelsInCase(params.size(), "VAR");
+//                if (continueWithTooManyModels) {
+//                    VAR var = new VAR();
+//                    for (VARParams p : params) {
+//                        List<TrainAndTestReportCrisp> reports = var.forecast(p);
+//                        reportsCTS.addAll(reports);
+//                    }
+//                }
+//            } catch (IllegalArgumentException e) {
+//                //TODO log alebo nieco
+//            }
+//        }
         
         if (checkBoxRunRBF.isSelected()) {
             try {
