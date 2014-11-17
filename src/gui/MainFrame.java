@@ -2386,7 +2386,7 @@ public class MainFrame extends javax.swing.JFrame {
                         ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons();
                         ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons();
                     }
-//                    break;filechooser
+//                    break;
 //                case JFileChooser.CANCEL_OPTION:
 //                default:
 //                    this.loadedFile = null;
