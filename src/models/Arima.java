@@ -24,9 +24,12 @@ public class Arima implements Forecastable {
         final String INPUT_TEST = Const.INPUT + Utils.getCounter();
         final String SCALED_INPUT_TEST = "scaled." + INPUT_TEST;
         final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
+        final String FORECAST_VALS_CUT = FORECAST_VALS + ".cut";
         final String UNSCALED_FORECAST_VALS = "unscaled." + FORECAST_VALS;
         final String FITTED_VALS = Const.FIT + Utils.getCounter();
         final String UNSCALED_FITTED_VALS = "unscaled." + FITTED_VALS;
+        final String PRED_INT_LOWER = Const.OUTPUT + Utils.getCounter();
+        final String PRED_INT_UPPER = Const.OUTPUT + Utils.getCounter();
         
         final String MODEL = Const.MODEL + Utils.getCounter();
         
@@ -82,11 +85,16 @@ public class Arima implements Forecastable {
         
         //"forecast" testing data
         int numForecasts = dataToUse.size() - numTrainingEntries + params.getNumForecasts();
-        rengine.eval(FORECAST_VALS + " <- forecast::forecast(" + MODEL + ", h = " + numForecasts + ")"); //predict all
+        if (params.getPredIntPercent() == 0) {
+            rengine.eval(FORECAST_VALS + " <- forecast::forecast(" + MODEL + ", h = " + numForecasts + ")"); //predict all
+        } else {
+            rengine.eval(FORECAST_VALS + " <- forecast::forecast(" + MODEL + ", h = " + numForecasts + ", " +
+                "level=" + params.getPredIntPercent() + ")"); //predict all
+        }
                                         
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)
-        rengine.eval(FORECAST_VALS + " <- " + FORECAST_VALS + "$mean[1:" + numForecasts + "]");
-        rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + INPUT + ")");
+        rengine.eval(FORECAST_VALS_CUT + " <- " + FORECAST_VALS + "$mean[1:" + numForecasts + "]");
+        rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS_CUT + ", " + INPUT + ")");
         REXP getAllForecasts = rengine.eval(UNSCALED_FORECAST_VALS);
         double[] allForecasts = getAllForecasts.asDoubleArray();
         //TODO avoid this conversion array<->list whenever possible - moze to byt spomalovak pre velke mnozstva dat
@@ -118,6 +126,25 @@ public class Arima implements Forecastable {
         report.setPlotCode("plot.ts(c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
         
         report.setErrorMeasures(errorMeasures);
+        
+        
+        
+        
+        
+        //prediction intervals:
+        if ((params.getPredIntPercent() != 0)) {
+            rengine.eval(PRED_INT_LOWER + " <- data.frame(" + FORECAST_VALS + ")[\"Lo." + params.getPredIntPercent() + "\"]"
+                    + "[1:" + numForecasts + ",]");
+            rengine.eval(PRED_INT_UPPER + " <- data.frame(" + FORECAST_VALS + ")[\"Hi." + params.getPredIntPercent() + "\"]"
+                    + "[1:" + numForecasts + ",]");
+            REXP getPredIntLowers = rengine.eval("MLPtoR.unscale(" + PRED_INT_LOWER + "," + INPUT + ")");
+            REXP getPredIntUppers = rengine.eval("MLPtoR.unscale(" + PRED_INT_UPPER + "," + INPUT + ")");
+            double[] predIntLowers = getPredIntLowers.asDoubleArray();
+            double[] predIntUppers = getPredIntUppers.asDoubleArray();
+            report.setPredictionIntervalsLowers(predIntLowers);
+            report.setPredictionIntervalsUppers(predIntUppers);
+        }
+        
         
         
         return report;

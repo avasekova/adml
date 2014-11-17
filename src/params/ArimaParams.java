@@ -12,6 +12,8 @@ public class ArimaParams extends Params {
     private int seasQuark;
     private boolean optimize;
     private boolean withConstant;
+    
+    private Integer predIntPercent = 0;
 
     public String getColName() {
         return colName;
@@ -84,6 +86,14 @@ public class ArimaParams extends Params {
     public void setWithConstant(Boolean withConstant) {
         this.withConstant = withConstant;
     }
+
+    public Integer getPredIntPercent() {
+        return predIntPercent;
+    }
+
+    public void setPredIntPercent(Integer predIntPercent) {
+        this.predIntPercent = predIntPercent;
+    }
     
     @Override
     public ArimaParams getClone() {
@@ -102,6 +112,7 @@ public class ArimaParams extends Params {
         param.setSeasQuark(seasQuark);
         param.setWithConstant(withConstant);
         param.setColName(colName);
+        param.setPredIntPercent(predIntPercent);
         
         return param;
     }

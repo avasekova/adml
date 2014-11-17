@@ -39,6 +39,9 @@ public class ARIMASettingsPanel extends SettingsPanel {
         textFieldNonseasLowercaseQuark = new javax.swing.JTextField();
         textFieldSeasUppercaseQuark = new javax.swing.JTextField();
         jLabel62 = new javax.swing.JLabel();
+        checkBoxComputePredInts = new javax.swing.JCheckBox();
+        labelPercentSign = new javax.swing.JLabel();
+        textFieldPredictionIntervalPercent = new javax.swing.JTextField();
 
         checkBoxOptimize.setText("optimize the parameters");
         checkBoxOptimize.addActionListener(new java.awt.event.ActionListener() {
@@ -80,44 +83,67 @@ public class ARIMASettingsPanel extends SettingsPanel {
         jLabel62.setForeground(new java.awt.Color(255, 0, 0));
         jLabel62.setText("TODO other params of stats.arima + add <default> labels");
 
+        checkBoxComputePredInts.setText("compute prediction intervals:");
+        checkBoxComputePredInts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxComputePredIntsActionPerformed(evt);
+            }
+        });
+
+        labelPercentSign.setText("%");
+        labelPercentSign.setEnabled(false);
+
+        textFieldPredictionIntervalPercent.setText("95");
+        textFieldPredictionIntervalPercent.setEnabled(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(checkBoxOptimize)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labelSettingsARIMAnonseas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelNonseasLowercasePotato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldNonseasLowercasePotato, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(labelSettingsARIMAseas)
-                .addGap(28, 28, 28)
-                .addComponent(labelSeasUppercasePotato)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(textFieldSeasUppercasePotato, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(checkBoxComputePredInts)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textFieldPredictionIntervalPercent, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPercentSign)
+                .addGap(325, 325, 325))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(checkBoxOptimize)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelNonseasLowercaseDonkey)
-                        .addGap(5, 5, 5)
-                        .addComponent(textFieldNonseasLowercaseDonkey, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelNonseasLowercaseQuark)
+                        .addComponent(labelSettingsARIMAnonseas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldNonseasLowercaseQuark, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelNonseasLowercasePotato)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldNonseasLowercasePotato, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelSeasUppercaseDonkey)
+                        .addComponent(labelSettingsARIMAseas)
+                        .addGap(28, 28, 28)
+                        .addComponent(labelSeasUppercasePotato)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldSeasUppercaseDonkey, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldSeasUppercasePotato, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelSeasUppercaseQuark)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldSeasUppercaseQuark, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel62))))
-            .addComponent(checkBoxConstant)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelNonseasLowercaseDonkey)
+                                .addGap(5, 5, 5)
+                                .addComponent(textFieldNonseasLowercaseDonkey, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelNonseasLowercaseQuark)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldNonseasLowercaseQuark, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labelSeasUppercaseDonkey)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldSeasUppercaseDonkey, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(labelSeasUppercaseQuark)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldSeasUppercaseQuark, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel62))))
+                    .addComponent(checkBoxConstant))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +170,12 @@ public class ARIMASettingsPanel extends SettingsPanel {
                         .addComponent(textFieldSeasUppercaseQuark, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel62, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(checkBoxConstant))
+                .addComponent(checkBoxConstant)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkBoxComputePredInts)
+                    .addComponent(textFieldPredictionIntervalPercent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelPercentSign)))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,14 +215,21 @@ public class ARIMASettingsPanel extends SettingsPanel {
         }
     }//GEN-LAST:event_checkBoxOptimizeActionPerformed
 
+    private void checkBoxComputePredIntsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxComputePredIntsActionPerformed
+        textFieldPredictionIntervalPercent.setEnabled(checkBoxComputePredInts.isSelected());
+        labelPercentSign.setEnabled(checkBoxComputePredInts.isSelected());
+    }//GEN-LAST:event_checkBoxComputePredIntsActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox checkBoxComputePredInts;
     private javax.swing.JCheckBox checkBoxConstant;
     private javax.swing.JCheckBox checkBoxOptimize;
     private javax.swing.JLabel jLabel62;
     private javax.swing.JLabel labelNonseasLowercaseDonkey;
     private javax.swing.JLabel labelNonseasLowercasePotato;
     private javax.swing.JLabel labelNonseasLowercaseQuark;
+    private javax.swing.JLabel labelPercentSign;
     private javax.swing.JLabel labelSeasUppercaseDonkey;
     private javax.swing.JLabel labelSeasUppercasePotato;
     private javax.swing.JLabel labelSeasUppercaseQuark;
@@ -200,6 +238,7 @@ public class ARIMASettingsPanel extends SettingsPanel {
     private javax.swing.JTextField textFieldNonseasLowercaseDonkey;
     private javax.swing.JTextField textFieldNonseasLowercasePotato;
     private javax.swing.JTextField textFieldNonseasLowercaseQuark;
+    private javax.swing.JTextField textFieldPredictionIntervalPercent;
     private javax.swing.JTextField textFieldSeasUppercaseDonkey;
     private javax.swing.JTextField textFieldSeasUppercasePotato;
     private javax.swing.JTextField textFieldSeasUppercaseQuark;
@@ -236,6 +275,14 @@ public class ARIMASettingsPanel extends SettingsPanel {
     public String getSeasUppercaseQuark() {
         return textFieldSeasUppercaseQuark.getText();
     }
+    
+    public String getPredIntPercent() {
+        if (textFieldPredictionIntervalPercent.getText().isEmpty() || (!checkBoxComputePredInts.isSelected())) {
+            return "0";
+        } else {
+            return textFieldPredictionIntervalPercent.getText();
+        }
+    }
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
@@ -247,5 +294,6 @@ public class ARIMASettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingList(classss, resultList, "setSeasDonkey", Integer.class, Utils.getIntegersOrDefault(getSeasUppercaseDonkey()));
         SettingsPanel.setSomethingList(classss, resultList, "setSeasQuark", Integer.class, Utils.getIntegersOrDefault(getSeasUppercaseQuark()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setWithConstant", Boolean.class, isConstant());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, Utils.getIntegersOrDefault(getPredIntPercent()).get(0));
     }
 }

@@ -3,6 +3,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -121,6 +123,25 @@ public class PlotDrawer {
                 
                 if (!(avgONLY)) {
                     rengine.eval(plotCode.toString());
+                    
+                    
+                    //draw prediction intervals, if it has them:
+                    final String UPPERS = "uppers" + Utils.getCounter();
+                    final String LOWERS_REVERSE = "lowersReverse" + Utils.getCounter();
+                    rengine.assign(UPPERS, r.getPredictionIntervalsUppers());
+                    List<Double> lowersReverse = Utils.arrayToList(r.getPredictionIntervalsLowers());
+                    Collections.reverse(lowersReverse);
+                    rengine.assign(LOWERS_REVERSE, Utils.listToArray(lowersReverse));
+                    int startingPoint = par.getFrom() + r.getNumTrainingEntries() + 1;
+                    int endingPoint = par.getFrom() + r.getNumTrainingEntries() + r.getPredictionIntervalsLowers().length;
+                    rengine.eval("polygon(c(seq(" + startingPoint + "," + endingPoint + "),"
+                                         + "seq(" + endingPoint + "," + startingPoint + ")),"
+                                       + "c(" + UPPERS + "," + LOWERS_REVERSE + "),"
+                               + "density=NA, col=rgb(0,0,0,0.1), border=NA)"); //TODO col podla aktualnej
+                    
+                    
+                    
+                    
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                     r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
@@ -859,6 +880,19 @@ public class PlotDrawer {
                 rangesY.append(Utils.minArray(r.getForecastValuesFuture())).append(", ");
                 rangesY.append(Utils.maxArray(r.getForecastValuesFuture()));
             }
+            
+            if (r.getPredictionIntervalsLowers().length > 0) {
+                rangesY.append(", ");
+                rangesY.append(Utils.minArray(r.getPredictionIntervalsLowers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getPredictionIntervalsLowers()));
+            }
+            
+            if (r.getPredictionIntervalsUppers().length > 0) {
+                rangesY.append(", ");
+                rangesY.append(Utils.minArray(r.getPredictionIntervalsUppers())).append(", ");
+                rangesY.append(Utils.maxArray(r.getPredictionIntervalsUppers()));
+            }
+                    
         }
         //a zahrnut aj povodne data:
         if (rangesY.length() > 8) { //velmi hlupy a ohavny sposob, ako zistovat, ze tam nic neni

@@ -60,6 +60,7 @@ import models.Nnet;
 import models.Nnetar;
 import models.RBF;
 import models.RBFint;
+import models.RandomWalk;
 import models.RandomWalkInterval;
 import models.SES;
 import models.SESint;
@@ -90,6 +91,7 @@ import params.Params;
 import params.RBFParams;
 import params.RBFintParams;
 import params.RandomWalkIntervalParams;
+import params.RandomWalkParams;
 import params.SESParams;
 import params.SESintParams;
 import params.VARParams;
@@ -385,6 +387,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunSESint = new javax.swing.JCheckBox();
         checkBoxRunHoltWinters = new javax.swing.JCheckBox();
         checkBoxRunHoltWintersInt = new javax.swing.JCheckBox();
+        checkBoxRunRandomWalkCTS = new javax.swing.JCheckBox();
         panelModelDescriptions = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         tabbedPaneModelDescriptions = new javax.swing.JTabbedPane();
@@ -1907,6 +1910,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHoltWintersInt.setText("Holt-Winters(i)");
         checkBoxRunHoltWintersInt.setEnabled(false);
 
+        checkBoxRunRandomWalkCTS.setText("random walk for CTS");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -2022,13 +2027,16 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel133))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunMLPnnetar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPneuralnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunMLPnnet)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunRBF)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(checkBoxRunMLPnnetar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunMLPneuralnet)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunMLPnnet)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunRBF))
+                                            .addComponent(checkBoxRunRandomWalkCTS))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -2089,9 +2097,11 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxRunHolt)
                             .addComponent(checkBoxRunSES)
                             .addComponent(checkBoxRunHoltWinters))
-                        .addGap(5, 5, 5)
-                        .addComponent(jLabel72)
-                        .addGap(57, 57, 57)
+                        .addGap(1, 1, 1)
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel72)
+                            .addComponent(checkBoxRunRandomWalkCTS))
+                        .addGap(52, 52, 52)
                         .addComponent(checkBoxRunHybrid)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2781,10 +2791,31 @@ public class MainFrame extends javax.swing.JFrame {
             params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
             params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
             params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+            if (checkBoxRunIncludeRMSSE.isSelected()) {
+                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
+            }
             
             RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
             TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
             reportsIntTS.add(report);
+        }
+        
+        if (checkBoxRunRandomWalkCTS.isSelected()) {
+            String colname = comboBoxColnamesRun.getSelectedItem().toString();
+            List<Double> dataRandomWalk = dataTableModel.getDataForColname(colname);
+
+            RandomWalkParams params = new RandomWalkParams(); //TODO add support for rangeRun
+            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
+            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+            if (checkBoxRunIncludeRMSSE.isSelected()) {
+                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
+            }
+            
+            RandomWalk randomWalk = new RandomWalk();
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, params));
+            reportsCTS.add(report);
         }
         
         if (checkBoxRunHybrid.isSelected()) {
@@ -3320,6 +3351,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunPlotAvgONLY;
     private javax.swing.JCheckBox checkBoxRunRBF;
     private javax.swing.JCheckBox checkBoxRunRBFint;
+    private javax.swing.JCheckBox checkBoxRunRandomWalkCTS;
     private javax.swing.JCheckBox checkBoxRunSES;
     private javax.swing.JCheckBox checkBoxRunSESint;
     private javax.swing.JCheckBox checkBoxRunVAR;
