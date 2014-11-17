@@ -245,10 +245,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsKNNoptions_kknn = new KNNkknnSettingsPanel();
         comboBoxKNNoptions = new javax.swing.JComboBox();
         panelKNNPercTrain = new PercentTrainSettingsPanel();
-        paneSettingsMethodsVAR = new javax.swing.JPanel();
-        panelSettingsVARMain = new javax.swing.JPanel();
-        panelSettingsVARMainInsideBecauseX = new VARSettingsPanel();
-        jLabel1 = new javax.swing.JLabel();
         panelSettingsMethodsVARint = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         panelVARintInside = new javax.swing.JPanel();
@@ -1250,36 +1246,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         paneSettingsMethods.addTab("kNN", paneSettingsMethodsKNN);
-
-        panelSettingsVARMain.setLayout(new java.awt.BorderLayout());
-        panelSettingsVARMain.add(panelSettingsVARMainInsideBecauseX, java.awt.BorderLayout.CENTER);
-
-        jLabel1.setText(" ");
-
-        javax.swing.GroupLayout paneSettingsMethodsVARLayout = new javax.swing.GroupLayout(paneSettingsMethodsVAR);
-        paneSettingsMethodsVAR.setLayout(paneSettingsMethodsVARLayout);
-        paneSettingsMethodsVARLayout.setHorizontalGroup(
-            paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsVARMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
-                    .addGroup(paneSettingsMethodsVARLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        paneSettingsMethodsVARLayout.setVerticalGroup(
-            paneSettingsMethodsVARLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsVARLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSettingsVARMain, javax.swing.GroupLayout.DEFAULT_SIZE, 568, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        paneSettingsMethods.addTab("VAR", paneSettingsMethodsVAR);
 
         jLabel5.setText("Uses VAR with only two variables - center and radius - and produces interval results.");
 
@@ -3368,7 +3334,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_center;
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_radius;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -3457,7 +3422,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel paneSettingsMethodsMLPint;
     private javax.swing.JPanel paneSettingsMethodsRBF;
     private javax.swing.JPanel paneSettingsMethodsRBFint;
-    private javax.swing.JPanel paneSettingsMethodsVAR;
     private javax.swing.JPanel panelARIMAPercTrain;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
@@ -3549,8 +3513,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsRBFMain;
     private javax.swing.JPanel panelSettingsRBFint_center;
     private javax.swing.JPanel panelSettingsRBFint_radius;
-    private javax.swing.JPanel panelSettingsVARMain;
-    private javax.swing.JPanel panelSettingsVARMainInsideBecauseX;
     private javax.swing.JPanel panelSummary;
     private javax.swing.JPanel panelVARintDistance;
     private javax.swing.JPanel panelVARintInside;
