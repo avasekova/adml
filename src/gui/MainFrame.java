@@ -388,9 +388,6 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHoltWinters = new javax.swing.JCheckBox();
         checkBoxRunHoltWintersInt = new javax.swing.JCheckBox();
         checkBoxRunRandomWalkCTS = new javax.swing.JCheckBox();
-        panelModelDescriptions = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        tabbedPaneModelDescriptions = new javax.swing.JTabbedPane();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -2193,33 +2190,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Run", panelRunOutside);
 
-        jLabel7.setText("Characteristics of all the models used in the last Run.");
-
-        javax.swing.GroupLayout panelModelDescriptionsLayout = new javax.swing.GroupLayout(panelModelDescriptions);
-        panelModelDescriptions.setLayout(panelModelDescriptionsLayout);
-        panelModelDescriptionsLayout.setHorizontalGroup(
-            panelModelDescriptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModelDescriptionsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelModelDescriptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelModelDescriptionsLayout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addGap(0, 1087, Short.MAX_VALUE))
-                    .addComponent(tabbedPaneModelDescriptions))
-                .addContainerGap())
-        );
-        panelModelDescriptionsLayout.setVerticalGroup(
-            panelModelDescriptionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModelDescriptionsLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel7)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tabbedPaneModelDescriptions, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        panelEverything.addTab("Model characteristics", panelModelDescriptions);
-
         panelForecastValsAll.setPreferredSize(new java.awt.Dimension(1366, 615));
 
         buttonExportForecastValues.setText("Export these values");
@@ -3411,7 +3381,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel8;
@@ -3485,7 +3454,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelMLPPercentTrain;
     private javax.swing.JPanel panelMLPintPercentTrain;
     private javax.swing.JPanel panelMLPintSettingsDistance;
-    private javax.swing.JPanel panelModelDescriptions;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelRBFPercentTrain;
     private javax.swing.JPanel panelRBFintPercentTrain;
@@ -3562,7 +3530,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
-    private javax.swing.JTabbedPane tabbedPaneModelDescriptions;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextField textFieldNumNetworksToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
@@ -4236,19 +4203,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelSummary.add(tabbedPaneTablesErrors);
         
         panelSummary.repaint();
-        
-        
-        //and output the models descriptions:
-        JPanel description1 = new JPanel();
-        description1.add(new javax.swing.JLabel("je tam " + reportsCTS.size() + " CTS."));
-        tabbedPaneModelDescriptions.addTab("CTS tab", description1);
-        
-        JPanel description2 = new JPanel();
-        description2.add(new javax.swing.JLabel("je tam " + reportsIntTS.size() + " ITS."));
-        tabbedPaneModelDescriptions.addTab("IntTS tab", description2);
-        
-        //nieco na tento styl. a potom ist model by model, groupby ModelName, vyrobit si tablemodely na kazdy typ,
-        //   a pridavat riadky do tablemodelov. pre kazdy tablemodel jeden tab
    }
 
     private void showDialogTooManyModelsInCase(int paramsSize, String modelName) {
