@@ -137,7 +137,8 @@ public class PlotDrawer {
                     rengine.eval("polygon(c(seq(" + startingPoint + "," + endingPoint + "),"
                                          + "seq(" + endingPoint + "," + startingPoint + ")),"
                                        + "c(" + UPPERS + "," + LOWERS_REVERSE + "),"
-                               + "density=NA, col=rgb(0,0,0,0.1), border=NA)"); //TODO col podla aktualnej
+                               + "density=NA, col=" + getRGBColorStringForHEX(COLOURS[colourNumber % COLOURS.length], 30) 
+                               + ", border=NA)"); //TODO col podla aktualnej
                     
                     
                     
@@ -800,6 +801,15 @@ public class PlotDrawer {
         
         reportsITS.removeAll(toDelete);
         return reportsITS;
+    }
+    
+    private static String getRGBColorStringForHEX(String hexRColor, int alpha) {
+        String base = "col2rgb(\"" + hexRColor + "\")";
+        String red = base + "[\"red\",]";
+        String green = base + "[\"green\",]";
+        String blue = base + "[\"blue\",]";
+        
+        return "rgb(" + red + ", " + green + ", " + blue + ", alpha=" + alpha + ", maxColorValue=255)";
     }
     
     private List<Color> getNColours(int n) {
