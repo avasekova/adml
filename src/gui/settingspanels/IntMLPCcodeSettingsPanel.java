@@ -36,7 +36,6 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
 
         panelDistance = new DistanceSettingsPanel();
         buttonAddDistance = new javax.swing.JButton();
-        listDistancesUsed = new javax.swing.JList();
         buttonRemoveDistances = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         buttonAddExplVar = new javax.swing.JButton();
@@ -60,6 +59,8 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         jLabel60 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listDistancesUsed = new javax.swing.JList();
 
         buttonAddDistance.setText("-> Use this distance ->");
         buttonAddDistance.addActionListener(new java.awt.event.ActionListener() {
@@ -67,8 +68,6 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
                 buttonAddDistanceActionPerformed(evt);
             }
         });
-
-        listDistancesUsed.setModel(new DefaultListModel());
 
         buttonRemoveDistances.setText("Remove selected distance");
         buttonRemoveDistances.addActionListener(new java.awt.event.ActionListener() {
@@ -147,6 +146,9 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         jLabel40.setText("(For now, disabled and set to 0.001)");
         jLabel40.setEnabled(false);
 
+        listDistancesUsed.setModel(new DefaultListModel());
+        jScrollPane1.setViewportView(listDistancesUsed);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -156,7 +158,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(buttonAddDistance)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(listDistancesUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonRemoveDistances))
             .addGroup(layout.createSequentialGroup()
@@ -204,20 +206,23 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(panelDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel34)
-                            .addComponent(buttonAddExplVar)
-                            .addComponent(buttonRemoveExplVar)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(panelDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, Short.MAX_VALUE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(listDistancesUsed, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(buttonAddDistance)))
-                        .addGap(44, 44, 44)))
+                            .addComponent(buttonRemoveDistances)
+                            .addComponent(buttonAddDistance))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel34)
+                    .addComponent(buttonAddExplVar)
+                    .addComponent(buttonRemoveExplVar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneExplVars, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,11 +252,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel39)
                     .addComponent(jLabel40))
-                .addGap(0, 22, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buttonRemoveDistances)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -310,6 +311,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel60;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listDistancesUsed;
     private javax.swing.JPanel panelDistance;
     private javax.swing.JScrollPane scrollPaneExplVars;
