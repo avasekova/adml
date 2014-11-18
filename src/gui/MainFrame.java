@@ -396,6 +396,10 @@ public class MainFrame extends javax.swing.JFrame {
         panelDiagramsNNsInside = new javax.swing.JPanel();
         tabbedPaneDiagramsNNs = new javax.swing.JTabbedPane();
         jButton1 = new javax.swing.JButton();
+        panelPredictionIntervalsAll = new javax.swing.JPanel();
+        buttonExportPredictionIntervals = new javax.swing.JButton();
+        panelPredictionIntervals = new javax.swing.JPanel();
+        scrollPanePredictionIntervals = new javax.swing.JScrollPane();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -2265,6 +2269,40 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Diagrams of NNs", panelDiagramsNNs);
 
+        buttonExportPredictionIntervals.setText("Export");
+        buttonExportPredictionIntervals.setEnabled(false);
+
+        javax.swing.GroupLayout panelPredictionIntervalsLayout = new javax.swing.GroupLayout(panelPredictionIntervals);
+        panelPredictionIntervals.setLayout(panelPredictionIntervalsLayout);
+        panelPredictionIntervalsLayout.setHorizontalGroup(
+            panelPredictionIntervalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanePredictionIntervals)
+        );
+        panelPredictionIntervalsLayout.setVerticalGroup(
+            panelPredictionIntervalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelPredictionIntervalsAllLayout = new javax.swing.GroupLayout(panelPredictionIntervalsAll);
+        panelPredictionIntervalsAll.setLayout(panelPredictionIntervalsAllLayout);
+        panelPredictionIntervalsAllLayout.setHorizontalGroup(
+            panelPredictionIntervalsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPredictionIntervalsAllLayout.createSequentialGroup()
+                .addComponent(buttonExportPredictionIntervals)
+                .addGap(0, 1296, Short.MAX_VALUE))
+            .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        panelPredictionIntervalsAllLayout.setVerticalGroup(
+            panelPredictionIntervalsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPredictionIntervalsAllLayout.createSequentialGroup()
+                .addComponent(buttonExportPredictionIntervals)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        panelEverything.addTab("Prediction intervals", panelPredictionIntervalsAll);
+        panelEverything.removeTabAt(panelEverything.getTabCount() - 1);
+
         menuFile.setText("File");
 
         menuFileLoad.setText("Load");
@@ -2975,6 +3013,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         //show errors
         drawTablesErrorMeasures(reportsCTS, reportsIntTS);
+        
+        //show prediction intervals, if any
+        outputPredictionIntervals(reportsCTS);
 
         //and show forecast values in the other pane
         forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
@@ -3278,6 +3319,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonExportForecastValues;
+    private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
@@ -3455,6 +3497,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelMLPintPercentTrain;
     private javax.swing.JPanel panelMLPintSettingsDistance;
     private javax.swing.JPanel panelPlot;
+    private javax.swing.JPanel panelPredictionIntervals;
+    private javax.swing.JPanel panelPredictionIntervalsAll;
     private javax.swing.JPanel panelRBFPercentTrain;
     private javax.swing.JPanel panelRBFintPercentTrain;
     private javax.swing.JPanel panelRBFintSettingsDistance;
@@ -3524,6 +3568,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneForecastVals;
+    private javax.swing.JScrollPane scrollPanePredictionIntervals;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_centerMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_radiusMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPPackage_nnet;
@@ -4272,6 +4317,35 @@ public class MainFrame extends javax.swing.JFrame {
                 return new BertoluzzaDistance(gamma);
             default:
                 return null;
+        }
+    }
+
+    private void outputPredictionIntervals(List<TrainAndTestReportCrisp> reportsCTS) {
+        List<TrainAndTestReportCrisp> reportsWithPredInts = new ArrayList<>();
+        
+        for (TrainAndTestReportCrisp r : reportsCTS) {
+            if (r.getPredictionIntervalsLowers().length > 0) {
+                reportsWithPredInts.add(r);
+            }
+        }
+        
+        if (! reportsWithPredInts.isEmpty()) {
+            JTable tablePredictionInts = new JTable(new PredictionIntsTableModel(reportsWithPredInts));
+            tablePredictionInts.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            TableColumn firstColumn = tablePredictionInts.getColumnModel().getColumn(0);
+            firstColumn.setMinWidth(10);
+            firstColumn.setMaxWidth(50);
+            tablePredictionInts.setVisible(true);
+            
+            panelPredictionIntervals.removeAll();
+            scrollPanePredictionIntervals.setViewportView(tablePredictionInts);
+            panelPredictionIntervals.add(scrollPanePredictionIntervals);
+            panelPredictionIntervals.repaint();
+            
+            panelPredictionIntervalsAll.setVisible(true);
+            panelEverything.addTab("Prediction intervals", panelPredictionIntervalsAll);
+        } else {
+            panelEverything.remove(panelPredictionIntervalsAll);
         }
     }
 }

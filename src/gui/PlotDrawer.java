@@ -126,7 +126,7 @@ public class PlotDrawer {
                     
                     
                     //draw prediction intervals, if it has them:
-                    if (numForecasts > 0) {
+                    if ((numForecasts > 0) && (r.getPredictionIntervalsLowers().length > 0)) {
                         final String UPPERS = "uppers" + Utils.getCounter();
                         final String LOWERS_REVERSE = "lowersReverse" + Utils.getCounter();
                         List<Double> uppersOnlyFuture = Utils.arrayToList(r.getPredictionIntervalsUppers())
