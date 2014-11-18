@@ -55,7 +55,7 @@ public class HoltSettingsPanel extends SettingsPanel {
 
         checkBoxDamped.setText("damped");
 
-        checkBoxComputePredInts.setText("compute prediction intervals:");
+        checkBoxComputePredInts.setText("compute prediction intervals for the forecasts:");
         checkBoxComputePredInts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxComputePredIntsActionPerformed(evt);

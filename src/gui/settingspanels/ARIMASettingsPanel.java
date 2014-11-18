@@ -83,7 +83,7 @@ public class ARIMASettingsPanel extends SettingsPanel {
         jLabel62.setForeground(new java.awt.Color(255, 0, 0));
         jLabel62.setText("TODO other params of stats.arima + add <default> labels");
 
-        checkBoxComputePredInts.setText("compute prediction intervals:");
+        checkBoxComputePredInts.setText("compute prediction intervals for the forecasts:");
         checkBoxComputePredInts.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxComputePredIntsActionPerformed(evt);

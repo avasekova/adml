@@ -126,20 +126,27 @@ public class PlotDrawer {
                     
                     
                     //draw prediction intervals, if it has them:
-                    final String UPPERS = "uppers" + Utils.getCounter();
-                    final String LOWERS_REVERSE = "lowersReverse" + Utils.getCounter();
-                    rengine.assign(UPPERS, r.getPredictionIntervalsUppers());
-                    List<Double> lowersReverse = Utils.arrayToList(r.getPredictionIntervalsLowers());
-                    Collections.reverse(lowersReverse);
-                    rengine.assign(LOWERS_REVERSE, Utils.listToArray(lowersReverse));
-                    int startingPoint = par.getFrom() + r.getNumTrainingEntries() + 1;
-                    int endingPoint = par.getFrom() + r.getNumTrainingEntries() + r.getPredictionIntervalsLowers().length;
-                    rengine.eval("polygon(c(seq(" + startingPoint + "," + endingPoint + "),"
-                                         + "seq(" + endingPoint + "," + startingPoint + ")),"
-                                       + "c(" + UPPERS + "," + LOWERS_REVERSE + "),"
-                               + "density=NA, col=" + getRGBColorStringForHEX(COLOURS[colourNumber % COLOURS.length], 30) 
-                               + ", border=NA)"); //TODO col podla aktualnej
-                    
+                    if (numForecasts > 0) {
+                        final String UPPERS = "uppers" + Utils.getCounter();
+                        final String LOWERS_REVERSE = "lowersReverse" + Utils.getCounter();
+                        List<Double> uppersOnlyFuture = Utils.arrayToList(r.getPredictionIntervalsUppers())
+                                .subList(r.getPredictionIntervalsUppers().length - numForecasts, r.getPredictionIntervalsUppers().length);
+                        rengine.assign(UPPERS, Utils.listToArray(uppersOnlyFuture));
+                        List<Double> lowersOnlyFutureReverse = Utils.arrayToList(r.getPredictionIntervalsLowers())
+                                .subList(r.getPredictionIntervalsLowers().length - numForecasts, r.getPredictionIntervalsLowers().length);
+                        Collections.reverse(lowersOnlyFutureReverse);
+                        rengine.assign(LOWERS_REVERSE, Utils.listToArray(lowersOnlyFutureReverse));
+                        int startingPoint = par.getFrom() + r.getNumTrainingEntries() + r.getRealOutputsTest().length + 1;
+                        int endingPoint = startingPoint + numForecasts - 1;
+                        //(startingpoint-1) because I want to draw them from the last known (forecast test) value
+                        rengine.eval("polygon(c(seq(" + startingPoint + "," + endingPoint + "),"
+                                             + "seq(" + endingPoint + "," + (startingPoint-1) + ")),"
+                                           + "c(" + UPPERS + "," + LOWERS_REVERSE + ","
+                                                  //and add the last "known" (forecast test) value
+                                                  + r.getForecastValuesTest()[r.getForecastValuesTest().length-1] + "),"
+                                   + "density=NA, col=" + getRGBColorStringForHEX(COLOURS[colourNumber % COLOURS.length], 30) 
+                                   + ", border=NA)"); //TODO col podla aktualnej
+                    }
                     
                     
                     

@@ -203,7 +203,7 @@
     </Component>
     <Component class="javax.swing.JCheckBox" name="checkBoxComputePredInts">
       <Properties>
-        <Property name="text" type="java.lang.String" value="compute prediction intervals:"/>
+        <Property name="text" type="java.lang.String" value="compute prediction intervals for the forecasts:"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxComputePredIntsActionPerformed"/>
