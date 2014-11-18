@@ -76,12 +76,20 @@ public class IntervalMLPCcode implements Forecastable {
         
         
         
-        
-        List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
-                .getIntervalNames()).getLowerBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
-        List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
-                .getIntervalNames()).getUpperBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
-        List<Interval> realData = Utils.zipLowerUpperToIntervals(lowers, uppers);
+        List<Interval> realData;
+        if (params.getOutVars().get(0).getIntervalNames() instanceof IntervalNamesCentreRadius) {
+            List<Double> centers = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)params.getOutVars().get(0)
+                    .getIntervalNames()).getCentre()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+            List<Double> radii = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)params.getOutVars().get(0)
+                    .getIntervalNames()).getRadius()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+            realData = Utils.zipCentersRadiiToIntervals(centers, radii);
+        } else { //LB+UB
+            List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
+                    .getIntervalNames()).getLowerBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+            List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
+                    .getIntervalNames()).getUpperBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+            realData = Utils.zipLowerUpperToIntervals(lowers, uppers);
+        }
         report.setRealValues(realData);
         
         
