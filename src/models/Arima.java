@@ -34,17 +34,6 @@ public class Arima implements Forecastable {
         final String MODEL = Const.MODEL + Utils.getCounter();
         
         ArimaParams params = (ArimaParams) parameters;
-        String arimaDescription;
-        if (params.isOptimize()) {
-            arimaDescription = "(optimized)";
-        } else {
-            arimaDescription = "(" + params.getNonSeasPotato() + "," + 
-                params.getNonSeasDonkey() + "," + params.getNonSeasQuark() + ")(" + params.getSeasPotato() + "," +
-                params.getSeasDonkey() + "," + params.getSeasQuark() + ")";
-            if (params.isWithConstant()) {
-                arimaDescription += ",const.";
-            }
-        }
         
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
@@ -62,8 +51,17 @@ public class Arima implements Forecastable {
         rengine.eval(INPUT_TEST +         " <- " +        INPUT + "[" + (numTrainingEntries+1) + ":" + dataToUse.size() + "]");
         rengine.eval(SCALED_INPUT_TEST +  " <- " + SCALED_INPUT + "[" + (numTrainingEntries+1) + ":" + dataToUse.size() + "]");
         
+        String arimaDescription;
         if (params.isOptimize()) {
             rengine.eval(MODEL + " <- forecast::auto.arima(" + SCALED_INPUT_TRAIN + ")");
+            
+            //extract the order of ARIMA:
+            final String ORDER = Const.INPUT + Utils.getCounter();
+            rengine.eval(ORDER + " <- " + MODEL + "$arma");
+            REXP getAll = rengine.eval(ORDER);
+            double[] allArray = getAll.asDoubleArray();
+            arimaDescription = "(" + allArray[0] + ", " + allArray[5] + ", " + allArray[1] + ")(" + allArray[2]
+                               + ", " + allArray[6] + ", " + allArray[3] + ")";
         } else {
             rengine.eval(MODEL + " <- forecast::Arima(" + SCALED_INPUT_TRAIN + ", order = c(" + params.getNonSeasPotato() + ", "
                                                                        + params.getNonSeasDonkey() + ", "
@@ -73,6 +71,12 @@ public class Arima implements Forecastable {
                                                                        + params.getNonSeasQuark()
                                      + "), period=NA), include.constant = " + Utils.booleanToRBool(params.isWithConstant()) + ", "
                                      + "method=\"ML\")");
+            arimaDescription = "(" + params.getNonSeasPotato() + "," + 
+                params.getNonSeasDonkey() + "," + params.getNonSeasQuark() + ")(" + params.getSeasPotato() + "," +
+                params.getSeasDonkey() + "," + params.getSeasQuark() + ")";
+            if (params.isWithConstant()) {
+                arimaDescription += ",const.";
+            }
         }
         
         rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")");
