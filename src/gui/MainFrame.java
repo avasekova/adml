@@ -71,6 +71,7 @@ import models.VAR;
 import models.VARint;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
+import params.AnalysisBatchLine;
 import params.ArimaParams;
 import params.BasicStats;
 import params.HoltIntParams;
@@ -191,6 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsMLPPackage_neuralnet = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         panelMLPPercentTrain = new PercentTrainSettingsPanel();
+        buttonSettingsAddToBatch_MLP = new javax.swing.JButton();
         paneSettingsMethodsMLPint = new javax.swing.JPanel();
         jLabel47 = new javax.swing.JLabel();
         jLabel48 = new javax.swing.JLabel();
@@ -214,6 +216,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldNumNetworksToTrainMLPint = new javax.swing.JTextField();
         panelMLPintSettingsDistance = new DistanceSettingsPanel();
         panelMLPintPercentTrain = new PercentTrainSettingsPanel();
+        buttonSettingsAddToBatch_MLPint = new javax.swing.JButton();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         panelSettingsIntervalMLPMode = new javax.swing.JPanel();
         panelSettingsIntervalMLPModeCcode = new IntMLPCcodeSettingsPanel();
@@ -222,9 +225,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel31 = new javax.swing.JLabel();
         comboBoxIntervalMLPMode = new javax.swing.JComboBox();
         panelIntMLPPercentTrain = new PercentTrainSettingsPanel();
+        buttonSettingsAddToBatch_intMLP = new javax.swing.JButton();
         paneSettingsMethodsRBF = new javax.swing.JPanel();
         panelSettingsRBFMain = new RBFSettingsPanel();
         panelRBFPercentTrain = new PercentTrainSettingsPanel();
+        buttonSettingsAddToBatch_RBF = new javax.swing.JButton();
         paneSettingsMethodsRBFint = new javax.swing.JPanel();
         jLabel143 = new javax.swing.JLabel();
         jLabel150 = new javax.swing.JLabel();
@@ -390,6 +395,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHoltWinters = new javax.swing.JCheckBox();
         checkBoxRunHoltWintersInt = new javax.swing.JCheckBox();
         checkBoxRunRandomWalkCTS = new javax.swing.JCheckBox();
+        buttonRunAnalysisBatch = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -402,6 +409,11 @@ public class MainFrame extends javax.swing.JFrame {
         buttonExportPredictionIntervals = new javax.swing.JButton();
         panelPredictionIntervals = new javax.swing.JPanel();
         scrollPanePredictionIntervals = new javax.swing.JScrollPane();
+        panelAnalysisBatch = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        scrollPaneAnalysisBatchInside = new javax.swing.JScrollPane();
+        tableAnalysisBatch = new javax.swing.JTable();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -667,7 +679,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -750,7 +762,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelData.setLayout(panelDataLayout);
         panelDataLayout.setHorizontalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1361, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1362, Short.MAX_VALUE)
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -764,7 +776,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelRPkg.setText("R package:");
 
-        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnet", "nnetar", "neuralnet" }));
+        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.NEURALNET }));
         comboBoxRPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRPackageActionPerformed(evt);
@@ -789,17 +801,25 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(1203, Short.MAX_VALUE))
+                .addContainerGap(1204, Short.MAX_VALUE))
         );
         panelSettingsMLPPackage_neuralnetLayout.setVerticalGroup(
             panelSettingsMLPPackage_neuralnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSettingsMLPPackage_neuralnetLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel6)
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addContainerGap(488, Short.MAX_VALUE))
         );
 
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_neuralnet, "panelSettingsMLPPackage_neuralnet");
+
+        buttonSettingsAddToBatch_MLP.setText("Add to Analysis batch");
+        buttonSettingsAddToBatch_MLP.setEnabled(false);
+        buttonSettingsAddToBatch_MLP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_MLPActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneSettingsMethodsMLPLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLP);
         paneSettingsMethodsMLP.setLayout(paneSettingsMethodsMLPLayout);
@@ -808,27 +828,32 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelRPkg))
                         .addGap(18, 18, 18)
-                        .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
+                        .addComponent(buttonSettingsAddToBatch_MLP)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsMLPLayout.setVerticalGroup(
             paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(buttonSettingsAddToBatch_MLP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneSettingsMethodsMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
                         .addComponent(jLabelRPkg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -861,7 +886,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(jLabel100)
-                        .addGap(0, 545, Short.MAX_VALUE))
+                        .addGap(0, 546, Short.MAX_VALUE))
                     .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -883,7 +908,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel100))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
+                            .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
                             .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_radius))))
                 .addContainerGap())
         );
@@ -909,7 +934,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(jLabel88)
-                        .addGap(0, 622, Short.MAX_VALUE))
+                        .addGap(0, 623, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -932,7 +957,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabelRPkg1.setText("R package:");
 
-        comboBoxRPackageMLPint.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "nnet", "nnetar" }));
+        comboBoxRPackageMLPint.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR }));
         comboBoxRPackageMLPint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRPackageMLPintActionPerformed(evt);
@@ -942,6 +967,14 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel63.setText("Num of networks to train (show best based on efficiency+coverage):");
 
         textFieldNumNetworksToTrainMLPint.setText("1");
+
+        buttonSettingsAddToBatch_MLPint.setText("Add to Analysis batch");
+        buttonSettingsAddToBatch_MLPint.setEnabled(false);
+        buttonSettingsAddToBatch_MLPint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_MLPintActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneSettingsMethodsMLPintLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLPint);
         paneSettingsMethodsMLPint.setLayout(paneSettingsMethodsMLPintLayout);
@@ -954,18 +987,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
-                                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel48)
-                                    .addComponent(jLabel47))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
-                                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
-                                        .addGap(40, 40, 40)
-                                        .addComponent(comboBoxRPackageMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabelRPkg1))
-                                .addGap(18, 18, 18)
-                                .addComponent(panelMLPintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jLabel48)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -973,23 +996,38 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel63)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldNumNetworksToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(151, 151, 151))))
+                        .addGap(151, 151, 151))
+                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                        .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(comboBoxRPackageMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabelRPkg1))
+                        .addGap(390, 390, 390)
+                        .addComponent(panelMLPintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
+                        .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonSettingsAddToBatch_MLPint)
+                            .addComponent(jLabel47))
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 1270, Short.MAX_VALUE))
+                .addGap(0, 1271, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
             paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(buttonSettingsAddToBatch_MLPint)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel47)
                 .addGap(18, 18, 18)
-                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addComponent(jLabelRPkg1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboBoxRPackageMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(panelMLPintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(23, 23, 23)
+                    .addComponent(panelMLPintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel48)
@@ -1032,10 +1070,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel31.setText("(Mode)");
 
-        comboBoxIntervalMLPMode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Call C code", "Use neuralnet" }));
+        comboBoxIntervalMLPMode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.INTERVAL_MLP_C_CODE, Const.NEURALNET }));
         comboBoxIntervalMLPMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntervalMLPModeActionPerformed(evt);
+            }
+        });
+
+        buttonSettingsAddToBatch_intMLP.setText("Add to Analysis batch");
+        buttonSettingsAddToBatch_intMLP.setEnabled(false);
+        buttonSettingsAddToBatch_intMLP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_intMLPActionPerformed(evt);
             }
         });
 
@@ -1052,24 +1098,37 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(comboBoxIntervalMLPMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(12, 12, 12)
                         .addComponent(panelIntMLPPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
+                    .addGroup(paneSettingsMethodsIntervalMLPLayout.createSequentialGroup()
+                        .addComponent(buttonSettingsAddToBatch_intMLP)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsIntervalMLPLayout.setVerticalGroup(
             paneSettingsMethodsIntervalMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsIntervalMLPLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(buttonSettingsAddToBatch_intMLP)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneSettingsMethodsIntervalMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelIntMLPPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(paneSettingsMethodsIntervalMLPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel31)
                         .addComponent(comboBoxIntervalMLPMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         paneSettingsMethods.addTab("iMLP", paneSettingsMethodsIntervalMLP);
+
+        buttonSettingsAddToBatch_RBF.setText("Add to Analysis batch");
+        buttonSettingsAddToBatch_RBF.setEnabled(false);
+        buttonSettingsAddToBatch_RBF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_RBFActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneSettingsMethodsRBFLayout = new javax.swing.GroupLayout(paneSettingsMethodsRBF);
         paneSettingsMethodsRBF.setLayout(paneSettingsMethodsRBFLayout);
@@ -1078,19 +1137,23 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
-                        .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 734, Short.MAX_VALUE))
-                    .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonSettingsAddToBatch_RBF))
+                        .addGap(0, 735, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsRBFLayout.setVerticalGroup(
             paneSettingsMethodsRBFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(buttonSettingsAddToBatch_RBF)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, 539, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, 517, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1145,7 +1208,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(jLabel151)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 591, Short.MAX_VALUE))
+                            .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, 592, Short.MAX_VALUE))
                         .addGap(130, 130, 130))))
         );
         paneSettingsMethodsRBFintLayout.setVerticalGroup(
@@ -1190,7 +1253,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsARIMALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                    .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1213,7 +1276,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_custom, "panelSettingsKNNoptions_custom");
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_kknn, "panelSettingsKNNoptions_kknn");
 
-        comboBoxKNNoptions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "package FNN", "package kknn", "Custom R implementation" }));
+        comboBoxKNNoptions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.KNN_FNN, Const.KNN_KKNN, Const.KNN_CUSTOM }));
         comboBoxKNNoptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxKNNoptionsActionPerformed(evt);
@@ -1234,7 +1297,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel64)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 640, Short.MAX_VALUE)))
+                                .addGap(0, 641, Short.MAX_VALUE)))
                         .addGap(510, 510, 510))
                     .addGroup(paneSettingsMethodsKNNLayout.createSequentialGroup()
                         .addComponent(panelKNNPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1274,7 +1337,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                         .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)))
+                        .addComponent(panelVARintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsVARintLayout.setVerticalGroup(
@@ -1300,7 +1363,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsSESLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsSESLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                    .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addComponent(panelSESmain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1339,7 +1402,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
                         .addComponent(panelSESintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsSESintLayout.createSequentialGroup()
                         .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
@@ -1386,7 +1449,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsHoltLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                    .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addComponent(panelHoltInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1425,7 +1488,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsHoltIntLayout.createSequentialGroup()
                         .addComponent(panelHoltIntPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelHoltIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                        .addComponent(panelHoltIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsHoltIntLayout.createSequentialGroup()
                         .addGroup(panelSettingsMethodsHoltIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsHoltIntLayout.createSequentialGroup()
@@ -1481,7 +1544,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                         .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelIntervalHoltDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                        .addComponent(panelIntervalHoltDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                     .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1514,7 +1577,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelSettingsMethodsHoltWintersLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelSettingsMethodsHoltWintersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                    .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1251, Short.MAX_VALUE)
                     .addComponent(panelHoltWintersInside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1553,7 +1616,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
                         .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 700, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelHoltWintersIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE))
+                        .addComponent(panelHoltWintersIntDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
                         .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
@@ -1669,7 +1732,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 577, Short.MAX_VALUE))
+                                .addGap(0, 578, Short.MAX_VALUE))
                             .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -1717,11 +1780,11 @@ public class MainFrame extends javax.swing.JFrame {
         panelSummary.setLayout(panelSummaryLayout);
         panelSummaryLayout.setHorizontalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1341, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         panelSummaryLayout.setVerticalGroup(
             panelSummaryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 311, Short.MAX_VALUE)
+            .addGap(0, 267, Short.MAX_VALUE)
         );
 
         checkBoxRunMLPnnetar.setSelected(true);
@@ -1919,6 +1982,17 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunRandomWalkCTS.setText("random walk for CTS");
 
+        buttonRunAnalysisBatch.setText("Run analysis batch");
+        buttonRunAnalysisBatch.setEnabled(false);
+        buttonRunAnalysisBatch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRunAnalysisBatchActionPerformed(evt);
+            }
+        });
+
+        jLabel7.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel7.setText("TODO (later) dialog with data selection. for now takes what is selected here. and TODO: think about the plot! not everything into 1.");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -1988,14 +2062,6 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunPlotAverageCTSperMethod)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAverageCTS)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAverageIntTSperMethod)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxRunPlotAverageIntTS))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(buttonTrainAndTest)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel9)
@@ -2006,20 +2072,11 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(textFieldRunDataRangeTo, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonRunRestoreRangeAll)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(buttonRunRestoreRangeAll)
+                                        .addGap(81, 81, 81)
                                         .addComponent(checkBoxRunIncludeRMSSE, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldRunRMSSESeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxRunPlotAvgONLY)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(buttonRunExportErrorMeasures))))
-                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(textFieldRunRMSSESeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(checkBoxRunHybrid)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(checkBoxRunIntervalMLPCcode)
@@ -2081,7 +2138,27 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(checkBoxRunHoltWintersInt)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jLabel3)))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(buttonRunAnalysisBatch, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunPlotAverageCTSperMethod)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunPlotAverageCTS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunPlotAverageIntTSperMethod)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunPlotAverageIntTS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunPlotAvgONLY)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(buttonRunExportErrorMeasures))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addGap(0, 0, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         panelRunOutsideLayout.setVerticalGroup(
@@ -2185,15 +2262,19 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(1, 1, 1)
                         .addComponent(jLabel8))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(checkBoxRunPlotAverageCTSperMethod)
-                            .addComponent(checkBoxRunPlotAverageIntTSperMethod)
-                            .addComponent(checkBoxRunPlotAvgONLY)
-                            .addComponent(checkBoxRunPlotAverageCTS)
-                            .addComponent(checkBoxRunPlotAverageIntTS)
-                            .addComponent(buttonRunExportErrorMeasures))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonRunAnalysisBatch)
+                            .addComponent(jLabel7))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(checkBoxRunPlotAverageCTSperMethod)
+                    .addComponent(checkBoxRunPlotAverageIntTSperMethod)
+                    .addComponent(checkBoxRunPlotAvgONLY)
+                    .addComponent(checkBoxRunPlotAverageCTS)
+                    .addComponent(checkBoxRunPlotAverageIntTS)
+                    .addComponent(buttonRunExportErrorMeasures))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -2227,7 +2308,7 @@ public class MainFrame extends javax.swing.JFrame {
             panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelForecastValsAllLayout.createSequentialGroup()
                 .addComponent(buttonExportForecastValues)
-                .addGap(0, 1232, Short.MAX_VALUE))
+                .addGap(0, 1233, Short.MAX_VALUE))
             .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelForecastValsAllLayout.setVerticalGroup(
@@ -2297,7 +2378,7 @@ public class MainFrame extends javax.swing.JFrame {
             panelPredictionIntervalsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addComponent(buttonExportPredictionIntervals)
-                .addGap(0, 1296, Short.MAX_VALUE))
+                .addGap(0, 1297, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -2313,6 +2394,43 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Prediction intervals", panelPredictionIntervalsAll);
         panelEverything.removeTabAt(panelEverything.getTabCount() - 1);
+
+        jLabel1.setText("TODO: add checkboxes");
+
+        jButton2.setText("Remove selected");
+        jButton2.setEnabled(false);
+
+        tableAnalysisBatch.setModel(batchTableModel);
+        scrollPaneAnalysisBatchInside.setViewportView(tableAnalysisBatch);
+
+        javax.swing.GroupLayout panelAnalysisBatchLayout = new javax.swing.GroupLayout(panelAnalysisBatch);
+        panelAnalysisBatch.setLayout(panelAnalysisBatchLayout);
+        panelAnalysisBatchLayout.setHorizontalGroup(
+            panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 1342, Short.MAX_VALUE)
+                    .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        panelAnalysisBatchLayout.setVerticalGroup(
+            panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panelEverything.addTab("[Analysis batch]", panelAnalysisBatch);
 
         menuFile.setText("File");
 
@@ -2398,6 +2516,13 @@ public class MainFrame extends javax.swing.JFrame {
                     if (! dataTableModel.getColnames().isEmpty()) {
                         buttonPlotColname.setEnabled(true);
                         buttonTrainAndTest.setEnabled(true);
+                        buttonRunAnalysisBatch.setEnabled(true);
+                        
+                        buttonSettingsAddToBatch_MLP.setEnabled(true);
+                        buttonSettingsAddToBatch_MLPint.setEnabled(true);
+                        buttonSettingsAddToBatch_intMLP.setEnabled(true);
+                        buttonSettingsAddToBatch_RBF.setEnabled(true);
+                        
                         buttonACF.setEnabled(true);
                         buttonPACF.setEnabled(true);
                         buttonPlotAllITS.setEnabled(true);
@@ -2436,7 +2561,17 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
         CardLayout card = (CardLayout)panelSettingsMLPPackage.getLayout();
-        card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_" + comboBoxRPackage.getSelectedItem().toString());
+        switch (comboBoxRPackage.getSelectedItem().toString()) {
+            case Const.NNET:
+                card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_nnet");
+                break;
+            case Const.NNETAR:
+                card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_nnetar");
+                break;
+            case Const.NEURALNET:
+                card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_neuralnet");
+                break;
+        }
         panelSettingsMLPPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
 
@@ -2465,10 +2600,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void comboBoxIntervalMLPModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntervalMLPModeActionPerformed
         CardLayout card = (CardLayout)panelSettingsIntervalMLPMode.getLayout();
         switch (comboBoxIntervalMLPMode.getSelectedItem().toString()) {
-            case "Call C code":
+            case Const.INTERVAL_MLP_C_CODE:
                 card.show(panelSettingsIntervalMLPMode, "panelSettingsIntervalMLPModeCcode");
                 break;
-            case "Use neuralnet":
+            case Const.NEURALNET:
                 card.show(panelSettingsIntervalMLPMode, "panelSettingsIntervalMLPModeNeuralnet");
                 break;
         }
@@ -2479,13 +2614,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void comboBoxKNNoptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxKNNoptionsActionPerformed
         CardLayout card = (CardLayout)panelSettingsKNNoptions.getLayout();
         switch (comboBoxKNNoptions.getSelectedItem().toString()) {
-            case "package FNN":
+            case Const.KNN_FNN:
                 card.show(panelSettingsKNNoptions, "panelSettingsKNNoptions_FNN");
                 break;
-            case "Custom R implementation":
+            case Const.KNN_CUSTOM:
                 card.show(panelSettingsKNNoptions, "panelSettingsKNNoptions_custom");
                 break;
-            case "package kknn":
+            case Const.KNN_KKNN:
                 card.show(panelSettingsKNNoptions, "panelSettingsKNNoptions_kknn");
                 break;
         }
@@ -2571,7 +2706,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPnnetar.isSelected()) {
             List<NnetarParams> params = getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
             
-            showDialogTooManyModelsInCase(params.size(), "nnetar");
+            showDialogTooManyModelsInCase(params.size(), Const.NNETAR);
             if (continueWithTooManyModels) {
                 Forecastable nnetar = new Nnetar();
                 for (NnetarParams p : params) {
@@ -2584,7 +2719,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPneuralnet.isSelected()) {
             List<NeuralnetParams> params = getParamsNeuralnet();
             
-            showDialogTooManyModelsInCase(params.size(), "neuralnet");
+            showDialogTooManyModelsInCase(params.size(), Const.NEURALNET);
             if (continueWithTooManyModels) {
                 Forecastable neuralnet = new Neuralnet();
                 for (NeuralnetParams p : params) {
@@ -2598,7 +2733,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<NnetParams> params = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
 
-                showDialogTooManyModelsInCase(params.size(), "nnet");
+                showDialogTooManyModelsInCase(params.size(), Const.NNET);
                 if (continueWithTooManyModels) {
                     Forecastable nnet = new Nnet();
                     for (NnetParams p : params) {
@@ -2792,10 +2927,6 @@ public class MainFrame extends javax.swing.JFrame {
                 //TODO log alebo nieco
             }
         }
-        
-//        if (checkBoxRunCrispRandomWalk.isSelected()) {
-//            //TODO
-//        }
         
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
             String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
@@ -3043,7 +3174,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
         CardLayout card = (CardLayout) panelSettingsMLPintPackage.getLayout();
-        card.show(panelSettingsMLPintPackage, "panelSettingsMLPintPackage_" + comboBoxRPackageMLPint.getSelectedItem().toString());
+        switch (comboBoxRPackageMLPint.getSelectedItem().toString()) {
+            case Const.NNET:
+                card.show(panelSettingsMLPintPackage, "panelSettingsMLPintPackage_nnet");
+                break;
+            case Const.NNETAR:
+                card.show(panelSettingsMLPintPackage, "panelSettingsMLPintPackage_nnetar");
+        }
+        
         panelSettingsMLPintPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageMLPintActionPerformed
 
@@ -3284,6 +3422,285 @@ public class MainFrame extends javax.swing.JFrame {
             textFieldRunRMSSESeasonality.setEnabled(false);
         }
     }//GEN-LAST:event_checkBoxRunIncludeRMSSEActionPerformed
+
+    private void buttonRunAnalysisBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunAnalysisBatchActionPerformed
+        //TODO neslo by toto cele nejak refaktorovat? je to prilis podobne buttonRun
+        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
+        buttonExportForecastValues.setEnabled(true);
+
+        //vsetky pridaju do zoznamu trainingreports svoje errormeasures a plotcode
+        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
+        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
+
+        for (AnalysisBatchLine l : batchTableModel.getAllLines()) {//TODO refactor - toto je to iste, co v buttonRun
+            List<? extends Params> params = new ArrayList<>();
+            try {
+                params = l.getModelParams();
+            } catch (IllegalArgumentException e) {
+                //TODO log?
+            }
+            showDialogTooManyModelsInCase(params.size(), l.getModel());
+            
+            if (continueWithTooManyModels) {
+                Forecastable forecastable = null;
+                
+                switch (l.getModel()) { //crisp models
+                    case Const.ARIMA:
+                        forecastable = new Arima();
+                        break;
+                    case Const.HOLT:
+                        forecastable = new Holt();
+                        break;
+                    case Const.HOLT_WINTERS:
+                        forecastable = new HoltWinters();
+                        break;
+                    case Const.KNN_CUSTOM:
+                        break;
+                    case Const.KNN_FNN:
+                        forecastable = new KNNfnn();
+                        break;
+                    case Const.KNN_KKNN:
+                        forecastable = new KNNkknn();
+                        break;
+                    case Const.NEURALNET:
+                        forecastable = new Neuralnet();
+                        break;
+                    case Const.NNET:
+                        forecastable = new Nnet();
+                        break;
+                    case Const.NNETAR:
+                        forecastable = new Nnetar();
+                        break;
+                    case Const.RBF:
+                        forecastable = new RBF();
+                        break;
+                    case Const.SES:
+                        forecastable = new SES();
+                        break;
+                    case Const.VAR:
+                        break;
+
+                }
+                
+                if (forecastable != null) {
+                    for (Params p : params) {
+                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(dataTableModel, p));
+                        if (report != null) {
+                            reportsCTS.add(report);
+                        }
+                    }
+                } else { //inak je to intervalovy model, pokracovat
+                    switch (l.getModel()) {
+                        case Const.HOLT_INT:
+                            forecastable = new HoltInt();
+                            break;
+                        case Const.HOLT_WINTERS_INT:
+                            forecastable = new HoltWintersInt();
+                            break;
+                        case Const.HYBRID:
+                            forecastable = new Hybrid();
+                            break;
+                        case Const.INTERVAL_HOLT:
+                            forecastable = new IntervalHolt();
+                            break;
+                        case Const.INTERVAL_MLP_C_CODE:
+                            forecastable = new IntervalMLPCcode();
+                            break;
+                        case Const.MLP_INT_NNET:
+                            forecastable = new MLPintNnet();
+                            break;
+                        case Const.MLP_INT_NNETAR:
+                            forecastable = new MLPintNnetar();
+                            break;
+                        case Const.RBF_INT:
+                            forecastable = new RBFint();
+                            break;
+                        case Const.SES_INT:
+                            forecastable = new SESint();
+                            break;
+                        case Const.VAR_INT:
+                            forecastable = new VARint();
+                            break;
+                    }
+
+                    if (forecastable != null) {
+                        for (Params p : params) {
+                            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(dataTableModel, p));
+                            reportsIntTS.add(report);
+                        }
+                    } else { //still null?
+                        switch (l.getModel()) {
+                            case Const.RANDOM_WALK:
+                                String colname = comboBoxColnamesRun.getSelectedItem().toString();
+                                List<Double> dataRandomWalk = dataTableModel.getDataForColname(colname);
+
+                                RandomWalkParams paramsRandomWalk = new RandomWalkParams(); //TODO add support for rangeRun
+                                paramsRandomWalk.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
+                                paramsRandomWalk.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+                                paramsRandomWalk.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+                                paramsRandomWalk.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+                                if (checkBoxRunIncludeRMSSE.isSelected()) {
+                                    paramsRandomWalk.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
+                                }
+
+                                RandomWalk randomWalk = new RandomWalk();
+                                TrainAndTestReportCrisp reportRandomWalk = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, paramsRandomWalk));
+                                reportsCTS.add(reportRandomWalk);
+                                break;
+                            case Const.RANDOM_WALK_INT:
+                                String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
+                                String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
+                                List<Interval> dataRandomWalkInt = Utils.zipCentersRadiiToIntervals(dataTableModel.getDataForColname(colnameCenter),
+                                        dataTableModel.getDataForColname(colnameRadius));
+
+                                Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
+                                RandomWalkIntervalParams paramsRandomWalkInt = new RandomWalkIntervalParams(); //TODO add support for rangeRun
+                                paramsRandomWalkInt.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
+                                paramsRandomWalkInt.setDistance(distance);
+                                paramsRandomWalkInt.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+                                paramsRandomWalkInt.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+                                paramsRandomWalkInt.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+                                if (checkBoxRunIncludeRMSSE.isSelected()) {
+                                    paramsRandomWalkInt.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
+                                }
+
+                                RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
+                                TrainAndTestReportInterval reportRandomWalkInt = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalkInt, paramsRandomWalkInt));
+                                reportsIntTS.add(reportRandomWalkInt);
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+        
+        
+        //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
+        //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
+        List<TrainAndTestReport> allReports = new ArrayList<>();
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsIntTS);
+        List<JGDBufferedPanel> diagramPanels = PlotDrawer.drawDiagrams(tabbedPaneDiagramsNNs.getWidth(), tabbedPaneDiagramsNNs.getHeight(), allReports);
+        
+        tabbedPaneDiagramsNNs.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : diagramPanels) {
+            tabbedPaneDiagramsNNs.addTab("Page "+(++i), p);
+        }
+        panelDiagramsNNsInside.repaint();
+        
+        //show Forecast plot
+        int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
+        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
+        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
+        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
+                panelPlot.getHeight(),
+                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
+                reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
+                checkBoxRunPlotAverageCTS.isSelected(), checkBoxRunPlotAverageIntTSperMethod.isSelected(),
+                checkBoxRunPlotAverageIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
+        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
+        textAreaPlotBasicStats.setText("");
+        buttonPlotExportPlot.setEnabled(true);
+        
+        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsIntTS);
+        
+        //show errors
+        drawTablesErrorMeasures(reportsCTS, reportsIntTS);
+        
+        //show prediction intervals, if any
+        outputPredictionIntervals(reportsCTS);
+
+        //and show forecast values in the other pane
+        forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        forecastValuesLatest.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumn firstColumn = forecastValuesLatest.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(10);
+        firstColumn.setMaxWidth(50);
+        forecastValuesLatest.setVisible(true);
+        panelForecastVals.removeAll();
+        scrollPaneForecastVals.setViewportView(forecastValuesLatest);
+        panelForecastVals.add(scrollPaneForecastVals);
+        panelForecastVals.repaint();
+    }//GEN-LAST:event_buttonRunAnalysisBatchActionPerformed
+
+    private void buttonSettingsAddToBatch_MLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPActionPerformed
+        //zistit, ktora karta je hore
+        switch (comboBoxRPackage.getSelectedItem().toString()) {
+            case Const.NNET:
+                try {
+                    List<NnetParams> paramsNnet = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
+                    batchTableModel.addLine(new AnalysisBatchLine(Const.NNET, paramsNnet));
+                } catch (IllegalArgumentException e) {
+                    //TODO
+                }
+                break;
+            case Const.NNETAR:
+                try {
+                    List<NnetarParams> paramsNnetar = getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
+                    batchTableModel.addLine(new AnalysisBatchLine(Const.NNETAR, paramsNnetar));
+                } catch (IllegalArgumentException e) {
+                    //TODO
+                }
+                break;
+            case Const.NEURALNET:
+                break;
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_MLPActionPerformed
+
+    private void buttonSettingsAddToBatch_MLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPintActionPerformed
+        switch (comboBoxRPackageMLPint.getSelectedItem().toString()) {
+            case Const.NNET:
+                try {
+                    List<MLPintNnetParams> paramsNnet = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                        panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
+                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetworksToTrainMLPint);
+                    batchTableModel.addLine(new AnalysisBatchLine(Const.MLP_INT_NNET, paramsNnet));
+                } catch (IllegalArgumentException e) {
+                    //TODO
+                }
+                break;
+            case Const.NNETAR:
+                try {
+                    List<MLPintNnetarParams> paramsNnetar = getParamsMLPintNnetar(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                        panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
+                        panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance);
+                    batchTableModel.addLine(new AnalysisBatchLine(Const.MLP_INT_NNETAR, paramsNnetar));
+                } catch (IllegalArgumentException e) {
+                    //TODO
+                }
+                break;
+            case Const.NEURALNET:
+                break;
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_MLPintActionPerformed
+
+    private void buttonSettingsAddToBatch_intMLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_intMLPActionPerformed
+        switch (comboBoxIntervalMLPMode.getSelectedItem().toString()) {
+            case Const.INTERVAL_MLP_C_CODE:
+                try {
+                    List<IntervalMLPCcodeParams> paramsIMLP = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
+                    batchTableModel.addLine(new AnalysisBatchLine(Const.INTERVAL_MLP_C_CODE, paramsIMLP));
+                } catch (IllegalArgumentException e) {
+                    //TODO
+                }
+                break;
+            case Const.NEURALNET:
+                break;
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_intMLPActionPerformed
+
+    private void buttonSettingsAddToBatch_RBFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_RBFActionPerformed
+        try {
+            List<RBFParams> paramsRBF = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
+            batchTableModel.addLine(new AnalysisBatchLine(Const.RBF, paramsRBF));
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_RBFActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -3344,8 +3761,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotRestoreIntTSRangeY;
     private javax.swing.JButton buttonPlotZoomCTS;
     private javax.swing.JButton buttonPlotZoomIntTS;
+    private javax.swing.JButton buttonRunAnalysisBatch;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonRunRestoreRangeAll;
+    private javax.swing.JButton buttonSettingsAddToBatch_MLP;
+    private javax.swing.JButton buttonSettingsAddToBatch_MLPint;
+    private javax.swing.JButton buttonSettingsAddToBatch_RBF;
+    private javax.swing.JButton buttonSettingsAddToBatch_intMLP;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunHolt;
@@ -3391,6 +3813,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_center;
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_radius;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -3434,6 +3858,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel63;
     private javax.swing.JLabel jLabel64;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel8;
@@ -3479,6 +3904,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel paneSettingsMethodsRBF;
     private javax.swing.JPanel paneSettingsMethodsRBFint;
     private javax.swing.JPanel panelARIMAPercTrain;
+    private javax.swing.JPanel panelAnalysisBatch;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
@@ -3577,6 +4003,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelVARintPercentTrain;
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
+    private javax.swing.JScrollPane scrollPaneAnalysisBatchInside;
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneForecastVals;
     private javax.swing.JScrollPane scrollPanePredictionIntervals;
@@ -3586,6 +4013,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
+    private javax.swing.JTable tableAnalysisBatch;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextField textFieldNumNetworksToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
@@ -3605,6 +4033,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private File loadedFile;
     private static final DataTableModel dataTableModel = new DataTableModel();
+    private static final AnalysisBatchTableModel batchTableModel = new AnalysisBatchTableModel();
     public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
     private static JGDBufferedPanel gdBufferedPanelPlot;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
