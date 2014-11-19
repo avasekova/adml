@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import params.Params;
 import utils.CrispExplanatoryVariable;
-import utils.Utils;
+import utils.FieldsParser;
 
 public class RBFSettingsPanel extends SettingsPanel {
 
@@ -201,7 +201,7 @@ public class RBFSettingsPanel extends SettingsPanel {
             throw new IllegalArgumentException("RBF insufficient expl vars");
         }
         
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumHidden()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
         //POZOR, OutVars sa nastavuju vonku v getParamsRBF! zatial. TODO prerobit sem?
 //        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
@@ -211,6 +211,6 @@ public class RBFSettingsPanel extends SettingsPanel {
 //        outVarList.add(outVar);
 //        SettingsPanel.setSomethingOneValue(classss, resultList, "setOutVars",
 //                List.class, outVarList);
-        SettingsPanel.setSomethingList(classss, resultList, "setMaxIterations", Integer.class, Utils.getIntegersOrDefault(getMaxIt()));
+        SettingsPanel.setSomethingList(classss, resultList, "setMaxIterations", Integer.class, FieldsParser.parseIntegers(getMaxIt()));
     }
 }

@@ -3,9 +3,9 @@ package gui.settingspanels;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.List;
-import params.NnetarParams;
 import params.Params;
 import utils.Utils;
+import utils.FieldsParser;
 
 public class MLPNnetarSettingsPanel extends SettingsPanel {
 
@@ -234,10 +234,10 @@ public class MLPNnetarSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         //TODO toto mozno vymysliet inak :( classss by mala byt furt NnetarParams, a neviem, ci je dobre alebo zle, ze
         //   je tu tym padom povolene dodat aj nieco ine.
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNumSeasonalLags", Integer.class, Utils.getIntegersOrDefault(getNumSeasonalLags()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNonSeasonalLags", Integer.class, Utils.getIntegersOrDefault(getNumNonSeasonalLags()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNumReps", Integer.class, Utils.getIntegersOrDefault(getNumReps()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumNodesHidden()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumSeasonalLags", Integer.class, FieldsParser.parseIntegers(getNumSeasonalLags()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNonSeasonalLags", Integer.class, FieldsParser.parseIntegers(getNumNonSeasonalLags()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumReps", Integer.class, FieldsParser.parseIntegers(getNumReps()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setLambda", Double.class, Utils.getDoubleOrDefault(getLambda()));
     }
     

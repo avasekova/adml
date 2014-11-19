@@ -3,6 +3,7 @@ package gui.settingspanels;
 import java.util.List;
 import javax.swing.JOptionPane;
 import params.Params;
+import utils.FieldsParser;
 import utils.R_Bool;
 import utils.Utils;
 
@@ -191,6 +192,6 @@ public class HoltSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, Utils.getIntegersOrDefault(getPredIntPercent()).get(0));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, FieldsParser.parseIntegers(getPredIntPercent()).get(0));
     }
 }

@@ -98,6 +98,7 @@ import params.VARParams;
 import params.VARintParams;
 import utils.CrispOutputVariable;
 import utils.ExcelWriter;
+import utils.FieldsParser;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
@@ -2993,7 +2994,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelDiagramsNNsInside.repaint();
         
         //show Forecast plot
-        int numForecasts = Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0);
+        int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
@@ -3628,11 +3629,11 @@ public class MainFrame extends javax.swing.JFrame {
     
     private <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingList(classss, resultList, "setNumForecasts", 
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+                Integer.class, FieldsParser.parseIntegers(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(classss, resultList, "setDataRangeFrom",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+                Integer.class, FieldsParser.parseIntegers(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(classss, resultList, "setDataRangeTo",
-                Integer.class, Utils.getIntegersOrDefault(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+                Integer.class, FieldsParser.parseIntegers(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
         Integer seasonality = 0;
         if (checkBoxRunIncludeRMSSE.isSelected()) {
             seasonality = Integer.parseInt(textFieldRunRMSSESeasonality.getText());
@@ -3663,14 +3664,14 @@ public class MainFrame extends javax.swing.JFrame {
         //zohnat vsetky parametre pre dany model:
         //TODO: vymysliet nejak vseobecne! zatial je to natvrdo pre nnetar
 //        params.put("percentTrain", sliderPercentTrain.getValue());
-//        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts));
+//        params.setNumForecasts(FieldsParser.parseIntegers(textFieldRunNumForecasts));
 //        //TODO chytat vynimky, resp. validator na cisla
-//        params.put("numNodesHidden", Utils.getIntegersOrDefault(textFieldNumNodesInHiddenSingleLayer));
-//        params.put("numSeasonalLags", Utils.getIntegersOrDefault(textFieldNumSeasonalLags));
-//        params.put("numNonSeasonalLags", Utils.getIntegersOrDefault(textFieldNumNonSeasonalLags));
-//        params.put("numReps", Utils.getIntegersOrDefault(textFieldNumReps));
-//        params.put("lambda", Utils.getIntegersOrDefault(textFieldLambda));
-//        params.put("numForecasts", Utils.getIntegersOrDefault(textFieldNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
+//        params.put("numNodesHidden", FieldsParser.parseIntegers(textFieldNumNodesInHiddenSingleLayer));
+//        params.put("numSeasonalLags", FieldsParser.parseIntegers(textFieldNumSeasonalLags));
+//        params.put("numNonSeasonalLags", FieldsParser.parseIntegers(textFieldNumNonSeasonalLags));
+//        params.put("numReps", FieldsParser.parseIntegers(textFieldNumReps));
+//        params.put("lambda", FieldsParser.parseIntegers(textFieldLambda));
+//        params.put("numForecasts", FieldsParser.parseIntegers(textFieldNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
         
         List<NeuralnetParams> resultList = new ArrayList<>();
         resultList.add(params);
@@ -3755,7 +3756,7 @@ public class MainFrame extends javax.swing.JFrame {
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
                 NnetParams.class, resultListRadius);
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, Utils.getIntegersOrDefault(numNetsToTrainField).subList(0, 1));
+                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
         
         return resultList;
     }
@@ -3781,7 +3782,7 @@ public class MainFrame extends javax.swing.JFrame {
 //        //zohnat vsetky parametre pre dany model:
 //        params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
 //        params.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
-//        params.setNumForecasts(Utils.getIntegersOrDefault(textFieldRunNumForecasts).get(0));
+//        params.setNumForecasts(FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0));
 //        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
 //        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
 //        //TODO setSpecific params
@@ -3911,7 +3912,7 @@ public class MainFrame extends javax.swing.JFrame {
                 RBFParams.class, resultListRadius);
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(RBFintParams.class, resultList);
         SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, Utils.getIntegersOrDefault(numNetsToTrainField));
+                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
         
         return resultList;
     }
@@ -4049,7 +4050,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         ((DistanceSettingsPanel)panelSettingsHybridDistance).setSpecificParams(HybridParams.class, resultList);
         SettingsPanel.setSomethingList(HybridParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, Utils.getIntegersOrDefault(textFieldNumNetworksToTrainRBFint));
+                Integer.class, FieldsParser.parseIntegers(textFieldNumNetworksToTrainRBFint));
         
         return resultList;
     }

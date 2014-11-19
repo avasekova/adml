@@ -3,7 +3,7 @@ package gui.settingspanels;
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
 import params.Params;
-import utils.Utils;
+import utils.FieldsParser;
 
 public class KNNFNNSettingsPanel extends SettingsPanel {
 
@@ -78,7 +78,7 @@ public class KNNFNNSettingsPanel extends SettingsPanel {
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNeighbours", Integer.class, Utils.getIntegersOrDefault(getNumNeighbours()));
-        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNeighbours", Integer.class, FieldsParser.parseIntegers(getNumNeighbours()));
+        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, FieldsParser.parseIntegers(getLag()));
     }
 }

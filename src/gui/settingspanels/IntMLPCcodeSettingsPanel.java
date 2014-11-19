@@ -13,7 +13,7 @@ import javax.swing.SwingUtilities;
 import params.Params;
 import utils.IntervalExplanatoryVariable;
 import utils.IntervalOutputVariable;
-import utils.Utils;
+import utils.FieldsParser;
 import utils.imlp.dist.Distance;
 
 public class IntMLPCcodeSettingsPanel extends SettingsPanel {
@@ -381,10 +381,10 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setDistance", Distance.class, getDistancesUsed());
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, Utils.getIntegersOrDefault(getNumHidden()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNumIterations", Integer.class, Utils.getIntegersOrDefault(getNumIterations()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumIterations", Integer.class, FieldsParser.parseIntegers(getNumIterations()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setOutVars", List.class, getOutVars());
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNetworks", Integer.class, Utils.getIntegersOrDefault(getNumNetsToTrain()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNetworks", Integer.class, FieldsParser.parseIntegers(getNumNetsToTrain()));
     }
 }

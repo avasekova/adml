@@ -5,7 +5,7 @@ import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import params.Params;
-import utils.Utils;
+import utils.FieldsParser;
 
 public class VARSettingsPanel extends SettingsPanel {
     
@@ -124,7 +124,7 @@ public class VARSettingsPanel extends SettingsPanel {
         }
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setEndogenousVars", List.class, getEndogenousVars());
-        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
+        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, FieldsParser.parseIntegers(getLag()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setType", String.class, getType());
         
         //pozor, zbytok sa setuje v getParamsVAR

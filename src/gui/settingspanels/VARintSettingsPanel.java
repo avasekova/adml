@@ -3,7 +3,7 @@ package gui.settingspanels;
 import java.util.ArrayList;
 import java.util.List;
 import params.Params;
-import utils.Utils;
+import utils.FieldsParser;
 
 public class VARintSettingsPanel extends SettingsPanel {
 
@@ -157,7 +157,7 @@ public class VARintSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setCenter", String.class, getCenter());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setRadius", String.class, getRadius());
-        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, Utils.getIntegersOrDefault(getLag()));
+        SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, FieldsParser.parseIntegers(getLag()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setType", String.class, getType());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setOptimizeLag", Boolean.class, isOptimizeLag());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setCriterionOptimizeLag", String.class, getCriterionOptimizeLag());

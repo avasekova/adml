@@ -2,7 +2,7 @@ package gui.settingspanels;
 
 import java.util.List;
 import params.Params;
-import utils.Utils;
+import utils.FieldsParser;
 
 public class ARIMASettingsPanel extends SettingsPanel {
 
@@ -287,13 +287,13 @@ public class ARIMASettingsPanel extends SettingsPanel {
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setOptimize", Boolean.class, isOptimize());
-        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasPotato", Integer.class, Utils.getIntegersOrDefault(getNonSeasLowercasePotato()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasDonkey", Integer.class, Utils.getIntegersOrDefault(getNonSeasLowercaseDonkey()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasQuark", Integer.class, Utils.getIntegersOrDefault(getNonSeasLowercaseQuark()));
-        SettingsPanel.setSomethingList(classss, resultList, "setSeasPotato", Integer.class, Utils.getIntegersOrDefault(getSeasUppercasePotato()));
-        SettingsPanel.setSomethingList(classss, resultList, "setSeasDonkey", Integer.class, Utils.getIntegersOrDefault(getSeasUppercaseDonkey()));
-        SettingsPanel.setSomethingList(classss, resultList, "setSeasQuark", Integer.class, Utils.getIntegersOrDefault(getSeasUppercaseQuark()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasPotato", Integer.class, FieldsParser.parseIntegers(getNonSeasLowercasePotato()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasDonkey", Integer.class, FieldsParser.parseIntegers(getNonSeasLowercaseDonkey()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNonSeasQuark", Integer.class, FieldsParser.parseIntegers(getNonSeasLowercaseQuark()));
+        SettingsPanel.setSomethingList(classss, resultList, "setSeasPotato", Integer.class, FieldsParser.parseIntegers(getSeasUppercasePotato()));
+        SettingsPanel.setSomethingList(classss, resultList, "setSeasDonkey", Integer.class, FieldsParser.parseIntegers(getSeasUppercaseDonkey()));
+        SettingsPanel.setSomethingList(classss, resultList, "setSeasQuark", Integer.class, FieldsParser.parseIntegers(getSeasUppercaseQuark()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setWithConstant", Boolean.class, isConstant());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, Utils.getIntegersOrDefault(getPredIntPercent()).get(0));
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, FieldsParser.parseIntegers(getPredIntPercent()).get(0));
     }
 }

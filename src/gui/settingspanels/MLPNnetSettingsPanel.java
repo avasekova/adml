@@ -9,6 +9,7 @@ import javax.swing.SwingUtilities;
 import params.Params;
 import utils.CrispExplanatoryVariable;
 import utils.R_Bool;
+import utils.FieldsParser;
 import utils.Utils;
 
 public class MLPNnetSettingsPanel extends SettingsPanel {
@@ -452,8 +453,8 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setReltol", Double.class, Utils.getDoubleOrDefault(getReltol()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setSkipLayerConnections", R_Bool.class, Utils.booleanToRBool(isSkipConn()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setInitWeightsRange", Double.class, Utils.getDoubleOrDefault(getInitRange()));
-        SettingsPanel.setSomethingList(classss, resultList, "setMaxIterations", Integer.class, Utils.getIntegersOrDefault(getMaxit()));
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHiddenLayer", Integer.class, Utils.getIntegersOrDefault(getNumNodesHidden()));
+        SettingsPanel.setSomethingList(classss, resultList, "setMaxIterations", Integer.class, FieldsParser.parseIntegers(getMaxit()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHiddenLayer", Integer.class, FieldsParser.parseIntegers(getNumNodesHidden()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setLinearElseLogistic", R_Bool.class, Utils.booleanToRBool(isLogistic()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setLeastSqrsElseMaxCondLikelihood", R_Bool.class, Utils.booleanToRBool(isLeastSqrs()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setLoglinSoftmaxElseMaxCondLikelihood", R_Bool.class, Utils.booleanToRBool(isLoglinSoftmax()));
