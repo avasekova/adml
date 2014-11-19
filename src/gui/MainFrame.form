@@ -838,7 +838,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="panelSettingsMLPintPackage" pref="1250" max="32767" attributes="0"/>
+                                      <Component id="panelSettingsMLPintPackage" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -4050,6 +4050,9 @@
                       <Connection code="batchTableModel" type="code"/>
                     </Property>
                   </Properties>
+                  <AuxValues>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="TableColumn firstColumn = tableAnalysisBatch.getColumnModel().getColumn(0);&#xa;firstColumn.setMinWidth(10);&#xa;firstColumn.setMaxWidth(50);&#xa;TableColumn secondColumn = tableAnalysisBatch.getColumnModel().getColumn(1);&#xa;secondColumn.setMinWidth(50);&#xa;secondColumn.setMaxWidth(110);"/>
+                  </AuxValues>
                 </Component>
               </SubComponents>
             </Container>

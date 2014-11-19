@@ -988,7 +988,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
-                        .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)
+                        .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2558,6 +2558,12 @@ public class MainFrame extends javax.swing.JFrame {
         jButton2.setEnabled(false);
 
         tableAnalysisBatch.setModel(batchTableModel);
+        TableColumn firstColumn = tableAnalysisBatch.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(10);
+        firstColumn.setMaxWidth(50);
+        TableColumn secondColumn = tableAnalysisBatch.getColumnModel().getColumn(1);
+        secondColumn.setMinWidth(50);
+        secondColumn.setMaxWidth(110);
         scrollPaneAnalysisBatchInside.setViewportView(tableAnalysisBatch);
 
         javax.swing.GroupLayout panelAnalysisBatchLayout = new javax.swing.GroupLayout(panelAnalysisBatch);
