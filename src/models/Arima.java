@@ -116,7 +116,7 @@ public class Arima implements Forecastable {
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(trainingPortionOfData, 
                 testingPortionOfData, Utils.arrayToList(fitted), Utils.arrayToList(forecastsTest), params.getSeasonality());
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("ARIMA");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.ARIMA);
         report.setModelDescription(arimaDescription);
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fitted);

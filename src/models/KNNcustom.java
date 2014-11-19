@@ -24,7 +24,7 @@ public class KNNcustom implements Forecastable {
         final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
         
         KNNcustomParams params = (KNNcustomParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (custom)");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_CUSTOM);
         
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());

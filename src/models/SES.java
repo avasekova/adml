@@ -52,7 +52,7 @@ public class SES implements Forecastable {
         REXP getFinalAlpha = rengine.eval(FORECAST_MODEL + "$model$par[\"alpha\"]");
         double finalAlpha = getFinalAlpha.asDoubleArray()[0];
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("SES");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.SES);
         report.setModelDescription("(alpha=" + Utils.valToDecPoints(finalAlpha) + ")");
         
         report.setNumTrainingEntries(numTrainingEntries);

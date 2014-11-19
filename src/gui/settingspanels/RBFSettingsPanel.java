@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import params.Params;
+import utils.Const;
 import utils.CrispExplanatoryVariable;
 import utils.FieldsParser;
 
@@ -198,7 +199,7 @@ public class RBFSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
         if (getExplVars().isEmpty()) {
             JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
-            throw new IllegalArgumentException("RBF insufficient expl vars");
+            throw new IllegalArgumentException(Const.RBF + " insufficient expl vars");
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));

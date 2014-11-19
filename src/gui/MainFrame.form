@@ -2478,7 +2478,7 @@
                     <Component class="javax.swing.JComboBox" name="comboBoxSettingsHybridMethod_center">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnet)&quot;, &quot;MLP (nnetar)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot;, &quot;SES&quot;, &quot;Holt&quot; })" type="code"/>
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.RBF, Const.ARIMA, Const.KNN_FNN, Const.KNN_KKNN, Const.SES, Const.HOLT })" type="code"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -2496,7 +2496,7 @@
                     <Component class="javax.swing.JComboBox" name="comboBoxSettingsHybridMethod_radius">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;MLP (nnet)&quot;, &quot;MLP (nnetar)&quot;, &quot;RBF&quot;, &quot;ARIMA&quot;, &quot;kNN (FNN)&quot;, &quot;kNN (kknn)&quot;, &quot;SES&quot;, &quot;Holt&quot; })" type="code"/>
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.RBF, Const.ARIMA, Const.KNN_FNN, Const.KNN_KKNN, Const.SES, Const.HOLT })" type="code"/>
                         </Property>
                       </Properties>
                       <Events>

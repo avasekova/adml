@@ -17,7 +17,7 @@ public class RandomWalk { //TODO implements Forecastable!
         final String DATA_FORECAST = Const.INPUT + Utils.getCounter();
         List<Double> dataToUse = allData.subList(params.getDataRangeFrom(), params.getDataRangeTo());
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("random walk");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RANDOM_WALK);
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);

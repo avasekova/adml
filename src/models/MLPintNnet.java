@@ -6,6 +6,7 @@ import java.util.List;
 import params.MLPintNnetParams;
 import params.NnetParams;
 import params.Params;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -68,7 +69,7 @@ public class MLPintNnet implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((MLPintNnetParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnet)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.MLP_INT_NNET);
         report.setModelDescription("(" + ((MLPintNnetParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

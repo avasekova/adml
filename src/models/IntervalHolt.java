@@ -74,7 +74,7 @@ public class IntervalHolt implements Forecastable {
         List<Interval> forecastsTest = forecastIntervalsAll.subList(0, num4castsTestAndTrain);
         List<Interval> forecastsFuture = forecastIntervalsAll.subList(num4castsTestAndTrain, forecastIntervalsAll.size());
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("iHolt");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.INTERVAL_HOLT);
         report.setModelDescription("");
         
         report.setFittedValues(fittedIntervals);

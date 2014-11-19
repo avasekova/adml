@@ -5,6 +5,7 @@ import java.util.List;
 import params.HoltWintersIntParams;
 import params.HoltWintersParams;
 import params.Params;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -41,7 +42,7 @@ public class HoltWintersInt implements Forecastable {
         
         //ak to nie su seasonal data, R skonci s chybou
         if (reportCenter.getFittedValues().length == 0) { //ak neni fit, predpokladam, ze neni nic...
-            TrainAndTestReportInterval report = new TrainAndTestReportInterval("Holt-Winters(i)");
+            TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_WINTERS_INT);
             report.setModelDescription("(non-seasonal data!)");
             report.setRealValues(realOutputsIntervalTrain);
             report.setErrorMeasures(new ErrorMeasuresInterval());
@@ -53,7 +54,7 @@ public class HoltWintersInt implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((HoltWintersIntParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("Holt-Winters(i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_WINTERS_INT);
         report.setModelDescription("(" + ((HoltWintersIntParams)parameters).getDistance() + "," + 
                 reportCenter.getModelDescription() + "," + reportRadius.getModelDescription() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());

@@ -3,6 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 import params.RandomWalkIntervalParams;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.imlp.Interval;
@@ -13,7 +14,7 @@ public class RandomWalkInterval { //TODO implements Forecastable!
     public TrainAndTestReport forecast(List<Interval> allData, RandomWalkIntervalParams params) {
         List<Interval> dataToUse = allData.subList(params.getDataRangeFrom(), params.getDataRangeTo());
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("random walk (i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.RANDOM_WALK_INT);
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);

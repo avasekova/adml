@@ -47,7 +47,7 @@ public class HoltWinters implements Forecastable {
         
         //ak to nie su seasonal data, R skonci s chybou
         if (rengine.eval(FORECAST_MODEL) == null) {
-            TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("Holt-Winters");
+            TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
             report.setModelDescription("(non-seasonal data!)");
             report.setRealOutputsTrain(Utils.listToArray(inputTrain));
             report.setRealOutputsTest(Utils.listToArray(inputTest));
@@ -74,7 +74,7 @@ public class HoltWinters implements Forecastable {
         REXP getFinalGamma = rengine.eval(FORECAST_MODEL + "$model$par[\"gamma\"]");
         double finalGamma = getFinalGamma.asDoubleArray()[0];
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("Holt-Winters");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
         report.setModelDescription("(alpha=" + Utils.valToDecPoints(finalAlpha) + ",beta=" + Utils.valToDecPoints(finalBeta)
                 + ",gamma=" + Utils.valToDecPoints(finalGamma) + ")");
         

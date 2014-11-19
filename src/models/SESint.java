@@ -5,6 +5,7 @@ import java.util.List;
 import params.Params;
 import params.SESParams;
 import params.SESintParams;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -40,7 +41,7 @@ public class SESint implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((SESintParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("SES(i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.SES_INT);
         report.setModelDescription("(" + ((SESintParams)parameters).getDistance() + "," + 
                 reportCenter.getModelDescription() + "," + reportRadius.getModelDescription() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());

@@ -6,6 +6,7 @@ import java.util.List;
 import params.Params;
 import params.RBFParams;
 import params.RBFintParams;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -71,7 +72,7 @@ public class RBFint implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((RBFintParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("RBF(i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.RBF_INT);
         report.setModelDescription("(" + ((RBFintParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

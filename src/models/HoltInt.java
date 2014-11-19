@@ -5,6 +5,7 @@ import java.util.List;
 import params.HoltIntParams;
 import params.HoltParams;
 import params.Params;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -40,7 +41,7 @@ public class HoltInt implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((HoltIntParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("Holt(i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_INT);
         report.setModelDescription("(" + ((HoltIntParams)parameters).getDistance() + "," + 
                 reportCenter.getModelDescription() + "," + reportRadius.getModelDescription() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());

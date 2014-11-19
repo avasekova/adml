@@ -20,4 +20,30 @@ public class Const {
     public static final String NEIGHBOURS = "neighbours";
     public static final String RESIDUALS = "residls";
     
+    //model names
+    public static final String ARIMA = "ARIMA";
+    public static final String HOLT = "Holt";
+    public static final String HOLT_INT = "Holt(i)";
+    public static final String HOLT_WINTERS = "Holt-Winters";
+    public static final String HOLT_WINTERS_INT = "Holt-Winters(i)";
+    public static final String HYBRID = "Hybrid(i)";
+    public static final String INTERVAL_HOLT = "iHolt";
+    public static final String INTERVAL_MLP_C_CODE = "iMLP(C code)";
+    public static final String KNN_CUSTOM = "KNN(custom)";
+    public static final String KNN_FNN = "KNN(FNN)";
+    public static final String KNN_KKNN = "KNN(kknn)";
+    public static final String MLP_INT_NNET = "MLP(i)(nnet)";
+    public static final String MLP_INT_NNETAR = "MLP(i)(nnetar)";
+    public static final String NEURALNET = "MLP(neuralnet)";
+    public static final String NNET = "MLP(nnet)";
+    public static final String NNETAR = "MLP(nnetar)";
+    public static final String RBF = "RBF";
+    public static final String RBF_INT = "RBF(i)";
+    public static final String RANDOM_WALK = "random walk";
+    public static final String RANDOM_WALK_INT = "random walk(i)";
+    public static final String SES = "SES";
+    public static final String SES_INT = "SES(i)";
+    public static final String VAR = "VAR";
+    public static final String VAR_INT = "VAR(i)";
+    
 }

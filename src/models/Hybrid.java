@@ -13,6 +13,7 @@ import params.NnetarParams;
 import params.Params;
 import params.RBFParams;
 import params.SESParams;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -106,7 +107,7 @@ public class Hybrid implements Forecastable {
         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realOutputsIntervalTrain, 
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((HybridParams)parameters).getDistance(), parameters.getSeasonality());
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("Hybrid(i)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HYBRID);
         report.setModelDescription("(" + reportCenter + "+" + reportRadius + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

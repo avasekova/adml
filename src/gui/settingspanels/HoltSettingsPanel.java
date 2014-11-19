@@ -3,6 +3,7 @@ package gui.settingspanels;
 import java.util.List;
 import javax.swing.JOptionPane;
 import params.Params;
+import utils.Const;
 import utils.FieldsParser;
 import utils.R_Bool;
 import utils.Utils;
@@ -185,8 +186,8 @@ public class HoltSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && 
             (Utils.getDoubleOrDefault(getBeta()) > Utils.getDoubleOrDefault(getAlpha()))) {
-            JOptionPane.showMessageDialog(null, "Holt will not run (Beta cannot be greater than Alpha)");
-            throw new IllegalArgumentException("Holt params error");
+            JOptionPane.showMessageDialog(null, Const.HOLT + " will not run (Beta cannot be greater than Alpha)");
+            throw new IllegalArgumentException(Const.HOLT + " params error");
         }
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());

@@ -11,6 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import params.IntervalMLPCcodeParams;
 import params.Params;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -65,7 +66,7 @@ public class IntervalMLPCcode implements Forecastable {
     //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
     private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("iMLP(C code)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.INTERVAL_MLP_C_CODE);
         report.setModelDescription("(" + params.getDistance() + ")");
         
         //delete any previous files:

@@ -3,6 +3,7 @@ package gui.settingspanels;
 import java.util.List;
 import javax.swing.JOptionPane;
 import params.Params;
+import utils.Const;
 import utils.Utils;
 
 public class IntHoltSettingsPanel extends SettingsPanel {
@@ -200,12 +201,12 @@ public class IntHoltSettingsPanel extends SettingsPanel {
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ("NULL".equals(getAlpha()) || "NULL".equals(getBeta())) {
-            JOptionPane.showMessageDialog(null, "Holt will not run (optimization of params not supported)");
-            throw new IllegalArgumentException("Holt params optimize error");
+            JOptionPane.showMessageDialog(null, Const.HOLT + " will not run (optimization of params not supported)");
+            throw new IllegalArgumentException(Const.HOLT + " params optimize error");
         }
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && (!isAlphaBetaOK())) {
-            JOptionPane.showMessageDialog(null, "Holt will not run (wrong params)");
-            throw new IllegalArgumentException("Holt params error");
+            JOptionPane.showMessageDialog(null, Const.HOLT + " will not run (wrong params)");
+            throw new IllegalArgumentException(Const.HOLT + " params error");
         }
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());

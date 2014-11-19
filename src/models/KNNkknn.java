@@ -81,7 +81,7 @@ public class KNNkknn implements Forecastable {
                 Utils.arrayToList(outputTest), Utils.arrayToList(trainingVals), Utils.arrayToList(testingVals), 
                 parameters.getSeasonality());
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("kNN (kknn)"); //MODEL$best.parameters$k
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_KKNN); //MODEL$best.parameters$k
         report.setModelDescription("(" + bestK + ")");
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(trainingVals);

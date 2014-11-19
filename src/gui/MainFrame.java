@@ -96,6 +96,7 @@ import params.SESParams;
 import params.SESintParams;
 import params.VARParams;
 import params.VARintParams;
+import utils.Const;
 import utils.CrispOutputVariable;
 import utils.ExcelWriter;
 import utils.FieldsParser;
@@ -1597,7 +1598,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
 
-        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "SES", "Holt" }));
+        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.RBF, Const.ARIMA, Const.KNN_FNN, Const.KNN_KKNN, Const.SES, Const.HOLT }));
         comboBoxSettingsHybridMethod_center.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_centerActionPerformed(evt);
@@ -1607,7 +1608,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Radius:");
 
-        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "MLP (nnet)", "MLP (nnetar)", "RBF", "ARIMA", "kNN (FNN)", "kNN (kknn)", "SES", "Holt" }));
+        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.RBF, Const.ARIMA, Const.KNN_FNN, Const.KNN_KKNN, Const.SES, Const.HOLT }));
         comboBoxSettingsHybridMethod_radius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_radiusActionPerformed(evt);
@@ -2614,7 +2615,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
 
-                showDialogTooManyModelsInCase(params.size(), "iMLP");
+                showDialogTooManyModelsInCase(params.size(), Const.INTERVAL_MLP_C_CODE);
                 if (continueWithTooManyModels) {
                     Forecastable cCode = new IntervalMLPCcode();
                     for (IntervalMLPCcodeParams p : params) {
@@ -2632,7 +2633,7 @@ public class MainFrame extends javax.swing.JFrame {
                     panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                     panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance);
             
-            showDialogTooManyModelsInCase(params.size(), "MLP(i) (nnetar)");
+            showDialogTooManyModelsInCase(params.size(), Const.MLP_INT_NNETAR);
             if (continueWithTooManyModels) {
                 //run two separate forecasts, one for Center and the other for Radius
                 Forecastable mlpInt = new MLPintNnetar();
@@ -2650,7 +2651,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetworksToTrainMLPint);
 
-                showDialogTooManyModelsInCase(params.size(), "MLP(i) (nnet)");
+                showDialogTooManyModelsInCase(params.size(), Const.MLP_INT_NNET);
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
                     Forecastable mlpInt = new MLPintNnet();
@@ -2668,7 +2669,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunARIMA.isSelected()) {
             List<ArimaParams> params = getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
             
-            showDialogTooManyModelsInCase(params.size(), "ARIMA");
+            showDialogTooManyModelsInCase(params.size(), Const.ARIMA);
             if (continueWithTooManyModels) {
                 Forecastable arima = new Arima();
                 for (ArimaParams p : params) {
@@ -2683,7 +2684,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunKNNfnn.isSelected()) {
             List<KNNfnnParams> params = getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
             
-            showDialogTooManyModelsInCase(params.size(), "kNN (fnn)");
+            showDialogTooManyModelsInCase(params.size(), Const.KNN_FNN);
             if (continueWithTooManyModels) {
                 Forecastable kNN = new KNNfnn();
                 for (KNNfnnParams p : params) {
@@ -2696,7 +2697,7 @@ public class MainFrame extends javax.swing.JFrame {
 //        if (checkBoxRunKNNcustom.isSelected()) {
 //            List<KNNcustomParams> params = getParamsKNNcustom();
 //            
-//            showDialogTooManyModelsInCase(params.size(), "kNN (custom)");
+//            showDialogTooManyModelsInCase(params.size(), Const.KNN_CUSTOM);
 //            if (continueWithTooManyModels) {
 //                Forecastable kNNcustom = new KNNcustom();
 //                for (KNNcustomParams p : params) {
@@ -2709,7 +2710,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunKNNkknn.isSelected()) {
             List<KNNkknnParams> params = getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
             
-            showDialogTooManyModelsInCase(params.size(), "kNN (kknn)");
+            showDialogTooManyModelsInCase(params.size(), Const.KNN_KKNN);
             if (continueWithTooManyModels) {
                 Forecastable kNNkknn = new KNNkknn();
                 for (KNNkknnParams p : params) {
@@ -2740,7 +2741,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<RBFParams> params = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
 
-                showDialogTooManyModelsInCase(params.size(), "RBF");
+                showDialogTooManyModelsInCase(params.size(), Const.RBF);
                 if (continueWithTooManyModels) {
                     Forecastable rbf = new RBF();
                     for (RBFParams p : params) {
@@ -2760,7 +2761,7 @@ public class MainFrame extends javax.swing.JFrame {
                     panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
                     panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint);
 
-                showDialogTooManyModelsInCase(params.size(), "RBF(i)");
+                showDialogTooManyModelsInCase(params.size(), Const.RBF_INT);
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
                     Forecastable rbfInt = new RBFint();
@@ -2779,7 +2780,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<VARintParams> params = getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
 
-                showDialogTooManyModelsInCase(params.size(), "VAR(i)");
+                showDialogTooManyModelsInCase(params.size(), Const.VAR_INT);
                 if (continueWithTooManyModels) {
                     Forecastable varInt = new VARint();
                     for (VARintParams p : params) {
@@ -2842,7 +2843,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 List<HybridParams> params = getParamsHybrid();
 
-                showDialogTooManyModelsInCase(params.size(), "Hybrid(i)");
+                showDialogTooManyModelsInCase(params.size(), Const.HYBRID);
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
                     Forecastable hybrid = new Hybrid();
@@ -2861,7 +2862,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<HoltParams> params = getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
 
-                showDialogTooManyModelsInCase(params.size(), "Holt");
+                showDialogTooManyModelsInCase(params.size(), Const.HOLT);
                 if (continueWithTooManyModels) {
                     Forecastable holt = new Holt();
                     for (HoltParams p : params) {
@@ -2880,7 +2881,7 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxRunFakeIntCenter, panelHoltIntPercentTrain, panelHoltInt_radius, comboBoxRunFakeIntRadius,
                         panelHoltIntDistance);
 
-                showDialogTooManyModelsInCase(params.size(), "Holt(i)");
+                showDialogTooManyModelsInCase(params.size(), Const.HOLT_INT);
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
                     Forecastable holtInt = new HoltInt();
@@ -2900,7 +2901,7 @@ public class MainFrame extends javax.swing.JFrame {
                 List<IntervalHoltParams> params = getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
                         comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
 
-                showDialogTooManyModelsInCase(params.size(), "iHolt");
+                showDialogTooManyModelsInCase(params.size(), Const.INTERVAL_HOLT);
                 if (continueWithTooManyModels) {
                     Forecastable intHolt = new IntervalHolt();
                     for (IntervalHoltParams p : params) {
@@ -2916,7 +2917,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunSES.isSelected()) {
             List<SESParams> params = getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
             
-            showDialogTooManyModelsInCase(params.size(), "SES");
+            showDialogTooManyModelsInCase(params.size(), Const.SES);
             if (continueWithTooManyModels) {
                 Forecastable ses = new SES();
                 for (SESParams p : params) {
@@ -2932,7 +2933,7 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
                         panelSESintDistance);
 
-                showDialogTooManyModelsInCase(params.size(), "SES(i)");
+                showDialogTooManyModelsInCase(params.size(), Const.SES_INT);
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
                     Forecastable sesInt = new SESint();
@@ -2952,7 +2953,7 @@ public class MainFrame extends javax.swing.JFrame {
                 List<HoltWintersParams> params = getParamsHoltWinters(panelHoltWintersPercentTrain, 
                         panelHoltWintersInside, comboBoxColnamesRun);
 
-                showDialogTooManyModelsInCase(params.size(), "Holt-Winters");
+                showDialogTooManyModelsInCase(params.size(), Const.HOLT_WINTERS);
                 if (continueWithTooManyModels) {
                     Forecastable holtWinters = new HoltWinters();
                     for (HoltWintersParams p : params) {
@@ -2971,7 +2972,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
 
-                showDialogTooManyModelsInCase(params.size(), "Holt-Winters(i)");
+                showDialogTooManyModelsInCase(params.size(), Const.HOLT_WINTERS_INT);
                 if (continueWithTooManyModels) {
                     //run two separate forecasts, one for Center and the other for Radius
                     Forecastable holtWintersInt = new HoltWintersInt();
@@ -3217,28 +3218,28 @@ public class MainFrame extends javax.swing.JFrame {
     private void comboBoxSettingsHybridMethod_centerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSettingsHybridMethod_centerActionPerformed
         CardLayout card = (CardLayout)panelSettingsHybrid_centerMain.getLayout();
         switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
-            case "MLP (nnetar)":
+            case Const.NNETAR:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_MLPnnetar");
                 break;
-            case "MLP (nnet)":
+            case Const.NNET:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_MLPnnet");
                 break;
-            case "RBF":
+            case Const.RBF:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_RBF");
                 break;
-            case "ARIMA":
+            case Const.ARIMA:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_ARIMA");
                 break;
-            case "kNN (FNN)":
+            case Const.KNN_FNN:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_KNNFNN");
                 break;
-            case "kNN (kknn)":
+            case Const.KNN_KKNN:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_KNNkknn");
                 break;
-            case "SES":
+            case Const.SES:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_SES");
                 break;
-            case "Holt":
+            case Const.HOLT:
                 card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_Holt");
                 break;
         }
@@ -3248,28 +3249,28 @@ public class MainFrame extends javax.swing.JFrame {
     private void comboBoxSettingsHybridMethod_radiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSettingsHybridMethod_radiusActionPerformed
         CardLayout card = (CardLayout)panelSettingsHybrid_radiusMain.getLayout();
         switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
-            case "MLP (nnetar)":
+            case Const.NNETAR:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_MLPnnetar");
                 break;
-            case "MLP (nnet)":
+            case Const.NNET:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_MLPnnet");
                 break;
-            case "RBF":
+            case Const.RBF:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_RBF");
                 break;
-            case "ARIMA":
+            case Const.ARIMA:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_ARIMA");
                 break;
-            case "kNN (FNN)":
+            case Const.KNN_FNN:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_KNNFNN");
                 break;
-            case "kNN (kknn)":
+            case Const.KNN_KKNN:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_KNNkknn");
                 break;
-            case "SES":
+            case Const.SES:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_SES");
                 break;
-            case "Holt":
+            case Const.HOLT:
                 card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_Holt");
                 break;
         }
@@ -3932,56 +3933,56 @@ public class MainFrame extends javax.swing.JFrame {
         resultList.add(par);
         
         switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
-            case "MLP (nnetar)":
+            case Const.NNETAR:
                 List<NnetarParams> resultListCenterNnetar = getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetarParams.class, resultListCenterNnetar);
                 break;
-            case "MLP (nnet)":
+            case Const.NNET:
                 List<NnetParams> resultListCenterNnet = getParamsNnet(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnet);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetParams.class, resultListCenterNnet);
                 break;
-            case "RBF":
+            case Const.RBF:
                 List<RBFParams> resultListCenterRBF = getParamsRBF(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_RBF);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         RBFParams.class, resultListCenterRBF);
                 break;
-            case "ARIMA":
+            case Const.ARIMA:
                 List<ArimaParams> resultListCenterARIMA = getParamsArima(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_ARIMA);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         ArimaParams.class, resultListCenterARIMA);
                 break;
-            case "kNN (FNN)":
+            case Const.KNN_FNN:
                 List<KNNfnnParams> resultListCenterKNNFNN = getParamsKNNfnn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNFNN);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNfnnParams.class, resultListCenterKNNFNN);
                 break;
-            case "kNN (kknn)":
+            case Const.KNN_KKNN:
                 List<KNNkknnParams> resultListCenterKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNkknnParams.class, resultListCenterKNNkknn);
                 break;
-            case "SES":
+            case Const.SES:
                 List<SESParams> resultListCenterSES = getParamsSES(panelSettingsHybridPercentTrain, 
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_SES);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         SESParams.class, resultListCenterSES);
                 break;
-            case "Holt":
+            case Const.HOLT:
                 List<HoltParams> resultListCenterHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_centerMain_Holt, comboBoxRunFakeIntCenter);
                 
@@ -3996,56 +3997,56 @@ public class MainFrame extends javax.swing.JFrame {
         
         
         switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
-            case "MLP (nnetar)":
+            case Const.NNETAR:
                 List<NnetarParams> resultListRadiusNnetar = getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetarParams.class, resultListRadiusNnetar);
                 break;
-            case "MLP (nnet)":
+            case Const.NNET:
                 List<NnetParams> resultListRadiusNnet = getParamsNnet(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnet);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetParams.class, resultListRadiusNnet);
                 break;
-            case "RBF":
+            case Const.RBF:
                 List<RBFParams> resultListRadiusRBF = getParamsRBF(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_RBF);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         RBFParams.class, resultListRadiusRBF);
                 break;
-            case "ARIMA":
+            case Const.ARIMA:
                 List<ArimaParams> resultListRadiusARIMA = getParamsArima(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_ARIMA);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         ArimaParams.class, resultListRadiusARIMA);
                 break;
-            case "kNN (FNN)":
+            case Const.KNN_FNN:
                 List<KNNfnnParams> resultListRadiusKNNFNN = getParamsKNNfnn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNFNN);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNfnnParams.class, resultListRadiusKNNFNN);
                 break;
-            case "kNN (kknn)":
+            case Const.KNN_KKNN:
                 List<KNNkknnParams> resultListRadiusKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNkknnParams.class, resultListRadiusKNNkknn);
                 break;
-            case "SES":
+            case Const.SES:
                 List<SESParams> resultListRadiusSES = getParamsSES(panelSettingsHybridPercentTrain, 
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_SES);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         SESParams.class, resultListRadiusSES);
                 break;
-            case "Holt":
+            case Const.HOLT:
                 List<HoltParams> resultListRadiusHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_radiusMain_Holt, comboBoxRunFakeIntRadius);
                 

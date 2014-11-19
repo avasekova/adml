@@ -64,7 +64,7 @@ public class Holt implements Forecastable {
         REXP getFinalBeta = rengine.eval(FORECAST_MODEL + "$model$par[\"beta\"]");
         double finalBeta = getFinalBeta.asDoubleArray()[0];
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("Holt");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT);
         report.setModelDescription("(alpha=" + Utils.valToDecPoints(finalAlpha) + ",beta=" + Utils.valToDecPoints(finalBeta) + ")");
         
         report.setNumTrainingEntries(numTrainingEntries);

@@ -5,6 +5,7 @@ import java.util.List;
 import params.MLPintNnetarParams;
 import params.NnetarParams;
 import params.Params;
+import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
@@ -37,7 +38,7 @@ public class MLPintNnetar implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((MLPintNnetarParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval("MLP(i) (nnetar)");
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.MLP_INT_NNETAR);
         report.setModelDescription("(" + ((MLPintNnetarParams)parameters).getDistance() + ")");
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
