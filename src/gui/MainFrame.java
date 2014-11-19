@@ -759,7 +759,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelEverything.addTab("Data", panelData);
 
         paneSettingsMethods.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-        paneSettingsMethods.setPreferredSize(new java.awt.Dimension(1366, 615));
+        paneSettingsMethods.setPreferredSize(new java.awt.Dimension(1361, 615));
 
         jLabelRPkg.setText("R package:");
 
@@ -776,6 +776,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelSettingsMLPPackage.add(scrollPane_panelSettingsMLPPackage_nnet, "panelSettingsMLPPackage_nnet");
         panelSettingsMLPPackage.add(panelSettingsMLPPackage_nnetar, "panelSettingsMLPPackage_nnetar");
+
+        panelSettingsMLPPackage_neuralnet.setPreferredSize(new java.awt.Dimension(1240, 530));
 
         jLabel6.setText("(TODO)");
 
@@ -1560,9 +1562,11 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator8, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel159)
-                            .addComponent(panelHoltWintersInt_radius, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
+                                .addComponent(jLabel159)
+                                .addGap(594, 594, 594))
+                            .addComponent(panelHoltWintersInt_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         panelSettingsMethodsHoltWintersIntLayout.setVerticalGroup(
@@ -1655,16 +1659,16 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(33, 33, 33)
                         .addComponent(panelSettingsHybridDistance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
-                        .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.PREFERRED_SIZE, 635, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneSettingsMethodsHybridLayout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 577, Short.MAX_VALUE))
                             .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -1695,7 +1699,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, 1361, Short.MAX_VALUE)
+            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelAnalysisSettingsLayout.setVerticalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2281,7 +2285,9 @@ public class MainFrame extends javax.swing.JFrame {
         );
         panelPredictionIntervalsLayout.setVerticalGroup(
             panelPredictionIntervalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+            .addGroup(panelPredictionIntervalsLayout.createSequentialGroup()
+                .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout panelPredictionIntervalsAllLayout = new javax.swing.GroupLayout(panelPredictionIntervalsAll);
@@ -2291,7 +2297,10 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addComponent(buttonExportPredictionIntervals)
                 .addGap(0, 1296, Short.MAX_VALUE))
-            .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPredictionIntervalsAllLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelPredictionIntervalsAllLayout.setVerticalGroup(
             panelPredictionIntervalsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
