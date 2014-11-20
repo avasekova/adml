@@ -2555,7 +2555,11 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel1.setText("TODO: add checkboxes");
 
         jButton2.setText("Remove selected");
-        jButton2.setEnabled(false);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         tableAnalysisBatch.setModel(batchTableModel);
         TableColumn firstColumn = tableAnalysisBatch.getColumnModel().getColumn(0);
@@ -4008,6 +4012,10 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HybridActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        ((AnalysisBatchTableModel)(tableAnalysisBatch.getModel())).removeRow(tableAnalysisBatch.getSelectedRow());
+    }//GEN-LAST:event_jButton2ActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
