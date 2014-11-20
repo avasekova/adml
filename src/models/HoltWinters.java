@@ -37,7 +37,6 @@ public class HoltWinters implements Forecastable {
         
         //musim si z toho spravit seasonal data
         rengine.eval(INPUT_TRAIN + " <- ts(" + INPUT_TRAIN + ", " + params.getFrequency() + ")");
-        System.out.println(INPUT_TRAIN + " <- ts(" + INPUT_TRAIN + ", " + params.getFrequency() + ")");
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast::hw(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 

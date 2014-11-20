@@ -2148,7 +2148,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jLabel7.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel7.setText("TODO (later) dialog with data selection. for now takes what is selected here. and TODO: think about the plot! not everything into 1.");
+        jLabel7.setText("TODO (later) dialog with data selection. for now takes what is selected here. and TODO: the plot! not everything into 1.");
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);

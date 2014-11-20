@@ -7,7 +7,7 @@ public class IntervalCentreRadius extends Interval {
     
     public IntervalCentreRadius(double centre, double radius) {
         this.centre = centre;
-        this.radius = radius;
+        this.radius = Math.abs(radius);
     }
 
     @Override

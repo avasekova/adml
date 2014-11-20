@@ -383,7 +383,12 @@ public class ErrorMeasuresUtils {
         return mean/(forecastData.size() - countNaN);
     }
     
-    public static double widthIntersection(Interval first, Interval second) {
+    public static double widthIntersection(Interval firstMaybeWrong, Interval secondMaybeWrong) {
+        //for some reason, and I have yet to figure out why, the forecast intervals may have LB > UB
+        //so just to be sure, create new, correct ones:
+        Interval first = new IntervalLowerUpper(firstMaybeWrong.getLowerBound(), firstMaybeWrong.getUpperBound());
+        Interval second = new IntervalLowerUpper(secondMaybeWrong.getLowerBound(), secondMaybeWrong.getUpperBound());
+        
         Interval lefter;
         Interval righter;
         //first make sure that first is indeed more to the left or at the same point as second (if necessary, swap them):
@@ -420,7 +425,7 @@ public class ErrorMeasuresUtils {
     }
     
     public static double width(double start, double end) {
-        return Math.abs(end - start);
+        return end - start;
     }
     
     public static double width(Interval interval) {
