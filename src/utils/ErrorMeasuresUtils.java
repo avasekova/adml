@@ -313,7 +313,7 @@ public class ErrorMeasuresUtils {
         
         double widthReal = real.getUpperBound() - real.getLowerBound();
         if (widthReal == 0) {
-            if ((real.getUpperBound() < forecast.getLowerBound()) || (real.getUpperBound() > forecast.getUpperBound())) {
+            if ((real.getUpperBound() < forecast.getLowerBound()) || (real.getLowerBound() > forecast.getUpperBound())) {
                 return 0; //ten bod je mimo
             } else {
                 return 100; //ten bod je vnutri forecastu, i.e. 100% ho pokryva forecast
@@ -336,7 +336,7 @@ public class ErrorMeasuresUtils {
         //kvoli problemom s delenim nulou, ak je forecastInterval len cislo, tj radius nula:
         if (forecast.getUpperBound() == forecast.getLowerBound()) {
             if ((real.getLowerBound() <= forecast.getLowerBound()) &&
-                (real.getUpperBound() >= forecast.getLowerBound())) { //takze forecast je obsiahnuty
+                (real.getUpperBound() >= forecast.getUpperBound())) { //takze forecast je obsiahnuty
                 return 100;
             } else {
                 return 0;
