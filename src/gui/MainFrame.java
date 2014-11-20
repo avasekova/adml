@@ -423,7 +423,7 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPanePredictionIntervals = new javax.swing.JScrollPane();
         panelAnalysisBatch = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        buttonAnalysisBatchRemoveSelectedRows = new javax.swing.JButton();
         scrollPaneAnalysisBatchInside = new javax.swing.JScrollPane();
         tableAnalysisBatch = new javax.swing.JTable();
         menuBarMain = new javax.swing.JMenuBar();
@@ -2554,10 +2554,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel1.setText("TODO: add checkboxes");
 
-        jButton2.setText("Remove selected");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonAnalysisBatchRemoveSelectedRows.setText("Remove selected");
+        buttonAnalysisBatchRemoveSelectedRows.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonAnalysisBatchRemoveSelectedRowsActionPerformed(evt);
             }
         });
 
@@ -2581,7 +2581,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)
+                        .addComponent(buttonAnalysisBatchRemoveSelectedRows)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -2591,7 +2591,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jButton2))
+                    .addComponent(buttonAnalysisBatchRemoveSelectedRows))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
                 .addContainerGap())
@@ -4013,9 +4013,9 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HybridActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        ((AnalysisBatchTableModel)(tableAnalysisBatch.getModel())).removeRow(tableAnalysisBatch.getSelectedRow());
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void buttonAnalysisBatchRemoveSelectedRowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
+        ((AnalysisBatchTableModel)(tableAnalysisBatch.getModel())).removeRows(tableAnalysisBatch.getSelectedRows());
+    }//GEN-LAST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -4061,6 +4061,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
+    private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
@@ -4140,7 +4141,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_center;
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_radius;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;

@@ -58,10 +58,15 @@ public class AnalysisBatchTableModel extends AbstractTableModel {
         fireTableRowsInserted(lines.size()-1, lines.size()-1);
     }
     
-    public void removeRow(int row) {
-        if (row > -1) {
-            lines.remove(row);
-            this.fireTableRowsDeleted(row, row);
+    public void removeRows(int[] rows) {
+        List<AnalysisBatchLine> toRemove = new ArrayList<>();
+        for (int r : rows) {
+            toRemove.add(lines.get(r));
+        }
+        lines.removeAll(toRemove);
+        
+        if (rows.length > 0) {
+            this.fireTableRowsDeleted(rows[0], rows[rows.length-1]);
         }
     }
     
