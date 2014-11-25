@@ -5,6 +5,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -14,13 +17,13 @@ import params.Params;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
-import utils.Utils;
 import utils.IntervalExplanatoryVariable;
+import utils.IntervalOutputVariable;
+import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.IntervalOutputVariable;
 import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.HausdorffDistance;
@@ -37,11 +40,12 @@ public class IntervalMLPCcode implements Forecastable {
         //train some number of networks
         //TODO later also keep their .out and other files! prevent overwriting the best!
         for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
-            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters)));
+            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters, "" + i)));
         }
         
         //and then determine which one is the best
         //TODO for now coverage+efficiency, later allow to customize
+        int bestReportNum = 0;
         TrainAndTestReportInterval bestReport = reports.get(0);
         double bestMeasures = computeCriterion(bestReport);
         if (reports.size() > 1) {
@@ -50,9 +54,56 @@ public class IntervalMLPCcode implements Forecastable {
                 if (currentMeasures > bestMeasures) {
                     bestMeasures = currentMeasures;
                     bestReport = reports.get(i);
+                    bestReportNum = i;
                 }
             }
         }
+        
+        //copy the best file to a file without suffix
+        final String CONFIG = "config" + bestReportNum;
+        final String CONFIG_WITHOUT = "config";
+        final String CONFIG_NET = CONFIG + ".net";
+        final String CONFIG_NET_WITHOUT = CONFIG_WITHOUT + ".net";
+        final String CONFIG_RES = CONFIG + ".res";
+        final String CONFIG_RES_WITHOUT = CONFIG_WITHOUT + ".res";
+        final String CONFIG_OUT = CONFIG + ".out";
+        final String CONFIG_OUT_WITHOUT = CONFIG_WITHOUT + ".out";
+        final String CONFIG_WGT = CONFIG + ".wgt";
+        final String CONFIG_WGT_WITHOUT = CONFIG_WITHOUT + ".wgt";
+        
+        try {
+            Files.copy(new File(CONFIG_NET).toPath(), new File(CONFIG_NET_WITHOUT).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(new File(CONFIG_RES).toPath(), new File(CONFIG_RES_WITHOUT).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(new File(CONFIG_OUT).toPath(), new File(CONFIG_OUT_WITHOUT).toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(new File(CONFIG_WGT).toPath(), new File(CONFIG_WGT_WITHOUT).toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException ex) {
+            Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //and delete all those arbitrary files with suffixes
+        for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
+            String iCONFIG = "config" + i;
+            String iCONFIG_NET = iCONFIG + ".net";
+            String iCONFIG_RES = iCONFIG + ".res";
+            String iCONFIG_OUT = iCONFIG + ".out";
+            String iCONFIG_WGT = iCONFIG + ".wgt";
+            String iTRAIN_FILE = "train" + i + ".dat";
+            String iTEST_FILE = "test" + i + ".dat";
+            
+            try {
+                Files.delete(new File(iCONFIG_NET).toPath());
+                Files.delete(new File(iCONFIG_RES).toPath());
+                Files.delete(new File(iCONFIG_OUT).toPath());
+                Files.delete(new File(iCONFIG_WGT).toPath());
+                Files.delete(new File(iTRAIN_FILE).toPath());
+                Files.delete(new File(iTEST_FILE).toPath());
+            } catch (IOException ex) {
+                Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        //now it would be possible to extract weights if we wanted to... the "the only" remaining file is safe as long
+        //  as we do not run this again, e.g. as a part of a bigger batch containing multiple iMLP settings.
         
         return bestReport;
     }
@@ -64,15 +115,23 @@ public class IntervalMLPCcode implements Forecastable {
     }
 
     //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
-    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
+    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters, String fileSuffix) {
+        final String CONFIG = "config" + fileSuffix;
+        final String CONFIG_RES = CONFIG + ".res";
+        final String CONFIG_OUT = CONFIG + ".out";
+        final String CONFIG_NET = CONFIG + ".net";
+        final String TRAIN_FILE = "train" + fileSuffix + ".dat";
+        final String TEST_FILE = "test" + fileSuffix + ".dat";
+        
+        
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.INTERVAL_MLP_C_CODE);
         report.setModelDescription("(" + params.getDistance() + ")");
         
         //delete any previous files:
-        File file = new File("config.res");
+        File file = new File(CONFIG_RES);
         file.delete();
-        file = new File("config.out");
+        file = new File(CONFIG_OUT);
         file.delete();
         
         
@@ -110,9 +169,9 @@ public class IntervalMLPCcode implements Forecastable {
         
         //create the train and test input files:
         //training data (i.e. just the part selected in the settings):
-        File fileTrain = new File("train.dat");
+        File fileTrain = new File(TRAIN_FILE);
         //ako "testovacie" data pouzijem vsetky (100% toho, co mam), aby som dostala fit/predikcie pre vsetko
-        File fileTest = new File("test.dat");
+        File fileTest = new File(TEST_FILE);
         try (BufferedWriter fwTrain = new BufferedWriter(new FileWriter(fileTrain));
              BufferedWriter fwTest = new BufferedWriter(new FileWriter(fileTest))) {
             for (int i = 0; i < numTrainingEntries; i++) {
@@ -138,7 +197,7 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         //create the config file:
-        file = new File("config.net");
+        file = new File(CONFIG_NET);
         try (BufferedWriter fw = new BufferedWriter(new FileWriter(file))) {
             fw.write("mp(" + params.getExplVars().size() + "," + params.getNumNodesHidden() + "," + params.getOutVars().size() + ")");
             fw.newLine();
@@ -160,9 +219,9 @@ public class IntervalMLPCcode implements Forecastable {
             fw.newLine();
             fw.write("wd(0.00001)");
             fw.newLine();
-            fw.write("ftrain(train.dat)");
+            fw.write("ftrain(" + TRAIN_FILE + ")");
             fw.newLine();
-            fw.write("ftest(test.dat)");
+            fw.write("ftest(" + TEST_FILE + ")");
             fw.flush();
         } catch (IOException ex) {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,7 +232,7 @@ public class IntervalMLPCcode implements Forecastable {
             //TODO neskor zrusit to cierne okno, ale zatial sa to chova divne, ked ho vypnem :(
             //        toto vyzeralo, ze funguje: Process p = Runtime.getRuntime().exec("cmd /c call config.bat");
             //              - kde v config.bat je: "@ECHO OFF     c config"
-            Process p = Runtime.getRuntime().exec("cmd /c start /wait c config");
+            Process p = Runtime.getRuntime().exec("cmd /c start /wait c " + CONFIG);
             p.waitFor();
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
@@ -189,7 +248,7 @@ public class IntervalMLPCcode implements Forecastable {
         
         //TODO potom zmenit!
         if (params.getOutVars().size() == 1) {
-            List<Interval> forecasts = Utils.getForecastsFromOutFile(new File("config.out"));
+            List<Interval> forecasts = Utils.getForecastsFromOutFile(new File(CONFIG_OUT));
             List<Interval> forecastsTrain = forecasts.subList(0, numTrainingEntries);
             List<Interval> forecastsTest = forecasts.subList(numTrainingEntries, forecasts.size());
             
