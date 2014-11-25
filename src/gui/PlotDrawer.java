@@ -746,7 +746,7 @@ public class PlotDrawer {
             rengine.eval("plot.ts(" + LOWER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
             rengine.eval("par(new=TRUE)");
             //draw axes, since this is the first plot
-            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", col=\"white\", ylab=\"" +      "<<TODO ylab>>"      + "\")");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", col=\"white\", ylab=\"" +      ""      + "\")");
             rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         }
         
