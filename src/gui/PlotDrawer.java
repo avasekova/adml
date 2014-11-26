@@ -38,7 +38,8 @@ public class PlotDrawer {
     
     //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
-    public static void drawPlots(boolean drawNew, CallParamsDrawPlots par) {
+    //return ploty, ktore sa prave pridali, takze AVG
+    public static List<TrainAndTestReport> drawPlots(boolean drawNew, CallParamsDrawPlots par) {
         String rangeXCrisp = "";
         String rangeYCrisp = "";
         String rangeXInt = "";
@@ -56,13 +57,15 @@ public class PlotDrawer {
             rangeYInt = getRangeYInterval(par.getReportsITS());
         }
         
-        drawPlots(drawNew, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+        return drawPlots(drawNew, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
     }
     
-    public static void drawPlots(boolean drawNew, CallParamsDrawPlots par,
+    public static List<TrainAndTestReport> drawPlots(boolean drawNew, CallParamsDrawPlots par,
                                  String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
+        List<TrainAndTestReport> addedReports = new ArrayList<>();
+        
         if (par.getReportsCTS().isEmpty() && par.getReportsITS().isEmpty()) {
-            return;
+            return addedReports;
         }
         
         JGDBufferedPanel canvasToUse = par.getCanvasToUse();
@@ -220,6 +223,12 @@ public class PlotDrawer {
                         double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
                         thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
                         thisAvgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        thisAvgReport.setPlotCode("plot.ts(" + avgAll + ")");
+                        thisAvgReport.setFittedValues(fittedValsAvg);
+                        thisAvgReport.setForecastValuesTest(forecastValsTestAvg);
+                        thisAvgReport.setNumTrainingEntries(fittedValsAvg.length);
+                        thisAvgReport.setRealOutputsTrain(l.get(0).getRealOutputsTrain());
+                        thisAvgReport.setRealOutputsTest(l.get(0).getRealOutputsTest());
                         avgReportsToAdd.add(thisAvgReport);
                         
                         colourNumber++;
@@ -303,13 +312,20 @@ public class PlotDrawer {
                     thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
                     thisAvgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                     avgReportsToAdd.add(thisAvgReport);
+                    thisAvgReport.setPlotCode("plot.ts(" + avgAll + ")");
+                    thisAvgReport.setFittedValues(fittedValsAvg);
+                    thisAvgReport.setForecastValuesTest(forecastValsTestAvg);
+                    thisAvgReport.setNumTrainingEntries(fittedValsAvg.length);
+                    //TODO
+//                    thisAvgReport.setRealOutputsTrain(l.get(0).getRealOutputsTrain());
+//                    thisAvgReport.setRealOutputsTest(l.get(0).getRealOutputsTest());
                     
                     colourNumber++;
                 }
             }
             
             //na zaver slavnostne pridat nove reporty do reportsCTS, ked to uz neschaosi nic ine:
-            reportsCTS.addAll(avgReportsToAdd);
+            addedReports.addAll(avgReportsToAdd);
             
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
@@ -626,7 +642,10 @@ public class PlotDrawer {
         List<Plottable> allReports = new ArrayList<>();
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
+        allReports.addAll(addedReports);
         drawLegend(par.getListPlotLegend(), allReports);
+        
+        return addedReports;
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {

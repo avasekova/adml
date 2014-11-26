@@ -3358,7 +3358,8 @@ public class MainFrame extends javax.swing.JFrame {
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
+        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(true, 
+                new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
@@ -3371,9 +3372,10 @@ public class MainFrame extends javax.swing.JFrame {
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
+        allReports.addAll(addedReports);
         
         //show errors
-        drawTablesErrorMeasures(reportsCTS, reportsIntTS);
+        drawTablesErrorMeasures(reportsCTS, reportsIntTS, addedReports);
         
         //show prediction intervals, if any
         outputPredictionIntervals(reportsCTS);
@@ -3861,7 +3863,8 @@ public class MainFrame extends javax.swing.JFrame {
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        PlotDrawer.drawPlots(true, new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
+        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(true, 
+                new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, checkBoxRunPlotAverageCTSperMethod.isSelected(), 
@@ -3874,9 +3877,10 @@ public class MainFrame extends javax.swing.JFrame {
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
+        allReports.addAll(addedReports);
         
         //show errors
-        drawTablesErrorMeasures(reportsCTS, reportsIntTS);
+        drawTablesErrorMeasures(reportsCTS, reportsIntTS, addedReports);
         
         //show prediction intervals, if any
         outputPredictionIntervals(reportsCTS);
@@ -5064,11 +5068,25 @@ public class MainFrame extends javax.swing.JFrame {
         ((DefaultListModel)(listPlotITSspecs.getModel())).addElement(interval);
     }
     
-    private void drawTablesErrorMeasures(List<TrainAndTestReportCrisp> reportsCTS,
-                                         List<TrainAndTestReportInterval> reportsIntTS) {
+    private void drawTablesErrorMeasures(List<TrainAndTestReportCrisp> rCTS,
+                                         List<TrainAndTestReportInterval> rIntTS,
+                                         List<TrainAndTestReport> addedReports) {
         panelSummary.removeAll();
         JTabbedPane tabbedPaneTablesErrors = new JTabbedPane(JTabbedPane.TOP);
         tabbedPaneTablesErrors.setSize(panelSummary.getWidth(), panelSummary.getHeight());
+        
+        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
+        reportsCTS.addAll(rCTS);
+        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
+        reportsIntTS.addAll(rIntTS);
+        for (TrainAndTestReport r : addedReports) {
+            if (r instanceof TrainAndTestReportCrisp) {
+                reportsCTS.add((TrainAndTestReportCrisp)r);
+            } else if (r instanceof TrainAndTestReportInterval) {
+                reportsIntTS.add((TrainAndTestReportInterval)r);
+            }
+        }
+        
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //kresli obe
             JTable errorMeasuresTable_CTS = new JTable();
             errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
