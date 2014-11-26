@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import params.IntervalMLPCcodeParams;
 import params.Params;
+import utils.BestModelCriterionInterval;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
@@ -47,11 +47,11 @@ public class IntervalMLPCcode implements Forecastable {
         //TODO for now coverage+efficiency, later allow to customize
         int bestReportNum = 0;
         TrainAndTestReportInterval bestReport = reports.get(0);
-        double bestMeasures = computeCriterion(bestReport);
+        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, ((IntervalMLPCcodeParams)parameters).getCriterion());
         if (reports.size() > 1) {
             for (int i = 1; i < reports.size(); i++) {
-                double currentMeasures = computeCriterion(reports.get(i));
-                if (currentMeasures > bestMeasures) {
+                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), ((IntervalMLPCcodeParams)parameters).getCriterion());
+                if (BestModelCriterionInterval.isCurrentBetterThanBest(((IntervalMLPCcodeParams)parameters).getCriterion(), currentMeasures, bestMeasures)) {
                     bestMeasures = currentMeasures;
                     bestReport = reports.get(i);
                     bestReportNum = i;
@@ -108,12 +108,6 @@ public class IntervalMLPCcode implements Forecastable {
         return bestReport;
     }
     
-    private double computeCriterion(TrainAndTestReportInterval report) {
-        ErrorMeasuresInterval m = (ErrorMeasuresInterval)(report.getErrorMeasures());
-        //sum of coverages and efficiencies
-        return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
-    }
-
     //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
     private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters, String fileSuffix) {
         final String CONFIG = "config" + fileSuffix;

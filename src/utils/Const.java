@@ -45,5 +45,4 @@ public class Const {
     public static final String SES_INT = "SES(i)";
     public static final String VAR = "VAR";
     public static final String VAR_INT = "VAR(i)";
-    
 }
