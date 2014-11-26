@@ -486,6 +486,9 @@ public class MainFrame extends javax.swing.JFrame {
         listColnames.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(listColnames);
 
+        jScrollPane2.setMaximumSize(new java.awt.Dimension(270, 89));
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(270, 89));
+
         textAreaPlotBasicStats.setEditable(false);
         textAreaPlotBasicStats.setColumns(20);
         textAreaPlotBasicStats.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
@@ -694,7 +697,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelChartLayout.setVerticalGroup(
@@ -712,7 +715,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(buttonPACF))
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(panelChartLayout.createSequentialGroup()
                                     .addComponent(buttonPlotAddITS)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2211,7 +2214,7 @@ public class MainFrame extends javax.swing.JFrame {
                                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                         .addComponent(comboBoxRunFakeIntCenter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                                     .addComponent(jLabel43))
-                                .addGap(189, 189, 189)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addComponent(jLabelTrainingInfo)
