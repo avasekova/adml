@@ -32,6 +32,8 @@ public class MLPintNnetarParams extends MLPintParams {
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
         param.setPercentTrain(this.getPercentTrain());
+        param.setNumNetsToTrain(this.getNumNetsToTrain());
+        param.setCriterion(this.getCriterion());
         
         return param;
     }

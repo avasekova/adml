@@ -217,7 +217,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonSettingsAddToBatch_MLPint = new javax.swing.JButton();
         panelBestModelCriterionMLPint = new gui.settingspanels.BestModelCriterionIntervalSettingsPanel();
         jLabel12 = new javax.swing.JLabel();
-        numNetsToTrain = new javax.swing.JTextField();
+        textFieldNumNetsToTrainMLPint = new javax.swing.JTextField();
         paneSettingsMethodsIntervalMLP = new javax.swing.JPanel();
         panelSettingsIntervalMLPMode = new javax.swing.JPanel();
         panelSettingsIntervalMLPModeCcode = new IntMLPCcodeSettingsPanel();
@@ -980,7 +980,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel12.setText("Number of networks to train:");
 
-        numNetsToTrain.setText("1");
+        textFieldNumNetsToTrainMLPint.setText("1");
 
         javax.swing.GroupLayout paneSettingsMethodsMLPintLayout = new javax.swing.GroupLayout(paneSettingsMethodsMLPint);
         paneSettingsMethodsMLPint.setLayout(paneSettingsMethodsMLPintLayout);
@@ -997,7 +997,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(49, 49, 49)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(numNetsToTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldNumNetsToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelBestModelCriterionMLPint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(507, 507, 507))
@@ -1048,7 +1048,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
-                        .addComponent(numNetsToTrain, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(textFieldNumNetsToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGap(0, 610, Short.MAX_VALUE))
@@ -2956,7 +2956,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunMLPintNnetar.isSelected()) {
             List<MLPintNnetarParams> params = getParamsMLPintNnetar(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
                     panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                    panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance);
+                    panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
+                        panelBestModelCriterionMLPint);
             
             showDialogTooManyModelsInCase(params.size(), Const.MLP_INT_NNETAR);
             if (continueWithTooManyModels) {
@@ -2974,7 +2975,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<MLPintNnetParams> params = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, numNetsToTrain,
+                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
 
                 showDialogTooManyModelsInCase(params.size(), Const.MLP_INT_NNET);
@@ -3849,7 +3850,7 @@ public class MainFrame extends javax.swing.JFrame {
                 try {
                     List<MLPintNnetParams> paramsNnet = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, numNetsToTrain,
+                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
                     batchTableModel.addLine(new AnalysisBatchLine(Const.MLP_INT_NNET, paramsNnet));
                 } catch (IllegalArgumentException e) {
@@ -3860,7 +3861,8 @@ public class MainFrame extends javax.swing.JFrame {
                 try {
                     List<MLPintNnetarParams> paramsNnetar = getParamsMLPintNnetar(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                        panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance);
+                        panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
+                        panelBestModelCriterionMLPint);
                     batchTableModel.addLine(new AnalysisBatchLine(Const.MLP_INT_NNETAR, paramsNnetar));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4237,7 +4239,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenu menuFile;
     private javax.swing.JMenuItem menuFileExit;
     private javax.swing.JMenuItem menuFileLoad;
-    private javax.swing.JTextField numNetsToTrain;
     private javax.swing.JTabbedPane paneSettingsMethods;
     private javax.swing.JPanel paneSettingsMethodsARIMA;
     private javax.swing.JPanel paneSettingsMethodsHybrid;
@@ -4361,6 +4362,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
     private javax.swing.JTextArea textAreaPlotBasicStats;
+    private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
     private javax.swing.JTextField textFieldPlotRangeCTSXfrom;
     private javax.swing.JTextField textFieldPlotRangeCTSXto;
@@ -4498,7 +4500,8 @@ public class MainFrame extends javax.swing.JFrame {
     private List<MLPintNnetarParams> getParamsMLPintNnetar(javax.swing.JPanel percentTrainSettingsPanel_center,
             javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnetar_center,
             javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
-            javax.swing.JPanel panelSettingsNnetar_radius, javax.swing.JPanel panelSettingsDistance) {
+            javax.swing.JPanel panelSettingsNnetar_radius, javax.swing.JPanel panelSettingsDistance,
+            JTextField numNetsToTrainField, JPanel panelBestModelCriterion) {
         List<NnetarParams> resultListCenter = getParamsNnetar(percentTrainSettingsPanel_center, comboBoxColName_center, 
                 panelSettingsNnetar_center);
         List<NnetarParams> resultListRadius = getParamsNnetar(percentTrainSettingsPanel_radius, comboBoxColName_radius, 
@@ -4514,6 +4517,10 @@ public class MainFrame extends javax.swing.JFrame {
                 NnetarParams.class, resultListCenter);
         SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsRadius",
                 NnetarParams.class, resultListRadius);
+        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setNumNetsToTrain",
+                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
+        SettingsPanel.setSomethingOneValue(MLPintNnetarParams.class, resultList, "setCriterion",
+                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
         
         return resultList;
     }

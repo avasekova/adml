@@ -1,10 +1,12 @@
 package models;
 
 import gui.DataTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import params.MLPintNnetarParams;
 import params.NnetarParams;
 import params.Params;
+import utils.BestModelCriterionInterval;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
@@ -15,6 +17,29 @@ public class MLPintNnetar implements Forecastable {
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+        List<TrainAndTestReportInterval> reports = new ArrayList<>();
+        //train some number of networks
+        for (int i = 0; i < ((MLPintNnetarParams)parameters).getNumNetsToTrain(); i++) {
+            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters)));
+        }
+        
+        //and then determine which one is the best
+        TrainAndTestReportInterval bestReport = reports.get(0);
+        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, ((MLPintNnetarParams)parameters).getCriterion());
+        if (reports.size() > 1) {
+            for (int i = 1; i < reports.size(); i++) {
+                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), ((MLPintNnetarParams)parameters).getCriterion());
+                if (BestModelCriterionInterval.isCurrentBetterThanBest(((MLPintNnetarParams)parameters).getCriterion(), currentMeasures, bestMeasures)) {
+                    bestMeasures = currentMeasures;
+                    bestReport = reports.get(i);
+                }
+            }
+        }
+        
+        return bestReport;
+    }
+    
+    public TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
         NnetarParams paramsCenter = ((MLPintNnetarParams)parameters).getParamsCenter();
         NnetarParams paramsRadius = ((MLPintNnetarParams)parameters).getParamsRadius();
         

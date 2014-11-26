@@ -4,7 +4,6 @@ public class MLPintNnetParams extends MLPintParams {
     
     private NnetParams paramsCenter;
     private NnetParams paramsRadius;
-    private Integer numNetsToTrain;
     
     public NnetParams getParamsCenter() {
         return paramsCenter;
@@ -22,14 +21,6 @@ public class MLPintNnetParams extends MLPintParams {
         this.paramsRadius = paramsRadius;
     }
     
-    public Integer getNumNetsToTrain() {
-        return numNetsToTrain;
-    }
-
-    public void setNumNetsToTrain(Integer numNetsToTrain) {
-        this.numNetsToTrain = numNetsToTrain;
-    }
-    
     @Override
     public MLPintNnetParams getClone() {
         MLPintNnetParams param = new MLPintNnetParams();
@@ -41,7 +32,7 @@ public class MLPintNnetParams extends MLPintParams {
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
         param.setCriterion(this.getCriterion());
-        param.setNumNetsToTrain(numNetsToTrain);
+        param.setNumNetsToTrain(this.getNumNetsToTrain());
         param.setPercentTrain(this.getPercentTrain());
         
         return param;

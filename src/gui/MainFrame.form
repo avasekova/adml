@@ -846,7 +846,7 @@
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                       <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="numNetsToTrain" min="-2" pref="24" max="-2" attributes="0"/>
+                                      <Component id="textFieldNumNetsToTrainMLPint" min="-2" pref="24" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="panelBestModelCriterionMLPint" max="32767" attributes="0"/>
                                       <EmptySpace min="-2" pref="507" max="-2" attributes="0"/>
@@ -913,7 +913,7 @@
                                   </Group>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="numNetsToTrain" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textFieldNumNetsToTrainMLPint" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1175,7 +1175,7 @@
                         <Property name="text" type="java.lang.String" value="Number of networks to train:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JTextField" name="numNetsToTrain">
+                    <Component class="javax.swing.JTextField" name="textFieldNumNetsToTrainMLPint">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="1"/>
                       </Properties>
