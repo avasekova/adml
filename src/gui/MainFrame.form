@@ -1397,15 +1397,19 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel157" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="jLabel138" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="textFieldNumNetworksToTrainRBFint" min="-2" pref="64" max="-2" attributes="0"/>
-                                          </Group>
                                           <Component id="panelRBFintSettingsDistance" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
                                           <Component id="jLabel150" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Component id="panelSettingsRBFint_center" min="-2" pref="497" max="-2" attributes="0"/>
+                                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="jLabel138" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="textFieldNumNetworksToTrainRBFint" min="-2" pref="29" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="panelBestModelCriterionRBFint" max="32767" attributes="0"/>
+                                                  </Group>
+                                                  <Component id="panelSettingsRBFint_center" min="-2" pref="497" max="-2" attributes="0"/>
+                                              </Group>
                                               <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                               <Component id="jSeparator5" min="-2" pref="14" max="-2" attributes="0"/>
                                           </Group>
@@ -1482,9 +1486,12 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="panelRBFintSettingsDistance" min="-2" pref="41" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel138" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="textFieldNumNetworksToTrainRBFint" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="jLabel138" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="textFieldNumNetworksToTrainRBFint" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="panelBestModelCriterionRBFint" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
                           </Group>
@@ -1533,7 +1540,7 @@
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel138">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="Num of networks to train (show best based on efficiency+coverage):"/>
+                        <Property name="text" type="java.lang.String" value="Num of networks to train:"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JTextField" name="textFieldNumNetworksToTrainRBFint">
@@ -1578,6 +1585,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSettingsAddToBatch_RBFintActionPerformed"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="panelBestModelCriterionRBFint">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new gui.settingspanels.BestModelCriterionIntervalSettingsPanel()"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="paneSettingsMethodsARIMA">

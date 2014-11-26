@@ -25,7 +25,6 @@ import gui.settingspanels.VARSettingsPanel;
 import gui.settingspanels.VARintSettingsPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Dimension;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
@@ -68,7 +67,6 @@ import models.SESint;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import models.VAR;
 import models.VARint;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
@@ -247,6 +245,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsRBFint_radius = new RBFSettingsPanel();
         panelRBFintPercentTrain = new PercentTrainSettingsPanel();
         buttonSettingsAddToBatch_RBFint = new javax.swing.JButton();
+        panelBestModelCriterionRBFint = new gui.settingspanels.BestModelCriterionIntervalSettingsPanel();
         paneSettingsMethodsARIMA = new javax.swing.JPanel();
         panelSettingsARIMAMain = new ARIMASettingsPanel();
         panelARIMAPercTrain = new PercentTrainSettingsPanel();
@@ -1180,7 +1179,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel157.setText("Distance to use for computing the error measures:");
 
-        jLabel138.setText("Num of networks to train (show best based on efficiency+coverage):");
+        jLabel138.setText("Num of networks to train:");
 
         textFieldNumNetworksToTrainRBFint.setText("1");
 
@@ -1202,14 +1201,17 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel157)
-                            .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                .addComponent(jLabel138)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldNumNetworksToTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(panelRBFintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel150)
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
-                                .addComponent(panelSettingsRBFint_center, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneSettingsMethodsRBFintLayout.createSequentialGroup()
+                                        .addComponent(jLabel138)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(textFieldNumNetworksToTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(panelBestModelCriterionRBFint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(panelSettingsRBFint_center, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(10, 10, 10)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -1265,9 +1267,11 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(panelRBFintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel138)
-                    .addComponent(textFieldNumNetworksToTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel138)
+                        .addComponent(textFieldNumNetworksToTrainRBFint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelBestModelCriterionRBFint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(82, 82, 82))
         );
 
@@ -3081,7 +3085,8 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 List<RBFintParams> params = getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
                     panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
-                    panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint);
+                    panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
+                    panelBestModelCriterionRBFint);
 
                 showDialogTooManyModelsInCase(params.size(), Const.RBF_INT);
                 if (continueWithTooManyModels) {
@@ -3894,7 +3899,8 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             List<RBFintParams> paramsRBFint = getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
                 panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
-                panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint);
+                panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
+                panelBestModelCriterionRBFint);
             batchTableModel.addLine(new AnalysisBatchLine(Const.RBF_INT, paramsRBFint));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -4245,6 +4251,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelAnalysisBatch;
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelBestModelCriterionMLPint;
+    private javax.swing.JPanel panelBestModelCriterionRBFint;
     private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelData;
     private javax.swing.JPanel panelDiagramsNNs;
@@ -4676,7 +4683,8 @@ public class MainFrame extends javax.swing.JFrame {
             javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsRBF_center,
             javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
             javax.swing.JPanel panelSettingsRBF_radius, javax.swing.JPanel panelSettingsDistance,
-            javax.swing.JTextField numNetsToTrainField) throws IllegalArgumentException {
+            javax.swing.JTextField numNetsToTrainField,
+            javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
         List<RBFParams> resultListCenter = getParamsRBF(percentTrainSettingsPanel_center, comboBoxColName_center,
                 panelSettingsRBF_center);
         List<RBFParams> resultListRadius = getParamsRBF(percentTrainSettingsPanel_radius, comboBoxColName_radius,
@@ -4693,6 +4701,8 @@ public class MainFrame extends javax.swing.JFrame {
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(RBFintParams.class, resultList);
         SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
+        SettingsPanel.setSomethingOneValue(RBFintParams.class, resultList, "setCriterion",
+                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
         
         return resultList;
     }

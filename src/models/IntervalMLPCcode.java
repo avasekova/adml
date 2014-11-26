@@ -38,7 +38,6 @@ public class IntervalMLPCcode implements Forecastable {
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
-        //TODO later also keep their .out and other files! prevent overwriting the best!
         for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
             reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters, "" + i)));
         }
