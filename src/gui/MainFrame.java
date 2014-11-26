@@ -3467,9 +3467,12 @@ public class MainFrame extends javax.swing.JFrame {
                     }
                     
                     String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+                    if (fileName.contains(".")) {
+                        //tipnem si, ze je tam pripona, a odrezem ju
+                        fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+                    }
                     rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
-                    rengine.eval("dev.off()");
+//                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
                     //a na zaver to disablovat, aby sa na to netukalo furt
                     buttonPlotExportPlot.setEnabled(false);
                     break;
