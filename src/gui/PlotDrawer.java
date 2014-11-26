@@ -3,7 +3,6 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -289,8 +288,14 @@ public class PlotDrawer {
                     allFitDataTrainAndTest.addAll(Utils.arrayToList(fittedValsAvg));
                     allFitDataTrainAndTest.addAll(Utils.arrayToList(forecastValsTestAvg));
                     
-                    ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(allRealDataTrainAndTest, 
-                            new ArrayList<Double>(), allFitDataTrainAndTest, new ArrayList<Double>(), 0);
+//                    System.out.println(allRealDataTrainAndTest.subList(0, 5) + ", " + allRealDataTrainAndTest.size());
+//                    System.out.println(allFitDataTrainAndTest.subList(0, 5) + ", " + allFitDataTrainAndTest.size()
+//                           + " (" + fittedValsAvg.length + ", " + forecastValsTestAvg.length + ")");
+                    
+//                    ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(allRealDataTrainAndTest, 
+//                            new ArrayList<Double>(), allFitDataTrainAndTest, new ArrayList<Double>(), 0);
+                    ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(new ArrayList<Double>(), 
+                            new ArrayList<Double>(), new ArrayList<Double>(), new ArrayList<Double>(), 0);
                     
                     thisAvgReport.setErrorMeasures(errorMeasures);
                     REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());

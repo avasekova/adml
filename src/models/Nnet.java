@@ -54,7 +54,7 @@ public class Nnet implements Forecastable {
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*data.get(0).size());
         report.setNumTrainingEntries(numTrainingEntries);
-        numTrainingEntries -= maxLag; //TODO not sure about this!
+//        numTrainingEntries -= maxLag; //TODO not sure about this! (works better with AVG if disabled... stil not sure about it though)
         
         List<List<Double>> allInputsScaled = RBF.getScaledInputs(data, 0);
         List<List<Double>> trainingInputsScaled = RBF.getInputsCut(allInputsScaled, 0, numTrainingEntries);
