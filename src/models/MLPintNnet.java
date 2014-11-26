@@ -6,6 +6,7 @@ import java.util.List;
 import params.MLPintNnetParams;
 import params.NnetParams;
 import params.Params;
+import utils.BestModelCriterionInterval;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
@@ -23,13 +24,12 @@ public class MLPintNnet implements Forecastable {
         }
         
         //and then determine which one is the best
-        //TODO for now coverage+efficiency, later allow to customize
         TrainAndTestReportInterval bestReport = reports.get(0);
-        double bestMeasures = computeCriterion(bestReport);
+        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, ((MLPintNnetParams)parameters).getCriterion());
         if (reports.size() > 1) {
             for (int i = 1; i < reports.size(); i++) {
-                double currentMeasures = computeCriterion(reports.get(i));
-                if (currentMeasures > bestMeasures) {
+                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), ((MLPintNnetParams)parameters).getCriterion());
+                if (BestModelCriterionInterval.isCurrentBetterThanBest(((MLPintNnetParams)parameters).getCriterion(), currentMeasures, bestMeasures)) {
                     bestMeasures = currentMeasures;
                     bestReport = reports.get(i);
                 }
@@ -37,12 +37,6 @@ public class MLPintNnet implements Forecastable {
         }
         
         return bestReport;
-    }
-    
-    private double computeCriterion(TrainAndTestReportInterval report) {
-        ErrorMeasuresInterval m = (ErrorMeasuresInterval)(report.getErrorMeasures());
-        //sum of coverages and efficiencies
-        return m.getMeanCoverageTest() + m.getMeanCoverageTrain() + m.getMeanEfficiencyTest() + m.getMeanEfficiencyTrain();
     }
 
     private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {

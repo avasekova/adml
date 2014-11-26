@@ -1,29 +1,83 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import models.TrainAndTestReportCrisp;
 
 public abstract class BestModelCriterionClassic {
     
-    public enum MINIMIZE {
-        ME, RMSE, MAE, MSE, THEILSU, RMSSE, MPE, MAPE, MASE
+    public enum MINIMIZE implements Improvable {
+        ME, RMSE, MAE, MSE, THEILSU, RMSSE, MPE, MAPE, MASE;
+
+        @Override
+        public boolean isBetterThanBest(double currentValue, double bestValue) {
+            return currentValue < bestValue;
+        }
     }
 
-    public enum MAXIMIZE {
-        //nothing here so far
+    public enum MAXIMIZE implements Improvable {
+
+        ; //nothing here so far
+
+        @Override
+        public boolean isBetterThanBest(double currentValue, double bestValue) {
+            throw new UnsupportedOperationException("Not supported yet.");
+        }
     }
     
-    public static String[] getValues() {
-        List<String> values = new ArrayList<>();
+    public static Improvable[] getValues() {
+        List<Improvable> values = new ArrayList<>();
         
-        for (BestModelCriterionClassic.MAXIMIZE c : BestModelCriterionClassic.MAXIMIZE.class.getEnumConstants()) {
-            values.add(c.toString());
+        values.addAll(Arrays.asList(MAXIMIZE.class.getEnumConstants()));
+        values.addAll(Arrays.asList(MINIMIZE.class.getEnumConstants()));
+        
+        return values.toArray(new Improvable[]{});
+    }
+    
+    public static double computeCriterion(TrainAndTestReportCrisp report, Improvable criterion) {
+        ErrorMeasuresCrisp m = (ErrorMeasuresCrisp)(report.getErrorMeasures());
+        
+        double result = 0;
+        
+        if (criterion instanceof MINIMIZE) {
+            switch ((MINIMIZE)criterion) {
+                case MAE:
+                    result = m.getMAEtrain() + m.getMAEtest();
+                    break;
+                case ME:
+                    result = m.getMEtrain() + m.getMEtest();
+                    break;
+                case MSE:
+                    result = m.getMSEtrain() + m.getMSEtest();
+                    break;
+                case RMSE:
+                    result = m.getRMSEtrain() + m.getRMSEtest();
+                    break;
+                case THEILSU:
+                    result = m.getTheilUtrain() + m.getTheilUtest();
+                    break;
+                case RMSSE:
+                    result = m.getRMSSEtrain() + m.getRMSSEtest();
+                    break;
+                case MPE:
+                    result = m.getMPEtrain() + m.getMPEtest();
+                    break;
+                case MAPE:
+                    result = m.getMAPEtrain() + m.getMAPEtest();
+                    break;
+                case MASE:
+                    result = m.getMASEtrain() + m.getMASEtest();
+                    break;
+            }
+        } else if (criterion instanceof MAXIMIZE) {
+            //
         }
         
-        for (BestModelCriterionClassic.MINIMIZE c : BestModelCriterionClassic.MINIMIZE.class.getEnumConstants()) {
-            values.add(c.toString());
-        }
-        
-        return values.toArray(new String[]{});
+        return result;
+    }
+    
+    public static boolean isCurrentBetterThanBest(Improvable criterion, double currentMeasures, double bestMeasures) {
+        return criterion.isBetterThanBest(currentMeasures, bestMeasures);
     }
 }

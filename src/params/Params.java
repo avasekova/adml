@@ -1,5 +1,7 @@
 package params;
 
+import utils.Improvable;
+
 public class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
     
     private int percentTrain;
@@ -7,6 +9,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
     private int dataRangeFrom;
     private int dataRangeTo;
     private Integer seasonality = 0;
+    private Improvable criterion;
     
     public Params() { }
     
@@ -53,6 +56,14 @@ public class Params { //do not add futureForecastValues to params - no need to. 
     public void setSeasonality(Integer seasonality) {
         this.seasonality = seasonality;
     }
+
+    public Improvable getCriterion() {
+        return criterion;
+    }
+
+    public void setCriterion(Improvable criterion) {
+        this.criterion = criterion;
+    }
     
     public Params getClone() {
         Params param = new Params();
@@ -61,6 +72,7 @@ public class Params { //do not add futureForecastValues to params - no need to. 
         param.setNumForecasts(numForecasts);
         param.setPercentTrain(percentTrain);
         param.setSeasonality(seasonality);
+        param.setCriterion(criterion);
         
         return param;
     }

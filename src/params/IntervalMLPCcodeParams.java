@@ -2,7 +2,6 @@ package params;
 
 import java.util.ArrayList;
 import java.util.List;
-import utils.Improvable;
 import utils.IntervalExplanatoryVariable;
 import utils.IntervalOutputVariable;
 import utils.imlp.dist.Distance;
@@ -15,7 +14,6 @@ public class IntervalMLPCcodeParams extends Params {
     private List<IntervalOutputVariable> outVars = new ArrayList<>();
     private Distance distance;
     private int numNetworks;
-    private Improvable criterion; //error measure based on which it will choose the best network
 
     public Integer getNumNodesHidden() {
         return numNodesHidden;
@@ -65,14 +63,6 @@ public class IntervalMLPCcodeParams extends Params {
         this.numNetworks = numNetworks;
     }
 
-    public Improvable getCriterion() {
-        return criterion;
-    }
-
-    public void setCriterion(Improvable criterion) {
-        this.criterion = criterion;
-    }
-    
     @Override
     public IntervalMLPCcodeParams getClone() {
         IntervalMLPCcodeParams param = new IntervalMLPCcodeParams();
@@ -87,7 +77,7 @@ public class IntervalMLPCcodeParams extends Params {
         param.setNumNodesHidden(numNodesHidden);
         param.setOutVars(outVars);
         param.setPercentTrain(this.getPercentTrain());
-        param.setCriterion(criterion);
+        param.setCriterion(this.getCriterion());
         
         return param;
     }

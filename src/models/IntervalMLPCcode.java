@@ -44,7 +44,6 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         //and then determine which one is the best
-        //TODO for now coverage+efficiency, later allow to customize
         int bestReportNum = 0;
         TrainAndTestReportInterval bestReport = reports.get(0);
         double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, ((IntervalMLPCcodeParams)parameters).getCriterion());

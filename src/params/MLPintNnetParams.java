@@ -21,7 +21,7 @@ public class MLPintNnetParams extends MLPintParams {
     public void setParamsRadius(NnetParams paramsRadius) {
         this.paramsRadius = paramsRadius;
     }
-
+    
     public Integer getNumNetsToTrain() {
         return numNetsToTrain;
     }
@@ -40,6 +40,7 @@ public class MLPintNnetParams extends MLPintParams {
         param.setSeasonality(this.getSeasonality());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
+        param.setCriterion(this.getCriterion());
         param.setNumNetsToTrain(numNetsToTrain);
         param.setPercentTrain(this.getPercentTrain());
         
