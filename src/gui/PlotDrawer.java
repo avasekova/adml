@@ -100,13 +100,8 @@ public class PlotDrawer {
             
             boolean next = false;
             Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
+            //first go through all the reports once to determine how many of each kind there are:
             for (TrainAndTestReportCrisp r : reportsCTS) {
-                if (next && !(avgONLY)) {
-                    rengine.eval("par(new=TRUE)");
-                } else {
-                    next = true;
-                }
-
                 if (avgCTSperMethod) {
                     if (mapForAvg.containsKey(r.getModelName())) {
                         mapForAvg.get(r.getModelName()).add(r);
@@ -116,14 +111,25 @@ public class PlotDrawer {
                         mapForAvg.put(r.getModelName(), l);
                     }
                 }
-
+            }
+            
+            //then go through them again and draw them. if there is just 1 model, it is drawn even if AVG_ONLY is selected
+            for (TrainAndTestReportCrisp r : reportsCTS) {
+                if (next && (!(avgONLY) ||
+                              (mapForAvg.get(r.getModelName()).size() == 1))) {
+                    rengine.eval("par(new=TRUE)");
+                } else {
+                    next = true;
+                }
+                
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                         + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
                 plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
                 
-                if (!(avgONLY)) {
+                if (!(avgONLY) ||
+                     (mapForAvg.get(r.getModelName()).size() == 1)) { //alebo aj kludne je avgONLY, ale mam len 1 model
                     rengine.eval(plotCode.toString());
                     
                     
