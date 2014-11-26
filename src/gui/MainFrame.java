@@ -3441,7 +3441,6 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File plotFile = fileChooser.getSelectedFile();
-                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     Rengine rengine = MyRengine.getRengine();
                     
                     String device = "";
