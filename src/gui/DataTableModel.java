@@ -22,7 +22,7 @@ public class DataTableModel extends AbstractTableModel {
     //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
-    private List<String> columnNamesSecondColumnAndAfter = new ArrayList<>();      //ciste pre convenience ucely
+    private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
     public static final String LABELS_AXIS_X = Const.LABELS + Utils.getCounter();
     
     @Override
@@ -44,12 +44,12 @@ public class DataTableModel extends AbstractTableModel {
     
     @Override
     public String getColumnName(int columnIndex) {
-        return columnNamesSecondColumnAndAfter.get(columnIndex);
+        return columnNames.get(columnIndex);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return values.get(columnNamesSecondColumnAndAfter.get(columnIndex)).get(rowIndex);
+        return values.get(columnNames.get(columnIndex)).get(rowIndex);
     }
     
     @Override
@@ -62,7 +62,7 @@ public class DataTableModel extends AbstractTableModel {
     //interpretuje prvy riadok ako headers, bez ohladu na to, co v nom je (TODO customizable: 1. use the 1st line, 2. input
     //   custom headers for each column now, 3. use placeholder names X1 ... Xn)
     //interpretuje prvy stlpec ako labels pre os X, tj typicky datumy apod.. Berie to hlupo ako String, aby nebol problem.
-    public void openFile(File file) {
+    public void openFile(File file, LoadDataCustomizerPanel customizer) {
         final String WORKBOOK = Const.WORKBOOK + Utils.getCounter();
         final String DATA = Const.BRENT + Utils.getCounter();
         
@@ -71,26 +71,62 @@ public class DataTableModel extends AbstractTableModel {
         rengine.eval("require(XLConnect)");
         String filePathEscaped = file.getPath().replace("\\","/"); //toto je snad lepsie kvoli platformovej prenositelnosti..?
         rengine.eval(WORKBOOK + " <- loadWorkbook(\"" + filePathEscaped + "\")");
-        rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = TRUE)");
-        //pozor, intepretuje prvy riadok ako headers, bez ohladu na to, co v nom je!
         
+        //read data
+        switch (customizer.getColnamesType()) {
+            case FIRST_ROW:
+                rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = TRUE)"); //header=TRUE
+                break;
+            case DUMMY:
+                rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = FALSE)"); //header=FALSE
+                break;
+            case CUSTOM:
+                rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = FALSE)"); //header=FALSE
+                break;
+        }
         
-        //vezmi prvy stlpec ako nazvy na osi X
-        //pozor, asStringArray ich potrebuje nutne v uvodzovkach :/
-        REXP getLabelsAxisX = rengine.eval(DATA + "[,1]"); //1. stlpec
-        String[] labelsAxisX = getLabelsAxisX.asStringArray();
-        rengine.assign(LABELS_AXIS_X, labelsAxisX);
-        
-        REXP getColnamesSecondColumnAndAfter = rengine.eval("colnames(" + DATA + "[,2:length(colnames(" + DATA + "))])");
-        String[] columnNamesSecondColumnAndAfterArray = getColnamesSecondColumnAndAfter.asStringArray();
-        
-        columnNamesSecondColumnAndAfter = new ArrayList<>(Arrays.asList(columnNamesSecondColumnAndAfterArray));
+        //read X labels
+        if (customizer.isFirstColumnLabelsAxisX()) {
+            //vezmi prvy stlpec ako nazvy na osi X
+            //pozor, asStringArray ich potrebuje nutne v uvodzovkach :/
+            REXP getLabelsAxisX = rengine.eval(DATA + "[,1]"); //1. stlpec
+            String[] labelsAxisX = getLabelsAxisX.asStringArray();
+            rengine.assign(LABELS_AXIS_X, labelsAxisX);
 
-        //pouzijem ako ciselne data len vsetko od druheho stlpca. prvy stlpec je ako nazvy (asi datum/cas v pripade TS)
-        for (String colName : columnNamesSecondColumnAndAfter) {
-            REXP getColumn = rengine.eval(DATA + "$" + colName);
+            rengine.eval(DATA + " <- " + DATA + "[2:length(" + DATA + ")]"); //a odrezem prvy stlpec
+        } else {
+            rengine.eval(LABELS_AXIS_X + " <- seq(1,length(" + DATA + "[,1]))");
+        }
+        
+        //and get names of columns
+        switch (customizer.getColnamesType()) {
+            case FIRST_ROW:
+                REXP getColnames = rengine.eval("colnames(" + DATA + ")");
+                String[] columnNamesArray = getColnames.asStringArray();
+                columnNames = new ArrayList<>(Arrays.asList(columnNamesArray));
+                break;
+            case DUMMY:
+                REXP getColnamesDummyNumbers = rengine.eval("seq(1,length(" + DATA + "))");
+                int[] columnNamesDummyNumbersArray = getColnamesDummyNumbers.asIntArray();
+
+                columnNames = new ArrayList<>();
+                for (int i : columnNamesDummyNumbersArray) {
+                    columnNames.add("X" + i);
+                }
+                
+                break;
+            case CUSTOM:
+                //TODO
+                break;
+        }
+        
+        //ciselne data
+        int i = 1;
+        for (String colName : columnNames) {
+            REXP getColumn = rengine.eval(DATA + "[," + i + "]");
             double[] doubleArray = getColumn.asDoubleArray();
             values.put(colName, Utils.arrayToList(doubleArray));
+            i++;
         }
     }
     
@@ -207,7 +243,7 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     public List<String> getColnames() {
-        return columnNamesSecondColumnAndAfter;
+        return columnNames;
     }
     
     public List<Double> getDataForColname(String colname) {
