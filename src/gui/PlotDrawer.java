@@ -1124,18 +1124,6 @@ public class PlotDrawer {
                             listPlotLegend.repaint();
                             
                             //and then redraw the plots:
-                            List<TrainAndTestReportCrisp> reportsCrisp = new ArrayList<>();
-                            List<TrainAndTestReportInterval> reportsInterval = new ArrayList<>();
-                            for (int i = 0; i < ((DefaultListModel)listPlotLegend.getModel()).size(); i++) {
-                                PlotLegendTurnOFFableListElement el = (PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel()).getElementAt(i));
-                                if (el.getReport() instanceof TrainAndTestReportCrisp) {
-                                    reportsCrisp.add((TrainAndTestReportCrisp)el.getReport());
-                                } else if (el.getReport() instanceof TrainAndTestReportInterval) {
-                                    reportsInterval.add((TrainAndTestReportInterval)el.getReport());
-                                }
-                            }
-                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(reportsCrisp);
-                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(reportsInterval);
                             String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
                             String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
                             String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
