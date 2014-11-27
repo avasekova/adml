@@ -3697,6 +3697,24 @@ public class MainFrame extends javax.swing.JFrame {
         //TODO neslo by toto cele nejak refaktorovat? je to prilis podobne buttonRun
         buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
         buttonExportForecastValues.setEnabled(true);
+        
+        
+        ///hack: turn off all AVG checkboxes in case the params tried to take values from them.
+        //  it is not safe to support average in these settings; there may be too many differences, we cannot check everything
+        boolean originalStateCheckboxAvgCTSPerMethod = checkBoxRunPlotAverageCTSperMethod.isSelected();
+        boolean originalStateCheckboxAvgCTS = checkBoxRunPlotAverageCTS.isSelected();
+        boolean originalStateCheckboxAvgIntTSPerMethod = checkBoxRunPlotAverageIntTSperMethod.isSelected();
+        boolean originalStateCheckboxAvgIntTS = checkBoxRunPlotAverageIntTS.isSelected();
+        boolean originalStateCheckboxAvgONLY = checkBoxRunPlotAvgONLY.isSelected();
+        checkBoxRunPlotAverageCTSperMethod.setSelected(false);
+        checkBoxRunPlotAverageCTS.setSelected(false);
+        checkBoxRunPlotAverageIntTSperMethod.setSelected(false);
+        checkBoxRunPlotAverageIntTS.setSelected(false);
+        checkBoxRunPlotAvgONLY.setSelected(false);
+        //------------end hack, part 1/2
+        
+        
+        
 
         //vsetky pridaju do zoznamu trainingreports svoje errormeasures a plotcode
         List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
@@ -3885,6 +3903,23 @@ public class MainFrame extends javax.swing.JFrame {
         
         //show prediction intervals, if any
         outputPredictionIntervals(reportsCTS);
+        
+        
+        
+        
+        
+        ///hack: turn on all AVG checkboxes the way they were before so nobody notices
+        //  (and so that... happy debugging, suckers :D)
+        checkBoxRunPlotAverageCTSperMethod.setSelected(originalStateCheckboxAvgCTSPerMethod);
+        checkBoxRunPlotAverageCTS.setSelected(originalStateCheckboxAvgCTS);
+        checkBoxRunPlotAverageIntTSperMethod.setSelected(originalStateCheckboxAvgIntTSPerMethod);
+        checkBoxRunPlotAverageIntTS.setSelected(originalStateCheckboxAvgIntTS);
+        checkBoxRunPlotAvgONLY.setSelected(originalStateCheckboxAvgONLY);
+        //------------end hack, part 2/2
+        
+        
+        
+        
 
         //and show forecast values in the other pane
         forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
