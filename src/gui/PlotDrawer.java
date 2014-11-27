@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -249,88 +250,88 @@ public class PlotDrawer {
             //and draw the average of all CTS methods that were run
             if (avgCTS) {
                 if (reportsCTS.size() > 1) { //does not make sense to compute average over one series
-                    StringBuilder avgAll = new StringBuilder("(");
-                    StringBuilder fittedValsAvgAll = new StringBuilder("(");
-                    StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
-                    StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
-                    next = false;
-                    int numForecastsAvg = 0;
+                    //first check if all of them have the same percentage of train data
+                    boolean allTheSame = true;
+                    int numTrainAll = reportsCTS.get(0).getNumTrainingEntries();
                     for (TrainAndTestReportCrisp r : reportsCTS) {
-                        if (next) {
-                            avgAll.append(" + ");
-                            fittedValsAvgAll.append(" + ");
-                            forecastValsTestAvgAll.append(" + ");
-                            forecastValsFutureAvgAll.append(" + ");
-                        } else {
-                            next = true;
+                        if (r.getNumTrainingEntries() != numTrainAll) {
+                            allTheSame = false;
+                            break;
                         }
-                        //this will take the vector: c(rep(NA, something), fit, test, future)
-                        String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
-                        avgAll.append(justData);
-                        fittedValsAvgAll.append(Utils.arrayToRVectorString(r.getFittedValues()));
-                        forecastValsTestAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesTest()));
-                        
-                        if (r.getForecastValuesFuture().length > 0) {
-                            forecastValsFutureAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesFuture()));
-                            numForecastsAvg++;
-                        } else {
-                            forecastValsFutureAvgAll.append("0");
-                        }
-                       
                     }
-                    avgAll.append(")/").append(reportsCTS.size());
-                    fittedValsAvgAll.append(")/").append(reportsCTS.size());
-                    forecastValsTestAvgAll.append(")/").append(reportsCTS.size());
-                    forecastValsFutureAvgAll.append(")/").append(numForecastsAvg);
+                    
+                    if (! allTheSame) { //throw an error, we cannot compute it like this
+                        JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+                    } else {
+                        StringBuilder avgAll = new StringBuilder("(");
+                        StringBuilder fittedValsAvgAll = new StringBuilder("(");
+                        StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
+                        StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
+                        next = false;
+                        int numForecastsAvg = 0;
+                        for (TrainAndTestReportCrisp r : reportsCTS) {
+                            if (next) {
+                                avgAll.append(" + ");
+                                fittedValsAvgAll.append(" + ");
+                                forecastValsTestAvgAll.append(" + ");
+                                forecastValsFutureAvgAll.append(" + ");
+                            } else {
+                                next = true;
+                            }
+                            //this will take the vector: c(rep(NA, something), fit, test, future)
+                            String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
+                            avgAll.append(justData);
+                            fittedValsAvgAll.append(Utils.arrayToRVectorString(r.getFittedValues()));
+                            forecastValsTestAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesTest()));
 
-                    //aaaand draw the average
-                    rengine.eval("par(new=TRUE)");
-                    rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
-                            + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
-                            + "lty=2, lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
-                    //add a dashed vertical line to separate test and train
-                    //not really possible cause the methods may have different train-test ratio
-                    //rengine.eval("abline(v = " + (reportsCTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                            if (r.getForecastValuesFuture().length > 0) {
+                                forecastValsFutureAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesFuture()));
+                                numForecastsAvg++;
+                            } else {
+                                forecastValsFutureAvgAll.append("0");
+                            }
 
-                    //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
-                    TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp("(avg)");
-                    REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
-                    double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
-                    REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
-                    double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
-                    
-                    List<Double> allRealDataTrainAndTest = new ArrayList<>(); //will have the NA vals of the first report
-                    //but they would've gotten erased anyway
-                    allRealDataTrainAndTest.addAll(Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()));
-                    allRealDataTrainAndTest.addAll(Utils.arrayToList(reportsCTS.get(0).getRealOutputsTest()));
-                    List<Double> allFitDataTrainAndTest = new ArrayList<>();
-                    allFitDataTrainAndTest.addAll(Utils.arrayToList(fittedValsAvg));
-                    allFitDataTrainAndTest.addAll(Utils.arrayToList(forecastValsTestAvg));
-                    
-//                    System.out.println(allRealDataTrainAndTest.subList(0, 5) + ", " + allRealDataTrainAndTest.size());
-//                    System.out.println(allFitDataTrainAndTest.subList(0, 5) + ", " + allFitDataTrainAndTest.size()
-//                           + " (" + fittedValsAvg.length + ", " + forecastValsTestAvg.length + ")");
-                    
-//                    ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(allRealDataTrainAndTest, 
-//                            new ArrayList<Double>(), allFitDataTrainAndTest, new ArrayList<Double>(), 0);
-                    ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(new ArrayList<Double>(), 
-                            new ArrayList<Double>(), new ArrayList<Double>(), new ArrayList<Double>(), 0);
-                    
-                    thisAvgReport.setErrorMeasures(errorMeasures);
-                    REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
-                    double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
-                    thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
-                    thisAvgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
-                    avgReportsToAdd.add(thisAvgReport);
-                    thisAvgReport.setPlotCode("plot.ts(" + avgAll + ")");
-                    thisAvgReport.setFittedValues(fittedValsAvg);
-                    thisAvgReport.setForecastValuesTest(forecastValsTestAvg);
-                    thisAvgReport.setNumTrainingEntries(fittedValsAvg.length);
-                    //TODO
-//                    thisAvgReport.setRealOutputsTrain(l.get(0).getRealOutputsTrain());
-//                    thisAvgReport.setRealOutputsTest(l.get(0).getRealOutputsTest());
-                    
-                    colourNumber++;
+                        }
+                        avgAll.append(")/").append(reportsCTS.size());
+                        fittedValsAvgAll.append(")/").append(reportsCTS.size());
+                        forecastValsTestAvgAll.append(")/").append(reportsCTS.size());
+                        forecastValsFutureAvgAll.append(")/").append(numForecastsAvg);
+
+                        //aaaand draw the average
+                        rengine.eval("par(new=TRUE)");
+                        rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+                                + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
+                                + "lty=2, lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        //add a dashed vertical line to separate test and train
+                        rengine.eval("abline(v = " + (reportsCTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+
+                        //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
+                        TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp("(avg)");
+                        REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
+                        double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
+                        REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
+                        double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
+
+                        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
+                                Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()), 
+                                Utils.arrayToList(reportsCTS.get(0).getRealOutputsTest()),
+                                Utils.arrayToList(fittedValsAvg), Utils.arrayToList(forecastValsTestAvg), 0);
+                        
+                        thisAvgReport.setErrorMeasures(errorMeasures);
+                        REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
+                        double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
+                        thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
+                        thisAvgReport.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        avgReportsToAdd.add(thisAvgReport);
+                        thisAvgReport.setPlotCode("plot.ts(" + avgAll + ")");
+                        thisAvgReport.setFittedValues(fittedValsAvg);
+                        thisAvgReport.setForecastValuesTest(forecastValsTestAvg);
+                        thisAvgReport.setNumTrainingEntries(fittedValsAvg.length);
+                        thisAvgReport.setRealOutputsTrain(reportsCTS.get(0).getRealOutputsTrain());
+                        thisAvgReport.setRealOutputsTest(reportsCTS.get(0).getRealOutputsTest());
+
+                        colourNumber++;
+                    }
                 }
             }
             
