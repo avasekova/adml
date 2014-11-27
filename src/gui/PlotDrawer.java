@@ -103,8 +103,9 @@ public class PlotDrawer {
             boolean next = false;
             Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
             //first go through all the reports once to determine how many of each kind there are:
-            for (TrainAndTestReportCrisp r : reportsCTS) {
-                if (avgCTSperMethod) {
+            if (avgCTSperMethod || avgCTS) { //pre avgCTS ako take by sme to nemuseli zostavovat, ale v pripade, ze
+                                             // bude avgCTS a nie avgCTSperMethod, nema to tuto mapu
+                for (TrainAndTestReportCrisp r : reportsCTS) {
                     if (mapForAvg.containsKey(r.getModelName())) {
                         mapForAvg.get(r.getModelName()).add(r);
                     } else {
