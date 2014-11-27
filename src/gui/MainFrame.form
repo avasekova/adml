@@ -153,7 +153,16 @@
                               <Component id="jSeparator2" min="-2" pref="11" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="buttonPlotAllITS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonPlotRemoveITS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonPlotAddITS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jScrollPane4" min="-2" pref="287" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="jLabel129" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel130" min="-2" max="-2" attributes="0"/>
@@ -180,15 +189,6 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="buttonPlotZoomIntTS" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="buttonPlotAllITS" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="buttonPlotRemoveITS" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="buttonPlotAddITS" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jScrollPane4" min="-2" pref="287" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -281,7 +281,7 @@
                               </Group>
                           </Group>
                           <Component id="jSeparator2" alignment="0" min="-2" pref="139" max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" alignment="0" min="-2" pref="136" max="-2" attributes="0"/>
+                          <Component id="jScrollPane3" alignment="0" min="-2" pref="142" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="panelPlot" pref="445" max="32767" attributes="0"/>
@@ -595,7 +595,7 @@
                     </Property>
                   </Properties>
                   <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listPlotLegend.setCellRenderer(new PlotLegendListCellRenderer());"/>
+                    <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="listPlotLegend.setCellRenderer(new PlotLegendListCellRenderer());&#xa;MouseListener mouseListener = new MouseListener() {&#xa;    @Override&#xa;    public void mousePressed(MouseEvent e) {&#xa;        ((PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel())&#xa;            .getElementAt(listPlotLegend.getSelectedIndex()))).dispatchEvent(e);&#xa;    }&#xa;&#xa;    @Override&#xa;    public void mouseReleased(MouseEvent e) { }&#xa;    @Override&#xa;    public void mouseEntered(MouseEvent e) { }&#xa;    @Override&#xa;    public void mouseExited(MouseEvent e) { }&#xa;    @Override&#xa;    public void mouseClicked(MouseEvent e) { }&#xa;};&#xa;listPlotLegend.addMouseListener(mouseListener);"/>
                   </AuxValues>
                 </Component>
               </SubComponents>

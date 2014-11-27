@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -45,8 +46,9 @@ public class PlotDrawer {
     
     //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
+    //refreshOnly je true, ak pridavam/mazem niektore ploty z legendy. false, ak sa to spusta "nacisto" hned po Run alebo Zoom
     //return ploty, ktore sa prave pridali, takze AVG
-    public static List<TrainAndTestReport> drawPlots(boolean drawNew, CallParamsDrawPlots par) {
+    public static List<TrainAndTestReport> drawPlots(boolean drawNew, boolean refreshOnly, CallParamsDrawPlots par) {
         String rangeXCrisp = "";
         String rangeYCrisp = "";
         String rangeXInt = "";
@@ -64,10 +66,10 @@ public class PlotDrawer {
             rangeYInt = getRangeYInterval(par.getReportsITS());
         }
         
-        return drawPlots(drawNew, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+        return drawPlots(drawNew, refreshOnly, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
     }
     
-    public static List<TrainAndTestReport> drawPlots(boolean drawNew, CallParamsDrawPlots par,
+    public static List<TrainAndTestReport> drawPlots(boolean drawNew, final boolean refreshOnly, CallParamsDrawPlots par,
                                  String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
         List<TrainAndTestReport> addedReports = new ArrayList<>();
         
@@ -130,10 +132,17 @@ public class PlotDrawer {
                     next = true;
                 }
                 
+                String colourToUseNow;
+                if (! refreshOnly) { //get a new colour
+                    colourToUseNow = COLOURS[colourNumber % COLOURS.length];
+                } else { //else get the one that was used previously
+                    colourToUseNow = r.getColourInPlot();
+                }
+                
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
-                        + "lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"");
+                        + "lwd=4, col=\"" + colourToUseNow + "\"");
                 plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
                 
                 if (!(avgONLY) ||
@@ -160,15 +169,17 @@ public class PlotDrawer {
                                            + "c(" + UPPERS + "," + LOWERS_REVERSE + ","
                                                   //and add the last "known" (forecast test) value
                                                   + r.getForecastValuesTest()[r.getForecastValuesTest().length-1] + "),"
-                                   + "density=NA, col=" + getRGBColorStringForHEX(COLOURS[colourNumber % COLOURS.length], 30) 
+                                   + "density=NA, col=" + getRGBColorStringForHEX(colourToUseNow, 30) 
                                    + ", border=NA)"); //TODO col podla aktualnej
                     }
                     
                     
                     
                     //add a dashed vertical line to separate test and train
-                    rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
-                    r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                    rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
+                    if (! refreshOnly) {
+                        r.setColourInPlot(colourToUseNow);
+                    }
                 }
                 
                 colourNumber++;
@@ -429,7 +440,9 @@ public class PlotDrawer {
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                     
-                    r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                    if (! refreshOnly) {
+                        r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                    }
                 }
                 
                 colourNumber++;
@@ -539,7 +552,9 @@ public class PlotDrawer {
                         
                         TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)");
                         reportAvgMethod.setErrorMeasures(errorMeasures);
-                        reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        if (! refreshOnly) {
+                            reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        }
                         
                         reportsIntTS.add(reportAvgMethod);
                         
@@ -640,19 +655,21 @@ public class PlotDrawer {
             }
         }
         
-        PlotStateKeeper.setLastCallParams(par);
-
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
         
         //TODO avgITS nie je myslim dokoncene! minimalne sa teda nepridavaju reporty do reportov.
         
-        //and draw the legend
-        List<Plottable> allReports = new ArrayList<>();
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
-        allReports.addAll(addedReports);
-        drawLegend(par.getListPlotLegend(), allReports, new PlotLegendTurnOFFableListCellRenderer());
+        if (! refreshOnly) {
+            PlotStateKeeper.setLastCallParams(par);
+            //and draw the legend
+            List<Plottable> allReports = new ArrayList<>();
+            allReports.addAll(reportsCTS);
+            allReports.addAll(reportsIntTS);
+            allReports.addAll(addedReports);
+            drawLegend(par.getListPlotLegend(), allReports, new PlotLegendTurnOFFableListCellRenderer(),
+                    rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+        }
         
         return addedReports;
     }
@@ -1085,29 +1102,11 @@ public class PlotDrawer {
         return panelsList;
     }
 
-    public static void drawLegend(final JList listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
+    public static void drawLegend(final JList listPlotLegend, final List<Plottable> plots, ListCellRenderer cellRenderer,
+            final String rangeXCrisp, final String rangeYCrisp, final String rangeXInt, final String rangeYInt) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
         
         if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
-            MouseListener mouseListener = new MouseListener() {
-
-                @Override
-                public void mousePressed(MouseEvent e) {
-                    ((PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel())
-                            .getElementAt(listPlotLegend.getSelectedIndex()))).dispatchEvent(e);
-                }
-
-                @Override
-                public void mouseReleased(MouseEvent e) { }
-                @Override
-                public void mouseEntered(MouseEvent e) { }
-                @Override
-                public void mouseExited(MouseEvent e) { }
-                @Override
-                public void mouseClicked(MouseEvent e) { }
-            };
-            listPlotLegend.addMouseListener(mouseListener);
-            
             for (Plottable p : plots) {
                 if (! "#FFFFFF".equals(p.getColourInPlot())) {
                     final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p);
@@ -1117,6 +1116,28 @@ public class PlotDrawer {
                             //invert the selection state of the checkbox
                             element.setCheckBoxSelected(! element.getCheckBox().isSelected());
                             listPlotLegend.repaint();
+                            
+                            //and then redraw the plots:
+                            List<TrainAndTestReportCrisp> reportsCrisp = new ArrayList<>();
+                            List<TrainAndTestReportInterval> reportsInterval = new ArrayList<>();
+                            for (int i = 0; i < ((DefaultListModel)listPlotLegend.getModel()).size(); i++) {
+                                PlotLegendTurnOFFableListElement el = (PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel()).getElementAt(i));
+                                if (el.getCheckBox().isSelected()) {
+                                    if (el.getReport() instanceof TrainAndTestReportCrisp) {
+                                        reportsCrisp.add((TrainAndTestReportCrisp)el.getReport());
+                                    } else if (el.getReport() instanceof TrainAndTestReportInterval) {
+                                        reportsInterval.add((TrainAndTestReportInterval)el.getReport());
+                                    }
+                                }
+                            }
+                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(reportsCrisp);
+                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(reportsInterval);
+                            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
+                            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
+                            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
+                            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
+                            PlotDrawer.drawPlots(false, true, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
+                                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
                         }
 
                         @Override
@@ -1133,13 +1154,26 @@ public class PlotDrawer {
                 }
             }
         } else {
+            //TODO - should never happen
+        }
+        
+        listPlotLegend.setCellRenderer(cellRenderer);
+        listPlotLegend.repaint();
+    }
+    
+    
+    public static void drawLegend(final JList listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
+        ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
+        
+        if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
+            //TODO - should never happen
+        } else {
             for (Plottable p : plots) {
                 if (! "#FFFFFF".equals(p.getColourInPlot())) {
                     ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
                 }
             }
         }
-        
         
         listPlotLegend.setCellRenderer(cellRenderer);
         listPlotLegend.repaint();
