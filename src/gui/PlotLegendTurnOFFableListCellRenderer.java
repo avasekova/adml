@@ -16,16 +16,12 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         
-        JCheckBox checkBox = new JCheckBox("", true); //no text, and selected
-        checkBox.setBorder(null);
-        
         JLabel fillLabel = new JLabel("  ");
         JLabel fillLabel2 = new JLabel("  ");
         
-        Color colour = Color.decode(((Plottable) value).getColourInPlot());
         JLabel colourLabel = new JLabel("   ");
         colourLabel.setOpaque(true); //bez toho nefunguje setBkg
-        colourLabel.setBackground(colour);
+        colourLabel.setBackground(((PlotLegendTurnOFFableListElement)value).getColour());
         
         JLabel textLabel = new JLabel(value.toString());
         textLabel.setOpaque(true);
@@ -39,7 +35,7 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
         JPanel line = new JPanel();
         line.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         line.setBackground(Color.WHITE);
-        line.add(checkBox);
+        line.add(((PlotLegendTurnOFFableListElement)value).getCheckBox());
         line.add(fillLabel);
         line.add(colourLabel);
         line.add(fillLabel2);

@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,7 +12,10 @@ import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -1080,29 +1085,60 @@ public class PlotDrawer {
         return panelsList;
     }
 
-    public static void drawLegend(JList listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
+    public static void drawLegend(final JList listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
-        for (Plottable p : plots) {
-            if (! "#FFFFFF".equals(p.getColourInPlot())) {
-                ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
+        
+        if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
+            MouseListener mouseListener = new MouseListener() {
+
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    ((PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel())
+                            .getElementAt(listPlotLegend.getSelectedIndex()))).dispatchEvent(e);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) { }
+                @Override
+                public void mouseEntered(MouseEvent e) { }
+                @Override
+                public void mouseExited(MouseEvent e) { }
+                @Override
+                public void mouseClicked(MouseEvent e) { }
+            };
+            listPlotLegend.addMouseListener(mouseListener);
+            
+            for (Plottable p : plots) {
+                if (! "#FFFFFF".equals(p.getColourInPlot())) {
+                    final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p);
+                    MouseListener mListener = new MouseListener() {
+                        @Override
+                        public void mousePressed(MouseEvent e) {
+                            //invert the selection state of the checkbox
+                            element.setCheckBoxSelected(! element.getCheckBox().isSelected());
+                            listPlotLegend.repaint();
+                        }
+
+                        @Override
+                        public void mouseReleased(MouseEvent e) { }
+                        @Override
+                        public void mouseEntered(MouseEvent e) { }
+                        @Override
+                        public void mouseExited(MouseEvent e) { }
+                        @Override
+                        public void mouseClicked(MouseEvent e) { }
+                    };
+                    element.addMouseListener(mListener);
+                    ((DefaultListModel)(listPlotLegend.getModel())).addElement(element);
+                }
+            }
+        } else {
+            for (Plottable p : plots) {
+                if (! "#FFFFFF".equals(p.getColourInPlot())) {
+                    ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
+                }
             }
         }
-        
-        
-//        if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
-//            ListSelectionListener listener = new ListSelectionListener() {
-//                @Override
-//                public void valueChanged(ListSelectionEvent listSelectionEvent) {
-//                    //v tomto pripade je first index a last index dvojica - jedno sa odselectovalo, druhe sa zaselectovalo
-//                    System.out.println("First index: " + listSelectionEvent.getFirstIndex() + ", last: " + listSelectionEvent.getLastIndex());
-//                    //takze tie dva len skontrolovat a to, co je nove, prehodit na opacnu hodnotu
-//                    //akurat neviem, co je nove, len z tych dvoch hodnot
-//                    //listPlotLegend.getSelectedIndex() moze pomoct. asi pouzit iba to.
-//                    
-//                }
-//            };
-//            listPlotLegend.addListSelectionListener(listener);
-//        }
         
         
         listPlotLegend.setCellRenderer(cellRenderer);
