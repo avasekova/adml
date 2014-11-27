@@ -22,7 +22,8 @@ public class DataTableModel extends AbstractTableModel {
     //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
-    private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
+    private List<String> columnNamesSecondColumnAndAfter = new ArrayList<>();      //ciste pre convenience ucely
+    public static final String LABELS_AXIS_X = Const.LABELS + Utils.getCounter();
     
     @Override
     public int getRowCount() {
@@ -43,12 +44,12 @@ public class DataTableModel extends AbstractTableModel {
     
     @Override
     public String getColumnName(int columnIndex) {
-        return columnNames.get(columnIndex);
+        return columnNamesSecondColumnAndAfter.get(columnIndex);
     }
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        return values.get(columnNames.get(columnIndex)).get(rowIndex);
+        return values.get(columnNamesSecondColumnAndAfter.get(columnIndex)).get(rowIndex);
     }
     
     @Override
@@ -57,7 +58,10 @@ public class DataTableModel extends AbstractTableModel {
         return false;
     }
     
-    
+    //KONVENCIE:
+    //interpretuje prvy riadok ako headers, bez ohladu na to, co v nom je (TODO customizable: 1. use the 1st line, 2. input
+    //   custom headers for each column now, 3. use placeholder names X1 ... Xn)
+    //interpretuje prvy stlpec ako labels pre os X, tj typicky datumy apod.. Berie to hlupo ako String, aby nebol problem.
     public void openFile(File file) {
         final String WORKBOOK = Const.WORKBOOK + Utils.getCounter();
         final String DATA = Const.BRENT + Utils.getCounter();
@@ -70,12 +74,20 @@ public class DataTableModel extends AbstractTableModel {
         rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = TRUE)");
         //pozor, intepretuje prvy riadok ako headers, bez ohladu na to, co v nom je!
         
-        REXP getColnames = rengine.eval("colnames(" + DATA + ")");
-        String[] columnNamesArray = getColnames.asStringArray();
         
-        columnNames = new ArrayList<>(Arrays.asList(columnNamesArray));
+        //vezmi prvy stlpec ako nazvy na osi X
+        //pozor, asStringArray ich potrebuje nutne v uvodzovkach :/
+        REXP getLabelsAxisX = rengine.eval(DATA + "[,1]"); //1. stlpec
+        String[] labelsAxisX = getLabelsAxisX.asStringArray();
+        rengine.assign(LABELS_AXIS_X, labelsAxisX);
+        
+        REXP getColnamesSecondColumnAndAfter = rengine.eval("colnames(" + DATA + "[,2:length(colnames(" + DATA + "))])");
+        String[] columnNamesSecondColumnAndAfterArray = getColnamesSecondColumnAndAfter.asStringArray();
+        
+        columnNamesSecondColumnAndAfter = new ArrayList<>(Arrays.asList(columnNamesSecondColumnAndAfterArray));
 
-        for (String colName : columnNames) {
+        //pouzijem ako ciselne data len vsetko od druheho stlpca. prvy stlpec je ako nazvy (asi datum/cas v pripade TS)
+        for (String colName : columnNamesSecondColumnAndAfter) {
             REXP getColumn = rengine.eval(DATA + "$" + colName);
             double[] doubleArray = getColumn.asDoubleArray();
             values.put(colName, Utils.arrayToList(doubleArray));
@@ -135,9 +147,17 @@ public class DataTableModel extends AbstractTableModel {
                         + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
             } else {
                 next = true;
-                rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
-                        + "ylab=NULL, "
-                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+                String plot = par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", " + "ylab=NULL, ";
+                if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
+                    plot += "xaxt=\"n\", "; //suppress X axis
+                }
+                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")";
+                
+                rengine.eval(plot);
+                
+                if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
+                    rengine.eval("axis(1,at=seq(1,length(" + LABELS_AXIS_X + ")),labels=" + LABELS_AXIS_X + ",las=2)");
+                }
             }
             
             plots.add(new DefaultPlottable(PlotDrawer.COLOURS[colourNumber], col));
@@ -187,7 +207,7 @@ public class DataTableModel extends AbstractTableModel {
     }
     
     public List<String> getColnames() {
-        return columnNames;
+        return columnNamesSecondColumnAndAfter;
     }
     
     public List<Double> getDataForColname(String colname) {

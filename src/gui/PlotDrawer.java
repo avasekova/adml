@@ -11,9 +11,6 @@ import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListCellRenderer;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.basic.BasicListUI;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -343,7 +340,10 @@ public class PlotDrawer {
             rengine.eval("par(new=TRUE)");
             rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.data), xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                     + "ylab=\"" + colname_CTS + "\","
+                    + "xaxt=\"n\", " //suppress axis X
                     + "lwd=2, col=\"#444444\")");
+            rengine.eval("axis(1,at=seq(1,length(" + DataTableModel.LABELS_AXIS_X + ")),labels=" + DataTableModel.LABELS_AXIS_X 
+                    + ",las=2)");
             rengine.eval("abline(v = " + (to) + ", lty = 3)"); //dashed vertical line to separate forecasts
             
             REXP getX = rengine.eval(rangeXCrisp);
@@ -623,7 +623,10 @@ public class PlotDrawer {
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels
             rengine.eval("par(new=TRUE)");
             rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
+                    + "xaxt=\"n\", " //suppress axis X
                     + "ylab=\"" +       "<<add the interval.toString() here>>"      + "\")");
+            rengine.eval("axis(1,at=seq(1,length(" + DataTableModel.LABELS_AXIS_X + ")),labels=" + DataTableModel.LABELS_AXIS_X 
+                    + ",las=2)");
             rengine.eval("segments(" + (1+par.getFrom()) + ":" + (size+par.getFrom()) + ", all.lower, " + (1+par.getFrom()) + ":" + (size+par.getFrom()) + ", all.upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", lwd=2, col=\"#444444\")");
             //add a line separating real data from forecasts
             rengine.eval("abline(v = " + (size+par.getFrom()) + ", lty = 3)");

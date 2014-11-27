@@ -19,6 +19,7 @@ public class Const {
     public static final String MAX = "maximum";
     public static final String NEIGHBOURS = "neighbours";
     public static final String RESIDUALS = "residls";
+    public static final String LABELS = "labels";
     
     //model names
     public static final String ARIMA = "ARIMA";
