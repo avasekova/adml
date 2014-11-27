@@ -12,6 +12,7 @@ public abstract class TrainAndTestReport implements Plottable {
     private ErrorMeasures errorMeasures;
     private int numTrainingEntries = 1;
     private String nnDiagramPlotCode = "";
+    private boolean visible = true;
     
     private String colourInPlot = "#FFFFFF"; //the name of R colour used in the last plot for this Report
     
@@ -63,6 +64,16 @@ public abstract class TrainAndTestReport implements Plottable {
     @Override
     public void setColourInPlot(String colourInPlot) {
         this.colourInPlot = colourInPlot;
+    }
+
+    @Override
+    public boolean isVisible() {
+        return visible;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
     
     @Override

@@ -121,6 +121,11 @@ public class PlotDrawer {
             
             //then go through them again and draw them. if there is just 1 model, it is drawn even if AVG_ONLY is selected
             for (TrainAndTestReportCrisp r : reportsCTS) {
+                if (! r.isVisible()) { //skip those that are turned off
+                    continue;
+                }
+                
+                
                 if (next && (!(avgONLY) ||
                               (mapForAvg.get(r.getModelName()).size() == 1))) {
                     rengine.eval("par(new=TRUE)");
@@ -366,6 +371,11 @@ public class PlotDrawer {
             boolean next = false;
             Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
             for (TrainAndTestReportInterval r : reportsIntTS) {
+                if (! r.isVisible()) {
+                    continue;
+                }
+                
+                
                 if (next && !(avgONLY)) {
                     rengine.eval("par(new=TRUE)");
                 } else {
@@ -1110,7 +1120,7 @@ public class PlotDrawer {
                         @Override
                         public void mousePressed(MouseEvent e) {
                             //invert the selection state of the checkbox
-                            element.setCheckBoxSelected(! element.getCheckBox().isSelected());
+                            element.getReport().setVisible(! element.getReport().isVisible());
                             listPlotLegend.repaint();
                             
                             //and then redraw the plots:
@@ -1118,12 +1128,10 @@ public class PlotDrawer {
                             List<TrainAndTestReportInterval> reportsInterval = new ArrayList<>();
                             for (int i = 0; i < ((DefaultListModel)listPlotLegend.getModel()).size(); i++) {
                                 PlotLegendTurnOFFableListElement el = (PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel()).getElementAt(i));
-                                if (el.getCheckBox().isSelected()) {
-                                    if (el.getReport() instanceof TrainAndTestReportCrisp) {
-                                        reportsCrisp.add((TrainAndTestReportCrisp)el.getReport());
-                                    } else if (el.getReport() instanceof TrainAndTestReportInterval) {
-                                        reportsInterval.add((TrainAndTestReportInterval)el.getReport());
-                                    }
+                                if (el.getReport() instanceof TrainAndTestReportCrisp) {
+                                    reportsCrisp.add((TrainAndTestReportCrisp)el.getReport());
+                                } else if (el.getReport() instanceof TrainAndTestReportInterval) {
+                                    reportsInterval.add((TrainAndTestReportInterval)el.getReport());
                                 }
                             }
                             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(reportsCrisp);

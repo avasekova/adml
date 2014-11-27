@@ -5,6 +5,7 @@ import gui.Plottable;
 public abstract class IntervalNames implements Plottable {
     
     private String colourInPlot = "#FFFFFF";
+    private boolean visible;
     
     @Override
     public abstract String toString();
@@ -18,5 +19,14 @@ public abstract class IntervalNames implements Plottable {
     public void setColourInPlot(String colourInPlot) {
         this.colourInPlot = colourInPlot;
     }
-    
+
+    @Override
+    public boolean isVisible() {
+        return visible;
+    }
+
+    @Override
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
 }

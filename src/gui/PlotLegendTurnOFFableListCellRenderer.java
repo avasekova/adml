@@ -16,6 +16,9 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean hasFocus) {
         super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         
+        JCheckBox checkBox = new JCheckBox("", ((PlotLegendTurnOFFableListElement)value).getReport().isVisible());
+        checkBox.setBorder(null);
+        
         JLabel fillLabel = new JLabel("  ");
         JLabel fillLabel2 = new JLabel("  ");
         
@@ -35,7 +38,7 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
         JPanel line = new JPanel();
         line.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         line.setBackground(Color.WHITE);
-        line.add(((PlotLegendTurnOFFableListElement)value).getCheckBox());
+        line.add(checkBox);
         line.add(fillLabel);
         line.add(colourLabel);
         line.add(fillLabel2);
