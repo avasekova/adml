@@ -174,7 +174,6 @@ public class PlotDrawer {
                 for (String name : mapForAvg.keySet()) {
                     List<TrainAndTestReportCrisp> l = mapForAvg.get(name);
                     if (l.size() > 1) { //does not make sense to compute average over one series
-                        StringBuilder avgAll = new StringBuilder("("); //mozno neskor zrusit toto a poskladat to z tych troch?
                         StringBuilder fittedValsAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
@@ -182,17 +181,12 @@ public class PlotDrawer {
                         int numForecastsAvg = 0;
                         for (TrainAndTestReportCrisp r : l) {
                             if (next) {
-                                avgAll.append(" + ");
                                 fittedValsAvgAll.append(" + ");
                                 forecastValsTestAvgAll.append(" + ");
                                 forecastValsFutureAvgAll.append(" + ");
                             } else {
                                 next = true;
                             }
-                            //this will take the vector: c(rep(NA, something), fit, test, future)
-                            //TODO tu sa nemoze brat aj future! niektore to maju a niektore nie, tak sa priemeruje zle...
-                            String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
-                            avgAll.append(justData);
                             fittedValsAvgAll.append(Utils.arrayToRVectorString(r.getFittedValues()));
                             forecastValsTestAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesTest()));
                             
@@ -203,11 +197,11 @@ public class PlotDrawer {
                                 forecastValsFutureAvgAll.append("0");
                             }
                         }
-                        avgAll.append(")/").append(l.size());
                         fittedValsAvgAll.append(")/").append(l.size());
                         forecastValsTestAvgAll.append(")/").append(l.size());
                         forecastValsFutureAvgAll.append(")/").append(numForecastsAvg);
 
+                        String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                         //aaaand draw the average
                         rengine.eval("par(new=TRUE)");
                         rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
@@ -260,7 +254,6 @@ public class PlotDrawer {
                     if (! allTheSame) { //throw an error, we cannot compute it like this
                         JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
                     } else {
-                        StringBuilder avgAll = new StringBuilder("(");
                         StringBuilder fittedValsAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
@@ -268,16 +261,12 @@ public class PlotDrawer {
                         int numForecastsAvg = 0;
                         for (TrainAndTestReportCrisp r : reportsCTS) {
                             if (next) {
-                                avgAll.append(" + ");
                                 fittedValsAvgAll.append(" + ");
                                 forecastValsTestAvgAll.append(" + ");
                                 forecastValsFutureAvgAll.append(" + ");
                             } else {
                                 next = true;
                             }
-                            //this will take the vector: c(rep(NA, something), fit, test, future)
-                            String justData = r.getPlotCode().substring(8, r.getPlotCode().length() - 1);
-                            avgAll.append(justData);
                             fittedValsAvgAll.append(Utils.arrayToRVectorString(r.getFittedValues()));
                             forecastValsTestAvgAll.append(Utils.arrayToRVectorString(r.getForecastValuesTest()));
 
@@ -289,11 +278,11 @@ public class PlotDrawer {
                             }
 
                         }
-                        avgAll.append(")/").append(reportsCTS.size());
                         fittedValsAvgAll.append(")/").append(reportsCTS.size());
                         forecastValsTestAvgAll.append(")/").append(reportsCTS.size());
                         forecastValsFutureAvgAll.append(")/").append(numForecastsAvg);
 
+                        String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                         //aaaand draw the average
                         rengine.eval("par(new=TRUE)");
                         rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "

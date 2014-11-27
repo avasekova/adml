@@ -52,7 +52,7 @@ public class Nnet implements Forecastable {
         report.setModelDescription("(hid=" + params.getNumNodesHiddenLayer() + ")");
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*data.get(0).size());
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(params.getDataRangeTo()-(params.getDataRangeFrom()-1)));
         report.setNumTrainingEntries(numTrainingEntries);
 //        numTrainingEntries -= maxLag; //TODO not sure about this! (works better with AVG if disabled... stil not sure about it though)
         
