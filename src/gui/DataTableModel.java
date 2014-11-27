@@ -159,7 +159,7 @@ public class DataTableModel extends AbstractTableModel {
         }
         
         //add legend
-        PlotDrawer.drawLegend(par.getListPlotLegend(), plots);
+        PlotDrawer.drawLegend(par.getListPlotLegend(), plots, new PlotLegendListCellRenderer());
         
         REXP getX = rengine.eval(rangeX);
         double[] ranX = getX.asDoubleArray();

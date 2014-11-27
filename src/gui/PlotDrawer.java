@@ -9,6 +9,10 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.plaf.basic.BasicListUI;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -649,7 +653,7 @@ public class PlotDrawer {
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
         allReports.addAll(addedReports);
-        drawLegend(par.getListPlotLegend(), allReports);
+        drawLegend(par.getListPlotLegend(), allReports, new PlotLegendTurnOFFableListCellRenderer());
         
         return addedReports;
     }
@@ -706,7 +710,7 @@ public class PlotDrawer {
         List<Plottable> plots = new ArrayList<>();
         plots.addAll(par.getListCentreRadius());
         plots.addAll(par.getListLowerUpper());
-        drawLegend(par.getListPlotLegend(), plots);
+        drawLegend(par.getListPlotLegend(), plots, new PlotLegendListCellRenderer());
         
         REXP getRangeX = rengine.eval(rangeX);
         double[] ranX = getRangeX.asDoubleArray();
@@ -1082,13 +1086,32 @@ public class PlotDrawer {
         return panelsList;
     }
 
-    public static void drawLegend(JList listPlotLegend, List<Plottable> plots) {
+    public static void drawLegend(JList listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
         for (Plottable p : plots) {
             if (! "#FFFFFF".equals(p.getColourInPlot())) {
                 ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
             }
         }
+        
+        
+//        if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
+//            ListSelectionListener listener = new ListSelectionListener() {
+//                @Override
+//                public void valueChanged(ListSelectionEvent listSelectionEvent) {
+//                    //v tomto pripade je first index a last index dvojica - jedno sa odselectovalo, druhe sa zaselectovalo
+//                    System.out.println("First index: " + listSelectionEvent.getFirstIndex() + ", last: " + listSelectionEvent.getLastIndex());
+//                    //takze tie dva len skontrolovat a to, co je nove, prehodit na opacnu hodnotu
+//                    //akurat neviem, co je nove, len z tych dvoch hodnot
+//                    //listPlotLegend.getSelectedIndex() moze pomoct. asi pouzit iba to.
+//                    
+//                }
+//            };
+//            listPlotLegend.addListSelectionListener(listener);
+//        }
+        
+        
+        listPlotLegend.setCellRenderer(cellRenderer);
         listPlotLegend.repaint();
     }
     
