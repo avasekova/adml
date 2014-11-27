@@ -21,6 +21,11 @@ public class Const {
     public static final String RESIDUALS = "residls";
     public static final String LABELS = "labels";
     
+    public static final boolean MODE_DRAW_NEW = true;
+    public static final boolean MODE_DRAW_ZOOM_ONLY = false;
+    public static final boolean MODE_REFRESH_ONLY = true;
+    public static final boolean MODE_REFRESH_NO = false;
+    
     //model names
     public static final String ARIMA = "ARIMA";
     public static final String HOLT = "Holt";
