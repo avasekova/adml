@@ -43,5 +43,4 @@ public class DefaultPlottable implements Plottable {
     public String toString() {
         return text;
     }
-    
 }

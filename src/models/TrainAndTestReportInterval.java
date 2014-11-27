@@ -14,7 +14,11 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
     private List<Double> realValuesUppers = new ArrayList<>();
     
     public TrainAndTestReportInterval(String modelName) {
-        super(modelName);
+        this(modelName, true);
+    }
+    
+    public TrainAndTestReportInterval(String modelName, boolean canBeInvisible) {
+        super(modelName, canBeInvisible);
     }
     
     public double[] getFittedValuesLowers() { //ciste pre plotovacie ucely!

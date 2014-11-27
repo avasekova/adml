@@ -229,7 +229,7 @@ public class PlotDrawer {
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
 
                         //vyrobit pre tento average novy report a pridat ho do reportsCTS:
-                        TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(avg)");
+                        TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(avg)", false);
                         REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
                         double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
                         REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
@@ -310,7 +310,7 @@ public class PlotDrawer {
                         rengine.eval("abline(v = " + (reportsCTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
 
                         //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
-                        TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp("(avg)");
+                        TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp("(avg)", false);
                         REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
                         double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
                         REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
@@ -556,7 +556,7 @@ public class PlotDrawer {
                                 realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                         //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
                         
-                        TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)");
+                        TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)", false);
                         reportAvgMethod.setErrorMeasures(errorMeasures);
                         if (! refreshOnly) {
                             reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
