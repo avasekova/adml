@@ -397,6 +397,13 @@ public class PlotDrawer {
                 }
                 
                 if (!(avgONLY)) {
+                    String colourToUseNow;
+                    if (! refreshOnly) { //get a new colour
+                        colourToUseNow = COLOURS[colourNumber % COLOURS.length];
+                    } else { //else get the one that was used previously
+                        colourToUseNow = r.getColourInPlot();
+                    }
+                    
                     //naplotovat fitted values:
                     final int sizeFitted = r.getFittedValues().size();
                     rengine.assign("lower", r.getFittedValuesLowers());
@@ -409,7 +416,7 @@ public class PlotDrawer {
                     rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", lower, " + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", upper, xlim = "
-                            + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                            + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + colourToUseNow + "\")");
 
                     //naplotovat fitted values pre training data:
                     final int sizeForecastTest = r.getForecastValuesTest().size();
@@ -425,7 +432,7 @@ public class PlotDrawer {
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("segments(" + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", lower, "
                             + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", upper, xlim = " + rangeXInt
-                            + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                            + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + colourToUseNow + "\")");
 
                     //naplotovat forecasty buduce:
                     final int sizeForecastFuture = r.getForecastValuesFuture().size();
@@ -444,11 +451,11 @@ public class PlotDrawer {
                                 + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom()) + ", lower, "
                                 + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom())
                                 + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
-                                + ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                                + ", lwd=4, col=\"" + colourToUseNow + "\")");
                     }
 
                     //add a dashed vertical line to separate test and train
-                    rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                    rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
                     
                     if (! refreshOnly) {
                         r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
@@ -563,9 +570,7 @@ public class PlotDrawer {
                         
                         TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)", false);
                         reportAvgMethod.setErrorMeasures(errorMeasures);
-                        if (! refreshOnly) {
-                            reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
-                        }
+                        reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                         
                         reportsIntTS.add(reportAvgMethod);
                         
