@@ -368,11 +368,15 @@ public class PlotDrawer {
         }
         
         if (! reportsIntTS.isEmpty()) { //plot ITS
+            boolean wasSomethingIntTSDrawnUpToNow = false;
+            
             boolean next = false;
             Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
             for (TrainAndTestReportInterval r : reportsIntTS) {
                 if (! r.isVisible()) {
                     continue;
+                } else {
+                    wasSomethingIntTSDrawnUpToNow = true;
                 }
                 
                 
@@ -456,6 +460,7 @@ public class PlotDrawer {
             
             //now draw the average series
             if (avgIntTSperMethod) {
+                wasSomethingIntTSDrawnUpToNow = true;
                 for (String name : mapForAvg.keySet()) {
                     List<TrainAndTestReportInterval> l = mapForAvg.get(name);
                     if (l.size() > 1) { //does not make sense to compute average over one series
@@ -571,6 +576,7 @@ public class PlotDrawer {
             
             //and draw the average of all ITS methods that were run
             if (avgIntTS) {
+                wasSomethingIntTSDrawnUpToNow = true;
                 if (reportsIntTS.size() > 1) { //does not make sense to compute average over one series
                     StringBuilder avgAllLowers = new StringBuilder("(");
                     StringBuilder avgAllUppers = new StringBuilder("(");
@@ -625,7 +631,9 @@ public class PlotDrawer {
                 }
             }
             
-            rengine.eval("par(new=TRUE)");
+            if (wasSomethingIntTSDrawnUpToNow) { //inak to moze skocit vedla do CTS plotu
+                rengine.eval("par(new=TRUE)");
+            }
                 
             //a na ne vsetky naplotovat realne data:
             //TODO hack, zatial beriem data z prveho reportu. potom nejak vymysliet :(
