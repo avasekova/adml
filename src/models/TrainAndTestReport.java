@@ -82,6 +82,10 @@ public abstract class TrainAndTestReport implements Plottable {
         }
     }
     
+    public boolean canBeInvisible() {
+        return canBeInvisible;
+    }
+    
     @Override
     public String toString() {
         return modelName + modelDescription;
