@@ -5,6 +5,7 @@ import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
+import gui.filefilters.RFileFilter;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
@@ -3433,8 +3434,20 @@ public class MainFrame extends javax.swing.JFrame {
             @Override
             public void approveSelection() {
                 File f = getSelectedFile();
+                
+                //teraz tomu prestavit priponu, ak ma priponu:
+                String fileName = f.getPath().replace("\\", "\\\\");
+                if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
+                    //tipnem si, ze je tam pripona, a odrezem ju
+                    String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                    String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
+                    if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
+                        f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());
+                    }
+                }
+                
                 if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
+                    int result = JOptionPane.showConfirmDialog(this, "File " + f.toString() + " exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
                     switch (result) {
                         case JOptionPane.YES_OPTION:
                             super.approveSelection();
@@ -3466,34 +3479,23 @@ public class MainFrame extends javax.swing.JFrame {
                 case JFileChooser.APPROVE_OPTION:
                     File plotFile = fileChooser.getSelectedFile();
                     Rengine rengine = MyRengine.getRengine();
-                    
+
                     String device = "";
                     String ext = "";
-                    if (fileChooser.getFileFilter() instanceof FileFilterEps) {
-                        device = "postscript";
-                        ext = "eps";
-                    }
-                    
-                    if (fileChooser.getFileFilter() instanceof FileFilterPs) {
-                        device = "postscript";
-                        ext = "ps";
-                    }
-                    
-                    if (fileChooser.getFileFilter() instanceof FileFilterPng) {
-                        device = "png";
-                        ext = "png";
-                    }
-                    
-                    if (fileChooser.getFileFilter() instanceof FileFilterPdf) {
-                        device = "pdf, paper=\"USr\""; //pdf needs to have the size specified. here = A4 (landscape)
-                        ext = "pdf";
+                    if (fileChooser.getFileFilter() instanceof RFileFilter) {
+                        device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
+                        ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
                     }
                     
                     String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    if (fileName.contains(".")) {
-                        //tipnem si, ze je tam pripona, a odrezem ju
-                        fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
+                        //tipnem si, ze je tam pripona
+                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
+                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+                        } //else to bola nejaka ina cast mena za bodkou
                     }
+                    
                     rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
 //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
                     //a na zaver to disablovat, aby sa na to netukalo furt

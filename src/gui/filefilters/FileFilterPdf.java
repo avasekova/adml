@@ -1,23 +1,19 @@
 package gui.filefilters;
 
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-
-public class FileFilterPdf extends FileFilter {
-
-    @Override
-    public boolean accept(File f) {
-        if (f.isDirectory()) {
-            return true;
-        } else {
-            String extension = f.getName().substring(f.getName().lastIndexOf('.'));
-            return ".pdf".equals(extension);
-        }
-    }
+public class FileFilterPdf extends RFileFilter {
 
     @Override
     public String getDescription() {
         return "Portable Document Format files (.pdf)";
     }
-    
+
+    @Override
+    public String getExtension() {
+        return "pdf";
+    }
+
+    @Override
+    public String getDevice() {
+        return "pdf, paper=\"USr\""; //pdf needs to have the size specified. here = A4 (landscape)
+    }
 }

@@ -1,23 +1,19 @@
 package gui.filefilters;
 
-import java.io.File;
-import javax.swing.filechooser.FileFilter;
-
-public class FileFilterPs extends FileFilter {
-
-    @Override
-    public boolean accept(File f) {
-        if (f.isDirectory()) {
-            return true;
-        } else {
-            String extension = f.getName().substring(f.getName().lastIndexOf('.'));
-            return ".ps".equals(extension);
-        }
-    }
+public class FileFilterPs extends RFileFilter {
 
     @Override
     public String getDescription() {
         return "PostScript files (.ps)";
     }
-    
+
+    @Override
+    public String getExtension() {
+        return "ps";
+    }
+
+    @Override
+    public String getDevice() {
+        return "postscript";
+    }
 }
