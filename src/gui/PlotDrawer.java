@@ -791,18 +791,18 @@ public class PlotDrawer {
         if (par) { //continue from the previous plot
             rengine.eval("par(new=TRUE)");
             //dont draw axes
-            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE)"); //hack
             rengine.eval("par(new=TRUE)");
             //here either
-            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE)");
             rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         } else { //start a new plot
             rengine.eval("require(JavaGD)");
             rengine.eval("JavaGD()"); // zacne novy plot
-            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", col=\"white\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE)"); //hack
             rengine.eval("par(new=TRUE)");
             //draw axes, since this is the first plot
-            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", col=\"white\", ylab=\"" +      ""      + "\")");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", ylab=\"" +      ""      + "\")");
             rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         }
         
