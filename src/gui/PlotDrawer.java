@@ -122,6 +122,7 @@ public class PlotDrawer {
             //then go through them again and draw them. if there is just 1 model, it is drawn even if AVG_ONLY is selected
             for (TrainAndTestReportCrisp r : reportsCTS) {
                 if (! r.isVisible()) { //skip those that are turned off
+                    colourNumber++; //but discard the colour as if you drew them so that the avg had the same colour
                     continue;
                 }
                 
@@ -374,6 +375,7 @@ public class PlotDrawer {
             Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
             for (TrainAndTestReportInterval r : reportsIntTS) {
                 if (! r.isVisible()) {
+                    colourNumber++; //but discard the colour as if you drew them so that the avg had the same colour
                     continue;
                 } else {
                     wasSomethingIntTSDrawnUpToNow = true;
