@@ -487,6 +487,7 @@ public class PlotDrawer {
                         int sizeTrain = 0;
                         int sizeTest = 0;
                         int sizeFuture = 0;
+                        int numForecastsFutureAvg = 0;
                         for (TrainAndTestReportInterval r : l) {
                             if (next) {
                                 avgAllLowersTrain.append(" + ");
@@ -501,10 +502,22 @@ public class PlotDrawer {
                             
                             avgAllLowersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
                             avgAllLowersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
+                            if (r.getForecastValuesFuture().size() > 0) {
+                                avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
+                                numForecastsFutureAvg++;
+                            } else {
+                                avgAllLowersFuture.append("0");
+                            }
                             avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
                             
                             avgAllUppersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
                             avgAllUppersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
+                            if (r.getForecastValuesFuture().size() > 0) {
+                                avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                                numForecastsFutureAvg++;
+                            } else {
+                                avgAllUppersFuture.append("0");
+                            }
                             avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
                             
                             sizeTrain = Math.max(sizeTrain, r.getFittedValues().size());
@@ -513,10 +526,10 @@ public class PlotDrawer {
                         }
                         avgAllLowersTrain.append(")/").append(l.size());
                         avgAllLowersTest.append(")/").append(l.size());
-                        avgAllLowersFuture.append(")/").append(l.size());
+                        avgAllLowersFuture.append(")/").append(numForecastsFutureAvg);
                         avgAllUppersTrain.append(")/").append(l.size());
                         avgAllUppersTest.append(")/").append(l.size());
-                        avgAllUppersFuture.append(")/").append(l.size());
+                        avgAllUppersFuture.append(")/").append(numForecastsFutureAvg);
                         
                         //aaaand draw the average
                         if (wasSomethingIntTSDrawnUpToNow) {
@@ -560,16 +573,13 @@ public class PlotDrawer {
                         
                         //TODO mozno prerobit? zatial to rata s tym, ze vsetky v ramci 1 metody maju rovnake realValues
                         //       - maju. musia mat. neprerabat.
-                        List<Double> realValuesLowersTrain = l.get(0).getRealValuesLowers()
-                                .subList(0, l.get(0).getFittedValues().size());
-                        List<Double> realValuesUppersTrain = l.get(0).getRealValuesUppers()
-                                .subList(0, l.get(0).getFittedValues().size());
-                        List<Double> realValuesLowersTest = l.get(0).getRealValuesLowers()
-                                .subList(l.get(0).getFittedValues().size(), 
-                                         l.get(0).getRealValuesLowers().size() - l.get(0).getForecastValuesFuture().size());
-                        List<Double> realValuesUppersTest = l.get(0).getRealValuesUppers()
-                                .subList(l.get(0).getFittedValues().size(), 
-                                         l.get(0).getRealValuesUppers().size() - l.get(0).getForecastValuesFuture().size());
+                        List<Double> realValuesLowers = l.get(0).getRealValuesLowers();
+                        List<Double> realValuesUppers = l.get(0).getRealValuesUppers();
+                        List<Double> realValuesLowersTrain = realValuesLowers.subList(0, l.get(0).getNumTrainingEntries());
+                        List<Double> realValuesUppersTrain = realValuesUppers.subList(0, l.get(0).getNumTrainingEntries());
+                        List<Double> realValuesLowersTest = realValuesLowers.subList(l.get(0).getNumTrainingEntries(), realValuesLowers.size());
+                        List<Double> realValuesUppersTest = realValuesUppers.subList(l.get(0).getNumTrainingEntries(), realValuesUppers.size());
+                        
                         List<Interval> realValuesTrain = Utils.zipLowerUpperToIntervals(realValuesLowersTrain, realValuesUppersTrain);
                         List<Interval> realValuesTest = Utils.zipLowerUpperToIntervals(realValuesLowersTest, realValuesUppersTest);
 
@@ -688,16 +698,13 @@ public class PlotDrawer {
                         List<Interval> allIntervalsTrain = Utils.zipLowerUpperToIntervals(allLowersTrainList, allUppersTrainList);
                         List<Interval> allIntervalsTest = Utils.zipLowerUpperToIntervals(allLowersTestList, allUppersTestList);
                         
-                        List<Double> realValuesLowersTrain = reportsIntTS.get(0).getRealValuesLowers()
-                                .subList(0, reportsIntTS.get(0).getFittedValues().size());
-                        List<Double> realValuesUppersTrain = reportsIntTS.get(0).getRealValuesUppers()
-                                .subList(0, reportsIntTS.get(0).getFittedValues().size());
-                        List<Double> realValuesLowersTest = reportsIntTS.get(0).getRealValuesLowers()
-                                .subList(reportsIntTS.get(0).getFittedValues().size(), 
-                                         reportsIntTS.get(0).getRealValuesLowers().size() - reportsIntTS.get(0).getForecastValuesFuture().size());
-                        List<Double> realValuesUppersTest = reportsIntTS.get(0).getRealValuesUppers()
-                                .subList(reportsIntTS.get(0).getFittedValues().size(), 
-                                         reportsIntTS.get(0).getRealValuesUppers().size() - reportsIntTS.get(0).getForecastValuesFuture().size());
+                        List<Double> realValuesLowers = reportsIntTS.get(0).getRealValuesLowers();
+                        List<Double> realValuesUppers = reportsIntTS.get(0).getRealValuesUppers();
+                        List<Double> realValuesLowersTrain = realValuesLowers.subList(0, reportsIntTS.get(0).getNumTrainingEntries());
+                        List<Double> realValuesUppersTrain = realValuesUppers.subList(0, reportsIntTS.get(0).getNumTrainingEntries());
+                        List<Double> realValuesLowersTest = realValuesLowers.subList(reportsIntTS.get(0).getNumTrainingEntries(), realValuesLowers.size());
+                        List<Double> realValuesUppersTest = realValuesUppers.subList(reportsIntTS.get(0).getNumTrainingEntries(), realValuesUppers.size());
+                        
                         List<Interval> realValuesTrain = Utils.zipLowerUpperToIntervals(realValuesLowersTrain, realValuesUppersTrain);
                         List<Interval> realValuesTest = Utils.zipLowerUpperToIntervals(realValuesLowersTest, realValuesUppersTest);
 
