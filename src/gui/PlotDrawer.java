@@ -103,7 +103,6 @@ public class PlotDrawer {
         if (! reportsCTS.isEmpty()) { //plot CTS
             allDataCTS = allDataCTS.subList(from, Math.min(to+numForecasts, allDataCTS.size()));
             
-            boolean next = false;
             Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
             //first go through all the reports once to determine how many of each kind there are:
             if (avgCTSperMethod || avgCTS) { //pre avgCTS ako take by sme to nemuseli zostavovat, ale v pripade, ze
@@ -119,6 +118,7 @@ public class PlotDrawer {
                 }
             }
             
+            boolean wasSthDrawnCrisp = false;
             //then go through them again and draw them. if there is just 1 model, it is drawn even if AVG_ONLY is selected
             for (TrainAndTestReportCrisp r : reportsCTS) {
                 if (! r.isVisible()) { //skip those that are turned off
@@ -126,12 +126,8 @@ public class PlotDrawer {
                     continue;
                 }
                 
-                
-                if (next && (!(avgONLY) ||
-                              (mapForAvg.get(r.getModelName()).size() == 1))) {
+                if (wasSthDrawnCrisp) {
                     rengine.eval("par(new=TRUE)");
-                } else {
-                    next = true;
                 }
                 
                 String colourToUseNow;
@@ -141,15 +137,21 @@ public class PlotDrawer {
                     colourToUseNow = r.getColourInPlot();
                 }
                 
-                StringBuilder plotCode = new StringBuilder(r.getPlotCode());
-                plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
-                        + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
-                        + "lwd=4, col=\"" + colourToUseNow + "\"");
-                plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
                 
-                if (!(avgONLY) ||
-                     (mapForAvg.get(r.getModelName()).size() == 1)) { //alebo aj kludne je avgONLY, ale mam len 1 model
+                //model sa kresli, ak neni ziadne avg
+                //alebo ak je nejake avg, ale neni ONLY
+                //alebo ak aj je ONLY, tak ak je avgPerMethod && je iba jeden z toho druhu
+                if ((!avgCTS && !avgCTSperMethod) ||
+                    (!avgONLY) ||
+                    (avgCTSperMethod && (mapForAvg.get(r.getModelName()).size() == 1))) {
+                    StringBuilder plotCode = new StringBuilder(r.getPlotCode());
+                    plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+                            + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
+                            + "lwd=4, col=\"" + colourToUseNow + "\"");
+                    plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
+                    
                     rengine.eval(plotCode.toString());
+                    wasSthDrawnCrisp = true;
                     
                     
                     //draw prediction intervals, if it has them:
@@ -175,8 +177,6 @@ public class PlotDrawer {
                                    + ", border=NA)"); //TODO col podla aktualnej
                     }
                     
-                    
-                    
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
                     if (! refreshOnly) {
@@ -196,7 +196,7 @@ public class PlotDrawer {
                         StringBuilder fittedValsAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
-                        next = false;
+                        boolean next = false;
                         int numForecastsAvg = 0;
                         for (TrainAndTestReportCrisp r : l) {
                             if (next) {
@@ -222,10 +222,13 @@ public class PlotDrawer {
 
                         String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                         //aaaand draw the average
-                        rengine.eval("par(new=TRUE)");
+                        if (wasSthDrawnCrisp) {
+                            rengine.eval("par(new=TRUE)");
+                        }
                         rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                                 + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                                 + "lty=2, lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        wasSthDrawnCrisp = true;
                         //add a dashed vertical line to separate test and train
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
 
@@ -276,7 +279,7 @@ public class PlotDrawer {
                         StringBuilder fittedValsAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsFutureAvgAll = new StringBuilder("(");
-                        next = false;
+                        boolean next = false;
                         int numForecastsAvg = 0;
                         for (TrainAndTestReportCrisp r : reportsCTS) {
                             if (next) {
@@ -303,10 +306,13 @@ public class PlotDrawer {
 
                         String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                         //aaaand draw the average
-                        rengine.eval("par(new=TRUE)");
+                        if (wasSthDrawnCrisp) {
+                            rengine.eval("par(new=TRUE)");
+                        }
                         rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                                 + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                                 + "lty=2, lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
+                        wasSthDrawnCrisp = true;
                         //add a dashed vertical line to separate test and train
                         rengine.eval("abline(v = " + (reportsCTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
 
@@ -345,7 +351,9 @@ public class PlotDrawer {
             
             
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
-            rengine.eval("par(new=TRUE)");
+            if (wasSthDrawnCrisp) {
+                rengine.eval("par(new=TRUE)");
+            }
             rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.data), xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                     + "ylab=\"" + colname_CTS + "\","
                     + "xaxt=\"n\", " //suppress axis X
@@ -369,7 +377,7 @@ public class PlotDrawer {
         }
         
         if (! reportsIntTS.isEmpty()) { //plot ITS
-            boolean wasSomethingIntTSDrawnUpToNow = false;
+            boolean wasSthDrawnIntTS = false;
             
             Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
             //first go through all the reports once to determine how many of each kind there are:
@@ -387,21 +395,19 @@ public class PlotDrawer {
             }
             
             //now draw
-            boolean next = false;
             for (TrainAndTestReportInterval r : reportsIntTS) {
                 if (! r.isVisible()) {
                     colourNumber++; //discard the colour as if you drew them so that the avg had the same colour
                     continue;
                 }
                 
-                if (next && (avgCTS && (mapForAvg.get(r.getModelName()).size() == 1)) && wasSomethingIntTSDrawnUpToNow) {
+                if (wasSthDrawnIntTS) {
                     rengine.eval("par(new=TRUE)");
-                } else {
-                    next = true;
                 }
                 
-                if (!(avgONLY) ||
-                     (mapForAvg.get(r.getModelName()).size() == 1)) {
+                if ((!avgIntTS && !avgIntTSperMethod) ||
+                    (!avgONLY) ||
+                    (avgIntTSperMethod && (mapForAvg.get(r.getModelName()).size() == 1))) {
                     String colourToUseNow;
                     if (refreshOnly) { //get the colour that was used previously
                         colourToUseNow = r.getColourInPlot();
@@ -462,7 +468,7 @@ public class PlotDrawer {
                     //add a dashed vertical line to separate test and train
                     rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
                     
-                    wasSomethingIntTSDrawnUpToNow = true;
+                    wasSthDrawnIntTS = true;
 
                     if (! refreshOnly) {
                         r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
@@ -483,7 +489,7 @@ public class PlotDrawer {
                         StringBuilder avgAllUppersTrain = new StringBuilder("(");
                         StringBuilder avgAllUppersTest = new StringBuilder("(");
                         StringBuilder avgAllUppersFuture = new StringBuilder("(");
-                        next = false;
+                        boolean next = false;
                         int sizeTrain = 0;
                         int sizeTest = 0;
                         int sizeFuture = 0;
@@ -532,7 +538,7 @@ public class PlotDrawer {
                         avgAllUppersFuture.append(")/").append(numForecastsFutureAvg);
                         
                         //aaaand draw the average
-                        if (wasSomethingIntTSDrawnUpToNow) {
+                        if (wasSthDrawnIntTS) {
                             rengine.eval("par(new=TRUE)");
                         }
                         rengine.eval("lowerTrain <- " + avgAllLowersTrain.toString());
@@ -594,7 +600,7 @@ public class PlotDrawer {
                         addedReports.add(reportAvgMethod);
                         
                         colourNumber++;
-                        wasSomethingIntTSDrawnUpToNow = true;
+                        wasSthDrawnIntTS = true;
                     }
                 }
             }
@@ -621,7 +627,7 @@ public class PlotDrawer {
                         StringBuilder avgAllUppersTrain = new StringBuilder("(");
                         StringBuilder avgAllUppersTest = new StringBuilder("(");
                         StringBuilder avgAllUppersFuture = new StringBuilder("(");
-                        next = false;
+                        boolean next = false;
                         int sizeTrain = 0;
                         int sizeTest = 0;
                         int sizeFuture = 0;
@@ -658,7 +664,7 @@ public class PlotDrawer {
                         
                         
                         //aaaand draw the average
-                        if (wasSomethingIntTSDrawnUpToNow) {
+                        if (wasSthDrawnIntTS) {
                             rengine.eval("par(new=TRUE)");
                         }
                         
@@ -718,14 +724,14 @@ public class PlotDrawer {
                         
                         addedReports.add(reportAvgAllITS);
                         
-                        wasSomethingIntTSDrawnUpToNow = true;
+                        wasSthDrawnIntTS = true;
                         
                         colourNumber++;
                     }
                 }
             }
             
-            if (wasSomethingIntTSDrawnUpToNow) { //inak to moze skocit vedla do CTS plotu
+            if (wasSthDrawnIntTS) { //inak to moze skocit vedla do CTS plotu
                 rengine.eval("par(new=TRUE)");
             }
                 
