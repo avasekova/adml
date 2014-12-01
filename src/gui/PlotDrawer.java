@@ -508,19 +508,15 @@ public class PlotDrawer {
                             
                             avgAllLowersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
                             avgAllLowersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
-                            if (r.getForecastValuesFuture().size() > 0) {
-                                avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
-                                numForecastsFutureAvg++;
-                            } else {
-                                avgAllLowersFuture.append("0");
-                            }
                             
                             avgAllUppersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
                             avgAllUppersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
                             if (r.getForecastValuesFuture().size() > 0) {
+                                avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
                                 avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
                                 numForecastsFutureAvg++;
                             } else {
+                                avgAllLowersFuture.append("0");
                                 avgAllUppersFuture.append("0");
                             }
                             
@@ -539,6 +535,7 @@ public class PlotDrawer {
                         if (wasSthDrawnIntTS) {
                             rengine.eval("par(new=TRUE)");
                         }
+                        
                         rengine.eval("lowerTrain <- " + avgAllLowersTrain.toString());
                         rengine.eval("lowerTest <- " + avgAllLowersTest.toString());
                         rengine.eval("lowerFuture <- " + avgAllLowersFuture.toString());
@@ -552,8 +549,8 @@ public class PlotDrawer {
                         rengine.eval("par(new=TRUE)");
                         rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                                 + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                        rengine.eval("segments(" + par.getFrom() + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom()) + ", lower, "
-                                + par.getFrom() + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom())
+                        rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom()) + ", lower, "
+                                + (1+par.getFrom()) + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom())
                                 + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
                                 + ", lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         rengine.eval("abline(v = " + (l.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
@@ -644,20 +641,15 @@ public class PlotDrawer {
                             
                             avgAllLowersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
                             avgAllLowersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
-                            if (r.getForecastValuesFuture().size() > 0) {
-                                avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
-                                numForecastsFutureAvg++;
-                            } else {
-                                avgAllLowersFuture.append("0");
-                            }
-                            
                             
                             avgAllUppersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
                             avgAllUppersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
                             if (r.getForecastValuesFuture().size() > 0) {
+                                avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
                                 avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
                                 numForecastsFutureAvg++;
                             } else {
+                                avgAllLowersFuture.append("0");
                                 avgAllUppersFuture.append("0");
                             }
                             
@@ -691,8 +683,8 @@ public class PlotDrawer {
                         rengine.eval("par(new=TRUE)");
                         rengine.eval("plot.ts(upper, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                                 + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
-                        rengine.eval("segments(" + par.getFrom() + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom()) + ", lower, "
-                                + par.getFrom() + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom())
+                        rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom()) + ", lower, "
+                                + (1+par.getFrom()) + ":" + (sizeTrain+sizeTest+sizeFuture+par.getFrom())
                                 + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
                                 + ", lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         rengine.eval("abline(v = " + (reportsIntTS.get(0).getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
