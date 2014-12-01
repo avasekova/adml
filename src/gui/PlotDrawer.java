@@ -514,7 +514,6 @@ public class PlotDrawer {
                             } else {
                                 avgAllLowersFuture.append("0");
                             }
-                            avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
                             
                             avgAllUppersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
                             avgAllUppersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
@@ -524,7 +523,6 @@ public class PlotDrawer {
                             } else {
                                 avgAllUppersFuture.append("0");
                             }
-                            avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
                             
                             sizeTrain = Math.max(sizeTrain, r.getFittedValues().size());
                             sizeTest = Math.max(sizeTest, r.getForecastValuesTest().size());
@@ -543,11 +541,11 @@ public class PlotDrawer {
                         }
                         rengine.eval("lowerTrain <- " + avgAllLowersTrain.toString());
                         rengine.eval("lowerTest <- " + avgAllLowersTest.toString());
-                        rengine.eval("lowerFuture <- " + avgAllLowersFuture);
+                        rengine.eval("lowerFuture <- " + avgAllLowersFuture.toString());
                         rengine.eval("lower <- c(lowerTrain, lowerTest, lowerFuture)");
                         rengine.eval("upperTrain <- " + avgAllUppersTrain.toString());
                         rengine.eval("upperTest <- " + avgAllUppersTest.toString());
-                        rengine.eval("upperFuture <- " + avgAllUppersFuture);
+                        rengine.eval("upperFuture <- " + avgAllUppersFuture.toString());
                         rengine.eval("upper <- c(upperTrain, upperTest, upperFuture)");
                         rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                                 + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
@@ -631,6 +629,7 @@ public class PlotDrawer {
                         int sizeTrain = 0;
                         int sizeTest = 0;
                         int sizeFuture = 0;
+                        int numForecastsFutureAvg = 0;
                         for (TrainAndTestReportInterval r : reportsIntTS) {
                             if (next) {
                                 avgAllLowersTrain.append(" + ");
@@ -645,11 +644,22 @@ public class PlotDrawer {
                             
                             avgAllLowersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
                             avgAllLowersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
-                            avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
+                            if (r.getForecastValuesFuture().size() > 0) {
+                                avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
+                                numForecastsFutureAvg++;
+                            } else {
+                                avgAllLowersFuture.append("0");
+                            }
+                            
                             
                             avgAllUppersTrain.append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
                             avgAllUppersTest.append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
-                            avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                            if (r.getForecastValuesFuture().size() > 0) {
+                                avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                                numForecastsFutureAvg++;
+                            } else {
+                                avgAllUppersFuture.append("0");
+                            }
                             
                             sizeTrain = Math.max(sizeTrain, r.getFittedValues().size());
                             sizeTest = Math.max(sizeTest, r.getForecastValuesTest().size());
@@ -657,10 +667,10 @@ public class PlotDrawer {
                         }
                         avgAllLowersTrain.append(")/").append(reportsIntTS.size());
                         avgAllLowersTest.append(")/").append(reportsIntTS.size());
-                        avgAllLowersFuture.append(")/").append(reportsIntTS.size());
+                        avgAllLowersFuture.append(")/").append(numForecastsFutureAvg);
                         avgAllUppersTrain.append(")/").append(reportsIntTS.size());
                         avgAllUppersTest.append(")/").append(reportsIntTS.size());
-                        avgAllUppersFuture.append(")/").append(reportsIntTS.size());
+                        avgAllUppersFuture.append(")/").append(numForecastsFutureAvg);
                         
                         
                         //aaaand draw the average
@@ -670,11 +680,11 @@ public class PlotDrawer {
                         
                         rengine.eval("lowerTrain <- " + avgAllLowersTrain.toString());
                         rengine.eval("lowerTest <- " + avgAllLowersTest.toString());
-                        rengine.eval("lowerFuture <- " + avgAllLowersFuture);
+                        rengine.eval("lowerFuture <- " + avgAllLowersFuture.toString());
                         rengine.eval("lower <- c(lowerTrain, lowerTest, lowerFuture)");
                         rengine.eval("upperTrain <- " + avgAllUppersTrain.toString());
                         rengine.eval("upperTest <- " + avgAllUppersTest.toString());
-                        rengine.eval("upperFuture <- " + avgAllUppersFuture);
+                        rengine.eval("upperFuture <- " + avgAllUppersFuture.toString());
                         rengine.eval("upper <- c(upperTrain, upperTest, upperFuture)");
                         rengine.eval("plot.ts(lower, type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                                 + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
