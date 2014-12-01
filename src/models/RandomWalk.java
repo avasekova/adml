@@ -15,7 +15,7 @@ public class RandomWalk { //TODO implements Forecastable!
     public TrainAndTestReport forecast(List<Double> allData, RandomWalkParams params) {
         final String DATA_FIT = Const.INPUT + Utils.getCounter();
         final String DATA_FORECAST = Const.INPUT + Utils.getCounter();
-        List<Double> dataToUse = allData.subList(params.getDataRangeFrom(), params.getDataRangeTo());
+        List<Double> dataToUse = allData.subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RANDOM_WALK);
         
@@ -35,7 +35,7 @@ public class RandomWalk { //TODO implements Forecastable!
         Rengine rengine = MyRengine.getRengine();
         rengine.assign(DATA_FIT, Utils.listToArray(trainForecastOutputs));
         rengine.assign(DATA_FORECAST, Utils.listToArray(testForecastOutputs));
-        report.setPlotCode("plot.ts(c(NA," + DATA_FIT + "," + DATA_FORECAST + "))");
+        report.setPlotCode("plot.ts(c(" + DATA_FIT + "," + DATA_FORECAST + "))");
         
         report.setFittedValues(Utils.listToArray(trainForecastOutputs));
         report.setForecastValuesTest(Utils.listToArray(testForecastOutputs));

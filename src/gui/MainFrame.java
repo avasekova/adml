@@ -3514,23 +3514,31 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRunRestoreRangeAllActionPerformed
 
     private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed
-        textFieldPlotRangeCTSXfrom.setText("0");
-        textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getCrispXmax()); //TODO opravit podla Run: rangeFrom, To
+        textFieldPlotRangeCTSXfrom.setText("" + textFieldRunDataRangeFrom.getText());
+        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
+                Integer.parseInt(textFieldRunNumForecasts.getText());
+        textFieldPlotRangeCTSXto.setText("" + upperBound);
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeXActionPerformed
 
     private void buttonPlotRestoreCTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeYActionPerformed
-        textFieldPlotRangeCTSYfrom.setText("0");
-        textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getCrispYmax());
+        textFieldPlotRangeCTSYfrom.setText("" + textFieldRunDataRangeFrom.getText());
+        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
+                Integer.parseInt(textFieldRunNumForecasts.getText());
+        textFieldPlotRangeCTSYto.setText("" + upperBound);
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeYActionPerformed
 
     private void buttonPlotRestoreIntTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeXActionPerformed
-        textFieldPlotRangeIntTSXfrom.setText("0");
-        textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getIntXmax()); //TODO opravit podla Run: rangeFrom, To
+        textFieldPlotRangeIntTSXfrom.setText("" + textFieldRunDataRangeFrom.getText());
+        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
+                Integer.parseInt(textFieldRunNumForecasts.getText());
+        textFieldPlotRangeIntTSXto.setText("" + upperBound);
     }//GEN-LAST:event_buttonPlotRestoreIntTSRangeXActionPerformed
 
     private void buttonPlotRestoreIntTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeYActionPerformed
-        textFieldPlotRangeIntTSYfrom.setText("0");
-        textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getIntYmax());
+        textFieldPlotRangeIntTSYfrom.setText("" + textFieldRunDataRangeFrom.getText());
+        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
+                Integer.parseInt(textFieldRunNumForecasts.getText());
+        textFieldPlotRangeIntTSYto.setText("" + upperBound);
     }//GEN-LAST:event_buttonPlotRestoreIntTSRangeYActionPerformed
 
     private void buttonPlotZoomCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotZoomCTSActionPerformed

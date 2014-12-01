@@ -60,8 +60,7 @@ public class KNNfnn implements Forecastable {
         rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + OUTPUT + ")");
         
         //potom z dlzky tychto suborov vypocitat numTrainingEntries podla percentTrain
-        int lengthInputOutput = dataToUse.size() - params.getLag();
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*lengthInputOutput);
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         
         //potom si vyrobit trainingValues, testingValues

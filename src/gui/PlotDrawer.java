@@ -225,7 +225,8 @@ public class PlotDrawer {
                         if (wasSthDrawnCrisp) {
                             rengine.eval("par(new=TRUE)");
                         }
-                        rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+                        //na zaciatku hack - posunutie pomocou rep(NA)
+                        rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), " + avgAll + "), xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                                 + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                                 + "lty=2, lwd=5, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         wasSthDrawnCrisp = true;
@@ -274,7 +275,9 @@ public class PlotDrawer {
                     }
                     
                     if (! allTheSame) { //throw an error, we cannot compute it like this
-                        JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+                        if (! refreshOnly) {
+                            JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+                        } //otherwise they've already seen the error and it'd be annoying
                     } else {
                         StringBuilder fittedValsAvgAll = new StringBuilder("(");
                         StringBuilder forecastValsTestAvgAll = new StringBuilder("(");
@@ -309,7 +312,7 @@ public class PlotDrawer {
                         if (wasSthDrawnCrisp) {
                             rengine.eval("par(new=TRUE)");
                         }
-                        rengine.eval("plot.ts(" + avgAll + ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
+                        rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), " + avgAll + "), xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                                 + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                                 + "lty=2, lwd=6, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\")");
                         wasSthDrawnCrisp = true;
@@ -613,7 +616,9 @@ public class PlotDrawer {
                 }
 
                 if (! allTheSame) { //throw an error, we cannot compute it like this
-                    JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+                    if (! refreshOnly) {
+                            JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+                        } //otherwise they've already seen the error and it'd be annoying
                 } else {
                     if (reportsIntTS.size() > 1) { //does not make sense to compute average over one series
                         StringBuilder avgAllLowersTrain = new StringBuilder("(");
@@ -792,7 +797,7 @@ public class PlotDrawer {
         List<Double> allVals = getAllVals(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
 //        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
         String rangeY = getRangeYMultipleInterval(allVals);
-        String rangeX = "range(c(0," + par.getDataTableModel().getRowCount() + "))";
+        String rangeX = "range(c(1," + par.getDataTableModel().getRowCount() + "))";
         
         drawPlotsITS(drawNew, par, rangeX, rangeY);
     }
@@ -1123,14 +1128,14 @@ public class PlotDrawer {
     }
     
     private static String getRangeXCrisp(List<Double> allData, int numForecasts, int from, int to) {
-        String rangeX = "range(c(0, " + (allData.size() + numForecasts) + "))";
+        String rangeX = "range(c(1, " + (allData.size() + numForecasts) + "))";
         //works with allData.size, because allData isn't cropped by fromTo
         String rangeXrestrictedFromTo = "range(c(max(" + from + "," + rangeX + "[1]), min(" + (to+numForecasts) + "," + rangeX + "[2])))";
         return rangeXrestrictedFromTo;
     }
     
     private static String getRangeXInterval(int sizeDataWithoutFromToCrop, int numForecasts, int from, int to) {
-        String rangesX = "range(c(0, " + (sizeDataWithoutFromToCrop + numForecasts) + "))";
+        String rangesX = "range(c(1, " + (sizeDataWithoutFromToCrop + numForecasts) + "))";
         
         String rangesXrestrictedFromTo = "range(c(max(" + from + "," + rangesX + "[1]), min(" + (to+numForecasts) + "," + rangesX + "[2])))";
         return rangesXrestrictedFromTo;
