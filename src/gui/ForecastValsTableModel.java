@@ -15,6 +15,7 @@ public class ForecastValsTableModel extends AbstractTableModel {
     private final List<TrainAndTestReport> reports;
     private final List<TrainAndTestReport> hiddenReports = new ArrayList<>();
     private final List<String> columnNames;
+    private final List<String> hiddenNames = new ArrayList<>();
     
     public ForecastValsTableModel(int numForecasts, List<TrainAndTestReport> reports) {
         this.numForecasts = numForecasts;
@@ -92,8 +93,17 @@ public class ForecastValsTableModel extends AbstractTableModel {
         if (reportNumber > -1) { //teda ked to nie je nejaky header
             hiddenReports.add(reports.get(reportNumber));
             reports.remove(reportNumber);
+            hiddenNames.add(columnNames.get(reportNumber));
             columnNames.remove(reportNumber);
             this.fireTableStructureChanged();
         }
+    }
+
+    public void showAllHiddenColumns() {
+        reports.addAll(hiddenReports);
+        columnNames.addAll(hiddenNames);
+        hiddenReports.clear();
+        hiddenNames.clear();
+        this.fireTableStructureChanged();
     }
 }
