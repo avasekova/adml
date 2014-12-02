@@ -3864,8 +3864,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonForecastValsHideNoForecasts" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="buttonForecastValsHideAllButAvg" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="717" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="548" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelForecastVals" max="32767" attributes="0"/>
               </Group>
@@ -3878,6 +3880,7 @@
                           <Component id="buttonForecastValsShowHidden" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonForecastValsHideNoForecasts" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="buttonForecastValsHideAllButAvg" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelForecastVals" max="32767" attributes="0"/>
@@ -3936,6 +3939,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="(double-click inside a column to hide it.)"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonForecastValsHideAllButAvg">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Hide all except for average"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonForecastValsHideAllButAvgActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

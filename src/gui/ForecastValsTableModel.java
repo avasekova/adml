@@ -130,4 +130,21 @@ public class ForecastValsTableModel extends AbstractTableModel {
         
         this.fireTableStructureChanged();
     }
+
+    public void hideAllButAvg() {
+        List<TrainAndTestReport> stashCols = new ArrayList<>();
+        List<String> stashNames = new ArrayList<>();
+        for (int i = 0; i < reports.size(); i++) {
+            if (reports.get(i).canBeInvisible()) { //for now, the only way to distinguish avg from non-avg. TODO think of sth else
+                stashCols.add(reports.get(i));
+                stashNames.add(columnNames.get(i));
+            }
+        }
+        hiddenReports.addAll(stashCols);
+        reports.removeAll(stashCols);
+        hiddenNames.addAll(stashNames);
+        columnNames.removeAll(stashNames);
+        
+        this.fireTableStructureChanged();
+    }
 }
