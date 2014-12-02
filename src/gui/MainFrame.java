@@ -181,6 +181,8 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotZoomIntTS = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         listPlotLegend = new javax.swing.JList();
+        buttonLegendSelectAll = new javax.swing.JButton();
+        buttonLegendSelectNone = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -640,6 +642,20 @@ public class MainFrame extends javax.swing.JFrame {
     listPlotLegend.addMouseListener(mouseListener);
     jScrollPane3.setViewportView(listPlotLegend);
 
+    buttonLegendSelectAll.setText("Select all");
+    buttonLegendSelectAll.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonLegendSelectAllActionPerformed(evt);
+        }
+    });
+
+    buttonLegendSelectNone.setText("Unselect all");
+    buttonLegendSelectNone.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonLegendSelectNoneActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
     panelChart.setLayout(panelChartLayout);
     panelChartLayout.setHorizontalGroup(
@@ -718,7 +734,13 @@ public class MainFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(buttonPlotZoomIntTS)))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))
+                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelChartLayout.createSequentialGroup()
+                            .addGap(0, 0, Short.MAX_VALUE)
+                            .addComponent(buttonLegendSelectAll)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonLegendSelectNone))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))))
             .addContainerGap())
     );
     panelChartLayout.setVerticalGroup(
@@ -781,14 +803,16 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(textFieldPlotRangeIntTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel130)
-                                .addComponent(jLabel132)))
+                                .addComponent(jLabel132)
+                                .addComponent(buttonLegendSelectAll)
+                                .addComponent(buttonLegendSelectNone)))
                         .addGroup(panelChartLayout.createSequentialGroup()
                             .addGap(14, 14, 14)
                             .addComponent(buttonPlotZoomIntTS))))
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -4172,6 +4196,53 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonAnalysisBatchRemoveSelectedRowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
         ((AnalysisBatchTableModel)(tableAnalysisBatch.getModel())).removeRows(tableAnalysisBatch.getSelectedRows());
     }//GEN-LAST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
+
+    private void buttonLegendSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectAllActionPerformed
+        if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
+            //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
+            DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
+            for (int i = 0; i < model.size(); i++) {
+                ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport().setVisible(true);
+            }
+            
+            //to iste ako v buttonLegenSelectNone a v drawLegend - mouseListener. TODO refactor
+            listPlotLegend.repaint();
+            //and then redraw the plots:
+            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
+            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
+            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
+            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
+            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
+                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+        } //else nereaguj
+    }//GEN-LAST:event_buttonLegendSelectAllActionPerformed
+
+    private void buttonLegendSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectNoneActionPerformed
+        if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
+            //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
+            DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
+            for (int i = 0; i < model.size(); i++) {
+                Plottable p = ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport();
+                if (p instanceof TrainAndTestReport) {
+                    if (((TrainAndTestReport)p).canBeInvisible()) {
+                        p.setVisible(false);
+                    }
+                } else {
+                    p.setVisible(false);
+                }
+            }
+            
+            //to iste ako v buttonLegenSelectAll a v drawLegend - mouseListener. TODO refactor
+            listPlotLegend.repaint();
+            //and then redraw the plots:
+            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
+            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
+            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
+            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
+            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
+                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+        } //else nereaguj
+    }//GEN-LAST:event_buttonLegendSelectNoneActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -4221,6 +4292,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
+    private javax.swing.JButton buttonLegendSelectAll;
+    private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
