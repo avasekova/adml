@@ -1,5 +1,6 @@
 package gui;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportInterval;
@@ -9,6 +10,7 @@ import utils.Utils;
 public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
     
     private final List<TrainAndTestReportInterval> reports;
+    private final List<TrainAndTestReportInterval> hiddenReports = new ArrayList<>();
     
     public ErrorMeasuresTableModel_ITS(List<TrainAndTestReportInterval> reports) {
         this.reports = reports;
@@ -62,4 +64,28 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
         return false;
     }
     
+    public void hideRow(int rowIndex) {
+        int reportNumber = getReportNumber(rowIndex);
+        if (reportNumber > -1) { //teda ked to nie je nejaky header
+            hiddenReports.add(reports.get(reportNumber));
+            reports.remove(reportNumber);
+            this.fireTableRowsDeleted(rowIndex, rowIndex);
+        }
+    }
+    
+    public void showAllHiddenRows() {
+        reports.addAll(hiddenReports);
+        hiddenReports.clear();
+    }
+
+    //translates selected row to report number because first row = header, then train reports, header again, test reports...
+    private int getReportNumber(int selectedRow) {
+        if ((selectedRow == 0) || (selectedRow == reports.size() + 1)) {
+            return -1; //header
+        } else if ((selectedRow >= 1) && (selectedRow <= reports.size())) {
+            return selectedRow - 1; //train data
+        } else /*if ((selectedRow >= reports.size() + 2) && (selectedRow <= reports.size()*2 + 1))*/ {
+            return selectedRow - reports.size() - 2;
+        }
+    }
 }
