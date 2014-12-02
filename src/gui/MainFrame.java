@@ -423,6 +423,8 @@ public class MainFrame extends javax.swing.JFrame {
         panelForecastVals = new javax.swing.JPanel();
         scrollPaneForecastVals = new javax.swing.JScrollPane();
         buttonForecastValsShowHidden = new javax.swing.JButton();
+        buttonForecastValsHideNoForecasts = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
         panelDiagramsNNs = new javax.swing.JPanel();
         panelDiagramsNNsInside = new javax.swing.JPanel();
         tabbedPaneDiagramsNNs = new javax.swing.JTabbedPane();
@@ -2532,6 +2534,15 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
+    buttonForecastValsHideNoForecasts.setText("Hide models without forecasts");
+    buttonForecastValsHideNoForecasts.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonForecastValsHideNoForecastsActionPerformed(evt);
+        }
+    });
+
+    jLabel14.setText("(double-click inside a column to hide it.)");
+
     javax.swing.GroupLayout panelForecastValsAllLayout = new javax.swing.GroupLayout(panelForecastValsAll);
     panelForecastValsAll.setLayout(panelForecastValsAllLayout);
     panelForecastValsAllLayout.setHorizontalGroup(
@@ -2540,7 +2551,11 @@ public class MainFrame extends javax.swing.JFrame {
             .addComponent(buttonExportForecastValues)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(buttonForecastValsShowHidden)
-            .addGap(0, 1091, Short.MAX_VALUE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(buttonForecastValsHideNoForecasts)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jLabel14)
+            .addGap(0, 717, Short.MAX_VALUE))
         .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
     );
     panelForecastValsAllLayout.setVerticalGroup(
@@ -2548,7 +2563,9 @@ public class MainFrame extends javax.swing.JFrame {
         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelForecastValsAllLayout.createSequentialGroup()
             .addGroup(panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(buttonExportForecastValues)
-                .addComponent(buttonForecastValsShowHidden))
+                .addComponent(buttonForecastValsShowHidden)
+                .addComponent(buttonForecastValsHideNoForecasts)
+                .addComponent(jLabel14))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
@@ -4323,6 +4340,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonForecastValsShowHiddenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsShowHiddenActionPerformed
         ((ForecastValsTableModel)forecastValuesLatest.getModel()).showAllHiddenColumns();
     }//GEN-LAST:event_buttonForecastValsShowHiddenActionPerformed
+
+    private void buttonForecastValsHideNoForecastsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsHideNoForecastsActionPerformed
+        ((ForecastValsTableModel)forecastValuesLatest.getModel()).hideNoForecasts();
+    }//GEN-LAST:event_buttonForecastValsHideNoForecastsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -4371,6 +4392,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
+    private javax.swing.JButton buttonForecastValsHideNoForecasts;
     private javax.swing.JButton buttonForecastValsShowHidden;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
@@ -4469,6 +4491,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
     private javax.swing.JLabel jLabel138;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel143;
     private javax.swing.JLabel jLabel150;
     private javax.swing.JLabel jLabel151;

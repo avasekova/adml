@@ -106,4 +106,28 @@ public class ForecastValsTableModel extends AbstractTableModel {
         hiddenNames.clear();
         this.fireTableStructureChanged();
     }
+
+    public void hideNoForecasts() {
+        List<TrainAndTestReport> stashCols = new ArrayList<>();
+        List<String> stashNames = new ArrayList<>();
+        for (int i = 0; i < reports.size(); i++) {
+            if (reports.get(i) instanceof TrainAndTestReportCrisp) {
+                if (((TrainAndTestReportCrisp)reports.get(i)).getForecastValuesFuture().length == 0) {
+                    stashCols.add(reports.get(i));
+                    stashNames.add(columnNames.get(i));
+                }
+            } else if (reports.get(i) instanceof TrainAndTestReportInterval) {
+                if (((TrainAndTestReportInterval)reports.get(i)).getForecastValuesFuture().isEmpty()) {
+                    stashCols.add(reports.get(i));
+                    stashNames.add(columnNames.get(i));
+                }
+            }
+        }
+        hiddenReports.addAll(stashCols);
+        reports.removeAll(stashCols);
+        hiddenNames.addAll(stashNames);
+        columnNames.removeAll(stashNames);
+        
+        this.fireTableStructureChanged();
+    }
 }
