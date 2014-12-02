@@ -594,6 +594,19 @@ public class PlotDrawer {
                         TrainAndTestReportInterval reportAvgMethod = new TrainAndTestReportInterval(l.get(0).getModelName() + "(avg)", false);
                         reportAvgMethod.setErrorMeasures(errorMeasures);
                         reportAvgMethod.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        reportAvgMethod.setFittedValues(allIntervalsTrain);
+                        reportAvgMethod.setForecastValuesTest(allIntervalsTest);
+                        reportAvgMethod.setForecastValuesFuture(realValuesTest);
+                        
+                        REXP getAllLowersFuture = rengine.eval("lowerFuture");
+                        List<Double> allLowersFutureList = Utils.arrayToList(getAllLowersFuture.asDoubleArray());
+                        REXP getAllUppersFuture = rengine.eval("upperFuture");
+                        List<Double> allUppersFutureList = Utils.arrayToList(getAllUppersFuture.asDoubleArray());
+                        List<Interval> allIntervalsFuture = Utils.zipLowerUpperToIntervals(allLowersFutureList, allUppersFutureList);
+                        reportAvgMethod.setForecastValuesFuture(allIntervalsFuture);
+                        reportAvgMethod.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());
+                        realValuesTrain.addAll(realValuesTest);
+                        reportAvgMethod.setRealValues(realValuesTrain);
                         
                         addedReports.add(reportAvgMethod);
                         
@@ -728,6 +741,19 @@ public class PlotDrawer {
                         TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval("(avg int)", false);
                         reportAvgAllITS.setErrorMeasures(errorMeasures);
                         reportAvgAllITS.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                        reportAvgAllITS.setFittedValues(allIntervalsTrain);
+                        reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
+                        reportAvgAllITS.setForecastValuesFuture(realValuesTest);
+                        
+                        REXP getAllLowersFuture = rengine.eval("lowerFuture");
+                        List<Double> allLowersFutureList = Utils.arrayToList(getAllLowersFuture.asDoubleArray());
+                        REXP getAllUppersFuture = rengine.eval("upperFuture");
+                        List<Double> allUppersFutureList = Utils.arrayToList(getAllUppersFuture.asDoubleArray());
+                        List<Interval> allIntervalsFuture = Utils.zipLowerUpperToIntervals(allLowersFutureList, allUppersFutureList);
+                        reportAvgAllITS.setForecastValuesFuture(allIntervalsFuture);
+                        reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());
+                        realValuesTrain.addAll(realValuesTest);
+                        reportAvgAllITS.setRealValues(realValuesTrain);
                         
                         addedReports.add(reportAvgAllITS);
                         
