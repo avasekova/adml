@@ -417,6 +417,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunRandomWalkCTS = new javax.swing.JCheckBox();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
         buttonHideAllErrorsExceptAvg = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -2215,6 +2216,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
+    jLabel13.setText("(double-click on a row to hide it.)");
+
     javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
     panelRunOutside.setLayout(panelRunOutsideLayout);
     panelRunOutsideLayout.setHorizontalGroup(
@@ -2373,6 +2376,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(buttonRunShowHiddenErrorMeasures)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(buttonHideAllErrorsExceptAvg)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jLabel13)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonRunExportErrorMeasures)))
             .addContainerGap())
@@ -2489,7 +2494,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(buttonRunShowHiddenErrorMeasures)
                 .addComponent(buttonRunExportErrorMeasures)
-                .addComponent(buttonHideAllErrorsExceptAvg))
+                .addComponent(buttonHideAllErrorsExceptAvg)
+                .addComponent(jLabel13))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addContainerGap())
@@ -4417,6 +4423,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel129;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel130;
     private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;

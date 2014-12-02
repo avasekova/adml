@@ -3250,6 +3250,8 @@
                               <Component id="buttonRunShowHiddenErrorMeasures" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonHideAllErrorsExceptAvg" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="buttonRunExportErrorMeasures" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -3396,6 +3398,7 @@
                           <Component id="buttonRunShowHiddenErrorMeasures" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonRunExportErrorMeasures" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="buttonHideAllErrorsExceptAvg" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="panelSummary" max="32767" attributes="0"/>
@@ -3829,6 +3832,11 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHideAllErrorsExceptAvgActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel13">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="(double-click on a row to hide it.)"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
