@@ -3451,12 +3451,35 @@ public class MainFrame extends javax.swing.JFrame {
         outputPredictionIntervals(reportsCTS);
 
         //and show forecast values in the other pane
-        forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        forecastValuesLatest.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumn firstColumn = forecastValuesLatest.getColumnModel().getColumn(0);
+        final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        forecastValuesTable.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    //pozor, -1! pretoze 
+                    int selectedCol = forecastValuesTable.getSelectedColumn();
+                    ((ForecastValsTableModel)forecastValuesTable.getModel()).hideColumn(selectedCol);
+//                    forecastValuesTable.repaint();
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) { }
+            @Override
+            public void mouseReleased(MouseEvent e) { }
+            @Override
+            public void mouseEntered(MouseEvent e) { }
+            @Override
+            public void mouseExited(MouseEvent e) { }
+        });
+        
+        forecastValuesTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumn firstColumn = forecastValuesTable.getColumnModel().getColumn(0);
         firstColumn.setMinWidth(10);
         firstColumn.setMaxWidth(50);
-        forecastValuesLatest.setVisible(true);
+        forecastValuesTable.setVisible(true);
+        forecastValuesLatest = forecastValuesTable;
         panelForecastVals.removeAll();
         scrollPaneForecastVals.setViewportView(forecastValuesLatest);
         panelForecastVals.add(scrollPaneForecastVals);

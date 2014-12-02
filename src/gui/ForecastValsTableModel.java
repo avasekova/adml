@@ -13,6 +13,7 @@ public class ForecastValsTableModel extends AbstractTableModel {
 
     private final int numForecasts;
     private final List<TrainAndTestReport> reports;
+    private final List<TrainAndTestReport> hiddenReports = new ArrayList<>();
     private final List<String> columnNames;
     
     public ForecastValsTableModel(int numForecasts, List<TrainAndTestReport> reports) {
@@ -76,5 +77,23 @@ public class ForecastValsTableModel extends AbstractTableModel {
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         //TODO maybe later make them editable?
         return false;
+    }
+    
+    private int getReportNumber(int selectedCol) {
+        if ((selectedCol == 0)) {
+            return -1; //line numbers
+        } else {
+            return selectedCol - 1;
+        }
+    }
+
+    public void hideColumn(int selectedCol) {
+        int reportNumber = getReportNumber(selectedCol);
+        if (reportNumber > -1) { //teda ked to nie je nejaky header
+            hiddenReports.add(reports.get(reportNumber));
+            reports.remove(reportNumber);
+            columnNames.remove(reportNumber);
+            this.fireTableStructureChanged();
+        }
     }
 }
