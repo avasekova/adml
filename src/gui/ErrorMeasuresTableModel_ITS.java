@@ -74,8 +74,10 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
     }
     
     public void showAllHiddenRows() {
+        int sizeBefore = reports.size();
         reports.addAll(hiddenReports);
         hiddenReports.clear();
+        this.fireTableRowsInserted(sizeBefore, reports.size()-1);
     }
 
     //translates selected row to report number because first row = header, then train reports, header again, test reports...
