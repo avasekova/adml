@@ -416,6 +416,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHoltWintersInt = new javax.swing.JCheckBox();
         checkBoxRunRandomWalkCTS = new javax.swing.JCheckBox();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
+        buttonHideAllErrorsExceptAvg = new javax.swing.JButton();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -2207,6 +2208,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
+    buttonHideAllErrorsExceptAvg.setText("Hide all rows except for avg");
+    buttonHideAllErrorsExceptAvg.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonHideAllErrorsExceptAvgActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
     panelRunOutside.setLayout(panelRunOutsideLayout);
     panelRunOutsideLayout.setHorizontalGroup(
@@ -2363,6 +2371,8 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGap(0, 3, Short.MAX_VALUE))
                 .addGroup(panelRunOutsideLayout.createSequentialGroup()
                     .addComponent(buttonRunShowHiddenErrorMeasures)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(buttonHideAllErrorsExceptAvg)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(buttonRunExportErrorMeasures)))
             .addContainerGap())
@@ -2478,7 +2488,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(buttonRunShowHiddenErrorMeasures)
-                .addComponent(buttonRunExportErrorMeasures))
+                .addComponent(buttonRunExportErrorMeasures)
+                .addComponent(buttonHideAllErrorsExceptAvg))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(panelSummary, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addContainerGap())
@@ -4262,6 +4273,11 @@ public class MainFrame extends javax.swing.JFrame {
         ((ErrorMeasuresTableModel_CTS)errorMeasuresLatest_CTS.getModel()).showAllHiddenRows();
         ((ErrorMeasuresTableModel_ITS)errorMeasuresLatest_IntTS.getModel()).showAllHiddenRows();
     }//GEN-LAST:event_buttonRunShowHiddenErrorMeasuresActionPerformed
+
+    private void buttonHideAllErrorsExceptAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHideAllErrorsExceptAvgActionPerformed
+        ((ErrorMeasuresTableModel_CTS)errorMeasuresLatest_CTS.getModel()).hideAllButAvg();
+        ((ErrorMeasuresTableModel_ITS)errorMeasuresLatest_IntTS.getModel()).hideAllButAvg();
+    }//GEN-LAST:event_buttonHideAllErrorsExceptAvgActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -4311,6 +4327,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
+    private javax.swing.JButton buttonHideAllErrorsExceptAvg;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonPACF;

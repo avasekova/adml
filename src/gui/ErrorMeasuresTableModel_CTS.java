@@ -90,4 +90,19 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
             return selectedRow - reports.size() - 2;
         }
     }
+    
+    public void hideAllButAvg() {
+        int originalSize = reports.size();
+        List<TrainAndTestReportCrisp> stash = new ArrayList<>();
+        for (TrainAndTestReportCrisp r : reports) {
+            if (r.canBeInvisible()) { //for now, the only way to distinguish avg from non-avg. TODO think of sth else
+                stash.add(r);
+                
+            }
+        }
+        hiddenReports.addAll(stash);
+        reports.removeAll(stash);
+        
+        this.fireTableRowsDeleted(0, originalSize*2 + 2);
+    }
 }
