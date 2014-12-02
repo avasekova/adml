@@ -17,29 +17,22 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="50" pref="50" max="-2" attributes="0"/>
-              <Component id="textFieldNumNodesHidden" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="23" pref="23" max="-2" attributes="0"/>
-              <Component id="textFieldNumNonSeasonalLags" min="-2" pref="56" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="45" pref="45" max="-2" attributes="0"/>
-              <Component id="textFieldNumSeasonalLags" min="-2" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="158" pref="158" max="-2" attributes="0"/>
-              <Component id="textFieldNumReps" min="-2" pref="56" max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="99" pref="99" max="-2" attributes="0"/>
-              <Component id="textFieldLambda" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="textFieldNumNodesHidden" alignment="0" max="32767" attributes="0"/>
+                  <Component id="textFieldNumNonSeasonalLags" alignment="0" max="32767" attributes="0"/>
+                  <Component id="textFieldNumSeasonalLags" alignment="0" max="32767" attributes="0"/>
+                  <Component id="textFieldNumReps" alignment="0" max="32767" attributes="0"/>
+                  <Component id="textFieldLambda" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
