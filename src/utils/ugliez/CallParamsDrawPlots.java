@@ -1,6 +1,6 @@
 package utils.ugliez;
 
-import gui.AveragesConfig;
+import models.avg.AveragesConfig;
 import java.util.List;
 import javax.swing.JList;
 import models.TrainAndTestReportCrisp;

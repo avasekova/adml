@@ -72,6 +72,10 @@ import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.VARint;
+import models.avg.Average;
+import models.avg.AverageMDE;
+import models.avg.AverageSimple;
+import models.avg.AveragesConfig;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import params.AnalysisBatchLine;
@@ -3601,11 +3605,7 @@ public class MainFrame extends javax.swing.JFrame {
                 new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, new AveragesConfig(checkBoxAvgSimpleCTSperM.isSelected(), 
-                checkBoxAvgSimpleCTS.isSelected(), checkBoxAvgSimpleIntTSperM.isSelected(),
-                checkBoxAvgSimpleIntTS.isSelected(), checkBoxAvgMDeCTSperM.isSelected(),
-                checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
-                checkBoxAvgMDeIntTS.isSelected(), checkBoxAvgONLY.isSelected())));
+                reportsIntTS, from, to, colname_CTS, new AveragesConfig(getAllAvgs(), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -4176,11 +4176,8 @@ public class MainFrame extends javax.swing.JFrame {
                 new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, new AveragesConfig(checkBoxAvgSimpleCTSperM.isSelected(), 
-                checkBoxAvgSimpleCTS.isSelected(), checkBoxAvgSimpleIntTSperM.isSelected(),
-                checkBoxAvgSimpleIntTS.isSelected(), checkBoxAvgMDeCTSperM.isSelected(),
-                checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
-                checkBoxAvgMDeIntTS.isSelected(), checkBoxAvgONLY.isSelected())));
+                reportsIntTS, from, to, colname_CTS, 
+                new AveragesConfig(getAllAvgs(), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -5743,5 +5740,17 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             panelEverything.remove(panelPredictionIntervalsAll);
         }
+    }
+
+    private List<Average> getAllAvgs() {
+        List<Average> avgList = new ArrayList<>();
+        avgList.add(new AverageSimple(checkBoxAvgSimpleCTSperM.isSelected(), 
+                checkBoxAvgSimpleCTS.isSelected(), checkBoxAvgSimpleIntTSperM.isSelected(),
+                checkBoxAvgSimpleIntTS.isSelected()));
+        avgList.add(new AverageMDE(checkBoxAvgMDeCTSperM.isSelected(),
+                checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
+                checkBoxAvgMDeIntTS.isSelected()));
+        
+        return avgList;
     }
 }
