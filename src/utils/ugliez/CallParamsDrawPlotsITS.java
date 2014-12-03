@@ -12,14 +12,16 @@ public class CallParamsDrawPlotsITS extends CallParams {
     private DataTableModel dataTableModel;
     private List<IntervalNamesCentreRadius> listCentreRadius;
     private List<IntervalNamesLowerUpper> listLowerUpper;
+    private boolean scatterplot;
 
     public CallParamsDrawPlotsITS(JList listPlotLegend, JGDBufferedPanel canvasToUse, int width, int height, 
             DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, 
-            List<IntervalNamesLowerUpper> listLowerUpper) {
+            List<IntervalNamesLowerUpper> listLowerUpper, boolean scatterplot) {
         super(listPlotLegend, canvasToUse, width, height);
         this.dataTableModel = dataTableModel;
         this.listCentreRadius = listCentreRadius;
         this.listLowerUpper = listLowerUpper;
+        this.scatterplot = scatterplot;
     }
     
     public DataTableModel getDataTableModel() {
@@ -44,5 +46,13 @@ public class CallParamsDrawPlotsITS extends CallParams {
 
     public void setListLowerUpper(List<IntervalNamesLowerUpper> listLowerUpper) {
         this.listLowerUpper = listLowerUpper;
+    }
+
+    public boolean isScatterplot() {
+        return scatterplot;
+    }
+
+    public void setScatterplot(boolean scatterplot) {
+        this.scatterplot = scatterplot;
     }
 }

@@ -915,9 +915,9 @@ public class PlotDrawer {
         rengine.assign(CENTER, Utils.listToArray(center));
         rengine.assign(RADIUS, Utils.listToArray(radius));
         REXP getLower = rengine.eval(CENTER + " - " + RADIUS);
-        REXP Upper = rengine.eval(CENTER + " + " + RADIUS);
+        REXP getUpper = rengine.eval(CENTER + " + " + RADIUS);
         rengine.assign(LOWER, getLower);
-        rengine.assign(UPPER, Upper);
+        rengine.assign(UPPER, getUpper);
         
         drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeX, rangeY);
     }
@@ -946,6 +946,154 @@ public class PlotDrawer {
         }
         
         
+        
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+    }
+    
+    //TODO refaktor - spojit nejak s drawPlotsITS, ak to ide?
+    public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
+        final String LOWER = Const.INPUT + Utils.getCounter();
+        final String UPPER = Const.INPUT + Utils.getCounter();
+        final String CENTER = Const.INPUT + Utils.getCounter();
+        final String RADIUS = Const.INPUT + Utils.getCounter();
+        
+        Rengine rengine = MyRengine.getRengine();
+        
+        //ako prve prerobit vsetky LU(mena) na CR(cisla):
+        List<Double> allValsCenter = new ArrayList<>();
+        List<Double> allValsRadius = new ArrayList<>();
+        for (IntervalNamesLowerUpper namesLU : par.getListLowerUpper()) {
+            List<Double> lowers = par.getDataTableModel().getDataForColname(namesLU.getLowerBound());
+            List<Double> uppers = par.getDataTableModel().getDataForColname(namesLU.getUpperBound());
+            rengine.assign(LOWER, Utils.listToArray(lowers));
+            rengine.assign(UPPER, Utils.listToArray(uppers));
+            rengine.eval(CENTER + " <- (" + UPPER + " + " + LOWER + ")/2");
+            rengine.eval(RADIUS + " <- (" + UPPER + " - " + LOWER + ")/2");
+            REXP getCenter = rengine.eval(CENTER);
+            REXP getRadii = rengine.eval(RADIUS);
+            List<Double> centers = Utils.arrayToList(getCenter.asDoubleArray());
+            List<Double> radii = Utils.arrayToList(getRadii.asDoubleArray());
+            allValsCenter.addAll(centers);
+            allValsRadius.addAll(radii);
+        }
+        //potom prerobit aj vsetky CR mena na CR cisla:
+        for (IntervalNamesCentreRadius namesCR : par.getListCentreRadius()) {
+            List<Double> centers = par.getDataTableModel().getDataForColname(namesCR.getCentre());
+            List<Double> radii = par.getDataTableModel().getDataForColname(namesCR.getRadius());
+            allValsCenter.addAll(centers);
+            allValsRadius.addAll(radii);
+        }
+        
+        //teraz viem spocitat range
+        String rangeCenter = getRangeYMultipleInterval(allValsCenter);
+        String rangeRadius = getRangeYMultipleInterval(allValsRadius);
+        
+        drawScatterPlotsITS(drawNew, par, rangeCenter, rangeRadius);
+    }
+    
+    public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
+        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        int colourNumber = 0;
+        boolean next = false;
+        for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
+            //remember the colour for the legend
+            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+            
+            String lineStyle = "col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
+            drawScatterPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
+                    par.getDataTableModel().getDataForColname(interval.getRadius()), next, lineStyle, rangeCenter, rangeRadius);
+            if (! next) {
+                next = true;
+            }
+            
+            colourNumber++;
+        }
+        
+        next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
+        
+        for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
+            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+            
+            String lineStyle = "col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
+            drawScatterPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
+                    par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeCenter, rangeRadius);
+            if (! next) {
+                next = true;
+            }
+            
+            colourNumber++;
+        }
+        
+        //draw legend
+        List<Plottable> plots = new ArrayList<>();
+        plots.addAll(par.getListCentreRadius());
+        plots.addAll(par.getListLowerUpper());
+        drawLegend(par.getListPlotLegend(), plots, new PlotLegendListCellRenderer());
+        
+        Rengine rengine = MyRengine.getRengine();
+        REXP getRangeX = rengine.eval(rangeCenter);
+        double[] ranX = getRangeX.asDoubleArray();
+        REXP getRangeY = rengine.eval(rangeRadius);
+        double[] ranY = getRangeY.asDoubleArray();
+        PlotStateKeeper.setLastDrawnIntXmin(ranX[0]);
+        PlotStateKeeper.setLastDrawnIntXmax(ranX[1]);
+        PlotStateKeeper.setLastDrawnIntYmin(ranY[0]);
+        PlotStateKeeper.setLastDrawnIntYmax(ranY[1]);
+        
+        if (drawNew) {
+            PlotStateKeeper.setIntXmax(ranX[1]);
+            PlotStateKeeper.setIntYmax(ranY[1]);
+        }
+        
+        PlotStateKeeper.setLastCallParams(par);
+    }
+    
+    private static void drawScatterPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
+            boolean par, String lineStyle, String rangeX, String rangeY) {
+        final String LOWER = Const.INPUT + Utils.getCounter();
+        final String UPPER = Const.INPUT + Utils.getCounter();
+        final String CENTER = Const.INPUT + Utils.getCounter();
+        final String RADIUS = Const.INPUT + Utils.getCounter();
+        final int count = lowerBound.size();
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.assign(LOWER, Utils.listToArray(lowerBound));
+        rengine.assign(UPPER, Utils.listToArray(upperBound));
+        rengine.eval(CENTER + " <- (" + UPPER + " + " + LOWER + ")/2");
+        rengine.eval(RADIUS + " <- (" + UPPER + " - " + LOWER + ")/2");
+        
+        drawScatterPlotITSNow(width, height, CENTER, RADIUS, count, par, lineStyle, rangeX, rangeY);
+    }
+    
+    private static void drawScatterPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
+            boolean par, String lineStyle, String rangeX, String rangeY) {
+        final String CENTER = Const.INPUT + Utils.getCounter();
+        final String RADIUS = Const.INPUT + Utils.getCounter();
+        final int count = center.size();
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.assign(CENTER, Utils.listToArray(center));
+        rengine.assign(RADIUS, Utils.listToArray(radius));
+        
+        drawScatterPlotITSNow(width, height, CENTER, RADIUS, count, par, lineStyle, rangeX, rangeY);
+    }
+    
+    private static void drawScatterPlotITSNow(int width, int height, final String CENTER, final String RADIUS, final int count,
+            boolean par, String lineColour, String rangeX, String rangeY) {
+        Rengine rengine = MyRengine.getRengine();
+        
+        String lim = "xlim = " + rangeX + ", ylim = " + rangeY;
+        
+        if (par) { //continue from the previous plot
+            rengine.eval("par(new=TRUE)");
+            //don't draw axes
+            rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", axes=FALSE, ann=FALSE)");
+        } else { //start a new plot
+            rengine.eval("require(JavaGD)");
+            rengine.eval("JavaGD()"); // zacne novy plot
+            rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", xlab=\"Center\", ylab=\"Radius\")");
+        }
         
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();

@@ -183,6 +183,7 @@ public class MainFrame extends javax.swing.JFrame {
         listPlotLegend = new javax.swing.JList();
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
+        buttonPlotAllITSScatterplot = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -663,6 +664,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
+    buttonPlotAllITSScatterplot.setText("Scatterplot");
+    buttonPlotAllITSScatterplot.setEnabled(false);
+    buttonPlotAllITSScatterplot.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonPlotAllITSScatterplotActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
     panelChart.setLayout(panelChartLayout);
     panelChartLayout.setHorizontalGroup(
@@ -712,13 +721,6 @@ public class MainFrame extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(buttonPlotAllITS)
-                                .addComponent(buttonPlotRemoveITS)
-                                .addComponent(buttonPlotAddITS))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(panelChartLayout.createSequentialGroup()
                             .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(jLabel129)
                                 .addComponent(jLabel130))
@@ -733,21 +735,30 @@ public class MainFrame extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(textFieldPlotRangeIntTSYto)
-                                .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelChartLayout.createSequentialGroup()
+                            .addComponent(buttonPlotAllITS)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonPlotAllITSScatterplot))
+                        .addComponent(buttonPlotRemoveITS)
+                        .addComponent(buttonPlotAddITS))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelChartLayout.createSequentialGroup()
                             .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(buttonPlotRestoreIntTSRangeX)
                                 .addComponent(buttonPlotRestoreIntTSRangeY))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(buttonPlotZoomIntTS)))
+                            .addComponent(buttonPlotZoomIntTS)
+                            .addGap(0, 57, Short.MAX_VALUE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGap(0, 0, Short.MAX_VALUE)
                             .addComponent(buttonLegendSelectAll)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonLegendSelectNone))
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))))
             .addContainerGap())
     );
     panelChartLayout.setVerticalGroup(
@@ -771,7 +782,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonPlotRemoveITS)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPlotAllITS)))
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonPlotAllITS)
+                                    .addComponent(buttonPlotAllITSScatterplot))))
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2693,7 +2706,7 @@ public class MainFrame extends javax.swing.JFrame {
         .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
             .addContainerGap()
             .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 1351, Short.MAX_VALUE)
+                .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 1341, Short.MAX_VALUE)
                 .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
                     .addComponent(jLabel1)
                     .addGap(18, 18, 18)
@@ -2701,20 +2714,20 @@ public class MainFrame extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(buttonRunAnalysisBatch)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jLabel7)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jLabel7)))
             .addContainerGap())
     );
     panelAnalysisBatchLayout.setVerticalGroup(
         panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel1)
-                .addComponent(buttonAnalysisBatchRemoveSelectedRows)
+            .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonRunAnalysisBatch)
-                    .addComponent(jLabel7)))
+                    .addComponent(jLabel7))
+                .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(buttonAnalysisBatchRemoveSelectedRows)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
             .addContainerGap())
@@ -2830,6 +2843,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonACF.setEnabled(true);
                         buttonPACF.setEnabled(true);
                         buttonPlotAllITS.setEnabled(true);
+                        buttonPlotAllITSScatterplot.setEnabled(true);
                         buttonPlotAddITS.setEnabled(true);
                         buttonPlotRemoveITS.setEnabled(true);
                         ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
@@ -2895,7 +2909,7 @@ public class MainFrame extends javax.swing.JFrame {
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(), dataTableModel,
-                listITSPlotCentreRadius, listITSPlotLowerUpper));
+                listITSPlotCentreRadius, listITSPlotLowerUpper, false));
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
@@ -3638,17 +3652,29 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeYActionPerformed
 
     private void buttonPlotRestoreIntTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeXActionPerformed
-        textFieldPlotRangeIntTSXfrom.setText("" + textFieldRunDataRangeFrom.getText());
-        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
-                Integer.parseInt(textFieldRunNumForecasts.getText());
-        textFieldPlotRangeIntTSXto.setText("" + upperBound);
+        if ((PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) &&
+                (((CallParamsDrawPlotsITS)PlotStateKeeper.getLastCallParams()).isScatterplot())) {
+            //TODO
+            textAreaPlotBasicStats.setText("The scatterplot does not support restoring the original range yet.");
+        } else {
+            textFieldPlotRangeIntTSXfrom.setText("" + textFieldRunDataRangeFrom.getText());
+            int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
+                    Integer.parseInt(textFieldRunNumForecasts.getText());
+            textFieldPlotRangeIntTSXto.setText("" + upperBound);
+        }
     }//GEN-LAST:event_buttonPlotRestoreIntTSRangeXActionPerformed
 
     private void buttonPlotRestoreIntTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeYActionPerformed
-        textFieldPlotRangeIntTSYfrom.setText("" + textFieldRunDataRangeFrom.getText());
-        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
-                Integer.parseInt(textFieldRunNumForecasts.getText());
-        textFieldPlotRangeIntTSYto.setText("" + upperBound);
+        if ((PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) &&
+                (((CallParamsDrawPlotsITS)PlotStateKeeper.getLastCallParams()).isScatterplot())) {
+            //TODO
+            textAreaPlotBasicStats.setText("The scatterplot does not support restoring the original range yet.");
+        } else {
+            textFieldPlotRangeIntTSYfrom.setText("" + textFieldRunDataRangeFrom.getText());
+            int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
+                    Integer.parseInt(textFieldRunNumForecasts.getText());
+            textFieldPlotRangeIntTSYto.setText("" + upperBound);
+        }
     }//GEN-LAST:event_buttonPlotRestoreIntTSRangeYActionPerformed
 
     private void buttonPlotZoomCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotZoomCTSActionPerformed
@@ -3686,7 +3712,11 @@ public class MainFrame extends javax.swing.JFrame {
             String rangeXInt = "range(c(" + textFieldPlotRangeIntTSXfrom.getText() + "," + textFieldPlotRangeIntTSXto.getText() + "))";
             String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
             
-            PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+            if (((CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams())).isScatterplot()) {
+                PlotDrawer.drawScatterPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+            } else {
+                PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+            }
             setPlotRanges(0, 1); //hack, cokolvek ine ako 0 znamena enable
         }
     }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
@@ -4359,6 +4389,15 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonForecastValsHideAllButAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsHideAllButAvgActionPerformed
         ((ForecastValsTableModel)forecastValuesLatest.getModel()).hideAllButAvg();
     }//GEN-LAST:event_buttonForecastValsHideAllButAvgActionPerformed
+
+    private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
+        //tu uz len vezmi nasyslene v tych listoch
+        PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
+                panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        textAreaPlotBasicStats.setText("");
+        buttonPlotExportPlot.setEnabled(true);
+        setPlotRanges(0, 1);
+    }//GEN-LAST:event_buttonPlotAllITSScatterplotActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxRunPlotAverageCTS.isSelected()) &&
@@ -4417,6 +4456,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
+    private javax.swing.JButton buttonPlotAllITSScatterplot;
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotExportPlot;
     private javax.swing.JButton buttonPlotRemoveITS;
