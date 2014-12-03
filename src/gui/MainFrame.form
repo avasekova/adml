@@ -3284,7 +3284,7 @@
                                                   </Group>
                                               </Group>
                                           </Group>
-                                          <Component id="checkBoxRunPlotAvgONLY" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkBoxAvgONLY" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
@@ -3489,7 +3489,7 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunPlotAvgONLY" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgONLY" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
@@ -3762,7 +3762,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgSimpleIntTSperMActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="checkBoxRunPlotAvgONLY">
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgONLY">
               <Properties>
                 <Property name="text" type="java.lang.String" value="do not show all plots, just the average"/>
                 <Property name="enabled" type="boolean" value="false"/>

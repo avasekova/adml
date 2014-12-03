@@ -1,5 +1,6 @@
 package utils.ugliez;
 
+import gui.AveragesConfig;
 import java.util.List;
 import javax.swing.JList;
 import models.TrainAndTestReportCrisp;
@@ -16,18 +17,13 @@ public class CallParamsDrawPlots extends CallParams {
     private int from;
     private int to;
     private String colname_CTS;
-    private boolean plotAvgCTSperMethod;
-    private boolean plotAvgCTS;
-    private boolean plotAvgIntTSperMethod;
-    private boolean plotAvgIntTS;
-    private boolean plotAvgONLY;
+    private AveragesConfig avgConfig;
 
     public CallParamsDrawPlots(JList plotListLegend, JGDBufferedPanel canvasToUse, int width, int height, 
             List<Double> allDataCTS,
             int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
             List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
-            boolean plotAvgCTSperMethod, boolean plotAvgCTS, boolean plotAvgIntTSperMethod,
-            boolean plotAvgIntTS, boolean plotAvgOnly) {
+            AveragesConfig avgConfig) {
         super(plotListLegend, canvasToUse, width, height);
         this.allDataCTS = allDataCTS;
         this.sizeDataWithoutFromToCrop = sizeDataWithoutFromToCrop;
@@ -37,11 +33,7 @@ public class CallParamsDrawPlots extends CallParams {
         this.from = from;
         this.to = to;
         this.colname_CTS = colname_CTS;
-        this.plotAvgCTSperMethod = plotAvgCTSperMethod;
-        this.plotAvgCTS = plotAvgCTS;
-        this.plotAvgIntTSperMethod = plotAvgIntTSperMethod;
-        this.plotAvgIntTS = plotAvgIntTS;
-        this.plotAvgONLY = plotAvgOnly;
+        this.avgConfig = avgConfig;
     }
     
     public List<Double> getAllDataCTS() {
@@ -108,43 +100,11 @@ public class CallParamsDrawPlots extends CallParams {
         this.colname_CTS = colname_CTS;
     }
 
-    public boolean isPlotAvgCTSperMethod() {
-        return plotAvgCTSperMethod;
+    public AveragesConfig getAvgConfig() {
+        return avgConfig;
     }
 
-    public void setPlotAvgCTSperMethod(boolean plotAvgCTSperMethod) {
-        this.plotAvgCTSperMethod = plotAvgCTSperMethod;
-    }
-
-    public boolean isPlotAvgCTS() {
-        return plotAvgCTS;
-    }
-
-    public void setPlotAvgCTS(boolean plotAvgCTS) {
-        this.plotAvgCTS = plotAvgCTS;
-    }
-
-    public boolean isPlotAvgIntTSperMethod() {
-        return plotAvgIntTSperMethod;
-    }
-
-    public void setPlotAvgIntTSperMethod(boolean plotAvgIntTSperMethod) {
-        this.plotAvgIntTSperMethod = plotAvgIntTSperMethod;
-    }
-
-    public boolean isPlotAvgIntTS() {
-        return plotAvgIntTS;
-    }
-
-    public void setPlotAvgIntTS(boolean plotAvgIntTS) {
-        this.plotAvgIntTS = plotAvgIntTS;
-    }
-
-    public boolean isPlotAvgONLY() {
-        return plotAvgONLY;
-    }
-
-    public void setPlotAvgONLY(boolean plotAvgONLY) {
-        this.plotAvgONLY = plotAvgONLY;
+    public void setAvgConfig(AveragesConfig avgConfig) {
+        this.avgConfig = avgConfig;
     }
 }

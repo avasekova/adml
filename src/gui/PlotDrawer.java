@@ -83,11 +83,11 @@ public class PlotDrawer {
         int from = par.getFrom();
         int to = par.getTo();
         String colname_CTS = par.getColname_CTS();
-        boolean avgCTSperMethod = par.isPlotAvgCTSperMethod();
-        boolean avgCTS = par.isPlotAvgCTS();
-        boolean avgIntTSperMethod = par.isPlotAvgIntTSperMethod();
-        boolean avgIntTS = par.isPlotAvgIntTS();
-        boolean avgONLY = par.isPlotAvgONLY();
+        final boolean avgCTSperMethod = par.getAvgConfig().isAvgSimpleCTSperM();
+        final boolean avgCTS = par.getAvgConfig().isAvgSimpleCTS();
+        final boolean avgIntTSperMethod = par.getAvgConfig().isAvgSimpleIntTSperM();
+        final boolean avgIntTS = par.getAvgConfig().isAvgSimpleIntTS();
+        final boolean avgONLY = par.getAvgConfig().isAvgONLY();
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");

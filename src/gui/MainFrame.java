@@ -393,7 +393,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonRunRestoreRangeAll = new javax.swing.JButton();
         checkBoxAvgSimpleCTSperM = new javax.swing.JCheckBox();
         checkBoxAvgSimpleIntTSperM = new javax.swing.JCheckBox();
-        checkBoxRunPlotAvgONLY = new javax.swing.JCheckBox();
+        checkBoxAvgONLY = new javax.swing.JCheckBox();
         checkBoxAvgSimpleCTS = new javax.swing.JCheckBox();
         checkBoxAvgSimpleIntTS = new javax.swing.JCheckBox();
         checkBoxRunIntervalRandomWalk = new javax.swing.JCheckBox();
@@ -2152,8 +2152,8 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
-    checkBoxRunPlotAvgONLY.setText("do not show all plots, just the average");
-    checkBoxRunPlotAvgONLY.setEnabled(false);
+    checkBoxAvgONLY.setText("do not show all plots, just the average");
+    checkBoxAvgONLY.setEnabled(false);
 
     checkBoxAvgSimpleCTS.setText("simple avg");
     checkBoxAvgSimpleCTS.addActionListener(new java.awt.event.ActionListener() {
@@ -2390,7 +2390,7 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addComponent(checkBoxAvgMDeCTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(checkBoxAvgMDeCTS))))
-                                .addComponent(checkBoxRunPlotAvgONLY, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(checkBoxAvgONLY, javax.swing.GroupLayout.Alignment.LEADING))
                             .addContainerGap())))
                 .addGroup(panelRunOutsideLayout.createSequentialGroup()
                     .addComponent(buttonTrainAndTest)
@@ -2549,7 +2549,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(checkBoxAvgSimpleIntTSperM)
                                     .addComponent(checkBoxAvgSimpleIntTS)))
                             .addGap(18, 18, 18)
-                            .addComponent(checkBoxRunPlotAvgONLY))
+                            .addComponent(checkBoxAvgONLY))
                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
                             .addGap(49, 49, 49)
                             .addComponent(jLabel45))))
@@ -3601,9 +3601,11 @@ public class MainFrame extends javax.swing.JFrame {
                 new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, checkBoxAvgSimpleCTSperM.isSelected(), 
+                reportsIntTS, from, to, colname_CTS, new AveragesConfig(checkBoxAvgSimpleCTSperM.isSelected(), 
                 checkBoxAvgSimpleCTS.isSelected(), checkBoxAvgSimpleIntTSperM.isSelected(),
-                checkBoxAvgSimpleIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
+                checkBoxAvgSimpleIntTS.isSelected(), checkBoxAvgMDeCTSperM.isSelected(),
+                checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
+                checkBoxAvgMDeIntTS.isSelected(), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -3881,7 +3883,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void checkBoxAvgSimpleCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleCTSperMActionPerformed
         if (checkBoxAvgSimpleCTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
         } else { //prave sa to odfajklo
             maybeTurnOffPlotAvgONLY();
         }
@@ -3889,7 +3891,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void checkBoxAvgSimpleCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleCTSActionPerformed
         if (checkBoxAvgSimpleCTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
         } else { //prave sa to odfajklo
             maybeTurnOffPlotAvgONLY();
         }
@@ -3897,7 +3899,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void checkBoxAvgSimpleIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleIntTSperMActionPerformed
         if (checkBoxAvgSimpleIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
         } else { //prave sa to odfajklo
             maybeTurnOffPlotAvgONLY();
         }
@@ -3905,7 +3907,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void checkBoxAvgSimpleIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleIntTSActionPerformed
         if (checkBoxAvgSimpleIntTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxRunPlotAvgONLY.setEnabled(true); //povol ONLY AVG
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
         } else { //prave sa to odfajklo
             maybeTurnOffPlotAvgONLY();
         }
@@ -3993,12 +3995,12 @@ public class MainFrame extends javax.swing.JFrame {
         boolean originalStateCheckboxAvgCTS = checkBoxAvgSimpleCTS.isSelected();
         boolean originalStateCheckboxAvgIntTSPerMethod = checkBoxAvgSimpleIntTSperM.isSelected();
         boolean originalStateCheckboxAvgIntTS = checkBoxAvgSimpleIntTS.isSelected();
-        boolean originalStateCheckboxAvgONLY = checkBoxRunPlotAvgONLY.isSelected();
+        boolean originalStateCheckboxAvgONLY = checkBoxAvgONLY.isSelected();
         checkBoxAvgSimpleCTSperM.setSelected(false);
         checkBoxAvgSimpleCTS.setSelected(false);
         checkBoxAvgSimpleIntTSperM.setSelected(false);
         checkBoxAvgSimpleIntTS.setSelected(false);
-        checkBoxRunPlotAvgONLY.setSelected(false);
+        checkBoxAvgONLY.setSelected(false);
         //------------end hack, part 1/2
         
         
@@ -4174,9 +4176,11 @@ public class MainFrame extends javax.swing.JFrame {
                 new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, checkBoxAvgSimpleCTSperM.isSelected(), 
+                reportsIntTS, from, to, colname_CTS, new AveragesConfig(checkBoxAvgSimpleCTSperM.isSelected(), 
                 checkBoxAvgSimpleCTS.isSelected(), checkBoxAvgSimpleIntTSperM.isSelected(),
-                checkBoxAvgSimpleIntTS.isSelected(), checkBoxRunPlotAvgONLY.isSelected()));
+                checkBoxAvgSimpleIntTS.isSelected(), checkBoxAvgMDeCTSperM.isSelected(),
+                checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
+                checkBoxAvgMDeIntTS.isSelected(), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -4202,7 +4206,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxAvgSimpleCTS.setSelected(originalStateCheckboxAvgCTS);
         checkBoxAvgSimpleIntTSperM.setSelected(originalStateCheckboxAvgIntTSPerMethod);
         checkBoxAvgSimpleIntTS.setSelected(originalStateCheckboxAvgIntTS);
-        checkBoxRunPlotAvgONLY.setSelected(originalStateCheckboxAvgONLY);
+        checkBoxAvgONLY.setSelected(originalStateCheckboxAvgONLY);
         //------------end hack, part 2/2
         
         
@@ -4519,8 +4523,8 @@ public class MainFrame extends javax.swing.JFrame {
             (! checkBoxAvgSimpleCTSperM.isSelected()) &&
             (! checkBoxAvgSimpleIntTS.isSelected()) &&
             (! checkBoxAvgSimpleIntTSperM.isSelected())) {
-            checkBoxRunPlotAvgONLY.setSelected(false);
-            checkBoxRunPlotAvgONLY.setEnabled(false);
+            checkBoxAvgONLY.setSelected(false);
+            checkBoxAvgONLY.setEnabled(false);
         }
     }
     
@@ -4606,6 +4610,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxAvgMDeCTSperM;
     private javax.swing.JCheckBox checkBoxAvgMDeIntTS;
     private javax.swing.JCheckBox checkBoxAvgMDeIntTSperM;
+    private javax.swing.JCheckBox checkBoxAvgONLY;
     private javax.swing.JCheckBox checkBoxAvgSimpleCTS;
     private javax.swing.JCheckBox checkBoxAvgSimpleCTSperM;
     private javax.swing.JCheckBox checkBoxAvgSimpleIntTS;
@@ -4630,7 +4635,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnet;
     private javax.swing.JCheckBox checkBoxRunMLPnnetar;
-    private javax.swing.JCheckBox checkBoxRunPlotAvgONLY;
     private javax.swing.JCheckBox checkBoxRunRBF;
     private javax.swing.JCheckBox checkBoxRunRBFint;
     private javax.swing.JCheckBox checkBoxRunRandomWalkCTS;
