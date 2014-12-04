@@ -44,16 +44,40 @@ public class AverageEqCenterEqLogRadius extends Average {
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportInterval report) {
-        return 1;
+        return 0;
     }
 
     @Override
     public double getWeightForModelTest(TrainAndTestReportInterval report) {
-        return 1;
+        return 0;
     }
 
     @Override
     public double getWeightForModelFuture(TrainAndTestReportInterval report) {
+        return 0;
+    }
+    
+    public double getWeightForCenterTrain() {
+        return 1;
+    }
+    
+    public double getWeightForCenterTest() {
+        return 1;
+    }
+    
+    public double getWeightForCenterFuture() {
+        return 1;
+    }
+    
+    public double getWeightForRadiusTrain() {
+        return 1;
+    }
+    
+    public double getWeightForRadiusTest() {
+        return 1;
+    }
+    
+    public double getWeightForRadiusFuture() {
         return 1;
     }
     
@@ -78,24 +102,26 @@ public class AverageEqCenterEqLogRadius extends Average {
             if (reportsIntTS.size() == 1) { //does not make sense to compute average over one series
                 return reportsIntTS.get(0);
             } else {
-                StringBuilder avgAllLowersTrain = new StringBuilder("(");
-                StringBuilder avgAllLowersTest = new StringBuilder("(");
-                StringBuilder avgAllLowersFuture = new StringBuilder("(");
-                StringBuilder avgAllUppersTrain = new StringBuilder("(");
-                StringBuilder avgAllUppersTest = new StringBuilder("(");
-                StringBuilder avgAllUppersFuture = new StringBuilder("(");
+                StringBuilder avgAllCentersTrain = new StringBuilder("(");
+                StringBuilder avgAllCentersTest = new StringBuilder("(");
+                StringBuilder avgAllCentersFuture = new StringBuilder("(");
+                StringBuilder avgAllRadiiTrain = new StringBuilder("(");
+                StringBuilder avgAllRadiiTest = new StringBuilder("(");
+                StringBuilder avgAllRadiiFuture = new StringBuilder("(");
                 StringBuilder sumWeightsTrain = new StringBuilder("(");
                 StringBuilder sumWeightsTest = new StringBuilder("(");
                 StringBuilder sumWeightsFuture = new StringBuilder("(");
                 boolean next = false;
                 for (TrainAndTestReportInterval r : reportsIntTS) {
                     if (next) {
-                        avgAllLowersTrain.append(" + ");
-                        avgAllLowersTest.append(" + ");
-                        avgAllLowersFuture.append(" + ");
-                        avgAllUppersTrain.append(" + ");
-                        avgAllUppersTest.append(" + ");
-                        avgAllUppersFuture.append(" + ");
+                        avgAllCentersTrain .append(" + ");
+                        avgAllCentersTest  .append(" + ");
+                        avgAllCentersFuture.append(" + ");
+                        
+                        avgAllRadiiTrain   .append(" * ");
+                        avgAllRadiiTest    .append(" * ");
+                        avgAllRadiiFuture  .append(" * ");
+                        
                         sumWeightsTrain.append(" + ");
                         sumWeightsTest.append(" + ");
                         sumWeightsFuture.append(" + ");
@@ -103,70 +129,67 @@ public class AverageEqCenterEqLogRadius extends Average {
                         next = true;
                     }
                     
-                    double weightTrain = getWeightForModelTrain(r);
-                    double weightTest = getWeightForModelTest(r);
-                    double weightFuture = getWeightForModelFuture(r);
+                    sumWeightsTrain.append("1"); //TODO vseobecne
+                    sumWeightsTest.append("1");  //TODO vseobecne
                     
-                    sumWeightsTrain.append(weightTrain);
-                    sumWeightsTest.append(weightTest);
-                    
-                    avgAllLowersTrain.append(weightTrain).append("*")
-                            .append(Utils.arrayToRVectorString(r.getFittedValuesLowers()));
-                    avgAllLowersTest.append(weightTest).append("*")
-                            .append(Utils.arrayToRVectorString(r.getForecastValuesTestLowers()));
+                    avgAllCentersTrain.append(getWeightForCenterTrain()).append("*")
+                            .append(Utils.arrayToRVectorString(r.getFittedValuesCenters()));
+                    avgAllCentersTest.append(getWeightForCenterTest()).append("*")
+                            .append(Utils.arrayToRVectorString(r.getForecastValuesTestCenters()));
 
-                    avgAllUppersTrain.append(weightTrain).append("*")
-                            .append(Utils.arrayToRVectorString(r.getFittedValuesUppers()));
-                    avgAllUppersTest.append(weightTest).append("*")
-                            .append(Utils.arrayToRVectorString(r.getForecastValuesTestUppers()));
+                    avgAllRadiiTrain.append(getWeightForRadiusTrain()).append("*")
+                            .append(Utils.arrayToRVectorString(r.getFittedValuesRadii()));
+                    avgAllRadiiTest.append(getWeightForRadiusTest()).append("*")
+                            .append(Utils.arrayToRVectorString(r.getForecastValuesTestRadii()));
                     
-                    avgAllLowersFuture.append(weightFuture).append("*");
-                    avgAllUppersFuture.append(weightFuture).append("*");
+                    avgAllCentersFuture.append(getWeightForCenterFuture()).append("*");
+                    avgAllRadiiFuture.append(getWeightForRadiusFuture()).append("*");
                     if (r.getForecastValuesFuture().size() > 0) {
-                        avgAllLowersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureLowers()));
-                        avgAllUppersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureUppers()));
+                        avgAllCentersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureCenters()));
+                        avgAllRadiiFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureRadii()));
                         
-                        sumWeightsFuture.append(weightFuture);
+                        sumWeightsFuture.append("1"); //TODO vseobecne
                     } else {
-                        avgAllLowersFuture.append("0");
-                        avgAllUppersFuture.append("0");
+                        avgAllCentersFuture.append("0");
+                        avgAllRadiiFuture  .append("1");
                         
-                        sumWeightsFuture.append("0");
+                        sumWeightsFuture.append("0"); //TODO vseobecne
                     }
                 }
+                
                 sumWeightsTrain.append(")");
                 sumWeightsTest.append(")");
                 sumWeightsFuture.append(")");
                 
-                avgAllLowersTrain.append(")/").append(sumWeightsTrain);
-                avgAllLowersTest.append(")/").append(sumWeightsTest);
-                avgAllLowersFuture.append(")/").append(sumWeightsFuture);
-                avgAllUppersTrain.append(")/").append(sumWeightsTrain);
-                avgAllUppersTest.append(")/").append(sumWeightsTest);
-                avgAllUppersFuture.append(")/").append(sumWeightsFuture);
+                avgAllCentersTrain.append(")/").append(sumWeightsTrain);
+                avgAllCentersTest.append(")/").append(sumWeightsTest);
+                avgAllCentersFuture.append(")/").append(sumWeightsFuture);
+                avgAllRadiiTrain.append(")^(1/(").append(sumWeightsTrain).append("))");
+                avgAllRadiiTest.append(")^(1/(").append(sumWeightsTest).append("))");
+                avgAllRadiiFuture.append(")^(1/(").append(sumWeightsFuture).append("))");
 
-                rengine.eval("lowerTrain <- " + avgAllLowersTrain.toString());
-                rengine.eval("lowerTest <- " + avgAllLowersTest.toString());
-                rengine.eval("lowerFuture <- " + avgAllLowersFuture.toString());
-                rengine.eval("upperTrain <- " + avgAllUppersTrain.toString());
-                rengine.eval("upperTest <- " + avgAllUppersTest.toString());
-                rengine.eval("upperFuture <- " + avgAllUppersFuture.toString());
+                rengine.eval("centerTrain <- " + avgAllCentersTrain.toString());
+                rengine.eval("centerTest <- " + avgAllCentersTest.toString());
+                rengine.eval("centerFuture <- " + avgAllCentersFuture.toString());
+                rengine.eval("radiusTrain <- " + avgAllRadiiTrain.toString());
+                rengine.eval("radiusTest <- " + avgAllRadiiTest.toString());
+                rengine.eval("radiusFuture <- " + avgAllRadiiFuture.toString());
                 
                 //add report:
-                REXP getAllLowersTrain = rengine.eval("lowerTrain");
-                double[] allLowersTrain = getAllLowersTrain.asDoubleArray();
-                List<Double> allLowersTrainList = Utils.arrayToList(allLowersTrain);
-                REXP getAllLowersTest = rengine.eval("lowerTest");
-                double[] allLowersTest = getAllLowersTest.asDoubleArray();
-                List<Double> allLowersTestList = Utils.arrayToList(allLowersTest);
-                REXP getAllUppersTrain = rengine.eval("upperTrain");
-                double[] allUppersTrain = getAllUppersTrain.asDoubleArray();
-                List<Double> allUppersTrainList = Utils.arrayToList(allUppersTrain);
-                REXP getAllUppersTest = rengine.eval("upperTest");
-                double[] allUppersTest = getAllUppersTest.asDoubleArray();
-                List<Double> allUppersTestList = Utils.arrayToList(allUppersTest);
-                List<Interval> allIntervalsTrain = Utils.zipLowerUpperToIntervals(allLowersTrainList, allUppersTrainList);
-                List<Interval> allIntervalsTest = Utils.zipLowerUpperToIntervals(allLowersTestList, allUppersTestList);
+                REXP getAllCentersTrain = rengine.eval("centerTrain");
+                double[] allCentersTrain = getAllCentersTrain.asDoubleArray();
+                List<Double> allCentersTrainList = Utils.arrayToList(allCentersTrain);
+                REXP getAllCentersTest = rengine.eval("centerTest");
+                double[] allCentersTest = getAllCentersTest.asDoubleArray();
+                List<Double> allCentersTestList = Utils.arrayToList(allCentersTest);
+                REXP getAllRadiiTrain = rengine.eval("radiusTrain");
+                double[] allRadiiTrain = getAllRadiiTrain.asDoubleArray();
+                List<Double> allRadiiTrainList = Utils.arrayToList(allRadiiTrain);
+                REXP getAllRadiiTest = rengine.eval("radiusTest");
+                double[] allRadiiTest = getAllRadiiTest.asDoubleArray();
+                List<Double> allRadiiTestList = Utils.arrayToList(allRadiiTest);
+                List<Interval> allIntervalsTrain = Utils.zipCentersRadiiToIntervals(allCentersTrainList, allRadiiTrainList);
+                List<Interval> allIntervalsTest = Utils.zipCentersRadiiToIntervals(allCentersTestList, allRadiiTestList);
 
                 List<Double> realValuesLowers = reportsIntTS.get(0).getRealValuesLowers();
                 List<Double> realValuesUppers = reportsIntTS.get(0).getRealValuesUppers();
@@ -182,18 +205,18 @@ public class AverageEqCenterEqLogRadius extends Average {
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                 //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
 
-                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "(avg int)", false);
+                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", false);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setColourInPlot(COLOURS[COLOURS.length-1]);
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
                 reportAvgAllITS.setForecastValuesFuture(realValuesTest);
 
-                REXP getAllLowersFuture = rengine.eval("lowerFuture");
-                List<Double> allLowersFutureList = Utils.arrayToList(getAllLowersFuture.asDoubleArray());
-                REXP getAllUppersFuture = rengine.eval("upperFuture");
-                List<Double> allUppersFutureList = Utils.arrayToList(getAllUppersFuture.asDoubleArray());
-                List<Interval> allIntervalsFuture = Utils.zipLowerUpperToIntervals(allLowersFutureList, allUppersFutureList);
+                REXP getAllCentersFuture = rengine.eval("centerFuture");
+                List<Double> allCentersFutureList = Utils.arrayToList(getAllCentersFuture.asDoubleArray());
+                REXP getAllRadiiFuture = rengine.eval("radiusFuture");
+                List<Double> allRadiiFutureList = Utils.arrayToList(getAllRadiiFuture.asDoubleArray());
+                List<Interval> allIntervalsFuture = Utils.zipCentersRadiiToIntervals(allCentersFutureList, allRadiiFutureList);
                 reportAvgAllITS.setForecastValuesFuture(allIntervalsFuture);
                 reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());
                 realValuesTrain.addAll(realValuesTest);

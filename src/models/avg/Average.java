@@ -383,7 +383,7 @@ public abstract class Average {
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                 //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
 
-                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "(" + getName() + " int)", false);
+                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", false);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setColourInPlot(COLOURS[COLOURS.length-1]);
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
