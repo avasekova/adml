@@ -8,6 +8,11 @@ public class AverageSimple extends Average {
     public AverageSimple(boolean avgCTSperM, boolean avgCTS, boolean avgIntTSperM, boolean avgIntTS) {
         super(avgCTSperM, avgCTS, avgIntTSperM, avgIntTS);
     }
+    
+    @Override
+    public String getName() {
+        return "avg";
+    }
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {

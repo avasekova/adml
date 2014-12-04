@@ -29,6 +29,11 @@ public class AverageCoverageEfficiency extends Average {
         denominatorIntTStrain = meanErrorTrainInt;
         denominatorIntTStest = meanErrorTestInt;
     }
+    
+    @Override
+    public String getName() {
+        return "avg[cvg+eff]";
+    }
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {

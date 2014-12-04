@@ -34,6 +34,7 @@ public abstract class Average {
     public abstract double getWeightForModelTrain(TrainAndTestReportInterval report);
     public abstract double getWeightForModelTest(TrainAndTestReportInterval report);
     public abstract double getWeightForModelFuture(TrainAndTestReportInterval report);
+    public abstract String getName();
     
     
     private boolean avgCTSperM;
@@ -198,7 +199,7 @@ public abstract class Average {
                 
                 Rengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
-                TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(avg)", false);
+                TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(" + getName() + ")", false);
                 REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
                 double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
                 REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
@@ -382,7 +383,7 @@ public abstract class Average {
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                 //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
 
-                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "(avg int)", false);
+                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "(" + getName() + " int)", false);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setColourInPlot(COLOURS[COLOURS.length-1]);
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);

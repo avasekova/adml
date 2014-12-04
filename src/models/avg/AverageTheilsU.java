@@ -35,6 +35,11 @@ public class AverageTheilsU extends Average {
         denominatorIntTStrain = sumErrorTrainInt;
         denominatorIntTStest = sumErrorTestInt;
     }
+    
+    @Override
+    public String getName() {
+        return "avg[TheilsU]";
+    }
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {

@@ -33,6 +33,11 @@ public class AverageMDE extends Average {
         denominatorIntTStrain = sumErrorTrainInt;
         denominatorIntTStest = sumErrorTestInt;
     }
+    
+    @Override
+    public String getName() {
+        return "avg[MDE]";
+    }
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {

@@ -21,6 +21,11 @@ public class AverageEqCenterEqLogRadius extends Average {
     public AverageEqCenterEqLogRadius(boolean avgIntTSperM, boolean avgIntTS) {
         super(false, false, avgIntTSperM, avgIntTS);
     }
+    
+    @Override
+    public String getName() {
+        return "avg[C+logR]";
+    }
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {
