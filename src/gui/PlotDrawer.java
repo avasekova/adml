@@ -171,7 +171,7 @@ public class PlotDrawer {
 
                 //add a dashed vertical line to separate test and train
                 rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
-                if (! refreshOnly) {
+                if (! refreshOnly && (r.getColourInPlot().equals("#FFFFFF"))) {
                     r.setColourInPlot(colourToUseNow);
                 }
                 
@@ -291,7 +291,7 @@ public class PlotDrawer {
 
                 wasSthDrawnIntTS = true;
 
-                if (! refreshOnly) {
+                if (! refreshOnly && (r.getColourInPlot().equals("#FFFFFF"))) {
                     r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
                 }
                 
