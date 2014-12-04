@@ -1,10 +1,7 @@
 package models.avg;
 
-import static gui.PlotDrawer.COLOURS;
-import java.util.ArrayList;
-import java.util.HashMap;
+import gui.ColourService;
 import java.util.List;
-import java.util.Map;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
@@ -207,7 +204,7 @@ public class AverageEqCenterEqLogRadius extends Average {
 
                 TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", false);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
-                reportAvgAllITS.setColourInPlot(COLOURS[COLOURS.length-1]);
+                reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
                 reportAvgAllITS.setForecastValuesFuture(realValuesTest);

@@ -167,12 +167,14 @@ public class DataTableModel extends AbstractTableModel {
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
+        ColourService.getService().resetCounter();
+        
         List<BasicStats> basicStatss = new ArrayList<>();
         
         boolean next = false;
-        int colourNumber = 0;
         List<Plottable> plots = new ArrayList<>();
         for (String col : par.getColnames()) {
+            String colour = ColourService.getService().getNewColour();
             List<Double> data = values.get(col);
             final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
             rengine.assign(TRAINDATA, Utils.listToArray(data));
@@ -180,14 +182,14 @@ public class DataTableModel extends AbstractTableModel {
                 rengine.eval("par(new=TRUE)");
                 rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
                         + "axes=FALSE, ann=FALSE, "
-                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")");
+                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + colour + "\")");
             } else {
                 next = true;
                 String plot = par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", " + "ylab=NULL, ";
                 if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
                     plot += "xaxt=\"n\", "; //suppress X axis
                 }
-                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + PlotDrawer.COLOURS[colourNumber] + "\")";
+                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + colour + "\")";
                 
                 rengine.eval(plot);
                 
@@ -196,8 +198,7 @@ public class DataTableModel extends AbstractTableModel {
                 }
             }
             
-            plots.add(new DefaultPlottable(PlotDrawer.COLOURS[colourNumber], col));
-            colourNumber++;
+            plots.add(new DefaultPlottable(colour, col));
             
             //and compute basic statistics of the data:
             REXP getMean = rengine.eval("mean(" + TRAINDATA + ")");

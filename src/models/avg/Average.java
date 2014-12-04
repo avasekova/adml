@@ -1,6 +1,6 @@
 package models.avg;
 
-import static gui.PlotDrawer.COLOURS;
+import gui.ColourService;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -214,7 +214,7 @@ public abstract class Average {
                 REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
                 double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
                 thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
-                thisAvgReport.setColourInPlot(COLOURS[COLOURS.length-1]);
+                thisAvgReport.setColourInPlot(ColourService.getService().getNewColour());
                 thisAvgReport.setPlotCode("plot.ts(" + avgAll + ", lty=2)");
                 thisAvgReport.setFittedValues(fittedValsAvg);
                 thisAvgReport.setForecastValuesTest(forecastValsTestAvg);
@@ -385,7 +385,7 @@ public abstract class Average {
 
                 TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", false);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
-                reportAvgAllITS.setColourInPlot(COLOURS[COLOURS.length-1]);
+                reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
                 reportAvgAllITS.setForecastValuesFuture(realValuesTest);

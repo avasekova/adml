@@ -78,6 +78,7 @@ public class PlotDrawer {
         int to = par.getTo();
         String colname_CTS = par.getColname_CTS();
         
+        ColourService.getService().resetCounter();
         
         //compute all averages:
         List<TrainAndTestReportCrisp> avgReportsCrisp = new ArrayList<>();
@@ -107,7 +108,6 @@ public class PlotDrawer {
             rengine.eval("par(mfrow=c(1,2))"); //daj dva grafy vedla seba. potom normalne zavolat dva ploty.
         }
         
-        int colourNumber = 0;
         if (! reportsCTS.isEmpty()) { //plot CTS
             boolean wasSthDrawnCrisp = false;
             
@@ -121,7 +121,7 @@ public class PlotDrawer {
             //teraz nakresli vsetko
             for (TrainAndTestReportCrisp r : whatToDrawNow) {
                 if (! r.isVisible()) { //skip those that are turned off
-                    colourNumber++; //but discard the colour as if you drew them so that the avg had the same colour
+                    ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
                     continue;
                 }
                 
@@ -133,7 +133,7 @@ public class PlotDrawer {
                 if (refreshOnly || (!r.getColourInPlot().equals("#FFFFFF"))) { //get the colour that was used previously
                     colourToUseNow = r.getColourInPlot();
                 } else { //else get a new one
-                    colourToUseNow = COLOURS[colourNumber % COLOURS.length];
+                    colourToUseNow = ColourService.getService().getNewColour();
                 }
                 
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
@@ -171,11 +171,9 @@ public class PlotDrawer {
 
                 //add a dashed vertical line to separate test and train
                 rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
-                if (! refreshOnly && (r.getColourInPlot().equals("#FFFFFF"))) {
+                if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
                     r.setColourInPlot(colourToUseNow);
                 }
-                
-                colourNumber++;
             }
             
             //teraz by mali byt nakreslene vsetky ciarky aj priemery
@@ -221,7 +219,7 @@ public class PlotDrawer {
             //now draw
             for (TrainAndTestReportInterval r : whatToDrawNow) {
                 if (! r.isVisible()) {
-                    colourNumber++; //discard the colour as if you drew them so that the avg had the same colour
+                    ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
                     continue;
                 }
                 
@@ -233,7 +231,7 @@ public class PlotDrawer {
                 if (refreshOnly || (!r.getColourInPlot().equals("#FFFFFF"))) { //get the colour that was used previously
                     colourToUseNow = r.getColourInPlot();
                 } else { //else get a new one
-                    colourToUseNow = COLOURS[colourNumber % COLOURS.length];
+                    colourToUseNow = ColourService.getService().getNewColour();
                 }
 
                 //naplotovat fitted values:
@@ -291,11 +289,9 @@ public class PlotDrawer {
 
                 wasSthDrawnIntTS = true;
 
-                if (! refreshOnly && (r.getColourInPlot().equals("#FFFFFF"))) {
-                    r.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+                if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
+                    r.setColourInPlot(colourToUseNow);
                 }
-                
-                colourNumber++;
             }
             
             //tu by mali byt nakreslene vsetky ITS aj s priemermi
@@ -371,36 +367,35 @@ public class PlotDrawer {
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
-        int colourNumber = 0;
+        ColourService.getService().resetCounter();
+        
         
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             //remember the colour for the legend
-            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+            String colour = ColourService.getService().getNewColour();
+            interval.setColourInPlot(colour);
             
-            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
+            String lineStyle = ", lwd=4, col=\"" + colour + "\"";
             drawPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
                     par.getDataTableModel().getDataForColname(interval.getRadius()), next, lineStyle, rangeX, rangeY);
             if (! next) {
                 next = true;
             }
-            
-            colourNumber++;
         }
         
         next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+            String colour = ColourService.getService().getNewColour();
+            interval.setColourInPlot(colour);
             
-            String lineStyle = ", lwd=4, col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
+            String lineStyle = ", lwd=4, col=\"" + colour + "\"";
             drawPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
                     par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeX, rangeY);
             if (! next) {
                 next = true;
             }
-            
-            colourNumber++;
         }
         
         //draw legend
@@ -495,6 +490,7 @@ public class PlotDrawer {
         final String RADIUS = Const.INPUT + Utils.getCounter();
         
         Rengine rengine = MyRengine.getRengine();
+        ColourService.getService().resetCounter();
         
         //ako prve prerobit vsetky LU(mena) na CR(cisla):
         List<Double> allValsCenter = new ArrayList<>();
@@ -530,35 +526,32 @@ public class PlotDrawer {
     
     public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
-        int colourNumber = 0;
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
+            String colour = ColourService.getService().getNewColour();
             //remember the colour for the legend
-            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+            interval.setColourInPlot(colour);
             
-            String lineStyle = "col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
+            String lineStyle = "col=\"" + colour + "\"";
             drawScatterPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
                     par.getDataTableModel().getDataForColname(interval.getRadius()), next, lineStyle, rangeCenter, rangeRadius);
             if (! next) {
                 next = true;
             }
-            
-            colourNumber++;
         }
         
         next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            interval.setColourInPlot(COLOURS[colourNumber % COLOURS.length]);
+            String colour = ColourService.getService().getNewColour();
+            interval.setColourInPlot(colour);
             
-            String lineStyle = "col=\"" + COLOURS[colourNumber % COLOURS.length] + "\"";
+            String lineStyle = "col=\"" + colour + "\"";
             drawScatterPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
                     par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeCenter, rangeRadius);
             if (! next) {
                 next = true;
             }
-            
-            colourNumber++;
         }
         
         //draw legend
@@ -697,45 +690,6 @@ public class PlotDrawer {
         
         return "rgb(" + red + ", " + green + ", " + blue + ", alpha=" + alpha + ", maxColorValue=255)";
     }
-    
-    private List<Color> getNColours(int n) {
-        //spocitat farby z HSV color space, resp. spocitat si prvych X (kde X je nejake rozumne cislo, napriklad 15), a potom
-        //  pouzivat zase tych istych 15 farieb, akurat s inym typom ciary
-        //ale pre menej ako 15 farieb vypocitat len N farieb, ktore budu od seba dost vzdialene
-        return null;
-    }
-    
-    //alebo tu su nejake farby: od zaciatku si z nich brat, a mali by byt vzdy dost vzdialene
-    
-    public static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
-        //TODO urgentne pridat viac farieb, aby to nebolo treba modulit!
-        "#FF00FF",
-        "#0000FF",
-        "#00CD00",
-        "#42E99D", //tyrkysova
-        "#FF7A4B", //oranzova
-        "#EA0D5B", //ruzova
-        "#1B60C5", //modra
-        "#FFEA48", //zlta
-        "#44F04F", //zelena
-        "#820000", //hneda
-        "#05787E" //ocelova
-            
-            
-        //desperate times call for desperate measures, zopakovane tie farby:
-        ,"#FF00FF",
-        "#0000FF",
-        "#00CD00",
-        "#42E99D", //tyrkysova
-        "#FF7A4B", //oranzova
-        "#EA0D5B", //ruzova
-        "#1B60C5", //modra
-        "#FFEA48", //zlta
-        "#44F04F", //zelena
-        "#820000", //hneda
-        "#05787E" //ocelova
-    };
-    
     
     private static String getRangeYCrisp(List<Double> allData, List<TrainAndTestReportCrisp> reports) {
         StringBuilder rangesY = new StringBuilder("range(c(");
