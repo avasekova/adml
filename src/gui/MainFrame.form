@@ -3276,11 +3276,19 @@
                                                       <Component id="checkBoxAvgMDeIntTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeIntTS" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgTheilsuIntTSperM" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgTheilsuIntTS" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="checkBoxAvgMDeCTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeCTS" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgTheilsuCTSperM" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgTheilsuCTS" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                               </Group>
                                           </Group>
@@ -3465,6 +3473,8 @@
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="checkBoxAvgMDeCTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeCTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgTheilsuCTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgTheilsuCTS" alignment="3" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="103" groupAlignment="3" attributes="0">
                                                       <Component id="checkBoxAvgSimpleCTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -3473,13 +3483,16 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                              <Component id="checkBoxAvgTheilsuIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkBoxAvgTheilsuIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="checkBoxAvgMDeIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="checkBoxAvgMDeIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
@@ -3898,21 +3911,33 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="WIP MDE avg per method"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgMDeCTSperMActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxAvgMDeCTS">
               <Properties>
                 <Property name="text" type="java.lang.String" value="WIP MDE avg"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgMDeCTSActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxAvgMDeIntTSperM">
               <Properties>
                 <Property name="text" type="java.lang.String" value="WIP MDE avg per method"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgMDeIntTSperMActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxAvgMDeIntTS">
               <Properties>
                 <Property name="text" type="java.lang.String" value="WIP MDE avg"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgMDeIntTSActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel45">
               <Properties>
@@ -3939,6 +3964,38 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="ITS:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgTheilsuCTSperM">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WIP TheilsU avg per method"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgTheilsuCTSperMActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgTheilsuCTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WIP TheilsU avg"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgTheilsuCTSActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgTheilsuIntTSperM">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WIP TheilsU avg per method"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgTheilsuIntTSperMActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgTheilsuIntTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WIP TheilsU avg"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgTheilsuIntTSActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

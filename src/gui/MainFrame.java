@@ -75,6 +75,7 @@ import models.VARint;
 import models.avg.Average;
 import models.avg.AverageMDE;
 import models.avg.AverageSimple;
+import models.avg.AverageTheilsU;
 import models.avg.AveragesConfig;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
@@ -428,6 +429,10 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator12 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        checkBoxAvgTheilsuCTSperM = new javax.swing.JCheckBox();
+        checkBoxAvgTheilsuCTS = new javax.swing.JCheckBox();
+        checkBoxAvgTheilsuIntTSperM = new javax.swing.JCheckBox();
+        checkBoxAvgTheilsuIntTS = new javax.swing.JCheckBox();
         panelErrorMeasuresAll = new javax.swing.JPanel();
         panelErrorMeasures = new javax.swing.JPanel();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
@@ -2222,12 +2227,32 @@ public class MainFrame extends javax.swing.JFrame {
     checkBoxRunRandomWalkCTS.setText("random walk for CTS");
 
     checkBoxAvgMDeCTSperM.setText("WIP MDE avg per method");
+    checkBoxAvgMDeCTSperM.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgMDeCTSperMActionPerformed(evt);
+        }
+    });
 
     checkBoxAvgMDeCTS.setText("WIP MDE avg");
+    checkBoxAvgMDeCTS.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgMDeCTSActionPerformed(evt);
+        }
+    });
 
     checkBoxAvgMDeIntTSperM.setText("WIP MDE avg per method");
+    checkBoxAvgMDeIntTSperM.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgMDeIntTSperMActionPerformed(evt);
+        }
+    });
 
     checkBoxAvgMDeIntTS.setText("WIP MDE avg");
+    checkBoxAvgMDeIntTS.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgMDeIntTSActionPerformed(evt);
+        }
+    });
 
     jLabel45.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
     jLabel45.setText("Forecasts combination:");
@@ -2237,6 +2262,34 @@ public class MainFrame extends javax.swing.JFrame {
 
     jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
     jLabel16.setText("ITS:");
+
+    checkBoxAvgTheilsuCTSperM.setText("WIP TheilsU avg per method");
+    checkBoxAvgTheilsuCTSperM.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgTheilsuCTSperMActionPerformed(evt);
+        }
+    });
+
+    checkBoxAvgTheilsuCTS.setText("WIP TheilsU avg");
+    checkBoxAvgTheilsuCTS.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgTheilsuCTSActionPerformed(evt);
+        }
+    });
+
+    checkBoxAvgTheilsuIntTSperM.setText("WIP TheilsU avg per method");
+    checkBoxAvgTheilsuIntTSperM.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgTheilsuIntTSperMActionPerformed(evt);
+        }
+    });
+
+    checkBoxAvgTheilsuIntTS.setText("WIP TheilsU avg");
+    checkBoxAvgTheilsuIntTS.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgTheilsuIntTSActionPerformed(evt);
+        }
+    });
 
     javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
     panelRunOutside.setLayout(panelRunOutsideLayout);
@@ -2389,11 +2442,19 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                             .addComponent(checkBoxAvgMDeIntTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgMDeIntTS))
+                                            .addComponent(checkBoxAvgMDeIntTS)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(checkBoxAvgTheilsuIntTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkBoxAvgTheilsuIntTS))
                                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                             .addComponent(checkBoxAvgMDeCTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgMDeCTS))))
+                                            .addComponent(checkBoxAvgMDeCTS)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(checkBoxAvgTheilsuCTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkBoxAvgTheilsuCTS))))
                                 .addComponent(checkBoxAvgONLY, javax.swing.GroupLayout.Alignment.LEADING))
                             .addContainerGap())))
                 .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -2537,15 +2598,19 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(checkBoxAvgMDeCTSperM)
-                                            .addComponent(checkBoxAvgMDeCTS))
+                                            .addComponent(checkBoxAvgMDeCTS)
+                                            .addComponent(checkBoxAvgTheilsuCTSperM)
+                                            .addComponent(checkBoxAvgTheilsuCTS))
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(checkBoxAvgSimpleCTSperM)
                                             .addComponent(checkBoxAvgSimpleCTS)))))
-                            .addGap(18, 18, 18)
                             .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                     .addGap(1, 1, 1)
                                     .addComponent(jLabel16))
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(checkBoxAvgTheilsuIntTSperM)
+                                    .addComponent(checkBoxAvgTheilsuIntTS))
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(checkBoxAvgMDeIntTSperM)
                                     .addComponent(checkBoxAvgMDeIntTS))
@@ -4515,12 +4580,84 @@ public class MainFrame extends javax.swing.JFrame {
         ((ErrorMeasuresTableModel_CTS)errorMeasuresLatest_CTS.getModel()).hideAllButAvg();
         ((ErrorMeasuresTableModel_ITS)errorMeasuresLatest_IntTS.getModel()).hideAllButAvg();
     }//GEN-LAST:event_buttonHideAllErrorsExceptAvgActionPerformed
+
+    private void checkBoxAvgMDeCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeCTSperMActionPerformed
+        if (checkBoxAvgMDeCTSperM.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgMDeCTSperMActionPerformed
+
+    private void checkBoxAvgMDeIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeIntTSperMActionPerformed
+        if (checkBoxAvgMDeIntTSperM.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgMDeIntTSperMActionPerformed
+
+    private void checkBoxAvgMDeCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeCTSActionPerformed
+        if (checkBoxAvgMDeCTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgMDeCTSActionPerformed
+
+    private void checkBoxAvgMDeIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeIntTSActionPerformed
+        if (checkBoxAvgMDeIntTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgMDeIntTSActionPerformed
+
+    private void checkBoxAvgTheilsuCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuCTSperMActionPerformed
+        if (checkBoxAvgTheilsuCTSperM.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgTheilsuCTSperMActionPerformed
+
+    private void checkBoxAvgTheilsuIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuIntTSperMActionPerformed
+        if (checkBoxAvgTheilsuIntTSperM.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgTheilsuIntTSperMActionPerformed
+
+    private void checkBoxAvgTheilsuCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuCTSActionPerformed
+        if (checkBoxAvgTheilsuCTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgTheilsuCTSActionPerformed
+
+    private void checkBoxAvgTheilsuIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuIntTSActionPerformed
+        if (checkBoxAvgTheilsuIntTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgTheilsuIntTSActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
             (! checkBoxAvgSimpleCTSperM.isSelected()) &&
             (! checkBoxAvgSimpleIntTS.isSelected()) &&
-            (! checkBoxAvgSimpleIntTSperM.isSelected())) {
+            (! checkBoxAvgSimpleIntTSperM.isSelected()) &&
+            (! checkBoxAvgMDeCTS.isSelected()) &&
+            (! checkBoxAvgMDeCTSperM.isSelected()) &&
+            (! checkBoxAvgMDeIntTS.isSelected()) &&
+            (! checkBoxAvgMDeIntTSperM.isSelected()) &&
+            (! checkBoxAvgTheilsuCTS.isSelected()) &&
+            (! checkBoxAvgTheilsuCTSperM.isSelected()) &&
+            (! checkBoxAvgTheilsuIntTS.isSelected()) &&
+            (! checkBoxAvgTheilsuIntTSperM.isSelected())) {
             checkBoxAvgONLY.setSelected(false);
             checkBoxAvgONLY.setEnabled(false);
         }
@@ -4613,6 +4750,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxAvgSimpleCTSperM;
     private javax.swing.JCheckBox checkBoxAvgSimpleIntTS;
     private javax.swing.JCheckBox checkBoxAvgSimpleIntTSperM;
+    private javax.swing.JCheckBox checkBoxAvgTheilsuCTS;
+    private javax.swing.JCheckBox checkBoxAvgTheilsuCTSperM;
+    private javax.swing.JCheckBox checkBoxAvgTheilsuIntTS;
+    private javax.swing.JCheckBox checkBoxAvgTheilsuIntTSperM;
     private javax.swing.JCheckBox checkBoxRunARIMA;
     private javax.swing.JCheckBox checkBoxRunHolt;
     private javax.swing.JCheckBox checkBoxRunHoltInt;
@@ -5751,6 +5892,9 @@ public class MainFrame extends javax.swing.JFrame {
         avgList.add(new AverageMDE(checkBoxAvgMDeCTSperM.isSelected(),
                 checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
                 checkBoxAvgMDeIntTS.isSelected(), reportsCTS, reportsIntTS));
+        avgList.add(new AverageTheilsU(checkBoxAvgTheilsuCTSperM.isSelected(), 
+                checkBoxAvgTheilsuCTS.isSelected(), checkBoxAvgTheilsuIntTSperM.isSelected(), 
+                checkBoxAvgTheilsuIntTS.isSelected(), reportsCTS, reportsIntTS));
         
         return avgList;
     }
