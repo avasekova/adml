@@ -21,20 +21,36 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         super(modelName, canBeInvisible);
     }
     
-    public double[] getFittedValuesLowers() { //ciste pre plotovacie ucely!
+    public double[] getFittedValuesLowers() {
         return getValuesLowers(fittedValues);
     }
     
-    public double[] getFittedValuesUppers() { //ciste pre plotovacie ucely!
+    public double[] getFittedValuesUppers() {
         return getValuesUppers(fittedValues);
     }
     
-    public double[] getForecastValuesTestLowers() { //ciste pre plotovacie ucely!
+    public double[] getFittedValuesCenters() {
+        return getValuesCenters(fittedValues);
+    }
+    
+    public double[] getFittedValuesRadii() {
+        return getValuesRadii(fittedValues);
+    }
+    
+    public double[] getForecastValuesTestLowers() {
         return getValuesLowers(forecastValuesTest);
     }
     
-    public double[] getForecastValuesTestUppers() { //ciste pre plotovacie ucely!
+    public double[] getForecastValuesTestUppers() {
         return getValuesUppers(forecastValuesTest);
+    }
+    
+    public double[] getForecastValuesTestCenters() {
+        return getValuesCenters(forecastValuesTest);
+    }
+    
+    public double[] getForecastValuesTestRadii() {
+        return getValuesRadii(forecastValuesTest);
     }
     
     public List<Interval> getFittedValues() {
@@ -61,12 +77,20 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         this.forecastValuesFuture = forecastValuesFuture;
     }
 
-    public double[] getForecastValuesFutureLowers() { //ciste pre plotovacie ucely!
+    public double[] getForecastValuesFutureLowers() {
         return getValuesLowers(forecastValuesFuture);
     }
     
-    public double[] getForecastValuesFutureUppers() { //ciste pre plotovacie ucely!
+    public double[] getForecastValuesFutureUppers() {
         return getValuesUppers(forecastValuesFuture);
+    }
+    
+    public double[] getForecastValuesFutureCenters() {
+        return getValuesCenters(forecastValuesFuture);
+    }
+    
+    public double[] getForecastValuesFutureRadii() {
+        return getValuesRadii(forecastValuesFuture);
     }
     
     public List<Double> getRealValuesLowers() {
@@ -108,4 +132,23 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
         return Utils.listToArray(uppers);
     }
     
+    private double[] getValuesCenters(List<Interval> baseData) {
+        List<Double> centers = new ArrayList<>();
+        
+        for (Interval i : baseData) {
+            centers.add(i.getCentre());
+        }
+        
+        return Utils.listToArray(centers);
+    }
+    
+    private double[] getValuesRadii(List<Interval> baseData) {
+        List<Double> radii = new ArrayList<>();
+        
+        for (Interval i : baseData) {
+            radii.add(i.getRadius());
+        }
+        
+        return Utils.listToArray(radii);
+    }
 }
