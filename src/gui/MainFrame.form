@@ -3280,6 +3280,10 @@
                                                       <Component id="checkBoxAvgTheilsuIntTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgTheilsuIntTS" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgCvgEffIntTSperM" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgCvgEffIntTS" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <Group type="102" alignment="0" attributes="0">
                                                       <Component id="checkBoxAvgMDeCTSperM" min="-2" max="-2" attributes="0"/>
@@ -3491,6 +3495,8 @@
                                           <Group type="103" alignment="0" groupAlignment="3" attributes="0">
                                               <Component id="checkBoxAvgTheilsuIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
                                               <Component id="checkBoxAvgTheilsuIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkBoxAvgCvgEffIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="checkBoxAvgCvgEffIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="checkBoxAvgMDeIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -3995,6 +4001,22 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgTheilsuIntTSActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgCvgEffIntTSperM">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WDP cvg+eff per method"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgCvgEffIntTSperMActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgCvgEffIntTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WDP cvg+eff"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgCvgEffIntTSActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

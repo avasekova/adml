@@ -26,14 +26,14 @@ public class AverageTheilsU extends Average {
         denominatorCTStrain = sumErrorTrain;
         denominatorCTStest = sumErrorTest;
         
-        double meanErrorTrainInt = 0;
-        double meanErrorTestInt = 0;
+        double sumErrorTrainInt = 0;
+        double sumErrorTestInt = 0;
         for (TrainAndTestReportInterval r : reportsIntTS) {
-            meanErrorTrainInt += Math.pow(((ErrorMeasuresInterval)r.getErrorMeasures()).getTheilsUintervalTrain(), -1);
-            meanErrorTestInt  += Math.pow(((ErrorMeasuresInterval)r.getErrorMeasures()).getTheilsUintervalTest(), -1);
+            sumErrorTrainInt += Math.pow(((ErrorMeasuresInterval)r.getErrorMeasures()).getTheilsUintervalTrain(), -1);
+            sumErrorTestInt  += Math.pow(((ErrorMeasuresInterval)r.getErrorMeasures()).getTheilsUintervalTest(), -1);
         }
-        denominatorIntTStrain = meanErrorTrainInt;
-        denominatorIntTStest = meanErrorTestInt;
+        denominatorIntTStrain = sumErrorTrainInt;
+        denominatorIntTStest = sumErrorTestInt;
     }
 
     @Override
