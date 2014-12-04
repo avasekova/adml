@@ -2,7 +2,16 @@ package utils;
 
 public class ErrorMeasuresCrisp extends ErrorMeasures {
     
-    private static final String[] NAMES = new String[]{ "RMSSE", "MPE", "MAPE", "MASE", "Theil's U" };
+    private static final String[] NAMES = new String[]{ "ME", "RMSE", "MAE", "MSE", "RMSSE", "MPE", "MAPE", "MASE", "Theil's U" };
+    
+    private double MEtrain;
+    private double MEtest;
+    private double RMSEtrain;
+    private double RMSEtest;
+    private double MAEtrain;
+    private double MAEtest;
+    private double MSEtrain;
+    private double MSEtest;
     
     private double MPEtrain;
     private double MPEtest;
@@ -16,16 +25,75 @@ public class ErrorMeasuresCrisp extends ErrorMeasures {
     private double RMSSEtest;
     
     public static int numberOfSupportedMeasures() {
-        return NAMES.length + ErrorMeasures.numberOfSupportedMeasures();
+        return NAMES.length;
     }
     
     public static String[] namesOfSupportedMeasures() {
-        String[] allnames = new String[ErrorMeasures.namesOfSupportedMeasures().length + NAMES.length];
-        
-        System.arraycopy(ErrorMeasures.namesOfSupportedMeasures(), 0, allnames, 0, ErrorMeasures.namesOfSupportedMeasures().length);
-        System.arraycopy(NAMES, 0, allnames, ErrorMeasures.namesOfSupportedMeasures().length, NAMES.length);
-        
-        return allnames;
+        return NAMES;
+    }
+    
+    public double getMEtrain() {
+        return MEtrain;
+    }
+
+    public void setMEtrain(double MEtrain) {
+        this.MEtrain = MEtrain;
+    }
+
+    public double getMEtest() {
+        return MEtest;
+    }
+
+    public void setMEtest(double MEtest) {
+        this.MEtest = MEtest;
+    }
+
+    public double getRMSEtrain() {
+        return RMSEtrain;
+    }
+
+    public void setRMSEtrain(double RMSEtrain) {
+        this.RMSEtrain = RMSEtrain;
+    }
+
+    public double getRMSEtest() {
+        return RMSEtest;
+    }
+
+    public void setRMSEtest(double RMSEtest) {
+        this.RMSEtest = RMSEtest;
+    }
+
+    public double getMAEtrain() {
+        return MAEtrain;
+    }
+
+    public void setMAEtrain(double MAEtrain) {
+        this.MAEtrain = MAEtrain;
+    }
+
+    public double getMAEtest() {
+        return MAEtest;
+    }
+
+    public void setMAEtest(double MAEtest) {
+        this.MAEtest = MAEtest;
+    }
+
+    public double getMSEtrain() {
+        return MSEtrain;
+    }
+
+    public void setMSEtrain(double MSEtrain) {
+        this.MSEtrain = MSEtrain;
+    }
+
+    public double getMSEtest() {
+        return MSEtest;
+    }
+
+    public void setMSEtest(double MSEtest) {
+        this.MSEtest = MSEtest;
     }
 
     public double getMPEtrain() {
@@ -110,12 +178,18 @@ public class ErrorMeasuresCrisp extends ErrorMeasures {
     
     @Override
     public double[] serializeToArray() {
-        double[] measures = new double[numberOfSupportedMeasures()*2 + ErrorMeasures.numberOfSupportedMeasures()*2];
+        double[] measures = new double[NAMES.length*2];
         
-        int i;
-        for (i = 0; i < ErrorMeasures.numberOfSupportedMeasures()*2; i++) {
-            measures[i] = super.serializeToArray()[i];
-        }
+        measures[0] = getMEtrain();
+        measures[1] = getMEtest();
+        measures[2] = getRMSEtrain();
+        measures[3] = getRMSEtest();
+        measures[4] = getMAEtrain();
+        measures[5] = getMAEtest();
+        measures[6] = getMSEtrain();
+        measures[7] = getMSEtest();
+        
+        int i = 8;
         
         measures[i] = RMSSEtrain; i++;
         measures[i] = RMSSEtest; i++;

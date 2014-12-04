@@ -3,6 +3,8 @@ package models.avg;
 import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
+import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresInterval;
 
 public class AverageMDE extends Average {
     
@@ -18,8 +20,8 @@ public class AverageMDE extends Average {
         double sumErrorTrain = 0;
         double sumErrorTest = 0;
         for (TrainAndTestReportCrisp r : reportsCTS) {
-            sumErrorTrain += Math.pow(r.getErrorMeasures().getMEtrain(), -1);
-            sumErrorTest  += Math.pow(r.getErrorMeasures().getMEtest(), -1);
+            sumErrorTrain += Math.pow(((ErrorMeasuresCrisp)r.getErrorMeasures()).getMEtrain(), -1);
+            sumErrorTest  += Math.pow(((ErrorMeasuresCrisp)r.getErrorMeasures()).getMEtest(), -1);
         }
         denominatorCTStrain = sumErrorTrain;
         denominatorCTStest = sumErrorTest;
@@ -27,8 +29,8 @@ public class AverageMDE extends Average {
         double sumErrorTrainInt = 0;
         double sumErrorTestInt = 0;
         for (TrainAndTestReportInterval r : reportsIntTS) {
-            sumErrorTrainInt += Math.pow(r.getErrorMeasures().getMEtrain(), -1);
-            sumErrorTestInt  += Math.pow(r.getErrorMeasures().getMEtest(), -1);
+            sumErrorTrainInt += Math.pow(((ErrorMeasuresInterval)r.getErrorMeasures()).getMDEtrain(), -1);
+            sumErrorTestInt  += Math.pow(((ErrorMeasuresInterval)r.getErrorMeasures()).getMDEtest(), -1);
         }
         denominatorIntTStrain = sumErrorTrainInt;
         denominatorIntTStest = sumErrorTestInt;
@@ -41,22 +43,22 @@ public class AverageMDE extends Average {
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {
-        return Math.pow(report.getErrorMeasures().getMEtrain(), -1)/denominatorCTStrain;
+        return Math.pow(((ErrorMeasuresCrisp)report.getErrorMeasures()).getMEtrain(), -1)/denominatorCTStrain;
     }
     
     @Override
     public double getWeightForModelTest(TrainAndTestReportCrisp report) {
-        return Math.pow(report.getErrorMeasures().getMEtest(), -1)/denominatorCTStest;
+        return Math.pow(((ErrorMeasuresCrisp)report.getErrorMeasures()).getMEtest(), -1)/denominatorCTStest;
     }
     
     @Override
     public double getWeightForModelTrain(TrainAndTestReportInterval report) {
-        return Math.pow(report.getErrorMeasures().getMEtrain(), -1)/denominatorIntTStrain;
+        return Math.pow(((ErrorMeasuresInterval)report.getErrorMeasures()).getMDEtrain(), -1)/denominatorIntTStrain;
     }
     
     @Override
     public double getWeightForModelTest(TrainAndTestReportInterval report) {
-        return Math.pow(report.getErrorMeasures().getMEtest(), -1)/denominatorIntTStest;
+        return Math.pow(((ErrorMeasuresInterval)report.getErrorMeasures()).getMDEtest(), -1)/denominatorIntTStest;
     }
 
     @Override

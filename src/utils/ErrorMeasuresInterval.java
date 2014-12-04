@@ -2,7 +2,14 @@ package utils;
 
 public class ErrorMeasuresInterval extends ErrorMeasures {
     
-    private static final String[] NAMES = new String[]{ "RMSSE_1", "RMSSE_2", "Mean coverage", "Mean efficiency", "Theil's U(i)", "ARV(i)" };
+    private static final String[] NAMES = new String[]{ "MDE", "RMSE", "MSE", "RMSSE_1", "RMSSE_2", "Mean coverage", "Mean efficiency", "Theil's U(i)", "ARV(i)" };
+    
+    private double MDEtrain;
+    private double MDEtest;
+    private double RMSEtrain;
+    private double RMSEtest;
+    private double MSEtrain;
+    private double MSEtest;
     
     private double meanCoverageTrain;
     private double meanCoverageTest;
@@ -18,18 +25,61 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
     private double RMSSEtest_2;  //UB or R
 
     public static int numberOfSupportedMeasures() {
-        return NAMES.length + ErrorMeasures.numberOfSupportedMeasures();
+        return NAMES.length;
     }
     
     public static String[] namesOfSupportedMeasures() {
-        String[] allnames = new String[ErrorMeasures.namesOfSupportedMeasures().length + NAMES.length];
-        
-        System.arraycopy(ErrorMeasures.namesOfSupportedMeasures(), 0, allnames, 0, ErrorMeasures.namesOfSupportedMeasures().length);
-        System.arraycopy(NAMES, 0, allnames, ErrorMeasures.namesOfSupportedMeasures().length, NAMES.length);
-        
-        return allnames;
+        return NAMES;
     }
 
+    public double getMDEtrain() {
+        return MDEtrain;
+    }
+
+    public void setMDEtrain(double MDEtrain) {
+        this.MDEtrain = MDEtrain;
+    }
+
+    public double getMDEtest() {
+        return MDEtest;
+    }
+
+    public void setMDEtest(double MDEtest) {
+        this.MDEtest = MDEtest;
+    }
+
+    public double getRMSEtrain() {
+        return RMSEtrain;
+    }
+
+    public void setRMSEtrain(double RMSEtrain) {
+        this.RMSEtrain = RMSEtrain;
+    }
+
+    public double getRMSEtest() {
+        return RMSEtest;
+    }
+
+    public void setRMSEtest(double RMSEtest) {
+        this.RMSEtest = RMSEtest;
+    }
+
+    public double getMSEtrain() {
+        return MSEtrain;
+    }
+
+    public void setMSEtrain(double MSEtrain) {
+        this.MSEtrain = MSEtrain;
+    }
+
+    public double getMSEtest() {
+        return MSEtest;
+    }
+
+    public void setMSEtest(double MSEtest) {
+        this.MSEtest = MSEtest;
+    }
+    
     public double getMeanCoverageTrain() {
         return meanCoverageTrain;
     }
@@ -128,12 +178,16 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
     
     @Override
     public double[] serializeToArray() {
-        double[] measures = new double[numberOfSupportedMeasures()*2 + ErrorMeasures.numberOfSupportedMeasures()*2];
+        double[] measures = new double[NAMES.length*2];
         
-        int i;
-        for (i = 0; i < ErrorMeasures.numberOfSupportedMeasures()*2; i++) {
-            measures[i] = super.serializeToArray()[i];
-        }
+        measures[0] = getMDEtrain();
+        measures[1] = getMDEtest();
+        measures[2] = getRMSEtrain();
+        measures[3] = getRMSEtest();
+        measures[4] = getMSEtrain();
+        measures[5] = getMSEtest();
+        
+        int i = 6;
         
         measures[i] = RMSSEtrain_1; i++;
         measures[i] = RMSSEtest_1; i++;

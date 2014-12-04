@@ -471,12 +471,10 @@ public class ErrorMeasuresUtils {
         List<Double> errorsTrain = Utils.getErrorsForIntervals(realDataTrain, fittedTrain, distance);
         List<Double> errorsTest = Utils.getErrorsForIntervals(realDataTest, forecastsTest, distance);
         
-        errorMeasures.setMEtrain(ErrorMeasuresUtils.ME(errorsTrain));
-        errorMeasures.setMEtest(ErrorMeasuresUtils.ME(errorsTest));
+        errorMeasures.setMDEtrain(ErrorMeasuresUtils.ME(errorsTrain));
+        errorMeasures.setMDEtest(ErrorMeasuresUtils.ME(errorsTest));
         errorMeasures.setRMSEtrain(ErrorMeasuresUtils.RMSE(errorsTrain));
         errorMeasures.setRMSEtest(ErrorMeasuresUtils.RMSE(errorsTest));
-        errorMeasures.setMAEtrain(ErrorMeasuresUtils.MAE(errorsTrain));
-        errorMeasures.setMAEtest(ErrorMeasuresUtils.MAE(errorsTest));
         errorMeasures.setMSEtrain(ErrorMeasuresUtils.MSE(errorsTrain));
         errorMeasures.setMSEtest(ErrorMeasuresUtils.MSE(errorsTest));
         errorMeasures.setMeanCoverageTrain(meanCoverage(realDataTrain, fittedTrain));

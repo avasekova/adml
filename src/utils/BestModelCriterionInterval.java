@@ -8,7 +8,7 @@ import models.TrainAndTestReportInterval;
 public abstract class BestModelCriterionInterval {
     
     public enum MINIMIZE implements Improvable {
-        ME, RMSE, MAE, MSE, THEILSU, ARV, RMSSE_CENTER, RMSSE_RADIUS;
+        MDE, RMSE, MSE, THEILSU, ARV, RMSSE_CENTER, RMSSE_RADIUS;
         
         @Override
         public boolean isBetterThanBest(double currentValue, double bestValue) {
@@ -44,11 +44,8 @@ public abstract class BestModelCriterionInterval {
                 case ARV:
                     result = m.getArvIntervalTrain() + m.getArvIntervalTest();
                     break;
-                case MAE:
-                    result = m.getMAEtrain() + m.getMAEtest();
-                    break;
-                case ME:
-                    result = m.getMEtrain() + m.getMEtest();
+                case MDE:
+                    result = m.getMDEtrain() + m.getMDEtest();
                     break;
                 case MSE:
                     result = m.getMSEtrain() + m.getMSEtest();
