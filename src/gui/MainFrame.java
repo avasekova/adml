@@ -3605,7 +3605,8 @@ public class MainFrame extends javax.swing.JFrame {
                 new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, new AveragesConfig(getAllAvgs(), checkBoxAvgONLY.isSelected())));
+                reportsIntTS, from, to, colname_CTS, new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), 
+                checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -4177,7 +4178,7 @@ public class MainFrame extends javax.swing.JFrame {
                 panelPlot.getHeight(),
                 dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, 
-                new AveragesConfig(getAllAvgs(), checkBoxAvgONLY.isSelected())));
+                new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
@@ -5742,14 +5743,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    private List<Average> getAllAvgs() {
+    private List<Average> getAllAvgs(List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsIntTS) {
         List<Average> avgList = new ArrayList<>();
         avgList.add(new AverageSimple(checkBoxAvgSimpleCTSperM.isSelected(), 
                 checkBoxAvgSimpleCTS.isSelected(), checkBoxAvgSimpleIntTSperM.isSelected(),
                 checkBoxAvgSimpleIntTS.isSelected()));
         avgList.add(new AverageMDE(checkBoxAvgMDeCTSperM.isSelected(),
                 checkBoxAvgMDeCTS.isSelected(), checkBoxAvgMDeIntTSperM.isSelected(),
-                checkBoxAvgMDeIntTS.isSelected()));
+                checkBoxAvgMDeIntTS.isSelected(), reportsCTS, reportsIntTS));
         
         return avgList;
     }
