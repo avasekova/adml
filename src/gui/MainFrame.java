@@ -74,6 +74,7 @@ import models.TrainAndTestReportInterval;
 import models.VARint;
 import models.avg.Average;
 import models.avg.AverageCoverageEfficiency;
+import models.avg.AverageEqCenterEqLogRadius;
 import models.avg.AverageMDE;
 import models.avg.AverageSimple;
 import models.avg.AverageTheilsU;
@@ -436,6 +437,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxAvgTheilsuIntTS = new javax.swing.JCheckBox();
         checkBoxAvgCvgEffIntTSperM = new javax.swing.JCheckBox();
         checkBoxAvgCvgEffIntTS = new javax.swing.JCheckBox();
+        checkBoxAvgCenterLogRadiusIntTSperM = new javax.swing.JCheckBox();
+        checkBoxAvgCenterLogRadiusIntTS = new javax.swing.JCheckBox();
         panelErrorMeasuresAll = new javax.swing.JPanel();
         panelErrorMeasures = new javax.swing.JPanel();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
@@ -2308,6 +2311,20 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
+    checkBoxAvgCenterLogRadiusIntTSperM.setText("avg center logradius per method");
+    checkBoxAvgCenterLogRadiusIntTSperM.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgCenterLogRadiusIntTSperMActionPerformed(evt);
+        }
+    });
+
+    checkBoxAvgCenterLogRadiusIntTS.setText("avg center logradius");
+    checkBoxAvgCenterLogRadiusIntTS.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            checkBoxAvgCenterLogRadiusIntTSActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
     panelRunOutside.setLayout(panelRunOutsideLayout);
     panelRunOutsideLayout.setHorizontalGroup(
@@ -2440,6 +2457,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGap(140, 140, 140))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
                             .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(checkBoxAvgONLY, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
                                     .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel15)
@@ -2449,35 +2467,36 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                             .addComponent(checkBoxAvgSimpleIntTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgSimpleIntTS))
-                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                            .addComponent(checkBoxAvgSimpleCTSperM)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgSimpleCTS)))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addComponent(checkBoxAvgSimpleIntTS)
+                                            .addGap(18, 18, 18)
                                             .addComponent(checkBoxAvgMDeIntTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(checkBoxAvgMDeIntTS)
                                             .addGap(18, 18, 18)
                                             .addComponent(checkBoxAvgTheilsuIntTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgTheilsuIntTS)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(checkBoxAvgCvgEffIntTSperM)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgCvgEffIntTS))
+                                            .addComponent(checkBoxAvgTheilsuIntTS))
                                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addComponent(checkBoxAvgSimpleCTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkBoxAvgSimpleCTS)
+                                            .addGap(18, 18, 18)
                                             .addComponent(checkBoxAvgMDeCTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(checkBoxAvgMDeCTS)
                                             .addGap(18, 18, 18)
                                             .addComponent(checkBoxAvgTheilsuCTSperM)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxAvgTheilsuCTS))))
-                                .addComponent(checkBoxAvgONLY, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addContainerGap())))
+                                            .addComponent(checkBoxAvgTheilsuCTS))
+                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addComponent(checkBoxAvgCvgEffIntTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkBoxAvgCvgEffIntTS)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkBoxAvgCenterLogRadiusIntTS)))))
+                            .addGap(261, 261, 261))))
                 .addGroup(panelRunOutsideLayout.createSequentialGroup()
                     .addComponent(buttonTrainAndTest)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2525,9 +2544,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(checkBoxRunIncludeRMSSE)
                             .addComponent(textFieldRunRMSSESeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-            .addGap(65, 65, 65)
-            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                    .addGap(94, 94, 94)
                     .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
                             .addComponent(jLabel41)
@@ -2624,29 +2643,36 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addComponent(checkBoxAvgTheilsuCTS))
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(checkBoxAvgSimpleCTSperM)
-                                            .addComponent(checkBoxAvgSimpleCTS)))))
-                            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
-                                    .addComponent(jLabel16))
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(checkBoxAvgTheilsuIntTSperM)
-                                    .addComponent(checkBoxAvgTheilsuIntTS)
-                                    .addComponent(checkBoxAvgCvgEffIntTSperM)
-                                    .addComponent(checkBoxAvgCvgEffIntTS))
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(checkBoxAvgMDeIntTSperM)
-                                    .addComponent(checkBoxAvgMDeIntTS))
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(checkBoxAvgSimpleIntTSperM)
-                                    .addComponent(checkBoxAvgSimpleIntTS)))
-                            .addGap(18, 18, 18)
-                            .addComponent(checkBoxAvgONLY))
+                                            .addComponent(checkBoxAvgSimpleCTS))))))
                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
                             .addGap(49, 49, 49)
-                            .addComponent(jLabel45))))
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGap(160, 160, 160))
+                            .addComponent(jLabel45)))
+                    .addGap(18, 18, 18)
+                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(jLabel16))
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBoxAvgTheilsuIntTSperM)
+                            .addComponent(checkBoxAvgTheilsuIntTS))
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBoxAvgMDeIntTSperM)
+                            .addComponent(checkBoxAvgMDeIntTS))
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBoxAvgSimpleIntTSperM)
+                            .addComponent(checkBoxAvgSimpleIntTS)))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(checkBoxAvgCvgEffIntTSperM)
+                        .addComponent(checkBoxAvgCvgEffIntTS)
+                        .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
+                        .addComponent(checkBoxAvgCenterLogRadiusIntTS))
+                    .addGap(21, 21, 21)
+                    .addComponent(checkBoxAvgONLY))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
+                    .addGap(65, 65, 65)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(99, 99, 99))
     );
 
     panelEverything.addTab("Run", panelRunOutside);
@@ -4683,6 +4709,22 @@ public class MainFrame extends javax.swing.JFrame {
             maybeTurnOffPlotAvgONLY();
         }
     }//GEN-LAST:event_checkBoxAvgCvgEffIntTSActionPerformed
+
+    private void checkBoxAvgCenterLogRadiusIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgCenterLogRadiusIntTSperMActionPerformed
+        if (checkBoxAvgCenterLogRadiusIntTSperM.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSperMActionPerformed
+
+    private void checkBoxAvgCenterLogRadiusIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
+        if (checkBoxAvgCenterLogRadiusIntTS.isSelected()) { //ak sa to prave zafajklo
+            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
+        } else { //prave sa to odfajklo
+            maybeTurnOffPlotAvgONLY();
+        }
+    }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -4701,7 +4743,10 @@ public class MainFrame extends javax.swing.JFrame {
             (! checkBoxAvgTheilsuIntTSperM.isSelected()) &&
                 
             (! checkBoxAvgCvgEffIntTS.isSelected()) &&
-            (! checkBoxAvgCvgEffIntTSperM.isSelected())) {
+            (! checkBoxAvgCvgEffIntTSperM.isSelected()) &&
+                
+            (! checkBoxAvgCenterLogRadiusIntTS.isSelected()) &&
+            (! checkBoxAvgCenterLogRadiusIntTSperM.isSelected())) {
             checkBoxAvgONLY.setSelected(false);
             checkBoxAvgONLY.setEnabled(false);
         }
@@ -4785,6 +4830,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonSettingsAddToBatch_VARint;
     private javax.swing.JButton buttonSettingsAddToBatch_intMLP;
     private javax.swing.JButton buttonTrainAndTest;
+    private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTS;
+    private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTSperM;
     private javax.swing.JCheckBox checkBoxAvgCvgEffIntTS;
     private javax.swing.JCheckBox checkBoxAvgCvgEffIntTSperM;
     private javax.swing.JCheckBox checkBoxAvgMDeCTS;
@@ -5943,6 +5990,8 @@ public class MainFrame extends javax.swing.JFrame {
                 checkBoxAvgTheilsuIntTS.isSelected(), reportsCTS, reportsIntTS));
         avgList.add(new AverageCoverageEfficiency(checkBoxAvgCvgEffIntTSperM.isSelected(), 
                 checkBoxAvgCvgEffIntTS.isSelected(), reportsIntTS));
+        avgList.add(new AverageEqCenterEqLogRadius(checkBoxAvgCenterLogRadiusIntTSperM.isSelected(), 
+                checkBoxAvgCenterLogRadiusIntTS.isSelected()));
         
         return avgList;
     }

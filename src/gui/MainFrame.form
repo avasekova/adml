@@ -3252,27 +3252,19 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="checkBoxAvgONLY" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel15" alignment="0" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="jLabel16" alignment="0" min="-2" max="-2" attributes="0"/>
                                               </Group>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
                                                       <Component id="checkBoxAvgSimpleIntTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgSimpleIntTS" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="checkBoxAvgSimpleCTSperM" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="checkBoxAvgSimpleCTS" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeIntTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeIntTS" min="-2" max="-2" attributes="0"/>
@@ -3280,12 +3272,12 @@
                                                       <Component id="checkBoxAvgTheilsuIntTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgTheilsuIntTS" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                      <Component id="checkBoxAvgCvgEffIntTSperM" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="checkBoxAvgCvgEffIntTS" min="-2" max="-2" attributes="0"/>
                                                   </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
+                                                  <Group type="102" attributes="0">
+                                                      <Component id="checkBoxAvgSimpleCTSperM" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgSimpleCTS" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeCTSperM" min="-2" max="-2" attributes="0"/>
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgMDeCTS" min="-2" max="-2" attributes="0"/>
@@ -3294,11 +3286,19 @@
                                                       <EmptySpace max="-2" attributes="0"/>
                                                       <Component id="checkBoxAvgTheilsuCTS" min="-2" max="-2" attributes="0"/>
                                                   </Group>
+                                                  <Group type="102" alignment="0" attributes="0">
+                                                      <Component id="checkBoxAvgCvgEffIntTSperM" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgCvgEffIntTS" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgCenterLogRadiusIntTSperM" min="-2" max="-2" attributes="0"/>
+                                                      <EmptySpace max="-2" attributes="0"/>
+                                                      <Component id="checkBoxAvgCenterLogRadiusIntTS" min="-2" max="-2" attributes="0"/>
+                                                  </Group>
                                               </Group>
                                           </Group>
-                                          <Component id="checkBoxAvgONLY" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="261" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -3363,9 +3363,9 @@
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabel41" min="-2" max="-2" attributes="0"/>
@@ -3487,38 +3487,47 @@
                                               </Group>
                                           </Group>
                                       </Group>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                              <Component id="checkBoxAvgTheilsuIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgTheilsuIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgCvgEffIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgCvgEffIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" groupAlignment="3" attributes="0">
-                                              <Component id="checkBoxAvgMDeIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgMDeIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                              <Component id="checkBoxAvgSimpleIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgSimpleIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="checkBoxAvgONLY" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
                                       <Component id="jLabel45" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
+                                      <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="checkBoxAvgTheilsuIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgTheilsuIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="checkBoxAvgMDeIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgMDeIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                                      <Component id="checkBoxAvgSimpleIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgSimpleIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="checkBoxAvgCvgEffIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxAvgCvgEffIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxAvgCenterLogRadiusIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxAvgCenterLogRadiusIntTS" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <Component id="checkBoxAvgONLY" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jSeparator1" alignment="1" min="-2" pref="367" max="-2" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" pref="428" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="160" pref="160" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4017,6 +4026,22 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgCvgEffIntTSActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgCenterLogRadiusIntTSperM">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="avg center logradius per method"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgCenterLogRadiusIntTSperMActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgCenterLogRadiusIntTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="avg center logradius"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgCenterLogRadiusIntTSActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
