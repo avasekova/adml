@@ -66,6 +66,9 @@ public class Median extends Average { //well...
             int numTrainAll = reportsCTS.get(0).getNumTrainingEntries();
             
             for (TrainAndTestReportCrisp r : reportsCTS) {
+                //iba vyuzijem tento loop na nasyslenie weights, aj tak su vsetky 1
+                weightsCrisp.put(r.toString(), 1.0);
+                
                 if (r.getNumTrainingEntries() != numTrainAll) {
                     allTheSame = false;
                     break;
@@ -239,6 +242,9 @@ public class Median extends Average { //well...
         boolean allTheSame = true;
         int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
         for (TrainAndTestReportInterval r : reportsIntTS) {
+            //iba vyuzijem tento loop na nasyslenie weights, aj tak su vsetky 1
+            weightsInterval.put(r.toString(), 1.0);
+            
             if (r.getNumTrainingEntries() != numTrainAll) {
                 allTheSame = false;
                 break;

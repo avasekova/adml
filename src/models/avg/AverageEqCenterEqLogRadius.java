@@ -85,6 +85,9 @@ public class AverageEqCenterEqLogRadius extends Average {
         boolean allTheSame = true;
         int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
         for (TrainAndTestReportInterval r : reportsIntTS) {
+            //iba vyuzijem tento loop na nasyslenie si weights - vsetky su aj tak jednotkove
+            weightsInterval.put(r.toString(), 1.0);
+            
             if (r.getNumTrainingEntries() != numTrainAll) {
                 allTheSame = false;
                 break;

@@ -36,8 +36,8 @@ public abstract class Average {
     public abstract double getWeightForModelFuture(TrainAndTestReportInterval report);
     public abstract String getName();
     
-    protected Map<TrainAndTestReportCrisp, Double> weightsCrisp = new HashMap<>();
-    protected Map<TrainAndTestReportInterval, Double> weightsInterval = new HashMap<>();
+    protected Map<String, Double> weightsCrisp = new HashMap<>();
+    protected Map<String, Double> weightsInterval = new HashMap<>();
     
     private boolean avgCTSperM;
     private boolean avgCTS;
@@ -171,7 +171,7 @@ public abstract class Average {
                     double weightTrain = getWeightForModelTrain(r);
                     double weightTest = getWeightForModelTest(r);
                     double weightFuture = getWeightForModelFuture(r);
-                    weightsCrisp.put(r, weightFuture);
+                    weightsCrisp.put(r.toString(), weightFuture);
                     
                     sumWeightsTrain.append(weightTrain);
                     sumWeightsTest.append(weightTest);
@@ -313,7 +313,7 @@ public abstract class Average {
                     double weightTrain = getWeightForModelTrain(r);
                     double weightTest = getWeightForModelTest(r);
                     double weightFuture = getWeightForModelFuture(r);
-                    weightsInterval.put(r, weightFuture);
+                    weightsInterval.put(r.toString(), weightFuture);
                     
                     sumWeightsTrain.append(weightTrain);
                     sumWeightsTest.append(weightTest);
@@ -445,12 +445,12 @@ public abstract class Average {
     }
     
     
-    public Map<TrainAndTestReportCrisp, Double> getAllWeightsCrisp() {
+    public Map<String, Double> getAllWeightsCrisp() {
         return weightsCrisp;
     }
     
     
-    public Map<TrainAndTestReportInterval, Double> getAllWeightsInterval() {
+    public Map<String, Double> getAllWeightsInterval() {
         return weightsInterval;
     }
 }
