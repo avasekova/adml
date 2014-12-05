@@ -121,10 +121,6 @@ public class Median extends Average { //well...
                     }
                 }
                 
-                for (TrainAndTestReportCrisp r : reportsCTSforForecastTest) {
-                    System.out.println(r.getModelName() + ": " + r.getForecastValuesTest().length);
-                }
-                
                 int countAll = 0;
                 nextOuter = false;
                 while (! reportsCTSforForecastTest.isEmpty()) {
@@ -301,8 +297,6 @@ public class Median extends Average { //well...
                     avgAllCentersTrain.append("))");
                     avgAllRadiiTrain.append("))");
                 }
-                System.out.println(avgAllCentersTrain);
-                System.out.println(avgAllRadiiTrain);
                 
                 
                 nextOuter = false;
@@ -342,8 +336,6 @@ public class Median extends Average { //well...
                     avgAllCentersTest.append("))");
                     avgAllRadiiTest.append("))");
                 }
-                System.out.println(avgAllCentersTest);
-                System.out.println(avgAllRadiiTest);
                 
                 nextOuter = false;
                 for (int i = 0; i < reportsIntTS.get(0).getForecastValuesFuture().size(); i++) {
@@ -382,8 +374,6 @@ public class Median extends Average { //well...
                     avgAllCentersFuture.append("))");
                     avgAllRadiiFuture.append("))");
                 }
-                System.out.println(avgAllCentersFuture);
-                System.out.println(avgAllRadiiFuture);
                 
                 avgAllCentersTrain.append(")");
                 avgAllCentersTest.append(")");
