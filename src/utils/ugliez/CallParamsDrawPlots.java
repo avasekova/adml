@@ -1,10 +1,11 @@
 package utils.ugliez;
 
-import models.avg.AveragesConfig;
 import java.util.List;
 import javax.swing.JList;
+import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
+import models.avg.AveragesConfig;
 import org.rosuda.javaGD.JGDBufferedPanel;
 
 public class CallParamsDrawPlots extends CallParams {
@@ -14,6 +15,7 @@ public class CallParamsDrawPlots extends CallParams {
     private int numForecasts;
     private List<TrainAndTestReportCrisp> reportsCTS; //obsahuje ako realne data uz odseknute data podla fromTo
     private List<TrainAndTestReportInterval> reportsITS;
+    private List<TrainAndTestReport> addedReports;
     private int from;
     private int to;
     private String colname_CTS;
@@ -74,6 +76,14 @@ public class CallParamsDrawPlots extends CallParams {
 
     public void setReportsITS(List<TrainAndTestReportInterval> reportsITS) {
         this.reportsITS = reportsITS;
+    }
+
+    public List<TrainAndTestReport> getAddedReports() {
+        return addedReports;
+    }
+
+    public void setAddedReports(List<TrainAndTestReport> addedReports) {
+        this.addedReports = addedReports;
     }
 
     public int getFrom() {

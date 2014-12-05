@@ -15,6 +15,7 @@ import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.Average;
+import models.avg.AveragesConfig;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
@@ -121,7 +122,10 @@ public class PlotDrawer {
             //teraz nakresli vsetko
             for (TrainAndTestReportCrisp r : whatToDrawNow) {
                 if (! r.isVisible()) { //skip those that are turned off
-                    ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
+                    if (r.getColourInPlot().equals("#FFFFFF")) {
+                        ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
+                    }
+                    //do not discard the colour in case it was given, i.e. no new colour would have been asked for anyway
                     continue;
                 }
                 
@@ -218,8 +222,11 @@ public class PlotDrawer {
             
             //now draw
             for (TrainAndTestReportInterval r : whatToDrawNow) {
-                if (! r.isVisible()) {
-                    ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
+                if (! r.isVisible()) { //skip those that are turned off
+                    if (r.getColourInPlot().equals("#FFFFFF")) {
+                        ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
+                    }
+                    //do not discard the colour in case it was given, i.e. no new colour would have been asked for anyway
                     continue;
                 }
                 
@@ -344,7 +351,7 @@ public class PlotDrawer {
             allReports.addAll(reportsCTS);
             allReports.addAll(reportsIntTS);
             allReports.addAll(addedReports);
-            drawLegend(par.getListPlotLegend(), allReports, new PlotLegendTurnOFFableListCellRenderer(),
+            drawLegend(par.getListPlotLegend(), allReports, addedReports, new PlotLegendTurnOFFableListCellRenderer(),
                     rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
         }
         
@@ -885,7 +892,8 @@ public class PlotDrawer {
         return panelsList;
     }
 
-    public static void drawLegend(final JList listPlotLegend, final List<Plottable> plots, ListCellRenderer cellRenderer,
+    public static void drawLegend(final JList listPlotLegend, final List<Plottable> plots,
+            final List<TrainAndTestReport> addedReports, ListCellRenderer cellRenderer,
             final String rangeXCrisp, final String rangeYCrisp, final String rangeXInt, final String rangeYInt) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
         
@@ -905,6 +913,28 @@ public class PlotDrawer {
                             String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
                             String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
                             String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
+                            
+                            List<TrainAndTestReportCrisp> updatedReportsCTS = new ArrayList<>();
+                            updatedReportsCTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS());
+                            List<TrainAndTestReportInterval> updatedReportsIntTS = new ArrayList<>();
+                            updatedReportsIntTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS());
+                            
+                            for (TrainAndTestReport rep : addedReports) {
+                                if (rep instanceof TrainAndTestReportCrisp) {
+                                    updatedReportsCTS.add((TrainAndTestReportCrisp)rep);
+                                } else {
+                                    if (rep instanceof TrainAndTestReportInterval) {
+                                        updatedReportsIntTS.add((TrainAndTestReportInterval) rep);
+                                    }
+                                }
+                            }
+                            
+                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setAvgConfig(
+                                    new AveragesConfig(new ArrayList<Average>(),  //clear the avgs
+                                ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getAvgConfig().isAvgONLY()));
+                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
+                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
+                                 
                             PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, 
                                     (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
                                     rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);

@@ -95,9 +95,8 @@ public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
         int originalSize = reports.size();
         List<TrainAndTestReportInterval> stash = new ArrayList<>();
         for (TrainAndTestReportInterval r : reports) {
-            if (r.canBeInvisible()) { //for now, the only way to distinguish avg from non-avg. TODO think of sth else
+            if (! r.isAverage()) {
                 stash.add(r);
-                
             }
         }
         hiddenReports.addAll(stash);

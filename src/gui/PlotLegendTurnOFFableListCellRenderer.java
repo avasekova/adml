@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
-import models.TrainAndTestReport;
 
 public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRenderer {
     
@@ -19,11 +18,6 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
         
         JCheckBox checkBox = new JCheckBox("", ((PlotLegendTurnOFFableListElement)value).getReport().isVisible());
         checkBox.setBorder(null);
-        if (((PlotLegendTurnOFFableListElement)value).getReport() instanceof TrainAndTestReport) {
-            if (! ((TrainAndTestReport)((PlotLegendTurnOFFableListElement)value).getReport()).canBeInvisible()) {
-                checkBox.setEnabled(false);
-            }
-        }
         
         JLabel fillLabel = new JLabel("  ");
         JLabel fillLabel2 = new JLabel("  ");

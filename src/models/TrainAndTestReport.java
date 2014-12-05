@@ -13,13 +13,13 @@ public abstract class TrainAndTestReport implements Plottable {
     private int numTrainingEntries = 1;
     private String nnDiagramPlotCode = "";
     private boolean visible = true;
-    private final boolean canBeInvisible;
+    private final boolean average;
     
     private String colourInPlot = "#FFFFFF"; //the name of R colour used in the last plot for this Report
     
-    public TrainAndTestReport(String modelName, boolean canBeInvisible) { 
+    public TrainAndTestReport(String modelName, boolean average) { 
         this.modelName = modelName;
-        this.canBeInvisible = canBeInvisible;
+        this.average = average;
     }
 
     public String getModelName() {
@@ -75,15 +75,11 @@ public abstract class TrainAndTestReport implements Plottable {
 
     @Override
     public void setVisible(boolean visible) {
-        if (visible || canBeInvisible) {
-            this.visible = visible;
-        } else {
-            //do nothing. cannot be turned off
-        }
+        this.visible = visible;
     }
     
-    public boolean canBeInvisible() {
-        return canBeInvisible;
+    public boolean isAverage() {
+        return average;
     }
     
     @Override

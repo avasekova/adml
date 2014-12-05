@@ -135,7 +135,7 @@ public class ForecastValsTableModel extends AbstractTableModel {
         List<TrainAndTestReport> stashCols = new ArrayList<>();
         List<String> stashNames = new ArrayList<>();
         for (int i = 0; i < reports.size(); i++) {
-            if (reports.get(i).canBeInvisible()) { //for now, the only way to distinguish avg from non-avg. TODO think of sth else
+            if (! reports.get(i).isAverage()) {
                 stashCols.add(reports.get(i));
                 stashNames.add(columnNames.get(i));
             }

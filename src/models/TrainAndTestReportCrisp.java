@@ -13,11 +13,11 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
     private double[] predictionIntervalsLowers = new double[] {};
     
     public TrainAndTestReportCrisp(String modelName) {
-        this(modelName, true);
+        this(modelName, false);
     }
     
-    public TrainAndTestReportCrisp(String modelName, boolean canBeInvisible) {
-        super(modelName, canBeInvisible);
+    public TrainAndTestReportCrisp(String modelName, boolean average) {
+        super(modelName, average);
     }
 
     public double[] getRealOutputsTrain() {
