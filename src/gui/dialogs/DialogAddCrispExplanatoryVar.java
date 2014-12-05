@@ -1,5 +1,6 @@
-package gui;
+package gui.dialogs;
 
+import gui.tablemodels.CrispExplVarsTableModel;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,13 +71,10 @@ public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(89, 89, 89))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(86, 86, 86))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel6))
+                .addGap(89, 89, 89)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(textFieldAddExplVarName)

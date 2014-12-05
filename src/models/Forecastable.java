@@ -1,6 +1,6 @@
 package models;
 
-import gui.DataTableModel;
+import gui.tablemodels.DataTableModel;
 import params.Params;
 
 public interface Forecastable {

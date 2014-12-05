@@ -36,6 +36,8 @@ public abstract class Average {
     public abstract double getWeightForModelFuture(TrainAndTestReportInterval report);
     public abstract String getName();
     
+    protected Map<TrainAndTestReportCrisp, Double> weightsCrisp = new HashMap<>();
+    protected Map<TrainAndTestReportInterval, Double> weightsInterval = new HashMap<>();
     
     private boolean avgCTSperM;
     private boolean avgCTS;
@@ -93,6 +95,9 @@ public abstract class Average {
     
     
     public List<TrainAndTestReportCrisp> computeAvgCTSperM(List<TrainAndTestReportCrisp> reportsCTS) {
+        weightsCrisp.clear();
+        weightsInterval.clear();
+        
         Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
         for (TrainAndTestReportCrisp r : reportsCTS) {
             if (mapForAvg.containsKey(r.getModelName())) {
@@ -166,6 +171,7 @@ public abstract class Average {
                     double weightTrain = getWeightForModelTrain(r);
                     double weightTest = getWeightForModelTest(r);
                     double weightFuture = getWeightForModelFuture(r);
+                    weightsCrisp.put(r, weightFuture);
                     
                     sumWeightsTrain.append(weightTrain);
                     sumWeightsTest.append(weightTest);
@@ -307,6 +313,7 @@ public abstract class Average {
                     double weightTrain = getWeightForModelTrain(r);
                     double weightTest = getWeightForModelTest(r);
                     double weightFuture = getWeightForModelFuture(r);
+                    weightsInterval.put(r, weightFuture);
                     
                     sumWeightsTrain.append(weightTrain);
                     sumWeightsTest.append(weightTest);
@@ -435,5 +442,15 @@ public abstract class Average {
 
     public void setAvgIntTS(boolean avgIntTS) {
         this.avgIntTS = avgIntTS;
+    }
+    
+    
+    public Map<TrainAndTestReportCrisp, Double> getAllWeightsCrisp() {
+        return weightsCrisp;
+    }
+    
+    
+    public Map<TrainAndTestReportInterval, Double> getAllWeightsInterval() {
+        return weightsInterval;
     }
 }

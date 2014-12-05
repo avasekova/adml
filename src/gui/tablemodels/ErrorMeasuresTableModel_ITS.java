@@ -1,18 +1,18 @@
-package gui;
+package gui.tablemodels;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import models.TrainAndTestReportCrisp;
-import utils.ErrorMeasuresCrisp;
+import models.TrainAndTestReportInterval;
+import utils.ErrorMeasuresInterval;
 import utils.Utils;
 
-public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
+public class ErrorMeasuresTableModel_ITS extends AbstractTableModel {
     
-    private final List<TrainAndTestReportCrisp> reports;
-    private final List<TrainAndTestReportCrisp> hiddenReports = new ArrayList<>();
+    private final List<TrainAndTestReportInterval> reports;
+    private final List<TrainAndTestReportInterval> hiddenReports = new ArrayList<>();
     
-    public ErrorMeasuresTableModel_CTS(List<TrainAndTestReportCrisp> reports) {
+    public ErrorMeasuresTableModel_ITS(List<TrainAndTestReportInterval> reports) {
         this.reports = reports;
     }
 
@@ -23,7 +23,7 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return ErrorMeasuresCrisp.numberOfSupportedMeasures() + 1;
+        return ErrorMeasuresInterval.numberOfSupportedMeasures() + 1;
     }
 
     @Override
@@ -43,7 +43,7 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
             }
         } else {
             if ((rowIndex == 0) || (rowIndex == reports.size() + 1)) {
-                return ErrorMeasuresCrisp.namesOfSupportedMeasures()[columnIndex - 1];
+                return ErrorMeasuresInterval.namesOfSupportedMeasures()[columnIndex - 1];
             } else {
                 if (rowIndex < reports.size() + 1) {
                     return Utils.valToDecPoints(reports.get(rowIndex - 1).getErrorMeasures().serializeToArray()[(columnIndex - 1)*2]);
@@ -90,11 +90,11 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
             return selectedRow - reports.size() - 2;
         }
     }
-    
+
     public void hideAllButAvg() {
         int originalSize = reports.size();
-        List<TrainAndTestReportCrisp> stash = new ArrayList<>();
-        for (TrainAndTestReportCrisp r : reports) {
+        List<TrainAndTestReportInterval> stash = new ArrayList<>();
+        for (TrainAndTestReportInterval r : reports) {
             if (! r.isAverage()) {
                 stash.add(r);
             }

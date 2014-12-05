@@ -1,5 +1,12 @@
-package gui;
+package gui.tablemodels;
 
+import gui.ColourService;
+import gui.DefaultPlottable;
+import gui.LoadDataCustomizerPanel;
+import gui.MainFrame;
+import gui.PlotDrawer;
+import gui.renderers.PlotLegendListCellRenderer;
+import gui.Plottable;
 import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;

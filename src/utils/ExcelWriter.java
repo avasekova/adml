@@ -1,8 +1,8 @@
 package utils;
 
-import gui.ErrorMeasuresTableModel_CTS;
-import gui.ErrorMeasuresTableModel_ITS;
-import gui.ForecastValsTableModel;
+import gui.tablemodels.ErrorMeasuresTableModel_CTS;
+import gui.tablemodels.ErrorMeasuresTableModel_ITS;
+import gui.tablemodels.ForecastValsTableModel;
 import java.io.File;
 import java.io.IOException;
 import jxl.Workbook;

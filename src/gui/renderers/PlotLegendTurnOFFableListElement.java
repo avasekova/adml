@@ -1,5 +1,6 @@
-package gui;
+package gui.renderers;
 
+import gui.Plottable;
 import java.awt.Color;
 import javax.swing.JPanel;
 

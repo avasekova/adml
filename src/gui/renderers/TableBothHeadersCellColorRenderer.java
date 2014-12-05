@@ -1,4 +1,4 @@
-package gui;
+package gui.renderers;
 
 import java.awt.Component;
 import java.awt.Font;

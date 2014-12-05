@@ -1,6 +1,6 @@
 package models;
 
-import gui.DataTableModel;
+import gui.tablemodels.DataTableModel;
 import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;

@@ -1,5 +1,6 @@
-package gui;
+package gui.dialogs;
 
+import gui.tablemodels.IntervalExplVarsTableModel;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,9 @@
 package gui;
 
+import gui.renderers.PlotLegendListCellRenderer;
+import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
+import gui.renderers.PlotLegendTurnOFFableListElement;
+import gui.tablemodels.DataTableModel;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;

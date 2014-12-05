@@ -1,19 +1,19 @@
-package gui;
+package gui.tablemodels;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import utils.IntervalExplanatoryVariable;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
+import utils.IntervalOutputVariable;
 
-public class IntervalExplVarsTableModel extends AbstractTableModel {
+public class IntervalOutVarsTableModel extends AbstractTableModel {
+
+    private List<IntervalOutputVariable> variables = new ArrayList<>();
+    private final String[] columnNames = new String[]{ "Name", "" };
     
-    private List<IntervalExplanatoryVariable> variables = new ArrayList<>();
-    private final String[] columnNames = new String[]{ "Name", "At time", ""};
-    
-    public void addVariable(IntervalExplanatoryVariable var) {
+    public void addVariable(IntervalOutputVariable var) {
         if (! variables.contains(var)) {
             if ("".equals(var.getName())) {
                 var.setName("Variable" + (variables.size() + 1));
@@ -30,7 +30,7 @@ public class IntervalExplVarsTableModel extends AbstractTableModel {
             this.fireTableRowsDeleted(row, row);
         }
     }
-
+    
     @Override
     public int getRowCount() {
         return variables.size();
@@ -45,7 +45,7 @@ public class IntervalExplVarsTableModel extends AbstractTableModel {
     public String getColumnName(int columnIndex) {
         return columnNames[columnIndex];
     }
-    
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
@@ -53,13 +53,11 @@ public class IntervalExplVarsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        IntervalExplanatoryVariable var = variables.get(rowIndex);
+        IntervalOutputVariable var = variables.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return var.getName();
             case 1:
-                return "(t-" + var.getLag() + ")";
-            case 2:
                 if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
                     return ((IntervalNamesCentreRadius) var.getIntervalNames()).toString();
                 } else {
@@ -70,7 +68,7 @@ public class IntervalExplVarsTableModel extends AbstractTableModel {
         return "(NA)";
     }
     
-    public List<IntervalExplanatoryVariable> getVariables() {
+    public List<IntervalOutputVariable> getVariables() {
         return Collections.unmodifiableList(variables);
     }
 }

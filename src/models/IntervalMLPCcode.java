@@ -1,6 +1,6 @@
 package models;
 
-import gui.DataTableModel;
+import gui.tablemodels.DataTableModel;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;

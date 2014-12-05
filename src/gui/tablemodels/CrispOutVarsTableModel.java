@@ -1,17 +1,17 @@
-package gui;
+package gui.tablemodels;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import utils.CrispExplanatoryVariable;
+import utils.CrispOutputVariable;
 
-public class CrispExplVarsTableModel extends AbstractTableModel {
+public class CrispOutVarsTableModel extends AbstractTableModel {
+
+    private List<CrispOutputVariable> variables = new ArrayList<>();
+    private final String[] columnNames = new String[]{ "Name", "" };
     
-    private List<CrispExplanatoryVariable> variables = new ArrayList<>();
-    private final String[] columnNames = new String[]{ "Name", "At time", "Data"};
-    
-    public void addVariable(CrispExplanatoryVariable var) {
+    public void addVariable(CrispOutputVariable var) {
         if (! variables.contains(var)) {
             if ("".equals(var.getName())) {
                 var.setName("Variable" + (variables.size() + 1));
@@ -28,7 +28,7 @@ public class CrispExplVarsTableModel extends AbstractTableModel {
             this.fireTableRowsDeleted(row, row);
         }
     }
-
+    
     @Override
     public int getRowCount() {
         return variables.size();
@@ -43,7 +43,7 @@ public class CrispExplVarsTableModel extends AbstractTableModel {
     public String getColumnName(int columnIndex) {
         return columnNames[columnIndex];
     }
-    
+
     @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
         return false;
@@ -51,20 +51,18 @@ public class CrispExplVarsTableModel extends AbstractTableModel {
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        CrispExplanatoryVariable var = variables.get(rowIndex);
+        CrispOutputVariable var = variables.get(rowIndex);
         switch (columnIndex) {
             case 0:
                 return var.getName();
             case 1:
-                return "(t-" + var.getLag() + ")";
-            case 2:
                 return var.getFieldName();
         }
         
         return "(NA)";
     }
     
-    public List<CrispExplanatoryVariable> getVariables() {
+    public List<CrispOutputVariable> getVariables() {
         return Collections.unmodifiableList(variables);
     }
 }

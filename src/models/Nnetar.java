@@ -1,6 +1,6 @@
 package models;
 
-import gui.DataTableModel;
+import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

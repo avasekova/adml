@@ -1,6 +1,6 @@
 package utils.ugliez;
 
-import gui.DataTableModel;
+import gui.tablemodels.DataTableModel;
 import java.util.List;
 import javax.swing.JList;
 import org.rosuda.javaGD.JGDBufferedPanel;

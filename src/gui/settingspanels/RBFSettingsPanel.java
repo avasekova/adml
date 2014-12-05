@@ -1,7 +1,7 @@
 package gui.settingspanels;
 
-import gui.CrispExplVarsTableModel;
-import gui.DialogAddCrispExplanatoryVar;
+import gui.tablemodels.CrispExplVarsTableModel;
+import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.MainFrame;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -68,7 +68,7 @@ public class RBFSettingsPanel extends SettingsPanel {
             }
         });
 
-        tableExplVars.setModel(new gui.CrispExplVarsTableModel());
+        tableExplVars.setModel(new gui.tablemodels.CrispExplVarsTableModel());
         tableExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneExplVars.setViewportView(tableExplVars);
 

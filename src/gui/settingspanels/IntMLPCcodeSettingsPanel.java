@@ -1,9 +1,9 @@
 package gui.settingspanels;
 
-import gui.DialogAddIntervalExplanatoryVar;
-import gui.DialogAddIntervalOutputVar;
-import gui.IntervalExplVarsTableModel;
-import gui.IntervalOutVarsTableModel;
+import gui.dialogs.DialogAddIntervalExplanatoryVar;
+import gui.dialogs.DialogAddIntervalOutputVar;
+import gui.tablemodels.IntervalExplVarsTableModel;
+import gui.tablemodels.IntervalOutVarsTableModel;
 import gui.MainFrame;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +94,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
             }
         });
 
-        tableExplVars.setModel(new gui.IntervalExplVarsTableModel());
+        tableExplVars.setModel(new gui.tablemodels.IntervalExplVarsTableModel());
         tableExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneExplVars.setViewportView(tableExplVars);
 
@@ -123,7 +123,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         jLabel45.setText("(Only one variable allowed. Can be extended to more.)");
         jLabel45.setEnabled(false);
 
-        tableOutVars.setModel(new gui.IntervalOutVarsTableModel());
+        tableOutVars.setModel(new gui.tablemodels.IntervalOutVarsTableModel());
         scrollPaneOutVars.setViewportView(tableOutVars);
 
         jLabel38.setText("Number of iterations:");
