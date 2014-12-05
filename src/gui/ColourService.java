@@ -46,8 +46,12 @@ public class ColourService {
         counter = -1;
     }
     
+    public String getLastColour() {
+        return COLOURS[counter % COLOURS.length];
+    }
+    
     public String getNewColour() {
         counter++;
-        return COLOURS[counter % COLOURS.length];
+        return getLastColour();
     }
 }

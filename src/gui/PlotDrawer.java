@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.DefaultListModel;
@@ -633,6 +634,67 @@ public class PlotDrawer {
         
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+    }
+    
+    
+    
+    //TODO refaktor: spojit s draw a drawScatterPlot (iba nejaky prepinac..)
+    public static void drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
+        final int start = Utils.getCounter();
+        int counter = 0;
+        Rengine rengine = MyRengine.getRengine();
+        StringBuilder formula = new StringBuilder("~");
+        StringBuilder labels = new StringBuilder("labels=c(");
+        boolean next = false;
+        for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
+            if (next) {
+                formula.append("+");
+                labels.append(",");
+            } else {
+                next = true;
+            }
+            
+            String CENTER = Const.INPUT + ".center." + (start+counter);
+            String RADIUS = Const.INPUT + ".radius." + (start+counter);
+            rengine.assign(CENTER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getCentre())));
+            rengine.assign(RADIUS, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getRadius())));
+            
+            formula.append(Const.INPUT).append(".center.").append(start+counter);
+            formula.append("+");
+            formula.append(Const.INPUT).append(".radius.").append(start+counter);
+            
+            labels.append("\"").append(interval.getCentre()).append("\"");
+            labels.append(",");
+            labels.append("\"").append(interval.getRadius()).append("\"");
+            
+            counter++;
+        }
+        labels.append(")");
+        
+        for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
+            //TODO dokoncit; zatial ich ignoruje
+            
+//            String colour = ColourService.getService().getNewColour();
+//            interval.setColourInPlot(colour);
+//            
+//            String lineStyle = "col=\"" + colour + "\"";
+//            drawScatterPlotMatrixITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
+//                    par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeCenter, rangeRadius);
+//            if (! next) {
+//                next = true;
+//            }
+        }
+        
+        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        rengine.eval("require(JavaGD)");
+        rengine.eval("require(graphics)");
+        rengine.eval("JavaGD()"); // zacne novy plot
+        rengine.eval("pairs(" + formula + ", " + labels + ", col=\"#444444\")");
+        
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getCanvasToUse().getWidth(), par.getCanvasToUse().getHeight()));
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        
+        PlotStateKeeper.setLastCallParams(par); //povodne par
     }
 
     private static String getRangeYMultipleInterval(List<Double> allVals) {

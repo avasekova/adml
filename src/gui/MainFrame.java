@@ -192,6 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
         buttonPlotAllITSScatterplot = new javax.swing.JButton();
+        buttonPlotAllITSScatterplotMatrix = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -705,6 +706,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
+    buttonPlotAllITSScatterplotMatrix.setText("Sc.plt matrix");
+    buttonPlotAllITSScatterplotMatrix.setEnabled(false);
+    buttonPlotAllITSScatterplotMatrix.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonPlotAllITSScatterplotMatrixActionPerformed(evt);
+        }
+    });
+
     javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
     panelChart.setLayout(panelChartLayout);
     panelChartLayout.setHorizontalGroup(
@@ -772,8 +781,11 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelChartLayout.createSequentialGroup()
                             .addComponent(buttonPlotAllITS)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(buttonPlotAllITSScatterplotMatrix))
+                        .addGroup(panelChartLayout.createSequentialGroup()
+                            .addComponent(buttonPlotRemoveITS)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonPlotAllITSScatterplot))
-                        .addComponent(buttonPlotRemoveITS)
                         .addComponent(buttonPlotAddITS))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -783,8 +795,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(buttonPlotRestoreIntTSRangeY))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(buttonPlotZoomIntTS)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE))
+                            .addGap(0, 14, Short.MAX_VALUE))
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -813,11 +825,13 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelChartLayout.createSequentialGroup()
                                 .addComponent(buttonPlotAddITS)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPlotRemoveITS)
+                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonPlotRemoveITS)
+                                    .addComponent(buttonPlotAllITSScatterplot))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(buttonPlotAllITS)
-                                    .addComponent(buttonPlotAllITSScatterplot))))
+                                    .addComponent(buttonPlotAllITSScatterplotMatrix))))
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3084,6 +3098,7 @@ public class MainFrame extends javax.swing.JFrame {
                         buttonPACF.setEnabled(true);
                         buttonPlotAllITS.setEnabled(true);
                         buttonPlotAllITSScatterplot.setEnabled(true);
+                        buttonPlotAllITSScatterplotMatrix.setEnabled(true);
                         buttonPlotAddITS.setEnabled(true);
                         buttonPlotRemoveITS.setEnabled(true);
                         ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
@@ -4730,6 +4745,19 @@ public class MainFrame extends javax.swing.JFrame {
             maybeTurnOffPlotAvgONLY();
         }
     }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
+
+    private void buttonPlotAllITSScatterplotMatrixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
+        buttonPlotAllITSScatterplot.doClick(); //hack. for some reason does not draw the matrix without setting up the
+                                               //   plot with drawing sth else first.
+        ((DefaultListModel)listPlotLegend.getModel()).clear(); //a second hack to clear the legend after the scatterplot
+        
+        //tu uz len vezmi nasyslene v tych listoch
+        PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
+                panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        textAreaPlotBasicStats.setText("");
+        buttonPlotExportPlot.setEnabled(true);
+        setPlotRanges(0, 0);
+    }//GEN-LAST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -4805,6 +4833,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
     private javax.swing.JButton buttonPlotAllITSScatterplot;
+    private javax.swing.JButton buttonPlotAllITSScatterplotMatrix;
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotExportPlot;
     private javax.swing.JButton buttonPlotRemoveITS;

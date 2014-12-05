@@ -170,9 +170,13 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="buttonPlotAllITS" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonPlotAllITSScatterplotMatrix" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="buttonPlotRemoveITS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonPlotAllITSScatterplot" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="buttonPlotRemoveITS" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonPlotAddITS" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -184,9 +188,9 @@
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="buttonPlotZoomIntTS" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jScrollPane4" pref="202" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" pref="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -223,11 +227,14 @@
                                       <Group type="102" attributes="0">
                                           <Component id="buttonPlotAddITS" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="buttonPlotRemoveITS" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="3" attributes="0">
+                                              <Component id="buttonPlotRemoveITS" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="buttonPlotAllITSScatterplot" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="3" attributes="0">
                                               <Component id="buttonPlotAllITS" alignment="3" min="-2" max="-2" attributes="0"/>
-                                              <Component id="buttonPlotAllITSScatterplot" alignment="3" min="-2" max="-2" attributes="0"/>
+                                              <Component id="buttonPlotAllITSScatterplotMatrix" alignment="3" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -647,6 +654,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAllITSScatterplotActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonPlotAllITSScatterplotMatrix">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sc.plt matrix"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAllITSScatterplotMatrixActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
