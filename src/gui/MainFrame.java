@@ -1,11 +1,20 @@
 package gui;
 
+import gui.dialogs.DialogAddCrispExplanatoryVar;
+import gui.dialogs.DialogAddIntervalExplanatoryVar;
+import gui.dialogs.DialogAddIntervalOutputVar;
+import gui.dialogs.DialogLbUbCenterRadius;
+import gui.dialogs.DialogTooManyModels;
 import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
 import gui.filefilters.RFileFilter;
+import gui.renderers.PlotLegendListCellRenderer;
+import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
+import gui.renderers.PlotLegendTurnOFFableListElement;
+import gui.renderers.TableBothHeadersCellColorRenderer;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
@@ -24,6 +33,13 @@ import gui.settingspanels.SESSettingsPanel;
 import gui.settingspanels.SettingsPanel;
 import gui.settingspanels.VARSettingsPanel;
 import gui.settingspanels.VARintSettingsPanel;
+import gui.tablemodels.AnalysisBatchTableModel;
+import gui.tablemodels.CombinationWeightsTableModel;
+import gui.tablemodels.DataTableModel;
+import gui.tablemodels.ErrorMeasuresTableModel_CTS;
+import gui.tablemodels.ErrorMeasuresTableModel_ITS;
+import gui.tablemodels.ForecastValsTableModel;
+import gui.tablemodels.PredictionIntsTableModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
@@ -477,7 +493,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         panelCombinationWeightsAll = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        panelCombinationWeights = new javax.swing.JPanel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -3045,14 +3061,14 @@ public class MainFrame extends javax.swing.JFrame {
     jButton2.setText("Export");
     jButton2.setEnabled(false);
 
-    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-    jPanel1.setLayout(jPanel1Layout);
-    jPanel1Layout.setHorizontalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 0, Short.MAX_VALUE)
+    javax.swing.GroupLayout panelCombinationWeightsLayout = new javax.swing.GroupLayout(panelCombinationWeights);
+    panelCombinationWeights.setLayout(panelCombinationWeightsLayout);
+    panelCombinationWeightsLayout.setHorizontalGroup(
+        panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 1381, Short.MAX_VALUE)
     );
-    jPanel1Layout.setVerticalGroup(
-        jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    panelCombinationWeightsLayout.setVerticalGroup(
+        panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGap(0, 602, Short.MAX_VALUE)
     );
 
@@ -3062,10 +3078,10 @@ public class MainFrame extends javax.swing.JFrame {
         panelCombinationWeightsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(panelCombinationWeightsAllLayout.createSequentialGroup()
             .addComponent(jButton2)
-            .addGap(0, 1336, Short.MAX_VALUE))
+            .addGap(0, 0, Short.MAX_VALUE))
         .addGroup(panelCombinationWeightsAllLayout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCombinationWeights, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addContainerGap())
     );
     panelCombinationWeightsAllLayout.setVerticalGroup(
@@ -3073,11 +3089,12 @@ public class MainFrame extends javax.swing.JFrame {
         .addGroup(panelCombinationWeightsAllLayout.createSequentialGroup()
             .addComponent(jButton2)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCombinationWeights, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addContainerGap())
     );
 
     panelEverything.addTab("Combination weights", panelCombinationWeightsAll);
+    panelEverything.removeTabAt(panelEverything.getTabCount() - 1);
 
     getContentPane().add(panelEverything, java.awt.BorderLayout.CENTER);
 
@@ -3838,6 +3855,9 @@ public class MainFrame extends javax.swing.JFrame {
         
         //show prediction intervals, if any
         outputPredictionIntervals(reportsCTS);
+        
+        //show computed weights for combined models, if any
+        outputComputedWeights();
 
         //and show forecast values in the other pane
         final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
@@ -4411,7 +4431,8 @@ public class MainFrame extends javax.swing.JFrame {
         //show prediction intervals, if any
         outputPredictionIntervals(reportsCTS);
         
-        
+        //show computed weights for combined models, if any
+        outputComputedWeights();
         
         
         
@@ -5101,7 +5122,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelRPkg1;
     private javax.swing.JLabel jLabelTrainingInfo;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -5145,6 +5165,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelBestModelCriterionMLPint;
     private javax.swing.JPanel panelBestModelCriterionRBFint;
     private javax.swing.JPanel panelChart;
+    private javax.swing.JPanel panelCombinationWeights;
     private javax.swing.JPanel panelCombinationWeightsAll;
     private javax.swing.JPanel panelData;
     private javax.swing.JPanel panelDiagramsNNs;
@@ -6153,5 +6174,42 @@ public class MainFrame extends javax.swing.JFrame {
                 checkBoxAvgMedianIntTSperM.isSelected(), checkBoxAvgMedianIntTS.isSelected()));
         
         return avgList;
+    }
+
+    private void outputComputedWeights() {
+        if (checkBoxAvgONLY.isEnabled()) { //hack; tj aspon jeden avg bol pocitany
+            panelCombinationWeights.removeAll();
+            
+            JTabbedPane tabbedPaneComputedWeights = new JTabbedPane(JTabbedPane.TOP);
+            tabbedPaneComputedWeights.setSize(panelCombinationWeights.getWidth(), panelCombinationWeights.getHeight());
+            
+            for (Average avg : ((CallParamsDrawPlots)PlotStateKeeper.getLastCallParams()).getAvgConfig().getAvgs()) {
+                if (! avg.getAllWeightsCrisp().isEmpty()) {
+                    JTable tableComputedWeightsCTS = new JTable(new CombinationWeightsTableModel(avg.getAllWeightsCrisp()));
+                    tableComputedWeightsCTS.setVisible(true);
+                    JScrollPane scrollPaneComputedWeightsCTS = new JScrollPane();
+                    scrollPaneComputedWeightsCTS.setViewportView(tableComputedWeightsCTS);
+                    tabbedPaneComputedWeights.addTab(avg.getName(), scrollPaneComputedWeightsCTS);
+                }
+                
+                if (! avg.getAllWeightsInterval().isEmpty()) {
+                    JTable tableComputedWeightsIntTS = new JTable(new CombinationWeightsTableModel(avg.getAllWeightsInterval()));
+                    tableComputedWeightsIntTS.setVisible(true);
+                    JScrollPane scrollPaneComputedWeightsIntTS = new JScrollPane();
+                    scrollPaneComputedWeightsIntTS.setViewportView(tableComputedWeightsIntTS);
+                    tabbedPaneComputedWeights.addTab(avg.getName(), scrollPaneComputedWeightsIntTS);
+                }
+            }
+            
+            panelCombinationWeights.add(tabbedPaneComputedWeights);
+            panelCombinationWeights.setVisible(true);
+            panelCombinationWeights.repaint();
+            
+            panelCombinationWeightsAll.setVisible(true);
+            panelEverything.addTab("Combination weights", panelCombinationWeightsAll);
+            panelCombinationWeightsAll.repaint();
+        } else {
+            panelEverything.remove(panelCombinationWeightsAll);
+        }
     }
 }
