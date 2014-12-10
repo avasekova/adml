@@ -28,12 +28,10 @@ public class KNNfnn implements Forecastable {
         final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
         final String SCALED_OUTPUT_TRAIN = "scaled." + OUTPUT_TRAIN;
         final String UNSCALED_PREDICTED_TRAIN = "predicted." + OUTPUT_TRAIN;
-        final String RESIDUALS_TRAIN = "residuals." + OUTPUT_TRAIN;
         
         final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
         final String SCALED_OUTPUT_TEST = "scaled." + OUTPUT_TEST;
         final String UNSCALED_PREDICTED_TEST = "predicted." + OUTPUT_TEST;
-        final String RESIDUALS_TEST = "residuals." + OUTPUT_TEST;
         
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
@@ -64,15 +62,11 @@ public class KNNfnn implements Forecastable {
         report.setNumTrainingEntries(numTrainingEntries);
         
         //potom si vyrobit trainingValues, testingValues
-        rengine.eval(INPUT_TRAIN +        " <- " +        INPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_INPUT_TRAIN + " <- " + SCALED_INPUT + "[1:" + numTrainingEntries + "]");
-        rengine.eval(INPUT_TEST +        " <- " +        INPUT + "[" + (numTrainingEntries+1) + ":length(" +        INPUT + ")]");
         rengine.eval(SCALED_INPUT_TEST + " <- " + SCALED_INPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_INPUT + ")]");
         
-        rengine.eval(OUTPUT_TRAIN +        " <- " +        OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
         
-        rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[" + (numTrainingEntries+1) + ":length(" +        OUTPUT + ")]");
         rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_OUTPUT + ")]");
         
         //first run it without testing data - will give residuals for training data
@@ -84,11 +78,6 @@ public class KNNfnn implements Forecastable {
         REXP getPredictedValsNoTest = rengine.eval(UNSCALED_PREDICTED_TRAIN);
         double[] predictedTrain = getPredictedValsNoTest.asDoubleArray();
         
-        //compute residuals for training data manually - the ones in NBRS$res are scaled
-        rengine.eval(RESIDUALS_TRAIN + " <- " + OUTPUT_TRAIN + " - " + UNSCALED_PREDICTED_TRAIN);
-        REXP getResidualsNoTest = rengine.eval(RESIDUALS_TRAIN);
-        double[] residualsTrain = getResidualsNoTest.asDoubleArray();
-        
         //then run it with testing data (TODO and later with forecasts)
         rengine.eval(NBRS_WITH_TEST + " <- FNN::knn.reg(train = " + SCALED_INPUT_TRAIN + ", test = data.frame(" + SCALED_INPUT_TEST
                                                    + "), y = " + SCALED_OUTPUT_TRAIN + ", k = " + params.getNumNeighbours() + ")");
@@ -97,10 +86,9 @@ public class KNNfnn implements Forecastable {
         REXP getPredictedValsWithTest = rengine.eval(UNSCALED_PREDICTED_TEST);
         double[] predictedTest = getPredictedValsWithTest.asDoubleArray();
         
-        //compute residuals for testing data manually - the ones in NBRS$res are scaled
-        rengine.eval(RESIDUALS_TEST + " <- " + OUTPUT_TEST + " - " + UNSCALED_PREDICTED_TEST);
-        REXP getResidualsWithTest = rengine.eval(RESIDUALS_TEST);
-        double[] residualsTest = getResidualsWithTest.asDoubleArray();
+        rengine.eval(OUTPUT + " <- c(rep(NA, " + params.getLag() + "), " + OUTPUT + ")");
+        rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
         
         REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
         double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
