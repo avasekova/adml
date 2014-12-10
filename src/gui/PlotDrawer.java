@@ -693,7 +693,7 @@ public class PlotDrawer {
         rengine.eval("require(JavaGD)");
         rengine.eval("require(psych)");
         rengine.eval("JavaGD()"); // zacne novy plot
-        rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=TRUE, ellipses=FALSE, "
+        rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
         
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getCanvasToUse().getWidth(), par.getCanvasToUse().getHeight()));
