@@ -20,8 +20,8 @@ public class AverageMDE extends Average {
         double sumErrorTrain = 0;
         double sumErrorTest = 0;
         for (TrainAndTestReportCrisp r : reportsCTS) {
-            sumErrorTrain += Math.pow(((ErrorMeasuresCrisp)r.getErrorMeasures()).getMEtrain(), -1);
-            sumErrorTest  += Math.pow(((ErrorMeasuresCrisp)r.getErrorMeasures()).getMEtest(), -1);
+            sumErrorTrain += Math.pow(((ErrorMeasuresCrisp)r.getErrorMeasures()).getMAEtrain(), -1);
+            sumErrorTest  += Math.pow(((ErrorMeasuresCrisp)r.getErrorMeasures()).getMAEtest(), -1);
         }
         denominatorCTStrain = sumErrorTrain;
         denominatorCTStest = sumErrorTest;
@@ -43,12 +43,12 @@ public class AverageMDE extends Average {
 
     @Override
     public double getWeightForModelTrain(TrainAndTestReportCrisp report) {
-        return Math.pow(((ErrorMeasuresCrisp)report.getErrorMeasures()).getMEtrain(), -1)/denominatorCTStrain;
+        return Math.pow(((ErrorMeasuresCrisp)report.getErrorMeasures()).getMAEtrain(), -1)/denominatorCTStrain;
     }
     
     @Override
     public double getWeightForModelTest(TrainAndTestReportCrisp report) {
-        return Math.pow(((ErrorMeasuresCrisp)report.getErrorMeasures()).getMEtest(), -1)/denominatorCTStest;
+        return Math.pow(((ErrorMeasuresCrisp)report.getErrorMeasures()).getMAEtest(), -1)/denominatorCTStest;
     }
     
     @Override
