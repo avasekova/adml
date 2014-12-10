@@ -28,7 +28,6 @@ public class Nnetar implements Forecastable {
         final String ORIGINAL_OUTPUT = "original." + OUTPUT;
         final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
         final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
-        final String ALL_AUX = "aux" + Utils.getCounter();
         final String FINAL_OUTPUT_TRAIN = "final." + OUTPUT_TRAIN;
         final String FINAL_OUTPUT_TEST = "final." + OUTPUT_TEST;
         
@@ -53,10 +52,8 @@ public class Nnetar implements Forecastable {
         List<Double> trainingPortionOfData = dataToUse.subList(0, numTrainingEntries);
         List<Double> testingPortionOfData = dataToUse.subList(numTrainingEntries, dataToUse.size());
         //vybavit lag:
-        rengine.eval(ALL_AUX + " <- c(" + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
-        rengine.eval(ALL_AUX + " <- c(rep(NA, " + params.getNumNonSeasonalLags() + "), " + ALL_AUX + ")");
-        rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
-        rengine.eval(FINAL_OUTPUT_TEST + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
+        rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ORIGINAL_OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FINAL_OUTPUT_TEST + " <- " + ORIGINAL_OUTPUT + "[(" + numTrainingEntries + " + 1):" + 
                 "length(" + ORIGINAL_OUTPUT + ")]");
         REXP getTrainingOutputs = rengine.eval(FINAL_OUTPUT_TRAIN);
         double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
