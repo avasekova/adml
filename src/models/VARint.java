@@ -48,9 +48,8 @@ public class VARint implements Forecastable {
         rengine.eval("colnames(" + INPUT_TRAIN + ") <- c(\"center\", \"radius\")");
         
         
-        rengine.eval(REAL_OUTPUT_CENTER + " <- " + INPUTCENTER); // REAL_OUTPUT_CENTER + " <- " + INPUTCENTER + "[" + (params.getLag() + 1) + ":length(" + INPUTCENTER + ")]");
-        //v Radius nechavam predok zalagovany, aby sa v zipcenters odrezal a nahradil u oboch Intervalom(NaN, NaN)
-        rengine.eval(REAL_OUTPUT_RADIUS + " <- " + INPUTRADIUS);//c(rep(NA," + params.getLag() + ")," + INPUTRADIUS + "[" + (params.getLag() + 1) + ":length(" + INPUTRADIUS + ")])");
+        rengine.eval(REAL_OUTPUT_CENTER + " <- " + INPUTCENTER);
+        rengine.eval(REAL_OUTPUT_RADIUS + " <- " + INPUTRADIUS);
         REXP getRealOutputCenter = rengine.eval(REAL_OUTPUT_CENTER);
         REXP getRealOutputRadius = rengine.eval(REAL_OUTPUT_RADIUS);
         List<Double> realOutputCenter = Utils.arrayToList(getRealOutputCenter.asDoubleArray());

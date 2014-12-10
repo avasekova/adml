@@ -14,6 +14,7 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 
+//(not used, may contain dragons)
 public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleReports
 
     public List<TrainAndTestReportCrisp> forecast(Params parameters) {

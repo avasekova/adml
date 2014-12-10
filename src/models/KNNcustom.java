@@ -11,6 +11,7 @@ import utils.ErrorMeasuresCrisp;
 import utils.MyRengine;
 import utils.Utils;
 
+//(not used, may contain dragons)
 public class KNNcustom implements Forecastable {
 
     @Override
