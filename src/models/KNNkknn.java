@@ -70,6 +70,10 @@ public class KNNkknn implements Forecastable {
         double[] bestKarray = getBestK.asDoubleArray();
         long bestK = Math.round(bestKarray[0]); //will be integer anyway
         
+        
+        rengine.eval(OUTPUT + " <- c(rep(NA, " + params.getLag() + "), " + OUTPUT + ")");
+        rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
         REXP getOutputTrain = rengine.eval(OUTPUT_TRAIN);
         double[] outputTrain = getOutputTrain.asDoubleArray();
         REXP getOutputTest = rengine.eval(OUTPUT_TEST);
