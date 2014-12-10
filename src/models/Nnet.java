@@ -79,11 +79,8 @@ public class Nnet implements Forecastable {
         rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_OUTPUT + ")]");
         
-        //vybavit lag:
-        rengine.eval(ALL_AUX + " <- c(" + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
-        rengine.eval(ALL_AUX + " <- c(rep(NA, " + maxLag + "), " + ALL_AUX + ")");
-        rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
-        rengine.eval(FINAL_OUTPUT_TEST + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
+        rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ORIGINAL_OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FINAL_OUTPUT_TEST + " <- " + ORIGINAL_OUTPUT + "[(" + numTrainingEntries + " + 1):" + 
                 "length(" + ORIGINAL_OUTPUT + ")]");
         REXP getTrainingOutputs = rengine.eval(FINAL_OUTPUT_TRAIN);
         double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
