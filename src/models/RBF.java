@@ -40,9 +40,10 @@ public class RBF implements Forecastable {
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), 
                 params.getOutVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
         
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*data.get(0).size());
+        //int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(data.get(0).size() + maxLag));
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(dataTableModel.getDataForColname(params.getExplVars().get(0).getFieldName()).size()));
         report.setNumTrainingEntries(numTrainingEntries);
-        numTrainingEntries -= maxLag; //TODO not sure about this!
+        numTrainingEntries -= maxLag; //dalej sa bude pocitat aj tak s datami zarovnanymi na rectangle
         
         //most likely we will never allow more than 1... but whatever.
         if (params.getOutVars().size() == 1) {
@@ -66,7 +67,7 @@ public class RBF implements Forecastable {
                           + "), maxit=" + params.getMaxIterations() + ", linOut=TRUE)");
             rengine.eval(FIT + " <- fitted(" + NNETWORK + ")");
             rengine.eval(UNSCALED_FIT + " <- MLPtoR.unscale(" + FIT + ", " + OUTPUT + ")");
-            REXP getFittedVals = rengine.eval(UNSCALED_FIT);
+            REXP getFittedVals = rengine.eval("c(rep(NA, " + maxLag + "), " + UNSCALED_FIT + ")");
             double[] fittedVals = getFittedVals.asDoubleArray();
             report.setFittedValues(fittedVals);
             
@@ -78,15 +79,15 @@ public class RBF implements Forecastable {
             
             report.setPlotCode("plot.ts(c(rep(NA, " + maxLag + "), " + UNSCALED_FIT + ", " + UNSCALED_FORECAST_TEST + "))");
             
-            REXP getOutputsTrain = rengine.eval("MLPtoR.unscale(" + SCALED_OUTPUT_TRAIN + ", " + OUTPUT + ")");
-            double[] trainingOutputs = getOutputsTrain.asDoubleArray();
-            report.setRealOutputsTrain(trainingOutputs);
-            REXP getOutputsTest = rengine.eval("MLPtoR.unscale(" + SCALED_OUTPUT_TEST + ", " + OUTPUT + ")");
-            double[] testingOutputs = getOutputsTest.asDoubleArray();
-            report.setRealOutputsTest(testingOutputs);
+            //real outputs train and test are just the original data (used only for plotting)
+            //za predpokladu, ze mame iba jednu OutVar:
+            List<Double> realOutputs = dataTableModel.getDataForColname(params.getOutVars().get(0).getFieldName()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+            List<Double> realOutputsTrain = realOutputs.subList(0, numTrainingEntries+maxLag);
+            List<Double> realOutputsTest = realOutputs.subList(numTrainingEntries+maxLag, realOutputs.size());
+            report.setRealOutputsTrain(Utils.listToArray(realOutputsTrain));
+            report.setRealOutputsTest(Utils.listToArray(realOutputsTest));
             
-            ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
-                    Utils.arrayToList(trainingOutputs), Utils.arrayToList(testingOutputs), 
+            ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(realOutputsTrain, realOutputsTest, 
                     Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest), parameters.getSeasonality());
             report.setErrorMeasures(errorMeasures);
             
@@ -119,6 +120,7 @@ public class RBF implements Forecastable {
         }
         
         return IntervalMLPCcode.trimDataToRectangle(data, maximumLag);
+        //na tomto mieste mam rectangle, bez akychkolvek NaN na zaciatku.
     }
 
     public static List<List<Double>> getInputsCut(List<List<Double>> data, int from, int to) {

@@ -363,7 +363,7 @@ public class IntervalMLPCcode implements Forecastable {
         List<Double> lagged = new ArrayList<>();
         
         for (int i = 0; i < lag; i++) {
-            lagged.add(null);
+            lagged.add(Double.NaN);
         }
         lagged.addAll(data.subList(0, data.size() - lag));
         
