@@ -209,7 +209,9 @@ public class PlotDrawer {
             PlotStateKeeper.setLastDrawnCrispYmin(rangeY[0]);
             PlotStateKeeper.setLastDrawnCrispYmax(rangeY[1]);
             if (drawNew) {
+                PlotStateKeeper.setCrispXmin(par.getFrom());
                 PlotStateKeeper.setCrispXmax(par.getSizeDataWithoutFromToCrop() + numForecasts);
+                PlotStateKeeper.setCrispYmin(rangeY[0]);
                 PlotStateKeeper.setCrispYmax(rangeY[1]);
             }
         }
@@ -341,7 +343,9 @@ public class PlotDrawer {
             PlotStateKeeper.setLastDrawnIntYmin(rangeY[0]);
             PlotStateKeeper.setLastDrawnIntYmax(rangeY[1]);
             if (drawNew) {
+                PlotStateKeeper.setIntXmin(par.getFrom());
                 PlotStateKeeper.setIntXmax(par.getSizeDataWithoutFromToCrop() + numForecasts);
+                PlotStateKeeper.setIntYmin(rangeY[0]);
                 PlotStateKeeper.setIntYmax(rangeY[1]);
             }
         }

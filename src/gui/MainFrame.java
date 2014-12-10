@@ -504,7 +504,6 @@ public class MainFrame extends javax.swing.JFrame {
         buttonGroup_runFakeIntCRLBUB.add(radioButtonRunFakeIntCenterRadius);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1361, 687));
 
         panelEverything.setPreferredSize(new java.awt.Dimension(1361, 687));
 
@@ -2743,13 +2742,14 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(checkBoxAvgTheilsuIntTS))
                         .addComponent(checkBoxAvgMDeIntTSperM))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(checkBoxAvgCvgEffIntTSperM)
-                        .addComponent(checkBoxAvgCvgEffIntTS)
-                        .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
-                        .addComponent(checkBoxAvgCenterLogRadiusIntTS)
-                        .addComponent(checkBoxAvgMedianIntTSperM)
-                        .addComponent(checkBoxAvgMedianIntTS))
+                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(checkBoxAvgMedianIntTS)
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(checkBoxAvgCvgEffIntTSperM)
+                            .addComponent(checkBoxAvgCvgEffIntTS)
+                            .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
+                            .addComponent(checkBoxAvgCenterLogRadiusIntTS)
+                            .addComponent(checkBoxAvgMedianIntTSperM)))
                     .addGap(21, 21, 21)
                     .addComponent(checkBoxAvgONLY))
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
@@ -4000,10 +4000,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeXActionPerformed
 
     private void buttonPlotRestoreCTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeYActionPerformed
-        textFieldPlotRangeCTSYfrom.setText("" + textFieldRunDataRangeFrom.getText());
-        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
-                Integer.parseInt(textFieldRunNumForecasts.getText());
-        textFieldPlotRangeCTSYto.setText("" + upperBound);
+        textFieldPlotRangeCTSYfrom.setText("" + PlotStateKeeper.getCrispYmin());
+        textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getCrispYmax());
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeYActionPerformed
 
     private void buttonPlotRestoreIntTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeXActionPerformed
@@ -4025,10 +4023,8 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
             textAreaPlotBasicStats.setText("The scatterplot does not support restoring the original range yet.");
         } else {
-            textFieldPlotRangeIntTSYfrom.setText("" + textFieldRunDataRangeFrom.getText());
-            int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
-                    Integer.parseInt(textFieldRunNumForecasts.getText());
-            textFieldPlotRangeIntTSYto.setText("" + upperBound);
+            textFieldPlotRangeIntTSYfrom.setText("" + PlotStateKeeper.getIntYmin());
+            textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getIntYmax());
         }
     }//GEN-LAST:event_buttonPlotRestoreIntTSRangeYActionPerformed
 

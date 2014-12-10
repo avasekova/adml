@@ -8,14 +8,18 @@ public class PlotStateKeeper {
     private static double lastDrawnCrispXmax;
     private static double lastDrawnCrispYmin;
     private static double lastDrawnCrispYmax;
-    private static double crispXmax; //total, tj new
+    private static double crispXmin; //total, tj new
+    private static double crispXmax;
+    private static double crispYmin;
     private static double crispYmax;
     
     private static double lastDrawnIntXmin;
     private static double lastDrawnIntXmax;
     private static double lastDrawnIntYmin;
     private static double lastDrawnIntYmax;
+    private static double intXmin;
     private static double intXmax;
+    private static double intYmin;
     private static double intYmax;
     
     private static CallParams lastCallParams;
@@ -122,5 +126,37 @@ public class PlotStateKeeper {
 
     public static void setLastCallParams(CallParams lastCallParams) {
         PlotStateKeeper.lastCallParams = lastCallParams;
+    }
+
+    public static double getCrispXmin() {
+        return crispXmin;
+    }
+
+    public static void setCrispXmin(double crispXmin) {
+        PlotStateKeeper.crispXmin = crispXmin;
+    }
+
+    public static double getCrispYmin() {
+        return crispYmin;
+    }
+
+    public static void setCrispYmin(double crispYmin) {
+        PlotStateKeeper.crispYmin = crispYmin;
+    }
+
+    public static double getIntXmin() {
+        return intXmin;
+    }
+
+    public static void setIntXmin(double intXmin) {
+        PlotStateKeeper.intXmin = intXmin;
+    }
+
+    public static double getIntYmin() {
+        return intYmin;
+    }
+
+    public static void setIntYmin(double intYmin) {
+        PlotStateKeeper.intYmin = intYmin;
     }
 }
