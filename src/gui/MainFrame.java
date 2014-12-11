@@ -166,9 +166,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonGroup_runFakeIntCRLBUB = new javax.swing.ButtonGroup();
         panelEverything = new javax.swing.JTabbedPane();
-        panelChart = new javax.swing.JPanel();
+        panelPlotSettings = new javax.swing.JPanel();
         buttonPlotColname = new javax.swing.JButton();
-        panelPlot = new javax.swing.JPanel();
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
         buttonPlotAllITS = new javax.swing.JButton();
@@ -181,35 +180,42 @@ public class MainFrame extends javax.swing.JFrame {
         listPlotITSspecs = new javax.swing.JList();
         buttonPlotRemoveITS = new javax.swing.JButton();
         buttonPlotAddITS = new javax.swing.JButton();
+        buttonPlotAllITSScatterplot = new javax.swing.JButton();
+        buttonPlotAllITSScatterplotMatrix = new javax.swing.JButton();
+        buttonBoxplots = new javax.swing.JButton();
+        buttonHistograms = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
+        panelPlot = new javax.swing.JPanel();
         jLabel89 = new javax.swing.JLabel();
-        textFieldPlotRangeCTSXfrom = new javax.swing.JTextField();
-        jLabel126 = new javax.swing.JLabel();
-        textFieldPlotRangeCTSXto = new javax.swing.JTextField();
         jLabel127 = new javax.swing.JLabel();
+        textFieldPlotRangeCTSXfrom = new javax.swing.JTextField();
         textFieldPlotRangeCTSYfrom = new javax.swing.JTextField();
-        jLabel128 = new javax.swing.JLabel();
+        textFieldPlotRangeCTSXto = new javax.swing.JTextField();
         textFieldPlotRangeCTSYto = new javax.swing.JTextField();
+        jLabel126 = new javax.swing.JLabel();
+        jLabel128 = new javax.swing.JLabel();
         buttonPlotRestoreCTSRangeX = new javax.swing.JButton();
         buttonPlotRestoreCTSRangeY = new javax.swing.JButton();
+        buttonPlotZoomCTS = new javax.swing.JButton();
         jLabel129 = new javax.swing.JLabel();
         jLabel130 = new javax.swing.JLabel();
-        textFieldPlotRangeIntTSYfrom = new javax.swing.JTextField();
         textFieldPlotRangeIntTSXfrom = new javax.swing.JTextField();
+        textFieldPlotRangeIntTSYfrom = new javax.swing.JTextField();
         jLabel131 = new javax.swing.JLabel();
         jLabel132 = new javax.swing.JLabel();
-        textFieldPlotRangeIntTSYto = new javax.swing.JTextField();
         textFieldPlotRangeIntTSXto = new javax.swing.JTextField();
+        textFieldPlotRangeIntTSYto = new javax.swing.JTextField();
         buttonPlotRestoreIntTSRangeX = new javax.swing.JButton();
         buttonPlotRestoreIntTSRangeY = new javax.swing.JButton();
-        buttonPlotZoomCTS = new javax.swing.JButton();
         buttonPlotZoomIntTS = new javax.swing.JButton();
+        jSeparator9 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         listPlotLegend = new javax.swing.JList();
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
-        buttonPlotAllITSScatterplot = new javax.swing.JButton();
-        buttonPlotAllITSScatterplotMatrix = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -507,9 +513,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.setPreferredSize(new java.awt.Dimension(1361, 687));
 
-        panelChart.setPreferredSize(new java.awt.Dimension(1361, 614));
+        panelPlotSettings.setPreferredSize(new java.awt.Dimension(1361, 614));
 
-        buttonPlotColname.setText("Plot data");
+        buttonPlotColname.setText("Plot selected time series");
         buttonPlotColname.setEnabled(false);
         buttonPlotColname.setEnabled(false);
         buttonPlotColname.addActionListener(new java.awt.event.ActionListener() {
@@ -517,10 +523,6 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonPlotColnameActionPerformed(evt);
             }
         });
-
-        gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());
-        panelPlot.add(gdBufferedPanelPlot, BorderLayout.CENTER);
-        panelPlot.setLayout(new java.awt.BorderLayout());
 
         buttonACF.setText("Autocorrelation Plot");
         buttonACF.setEnabled(false);
@@ -587,6 +589,121 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonPlotAllITSScatterplot.setText("Scatterplots all in one");
+        buttonPlotAllITSScatterplot.setEnabled(false);
+        buttonPlotAllITSScatterplot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotAllITSScatterplotActionPerformed(evt);
+            }
+        });
+
+        buttonPlotAllITSScatterplotMatrix.setText("Scatterplot matrix");
+        buttonPlotAllITSScatterplotMatrix.setEnabled(false);
+        buttonPlotAllITSScatterplotMatrix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotAllITSScatterplotMatrixActionPerformed(evt);
+            }
+        });
+
+        buttonBoxplots.setText("Boxplots");
+        buttonBoxplots.setEnabled(false);
+
+        buttonHistograms.setText("Histograms");
+        buttonHistograms.setEnabled(false);
+
+        jLabel17.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel17.setText("TODO the design of this window and the Plot window. this is UGLY.");
+
+        jLabel18.setText("Note: for now ignores ITS specified as [LB, UB]");
+
+        javax.swing.GroupLayout panelPlotSettingsLayout = new javax.swing.GroupLayout(panelPlotSettings);
+        panelPlotSettings.setLayout(panelPlotSettingsLayout);
+        panelPlotSettingsLayout.setHorizontalGroup(
+            panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotColname)
+                            .addComponent(buttonACF)
+                            .addComponent(buttonPACF)
+                            .addComponent(buttonBoxplots)
+                            .addComponent(buttonHistograms))
+                        .addGap(0, 132, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addGap(391, 391, 391))
+                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotAllITS)
+                            .addComponent(buttonPlotRemoveITS)
+                            .addComponent(buttonPlotAddITS))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotAllITSScatterplot)
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addComponent(buttonPlotAllITSScatterplotMatrix)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel18)))
+                        .addContainerGap())))
+        );
+        panelPlotSettingsLayout.setVerticalGroup(
+            panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
+                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                        .addComponent(buttonPlotAddITS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPlotRemoveITS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPlotAllITS))
+                                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                        .addComponent(buttonPlotColname)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(buttonACF)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonPACF)))
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonBoxplots)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonHistograms))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addComponent(buttonPlotAllITSScatterplot)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonPlotAllITSScatterplotMatrix)
+                                    .addComponent(jLabel18)))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
+        );
+
+        panelEverything.addTab("Plot settings", panelPlotSettings);
+
         buttonPlotExportPlot.setText("Save currently shown plot");
         buttonPlotExportPlot.setEnabled(false);
         buttonPlotExportPlot.addActionListener(new java.awt.event.ActionListener() {
@@ -595,25 +712,29 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());
+        panelPlot.add(gdBufferedPanelPlot, BorderLayout.CENTER);
+        panelPlot.setLayout(new java.awt.BorderLayout());
+
         jLabel89.setText("Zoom CTS axis x: from");
+
+        jLabel127.setText("Zoom CTS axis y: from");
 
         textFieldPlotRangeCTSXfrom.setText("0");
         textFieldPlotRangeCTSXfrom.setEnabled(false);
 
-        jLabel126.setText("to");
+        textFieldPlotRangeCTSYfrom.setText("0");
+        textFieldPlotRangeCTSYfrom.setEnabled(false);
 
         textFieldPlotRangeCTSXto.setText("0");
         textFieldPlotRangeCTSXto.setEnabled(false);
 
-        jLabel127.setText("Zoom CTS axis y: from");
-
-        textFieldPlotRangeCTSYfrom.setText("0");
-        textFieldPlotRangeCTSYfrom.setEnabled(false);
-
-        jLabel128.setText("to");
-
         textFieldPlotRangeCTSYto.setText("0");
         textFieldPlotRangeCTSYto.setEnabled(false);
+
+        jLabel126.setText("to");
+
+        jLabel128.setText("to");
 
         buttonPlotRestoreCTSRangeX.setText("<-restore all");
         buttonPlotRestoreCTSRangeX.setEnabled(false);
@@ -631,25 +752,33 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonPlotZoomCTS.setText("Zoom CTS");
+        buttonPlotZoomCTS.setEnabled(false);
+        buttonPlotZoomCTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotZoomCTSActionPerformed(evt);
+            }
+        });
+
         jLabel129.setText("Zoom ITS axis x: from");
 
         jLabel130.setText("Zoom ITS axis y: from");
 
-        textFieldPlotRangeIntTSYfrom.setText("0");
-        textFieldPlotRangeIntTSYfrom.setEnabled(false);
-
         textFieldPlotRangeIntTSXfrom.setText("0");
         textFieldPlotRangeIntTSXfrom.setEnabled(false);
+
+        textFieldPlotRangeIntTSYfrom.setText("0");
+        textFieldPlotRangeIntTSYfrom.setEnabled(false);
 
         jLabel131.setText("to");
 
         jLabel132.setText("to");
 
-        textFieldPlotRangeIntTSYto.setText("0");
-        textFieldPlotRangeIntTSYto.setEnabled(false);
-
         textFieldPlotRangeIntTSXto.setText("0");
         textFieldPlotRangeIntTSXto.setEnabled(false);
+
+        textFieldPlotRangeIntTSYto.setText("0");
+        textFieldPlotRangeIntTSYto.setEnabled(false);
 
         buttonPlotRestoreIntTSRangeX.setText("<-restore all");
         buttonPlotRestoreIntTSRangeX.setEnabled(false);
@@ -667,14 +796,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonPlotZoomCTS.setText("Zoom CTS");
-        buttonPlotZoomCTS.setEnabled(false);
-        buttonPlotZoomCTS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotZoomCTSActionPerformed(evt);
-            }
-        });
-
         buttonPlotZoomIntTS.setText("Zoom ITS");
         buttonPlotZoomIntTS.setEnabled(false);
         buttonPlotZoomIntTS.addActionListener(new java.awt.event.ActionListener() {
@@ -682,6 +803,8 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonPlotZoomIntTSActionPerformed(evt);
             }
         });
+
+        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jScrollPane3.setPreferredSize(new java.awt.Dimension(300, 130));
 
@@ -720,195 +843,127 @@ public class MainFrame extends javax.swing.JFrame {
         }
     });
 
-    buttonPlotAllITSScatterplot.setText("Scatterplot");
-    buttonPlotAllITSScatterplot.setEnabled(false);
-    buttonPlotAllITSScatterplot.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            buttonPlotAllITSScatterplotActionPerformed(evt);
-        }
-    });
-
-    buttonPlotAllITSScatterplotMatrix.setText("Sc.plt matrix");
-    buttonPlotAllITSScatterplotMatrix.setEnabled(false);
-    buttonPlotAllITSScatterplotMatrix.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            buttonPlotAllITSScatterplotMatrixActionPerformed(evt);
-        }
-    });
-
-    javax.swing.GroupLayout panelChartLayout = new javax.swing.GroupLayout(panelChart);
-    panelChart.setLayout(panelChartLayout);
-    panelChartLayout.setHorizontalGroup(
-        panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelChartLayout.createSequentialGroup()
+    javax.swing.GroupLayout panelPlotImageLayout = new javax.swing.GroupLayout(panelPlotImage);
+    panelPlotImage.setLayout(panelPlotImageLayout);
+    panelPlotImageLayout.setHorizontalGroup(
+        panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelPlotImageLayout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(panelChartLayout.createSequentialGroup()
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(buttonPlotColname)
-                                .addComponent(buttonACF)
-                                .addComponent(buttonPACF))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel127)
-                                .addGroup(panelChartLayout.createSequentialGroup()
-                                    .addComponent(buttonPlotExportPlot)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jLabel89)))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textFieldPlotRangeCTSXfrom, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                                .addComponent(textFieldPlotRangeCTSYfrom))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel126)
-                                .addComponent(jLabel128))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
-                                .addComponent(textFieldPlotRangeCTSXto))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(buttonPlotRestoreCTSRangeX)
-                                .addComponent(buttonPlotRestoreCTSRangeY))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonPlotZoomCTS)))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel129)
-                                .addComponent(jLabel130))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textFieldPlotRangeIntTSXfrom)
-                                .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel131)
-                                .addComponent(jLabel132))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(textFieldPlotRangeIntTSYto)
-                                .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addComponent(buttonPlotAllITS)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonPlotAllITSScatterplotMatrix))
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addComponent(buttonPlotRemoveITS)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonPlotAllITSScatterplot))
-                        .addComponent(buttonPlotAddITS))
+            .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelPlotImageLayout.createSequentialGroup()
+                    .addComponent(buttonPlotExportPlot)
+                    .addGap(18, 18, 18)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel127)
+                        .addComponent(jLabel89))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(buttonPlotRestoreIntTSRangeX)
-                                .addComponent(buttonPlotRestoreIntTSRangeY))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(buttonPlotZoomIntTS)
-                            .addGap(0, 59, Short.MAX_VALUE))
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textFieldPlotRangeCTSXfrom)
+                        .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel126)
+                        .addComponent(jLabel128))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textFieldPlotRangeCTSYto)
+                        .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(buttonPlotRestoreCTSRangeX)
+                        .addComponent(buttonPlotRestoreCTSRangeY))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(buttonPlotZoomCTS)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel130)
+                        .addComponent(jLabel129))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textFieldPlotRangeIntTSXfrom)
+                        .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel131)
+                        .addComponent(jLabel132))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(textFieldPlotRangeIntTSYto)
+                        .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(buttonPlotRestoreIntTSRangeX)
+                        .addComponent(buttonPlotRestoreIntTSRangeY))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(buttonPlotZoomIntTS)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(buttonLegendSelectNone, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotImageLayout.createSequentialGroup()
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonLegendSelectAll)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(buttonLegendSelectNone)))))
+                            .addGap(12, 12, 12))))
+                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
-    panelChartLayout.setVerticalGroup(
-        panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelChartLayout.createSequentialGroup()
+    panelPlotImageLayout.setVerticalGroup(
+        panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelPlotImageLayout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panelChartLayout.createSequentialGroup()
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelChartLayout.createSequentialGroup()
-                                .addComponent(buttonPlotColname)
-                                .addGap(3, 3, 3)
-                                .addComponent(buttonACF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPACF))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(panelChartLayout.createSequentialGroup()
-                                .addComponent(buttonPlotAddITS)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonPlotRemoveITS)
-                                    .addComponent(buttonPlotAllITSScatterplot))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonPlotAllITS)
-                                    .addComponent(buttonPlotAllITSScatterplotMatrix))))
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelChartLayout.createSequentialGroup()
-                                .addGap(11, 11, 11)
-                                .addComponent(buttonPlotZoomCTS)
-                                .addGap(15, 15, 15))
-                            .addGroup(panelChartLayout.createSequentialGroup()
-                                .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonPlotRestoreCTSRangeX)
-                                    .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPlotRestoreCTSRangeY)))
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldPlotRangeCTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel126)
-                                .addComponent(buttonPlotExportPlot))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel127)
-                                .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel128)
-                                .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonPlotRestoreIntTSRangeX)
-                                .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldPlotRangeIntTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel129, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel131))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonPlotRestoreIntTSRangeY)
-                                .addComponent(textFieldPlotRangeIntTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel130)
-                                .addComponent(jLabel132)))
-                        .addGroup(panelChartLayout.createSequentialGroup()
-                            .addGap(14, 14, 14)
-                            .addComponent(buttonPlotZoomIntTS))))
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(panelChartLayout.createSequentialGroup()
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelPlotImageLayout.createSequentialGroup()
+                    .addComponent(buttonLegendSelectAll)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(panelChartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonLegendSelectAll)
-                        .addComponent(buttonLegendSelectNone))))
+                    .addComponent(buttonLegendSelectNone))
+                .addComponent(buttonPlotExportPlot)
+                .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelPlotImageLayout.createSequentialGroup()
+                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonPlotRestoreCTSRangeX)
+                            .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonPlotRestoreCTSRangeY)
+                            .addComponent(jLabel127)
+                            .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel128)
+                            .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotImageLayout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(buttonPlotZoomCTS)
+                        .addGap(15, 15, 15)))
+                .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textFieldPlotRangeCTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel126))
+                .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelPlotImageLayout.createSequentialGroup()
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonPlotRestoreIntTSRangeX)
+                        .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldPlotRangeIntTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel131)
+                        .addComponent(jLabel129, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonPlotRestoreIntTSRangeY)
+                        .addComponent(textFieldPlotRangeIntTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel132)
+                        .addComponent(jLabel130)))
+                .addGroup(panelPlotImageLayout.createSequentialGroup()
+                    .addGap(14, 14, 14)
+                    .addComponent(buttonPlotZoomIntTS))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+            .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
             .addContainerGap())
     );
 
-    panelEverything.addTab("Plot", panelChart);
+    panelEverything.addTab("Plot", panelPlotImage);
 
     jTableData.setModel(dataTableModel);
     scrollPaneData.setViewportView(jTableData);
@@ -3194,6 +3249,10 @@ public class MainFrame extends javax.swing.JFrame {
                         
                         buttonACF.setEnabled(true);
                         buttonPACF.setEnabled(true);
+                        
+                        buttonBoxplots.setEnabled(true);
+                        buttonHistograms.setEnabled(true);
+                        
                         buttonPlotAllITS.setEnabled(true);
                         buttonPlotAllITSScatterplot.setEnabled(true);
                         buttonPlotAllITSScatterplotMatrix.setEnabled(true);
@@ -4953,6 +5012,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
+    private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.JButton buttonForecastValsHideAllButAvg;
@@ -4960,6 +5020,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonForecastValsShowHidden;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
+    private javax.swing.JButton buttonHistograms;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonPACF;
@@ -5088,6 +5149,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
@@ -5133,6 +5196,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTableData;
     private javax.swing.JLabel labelRunFakeIntCenter;
     private javax.swing.JLabel labelRunFakeIntLower;
@@ -5160,7 +5224,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelAnalysisSettings;
     private javax.swing.JPanel panelBestModelCriterionMLPint;
     private javax.swing.JPanel panelBestModelCriterionRBFint;
-    private javax.swing.JPanel panelChart;
     private javax.swing.JPanel panelCombinationWeights;
     private javax.swing.JPanel panelCombinationWeightsAll;
     private javax.swing.JPanel panelData;
@@ -5192,6 +5255,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelMLPintPercentTrain;
     private javax.swing.JPanel panelMLPintSettingsDistance;
     private javax.swing.JPanel panelPlot;
+    private javax.swing.JPanel panelPlotImage;
+    private javax.swing.JPanel panelPlotSettings;
     private javax.swing.JPanel panelPredictionIntervals;
     private javax.swing.JPanel panelPredictionIntervalsAll;
     private javax.swing.JPanel panelRBFPercentTrain;
