@@ -1067,15 +1067,15 @@ public class PlotDrawer {
 //        return rString.toString();
 //    }
 
-    public static void drawBoxplots(List<String> selectedValuesList, DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
+    public static void drawBoxplotsOrHistograms(String plottingFunction, List<String> selectedValuesList, DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
         final String FIRST = "first" + Utils.getCounter();
         final String SECOND = "second" + Utils.getCounter();
         final String THIRD = "third" + Utils.getCounter();
         final String FOURTH = "fourth" + Utils.getCounter();
         
         if (selectedValuesList.size() > 4) {
-            JOptionPane.showMessageDialog(null, "The current version cannot draw more than 4 boxplots at once. This can (and will) be changed in the future versions.");
-            throw new IllegalArgumentException("too many boxplots");
+            JOptionPane.showMessageDialog(null, "The current version cannot draw more than 4 plots at once. This can (and will) be changed in the future versions.");
+            throw new IllegalArgumentException("too many plots");
         }
         
         if (! selectedValuesList.isEmpty()) {
@@ -1087,27 +1087,27 @@ public class PlotDrawer {
             //fuj hnusny postup na mriezku - zmenit podla drawDiagramsNN na kreslenie normalnej mriezky na taby
             if (selectedValuesList.size() == 1) {
                 rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
-                rengine.eval("boxplot(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\")");
+                rengine.eval(plottingFunction + "(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\", main=\"\")");
             } else if (selectedValuesList.size() == 2) {
                 rengine.eval("par(mfrow=c(1,2))");
                 rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
                 rengine.assign(SECOND, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(1))));
-                rengine.eval("boxplot(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\")");
-                rengine.eval("boxplot(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\")");
+                rengine.eval(plottingFunction + "(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\", main=\"\")");
+                rengine.eval(plottingFunction + "(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\", main=\"\")");
             } else {
                 //za toto sa velmi hanbim, ale ain't nobody got time for general approaches and loops right now
                 rengine.eval("par(mfrow=c(2,2))");
                 rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
                 rengine.assign(SECOND, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(1))));
                 rengine.assign(THIRD, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(2))));
-                rengine.eval("boxplot(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\")");
-                rengine.eval("boxplot(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\")");
-                rengine.eval("boxplot(" + THIRD + ", xlab=\"" + selectedValuesList.get(2) + "\")");
+                rengine.eval(plottingFunction + "(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\", main=\"\")");
+                rengine.eval(plottingFunction + "(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\", main=\"\")");
+                rengine.eval(plottingFunction + "(" + THIRD + ", xlab=\"" + selectedValuesList.get(2) + "\", main=\"\")");
                 if (selectedValuesList.size() == 3) {
                     rengine.eval("plot.new()");
                 } else {
                     rengine.assign(FOURTH, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(3))));
-                    rengine.eval("boxplot(" + FOURTH + ", xlab=\"" + selectedValuesList.get(3) + "\")");
+                    rengine.eval(plottingFunction + "(" + FOURTH + ", xlab=\"" + selectedValuesList.get(3) + "\", main=\"\")");
                 }
             }
             

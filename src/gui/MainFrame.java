@@ -616,6 +616,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonHistograms.setText("Histograms");
         buttonHistograms.setEnabled(false);
+        buttonHistograms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHistogramsActionPerformed(evt);
+            }
+        });
 
         jLabel17.setForeground(new java.awt.Color(255, 0, 51));
         jLabel17.setText("TODO the design of this window and the Plot window. this is UGLY.");
@@ -4962,13 +4967,24 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
         MainFrame.drawNowToThisGDBufferedPanel = gdBufferedPanelPlot;
         try {
-            PlotDrawer.drawBoxplots(listColnames.getSelectedValuesList(), dataTableModel, panelPlot.getWidth(), panelPlot.getHeight());
+            PlotDrawer.drawBoxplotsOrHistograms("boxplot", listColnames.getSelectedValuesList(), dataTableModel, panelPlot.getWidth(), panelPlot.getHeight());
             textAreaPlotBasicStats.setText("");
             setPlotRanges(0, 0);
         } catch (IllegalArgumentException e) {
             //TODO
         }
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
+
+    private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
+        MainFrame.drawNowToThisGDBufferedPanel = gdBufferedPanelPlot;
+        try {
+            PlotDrawer.drawBoxplotsOrHistograms("hist", listColnames.getSelectedValuesList(), dataTableModel, panelPlot.getWidth(), panelPlot.getHeight());
+            textAreaPlotBasicStats.setText("");
+            setPlotRanges(0, 0);
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonHistogramsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
