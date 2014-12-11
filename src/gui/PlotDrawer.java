@@ -900,12 +900,6 @@ public class PlotDrawer {
     }
     
     public static List<JGDBufferedPanel> drawDiagrams(int width, int height, List<TrainAndTestReport> reports) {
-        List<JGDBufferedPanel> panelsList = new ArrayList<>();
-        
-        if (reports.isEmpty()) {
-            return panelsList;
-        }
-        
         //najprv si nasysli vsetky diagramy
         List<String> diagramPlots = new ArrayList<>();
         for (TrainAndTestReport r : reports) {
@@ -929,26 +923,33 @@ public class PlotDrawer {
             }
         }
         
-        //potom ich kresli
-        if (! diagramPlots.isEmpty()) {
+        return drawToGrid(width, height, diagramPlots);
+    }
+    
+    public static List<JGDBufferedPanel> drawToGrid(int width, int height, List<String> plots) {
+        List<JGDBufferedPanel> panelsList = new ArrayList<>();
+        
+        if (plots.isEmpty()) {
+            return panelsList;
+        } else {
             Rengine rengine = MyRengine.getRengine();
             rengine.eval("require(JavaGD)");
             
             int currentIndex = 0;
-            while (currentIndex < diagramPlots.size()) {
+            while (currentIndex < plots.size()) {
                 JGDBufferedPanel panel = new JGDBufferedPanel(width, height);
                 MainFrame.drawNowToThisGDBufferedPanel = panel;
                 rengine.eval("JavaGD()");
                 rengine.eval("par(mfrow=c(" + ROWS_DIAGRAMSNN + "," + COLUMNS_DIAGRAMSNN + "))"); //narobim si mriezku
                 
                 int counter = COLUMNS_DIAGRAMSNN*ROWS_DIAGRAMSNN;
-                while ((counter > 0) && (currentIndex < diagramPlots.size())) {
-                    rengine.eval(diagramPlots.get(currentIndex));
+                while ((counter > 0) && (currentIndex < plots.size())) {
+                    rengine.eval(plots.get(currentIndex));
                     currentIndex++;
                     counter--;
                 }
                 
-                while ((counter > 0) && (currentIndex == diagramPlots.size())) { //dosli mi diagramy a este nie je plna mriezka
+                while ((counter > 0) && (currentIndex == plots.size())) { //dosli mi diagramy a este nie je plna mriezka
                     rengine.eval("plot.new()");
                     counter--;
                 }
@@ -1065,5 +1066,54 @@ public class PlotDrawer {
 //        rString.append("))");
 //        return rString.toString();
 //    }
+
+    public static void drawBoxplots(List<String> selectedValuesList, DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
+        final String FIRST = "first" + Utils.getCounter();
+        final String SECOND = "second" + Utils.getCounter();
+        final String THIRD = "third" + Utils.getCounter();
+        final String FOURTH = "fourth" + Utils.getCounter();
+        
+        if (selectedValuesList.size() > 4) {
+            JOptionPane.showMessageDialog(null, "The current version cannot draw more than 4 boxplots at once. This can (and will) be changed in the future versions.");
+            throw new IllegalArgumentException("too many boxplots");
+        }
+        
+        if (! selectedValuesList.isEmpty()) {
+            Rengine rengine = MyRengine.getRengine();
+            rengine.eval("require(JavaGD)");
+
+            rengine.eval("JavaGD()");
+
+            //fuj hnusny postup na mriezku - zmenit podla drawDiagramsNN na kreslenie normalnej mriezky na taby
+            if (selectedValuesList.size() == 1) {
+                rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
+                rengine.eval("boxplot(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\")");
+            } else if (selectedValuesList.size() == 2) {
+                rengine.eval("par(mfrow=c(1,2))");
+                rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
+                rengine.assign(SECOND, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(1))));
+                rengine.eval("boxplot(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\")");
+                rengine.eval("boxplot(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\")");
+            } else {
+                //za toto sa velmi hanbim, ale ain't nobody got time for general approaches and loops right now
+                rengine.eval("par(mfrow=c(2,2))");
+                rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
+                rengine.assign(SECOND, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(1))));
+                rengine.assign(THIRD, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(2))));
+                rengine.eval("boxplot(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\")");
+                rengine.eval("boxplot(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\")");
+                rengine.eval("boxplot(" + THIRD + ", xlab=\"" + selectedValuesList.get(2) + "\")");
+                if (selectedValuesList.size() == 3) {
+                    rengine.eval("plot.new()");
+                } else {
+                    rengine.assign(FOURTH, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(3))));
+                    rengine.eval("boxplot(" + FOURTH + ", xlab=\"" + selectedValuesList.get(3) + "\")");
+                }
+            }
+            
+            MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+            MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        }
+    }
     
 }

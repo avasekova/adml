@@ -178,8 +178,8 @@ public class DataTableModel extends AbstractTableModel {
             rangeX = "range(c(0,10*log10(" + getRowCount() + ")))";
         }
         
-        return drawPlotGeneral(drawNew, par, rangeX, rangeY);
-    }
+            return drawPlotGeneral(drawNew, par, rangeX, rangeY);
+        }
     
     public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();

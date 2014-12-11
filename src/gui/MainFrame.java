@@ -186,6 +186,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonHistograms = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -607,6 +608,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonBoxplots.setText("Boxplots");
         buttonBoxplots.setEnabled(false);
+        buttonBoxplots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBoxplotsActionPerformed(evt);
+            }
+        });
 
         buttonHistograms.setText("Histograms");
         buttonHistograms.setEnabled(false);
@@ -615,6 +621,8 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel17.setText("TODO the design of this window and the Plot window. this is UGLY.");
 
         jLabel18.setText("Note: for now ignores ITS specified as [LB, UB]");
+
+        jLabel19.setText("(for now, at most 4 at once)");
 
         javax.swing.GroupLayout panelPlotSettingsLayout = new javax.swing.GroupLayout(panelPlotSettings);
         panelPlotSettings.setLayout(panelPlotSettingsLayout);
@@ -630,9 +638,12 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonPlotColname)
                             .addComponent(buttonACF)
                             .addComponent(buttonPACF)
-                            .addComponent(buttonBoxplots)
-                            .addComponent(buttonHistograms))
-                        .addGap(0, 132, Short.MAX_VALUE))
+                            .addComponent(buttonHistograms)
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addComponent(buttonBoxplots)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel19)))
+                        .addGap(0, 80, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -680,7 +691,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonPACF)))
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonBoxplots)
+                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonBoxplots)
+                                    .addComponent(jLabel19))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buttonHistograms))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -4945,6 +4958,17 @@ public class MainFrame extends javax.swing.JFrame {
             maybeTurnOffPlotAvgONLY();
         }
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
+
+    private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
+        MainFrame.drawNowToThisGDBufferedPanel = gdBufferedPanelPlot;
+        try {
+            PlotDrawer.drawBoxplots(listColnames.getSelectedValuesList(), dataTableModel, panelPlot.getWidth(), panelPlot.getHeight());
+            textAreaPlotBasicStats.setText("");
+            setPlotRanges(0, 0);
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonBoxplotsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5151,6 +5175,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;

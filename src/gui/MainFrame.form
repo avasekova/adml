@@ -104,10 +104,14 @@
                                   <Component id="buttonPlotColname" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonACF" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonPACF" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="buttonBoxplots" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonHistograms" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="buttonBoxplots" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
-                              <EmptySpace min="0" pref="132" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="80" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                       </Group>
@@ -168,7 +172,10 @@
                                           </Group>
                                       </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="buttonBoxplots" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="buttonBoxplots" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="buttonHistograms" min="-2" max="-2" attributes="0"/>
                                   </Group>
@@ -361,6 +368,9 @@
                 <Property name="text" type="java.lang.String" value="Boxplots"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBoxplotsActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="buttonHistograms">
               <Properties>
@@ -379,6 +389,11 @@
             <Component class="javax.swing.JLabel" name="jLabel18">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Note: for now ignores ITS specified as [LB, UB]"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JLabel" name="jLabel19">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="(for now, at most 4 at once)"/>
               </Properties>
             </Component>
           </SubComponents>
