@@ -98,6 +98,20 @@ public class DataTableModel extends AbstractTableModel {
             //pozor, asStringArray ich potrebuje nutne v uvodzovkach :/
             REXP getLabelsAxisX = rengine.eval(DATA + "[,1]"); //1. stlpec
             String[] labelsAxisX = getLabelsAxisX.asStringArray();
+            if (labelsAxisX == null) { //nepodarilo sa to nacitat ako stringy; nacitat to ako cisla a prerobit
+                double[] labelsAxisXasNumbers = getLabelsAxisX.asDoubleArray();
+                labelsAxisX = new String[labelsAxisXasNumbers.length];
+                for (int i = 0; i < labelsAxisXasNumbers.length; i++) {
+                    if ((labelsAxisXasNumbers[i] % 1) == 0) { //integer
+                        //cut off the decimal point
+                        labelsAxisX[i] = "" + (int)Math.floor(labelsAxisXasNumbers[i]);
+                    } else {
+                        labelsAxisX[i] = "" + labelsAxisXasNumbers[i];
+                    }
+                }
+            } else {
+                System.out.println(Arrays.toString(labelsAxisX));
+            }
             rengine.assign(LABELS_AXIS_X, labelsAxisX);
 
             rengine.eval(DATA + " <- " + DATA + "[2:length(" + DATA + ")]"); //a odrezem prvy stlpec
