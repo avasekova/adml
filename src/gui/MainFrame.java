@@ -3202,17 +3202,17 @@ public class MainFrame extends javax.swing.JFrame {
     private void menuFileLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileLoadActionPerformed
 
         //TODO odkomentovat------------------------------------------------------
-//        JFileChooser fileChooser = new JFileChooser((File)null);
-//        fileChooser.setMultiSelectionEnabled(false);
-//        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-//        fileChooser.setFileFilter(new FileFilterXlsXlsx());
+        JFileChooser fileChooser = new JFileChooser((File)null);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
+        fileChooser.setFileFilter(new FileFilterXlsXlsx());
         LoadDataCustomizerPanel customizer = new LoadDataCustomizerPanel();
-//        fileChooser.setAccessory(customizer);
-//        if (evt.getSource() == menuFileLoad) {
-//            switch (fileChooser.showOpenDialog(this)) {
-//                case JFileChooser.APPROVE_OPTION:
-//                    this.loadedFile = fileChooser.getSelectedFile();
-                                               this.loadedFile = new File("C:\\Users\\Andrejka\\Documents\\fi_muni\\phd\\3d_semester-madrid\\w02\\javier redondo\\brent_prices_its_2000_2014.xlsx");
+        fileChooser.setAccessory(customizer);
+        if (evt.getSource() == menuFileLoad) {
+            switch (fileChooser.showOpenDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    this.loadedFile = fileChooser.getSelectedFile();
+//                                               this.loadedFile = new File("C:\\Users\\Andrejka\\Documents\\fi_muni\\phd\\3d_semester-madrid\\w02\\javier redondo\\brent_prices_its_2000_2014.xlsx");
                     dataTableModel.openFile(loadedFile, customizer);
                     dataTableModel.fireTableStructureChanged();
                     textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
@@ -3288,12 +3288,12 @@ public class MainFrame extends javax.swing.JFrame {
                         ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons();
                         ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons();
                     }
-//                    break;
-//                case JFileChooser.CANCEL_OPTION:
-//                default:
-//                    this.loadedFile = null;
-//            }
-//        }
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                    this.loadedFile = null;
+            }
+        }
         
     }//GEN-LAST:event_menuFileLoadActionPerformed
 

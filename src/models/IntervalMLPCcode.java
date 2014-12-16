@@ -97,7 +97,7 @@ public class IntervalMLPCcode implements Forecastable {
                 Files.delete(new File(iTEST_FILE).toPath());
             } catch (IOException ex) {
                 Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        }
         }
         
         //now it would be possible to extract weights if we wanted to... the "the only" remaining file is safe as long

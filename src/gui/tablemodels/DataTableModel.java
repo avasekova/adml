@@ -109,8 +109,6 @@ public class DataTableModel extends AbstractTableModel {
                         labelsAxisX[i] = "" + labelsAxisXasNumbers[i];
                     }
                 }
-            } else {
-                System.out.println(Arrays.toString(labelsAxisX));
             }
             rengine.assign(LABELS_AXIS_X, labelsAxisX);
 
