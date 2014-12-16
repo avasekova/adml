@@ -39,6 +39,8 @@ public class PlotDrawer {
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
     private static final int ROWS_DIAGRAMSNN = 3;
+    private static final int COLUMNS_BOXHIST = 2;
+    private static final int ROWS_BOXHIST = 2;
     
     //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
@@ -923,10 +925,10 @@ public class PlotDrawer {
             }
         }
         
-        return drawToGrid(width, height, diagramPlots);
+        return drawToGrid(width, height, diagramPlots, COLUMNS_DIAGRAMSNN, ROWS_DIAGRAMSNN);
     }
     
-    public static List<JGDBufferedPanel> drawToGrid(int width, int height, List<String> plots) {
+    public static List<JGDBufferedPanel> drawToGrid(int width, int height, List<String> plots, int maxCol, int maxRow) {
         List<JGDBufferedPanel> panelsList = new ArrayList<>();
         
         if (plots.isEmpty()) {
@@ -940,9 +942,9 @@ public class PlotDrawer {
                 JGDBufferedPanel panel = new JGDBufferedPanel(width, height);
                 MainFrame.drawNowToThisGDBufferedPanel = panel;
                 rengine.eval("JavaGD()");
-                rengine.eval("par(mfrow=c(" + ROWS_DIAGRAMSNN + "," + COLUMNS_DIAGRAMSNN + "))"); //narobim si mriezku
+                rengine.eval("par(mfrow=c(" + maxRow + "," + maxCol + "))"); //narobim si mriezku
                 
-                int counter = COLUMNS_DIAGRAMSNN*ROWS_DIAGRAMSNN;
+                int counter = maxCol*maxRow;
                 while ((counter > 0) && (currentIndex < plots.size())) {
                     rengine.eval(plots.get(currentIndex));
                     currentIndex++;
@@ -1067,53 +1069,20 @@ public class PlotDrawer {
 //        return rString.toString();
 //    }
 
-    public static void drawBoxplotsOrHistograms(String plottingFunction, List<String> selectedValuesList, DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
-        final String FIRST = "first" + Utils.getCounter();
-        final String SECOND = "second" + Utils.getCounter();
-        final String THIRD = "third" + Utils.getCounter();
-        final String FOURTH = "fourth" + Utils.getCounter();
+    public static List<JGDBufferedPanel> drawBoxplotsOrHistograms(String plottingFunction, List<String> selectedValuesList, DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
+        //najprv si nasysli vsetky diagramy
+        List<String> diagramsPlotsBoxHist = new ArrayList<>();
+        Rengine rengine = MyRengine.getRengine();
         
-        if (selectedValuesList.size() > 4) {
-            JOptionPane.showMessageDialog(null, "The current version cannot draw more than 4 plots at once. This can (and will) be changed in the future versions.");
-            throw new IllegalArgumentException("too many plots");
+        for (String selectedVal : selectedValuesList) {
+            String NAME = "boxhist." + Utils.getCounter();
+            rengine.assign(NAME, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
+            String plotFunction = plottingFunction + "(" + NAME + ", xlab=\"" + selectedVal + "\", main=\"\")";
+            diagramsPlotsBoxHist.add(plotFunction);
         }
         
-        if (! selectedValuesList.isEmpty()) {
-            Rengine rengine = MyRengine.getRengine();
-            rengine.eval("require(JavaGD)");
-
-            rengine.eval("JavaGD()");
-
-            //fuj hnusny postup na mriezku - zmenit podla drawDiagramsNN na kreslenie normalnej mriezky na taby
-            if (selectedValuesList.size() == 1) {
-                rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
-                rengine.eval(plottingFunction + "(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\", main=\"\")");
-            } else if (selectedValuesList.size() == 2) {
-                rengine.eval("par(mfrow=c(1,2))");
-                rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
-                rengine.assign(SECOND, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(1))));
-                rengine.eval(plottingFunction + "(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\", main=\"\")");
-                rengine.eval(plottingFunction + "(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\", main=\"\")");
-            } else {
-                //za toto sa velmi hanbim, ale ain't nobody got time for general approaches and loops right now
-                rengine.eval("par(mfrow=c(2,2))");
-                rengine.assign(FIRST, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(0))));
-                rengine.assign(SECOND, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(1))));
-                rengine.assign(THIRD, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(2))));
-                rengine.eval(plottingFunction + "(" + FIRST + ", xlab=\"" + selectedValuesList.get(0) + "\", main=\"\")");
-                rengine.eval(plottingFunction + "(" + SECOND + ", xlab=\"" + selectedValuesList.get(1) + "\", main=\"\")");
-                rengine.eval(plottingFunction + "(" + THIRD + ", xlab=\"" + selectedValuesList.get(2) + "\", main=\"\")");
-                if (selectedValuesList.size() == 3) {
-                    rengine.eval("plot.new()");
-                } else {
-                    rengine.assign(FOURTH, Utils.listToArray(dataTableModel.getDataForColname(selectedValuesList.get(3))));
-                    rengine.eval(plottingFunction + "(" + FOURTH + ", xlab=\"" + selectedValuesList.get(3) + "\", main=\"\")");
-                }
-            }
-            
-            MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
-            MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
-        }
+        //potom ich nechaj vyplut do mriezky
+        return drawToGrid(width, height, diagramsPlotsBoxHist, COLUMNS_BOXHIST, ROWS_BOXHIST);
     }
     
 }
