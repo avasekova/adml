@@ -353,11 +353,11 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         return ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion();
     }
     
-    public void enableAllButtons() {
-        buttonAddExplVar.setEnabled(true);
-        buttonRemoveExplVar.setEnabled(true);
-        buttonAddOutVar.setEnabled(true);
-        buttonRemoveOutVar.setEnabled(true);
+    public void enableAllButtons(boolean trueFalse) {
+        buttonAddExplVar.setEnabled(trueFalse);
+        buttonRemoveExplVar.setEnabled(trueFalse);
+        buttonAddOutVar.setEnabled(trueFalse);
+        buttonRemoveOutVar.setEnabled(trueFalse);
     }
 
     @Override

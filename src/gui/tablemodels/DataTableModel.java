@@ -73,6 +73,12 @@ public class DataTableModel extends AbstractTableModel {
         final String WORKBOOK = Const.WORKBOOK + Utils.getCounter();
         final String DATA = Const.BRENT + Utils.getCounter();
         
+        //first clean anything you may have:
+        this.columnNames.clear();
+        this.values.clear();
+        //do not forget to clean all the comboboxes, lists, etc. in the GUI!
+        
+        //then load new
         Rengine rengine = MyRengine.getRengine();
         
         rengine.eval("require(XLConnect)");

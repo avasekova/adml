@@ -42,7 +42,6 @@ import gui.tablemodels.ForecastValsTableModel;
 import gui.tablemodels.PredictionIntsTableModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -61,7 +60,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.table.TableColumn;
 import models.Arima;
 import models.Forecastable;
@@ -3266,79 +3264,7 @@ public class MainFrame extends javax.swing.JFrame {
 //                                               this.loadedFile = new File("C:\\Users\\Andrejka\\Documents\\fi_muni\\phd\\3d_semester-madrid\\w02\\javier redondo\\brent_prices_its_2000_2014.xlsx");
                     dataTableModel.openFile(loadedFile, customizer);
                     dataTableModel.fireTableStructureChanged();
-                    textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
-                    for (String colname : dataTableModel.getColnames()) {
-                        //TODO na toto si dat potom pozor! - obavam sa, ze ked naloadujem novy subor, ostanu tam aj stare prvky v comboBoxoch, len pribudnu nove.
-                        ((DefaultListModel)(listColnames.getModel())).addElement(colname);
-                        comboBoxColnamesRun.addItem(colname);
-                        comboBoxRunFakeIntCenter.addItem(colname);
-                        comboBoxRunFakeIntRadius.addItem(colname);
-                        comboBoxRunFakeIntLower.addItem(colname);
-                        comboBoxRunFakeIntUpper.addItem(colname);
-                    }
-                    DialogAddIntervalExplanatoryVar.setColNames(dataTableModel.getColnames());
-                    DialogAddIntervalOutputVar.setColNames(dataTableModel.getColnames());
-                    DialogAddCrispExplanatoryVar.setColNames(dataTableModel.getColnames());
-                    VARSettingsPanel.setColNames(dataTableModel.getColnames());
-//                    panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //musim ho znovu vytvorit, inak je uz vytvoreny a nema
-//                                                                   //tam tie colnames.
-//                    paneSettingsMethodsVAR.removeAll();
-//                    panelSettingsVARMain.removeAll();
-//                    panelSettingsVARMain.add(panelSettingsVARMainInsideBecauseX);
-//                    paneSettingsMethodsVAR.add(panelSettingsVARMain);
-//                    paneSettingsMethodsVAR.repaint();
-                    
-                    VARintSettingsPanel.setColNames(dataTableModel.getColnames());
-                    panelVARintInside.removeAll();
-                    panelVARintInsideBecause = new VARintSettingsPanel();
-                    panelVARintInside.add(panelVARintInsideBecause);
-                    panelVARintInside.repaint();
-                    
-                    if (! dataTableModel.getColnames().isEmpty()) {
-                        buttonPlotColname.setEnabled(true);
-                        buttonTrainAndTest.setEnabled(true);
-                        buttonRunAnalysisBatch.setEnabled(true);
-                        
-                        buttonSettingsAddToBatch_MLP.setEnabled(true);
-                        buttonSettingsAddToBatch_MLPint.setEnabled(true);
-                        buttonSettingsAddToBatch_intMLP.setEnabled(true);
-                        buttonSettingsAddToBatch_RBF.setEnabled(true);
-                        buttonSettingsAddToBatch_RBFint.setEnabled(true);
-                        buttonSettingsAddToBatch_ARIMA.setEnabled(true);
-                        buttonSettingsAddToBatch_Holt.setEnabled(true);
-                        buttonSettingsAddToBatch_HoltWinters.setEnabled(true);
-                        buttonSettingsAddToBatch_HoltWintersInt.setEnabled(true);
-                        buttonSettingsAddToBatch_Holtint.setEnabled(true);
-                        buttonSettingsAddToBatch_Hybrid.setEnabled(true);
-                        buttonSettingsAddToBatch_IntervalHolt.setEnabled(true);
-                        buttonSettingsAddToBatch_KNN.setEnabled(true);
-                        buttonSettingsAddToBatch_SES.setEnabled(true);
-                        buttonSettingsAddToBatch_SESint.setEnabled(true);
-                        buttonSettingsAddToBatch_VARint.setEnabled(true);
-                        
-                        buttonACF.setEnabled(true);
-                        buttonPACF.setEnabled(true);
-                        
-                        buttonBoxplots.setEnabled(true);
-                        buttonHistograms.setEnabled(true);
-                        
-                        buttonPlotAllITS.setEnabled(true);
-                        buttonPlotAllITSScatterplot.setEnabled(true);
-                        buttonPlotAllITSScatterplotMatrix.setEnabled(true);
-                        buttonPlotAddITS.setEnabled(true);
-                        buttonPlotRemoveITS.setEnabled(true);
-                        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
-                        ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons();
-                        ((RBFSettingsPanel)panelSettingsRBFint_center).enableAllButtons();
-                        ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons();
-                        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons();
-                        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons();
-                        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).enableAllButtons();
-                        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).enableAllButtons();
-                        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons();
-                        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons();
-                        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons();
-                    }
+                    fillGUIelementsWithNewData();
                     break;
                 case JFileChooser.CANCEL_OPTION:
                 default:
@@ -6391,5 +6317,99 @@ public class MainFrame extends javax.swing.JFrame {
         } else {
             panelEverything.remove(panelCombinationWeightsAll);
         }
+    }
+
+    private void fillGUIelementsWithNewData() {
+        cleanGUIelements();
+        
+        textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
+        for (String colname : dataTableModel.getColnames()) {
+            ((DefaultListModel)(listColnames.getModel())).addElement(colname);
+            comboBoxColnamesRun.addItem(colname);
+            comboBoxRunFakeIntCenter.addItem(colname);
+            comboBoxRunFakeIntRadius.addItem(colname);
+            comboBoxRunFakeIntLower.addItem(colname);
+            comboBoxRunFakeIntUpper.addItem(colname);
+        }
+        DialogAddIntervalExplanatoryVar.setColNames(dataTableModel.getColnames());
+        DialogAddIntervalOutputVar.setColNames(dataTableModel.getColnames());
+        DialogAddCrispExplanatoryVar.setColNames(dataTableModel.getColnames());
+        VARSettingsPanel.setColNames(dataTableModel.getColnames());
+//        panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //musim ho znovu vytvorit, inak je uz vytvoreny a nema
+//                                                       //tam tie colnames.
+//        paneSettingsMethodsVAR.removeAll();
+//        panelSettingsVARMain.removeAll();
+//        panelSettingsVARMain.add(panelSettingsVARMainInsideBecauseX);
+//        paneSettingsMethodsVAR.add(panelSettingsVARMain);
+//        paneSettingsMethodsVAR.repaint();
+
+        VARintSettingsPanel.setColNames(dataTableModel.getColnames());
+        panelVARintInside.removeAll();
+        panelVARintInsideBecause = new VARintSettingsPanel();
+        panelVARintInside.add(panelVARintInsideBecause);
+        panelVARintInside.repaint();
+
+        if (! dataTableModel.getColnames().isEmpty()) {
+            enableAllButtons(true);
+        }
+    }
+
+    private void cleanGUIelements() {
+        ((DefaultListModel)(listColnames.getModel())).removeAllElements();
+        comboBoxColnamesRun.removeAllItems();
+        comboBoxRunFakeIntCenter.removeAllItems();
+        comboBoxRunFakeIntRadius.removeAllItems();
+        comboBoxRunFakeIntLower.removeAllItems();
+        comboBoxRunFakeIntUpper.removeAllItems();
+        
+        if (! dataTableModel.getColnames().isEmpty()) {
+            enableAllButtons(false);
+        }
+    }
+
+    private void enableAllButtons(boolean trueFalse) {
+        buttonPlotColname.setEnabled(trueFalse);
+        buttonTrainAndTest.setEnabled(trueFalse);
+        buttonRunAnalysisBatch.setEnabled(trueFalse);
+
+        buttonSettingsAddToBatch_MLP.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_MLPint.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_intMLP.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_RBF.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_RBFint.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_ARIMA.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_Holt.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_HoltWinters.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_HoltWintersInt.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_Holtint.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_Hybrid.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_IntervalHolt.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_KNN.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_SES.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_SESint.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_VARint.setEnabled(trueFalse);
+
+        buttonACF.setEnabled(trueFalse);
+        buttonPACF.setEnabled(trueFalse);
+
+        buttonBoxplots.setEnabled(trueFalse);
+        buttonHistograms.setEnabled(trueFalse);
+
+        buttonPlotAllITS.setEnabled(trueFalse);
+        buttonPlotAllITSScatterplot.setEnabled(trueFalse);
+        buttonPlotAllITSScatterplotMatrix.setEnabled(trueFalse);
+        buttonPlotAddITS.setEnabled(trueFalse);
+        buttonPlotRemoveITS.setEnabled(trueFalse);
+        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons(trueFalse);
+        ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons(trueFalse);
+        ((RBFSettingsPanel)panelSettingsRBFint_center).enableAllButtons(trueFalse);
+        ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons(trueFalse);
+        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons(trueFalse);
+        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons(trueFalse);
+        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).enableAllButtons(trueFalse);
+        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).enableAllButtons(trueFalse);
+        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons(trueFalse);
+        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons(trueFalse);
+        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons(trueFalse);
     }
 }

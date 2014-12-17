@@ -190,9 +190,9 @@ public class RBFSettingsPanel extends SettingsPanel {
         return textFieldNumHidden.getText();
     }
     
-    public void enableAllButtons() {
-        buttonAddExplVar.setEnabled(true);
-        buttonRemoveExplVar.setEnabled(true);
+    public void enableAllButtons(boolean trueFalse) {
+        buttonAddExplVar.setEnabled(trueFalse);
+        buttonRemoveExplVar.setEnabled(trueFalse);
     }
 
     @Override
