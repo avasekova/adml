@@ -479,6 +479,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelResidualsPlot = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         panelResidualsBasicStats = new javax.swing.JTextArea();
+        buttonExportResiduals = new javax.swing.JButton();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -2922,33 +2923,44 @@ public class MainFrame extends javax.swing.JFrame {
     panelResidualsBasicStats.setRows(5);
     jScrollPane5.setViewportView(panelResidualsBasicStats);
 
+    buttonExportResiduals.setText("Export");
+    buttonExportResiduals.setEnabled(false);
+
     javax.swing.GroupLayout panelResidualsAllLayout = new javax.swing.GroupLayout(panelResidualsAll);
     panelResidualsAll.setLayout(panelResidualsAllLayout);
     panelResidualsAllLayout.setHorizontalGroup(
         panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(panelResidualsAllLayout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(panelResiduals, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(buttonPlotResiduals)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelResidualsAllLayout.createSequentialGroup()
+                    .addComponent(panelResiduals, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(75, 75, 75))
+                .addGroup(panelResidualsAllLayout.createSequentialGroup()
+                    .addComponent(buttonExportResiduals)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonPlotResiduals)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
             .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
                 .addComponent(panelResidualsPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
     panelResidualsAllLayout.setVerticalGroup(
         panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(panelResidualsAllLayout.createSequentialGroup()
+        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelResidualsAllLayout.createSequentialGroup()
             .addContainerGap()
-            .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelResiduals)
+            .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                 .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                    .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonPlotResiduals)
-                        .addComponent(panelResidualsPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelResidualsPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane5))
+                .addGroup(panelResidualsAllLayout.createSequentialGroup()
+                    .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonExportResiduals)
+                        .addComponent(buttonPlotResiduals))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(panelResiduals, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
     );
 
@@ -5053,6 +5065,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
+    private javax.swing.JButton buttonExportResiduals;
     private javax.swing.JButton buttonForecastValsHideAllButAvg;
     private javax.swing.JButton buttonForecastValsHideNoForecasts;
     private javax.swing.JButton buttonForecastValsShowHidden;
