@@ -40,6 +40,7 @@ import gui.tablemodels.ErrorMeasuresTableModel_CTS;
 import gui.tablemodels.ErrorMeasuresTableModel_ITS;
 import gui.tablemodels.ForecastValsTableModel;
 import gui.tablemodels.PredictionIntsTableModel;
+import gui.tablemodels.ResidualsTableModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.event.MouseEvent;
@@ -474,12 +475,15 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         buttonRunExportErrorMeasures = new javax.swing.JButton();
         panelResidualsAll = new javax.swing.JPanel();
-        buttonPlotResiduals = new javax.swing.JButton();
-        panelResiduals = new javax.swing.JScrollPane();
         panelResidualsPlot = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         panelResidualsBasicStats = new javax.swing.JTextArea();
+        panelResidualsLeft = new javax.swing.JPanel();
         buttonExportResiduals = new javax.swing.JButton();
+        panelResiduals = new javax.swing.JPanel();
+        scrollPaneResiduals = new javax.swing.JScrollPane();
+        panelResidualsRightButtons = new javax.swing.JPanel();
+        buttonPlotResiduals = new javax.swing.JButton();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -648,7 +652,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonPACF)
                             .addComponent(buttonHistograms)
                             .addComponent(buttonBoxplots))
-                        .addGap(0, 132, Short.MAX_VALUE))
+                        .addGap(0, 133, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -656,7 +660,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addComponent(jLabel17)
-                        .addGap(391, 471, Short.MAX_VALUE))
+                        .addGap(391, 470, Short.MAX_VALUE))
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
@@ -665,7 +669,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(buttonPlotRemoveITS)
                                     .addComponent(buttonPlotAddITS))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonPlotAllITSScatterplot)
@@ -695,7 +699,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(buttonHistograms))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -978,7 +982,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(buttonPlotZoomIntTS))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 643, Short.MAX_VALUE)
+            .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -995,7 +999,7 @@ public class MainFrame extends javax.swing.JFrame {
     );
     panelDataLayout.setVerticalGroup(
         panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+        .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
     );
 
     panelEverything.addTab("Data", panelData);
@@ -1076,7 +1080,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(comboBoxRPackage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+            .addComponent(panelSettingsMLPPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1132,7 +1136,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel100))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                        .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_center, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                         .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_radius))))
             .addContainerGap())
     );
@@ -1172,7 +1176,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel88))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(panelSettingsMLPintPackage_nnetar_center, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addComponent(panelSettingsMLPintPackage_nnetar_center, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
                 .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
@@ -1265,7 +1269,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(textFieldNumNetsToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addContainerGap())
         .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 718, Short.MAX_VALUE))
+            .addGap(0, 654, Short.MAX_VALUE))
     );
 
     paneSettingsMethods.addTab("MLP(i)", paneSettingsMethodsMLPint);
@@ -1337,7 +1341,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(comboBoxIntervalMLPMode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addContainerGap(137, Short.MAX_VALUE))
+            .addContainerGap(73, Short.MAX_VALUE))
     );
 
     paneSettingsMethods.addTab("iMLP", paneSettingsMethodsIntervalMLP);
@@ -1372,7 +1376,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1475,7 +1479,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jSeparator5)
-                        .addComponent(panelSettingsRBFint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE))))
+                        .addComponent(panelSettingsRBFint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addComponent(jLabel157)
             .addGap(4, 4, 4)
@@ -1521,7 +1525,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(buttonSettingsAddToBatch_ARIMA))
             .addGap(18, 18, 18)
-            .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+            .addComponent(panelSettingsARIMAMain, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1580,7 +1584,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jLabel64)
                 .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGap(32, 32, 32)
-            .addComponent(panelSettingsKNNoptions, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE))
+            .addComponent(panelSettingsKNNoptions, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE))
     );
 
     paneSettingsMethods.addTab("kNN", paneSettingsMethodsKNN);
@@ -1629,7 +1633,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addComponent(buttonSettingsAddToBatch_VARint))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(panelVARintInside, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(panelVARintInside, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1665,7 +1669,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(buttonSettingsAddToBatch_SES))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(panelSESmain, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+            .addComponent(panelSESmain, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1738,7 +1742,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel155))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panelSESint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                        .addComponent(panelSESint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                         .addComponent(panelSESint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator7))
             .addContainerGap())
@@ -1776,7 +1780,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(buttonSettingsAddToBatch_Holt))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(panelHoltInside, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+            .addComponent(panelHoltInside, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1849,7 +1853,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel153))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelSettingsMethodsHoltIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panelHoltInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                        .addComponent(panelHoltInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                         .addComponent(panelHoltInt_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator6))
             .addContainerGap())
@@ -1906,7 +1910,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
                 .addComponent(buttonSettingsAddToBatch_IntervalHolt))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(panelIntervalHoltMain, javax.swing.GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
+            .addComponent(panelIntervalHoltMain, javax.swing.GroupLayout.DEFAULT_SIZE, 561, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -1944,7 +1948,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addComponent(buttonSettingsAddToBatch_HoltWinters))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-            .addComponent(panelHoltWintersInside, javax.swing.GroupLayout.DEFAULT_SIZE, 645, Short.MAX_VALUE)
+            .addComponent(panelHoltWintersInside, javax.swing.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -2019,7 +2023,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel159))
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addGroup(panelSettingsMethodsHoltWintersIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(panelHoltWintersInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+                        .addComponent(panelHoltWintersInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                         .addComponent(panelHoltWintersInt_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jSeparator8))
             .addContainerGap())
@@ -2134,7 +2138,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(11, 11, 11)
             .addGroup(paneSettingsMethodsHybridLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
-                .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, 613, Short.MAX_VALUE)
+                .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
                 .addComponent(panelSettingsHybrid_centerMain, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addContainerGap())
     );
@@ -2844,7 +2848,7 @@ public class MainFrame extends javax.swing.JFrame {
     );
     panelErrorMeasuresLayout.setVerticalGroup(
         panelErrorMeasuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 672, Short.MAX_VALUE)
+        .addGap(0, 608, Short.MAX_VALUE)
     );
 
     buttonRunShowHiddenErrorMeasures.setText("Show hidden rows");
@@ -2906,8 +2910,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     panelEverything.addTab("Error measures", panelErrorMeasuresAll);
 
-    buttonPlotResiduals.setText("Plot");
-
     javax.swing.GroupLayout panelResidualsPlotLayout = new javax.swing.GroupLayout(panelResidualsPlot);
     panelResidualsPlot.setLayout(panelResidualsPlotLayout);
     panelResidualsPlotLayout.setHorizontalGroup(
@@ -2916,7 +2918,7 @@ public class MainFrame extends javax.swing.JFrame {
     );
     panelResidualsPlotLayout.setVerticalGroup(
         panelResidualsPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 384, Short.MAX_VALUE)
+        .addGap(0, 531, Short.MAX_VALUE)
     );
 
     panelResidualsBasicStats.setColumns(20);
@@ -2926,41 +2928,89 @@ public class MainFrame extends javax.swing.JFrame {
     buttonExportResiduals.setText("Export");
     buttonExportResiduals.setEnabled(false);
 
+    scrollPaneResiduals.setPreferredSize(new java.awt.Dimension(100, 600));
+
+    javax.swing.GroupLayout panelResidualsLayout = new javax.swing.GroupLayout(panelResiduals);
+    panelResiduals.setLayout(panelResidualsLayout);
+    panelResidualsLayout.setHorizontalGroup(
+        panelResidualsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(scrollPaneResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+    );
+    panelResidualsLayout.setVerticalGroup(
+        panelResidualsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addComponent(scrollPaneResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+    );
+
+    javax.swing.GroupLayout panelResidualsLeftLayout = new javax.swing.GroupLayout(panelResidualsLeft);
+    panelResidualsLeft.setLayout(panelResidualsLeftLayout);
+    panelResidualsLeftLayout.setHorizontalGroup(
+        panelResidualsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelResidualsLeftLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(panelResidualsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelResidualsLeftLayout.createSequentialGroup()
+                    .addComponent(buttonExportResiduals)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+            .addGap(0, 0, 0))
+    );
+    panelResidualsLeftLayout.setVerticalGroup(
+        panelResidualsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelResidualsLeftLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(buttonExportResiduals)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(panelResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGap(0, 0, 0))
+    );
+
+    buttonPlotResiduals.setText("Plot");
+
+    javax.swing.GroupLayout panelResidualsRightButtonsLayout = new javax.swing.GroupLayout(panelResidualsRightButtons);
+    panelResidualsRightButtons.setLayout(panelResidualsRightButtonsLayout);
+    panelResidualsRightButtonsLayout.setHorizontalGroup(
+        panelResidualsRightButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelResidualsRightButtonsLayout.createSequentialGroup()
+            .addGap(0, 0, 0)
+            .addComponent(buttonPlotResiduals)
+            .addContainerGap(87, Short.MAX_VALUE))
+    );
+    panelResidualsRightButtonsLayout.setVerticalGroup(
+        panelResidualsRightButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelResidualsRightButtonsLayout.createSequentialGroup()
+            .addComponent(buttonPlotResiduals)
+            .addGap(0, 613, Short.MAX_VALUE))
+    );
+
     javax.swing.GroupLayout panelResidualsAllLayout = new javax.swing.GroupLayout(panelResidualsAll);
     panelResidualsAll.setLayout(panelResidualsAllLayout);
     panelResidualsAllLayout.setHorizontalGroup(
         panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(panelResidualsAllLayout.createSequentialGroup()
-            .addContainerGap()
+            .addComponent(panelResidualsLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+            .addComponent(panelResidualsRightButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                    .addComponent(panelResiduals, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(75, 75, 75))
-                .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                    .addComponent(buttonExportResiduals)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(buttonPlotResiduals)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-            .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 837, Short.MAX_VALUE)
-                .addComponent(panelResidualsPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelResidualsPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
             .addContainerGap())
     );
     panelResidualsAllLayout.setVerticalGroup(
         panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelResidualsAllLayout.createSequentialGroup()
-            .addContainerGap()
-            .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        .addGroup(panelResidualsAllLayout.createSequentialGroup()
+            .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panelResidualsLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                    .addComponent(panelResidualsPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                    .addComponent(jScrollPane5))
-                .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                    .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonExportResiduals)
-                        .addComponent(buttonPlotResiduals))
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(panelResiduals, javax.swing.GroupLayout.PREFERRED_SIZE, 672, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addContainerGap()
+                    .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(panelResidualsAllLayout.createSequentialGroup()
+                            .addComponent(panelResidualsRightButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(0, 1, Short.MAX_VALUE))
+                        .addGroup(panelResidualsAllLayout.createSequentialGroup()
+                            .addComponent(panelResidualsPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))))
             .addContainerGap())
     );
 
@@ -2984,7 +3034,7 @@ public class MainFrame extends javax.swing.JFrame {
     );
     panelForecastValsLayout.setVerticalGroup(
         panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
+        .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 630, Short.MAX_VALUE)
     );
 
     buttonForecastValsShowHidden.setText("Show hidden columns");
@@ -3098,7 +3148,7 @@ public class MainFrame extends javax.swing.JFrame {
     panelPredictionIntervalsLayout.setVerticalGroup(
         panelPredictionIntervalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
         .addGroup(panelPredictionIntervalsLayout.createSequentialGroup()
-            .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE)
+            .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -3186,7 +3236,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(buttonAnalysisBatchRemoveSelectedRows)))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
+            .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 608, Short.MAX_VALUE)
             .addContainerGap())
     );
 
@@ -3203,7 +3253,7 @@ public class MainFrame extends javax.swing.JFrame {
     );
     panelCombinationWeightsLayout.setVerticalGroup(
         panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 683, Short.MAX_VALUE)
+        .addGap(0, 619, Short.MAX_VALUE)
     );
 
     javax.swing.GroupLayout panelCombinationWeightsAllLayout = new javax.swing.GroupLayout(panelCombinationWeightsAll);
@@ -3959,6 +4009,21 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPaneForecastVals.setViewportView(forecastValuesLatest);
         panelForecastVals.add(scrollPaneForecastVals);
         panelForecastVals.repaint();
+        
+        //and show residuals
+        if (! allReports.isEmpty()) {
+            final JTable residualsTable = new JTable(new ResidualsTableModel(allReports));
+            residualsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            TableColumn firstCol = residualsTable.getColumnModel().getColumn(0);
+            firstCol.setMinWidth(10);
+            firstCol.setMaxWidth(50);
+            residualsTable.setVisible(true);
+            residualsTableLatest = residualsTable;
+            panelResiduals.removeAll();
+            scrollPaneResiduals.setViewportView(residualsTableLatest);
+            panelResiduals.add(scrollPaneResiduals);
+            panelResiduals.repaint();
+        }
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
@@ -5315,10 +5380,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelRBFPercentTrain;
     private javax.swing.JPanel panelRBFintPercentTrain;
     private javax.swing.JPanel panelRBFintSettingsDistance;
-    private javax.swing.JScrollPane panelResiduals;
+    private javax.swing.JPanel panelResiduals;
     private javax.swing.JPanel panelResidualsAll;
     private javax.swing.JTextArea panelResidualsBasicStats;
+    private javax.swing.JPanel panelResidualsLeft;
     private javax.swing.JPanel panelResidualsPlot;
+    private javax.swing.JPanel panelResidualsRightButtons;
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSESintDistance;
     private javax.swing.JPanel panelSESintPercentTrain;
@@ -5386,6 +5453,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneForecastVals;
     private javax.swing.JScrollPane scrollPanePredictionIntervals;
+    private javax.swing.JScrollPane scrollPaneResiduals;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_centerMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_radiusMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPPackage_nnet;
@@ -5420,6 +5488,7 @@ public class MainFrame extends javax.swing.JFrame {
     private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReportCrisp>()));
     private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReportInterval>())));
     private JTable forecastValuesLatest;
+    private JTable residualsTableLatest;
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
     private List<IntervalNamesLowerUpper> listITSPlotLowerUpper = new ArrayList<>();
     private boolean continueWithTooManyModels = true;

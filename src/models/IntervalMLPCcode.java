@@ -236,7 +236,7 @@ public class IntervalMLPCcode implements Forecastable {
         report.setForecastValuesTest(null);
         
         
-        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
+        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval(params.getDistance());
         
         //TODO potom zmenit!
         if (params.getOutVars().size() == 1) {

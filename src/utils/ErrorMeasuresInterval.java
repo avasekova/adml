@@ -1,8 +1,12 @@
 package utils;
 
+import utils.imlp.dist.Distance;
+
 public class ErrorMeasuresInterval extends ErrorMeasures {
     
     private static final String[] NAMES = new String[]{ "MDE", "RMSE", "MSE", "RMSSE_1", "RMSSE_2", "Mean coverage", "Mean efficiency", "Theil's U(i)", "ARV(i)" };
+    
+    private Distance distanceUsed;
     
     private double MDEtrain;
     private double MDEtest;
@@ -23,6 +27,10 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
     private double RMSSEtest_1;  //UB or R
     private double RMSSEtrain_2; //LB or C
     private double RMSSEtest_2;  //UB or R
+    
+    public ErrorMeasuresInterval(Distance distance) {
+        this.distanceUsed = distance;
+    }
 
     public static int numberOfSupportedMeasures() {
         return NAMES.length;
@@ -30,6 +38,14 @@ public class ErrorMeasuresInterval extends ErrorMeasures {
     
     public static String[] namesOfSupportedMeasures() {
         return NAMES;
+    }
+
+    public Distance getDistanceUsed() {
+        return distanceUsed;
+    }
+
+    public void setDistanceUsed(Distance distanceUsed) {
+        this.distanceUsed = distanceUsed;
     }
 
     public double getMDEtrain() {

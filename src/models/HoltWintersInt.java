@@ -10,6 +10,7 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
+import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class HoltWintersInt implements Forecastable {
 
@@ -45,7 +46,7 @@ public class HoltWintersInt implements Forecastable {
             TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_WINTERS_INT);
             report.setModelDescription("(non-seasonal data!)");
             report.setRealValues(realOutputsIntervalTrain);
-            report.setErrorMeasures(new ErrorMeasuresInterval());
+            report.setErrorMeasures(new ErrorMeasuresInterval(new WeightedEuclideanDistance(0.5)));
         
             return report;
         }

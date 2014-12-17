@@ -466,7 +466,7 @@ public class ErrorMeasuresUtils {
     public static ErrorMeasuresInterval computeAllErrorMeasuresInterval(List<Interval> realDataTrain, List<Interval> realDataTest,
                                                                         List<Interval> fittedTrain, List<Interval> forecastsTest,
                                                                         Distance distance, Integer seasonality) {
-        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval();
+        ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval(distance);
         
         List<Double> errorsTrain = Utils.getErrorsForIntervals(realDataTrain, fittedTrain, distance);
         List<Double> errorsTest = Utils.getErrorsForIntervals(realDataTest, forecastsTest, distance);
