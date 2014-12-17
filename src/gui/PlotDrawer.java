@@ -389,21 +389,27 @@ public class PlotDrawer {
         MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
         rengine.eval("JavaGD()");
         
+        ((DefaultListModel)(listPlotLegendResiduals.getModel())).removeAllElements();
+        
         boolean next = false;
-        for (List<Double> res : residuals.values()) {
+        for (String key : residuals.keySet()) {
+            final String colourToUseNow = ColourService.getService().getNewColour();
+            //add to legend
+            ((DefaultListModel)(listPlotLegendResiduals.getModel())).addElement(new DefaultPlottable(colourToUseNow, key));
+            
             StringBuilder plotCode = new StringBuilder(plotFunction);
             if (next) {
                 rengine.eval("par(new=TRUE)");
-                plotCode.append("(").append(Utils.listToRVectorString(res))
+                plotCode.append("(").append(Utils.listToRVectorString(residuals.get(key)))
                         .append(", xlim = ").append(rangeXCrisp).append(", ylim = ").append(rangeYCrisp)
                         .append(", axes=FALSE, ann=FALSE, ") //suppress axes names and labels, just draw them for the first one
-                        .append("lwd=4, col=\"").append(ColourService.getService().getNewColour()).append("\")");
+                        .append("lwd=4, col=\"").append(colourToUseNow).append("\")");
             } else {
                 next = true;
-                plotCode.append("(").append(Utils.listToRVectorString(res))
+                plotCode.append("(").append(Utils.listToRVectorString(residuals.get(key)))
                         .append(", xlim = ").append(rangeXCrisp).append(", ylim = ").append(rangeYCrisp)
                         .append(", xlab=\"Time\", ylab=\"Residuals\", ")
-                        .append("lwd=4, col=\"").append(ColourService.getService().getNewColour()).append("\")");
+                        .append("lwd=4, col=\"").append(colourToUseNow).append("\")");
             }
             
             
@@ -422,8 +428,8 @@ public class PlotDrawer {
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
         
-//        drawLegend(par.getListPlotLegend(), allReports, addedReports, new PlotLegendTurnOFFableListCellRenderer(),
-//                    rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+        listPlotLegendResiduals.setCellRenderer(new PlotLegendListCellRenderer());
+        listPlotLegendResiduals.repaint();
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
