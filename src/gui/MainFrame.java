@@ -477,7 +477,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelResidualsAll = new javax.swing.JPanel();
         panelResidualsPlot = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        panelResidualsBasicStats = new javax.swing.JTextArea();
+        textAreaResidualsBasicStats = new javax.swing.JTextArea();
         panelResidualsLeft = new javax.swing.JPanel();
         buttonExportResiduals = new javax.swing.JButton();
         panelResiduals = new javax.swing.JPanel();
@@ -2926,9 +2926,10 @@ public class MainFrame extends javax.swing.JFrame {
         .addGap(0, 468, Short.MAX_VALUE)
     );
 
-    panelResidualsBasicStats.setColumns(20);
-    panelResidualsBasicStats.setRows(5);
-    jScrollPane5.setViewportView(panelResidualsBasicStats);
+    textAreaResidualsBasicStats.setColumns(20);
+    textAreaResidualsBasicStats.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+    textAreaResidualsBasicStats.setRows(5);
+    jScrollPane5.setViewportView(textAreaResidualsBasicStats);
 
     buttonExportResiduals.setText("Export");
     buttonExportResiduals.setEnabled(false);
@@ -5091,19 +5092,19 @@ public class MainFrame extends javax.swing.JFrame {
         
         int[] selectedCols = residualsTableLatest.getSelectedColumns();
         
-        /*List<BasicStats> basicStats = */PlotDrawer.drawPlotsResiduals(
+        List<BasicStats> basicStats = PlotDrawer.drawPlotsResiduals(
                 ((ResidualsTableModel)residualsTableLatest.getModel()).getDataForSelectedCols(selectedCols), 
                 listPlotResidualsLegend, gdBufferedPanelPlotResiduals, 
                 panelResidualsPlot.getWidth(), panelResidualsPlot.getHeight(), "plot.ts");
-//        buttonPlotExportPlot.setEnabled(true);
+//        buttonPlotExportPlotResiduals.setEnabled(true);
         
         //mean, standard deviation, median
-//        StringBuilder basicStatsString = new StringBuilder();
-//        for (BasicStats stat : basicStats) {
-//            basicStatsString.append(stat.toString());
-//            basicStatsString.append(System.lineSeparator());
-//        }
-//        textAreaPlotBasicStats.setText(basicStatsString.toString());
+        StringBuilder basicStatsString = new StringBuilder();
+        for (BasicStats stat : basicStats) {
+            basicStatsString.append(stat.toString());
+            basicStatsString.append(System.lineSeparator());
+        }
+        textAreaResidualsBasicStats.setText(basicStatsString.toString());
     }//GEN-LAST:event_buttonPlotResidualsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
@@ -5429,7 +5430,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelRBFintSettingsDistance;
     private javax.swing.JPanel panelResiduals;
     private javax.swing.JPanel panelResidualsAll;
-    private javax.swing.JTextArea panelResidualsBasicStats;
     private javax.swing.JPanel panelResidualsLeft;
     private javax.swing.JPanel panelResidualsPlot;
     private javax.swing.JPanel panelResidualsRightButtons;
@@ -5510,6 +5510,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
     private javax.swing.JTextArea textAreaPlotBasicStats;
+    private javax.swing.JTextArea textAreaResidualsBasicStats;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
     private javax.swing.JTextField textFieldPlotRangeCTSXfrom;

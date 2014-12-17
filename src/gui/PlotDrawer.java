@@ -26,6 +26,7 @@ import models.avg.AveragesConfig;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
+import params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -371,11 +372,13 @@ public class PlotDrawer {
         return addedReports;
     }
     
-    public static void drawPlotsResiduals(Map<String, List<Double>> residuals, JList listPlotLegendResiduals, 
+    public static List<BasicStats> drawPlotsResiduals(Map<String, List<Double>> residuals, JList listPlotLegendResiduals, 
             JGDBufferedPanel canvasToUse, int width, int height, String plotFunction) {
         //TODO refactor... this is again just copy+paste+change
+        List<BasicStats> basicStatss = new ArrayList<>();
+        
         if (residuals.isEmpty()) {
-            return;
+            return basicStatss;
         }
         
         String rangeXCrisp = "range(c(1, " + (residuals.get(residuals.keySet().toArray(new String[]{})[0]).size()) + "))"; //hack jak svina
@@ -397,23 +400,22 @@ public class PlotDrawer {
             //add to legend
             ((DefaultListModel)(listPlotLegendResiduals.getModel())).addElement(new DefaultPlottable(colourToUseNow, key));
             
+            String rVectorString = Utils.listToRVectorString(residuals.get(key));
+            
             StringBuilder plotCode = new StringBuilder(plotFunction);
             if (next) {
                 rengine.eval("par(new=TRUE)");
-                plotCode.append("(").append(Utils.listToRVectorString(residuals.get(key)))
+                plotCode.append("(").append(rVectorString)
                         .append(", xlim = ").append(rangeXCrisp).append(", ylim = ").append(rangeYCrisp)
                         .append(", axes=FALSE, ann=FALSE, ") //suppress axes names and labels, just draw them for the first one
                         .append("lwd=4, col=\"").append(colourToUseNow).append("\")");
             } else {
                 next = true;
-                plotCode.append("(").append(Utils.listToRVectorString(residuals.get(key)))
+                plotCode.append("(").append(rVectorString)
                         .append(", xlim = ").append(rangeXCrisp).append(", ylim = ").append(rangeYCrisp)
                         .append(", xlab=\"Time\", ylab=\"Residuals\", ")
                         .append("lwd=4, col=\"").append(colourToUseNow).append("\")");
             }
-            
-            
-                
             
             rengine.eval(plotCode.toString());
 
@@ -423,6 +425,19 @@ public class PlotDrawer {
 //            if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
 //                r.setColourInPlot(colourToUseNow);
 //            }
+            
+            REXP getMean = rengine.eval("mean(na.omit(" + rVectorString + "))");
+            System.out.println("mean(" + rVectorString + ")");
+            double mean = getMean.asDoubleArray()[0];
+            REXP getStdDev = rengine.eval("sd(na.omit(" + rVectorString + "))");
+            double stDev = getStdDev.asDoubleArray()[0];
+            REXP getMedian = rengine.eval("median(na.omit(" + rVectorString + "))");
+            double median = getMedian.asDoubleArray()[0];
+            BasicStats basicStats = new BasicStats("Residuals for " + key);
+            basicStats.setMean(mean);
+            basicStats.setStdDev(stDev);
+            basicStats.setMedian(median);
+            basicStatss.add(basicStats);
         }
 
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
@@ -430,6 +445,8 @@ public class PlotDrawer {
         
         listPlotLegendResiduals.setCellRenderer(new PlotLegendListCellRenderer());
         listPlotLegendResiduals.repaint();
+        
+        return basicStatss;
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
