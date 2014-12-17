@@ -3977,6 +3977,10 @@ public class MainFrame extends javax.swing.JFrame {
 
         //and show forecast values in the other pane
         final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        
+        forecastValuesTable.setColumnSelectionAllowed(true);
+        forecastValuesTable.setRowSelectionAllowed(false);
+        
         forecastValuesTable.addMouseListener(new MouseListener() {
 
             @Override
@@ -4014,6 +4018,10 @@ public class MainFrame extends javax.swing.JFrame {
         if (! allReports.isEmpty()) {
             final JTable residualsTable = new JTable(new ResidualsTableModel(allReports));
             residualsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            residualsTable.setColumnSelectionAllowed(true);
+            residualsTable.setRowSelectionAllowed(false);
+            
             TableColumn firstCol = residualsTable.getColumnModel().getColumn(0);
             firstCol.setMinWidth(10);
             firstCol.setMaxWidth(50);
