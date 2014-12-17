@@ -336,6 +336,11 @@ public class Utils {
 
     public static String arrayToRVectorString(double[] array) {
         List<Double> list = Utils.arrayToList(array);
+        
+        return listToRVectorString(list);
+    }
+    
+    public static String listToRVectorString(List<Double> list) {
         StringBuilder string = new StringBuilder(list.toString());
         
         string.replace(0, 1, "c(");

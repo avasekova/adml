@@ -10,8 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
@@ -367,6 +369,61 @@ public class PlotDrawer {
         }
         
         return addedReports;
+    }
+    
+    public static void drawPlotsResiduals(Map<String, List<Double>> residuals, JList listPlotLegendResiduals, 
+            JGDBufferedPanel canvasToUse, int width, int height, String plotFunction) {
+        //TODO refactor... this is again just copy+paste+change
+        if (residuals.isEmpty()) {
+            return;
+        }
+        
+        String rangeXCrisp = "range(c(1, " + (residuals.get(residuals.keySet().toArray(new String[]{})[0]).size()) + "))"; //hack jak svina
+        String rangeYCrisp = getRangeYCrisp(residuals.values());
+        
+        ColourService.getService().resetCounter();
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(JavaGD)");
+        
+        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
+        rengine.eval("JavaGD()");
+        
+        boolean next = false;
+        for (List<Double> res : residuals.values()) {
+            StringBuilder plotCode = new StringBuilder(plotFunction);
+            if (next) {
+                rengine.eval("par(new=TRUE)");
+                plotCode.append("(").append(Utils.listToRVectorString(res))
+                        .append(", xlim = ").append(rangeXCrisp).append(", ylim = ").append(rangeYCrisp)
+                        .append(", axes=FALSE, ann=FALSE, ") //suppress axes names and labels, just draw them for the first one
+                        .append("lwd=4, col=\"").append(ColourService.getService().getNewColour()).append("\")");
+            } else {
+                next = true;
+                plotCode.append("(").append(Utils.listToRVectorString(res))
+                        .append(", xlim = ").append(rangeXCrisp).append(", ylim = ").append(rangeYCrisp)
+                        .append(", xlab=\"Time\", ylab=\"Residuals\", ")
+                        .append("lwd=4, col=\"").append(ColourService.getService().getNewColour()).append("\")");
+            }
+            
+            
+                
+            
+            rengine.eval(plotCode.toString());
+
+            //add a dashed vertical line to separate test and train
+            //possible later when I replace String keys with TrainAndTestReport keys in the residuals map
+//            rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
+//            if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
+//                r.setColourInPlot(colourToUseNow);
+//            }
+        }
+
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        
+//        drawLegend(par.getListPlotLegend(), allReports, addedReports, new PlotLegendTurnOFFableListCellRenderer(),
+//                    rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
@@ -1083,6 +1140,24 @@ public class PlotDrawer {
         
         //potom ich nechaj vyplut do mriezky
         return drawToGrid(width, height, diagramsPlotsBoxHist, COLUMNS_BOXHIST, ROWS_BOXHIST);
+    }
+
+    private static String getRangeYCrisp(Collection<List<Double>> values) {
+        StringBuilder rangesY = new StringBuilder("range(c(");
+        boolean next = false;
+        for (List<Double> l : values) {
+            if (next && (l.size() > 0)) {
+                rangesY.append(", ");
+            } else {
+                next = true;
+            }
+            
+            rangesY.append(Utils.minArray(Utils.listToArray(l))).append(", ");
+            rangesY.append(Utils.maxArray(Utils.listToArray(l)));
+        }
+        rangesY.append("))");
+        
+        return rangesY.toString();
     }
     
 }

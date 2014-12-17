@@ -1,6 +1,7 @@
 package gui.tablemodels;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,5 +100,17 @@ public class ResidualsTableModel extends AbstractTableModel {
         
         return Utils.getErrorsForIntervals(allReal, allTrainTest, 
                 ((ErrorMeasuresInterval) report.getErrorMeasures()).getDistanceUsed());
+    }
+    
+    public Map<String, List<Double>> getDataForSelectedCols(int[] selectedCols) {
+        Map<String, List<Double>> res = new LinkedHashMap<>();
+        for (int col : selectedCols) {
+            if (col != 0) { //skip 0 - these are just the line numbers
+                String key = residuals.keySet().toArray(new String[] {})[col-1];
+                res.put(key, residuals.get(key));
+            }
+        }
+        
+        return res;
     }
 }

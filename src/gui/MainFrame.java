@@ -484,6 +484,8 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPaneResiduals = new javax.swing.JScrollPane();
         panelResidualsRightButtons = new javax.swing.JPanel();
         buttonPlotResiduals = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        listPlotResidualsLegend = new javax.swing.JList();
         panelForecastValsAll = new javax.swing.JPanel();
         buttonExportForecastValues = new javax.swing.JButton();
         panelForecastVals = new javax.swing.JPanel();
@@ -2910,6 +2912,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     panelEverything.addTab("Error measures", panelErrorMeasuresAll);
 
+    gdBufferedPanelPlotResiduals = new JGDBufferedPanel(panelResidualsPlot.getWidth(), panelResidualsPlot.getHeight());
+    panelResidualsPlot.add(gdBufferedPanelPlotResiduals, BorderLayout.CENTER);
+
     javax.swing.GroupLayout panelResidualsPlotLayout = new javax.swing.GroupLayout(panelResidualsPlot);
     panelResidualsPlot.setLayout(panelResidualsPlotLayout);
     panelResidualsPlotLayout.setHorizontalGroup(
@@ -2918,7 +2923,7 @@ public class MainFrame extends javax.swing.JFrame {
     );
     panelResidualsPlotLayout.setVerticalGroup(
         panelResidualsPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 531, Short.MAX_VALUE)
+        .addGap(0, 468, Short.MAX_VALUE)
     );
 
     panelResidualsBasicStats.setColumns(20);
@@ -2965,6 +2970,11 @@ public class MainFrame extends javax.swing.JFrame {
     );
 
     buttonPlotResiduals.setText("Plot");
+    buttonPlotResiduals.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonPlotResidualsActionPerformed(evt);
+        }
+    });
 
     javax.swing.GroupLayout panelResidualsRightButtonsLayout = new javax.swing.GroupLayout(panelResidualsRightButtons);
     panelResidualsRightButtons.setLayout(panelResidualsRightButtonsLayout);
@@ -2982,6 +2992,9 @@ public class MainFrame extends javax.swing.JFrame {
             .addGap(0, 613, Short.MAX_VALUE))
     );
 
+    listPlotResidualsLegend.setModel(new DefaultListModel());
+    jScrollPane6.setViewportView(listPlotResidualsLegend);
+
     javax.swing.GroupLayout panelResidualsAllLayout = new javax.swing.GroupLayout(panelResidualsAll);
     panelResidualsAll.setLayout(panelResidualsAllLayout);
     panelResidualsAllLayout.setHorizontalGroup(
@@ -2993,7 +3006,8 @@ public class MainFrame extends javax.swing.JFrame {
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
             .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                 .addComponent(panelResidualsPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
+                .addComponent(jScrollPane5)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
             .addContainerGap())
     );
     panelResidualsAllLayout.setVerticalGroup(
@@ -3006,10 +3020,12 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panelResidualsAllLayout.createSequentialGroup()
                             .addComponent(panelResidualsRightButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 1, Short.MAX_VALUE))
+                            .addGap(0, 0, Short.MAX_VALUE))
                         .addGroup(panelResidualsAllLayout.createSequentialGroup()
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(panelResidualsPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(7, 7, 7)
                             .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)))))
             .addContainerGap())
     );
@@ -5068,6 +5084,27 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
         }
     }//GEN-LAST:event_buttonHistogramsActionPerformed
+
+    private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed
+        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
+        //TODO refaktor, ptz je to to iste ako drawPlotGeneral/3, len s inymi objektami trosku
+        
+        int[] selectedCols = residualsTableLatest.getSelectedColumns();
+        
+        /*List<BasicStats> basicStats = */PlotDrawer.drawPlotsResiduals(
+                ((ResidualsTableModel)residualsTableLatest.getModel()).getDataForSelectedCols(selectedCols), 
+                listPlotResidualsLegend, gdBufferedPanelPlotResiduals, 
+                panelResidualsPlot.getWidth(), panelResidualsPlot.getHeight(), "plot.ts");
+//        buttonPlotExportPlot.setEnabled(true);
+        
+        //mean, standard deviation, median
+//        StringBuilder basicStatsString = new StringBuilder();
+//        for (BasicStats stat : basicStats) {
+//            basicStatsString.append(stat.toString());
+//            basicStatsString.append(System.lineSeparator());
+//        }
+//        textAreaPlotBasicStats.setText(basicStatsString.toString());
+    }//GEN-LAST:event_buttonPlotResidualsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5311,6 +5348,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -5331,6 +5369,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JList listColnames;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listPlotLegend;
+    private javax.swing.JList listPlotResidualsLegend;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -5492,6 +5531,7 @@ public class MainFrame extends javax.swing.JFrame {
     private static final AnalysisBatchTableModel batchTableModel = new AnalysisBatchTableModel();
     public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
     private static JGDBufferedPanel gdBufferedPanelPlot;
+    private static JGDBufferedPanel gdBufferedPanelPlotResiduals;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReportCrisp>()));
     private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReportInterval>())));
