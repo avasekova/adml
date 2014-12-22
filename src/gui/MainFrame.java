@@ -3423,13 +3423,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
         drawPlotGeneral(true, "acf", "");
-        textAreaPlotBasicStats.setText("");
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
         drawPlotGeneral(true, "pacf", "");
-        textAreaPlotBasicStats.setText("");
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
@@ -3438,7 +3436,6 @@ public class MainFrame extends javax.swing.JFrame {
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(), dataTableModel,
                 listITSPlotCentreRadius, listITSPlotLowerUpper, false));
-        textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
     }//GEN-LAST:event_buttonPlotAllITSActionPerformed
@@ -4017,7 +4014,6 @@ public class MainFrame extends javax.swing.JFrame {
                 reportsIntTS, from, to, colname_CTS, new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), 
                 checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-        textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
@@ -4611,7 +4607,6 @@ public class MainFrame extends javax.swing.JFrame {
                 reportsIntTS, from, to, colname_CTS, 
                 new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-        textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
@@ -4934,7 +4929,6 @@ public class MainFrame extends javax.swing.JFrame {
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
-        textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
     }//GEN-LAST:event_buttonPlotAllITSScatterplotActionPerformed
@@ -5048,7 +5042,6 @@ public class MainFrame extends javax.swing.JFrame {
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
-        textAreaPlotBasicStats.setText("");
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
@@ -5098,7 +5091,6 @@ public class MainFrame extends javax.swing.JFrame {
             
             tabbedPaneBoxplotsHistograms.repaint();
             
-            textAreaPlotBasicStats.setText("");
             setPlotRanges(0, 0);
         } catch (IllegalArgumentException e) {
             //TODO
@@ -5119,7 +5111,6 @@ public class MainFrame extends javax.swing.JFrame {
             tabbedPaneBoxplotsHistograms.repaint();
             
             
-            textAreaPlotBasicStats.setText("");
             setPlotRanges(0, 0);
         } catch (IllegalArgumentException e) {
             //TODO
@@ -5161,7 +5152,6 @@ public class MainFrame extends javax.swing.JFrame {
             tabbedPaneBoxplotsHistograms.repaint();
             
             
-            textAreaPlotBasicStats.setText("");
             setPlotRanges(0, 0);
         } catch (IllegalArgumentException e) {
             //TODO
