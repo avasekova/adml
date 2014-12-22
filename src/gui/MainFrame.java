@@ -51,6 +51,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -5165,6 +5167,11 @@ public class MainFrame extends javax.swing.JFrame {
             public void run() {
                 MainFrame mainFrame = new MainFrame();
                 mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH); //maximize the window
+                try {
+                    Thread.sleep(2000L);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 mainFrame.setVisible(true);
             }
         });
