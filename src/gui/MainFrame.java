@@ -192,6 +192,7 @@ public class MainFrame extends javax.swing.JFrame {
         tabbedPaneBoxplotsHistograms = new javax.swing.JTabbedPane();
         buttonNormProbPlot = new javax.swing.JButton();
         buttonNormalityTests = new javax.swing.JButton();
+        buttonStationarityTest = new javax.swing.JButton();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -660,6 +661,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonStationarityTest.setText("Test for stationarity");
+        buttonStationarityTest.setEnabled(false);
+        buttonStationarityTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStationarityTestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPlotSettingsLayout = new javax.swing.GroupLayout(panelPlotSettings);
         panelPlotSettings.setLayout(panelPlotSettingsLayout);
         panelPlotSettingsLayout.setHorizontalGroup(
@@ -672,13 +681,16 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonPlotColname)
-                            .addComponent(buttonACF)
-                            .addComponent(buttonPACF)
                             .addComponent(buttonHistograms)
                             .addComponent(buttonBoxplots)
                             .addComponent(buttonNormProbPlot)
-                            .addComponent(buttonNormalityTests))
-                        .addGap(0, 133, Short.MAX_VALUE))
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addComponent(buttonACF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonPACF))
+                            .addComponent(buttonNormalityTests)
+                            .addComponent(buttonStationarityTest))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -717,9 +729,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                                 .addComponent(buttonPlotColname)
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonACF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPACF)
+                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonACF)
+                                    .addComponent(buttonPACF))
                                 .addGap(18, 18, 18)
                                 .addComponent(buttonBoxplots)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -727,7 +739,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonNormProbPlot)
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonNormalityTests))
+                                .addComponent(buttonNormalityTests)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonStationarityTest))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -5200,6 +5214,45 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
         }
     }//GEN-LAST:event_buttonNormalityTestsActionPerformed
+
+    private void buttonStationarityTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStationarityTestActionPerformed
+        try {
+            Rengine rengine = MyRengine.getRengine();
+            
+            rengine.eval("require(tseries)");
+            
+            List<String> selectedValuesList = new ArrayList<>();
+            selectedValuesList.addAll(listColnames.getSelectedValuesList());
+            
+            StringBuilder results = new StringBuilder();
+            
+            for (String selectedVal : selectedValuesList) {
+                String DATA = Const.INPUT + Utils.getCounter();
+                rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
+                
+                results.append("------------\n").append("Testing ").append(selectedVal).append(":\n\n");
+                
+                results.append("Ljung-Box test:\n");
+                results.append("   - p-value: ");
+                results.append(rengine.eval("Box.test(" + DATA + ", lag=20, type=\"Ljung-Box\")$p.value").asDouble()).append("\n");
+                
+                results.append("Augmented Dickey–Fuller test:\n");
+                results.append("   - p-value: ");
+                results.append(rengine.eval("adf.test(" + DATA + ", alternative=\"stationary\")$p.value").asDouble()).append("\n");
+                
+                results.append("Kwiatkowski-Phillips-Schmidt-Shin test:\n");
+                results.append("   - p-value: ");
+                results.append(rengine.eval("kpss.test(" + DATA + ")$p.value").asDouble()).append("\n");
+                
+                results.append("\n");
+            }
+            
+            textAreaPlotBasicStats.setText(results.toString());
+            setPlotRanges(0, 0);
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonStationarityTestActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5321,6 +5374,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonSettingsAddToBatch_SESint;
     private javax.swing.JButton buttonSettingsAddToBatch_VARint;
     private javax.swing.JButton buttonSettingsAddToBatch_intMLP;
+    private javax.swing.JButton buttonStationarityTest;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTS;
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTSperM;
@@ -6628,6 +6682,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonHistograms.setEnabled(trueFalse);
         buttonNormProbPlot.setEnabled(trueFalse);
         buttonNormalityTests.setEnabled(trueFalse);
+        buttonStationarityTest.setEnabled(trueFalse);
 
         buttonPlotAllITS.setEnabled(trueFalse);
         buttonPlotAllITSScatterplot.setEnabled(trueFalse);
