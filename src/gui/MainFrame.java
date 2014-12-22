@@ -188,6 +188,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         tabbedPaneBoxplotsHistograms = new javax.swing.JTabbedPane();
+        buttonNormProbPlot = new javax.swing.JButton();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -640,6 +641,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel18.setText("Note: for now ignores ITS specified as [LB, UB]");
 
+        buttonNormProbPlot.setText("Normal probability plot");
+        buttonNormProbPlot.setEnabled(false);
+        buttonNormProbPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNormProbPlotActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelPlotSettingsLayout = new javax.swing.GroupLayout(panelPlotSettings);
         panelPlotSettings.setLayout(panelPlotSettingsLayout);
         panelPlotSettingsLayout.setHorizontalGroup(
@@ -655,7 +664,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonACF)
                             .addComponent(buttonPACF)
                             .addComponent(buttonHistograms)
-                            .addComponent(buttonBoxplots))
+                            .addComponent(buttonBoxplots)
+                            .addComponent(buttonNormProbPlot))
                         .addGap(0, 133, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -700,8 +710,10 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(buttonPACF)
                                 .addGap(18, 18, 18)
                                 .addComponent(buttonBoxplots)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonHistograms))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonHistograms)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonNormProbPlot))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -5046,7 +5058,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
 
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
-//        MainFrame.drawNowToThisGDBufferedPanel = gdBufferedPanelPlot;
         try {
             List<JGDBufferedPanel> boxplotHistogramPanels = PlotDrawer.drawBoxplotsOrHistograms("boxplot", listColnames.getSelectedValuesList(), dataTableModel, 
                     tabbedPaneBoxplotsHistograms.getWidth(), tabbedPaneBoxplotsHistograms.getHeight());
@@ -5067,7 +5078,6 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
 
     private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
-//        MainFrame.drawNowToThisGDBufferedPanel = gdBufferedPanelPlot;
         try {
             List<JGDBufferedPanel> boxplotHistogramPanels = PlotDrawer.drawBoxplotsOrHistograms("hist", listColnames.getSelectedValuesList(), dataTableModel,
                     tabbedPaneBoxplotsHistograms.getWidth(), tabbedPaneBoxplotsHistograms.getHeight());
@@ -5108,6 +5118,27 @@ public class MainFrame extends javax.swing.JFrame {
         }
         textAreaResidualsBasicStats.setText(basicStatsString.toString());
     }//GEN-LAST:event_buttonPlotResidualsActionPerformed
+
+    private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
+        try {
+            List<JGDBufferedPanel> boxplotHistogramPanels = PlotDrawer.drawBoxplotsOrHistograms("qqnorm", listColnames.getSelectedValuesList(), dataTableModel,
+                    tabbedPaneBoxplotsHistograms.getWidth(), tabbedPaneBoxplotsHistograms.getHeight());
+            
+            tabbedPaneBoxplotsHistograms.removeAll();
+            int i = 0;
+            for (JGDBufferedPanel p : boxplotHistogramPanels) {
+                tabbedPaneBoxplotsHistograms.addTab("Page "+(++i), p);
+            }
+            
+            tabbedPaneBoxplotsHistograms.repaint();
+            
+            
+            textAreaPlotBasicStats.setText("");
+            setPlotRanges(0, 0);
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonNormProbPlotActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5192,6 +5223,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonHistograms;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
+    private javax.swing.JButton buttonNormProbPlot;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
@@ -6532,6 +6564,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonBoxplots.setEnabled(trueFalse);
         buttonHistograms.setEnabled(trueFalse);
+        buttonNormProbPlot.setEnabled(trueFalse);
 
         buttonPlotAllITS.setEnabled(trueFalse);
         buttonPlotAllITSScatterplot.setEnabled(trueFalse);

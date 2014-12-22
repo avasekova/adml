@@ -1026,10 +1026,16 @@ public class PlotDrawer {
                 
                 int counter = maxCol*maxRow;
                 while ((counter > 0) && (currentIndex < plots.size())) {
-                    rengine.eval(plots.get(currentIndex));
+                    String[] commands = plots.get(currentIndex).split(";"); //TODO override "rengine.eval" so that it accepts multiple commands separated by ";"
+                    for (String command : commands) {
+                        rengine.eval(command);
+                    }
+                    
                     currentIndex++;
                     counter--;
                 }
+                
+                        
                 
                 while ((counter > 0) && (currentIndex == plots.size())) { //dosli mi diagramy a este nie je plna mriezka
                     rengine.eval("plot.new()");
@@ -1157,7 +1163,13 @@ public class PlotDrawer {
         for (String selectedVal : selectedValuesList) {
             String NAME = "boxhist." + Utils.getCounter();
             rengine.assign(NAME, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
-            String plotFunction = plottingFunction + "(" + NAME + ", xlab=\"" + selectedVal + "\", main=\"\")";
+            String plotFunction;
+            if ("qqnorm".equals(plottingFunction)) {
+                plotFunction = plottingFunction + "(" + NAME + ", main=\"" + selectedVal + "\")";
+                plotFunction += ";qqline(" + NAME + ")";
+            } else {
+                plotFunction = plottingFunction + "(" + NAME + ", xlab=\"" + selectedVal + "\", main=\"\")";
+            }
             diagramsPlotsBoxHist.add(plotFunction);
         }
         
