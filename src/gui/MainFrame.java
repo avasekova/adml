@@ -1039,6 +1039,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     buttonLogTransformSeries.setText("Log-transform selected");
     buttonLogTransformSeries.setEnabled(false);
+    buttonLogTransformSeries.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonLogTransformSeriesActionPerformed(evt);
+        }
+    });
 
     buttonDiffSeries.setText("Difference selected");
     buttonDiffSeries.setEnabled(false);
@@ -5309,6 +5314,22 @@ public class MainFrame extends javax.swing.JFrame {
         
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonDiffSeriesActionPerformed
+
+    private void buttonLogTransformSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogTransformSeriesActionPerformed
+        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
+        
+        Rengine rengine = MyRengine.getRengine();
+        
+        final String VAR = Const.INPUT + Utils.getCounter();
+        
+        for (String selected : selectedVars) {
+            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.eval(VAR + " <- log(" + VAR + ")");
+            dataTableModel.addDataForColname("LOG(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+        }
+        
+        fillGUIelementsWithNewData();
+    }//GEN-LAST:event_buttonLogTransformSeriesActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
