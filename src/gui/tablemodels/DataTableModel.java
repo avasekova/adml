@@ -275,4 +275,11 @@ public class DataTableModel extends AbstractTableModel {
     public List<Double> getDataForColname(String colname) {
         return values.get(colname);
     }
+    
+    public void addDataForColname(String colname, List<Double> data) {
+        values.put(colname, data);
+        if (! columnNames.contains(colname)) {
+            columnNames.add(colname);
+        }
+    }
 }

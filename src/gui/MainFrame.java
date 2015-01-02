@@ -223,6 +223,11 @@ public class MainFrame extends javax.swing.JFrame {
         listPlotLegend = new javax.swing.JList();
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
+        panelTransform = new javax.swing.JPanel();
+        buttonLogTransformSeries = new javax.swing.JButton();
+        buttonDiffSeries = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        listColnamesTransform = new javax.swing.JList();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -1031,6 +1036,48 @@ public class MainFrame extends javax.swing.JFrame {
     );
 
     panelEverything.addTab("Plot", panelPlotImage);
+
+    buttonLogTransformSeries.setText("Log-transform selected");
+    buttonLogTransformSeries.setEnabled(false);
+
+    buttonDiffSeries.setText("Difference selected");
+    buttonDiffSeries.setEnabled(false);
+    buttonDiffSeries.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonDiffSeriesActionPerformed(evt);
+        }
+    });
+
+    listColnamesTransform.setModel(new DefaultListModel());
+    jScrollPane7.setViewportView(listColnamesTransform);
+
+    javax.swing.GroupLayout panelTransformLayout = new javax.swing.GroupLayout(panelTransform);
+    panelTransform.setLayout(panelTransformLayout);
+    panelTransformLayout.setHorizontalGroup(
+        panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelTransformLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(buttonLogTransformSeries)
+                .addComponent(buttonDiffSeries))
+            .addContainerGap(972, Short.MAX_VALUE))
+    );
+    panelTransformLayout.setVerticalGroup(
+        panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelTransformLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelTransformLayout.createSequentialGroup()
+                    .addComponent(buttonDiffSeries)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(buttonLogTransformSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addContainerGap(390, Short.MAX_VALUE))
+    );
+
+    panelEverything.addTab("Data transformation", panelTransform);
 
     jTableData.setModel(dataTableModel);
     scrollPaneData.setViewportView(jTableData);
@@ -5243,6 +5290,25 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
         }
     }//GEN-LAST:event_buttonStationarityTestActionPerformed
+
+    private void buttonDiffSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiffSeriesActionPerformed
+        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
+        
+        Rengine rengine = MyRengine.getRengine();
+        
+        final String VAR = Const.INPUT + Utils.getCounter();
+        
+        for (String selected : selectedVars) {
+            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.eval(VAR + " <- " + VAR + "[2:length(" + VAR + ")] - " + VAR + "[1:(length(" + VAR + ") - 1)]");
+            List<Double> newData = new ArrayList<>();
+            //newData.add(Double.NaN); //TODO vymysliet, ako to posunut doprava... teraz je to 'zarovnane' dolava, co je zle
+            newData.addAll(Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+            dataTableModel.addDataForColname("DIFF(" + selected + ")", newData);
+        }
+        
+        fillGUIelementsWithNewData();
+    }//GEN-LAST:event_buttonDiffSeriesActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5316,6 +5382,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonBoxplots;
+    private javax.swing.JButton buttonDiffSeries;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.JButton buttonExportResiduals;
@@ -5327,6 +5394,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonHistograms;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
+    private javax.swing.JButton buttonLogTransformSeries;
     private javax.swing.JButton buttonNormProbPlot;
     private javax.swing.JButton buttonNormalityTests;
     private javax.swing.JButton buttonPACF;
@@ -5495,6 +5563,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -5513,6 +5582,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
     private javax.swing.JList listColnames;
+    private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listPlotLegend;
     private javax.swing.JList listPlotResidualsLegend;
@@ -5635,6 +5705,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsRBFMain;
     private javax.swing.JPanel panelSettingsRBFint_center;
     private javax.swing.JPanel panelSettingsRBFint_radius;
+    private javax.swing.JPanel panelTransform;
     private javax.swing.JPanel panelVARintDistance;
     private javax.swing.JPanel panelVARintInside;
     private javax.swing.JPanel panelVARintInsideBecause;
@@ -6601,6 +6672,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
         for (String colname : dataTableModel.getColnames()) {
             ((DefaultListModel)(listColnames.getModel())).addElement(colname);
+            ((DefaultListModel)(listColnamesTransform.getModel())).addElement(colname);
             comboBoxColnamesRun.addItem(colname);
             comboBoxRunFakeIntCenter.addItem(colname);
             comboBoxRunFakeIntRadius.addItem(colname);
@@ -6632,6 +6704,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void cleanGUIelements() {
         ((DefaultListModel)(listColnames.getModel())).removeAllElements();
+        ((DefaultListModel)(listColnamesTransform.getModel())).removeAllElements();
         comboBoxColnamesRun.removeAllItems();
         comboBoxRunFakeIntCenter.removeAllItems();
         comboBoxRunFakeIntRadius.removeAllItems();
@@ -6673,6 +6746,9 @@ public class MainFrame extends javax.swing.JFrame {
         buttonNormProbPlot.setEnabled(trueFalse);
         buttonNormalityTests.setEnabled(trueFalse);
         buttonStationarityTest.setEnabled(trueFalse);
+        
+        buttonDiffSeries.setEnabled(trueFalse);
+        buttonLogTransformSeries.setEnabled(trueFalse);
 
         buttonPlotAllITS.setEnabled(trueFalse);
         buttonPlotAllITSScatterplot.setEnabled(trueFalse);
