@@ -427,7 +427,6 @@ public class PlotDrawer {
 //            }
             
             REXP getMean = rengine.eval("mean(na.omit(" + rVectorString + "))");
-            System.out.println("mean(" + rVectorString + ")");
             double mean = getMean.asDoubleArray()[0];
             REXP getStdDev = rengine.eval("sd(na.omit(" + rVectorString + "))");
             double stDev = getStdDev.asDoubleArray()[0];
