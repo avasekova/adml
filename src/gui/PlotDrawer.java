@@ -1011,6 +1011,9 @@ public class PlotDrawer {
     public static List<JGDBufferedPanel> drawToGrid(int width, int height, List<String> plots, int maxCol, int maxRow) {
         List<JGDBufferedPanel> panelsList = new ArrayList<>();
         
+        //TODO prerobit to, aby sa v tej poslednej mriezke, ak nie je plna, zvacovali grafy?
+        //tj ostane mi n grafov. x = horna cela cast z odmocniny z n. a potom vysledny obdlznik je x(x-1) ak to staci na n, inak x.x
+        
         if (plots.isEmpty()) {
             return panelsList;
         } else {
