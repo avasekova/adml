@@ -4,6 +4,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import params.Params;
 import utils.Const;
+import utils.FieldsParser;
 import utils.R_Bool;
 import utils.Utils;
 
@@ -195,9 +196,24 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
             throw new IllegalArgumentException(Const.HOLT_WINTERS + " params error");
         }
         
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setGamma", String.class, getGamma());
+        if ("NULL".equals(getAlpha())) {
+            SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
+        } else {
+            SettingsPanel.setSomethingList(classss, resultList, "setAlpha", String.class, Utils.doublesToStringsEew(FieldsParser.parseDoubles(getAlpha())));
+        }
+        
+        if ("NULL".equals(getBeta())) {
+            SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
+        } else {
+            SettingsPanel.setSomethingList(classss, resultList, "setBeta", String.class, Utils.doublesToStringsEew(FieldsParser.parseDoubles(getBeta())));
+        }
+        
+        if ("NULL".equals(getGamma())) {
+            SettingsPanel.setSomethingOneValue(classss, resultList, "setGamma", String.class, getGamma());
+        } else {
+            SettingsPanel.setSomethingList(classss, resultList, "setGamma", String.class, Utils.doublesToStringsEew(FieldsParser.parseDoubles(getGamma())));
+        }
+        
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", String.class, ((SeasonalitySettingsPanel)panelSeasonality).getFrequency());
     }

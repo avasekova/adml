@@ -25,7 +25,7 @@ public class SeasonalitySettingsPanel extends SettingsPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
-        comboBoxTypeSeasonality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Daily", "Weekly", "Monthly", "Quarterly", "Yearly" }));
+        comboBoxTypeSeasonality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Daily", "Monthly", "Quarterly", "Yearly" }));
 
         jLabel1.setText("data");
 
@@ -66,9 +66,9 @@ public class SeasonalitySettingsPanel extends SettingsPanel {
     public String getFrequency() {
         switch (comboBoxTypeSeasonality.getSelectedItem().toString()) {
             case "Daily":
-                return "frequency=7";
-            case "Weekly":
-                return "frequency=52";
+                return "frequency=7"; //the data is sampled daily and the natural observation period is a week
+//            case "Weekly":
+//                return "frequency=52";
             case "Monthly":
                 return "frequency=12";
             case "Quarterly":

@@ -190,8 +190,18 @@ public class HoltSettingsPanel extends SettingsPanel {
             throw new IllegalArgumentException(Const.HOLT + " params error");
         }
         
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
+        if ("NULL".equals(getAlpha())) {
+            SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
+        } else {
+            SettingsPanel.setSomethingList(classss, resultList, "setAlpha", String.class, Utils.doublesToStringsEew(FieldsParser.parseDoubles(getAlpha())));
+        }
+        
+        if ("NULL".equals(getBeta())) {
+            SettingsPanel.setSomethingOneValue(classss, resultList, "setBeta", String.class, getBeta());
+        } else {
+            SettingsPanel.setSomethingList(classss, resultList, "setBeta", String.class, Utils.doublesToStringsEew(FieldsParser.parseDoubles(getBeta())));
+        }
+        
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setPredIntPercent", Integer.class, FieldsParser.parseIntegers(getPredIntPercent()).get(0));
     }

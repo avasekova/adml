@@ -102,6 +102,30 @@ public class Utils {
         }
     }
     
+    public static List<Double> getDoublesOrDefault(JTextField textField) {
+        return getDoublesOrDefault(textField.getText());
+    }
+    
+    public static List<Double> getDoublesOrDefault(String text) {
+        List<Double> list = new ArrayList<>();
+        try {
+            String[] split = text.split("\\.\\.\\.");
+            if (split.length == 1) {
+                list.add(Double.parseDouble(text));
+            } else { //predpokladam vyraz v tvare LB...UB
+                for (int i = Integer.parseInt(split[0]); i <= Integer.parseInt(split[1]); i++) {
+                    list.add(new Double(i));
+                }
+                //ak to tu slahne vynimku, mali sme interval s necelociselnymi medzami, a ten neviem normalne krokovat
+            }
+            return list;
+        } catch (NumberFormatException e) {
+            //TODO log? resp. bude sa pouzivat defaultna hodnota
+            list.add(null);
+            return list;
+        }
+    }
+    
     public static R_Bool booleanToRBool(boolean truefalse) {
         if (truefalse) {
             return R_Bool.TRUE;
@@ -347,5 +371,14 @@ public class Utils {
         string.replace(string.length()-1, string.length(), ")");
         
         return string.toString();
+    }
+    
+    public static List<String> doublesToStringsEew(List<Double> doubles) {
+        List<String> strings = new ArrayList<>();
+        for (Double d : doubles) {
+            strings.add("" + d);
+        }
+        
+        return strings;
     }
 }

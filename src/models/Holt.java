@@ -37,6 +37,7 @@ public class Holt implements Forecastable {
         
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
         
+        System.out.println("alpha: " + params.getAlpha() + ", beta: " + params.getBeta());
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         if (params.getPredIntPercent() == 0) {

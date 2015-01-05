@@ -46,7 +46,7 @@
     <Component class="javax.swing.JComboBox" name="comboBoxTypeSeasonality">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Daily&quot;, &quot;Weekly&quot;, &quot;Monthly&quot;, &quot;Quarterly&quot;, &quot;Yearly&quot; })" type="code"/>
+          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { &quot;Daily&quot;, &quot;Monthly&quot;, &quot;Quarterly&quot;, &quot;Yearly&quot; })" type="code"/>
         </Property>
       </Properties>
     </Component>
