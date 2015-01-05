@@ -3,6 +3,7 @@ package params;
 public class HoltWintersParams extends HoltParams {
     
     private String gamma;
+    private String seasonalityAddMult;
     private String frequency;
 
     public String getGamma() {
@@ -11,6 +12,14 @@ public class HoltWintersParams extends HoltParams {
 
     public void setGamma(String gamma) {
         this.gamma = gamma;
+    }
+
+    public String getSeasonalityAddMult() {
+        return seasonalityAddMult;
+    }
+
+    public void setSeasonalityAddMult(String seasonalityAddMult) {
+        this.seasonalityAddMult = seasonalityAddMult;
     }
 
     public String getFrequency() {
@@ -34,6 +43,7 @@ public class HoltWintersParams extends HoltParams {
         param.setBeta(this.getBeta());
         param.setDamped(this.getDamped());
         param.setGamma(gamma);
+        param.setSeasonalityAddMult(seasonalityAddMult);
         param.setFrequency(frequency);
         
         return param;

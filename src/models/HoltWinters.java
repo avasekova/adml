@@ -41,8 +41,8 @@ public class HoltWinters implements Forecastable {
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast::hw(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
                 ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", gamma=" + params.getGamma()
+                + ", seasonal=\"" + params.getSeasonalityAddMult() + "\""
                 + ", damped=" + params.getDamped() + ")");
-        
         
         //ak to nie su seasonal data, R skonci s chybou
         if (rengine.eval(FORECAST_MODEL) == null) {

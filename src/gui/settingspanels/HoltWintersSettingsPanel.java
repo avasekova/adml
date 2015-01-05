@@ -37,6 +37,7 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         textFieldGamma = new javax.swing.JTextField();
         checkBoxOptimizeGamma = new javax.swing.JCheckBox();
         panelSeasonality = new SeasonalitySettingsPanel();
+        comboboxSeasonalityAddMult = new javax.swing.JComboBox();
 
         jLabel1.setText("Alpha (level):");
 
@@ -67,12 +68,18 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
             }
         });
 
+        comboboxSeasonalityAddMult.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "additive", "multiplicative" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelSeasonality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(checkBoxDamped)
-            .addComponent(jLabel3)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(comboboxSeasonalityAddMult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -93,7 +100,6 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
                     .addComponent(textFieldGamma, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                     .addComponent(checkBoxOptimizeGamma)))
-            .addComponent(panelSeasonality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +114,9 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
                     .addComponent(textFieldBeta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxOptimizeBeta))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(comboboxSeasonalityAddMult, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textFieldGamma, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,6 +158,7 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
     private javax.swing.JCheckBox checkBoxOptimizeAlpha;
     private javax.swing.JCheckBox checkBoxOptimizeBeta;
     private javax.swing.JCheckBox checkBoxOptimizeGamma;
+    private javax.swing.JComboBox comboboxSeasonalityAddMult;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -184,6 +193,10 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         }
     }
     
+    public String getSeasonalityAddMult() {
+        return comboboxSeasonalityAddMult.getSelectedItem().toString();
+    }
+    
     public R_Bool isDamped() {
         return Utils.booleanToRBool(checkBoxDamped.isSelected());
     }
@@ -213,6 +226,8 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         } else {
             SettingsPanel.setSomethingList(classss, resultList, "setGamma", String.class, Utils.doublesToStringsEew(FieldsParser.parseDoubles(getGamma())));
         }
+        
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setSeasonalityAddMult", String.class, getSeasonalityAddMult());
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", String.class, ((SeasonalitySettingsPanel)panelSeasonality).getFrequency());
