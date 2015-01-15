@@ -189,7 +189,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonHistograms = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        tabbedPaneBoxplotsHistograms = new javax.swing.JTabbedPane();
+        tabbedPaneAnalysisPlots = new javax.swing.JTabbedPane();
         buttonNormProbPlot = new javax.swing.JButton();
         buttonNormalityTests = new javax.swing.JButton();
         buttonStationarityTest = new javax.swing.JButton();
@@ -721,7 +721,7 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(buttonPlotAllITSScatterplotMatrix)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel18))))
-                            .addComponent(tabbedPaneBoxplotsHistograms))
+                            .addComponent(tabbedPaneAnalysisPlots))
                         .addContainerGap())))
         );
         panelPlotSettingsLayout.setVerticalGroup(
@@ -771,7 +771,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel17)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tabbedPaneBoxplotsHistograms)))
+                        .addComponent(tabbedPaneAnalysisPlots)))
                 .addContainerGap())
         );
 
@@ -3486,12 +3486,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        drawPlotGeneral(true, "acf", "");
+        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        drawPlotGeneral(true, "pacf", "");
+        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
@@ -5143,42 +5143,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
 
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
-        try {
-            List<JGDBufferedPanel> boxplotHistogramPanels = PlotDrawer.drawBoxplotsOrHistograms("boxplot", listColnames.getSelectedValuesList(), dataTableModel, 
-                    tabbedPaneBoxplotsHistograms.getWidth(), tabbedPaneBoxplotsHistograms.getHeight());
-            
-            tabbedPaneBoxplotsHistograms.removeAll();
-            int i = 0;
-            for (JGDBufferedPanel p : boxplotHistogramPanels) {
-                tabbedPaneBoxplotsHistograms.addTab("Page "+(++i), p);
-            }
-            
-            tabbedPaneBoxplotsHistograms.repaint();
-            
-            setPlotRanges(0, 0);
-        } catch (IllegalArgumentException e) {
-            //TODO
-        }
+        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
 
     private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
-        try {
-            List<JGDBufferedPanel> boxplotHistogramPanels = PlotDrawer.drawBoxplotsOrHistograms("hist", listColnames.getSelectedValuesList(), dataTableModel,
-                    tabbedPaneBoxplotsHistograms.getWidth(), tabbedPaneBoxplotsHistograms.getHeight());
-            
-            tabbedPaneBoxplotsHistograms.removeAll();
-            int i = 0;
-            for (JGDBufferedPanel p : boxplotHistogramPanels) {
-                tabbedPaneBoxplotsHistograms.addTab("Page "+(++i), p);
-            }
-            
-            tabbedPaneBoxplotsHistograms.repaint();
-            
-            
-            setPlotRanges(0, 0);
-        } catch (IllegalArgumentException e) {
-            //TODO
-        }
+        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonHistogramsActionPerformed
 
     private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed
@@ -5203,23 +5174,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotResidualsActionPerformed
 
     private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
-        try {
-            List<JGDBufferedPanel> boxplotHistogramPanels = PlotDrawer.drawBoxplotsOrHistograms("qqnorm", listColnames.getSelectedValuesList(), dataTableModel,
-                    tabbedPaneBoxplotsHistograms.getWidth(), tabbedPaneBoxplotsHistograms.getHeight());
-            
-            tabbedPaneBoxplotsHistograms.removeAll();
-            int i = 0;
-            for (JGDBufferedPanel p : boxplotHistogramPanels) {
-                tabbedPaneBoxplotsHistograms.addTab("Page "+(++i), p);
-            }
-            
-            tabbedPaneBoxplotsHistograms.repaint();
-            
-            
-            setPlotRanges(0, 0);
-        } catch (IllegalArgumentException e) {
-            //TODO
-        }
+        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonNormProbPlotActionPerformed
 
     private void buttonNormalityTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalityTestsActionPerformed
@@ -5787,7 +5743,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPPackage_nnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
-    private javax.swing.JTabbedPane tabbedPaneBoxplotsHistograms;
+    private javax.swing.JTabbedPane tabbedPaneAnalysisPlots;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
     private javax.swing.JTextArea textAreaPlotBasicStats;

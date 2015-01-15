@@ -145,7 +145,7 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Component id="tabbedPaneBoxplotsHistograms" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="tabbedPaneAnalysisPlots" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -210,7 +210,7 @@
                                   </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="tabbedPaneBoxplotsHistograms" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneAnalysisPlots" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -404,7 +404,7 @@
                 <Property name="text" type="java.lang.String" value="Note: for now ignores ITS specified as [LB, UB]"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JTabbedPane" name="tabbedPaneBoxplotsHistograms">
+            <Container class="javax.swing.JTabbedPane" name="tabbedPaneAnalysisPlots">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>

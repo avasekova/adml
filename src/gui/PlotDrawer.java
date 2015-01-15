@@ -17,6 +17,7 @@ import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTabbedPane;
 import javax.swing.ListCellRenderer;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
@@ -1157,13 +1158,14 @@ public class PlotDrawer {
 //        return rString.toString();
 //    }
 
-    public static List<JGDBufferedPanel> drawBoxplotsOrHistograms(String plottingFunction, List<String> selectedValuesList, DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
+    public static void drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
+            DataTableModel dataTableModel, JTabbedPane tabbedPaneAnalysisPlots) throws IllegalArgumentException {
         //najprv si nasysli vsetky diagramy
-        List<String> diagramsPlotsBoxHist = new ArrayList<>();
+        List<String> diagramsPlots = new ArrayList<>();
         Rengine rengine = MyRengine.getRengine();
         
         for (String selectedVal : selectedValuesList) {
-            String NAME = "boxhist." + Utils.getCounter();
+            String NAME = "myplots." + Utils.getCounter();
             rengine.assign(NAME, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
             String plotFunction;
             if ("qqnorm".equals(plottingFunction)) {
@@ -1172,11 +1174,21 @@ public class PlotDrawer {
             } else {
                 plotFunction = plottingFunction + "(" + NAME + ", xlab=\"" + selectedVal + "\", main=\"\")";
             }
-            diagramsPlotsBoxHist.add(plotFunction);
+            diagramsPlots.add(plotFunction);
         }
         
         //potom ich nechaj vyplut do mriezky
-        return drawToGrid(width, height, diagramsPlotsBoxHist, COLUMNS_BOXHIST, ROWS_BOXHIST);
+        List<JGDBufferedPanel> panels = drawToGrid(tabbedPaneAnalysisPlots.getWidth(), tabbedPaneAnalysisPlots.getHeight(),
+                diagramsPlots, COLUMNS_BOXHIST, ROWS_BOXHIST);
+        
+        //a tu mriezku nakresli
+        tabbedPaneAnalysisPlots.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : panels) {
+            tabbedPaneAnalysisPlots.addTab("Page "+(++i), p);
+        }
+
+        tabbedPaneAnalysisPlots.repaint();
     }
 
     private static String getRangeYCrisp(Collection<List<Double>> values) {
