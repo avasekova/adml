@@ -419,7 +419,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonNormalityTests">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Test for normality"/>
+                <Property name="text" type="java.lang.String" value="Tests for normality"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
@@ -428,7 +428,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="buttonStationarityTest">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Test for stationarity"/>
+                <Property name="text" type="java.lang.String" value="Tests for stationarity"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>

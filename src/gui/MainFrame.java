@@ -659,7 +659,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonNormalityTests.setText("Test for normality");
+        buttonNormalityTests.setText("Tests for normality");
         buttonNormalityTests.setEnabled(false);
         buttonNormalityTests.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -667,7 +667,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonStationarityTest.setText("Test for stationarity");
+        buttonStationarityTest.setText("Tests for stationarity");
         buttonStationarityTest.setEnabled(false);
         buttonStationarityTest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -5237,7 +5237,7 @@ public class MainFrame extends javax.swing.JFrame {
                 String DATA = Const.INPUT + Utils.getCounter();
                 rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
                 
-                results.append("------------\n").append("Testing ").append(selectedVal).append(":\n\n");
+                results.append("------------\n").append("Testing ").append(selectedVal).append(" for normality:\n\n");
                 
                 results.append("Anderson-Darling test for normality:\n");
                 results.append("   - p-value: ");
@@ -5284,7 +5284,7 @@ public class MainFrame extends javax.swing.JFrame {
                 String DATA = Const.INPUT + Utils.getCounter();
                 rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
                 
-                results.append("------------\n").append("Testing ").append(selectedVal).append(":\n\n");
+                results.append("------------\n").append("Testing ").append(selectedVal).append(" for stationarity:\n\n");
                 
                 results.append("Ljung-Box test:\n");
                 results.append("   - p-value: ");
