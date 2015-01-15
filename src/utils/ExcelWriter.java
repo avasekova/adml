@@ -3,6 +3,7 @@ package utils;
 import gui.tablemodels.ErrorMeasuresTableModel_CTS;
 import gui.tablemodels.ErrorMeasuresTableModel_ITS;
 import gui.tablemodels.ForecastValsTableModel;
+import gui.tablemodels.ResidualsTableModel;
 import java.io.File;
 import java.io.IOException;
 import jxl.Workbook;
@@ -62,6 +63,35 @@ public class ExcelWriter { //TODO add information about the models, add formatti
                 for (int row = 1; row < forecastValues.getRowCount()+1; row++) {
                     for (int col = 0; col < forecastValues.getColumnCount(); col++) {
                         sheet.addCell(new Label(col, row, "" + forecastValues.getValueAt(row-1, col)));
+                        //TODO mozno pridavat cisla ako cisla - teraz su to vsetko stringy. ale to by bolo zlozitejsie
+                    }
+                }
+            }
+            
+            // All sheets and cells added. Now write out the workbook
+            workbook.write();
+            workbook.close();
+        } catch (IOException | WriteException ex) {
+            //TODO log
+        }
+    }
+    
+    public static void residualsJTableToExcel(ResidualsTableModel residualsTableModel, File file) {
+        try {
+            WritableWorkbook workbook = Workbook.createWorkbook(file);
+            
+            if (! residualsTableModel.isEmpty()) {
+                WritableSheet sheet = workbook.createSheet("Residuals", 0);
+                
+                //najprv zapisat nadpisy
+                for (int col = 0; col < residualsTableModel.getColumnCount(); col++) {
+                    sheet.addCell(new Label(col, 0, "" + residualsTableModel.getColumnName(col)));
+                }
+                
+                //pozor na cislovanie row! kvoli headerom
+                for (int row = 1; row < residualsTableModel.getRowCount()+1; row++) {
+                    for (int col = 0; col < residualsTableModel.getColumnCount(); col++) {
+                        sheet.addCell(new Label(col, row, "" + residualsTableModel.getValueAt(row-1, col)));
                         //TODO mozno pridavat cisla ako cisla - teraz su to vsetko stringy. ale to by bolo zlozitejsie
                     }
                 }

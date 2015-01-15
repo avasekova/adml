@@ -57,6 +57,7 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import static javax.swing.JFileChooser.SAVE_DIALOG;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -3039,6 +3040,11 @@ public class MainFrame extends javax.swing.JFrame {
 
     buttonExportResiduals.setText("Export");
     buttonExportResiduals.setEnabled(false);
+    buttonExportResiduals.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            buttonExportResidualsActionPerformed(evt);
+        }
+    });
 
     scrollPaneResiduals.setPreferredSize(new java.awt.Dimension(100, 600));
 
@@ -3627,6 +3633,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
         buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
         buttonExportForecastValues.setEnabled(true);
+        buttonExportResiduals.setEnabled(true);
 
         //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
         List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
@@ -4479,6 +4486,7 @@ public class MainFrame extends javax.swing.JFrame {
         //TODO neslo by toto cele nejak refaktorovat? je to prilis podobne buttonRun
         buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
         buttonExportForecastValues.setEnabled(true);
+        buttonExportResiduals.setEnabled(true);
         
         
         ///hack: turn off all AVG checkboxes in case the params tried to take values from them.
@@ -5329,6 +5337,50 @@ public class MainFrame extends javax.swing.JFrame {
         
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonRemoveTrendActionPerformed
+
+    private void buttonExportResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportResidualsActionPerformed
+        //TODO refactor - je to to iste ako export forecasts len s premenovanymi premennymi
+        JFileChooser fileChooser = new JFileChooser() {
+            @Override
+            public void approveSelection() {
+                File f = getSelectedFile();
+                if (f.exists() && getDialogType() == SAVE_DIALOG) {
+                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
+                    switch (result) {
+                        case JOptionPane.YES_OPTION:
+                            super.approveSelection();
+                            return;
+                        case JOptionPane.NO_OPTION:
+                            return;
+                        case JOptionPane.CLOSED_OPTION:
+                            return;
+                        case JOptionPane.CANCEL_OPTION:
+                            cancelSelection();
+                            return;
+                    }
+                }
+                super.approveSelection();
+            }
+        };
+        fileChooser.setCurrentDirectory(null);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("residuals.xls"));
+        if (evt.getSource() == buttonExportResiduals) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File residualsFile = fileChooser.getSelectedFile();
+                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
+                    ExcelWriter.residualsJTableToExcel((ResidualsTableModel)(residualsTableLatest.getModel()), residualsFile);
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
+
+        //a na zaver to disablovat, aby sa na to netukalo furt
+        buttonExportResiduals.setEnabled(false);
+    }//GEN-LAST:event_buttonExportResidualsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
