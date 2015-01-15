@@ -23,6 +23,8 @@ public class Utils {
     private static int counter = 0;
     private final static double EPSILON = 0.000000001;
     
+    private static final double STEP = 0.01;
+    
     public static boolean equalsDoubles(double value, double target) {
         return ((value >= target*(1-EPSILON)) && (value <= target*(1+EPSILON)));
     }
@@ -106,17 +108,31 @@ public class Utils {
         return getDoublesOrDefault(textField.getText());
     }
     
-    public static List<Double> getDoublesOrDefault(String text) {
+    public static List<Double> getDoublesOrDefault(String text) { //TODO refaktorovat trochu? (tie vynimky)
         List<Double> list = new ArrayList<>();
         try {
             String[] split = text.split("\\.\\.\\.");
             if (split.length == 1) {
                 list.add(Double.parseDouble(text));
             } else { //predpokladam vyraz v tvare LB...UB
-                for (int i = Integer.parseInt(split[0]); i <= Integer.parseInt(split[1]); i++) {
-                    list.add(new Double(i));
+                try {
+                    int lowerB = Integer.parseInt(split[0]);
+                    int upperB = Integer.parseInt(split[1]);
+                    //if it comes here, they are both integers:
+                    for (int i = lowerB; i <= upperB; i++) {
+                        list.add(new Double(i));
+                    }
+                } catch (NumberFormatException e) {
+                    //ak to vyhodilo vynimku, aspon jedno z nich je double, takze beriem obe ako double a krokujem ich ako double
+                    //tj krok 0.01 by default //TODO neskor dat vybrat uzivatelovi?
+                    double lowerB = Double.parseDouble(split[0]);
+                    double upperB = Double.parseDouble(split[1]);
+                    
+                    while (lowerB <= upperB) {
+                        list.add(lowerB);
+                        lowerB += STEP;
+                    }
                 }
-                //ak to tu slahne vynimku, mali sme interval s necelociselnymi medzami, a ten neviem normalne krokovat
             }
             return list;
         } catch (NumberFormatException e) {
