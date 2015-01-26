@@ -5458,7 +5458,7 @@ public class MainFrame extends javax.swing.JFrame {
             
             //draw the plot with str. breaks
             StringBuilder pl = new StringBuilder("plot.ts(");
-            pl.append(DATA).append(", col=\"red\")").append(";")
+            pl.append(DATA).append(", col=\"red\", ylab=\"").append(selectedVal).append("\");")
                     .append("lines(").append(FIT).append("$output[[1]]$Tt)").append(";")
                     .append("abline(v=").append(FIT).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
             plots.add(pl.toString());
