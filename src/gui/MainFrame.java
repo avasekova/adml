@@ -5473,6 +5473,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         List<String> plots = new ArrayList<>();
+        StringBuilder strBreaksInfo = new StringBuilder();
         
         for (String selectedVal : selectedValuesList) {
             final String DATA = Const.INPUT + Utils.getCounter();
@@ -5491,6 +5492,18 @@ public class MainFrame extends javax.swing.JFrame {
                     .append("lines(").append(FIT).append("$output[[1]]$Tt)").append(";")
                     .append("abline(v=").append(FIT).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
             plots.add(pl.toString());
+            
+            double[] breakpoints = null;
+            if (rengine.eval(FIT + "$output[[1]]$bp.Vt$breakpoints") != null) {
+                breakpoints = rengine.eval(FIT + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
+            }
+            strBreaksInfo.append("-----\n").append("Structural breaks for ").append(selectedVal).append(":\n");
+            if (breakpoints == null) {
+                strBreaksInfo.append("(No structural breaks detected.)");
+            } else {
+                strBreaksInfo.append(Arrays.toString(breakpoints));
+            }
+            strBreaksInfo.append("\n\n");
         }
         
         //TODO refactor odtialto------------------
@@ -5508,6 +5521,9 @@ public class MainFrame extends javax.swing.JFrame {
         tabbedPaneAnalysisPlots.repaint();
         //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
         
+        
+        //a vypis info
+        textAreaPlotBasicStats.setText(strBreaksInfo.toString());
 
         setPlotRanges(0, 0);
         buttonExportAnalysisPlots.setEnabled(true);
