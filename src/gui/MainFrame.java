@@ -137,6 +137,7 @@ import utils.Improvable;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
+import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.dist.BertoluzzaDistance;
@@ -603,7 +604,6 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane4.setPreferredSize(new java.awt.Dimension(247, 130));
 
         listPlotITSspecs.setModel(new DefaultListModel());
-        listPlotITSspecs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(listPlotITSspecs);
 
         buttonPlotRemoveITS.setText("Remove selected ITS");
@@ -5463,6 +5463,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         List<String> selectedValuesList = new ArrayList<>();
         selectedValuesList.addAll(listColnames.getSelectedValuesList());
+        List<IntervalNames> selectedIntervalsList = new ArrayList<>();
+        selectedIntervalsList.addAll(listPlotITSspecs.getSelectedValuesList());
         
         int breaks = 5;
         
@@ -5475,6 +5477,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<String> plots = new ArrayList<>();
         StringBuilder strBreaksInfo = new StringBuilder();
         
+        //najprv vybavit jednoduche hodnoty
         for (String selectedVal : selectedValuesList) {
             final String DATA = Const.INPUT + Utils.getCounter();
             final String DATA_TS = DATA + "ts";
@@ -5502,6 +5505,72 @@ public class MainFrame extends javax.swing.JFrame {
                 strBreaksInfo.append("(No structural breaks detected.)");
             } else {
                 strBreaksInfo.append(Arrays.toString(breakpoints));
+            }
+            strBreaksInfo.append("\n\n");
+        }
+        
+        //potom intervaly:
+        for (IntervalNames i : selectedIntervalsList) {
+            final String DATA1 = Const.INPUT + Utils.getCounter();
+            final String DATA1_TS = DATA1 + "ts";
+            final String DATA2 = Const.INPUT + Utils.getCounter();
+            final String DATA2_TS = DATA2 + "ts";
+            final String FIT1 = Const.FIT + Utils.getCounter();
+            final String FIT2 = Const.FIT + Utils.getCounter();
+            
+            String ylab1 = "";
+            String ylab2 = "";
+            if (i instanceof IntervalNamesCentreRadius) {
+                ylab1 = ((IntervalNamesCentreRadius)i).getCentre();
+                ylab2 = ((IntervalNamesCentreRadius)i).getRadius();
+            } else {
+                ylab1 = ((IntervalNamesLowerUpper)i).getLowerBound();
+                ylab2 = ((IntervalNamesLowerUpper)i).getUpperBound();
+            }
+            rengine.assign(DATA1, Utils.listToArray(dataTableModel.getDataForColname(ylab1)));
+            rengine.assign(DATA2, Utils.listToArray(dataTableModel.getDataForColname(ylab2)));
+            rengine.eval(DATA1_TS + " <- ts(" + DATA1 + ")");
+            rengine.eval(DATA2_TS + " <- ts(" + DATA2 + ")");
+            
+            rengine.eval(FIT1 + " <- bfast(" + DATA1_TS + ", h=10/length(" + DATA1 + "), season=\"none\", max.iter=1, breaks="
+                    + breaks + ")");
+            rengine.eval(FIT2 + " <- bfast(" + DATA2_TS + ", h=10/length(" + DATA2 + "), season=\"none\", max.iter=1, breaks="
+                    + breaks + ")");
+            
+            //draw the plot with str. breaks - first component
+            StringBuilder pl = new StringBuilder();
+            pl.append("par(mfrow=c(2,1))");
+            pl.append(";");
+            pl.append("plot.ts(").append(DATA1).append(", col=\"red\", ylab=\"").append(ylab1).append("\");")
+                    .append("lines(").append(FIT1).append("$output[[1]]$Tt)").append(";")
+                    .append("abline(v=").append(FIT1).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
+            pl.append(";");
+            //draw the plot with str. breaks - second component
+            pl.append("plot.ts(").append(DATA2).append(", col=\"red\", ylab=\"").append(ylab2).append("\");")
+                    .append("lines(").append(FIT2).append("$output[[1]]$Tt)").append(";")
+                    .append("abline(v=").append(FIT2).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
+            plots.add(pl.toString());
+            
+            double[] breakpoints1 = null;
+            if (rengine.eval(FIT1 + "$output[[1]]$bp.Vt$breakpoints") != null) {
+                breakpoints1 = rengine.eval(FIT1 + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
+            }
+            
+            double[] breakpoints2 = null;
+            if (rengine.eval(FIT2 + "$output[[1]]$bp.Vt$breakpoints") != null) {
+                breakpoints2 = rengine.eval(FIT2 + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
+            }
+            strBreaksInfo.append("-----\n").append("Structural breaks for ").append(i.toString()).append(":\n");
+            if (breakpoints1 == null) {
+                strBreaksInfo.append("(No structural breaks detected for the first component.)");
+            } else {
+                strBreaksInfo.append(Arrays.toString(breakpoints1));
+            }
+            strBreaksInfo.append("\n");
+            if (breakpoints2 == null) {
+                strBreaksInfo.append("(No structural breaks detected for the second component.)");
+            } else {
+                strBreaksInfo.append(Arrays.toString(breakpoints2));
             }
             strBreaksInfo.append("\n\n");
         }
