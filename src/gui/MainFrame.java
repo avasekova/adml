@@ -199,6 +199,8 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldMaxStructBreaks = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        buttonExportAnalysisPlots = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -698,6 +700,16 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(255, 0, 0));
         jLabel21.setText("TODO: seasonal");
 
+        buttonExportAnalysisPlots.setText("Export currently shown plot");
+        buttonExportAnalysisPlots.setEnabled(false);
+        buttonExportAnalysisPlots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportAnalysisPlotsActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("(Broken - only exports the last tab.)");
+
         javax.swing.GroupLayout panelPlotSettingsLayout = new javax.swing.GroupLayout(panelPlotSettings);
         panelPlotSettings.setLayout(panelPlotSettingsLayout);
         panelPlotSettingsLayout.setHorizontalGroup(
@@ -756,7 +768,12 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(buttonPlotAllITSScatterplotMatrix)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel18))))
-                            .addComponent(tabbedPaneAnalysisPlots))
+                            .addComponent(tabbedPaneAnalysisPlots)
+                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                                .addComponent(buttonExportAnalysisPlots)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel22)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
         panelPlotSettingsLayout.setVerticalGroup(
@@ -816,7 +833,11 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel17)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonExportAnalysisPlots)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tabbedPaneAnalysisPlots)))
                 .addContainerGap())
         );
@@ -3539,11 +3560,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
         PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
+        buttonExportAnalysisPlots.setEnabled(true);
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
         PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
+        buttonExportAnalysisPlots.setEnabled(true);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
@@ -5198,11 +5221,13 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
         PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
+        buttonExportAnalysisPlots.setEnabled(true);
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
 
     private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
         PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
+        buttonExportAnalysisPlots.setEnabled(true);
     }//GEN-LAST:event_buttonHistogramsActionPerformed
 
     private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed
@@ -5229,6 +5254,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
         PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
         setPlotRanges(0, 0);
+        buttonExportAnalysisPlots.setEnabled(true);
     }//GEN-LAST:event_buttonNormProbPlotActionPerformed
 
     private void buttonNormalityTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalityTestsActionPerformed
@@ -5481,7 +5507,87 @@ public class MainFrame extends javax.swing.JFrame {
         
 
         setPlotRanges(0, 0);
+        buttonExportAnalysisPlots.setEnabled(true);
     }//GEN-LAST:event_buttonStructBreaksActionPerformed
+
+    private void buttonExportAnalysisPlotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsActionPerformed
+        //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
+        //TODO vymysliet
+        JFileChooser fileChooser = new JFileChooser() {
+            @Override
+            public void approveSelection() {
+                File f = getSelectedFile();
+                
+                //teraz tomu prestavit priponu, ak ma priponu:
+                String fileName = f.getPath().replace("\\", "\\\\");
+                if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
+                    //tipnem si, ze je tam pripona, a odrezem ju
+                    String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                    String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
+                    if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
+                        f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());
+                    }
+                }
+                
+                if (f.exists() && getDialogType() == SAVE_DIALOG) {
+                    int result = JOptionPane.showConfirmDialog(this, "File " + f.toString() + " exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
+                    switch (result) {
+                        case JOptionPane.YES_OPTION:
+                            super.approveSelection();
+                            return;
+                        case JOptionPane.NO_OPTION:
+                            return;
+                        case JOptionPane.CLOSED_OPTION:
+                            return;
+                        case JOptionPane.CANCEL_OPTION:
+                            cancelSelection();
+                            return;
+                    }
+                }
+                super.approveSelection();
+            }
+        };
+        fileChooser.setCurrentDirectory(null);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("plotExport.eps"));
+        
+        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
+        fileChooser.addChoosableFileFilter(new FileFilterEps());
+        fileChooser.addChoosableFileFilter(new FileFilterPs());
+        fileChooser.addChoosableFileFilter(new FileFilterPng());
+        fileChooser.addChoosableFileFilter(new FileFilterPdf());
+        
+        if (evt.getSource() == buttonExportAnalysisPlots) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File plotFile = fileChooser.getSelectedFile();
+                    Rengine rengine = MyRengine.getRengine();
+
+                    String device = "";
+                    String ext = "";
+                    if (fileChooser.getFileFilter() instanceof RFileFilter) {
+                        device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
+                        ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
+                    }
+                    
+                    String fileName = plotFile.getPath().replace("\\", "\\\\");
+                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
+                        //tipnem si, ze je tam pripona
+                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
+                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+                        } //else to bola nejaka ina cast mena za bodkou
+                    }
+                    
+                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+//                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
+    }//GEN-LAST:event_buttonExportAnalysisPlotsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5556,6 +5662,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonDiffSeries;
+    private javax.swing.JButton buttonExportAnalysisPlots;
     private javax.swing.JButton buttonExportDiagramsNN;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
@@ -5706,6 +5813,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -6931,7 +7039,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonDiffSeries.setEnabled(trueFalse);
         buttonLogTransformSeries.setEnabled(trueFalse);
         buttonRemoveTrend.setEnabled(trueFalse);
-
+        
         buttonPlotAllITS.setEnabled(trueFalse);
         buttonPlotAllITSScatterplot.setEnabled(trueFalse);
         buttonPlotAllITSScatterplotMatrix.setEnabled(trueFalse);
