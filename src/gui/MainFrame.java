@@ -5298,6 +5298,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
             
             textAreaPlotBasicStats.setText(results.toString());
+            
+            //and show the normal probability plots:
+            PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
             setPlotRanges(0, 0);
         } catch (IllegalArgumentException e) {
             //TODO
