@@ -4152,22 +4152,22 @@ public class MainFrame extends javax.swing.JFrame {
         
         //////////////////
         //add all reports as time series
-        JOptionPane.showMessageDialog(null, "All TS will be added now. (ITS maybe later)");
-        Rengine rengine = MyRengine.getRengine();
-        for (TrainAndTestReportCrisp repCrisp : reportsCTS) {
-            String VAR = repCrisp.getModelName() + "(" + comboBoxColnamesRun.getSelectedItem().toString() + ")" + Utils.getCounter();
-            List<Double> data = new ArrayList<>();
-            data.addAll(Utils.arrayToList(repCrisp.getFittedValues()));
-            data.addAll(Utils.arrayToList(repCrisp.getForecastValuesTest()));
-            data.addAll(Utils.arrayToList(repCrisp.getForecastValuesFuture()));
-            rengine.assign(VAR, Utils.listToArray(data));
-            dataTableModel.addDataForColname(VAR, data);
-        }
+//        JOptionPane.showMessageDialog(null, "All TS will be added now. (ITS maybe later)");
+//        Rengine rengine = MyRengine.getRengine();
+//        for (TrainAndTestReportCrisp repCrisp : reportsCTS) {
+//            String VAR = repCrisp.getModelName() + "(" + comboBoxColnamesRun.getSelectedItem().toString() + ")" + Utils.getCounter();
+//            List<Double> data = new ArrayList<>();
+//            data.addAll(Utils.arrayToList(repCrisp.getFittedValues()));
+//            data.addAll(Utils.arrayToList(repCrisp.getForecastValuesTest()));
+//            data.addAll(Utils.arrayToList(repCrisp.getForecastValuesFuture()));
+//            rengine.assign(VAR, Utils.listToArray(data));
+//            dataTableModel.addDataForColname(VAR, data);
+//        }
         //TODO finish ITS
 //        for (TrainAndTestReportInterval repInt : reportsIntTS) {
 //            String VAR = repInt.getModelName() + Utils.getCounter();
 //        }
-        fillGUIelementsWithNewData();
+//        fillGUIelementsWithNewData();
         /////////////////
         
         
