@@ -27,7 +27,7 @@ import models.avg.AveragesConfig;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
-import params.BasicStats;
+import models.params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;

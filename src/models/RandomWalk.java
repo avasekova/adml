@@ -3,7 +3,7 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.Rengine;
-import params.RandomWalkParams;
+import models.params.RandomWalkParams;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresUtils;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import params.Params;
+import models.params.Params;
 import utils.Const;
 import utils.FieldsParser;
 

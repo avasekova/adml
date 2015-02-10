@@ -3,7 +3,7 @@ package gui.tablemodels;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
-import params.AnalysisBatchLine;
+import models.params.AnalysisBatchLine;
 
 public class AnalysisBatchTableModel extends AbstractTableModel {
 

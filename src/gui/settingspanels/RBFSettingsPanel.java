@@ -6,7 +6,7 @@ import gui.MainFrame;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import params.Params;
+import models.params.Params;
 import utils.Const;
 import utils.CrispExplanatoryVariable;
 import utils.FieldsParser;

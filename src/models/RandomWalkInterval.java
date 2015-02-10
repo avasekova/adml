@@ -2,7 +2,7 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import params.RandomWalkIntervalParams;
+import models.params.RandomWalkIntervalParams;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;

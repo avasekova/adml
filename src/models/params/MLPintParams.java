@@ -1,4 +1,4 @@
-package params;
+package models.params;
 
 import utils.imlp.dist.Distance;
 

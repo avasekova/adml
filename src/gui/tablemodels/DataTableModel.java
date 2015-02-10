@@ -17,7 +17,7 @@ import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
-import params.BasicStats;
+import models.params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
 import utils.ugliez.PlotStateKeeper;

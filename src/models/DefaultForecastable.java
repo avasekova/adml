@@ -1,7 +1,7 @@
 package models;
 
 import gui.tablemodels.DataTableModel;
-import params.Params;
+import models.params.Params;
 
 public class DefaultForecastable implements Forecastable {
 

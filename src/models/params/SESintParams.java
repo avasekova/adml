@@ -1,27 +1,26 @@
-package params;
+package models.params;
 
 import utils.imlp.dist.Distance;
 
-public class RBFintParams extends Params {
+public class SESintParams extends Params {
     
-    private RBFParams paramsCenter;
-    private RBFParams paramsRadius;
+    private SESParams paramsCenter;
+    private SESParams paramsRadius;
     private Distance distance;
-    private Integer numNetsToTrain;
 
-    public RBFParams getParamsCenter() {
+    public SESParams getParamsCenter() {
         return paramsCenter;
     }
 
-    public void setParamsCenter(RBFParams paramsCenter) {
+    public void setParamsCenter(SESParams paramsCenter) {
         this.paramsCenter = paramsCenter;
     }
 
-    public RBFParams getParamsRadius() {
+    public SESParams getParamsRadius() {
         return paramsRadius;
     }
 
-    public void setParamsRadius(RBFParams paramsRadius) {
+    public void setParamsRadius(SESParams paramsRadius) {
         this.paramsRadius = paramsRadius;
     }
 
@@ -32,33 +31,25 @@ public class RBFintParams extends Params {
     public void setDistance(Distance distance) {
         this.distance = distance;
     }
-
-    public Integer getNumNetsToTrain() {
-        return numNetsToTrain;
-    }
-
-    public void setNumNetsToTrain(Integer numNetsToTrain) {
-        this.numNetsToTrain = numNetsToTrain;
-    }
-
+    
     @Override
     public Params getClone() {
-        RBFintParams param = new RBFintParams();
+        SESintParams param = new SESintParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setNumForecasts(this.getNumForecasts());
+        param.setPercentTrain(this.getPercentTrain());
         param.setSeasonality(this.getSeasonality());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
         param.setDistance(distance);
-        param.setNumNetsToTrain(numNetsToTrain);
-        param.setPercentTrain(this.getPercentTrain());
         
         return param;
     }
 
     @Override
     public String toString() {
-        return "RBFintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + "}\n";
+        return "SESintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + distance + "}\n";
     }
+    
 }

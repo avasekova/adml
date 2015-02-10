@@ -1,4 +1,4 @@
-package params;
+package models.params;
 
 public class KNNfnnParams extends Params {
     

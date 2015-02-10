@@ -1,26 +1,26 @@
-package params;
+package models.params;
 
 import utils.imlp.dist.Distance;
 
-public class SESintParams extends Params {
+public class HoltWintersIntParams extends Params {
     
-    private SESParams paramsCenter;
-    private SESParams paramsRadius;
+    private HoltWintersParams paramsCenter;
+    private HoltWintersParams paramsRadius;
     private Distance distance;
 
-    public SESParams getParamsCenter() {
+    public HoltWintersParams getParamsCenter() {
         return paramsCenter;
     }
 
-    public void setParamsCenter(SESParams paramsCenter) {
+    public void setParamsCenter(HoltWintersParams paramsCenter) {
         this.paramsCenter = paramsCenter;
     }
 
-    public SESParams getParamsRadius() {
+    public HoltWintersParams getParamsRadius() {
         return paramsRadius;
     }
 
-    public void setParamsRadius(SESParams paramsRadius) {
+    public void setParamsRadius(HoltWintersParams paramsRadius) {
         this.paramsRadius = paramsRadius;
     }
 
@@ -34,7 +34,7 @@ public class SESintParams extends Params {
     
     @Override
     public Params getClone() {
-        SESintParams param = new SESintParams();
+        HoltWintersIntParams param = new HoltWintersIntParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setNumForecasts(this.getNumForecasts());
@@ -49,7 +49,6 @@ public class SESintParams extends Params {
 
     @Override
     public String toString() {
-        return "SESintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + distance + "}\n";
+        return "HoltWintersIntParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + distance + "}\n";
     }
-    
 }

@@ -2,9 +2,9 @@ package models;
 
 import gui.tablemodels.DataTableModel;
 import java.util.List;
-import params.HoltIntParams;
-import params.HoltParams;
-import params.Params;
+import models.params.HoltIntParams;
+import models.params.HoltParams;
+import models.params.Params;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;

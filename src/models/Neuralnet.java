@@ -1,8 +1,8 @@
 package models;
 
 import gui.tablemodels.DataTableModel;
-import params.NeuralnetParams;
-import params.Params;
+import models.params.NeuralnetParams;
+import models.params.Params;
 
 public class Neuralnet implements Forecastable {
 

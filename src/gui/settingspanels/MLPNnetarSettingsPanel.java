@@ -3,7 +3,7 @@ package gui.settingspanels;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.List;
-import params.Params;
+import models.params.Params;
 import utils.Utils;
 import utils.FieldsParser;
 

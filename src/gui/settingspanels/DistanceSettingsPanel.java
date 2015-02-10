@@ -2,7 +2,7 @@ package gui.settingspanels;
 
 import java.awt.CardLayout;
 import java.util.List;
-import params.Params;
+import models.params.Params;
 import utils.imlp.dist.BertoluzzaDistance;
 import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.Distance;

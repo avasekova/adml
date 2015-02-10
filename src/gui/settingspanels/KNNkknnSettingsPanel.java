@@ -2,7 +2,7 @@ package gui.settingspanels;
 
 import java.util.List;
 import javax.swing.SpinnerNumberModel;
-import params.Params;
+import models.params.Params;
 import utils.FieldsParser;
 
 public class KNNkknnSettingsPanel extends SettingsPanel {

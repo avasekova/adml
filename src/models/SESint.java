@@ -2,9 +2,9 @@ package models;
 
 import gui.tablemodels.DataTableModel;
 import java.util.List;
-import params.Params;
-import params.SESParams;
-import params.SESintParams;
+import models.params.Params;
+import models.params.SESParams;
+import models.params.SESintParams;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;

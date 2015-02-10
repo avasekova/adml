@@ -1,7 +1,7 @@
 package gui.settingspanels;
 
 import java.util.List;
-import params.Params;
+import models.params.Params;
 import utils.FieldsParser;
 
 public class ARIMASettingsPanel extends SettingsPanel {

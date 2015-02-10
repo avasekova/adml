@@ -1,4 +1,4 @@
-package params;
+package models.params;
 
 import java.util.ArrayList;
 import java.util.HashMap;

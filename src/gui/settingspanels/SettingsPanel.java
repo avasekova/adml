@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JPanel;
-import params.Params;
+import models.params.Params;
 
 public abstract class SettingsPanel extends JPanel {
     

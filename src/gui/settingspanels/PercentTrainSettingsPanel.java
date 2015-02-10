@@ -1,7 +1,7 @@
 package gui.settingspanels;
 
 import java.util.List;
-import params.Params;
+import models.params.Params;
 
 public class PercentTrainSettingsPanel extends SettingsPanel {
 
