@@ -3754,150 +3754,48 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
-        Utils.resetModelID();
-        
-        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
-        buttonExportForecastValues.setEnabled(true);
-        buttonExportResiduals.setEnabled(true);
-
-        //ktorekolvek su zafajknute, pridaju do zoznamu trainingreports svoje errormeasures a plotcode
-        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
-        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
+        //zazalohovat si aktualny batchTableModel
+        AnalysisBatchTableModel lastKnownBatchModel = new AnalysisBatchTableModel();
+        lastKnownBatchModel.setAllLines(batchTableModel.getAllLines());
+        batchTableModel.clear();
 
         if (checkBoxRunMLPnnetar.isSelected()) {
-            List<NnetarParams> params = getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
-            
-            showDialogTooManyModelsInCase(params.size(), Const.NNETAR);
-            if (continueWithTooManyModels) {
-                Forecastable nnetar = new Nnetar();
-                for (NnetarParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(dataTableModel, p));
-                    report.setID(Utils.getModelID());
-                    reportsCTS.add(report);
-                }
-            }
+            comboBoxRPackage.setSelectedItem(Const.NNETAR);
+            buttonSettingsAddToBatch_MLPActionPerformed(null);
         }
 
         if (checkBoxRunMLPneuralnet.isSelected()) {
-            List<NeuralnetParams> params = getParamsNeuralnet();
-            
-            showDialogTooManyModelsInCase(params.size(), Const.NEURALNET);
-            if (continueWithTooManyModels) {
-                Forecastable neuralnet = new Neuralnet();
-                for (NeuralnetParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(dataTableModel, p));
-                    report.setID(Utils.getModelID());
-                    reportsCTS.add(report);
-                }
-            }
+            comboBoxRPackage.setSelectedItem(Const.NEURALNET);
+            buttonSettingsAddToBatch_MLPActionPerformed(null);
         }
 
         if (checkBoxRunMLPnnet.isSelected()) {
-            try {
-                List<NnetParams> params = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
-
-                showDialogTooManyModelsInCase(params.size(), Const.NNET);
-                if (continueWithTooManyModels) {
-                    Forecastable nnet = new Nnet();
-                    for (NnetParams p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsCTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            comboBoxRPackage.setSelectedItem(Const.NNET);
+            buttonSettingsAddToBatch_MLPActionPerformed(null);
         }
 
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
-            try {
-                List<IntervalMLPCcodeParams> params = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
-
-                showDialogTooManyModelsInCase(params.size(), Const.INTERVAL_MLP_C_CODE);
-                if (continueWithTooManyModels) {
-                    Forecastable cCode = new IntervalMLPCcode();
-                    for (IntervalMLPCcodeParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            comboBoxIntervalMLPMode.setSelectedItem(Const.INTERVAL_MLP_C_CODE);
+            buttonSettingsAddToBatch_intMLPActionPerformed(null);
         }
 
         if (checkBoxRunMLPintNnetar.isSelected()) {
-            List<MLPintNnetarParams> params = getParamsMLPintNnetar(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
-                    panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                    panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
-                        panelBestModelCriterionMLPint);
-            
-            showDialogTooManyModelsInCase(params.size(), Const.MLP_INT_NNETAR);
-            if (continueWithTooManyModels) {
-                //run two separate forecasts, one for Center and the other for Radius
-                Forecastable mlpInt = new MLPintNnetar();
-
-                for (MLPintNnetarParams p : params) {
-                    TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(dataTableModel, p));
-                    report.setID(Utils.getModelID());
-                    reportsIntTS.add(report);
-                }
-            }
+            comboBoxRPackageMLPint.setSelectedItem(Const.NNETAR);
+            buttonSettingsAddToBatch_MLPintActionPerformed(null);
         }
         
         if (checkBoxRunMLPintNnet.isSelected()) {
-            try {
-                List<MLPintNnetParams> params = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
-                        panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
-                        panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
-                        panelBestModelCriterionMLPint);
-
-                showDialogTooManyModelsInCase(params.size(), Const.MLP_INT_NNET);
-                if (continueWithTooManyModels) {
-                    //run two separate forecasts, one for Center and the other for Radius
-                    Forecastable mlpInt = new MLPintNnet();
-
-                    for (MLPintNnetParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            comboBoxRPackageMLPint.setSelectedItem(Const.NNET);
+            buttonSettingsAddToBatch_MLPintActionPerformed(null);
         }
 
         if (checkBoxRunARIMA.isSelected()) {
-            List<ArimaParams> params = getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
-            
-            showDialogTooManyModelsInCase(params.size(), Const.ARIMA);
-            if (continueWithTooManyModels) {
-                Forecastable arima = new Arima();
-                for (ArimaParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(dataTableModel, p));
-                    if (report != null) {
-                        report.setID(Utils.getModelID());
-                        reportsCTS.add(report);
-                    }
-                }
-            }
+            buttonSettingsAddToBatch_ARIMAActionPerformed(null);
         }
 
         if (checkBoxRunKNNfnn.isSelected()) {
-            List<KNNfnnParams> params = getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
-            
-            showDialogTooManyModelsInCase(params.size(), Const.KNN_FNN);
-            if (continueWithTooManyModels) {
-                Forecastable kNN = new KNNfnn();
-                for (KNNfnnParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel, p));
-                    report.setID(Utils.getModelID());
-                    reportsCTS.add(report);
-                }
-            }
+            comboBoxKNNoptions.setSelectedItem(Const.KNN_FNN);
+            buttonSettingsAddToBatch_KNNActionPerformed(null);
         }
 
 //        if (checkBoxRunKNNcustom.isSelected()) {
@@ -3915,17 +3813,8 @@ public class MainFrame extends javax.swing.JFrame {
 //        }
 
         if (checkBoxRunKNNkknn.isSelected()) {
-            List<KNNkknnParams> params = getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
-            
-            showDialogTooManyModelsInCase(params.size(), Const.KNN_KKNN);
-            if (continueWithTooManyModels) {
-                Forecastable kNNkknn = new KNNkknn();
-                for (KNNkknnParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(dataTableModel, p));
-                    report.setID(Utils.getModelID());
-                    reportsCTS.add(report);
-                }
-            }
+            comboBoxKNNoptions.setSelectedItem(Const.KNN_KKNN);
+            buttonSettingsAddToBatch_KNNActionPerformed(null);
         }
         
 //        if (checkBoxRunVAR.isSelected()) {
@@ -3947,391 +3836,53 @@ public class MainFrame extends javax.swing.JFrame {
 //        }
         
         if (checkBoxRunRBF.isSelected()) {
-            try {
-                List<RBFParams> params = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
-
-                showDialogTooManyModelsInCase(params.size(), Const.RBF);
-                if (continueWithTooManyModels) {
-                    Forecastable rbf = new RBF();
-                    for (RBFParams p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (rbf.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsCTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
-            
+            buttonSettingsAddToBatch_RBFActionPerformed(null);
         }
         
         if (checkBoxRunRBFint.isSelected()) {
-            try {
-                List<RBFintParams> params = getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
-                    panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
-                    panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
-                    panelBestModelCriterionRBFint);
-
-                showDialogTooManyModelsInCase(params.size(), Const.RBF_INT);
-                if (continueWithTooManyModels) {
-                    //run two separate forecasts, one for Center and the other for Radius
-                    Forecastable rbfInt = new RBFint();
-
-                    for (RBFintParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (rbfInt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_RBFintActionPerformed(null);
         }
         
         if (checkBoxRunVARint.isSelected()) {
-            try {
-                List<VARintParams> params = getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
-
-                showDialogTooManyModelsInCase(params.size(), Const.VAR_INT);
-                if (continueWithTooManyModels) {
-                    Forecastable varInt = new VARint();
-                    for (VARintParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) varInt.forecast(dataTableModel, p);
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
-        }
-        
-        if (checkBoxRunIntervalRandomWalk.isSelected()) {
-            String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
-            String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
-            List<Interval> dataRandomWalk = Utils.zipCentersRadiiToIntervals(dataTableModel.getDataForColname(colnameCenter),
-                    dataTableModel.getDataForColname(colnameRadius));
-
-            Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
-            RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
-            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
-            params.setDistance(distance);
-            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
-            if (checkBoxRunIncludeRMSSE.isSelected()) {
-                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
-            }
-            
-            RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
-            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
-            report.setID(Utils.getModelID());
-            reportsIntTS.add(report);
-        }
-        
-        if (checkBoxRunRandomWalkCTS.isSelected()) {
-            String colname = comboBoxColnamesRun.getSelectedItem().toString();
-            List<Double> dataRandomWalk = dataTableModel.getDataForColname(colname);
-
-            RandomWalkParams params = new RandomWalkParams(); //TODO add support for rangeRun
-            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
-            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
-            if (checkBoxRunIncludeRMSSE.isSelected()) {
-                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
-            }
-            
-            RandomWalk randomWalk = new RandomWalk();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, params));
-            report.setID(Utils.getModelID());
-            reportsCTS.add(report);
+            buttonSettingsAddToBatch_VARintActionPerformed(null);
         }
         
         if (checkBoxRunHybrid.isSelected()) {
-            try {
-                //TODO checks etc. - potom, ked sa presunut getParams metody do SettingsPanelov
-
-                List<HybridParams> params = getParamsHybrid();
-
-                showDialogTooManyModelsInCase(params.size(), Const.HYBRID);
-                if (continueWithTooManyModels) {
-                    //run two separate forecasts, one for Center and the other for Radius
-                    Forecastable hybrid = new Hybrid();
-
-                    for (HybridParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (hybrid.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_HybridActionPerformed(null);
         }
         
         if (checkBoxRunHolt.isSelected()) {
-            try {
-                List<HoltParams> params = getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
-
-                showDialogTooManyModelsInCase(params.size(), Const.HOLT);
-                if (continueWithTooManyModels) {
-                    Forecastable holt = new Holt();
-                    for (HoltParams p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (holt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsCTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_HoltActionPerformed(null);
         }
         
         if (checkBoxRunHoltInt.isSelected()) {
-            try {
-                List<HoltIntParams> params = getParamsHoltInt(panelHoltIntPercentTrain, panelHoltInt_center, 
-                        comboBoxRunFakeIntCenter, panelHoltIntPercentTrain, panelHoltInt_radius, comboBoxRunFakeIntRadius,
-                        panelHoltIntDistance);
-
-                showDialogTooManyModelsInCase(params.size(), Const.HOLT_INT);
-                if (continueWithTooManyModels) {
-                    //run two separate forecasts, one for Center and the other for Radius
-                    Forecastable holtInt = new HoltInt();
-
-                    for (HoltIntParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (holtInt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_HoltintActionPerformed(null);
         }
         
         if (checkBoxRunIntervalHolt.isSelected()) {
-            try {
-                List<IntervalHoltParams> params = getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
-                        comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
-
-                showDialogTooManyModelsInCase(params.size(), Const.INTERVAL_HOLT);
-                if (continueWithTooManyModels) {
-                    Forecastable intHolt = new IntervalHolt();
-                    for (IntervalHoltParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (intHolt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_IntervalHoltActionPerformed(null);
         }
         
         if (checkBoxRunSES.isSelected()) {
-            List<SESParams> params = getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
-            
-            showDialogTooManyModelsInCase(params.size(), Const.SES);
-            if (continueWithTooManyModels) {
-                Forecastable ses = new SES();
-                for (SESParams p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (ses.forecast(dataTableModel, p));
-                    report.setID(Utils.getModelID());
-                    reportsCTS.add(report);
-                }
-            }
+            buttonSettingsAddToBatch_SESActionPerformed(null);
         }
         
         if (checkBoxRunSESint.isSelected()) {
-            try {
-                List<SESintParams> params = getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
-                        comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
-                        panelSESintDistance);
-
-                showDialogTooManyModelsInCase(params.size(), Const.SES_INT);
-                if (continueWithTooManyModels) {
-                    //run two separate forecasts, one for Center and the other for Radius
-                    Forecastable sesInt = new SESint();
-
-                    for (SESintParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (sesInt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_SESintActionPerformed(null);
         }
         
         if (checkBoxRunHoltWinters.isSelected()) {
-            try {
-                List<HoltWintersParams> params = getParamsHoltWinters(panelHoltWintersPercentTrain, 
-                        panelHoltWintersInside, comboBoxColnamesRun);
-
-                showDialogTooManyModelsInCase(params.size(), Const.HOLT_WINTERS);
-                if (continueWithTooManyModels) {
-                    Forecastable holtWinters = new HoltWinters();
-                    for (HoltWintersParams p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (holtWinters.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsCTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log or something
-            }
+            buttonSettingsAddToBatch_HoltWintersActionPerformed(null);
         }
         
         if (checkBoxRunHoltWintersInt.isSelected()) {
-            try {
-                List<HoltWintersIntParams> params = getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
-                        panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
-                        panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
-
-                showDialogTooManyModelsInCase(params.size(), Const.HOLT_WINTERS_INT);
-                if (continueWithTooManyModels) {
-                    //run two separate forecasts, one for Center and the other for Radius
-                    Forecastable holtWintersInt = new HoltWintersInt();
-
-                    for (HoltWintersIntParams p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (holtWintersInt.forecast(dataTableModel, p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                }
-            } catch (IllegalArgumentException e) {
-                //TODO log alebo nieco
-            }
+            buttonSettingsAddToBatch_HoltWintersIntActionPerformed(null);
         }
         
-        //add more methods/models here
-
-        //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
-        //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
-        List<TrainAndTestReport> allReports = new ArrayList<>();
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
+        runModels(false);
         
-        writeAllModelDetails(allReports);
-        
-        //////////////////
-        //add all reports as time series
-//        JOptionPane.showMessageDialog(null, "All TS will be added now. (ITS maybe later)");
-//        Rengine rengine = MyRengine.getRengine();
-//        for (TrainAndTestReportCrisp repCrisp : reportsCTS) {
-//            String VAR = repCrisp.getModelName() + "(" + comboBoxColnamesRun.getSelectedItem().toString() + ")" + Utils.getCounter();
-//            List<Double> data = new ArrayList<>();
-//            data.addAll(Utils.arrayToList(repCrisp.getFittedValues()));
-//            data.addAll(Utils.arrayToList(repCrisp.getForecastValuesTest()));
-//            data.addAll(Utils.arrayToList(repCrisp.getForecastValuesFuture()));
-//            rengine.assign(VAR, Utils.listToArray(data));
-//            dataTableModel.addDataForColname(VAR, data);
-//        }
-        //TODO finish ITS
-//        for (TrainAndTestReportInterval repInt : reportsIntTS) {
-//            String VAR = repInt.getModelName() + Utils.getCounter();
-//        }
-//        fillGUIelementsWithNewData();
-        /////////////////
-        
-        
-        
-        List<JGDBufferedPanel> diagramPanels = PlotDrawer.drawDiagrams(tabbedPaneDiagramsNNs.getWidth(), tabbedPaneDiagramsNNs.getHeight(), allReports);
-        
-        tabbedPaneDiagramsNNs.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : diagramPanels) {
-            tabbedPaneDiagramsNNs.addTab("Page "+(++i), p);
-        }
-        panelDiagramsNNsInside.repaint();
-        
-        //show Forecast plot
-        int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
-        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
-        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
-                new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(),
-                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), 
-                checkBoxAvgONLY.isSelected())));
-        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-        buttonPlotExportPlot.setEnabled(true);
-        
-        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
-        allReports.addAll(addedReports);
-        
-        //show errors
-        drawTablesErrorMeasures(reportsCTS, reportsIntTS, addedReports);
-        
-        //show prediction intervals, if any
-        outputPredictionIntervals(reportsCTS);
-        
-        //show computed weights for combined models, if any
-        outputComputedWeights();
-
-        //and show forecast values in the other pane
-        final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        
-        forecastValuesTable.setColumnSelectionAllowed(true);
-        forecastValuesTable.setRowSelectionAllowed(false);
-        
-        forecastValuesTable.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    //pozor, -1! pretoze 
-                    int selectedCol = forecastValuesTable.getSelectedColumn();
-                    ((ForecastValsTableModel)forecastValuesTable.getModel()).hideColumn(selectedCol);
-//                    forecastValuesTable.repaint();
-                }
-            }
-
-            @Override
-            public void mousePressed(MouseEvent e) { }
-            @Override
-            public void mouseReleased(MouseEvent e) { }
-            @Override
-            public void mouseEntered(MouseEvent e) { }
-            @Override
-            public void mouseExited(MouseEvent e) { }
-        });
-        
-        forecastValuesTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumn firstColumn = forecastValuesTable.getColumnModel().getColumn(0);
-        firstColumn.setMinWidth(10);
-        firstColumn.setMaxWidth(50);
-        forecastValuesTable.setVisible(true);
-        forecastValuesLatest = forecastValuesTable;
-        panelForecastVals.removeAll();
-        scrollPaneForecastVals.setViewportView(forecastValuesLatest);
-        panelForecastVals.add(scrollPaneForecastVals);
-        panelForecastVals.repaint();
-        
-        //and show residuals
-        if (! allReports.isEmpty()) {
-            final JTable residualsTable = new JTable(new ResidualsTableModel(allReports));
-            residualsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            
-            residualsTable.setColumnSelectionAllowed(true);
-            residualsTable.setRowSelectionAllowed(false);
-            
-            TableColumn firstCol = residualsTable.getColumnModel().getColumn(0);
-            firstCol.setMinWidth(10);
-            firstCol.setMaxWidth(50);
-            residualsTable.setVisible(true);
-            residualsTableLatest = residualsTable;
-            panelResiduals.removeAll();
-            scrollPaneResiduals.setViewportView(residualsTableLatest);
-            panelResiduals.add(scrollPaneResiduals);
-            panelResiduals.repaint();
-        }
+        //a vratit tam stary batchTableModel
+        batchTableModel.setAllLines(lastKnownBatchModel.getAllLines());
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
@@ -4657,244 +4208,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxRunIncludeRMSSEActionPerformed
 
     private void buttonRunAnalysisBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunAnalysisBatchActionPerformed
-        //TODO neslo by toto cele nejak refaktorovat? je to prilis podobne buttonRun
-        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
-        buttonExportForecastValues.setEnabled(true);
-        buttonExportResiduals.setEnabled(true);
-        
-        
-        ///hack: turn off all AVG checkboxes in case the params tried to take values from them.
-        //  it is not safe to support average in these settings; there may be too many differences, we cannot check everything
-        boolean originalStateCheckboxAvgCTSPerMethod = checkBoxAvgSimpleCTSperM.isSelected();
-        boolean originalStateCheckboxAvgCTS = checkBoxAvgSimpleCTS.isSelected();
-        boolean originalStateCheckboxAvgIntTSPerMethod = checkBoxAvgSimpleIntTSperM.isSelected();
-        boolean originalStateCheckboxAvgIntTS = checkBoxAvgSimpleIntTS.isSelected();
-        boolean originalStateCheckboxAvgONLY = checkBoxAvgONLY.isSelected();
-        checkBoxAvgSimpleCTSperM.setSelected(false);
-        checkBoxAvgSimpleCTS.setSelected(false);
-        checkBoxAvgSimpleIntTSperM.setSelected(false);
-        checkBoxAvgSimpleIntTS.setSelected(false);
-        checkBoxAvgONLY.setSelected(false);
-        //------------end hack, part 1/2
-        
-        
-        
-
-        //vsetky pridaju do zoznamu trainingreports svoje errormeasures a plotcode
-        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
-        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
-
-        for (AnalysisBatchLine l : batchTableModel.getAllLines()) {//TODO refactor - toto je to iste, co v buttonRun
-            List<? extends Params> params = new ArrayList<>();
-            try {
-                params = l.getModelParams();
-            } catch (IllegalArgumentException e) {
-                //TODO log?
-            }
-            showDialogTooManyModelsInCase(params.size(), l.getModel());
-            
-            if (continueWithTooManyModels) {
-                Forecastable forecastable = null;
-                
-                switch (l.getModel()) { //crisp models
-                    case Const.ARIMA:
-                        forecastable = new Arima();
-                        break;
-                    case Const.HOLT:
-                        forecastable = new Holt();
-                        break;
-                    case Const.HOLT_WINTERS:
-                        forecastable = new HoltWinters();
-                        break;
-                    case Const.KNN_CUSTOM:
-                        break;
-                    case Const.KNN_FNN:
-                        forecastable = new KNNfnn();
-                        break;
-                    case Const.KNN_KKNN:
-                        forecastable = new KNNkknn();
-                        break;
-                    case Const.NEURALNET:
-                        forecastable = new Neuralnet();
-                        break;
-                    case Const.NNET:
-                        forecastable = new Nnet();
-                        break;
-                    case Const.NNETAR:
-                        forecastable = new Nnetar();
-                        break;
-                    case Const.RBF:
-                        forecastable = new RBF();
-                        break;
-                    case Const.SES:
-                        forecastable = new SES();
-                        break;
-                    case Const.VAR:
-                        break;
-
-                }
-                
-                if (forecastable != null) {
-                    for (Params p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(dataTableModel, p));
-                        if (report != null) {
-                            reportsCTS.add(report);
-                        }
-                    }
-                } else { //inak je to intervalovy model, pokracovat
-                    switch (l.getModel()) {
-                        case Const.HOLT_INT:
-                            forecastable = new HoltInt();
-                            break;
-                        case Const.HOLT_WINTERS_INT:
-                            forecastable = new HoltWintersInt();
-                            break;
-                        case Const.HYBRID:
-                            forecastable = new Hybrid();
-                            break;
-                        case Const.INTERVAL_HOLT:
-                            forecastable = new IntervalHolt();
-                            break;
-                        case Const.INTERVAL_MLP_C_CODE:
-                            forecastable = new IntervalMLPCcode();
-                            break;
-                        case Const.MLP_INT_NNET:
-                            forecastable = new MLPintNnet();
-                            break;
-                        case Const.MLP_INT_NNETAR:
-                            forecastable = new MLPintNnetar();
-                            break;
-                        case Const.RBF_INT:
-                            forecastable = new RBFint();
-                            break;
-                        case Const.SES_INT:
-                            forecastable = new SESint();
-                            break;
-                        case Const.VAR_INT:
-                            forecastable = new VARint();
-                            break;
-                    }
-
-                    if (forecastable != null) {
-                        for (Params p : params) {
-                            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(dataTableModel, p));
-                            reportsIntTS.add(report);
-                        }
-                    } else { //still null?
-                        switch (l.getModel()) {
-                            case Const.RANDOM_WALK:
-                                String colname = comboBoxColnamesRun.getSelectedItem().toString();
-                                List<Double> dataRandomWalk = dataTableModel.getDataForColname(colname);
-
-                                RandomWalkParams paramsRandomWalk = new RandomWalkParams(); //TODO add support for rangeRun
-                                paramsRandomWalk.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
-                                paramsRandomWalk.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-                                paramsRandomWalk.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-                                paramsRandomWalk.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
-                                if (checkBoxRunIncludeRMSSE.isSelected()) {
-                                    paramsRandomWalk.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
-                                }
-
-                                RandomWalk randomWalk = new RandomWalk();
-                                TrainAndTestReportCrisp reportRandomWalk = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, paramsRandomWalk));
-                                reportsCTS.add(reportRandomWalk);
-                                break;
-                            case Const.RANDOM_WALK_INT:
-                                String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
-                                String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
-                                List<Interval> dataRandomWalkInt = Utils.zipCentersRadiiToIntervals(dataTableModel.getDataForColname(colnameCenter),
-                                        dataTableModel.getDataForColname(colnameRadius));
-
-                                Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
-                                RandomWalkIntervalParams paramsRandomWalkInt = new RandomWalkIntervalParams(); //TODO add support for rangeRun
-                                paramsRandomWalkInt.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
-                                paramsRandomWalkInt.setDistance(distance);
-                                paramsRandomWalkInt.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-                                paramsRandomWalkInt.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-                                paramsRandomWalkInt.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
-                                if (checkBoxRunIncludeRMSSE.isSelected()) {
-                                    paramsRandomWalkInt.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
-                                }
-
-                                RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
-                                TrainAndTestReportInterval reportRandomWalkInt = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalkInt, paramsRandomWalkInt));
-                                reportsIntTS.add(reportRandomWalkInt);
-                                break;
-                        }
-                    }
-                }
-            }
-        }
-        
-        
-        //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
-        //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
-        List<TrainAndTestReport> allReports = new ArrayList<>();
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
-        List<JGDBufferedPanel> diagramPanels = PlotDrawer.drawDiagrams(tabbedPaneDiagramsNNs.getWidth(), tabbedPaneDiagramsNNs.getHeight(), allReports);
-        
-        tabbedPaneDiagramsNNs.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : diagramPanels) {
-            tabbedPaneDiagramsNNs.addTab("Page "+(++i), p);
-        }
-        panelDiagramsNNsInside.repaint();
-        
-        //show Forecast plot
-        int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
-        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
-        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
-                new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(),
-                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, 
-                new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
-        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-        buttonPlotExportPlot.setEnabled(true);
-        
-        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
-        allReports.addAll(addedReports);
-        
-        //show errors
-        drawTablesErrorMeasures(reportsCTS, reportsIntTS, addedReports);
-        
-        //show prediction intervals, if any
-        outputPredictionIntervals(reportsCTS);
-        
-        //show computed weights for combined models, if any
-        outputComputedWeights();
-        
-        
-        
-        ///hack: turn on all AVG checkboxes the way they were before so nobody notices
-        //  (and so that... happy debugging, suckers :D)
-        checkBoxAvgSimpleCTSperM.setSelected(originalStateCheckboxAvgCTSPerMethod);
-        checkBoxAvgSimpleCTS.setSelected(originalStateCheckboxAvgCTS);
-        checkBoxAvgSimpleIntTSperM.setSelected(originalStateCheckboxAvgIntTSPerMethod);
-        checkBoxAvgSimpleIntTS.setSelected(originalStateCheckboxAvgIntTS);
-        checkBoxAvgONLY.setSelected(originalStateCheckboxAvgONLY);
-        //------------end hack, part 2/2
-        
-        
-        
-        
-
-        //and show forecast values in the other pane
-        forecastValuesLatest = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        forecastValuesLatest.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumn firstColumn = forecastValuesLatest.getColumnModel().getColumn(0);
-        firstColumn.setMinWidth(10);
-        firstColumn.setMaxWidth(50);
-        forecastValuesLatest.setVisible(true);
-        panelForecastVals.removeAll();
-        scrollPaneForecastVals.setViewportView(forecastValuesLatest);
-        panelForecastVals.add(scrollPaneForecastVals);
-        panelForecastVals.repaint();
+        runModels(true);
     }//GEN-LAST:event_buttonRunAnalysisBatchActionPerformed
 
     private void buttonSettingsAddToBatch_MLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPActionPerformed
@@ -7318,5 +6632,300 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         textAreaModelsInfo.setText(details.toString());
+    }
+    
+    private void runModels(boolean isBatch) {
+        Utils.resetModelID();
+
+        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
+        buttonExportForecastValues.setEnabled(true);
+        buttonExportResiduals.setEnabled(true);
+        
+        
+        ///hack: turn off all AVG checkboxes in case the params tried to take values from them.
+        //  it is not safe to support average in these settings; there may be too many differences, we cannot check everything
+        boolean originalStateCheckboxAvgCTSPerMethod = checkBoxAvgSimpleCTSperM.isSelected();
+        boolean originalStateCheckboxAvgCTS = checkBoxAvgSimpleCTS.isSelected();
+        boolean originalStateCheckboxAvgIntTSPerMethod = checkBoxAvgSimpleIntTSperM.isSelected();
+        boolean originalStateCheckboxAvgIntTS = checkBoxAvgSimpleIntTS.isSelected();
+        boolean originalStateCheckboxAvgONLY = checkBoxAvgONLY.isSelected();
+        if (isBatch) {
+            checkBoxAvgSimpleCTSperM.setSelected(false);
+            checkBoxAvgSimpleCTS.setSelected(false);
+            checkBoxAvgSimpleIntTSperM.setSelected(false);
+            checkBoxAvgSimpleIntTS.setSelected(false);
+            checkBoxAvgONLY.setSelected(false);
+            //------------end hack, part 1/2
+        }
+        
+        
+        //vsetky pridaju do zoznamu trainingreports svoje errormeasures a plotcode
+        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
+        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
+
+        for (AnalysisBatchLine l : batchTableModel.getAllLines()) {
+            List<? extends Params> params = new ArrayList<>();
+            try {
+                params = l.getModelParams();
+            } catch (IllegalArgumentException e) {
+                //TODO log?
+            }
+            showDialogTooManyModelsInCase(params.size(), l.getModel());
+            
+            if (continueWithTooManyModels) {
+                Forecastable forecastable = null;
+                
+                switch (l.getModel()) { //crisp models
+                    case Const.ARIMA:
+                        forecastable = new Arima();
+                        break;
+                    case Const.HOLT:
+                        forecastable = new Holt();
+                        break;
+                    case Const.HOLT_WINTERS:
+                        forecastable = new HoltWinters();
+                        break;
+                    case Const.KNN_CUSTOM:
+                        break;
+                    case Const.KNN_FNN:
+                        forecastable = new KNNfnn();
+                        break;
+                    case Const.KNN_KKNN:
+                        forecastable = new KNNkknn();
+                        break;
+                    case Const.NEURALNET:
+                        forecastable = new Neuralnet();
+                        break;
+                    case Const.NNET:
+                        forecastable = new Nnet();
+                        break;
+                    case Const.NNETAR:
+                        forecastable = new Nnetar();
+                        break;
+                    case Const.RBF:
+                        forecastable = new RBF();
+                        break;
+                    case Const.SES:
+                        forecastable = new SES();
+                        break;
+                    case Const.VAR:
+                        break;
+
+                }
+                
+                if (forecastable != null) {
+                    for (Params p : params) {
+                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(dataTableModel, p));
+                        if (report != null) {
+                            report.setID(Utils.getModelID());
+                            reportsCTS.add(report);
+                        }
+                    }
+                } else { //inak je to intervalovy model, pokracovat
+                    switch (l.getModel()) {
+                        case Const.HOLT_INT:
+                            forecastable = new HoltInt();
+                            break;
+                        case Const.HOLT_WINTERS_INT:
+                            forecastable = new HoltWintersInt();
+                            break;
+                        case Const.HYBRID:
+                            forecastable = new Hybrid();
+                            break;
+                        case Const.INTERVAL_HOLT:
+                            forecastable = new IntervalHolt();
+                            break;
+                        case Const.INTERVAL_MLP_C_CODE:
+                            forecastable = new IntervalMLPCcode();
+                            break;
+                        case Const.MLP_INT_NNET:
+                            forecastable = new MLPintNnet();
+                            break;
+                        case Const.MLP_INT_NNETAR:
+                            forecastable = new MLPintNnetar();
+                            break;
+                        case Const.RBF_INT:
+                            forecastable = new RBFint();
+                            break;
+                        case Const.SES_INT:
+                            forecastable = new SESint();
+                            break;
+                        case Const.VAR_INT:
+                            forecastable = new VARint();
+                            break;
+                    }
+
+                    if (forecastable != null) {
+                        for (Params p : params) {
+                            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(dataTableModel, p));
+                            report.setID(Utils.getModelID());
+                            reportsIntTS.add(report);
+                        }
+                    } else { //still null?
+                        throw new IllegalArgumentException("should have found something by now..?");
+                    }
+                }
+            }
+        }
+        
+        if (checkBoxRunIntervalRandomWalk.isSelected()) {
+            String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
+            String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
+            List<Interval> dataRandomWalk = Utils.zipCentersRadiiToIntervals(dataTableModel.getDataForColname(colnameCenter),
+                    dataTableModel.getDataForColname(colnameRadius));
+
+            Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
+            RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
+            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
+            params.setDistance(distance);
+            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+            if (checkBoxRunIncludeRMSSE.isSelected()) {
+                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
+            }
+            
+            RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
+            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
+            report.setID(Utils.getModelID());
+            reportsIntTS.add(report);
+        }
+        
+        if (checkBoxRunRandomWalkCTS.isSelected()) {
+            String colname = comboBoxColnamesRun.getSelectedItem().toString();
+            List<Double> dataRandomWalk = dataTableModel.getDataForColname(colname);
+
+            RandomWalkParams params = new RandomWalkParams(); //TODO add support for rangeRun
+            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
+            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
+            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
+            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
+            if (checkBoxRunIncludeRMSSE.isSelected()) {
+                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
+            }
+            
+            RandomWalk randomWalk = new RandomWalk();
+            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, params));
+            report.setID(Utils.getModelID());
+            reportsCTS.add(report);
+        }
+        
+        
+        //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
+        //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
+        List<TrainAndTestReport> allReports = new ArrayList<>();
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsIntTS);
+        
+        writeAllModelDetails(allReports);
+        
+        List<JGDBufferedPanel> diagramPanels = PlotDrawer.drawDiagrams(tabbedPaneDiagramsNNs.getWidth(), tabbedPaneDiagramsNNs.getHeight(), allReports);
+        
+        tabbedPaneDiagramsNNs.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : diagramPanels) {
+            tabbedPaneDiagramsNNs.addTab("Page "+(++i), p);
+        }
+        panelDiagramsNNsInside.repaint();
+        
+        //show Forecast plot
+        int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
+        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
+        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
+        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
+                new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
+                panelPlot.getHeight(),
+                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
+                reportsIntTS, from, to, colname_CTS, 
+                new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
+        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
+        buttonPlotExportPlot.setEnabled(true);
+        
+        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
+        allReports.addAll(reportsCTS);
+        allReports.addAll(reportsIntTS);
+        allReports.addAll(addedReports);
+        
+        //show errors
+        drawTablesErrorMeasures(reportsCTS, reportsIntTS, addedReports);
+        
+        //show prediction intervals, if any
+        outputPredictionIntervals(reportsCTS);
+        
+        //show computed weights for combined models, if any
+        outputComputedWeights();
+        
+        
+        
+        ///hack: turn on all AVG checkboxes the way they were before so nobody notices
+        //  (and so that... happy debugging, suckers :D)
+        if (isBatch) {
+            checkBoxAvgSimpleCTSperM.setSelected(originalStateCheckboxAvgCTSPerMethod);
+            checkBoxAvgSimpleCTS.setSelected(originalStateCheckboxAvgCTS);
+            checkBoxAvgSimpleIntTSperM.setSelected(originalStateCheckboxAvgIntTSPerMethod);
+            checkBoxAvgSimpleIntTS.setSelected(originalStateCheckboxAvgIntTS);
+            checkBoxAvgONLY.setSelected(originalStateCheckboxAvgONLY);
+        }
+        //------------end hack, part 2/2
+        
+
+        //and show forecast values in the other pane
+        final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+        
+        forecastValuesTable.setColumnSelectionAllowed(true);
+        forecastValuesTable.setRowSelectionAllowed(false);
+        
+        forecastValuesTable.addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    //pozor, -1! pretoze 
+                    int selectedCol = forecastValuesTable.getSelectedColumn();
+                    ((ForecastValsTableModel)forecastValuesTable.getModel()).hideColumn(selectedCol);
+//                    forecastValuesTable.repaint();
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) { }
+            @Override
+            public void mouseReleased(MouseEvent e) { }
+            @Override
+            public void mouseEntered(MouseEvent e) { }
+            @Override
+            public void mouseExited(MouseEvent e) { }
+        });
+        
+        forecastValuesTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        TableColumn firstColumn = forecastValuesTable.getColumnModel().getColumn(0);
+        firstColumn.setMinWidth(10);
+        firstColumn.setMaxWidth(50);
+        forecastValuesTable.setVisible(true);
+        forecastValuesLatest = forecastValuesTable;
+        panelForecastVals.removeAll();
+        scrollPaneForecastVals.setViewportView(forecastValuesLatest);
+        panelForecastVals.add(scrollPaneForecastVals);
+        panelForecastVals.repaint();
+        
+        //and show residuals
+        if (! allReports.isEmpty()) {
+            final JTable residualsTable = new JTable(new ResidualsTableModel(allReports));
+            residualsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            
+            residualsTable.setColumnSelectionAllowed(true);
+            residualsTable.setRowSelectionAllowed(false);
+            
+            TableColumn firstCol = residualsTable.getColumnModel().getColumn(0);
+            firstCol.setMinWidth(10);
+            firstCol.setMaxWidth(50);
+            residualsTable.setVisible(true);
+            residualsTableLatest = residualsTable;
+            panelResiduals.removeAll();
+            scrollPaneResiduals.setViewportView(residualsTableLatest);
+            panelResiduals.add(scrollPaneResiduals);
+            panelResiduals.repaint();
+        }
     }
 }

@@ -70,7 +70,18 @@ public class AnalysisBatchTableModel extends AbstractTableModel {
         }
     }
     
+    public void clear() {
+        lines.clear();
+    }
+    
     public List<AnalysisBatchLine> getAllLines() {
         return lines;
+    }
+    
+    public void setAllLines(List<AnalysisBatchLine> lines) {
+        this.lines = new ArrayList<>();
+        for (AnalysisBatchLine l : lines) {
+            this.lines.add(l);
+        }
     }
 }
