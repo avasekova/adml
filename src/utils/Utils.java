@@ -160,6 +160,22 @@ public class Utils {
         }
     }
     
+    public static String booleanToHumanString(boolean truefalse) {
+        if (truefalse) {
+            return "yes";
+        } else {
+            return "no";
+        }
+    }
+    
+    public static String booleanToHumanString(R_Bool truefalse) {
+        if (truefalse == R_Bool.TRUE) {
+            return "yes";
+        } else {
+            return "no";
+        }
+    }
+    
     public static double minArray(double[] array) {
         double min = NaN;
         for (int i = 0; i < array.length; i++) {

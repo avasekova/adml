@@ -117,7 +117,7 @@ public class Arima implements Forecastable {
                 testingPortionOfData, Utils.arrayToList(fitted), Utils.arrayToList(forecastsTest), params.getSeasonality());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.ARIMA);
-        report.setModelDescription(arimaDescription);
+        report.setModelDescription(arimaDescription + "\n" + params.toString()); //TODO upratat
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fitted);
         

@@ -56,8 +56,7 @@ public class HoltWintersInt implements Forecastable {
                 paramsCenter.getSeasonality());
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_WINTERS_INT);
-        report.setModelDescription("(" + ((HoltWintersIntParams)parameters).getDistance() + "," + 
-                reportCenter.getModelDescription() + "," + reportRadius.getModelDescription() + ")");
+        report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

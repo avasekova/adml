@@ -51,6 +51,8 @@ public class HoltWintersParams extends HoltParams {
 
     @Override
     public String toString() {
-        return "HoltWintersParams{" + "alpha=" + getAlpha() + ", beta=" + getBeta() + ", gamma=" + getGamma() + "}\n";
+        return "alpha = " + getAlpha() + "\n" +
+               "beta = " + getBeta() + "\n" + 
+               "gamma = " + getGamma();
     }
 }

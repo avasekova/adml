@@ -1,5 +1,7 @@
 package models.params;
 
+import utils.Utils;
+
 public class ArimaParams extends Params {
     
     private String colName;
@@ -119,6 +121,13 @@ public class ArimaParams extends Params {
 
     @Override
     public String toString() {
-        return "ArimaParams{" + "nonSeasP=" + nonSeasPotato + ", nonSeasD=" + nonSeasDonkey + ", nonSeasQ=" + nonSeasQuark + ", seasP=" + seasPotato + ", seasD=" + seasDonkey + ", seasQ=" + seasQuark + ", optimize=" + optimize + ", withConstant=" + withConstant + "}\n";
+        return "non-seasonal P = " + nonSeasPotato + "\n" + 
+               "non-seasonal D = " + nonSeasDonkey + "\n" +
+               "non-seasonal Q = " + nonSeasQuark + "\n" + 
+               "seasonal P = " + seasPotato + "\n" +
+               "seasonal D = " + seasDonkey + "\n" + 
+               "seasonal Q = " + seasQuark + "\n" + 
+               "optimize = " +  Utils.booleanToHumanString(optimize) + "\n" +
+               "with constant = " + Utils.booleanToHumanString(withConstant);
     }
 }

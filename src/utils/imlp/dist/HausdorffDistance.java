@@ -11,6 +11,6 @@ public class HausdorffDistance implements Distance {
     
     @Override
     public String toString() {
-        return "Hausdorff";
+        return "Hausdorff distance";
     }
 }

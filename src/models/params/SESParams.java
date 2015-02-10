@@ -37,6 +37,7 @@ public class SESParams extends Params {
 
     @Override
     public String toString() {
-        return "SESParams{" + "colName=" + colName + ", alpha=" + alpha + "}\n";
+        return "time series = " + colName + "\n" + 
+               "alpha = " + alpha;
     }    
 }

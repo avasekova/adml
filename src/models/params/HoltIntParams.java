@@ -1,13 +1,11 @@
 package models.params;
 
-import utils.imlp.dist.Distance;
-
-public class HoltIntParams extends Params {
+public class HoltIntParams extends PseudoIntervalParams {
     
     private HoltParams paramsCenter;
     private HoltParams paramsRadius;
-    private Distance distance;
 
+    @Override
     public HoltParams getParamsCenter() {
         return paramsCenter;
     }
@@ -16,20 +14,13 @@ public class HoltIntParams extends Params {
         this.paramsCenter = paramsCenter;
     }
 
+    @Override
     public HoltParams getParamsRadius() {
         return paramsRadius;
     }
 
     public void setParamsRadius(HoltParams paramsRadius) {
         this.paramsRadius = paramsRadius;
-    }
-
-    public Distance getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Distance distance) {
-        this.distance = distance;
     }
     
     @Override
@@ -42,13 +33,8 @@ public class HoltIntParams extends Params {
         param.setSeasonality(this.getSeasonality());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
-        param.setDistance(distance);
+        param.setDistance(this.getDistance());
         
         return param;
-    }
-
-    @Override
-    public String toString() {
-        return "HoltIntParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + distance + "}\n";
     }
 }

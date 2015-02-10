@@ -52,6 +52,7 @@ public class HoltParams extends SESParams {
 
     @Override
     public String toString() {
-        return "HoltParams{" + "alpha=" + getAlpha() + ", beta=" + beta + "}\n";
+        return "alpha = " + getAlpha() + "\n" +
+               "beta = " + beta;
     }
 }

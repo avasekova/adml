@@ -45,4 +45,9 @@ public class KNNfnnParams extends Params {
         
         return param;
     }
+    
+    @Override
+    public String toString() {
+        return "k = " + numNeighbours;
+    }
 }

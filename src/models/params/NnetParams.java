@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.CrispExplanatoryVariable;
 import utils.R_Bool;
+import utils.Utils;
 
 public class NnetParams extends Params {
     
@@ -182,6 +183,19 @@ public class NnetParams extends Params {
 
     @Override
     public String toString() {
-        return "NnetParams{" + "abstol=" + abstol + ", reltol=" + reltol + ", skipLayerConnections=" + skipLayerConnections + ", initWeightsRange=" + initWeightsRange + ", maxIterations=" + maxIterations + ", numNodesHiddenLayer=" + numNodesHiddenLayer + ", linearElseLogistic=" + linearElseLogistic + ", leastSqrsElseMaxCondLikelihood=" + leastSqrsElseMaxCondLikelihood + ", loglinSoftmaxElseMaxCondLikelihood=" + loglinSoftmaxElseMaxCondLikelihood + ", censoredOnElseOff=" + censoredOnElseOff + ", weightDecay=" + weightDecay + ", hessian=" + hessian + ", traceOptimization=" + traceOptimization + ", maxNumOfWeights=" + maxNumOfWeights + "}\n";
+        return "absolute threshold = " + abstol + "\n" +
+               "relative threshold = " + reltol + "\n" +
+               "skip-layer connections allowed = " + Utils.booleanToHumanString(skipLayerConnections) + "\n" +
+               "init weights with values in range = <-" + initWeightsRange + ", " + initWeightsRange + ">\n" + 
+               "max number of iterations = " + maxIterations + "\n" +
+               "number of nodes in the hidden layer = " + numNodesHiddenLayer + "\n" +
+               "linear? (if not, logistic) = " + Utils.booleanToHumanString(linearElseLogistic) + "\n" + 
+               "least squares? (if not, maximum conditional likelihood) = " + Utils.booleanToHumanString(leastSqrsElseMaxCondLikelihood) + "\n" + 
+               "loglinear softmax? (if not, maximum conditional likelihood) = " + Utils.booleanToHumanString(loglinSoftmaxElseMaxCondLikelihood) + "\n" +
+               "censored = " + Utils.booleanToHumanString(censoredOnElseOff) + "\n" +
+               "weight decay = " + weightDecay + "\n" + 
+               "hessian = " + Utils.booleanToHumanString(hessian) + "\n" + 
+               "trace optimization = " + Utils.booleanToHumanString(traceOptimization) + "\n" + 
+               "max number of weights = " + maxNumOfWeights;
     }
 }

@@ -1,10 +1,12 @@
 package models.params;
 
-public class MLPintNnetParams extends MLPintParams {
+public class MLPintNnetParams extends PseudoIntervalParams {
     
     private NnetParams paramsCenter;
     private NnetParams paramsRadius;
+    private Integer numNetsToTrain;
     
+    @Override
     public NnetParams getParamsCenter() {
         return paramsCenter;
     }
@@ -13,12 +15,21 @@ public class MLPintNnetParams extends MLPintParams {
         this.paramsCenter = paramsCenter;
     }
 
+    @Override
     public NnetParams getParamsRadius() {
         return paramsRadius;
     }
     
     public void setParamsRadius(NnetParams paramsRadius) {
         this.paramsRadius = paramsRadius;
+    }
+    
+    public Integer getNumNetsToTrain() {
+        return numNetsToTrain;
+    }
+
+    public void setNumNetsToTrain(Integer numNetsToTrain) {
+        this.numNetsToTrain = numNetsToTrain;
     }
     
     @Override
@@ -36,10 +47,5 @@ public class MLPintNnetParams extends MLPintParams {
         param.setPercentTrain(this.getPercentTrain());
         
         return param;
-    }
-
-    @Override
-    public String toString() {
-        return "MLPintNnetParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + getDistance() + "}\n";
     }
 }

@@ -1,14 +1,12 @@
 package models.params;
 
-import utils.imlp.dist.Distance;
-
-public class RBFintParams extends Params {
+public class RBFintParams extends PseudoIntervalParams {
     
     private RBFParams paramsCenter;
     private RBFParams paramsRadius;
-    private Distance distance;
     private Integer numNetsToTrain;
 
+    @Override
     public RBFParams getParamsCenter() {
         return paramsCenter;
     }
@@ -17,20 +15,13 @@ public class RBFintParams extends Params {
         this.paramsCenter = paramsCenter;
     }
 
+    @Override
     public RBFParams getParamsRadius() {
         return paramsRadius;
     }
 
     public void setParamsRadius(RBFParams paramsRadius) {
         this.paramsRadius = paramsRadius;
-    }
-
-    public Distance getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Distance distance) {
-        this.distance = distance;
     }
 
     public Integer getNumNetsToTrain() {
@@ -50,15 +41,10 @@ public class RBFintParams extends Params {
         param.setSeasonality(this.getSeasonality());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
-        param.setDistance(distance);
+        param.setDistance(this.getDistance());
         param.setNumNetsToTrain(numNetsToTrain);
         param.setPercentTrain(this.getPercentTrain());
         
         return param;
-    }
-
-    @Override
-    public String toString() {
-        return "RBFintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + "}\n";
     }
 }

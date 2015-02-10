@@ -2,13 +2,13 @@ package models.params;
 
 import utils.imlp.dist.Distance;
 
-public class HybridParams extends Params {
+public class HybridParams extends PseudoIntervalParams {
     
     private Params paramsCenter;
     private Params paramsRadius;
-    private Distance distance;
     private Integer numNetsToTrain;
 
+    @Override
     public Params getParamsCenter() {
         return paramsCenter;
     }
@@ -17,20 +17,13 @@ public class HybridParams extends Params {
         this.paramsCenter = paramsCenter;
     }
 
+    @Override
     public Params getParamsRadius() {
         return paramsRadius;
     }
 
     public void setParamsRadius(Params paramsRadius) {
         this.paramsRadius = paramsRadius;
-    }
-
-    public Distance getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Distance distance) {
-        this.distance = distance;
     }
 
     public Integer getNumNetsToTrain() {
@@ -49,7 +42,7 @@ public class HybridParams extends Params {
         param.setNumForecasts(getNumForecasts());
         param.setPercentTrain(getPercentTrain());
         param.setSeasonality(this.getSeasonality());
-        param.setDistance(distance);
+        param.setDistance(this.getDistance());
         param.setNumNetsToTrain(numNetsToTrain);
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);

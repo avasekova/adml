@@ -35,7 +35,7 @@ public class RBF implements Forecastable {
         
         RBFParams params = (RBFParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RBF);
-        report.setModelDescription("(hid=" + params.getNumNodesHidden() + ")");
+        report.setModelDescription(params.toString());
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), 
                 params.getOutVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());

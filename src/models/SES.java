@@ -53,7 +53,7 @@ public class SES implements Forecastable {
         double finalAlpha = getFinalAlpha.asDoubleArray()[0];
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.SES);
-        report.setModelDescription("(alpha=" + Utils.valToDecPoints(finalAlpha) + ")");
+        report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fittedVals);

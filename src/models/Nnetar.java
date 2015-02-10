@@ -33,8 +33,7 @@ public class Nnetar implements Forecastable {
         
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
-        report.setModelDescription("(lagSeas=" + params.getNumSeasonalLags()
-         + ",lagNon=" + params.getNumNonSeasonalLags() + ",hid=" + params.getNumNodesHidden() + ")");
+        report.setModelDescription(params.toString());
         
         List<Double> allData = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(params.getColName())));
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());

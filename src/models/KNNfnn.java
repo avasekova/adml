@@ -40,7 +40,7 @@ public class KNNfnn implements Forecastable {
         
         KNNfnnParams params = (KNNfnnParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_FNN);
-        report.setModelDescription("(" + params.getNumNeighbours() + ")");
+        report.setModelDescription(params.toString());
         
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());

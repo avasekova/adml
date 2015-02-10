@@ -74,8 +74,7 @@ public class HoltWinters implements Forecastable {
         double finalGamma = getFinalGamma.asDoubleArray()[0];
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
-        report.setModelDescription("(alpha=" + Utils.valToDecPoints(finalAlpha) + ",beta=" + Utils.valToDecPoints(finalBeta)
-                + ",gamma=" + Utils.valToDecPoints(finalGamma) + ")");
+        report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fittedVals);

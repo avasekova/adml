@@ -60,4 +60,8 @@ public class RBFParams extends Params {
         return param;
     }
     
+    @Override
+    public String toString() {
+        return "(to be added)";
+    }
 }

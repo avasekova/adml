@@ -2,12 +2,12 @@ package models.params;
 
 import utils.imlp.dist.Distance;
 
-public class SESintParams extends Params {
+public class SESintParams extends PseudoIntervalParams {
     
     private SESParams paramsCenter;
     private SESParams paramsRadius;
-    private Distance distance;
 
+    @Override
     public SESParams getParamsCenter() {
         return paramsCenter;
     }
@@ -16,6 +16,7 @@ public class SESintParams extends Params {
         this.paramsCenter = paramsCenter;
     }
 
+    @Override
     public SESParams getParamsRadius() {
         return paramsRadius;
     }
@@ -24,14 +25,6 @@ public class SESintParams extends Params {
         this.paramsRadius = paramsRadius;
     }
 
-    public Distance getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Distance distance) {
-        this.distance = distance;
-    }
-    
     @Override
     public Params getClone() {
         SESintParams param = new SESintParams();
@@ -42,14 +35,8 @@ public class SESintParams extends Params {
         param.setSeasonality(this.getSeasonality());
         param.setParamsCenter(paramsCenter);
         param.setParamsRadius(paramsRadius);
-        param.setDistance(distance);
+        param.setDistance(this.getDistance());
         
         return param;
     }
-
-    @Override
-    public String toString() {
-        return "SESintParams{" + "paramsCenter=" + paramsCenter + ", paramsRadius=" + paramsRadius + ", distance=" + distance + "}\n";
-    }
-    
 }

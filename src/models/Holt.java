@@ -64,7 +64,7 @@ public class Holt implements Forecastable {
         double finalBeta = getFinalBeta.asDoubleArray()[0];
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT);
-        report.setModelDescription("(alpha=" + Utils.valToDecPoints(finalAlpha) + ",beta=" + Utils.valToDecPoints(finalBeta) + ")");
+        report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fittedVals);

@@ -69,6 +69,9 @@ public class IntervalHoltParams extends Params {
 
     @Override
     public String toString() {
-        return "IntervalHoltParams{" + "colNameCenter=" + colNameCenter + ", colNameRadius=" + colNameRadius + ", alpha=" + alpha + ", beta=" + beta + "}\n";
+        return "Center:\n" + colNameCenter + "\n" +
+               "Radius:\n" + colNameRadius + "\n" +
+               "alpha = " + alpha + "\n" + 
+               "beta = " + beta;
     }
 }

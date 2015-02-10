@@ -49,7 +49,7 @@ public class Nnet implements Forecastable {
         
         NnetParams params = (NnetParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
-        report.setModelDescription("(hid=" + params.getNumNodesHiddenLayer() + ")");
+        report.setModelDescription(params.toString());
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(params.getDataRangeTo()-(params.getDataRangeFrom()-1)));

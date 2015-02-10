@@ -5,6 +5,7 @@ public class KNNkknnParams extends Params {
     private String colName;
     
     private int maxNeighbours;
+    private long bestNumNeighbours;
     private int lag;
 
     public String getColName() {
@@ -21,6 +22,14 @@ public class KNNkknnParams extends Params {
 
     public void setMaxNeighbours(Integer maxNeighbours) {
         this.maxNeighbours = maxNeighbours;
+    }
+
+    public long getBestNumNeighbours() {
+        return bestNumNeighbours;
+    }
+
+    public void setBestNumNeighbours(long bestNumNeighbours) {
+        this.bestNumNeighbours = bestNumNeighbours;
     }
 
     public int getLag() {
@@ -44,5 +53,11 @@ public class KNNkknnParams extends Params {
         param.setColName(colName);
         
         return param;
+    }
+    
+    @Override
+    public String toString() {
+        return "best k = " + bestNumNeighbours + "\n" +
+               "max k = " + maxNeighbours;
     }
 }

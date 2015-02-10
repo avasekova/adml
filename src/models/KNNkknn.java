@@ -69,6 +69,7 @@ public class KNNkknn implements Forecastable {
         REXP getBestK = rengine.eval(BEST_K);
         double[] bestKarray = getBestK.asDoubleArray();
         long bestK = Math.round(bestKarray[0]); //will be integer anyway
+        params.setBestNumNeighbours(bestK);
         
         
         rengine.eval(OUTPUT + " <- c(rep(NA, " + params.getLag() + "), " + OUTPUT + ")");
@@ -85,7 +86,7 @@ public class KNNkknn implements Forecastable {
                 parameters.getSeasonality());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_KKNN); //MODEL$best.parameters$k
-        report.setModelDescription("(" + bestK + ")");
+        report.setModelDescription(params.toString());
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(trainingVals);
         report.setForecastValuesTest(testingVals); //TODO add forecasts...

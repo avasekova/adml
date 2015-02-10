@@ -108,7 +108,7 @@ public class Hybrid implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((HybridParams)parameters).getDistance(), parameters.getSeasonality());
         
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HYBRID);
-        report.setModelDescription("(" + reportCenter + "+" + reportRadius + ")");
+        report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

@@ -82,6 +82,8 @@ public class VARParams extends Params {
 
     @Override
     public String toString() {
-        return "VARParams{" + "endogenous=" + endogenousVars + ", lag=" + lag + ", type=" + type + "}\n";
+        return "endogenous variables = " + endogenousVars + "\n" + 
+               "lag = " + lag + "\n" + 
+               "type = " + type;
     }
 }

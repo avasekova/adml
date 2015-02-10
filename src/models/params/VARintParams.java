@@ -89,6 +89,9 @@ public class VARintParams extends Params {
 
     @Override
     public String toString() {
-        return "VARintParams{" + "center=" + center + ", radius=" + radius + ", lag=" + lag + ", type=" + type + "}\n";
+        return "Center: " + center + "\n" + 
+               "Radius: " + radius + "\n" + 
+               "lag = " + lag + "\n" + 
+               "type = " + type;
     }
 }

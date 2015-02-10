@@ -78,6 +78,10 @@ public class NnetarParams extends Params {
 
     @Override
     public String toString() {
-        return "NnetarParams{" + "numNodesHidden=" + numNodesHidden + ", numSeasonalLags=" + numSeasonalLags + ", numNonSeasonalLags=" + numNonSeasonalLags + ", numReps=" + numReps + ", lambda=" + lambda + "}\n";
+        return "number of hidden nodes = " + numNodesHidden + "\n" + 
+               "number of seasonal lags = " + numSeasonalLags + "\n" + 
+               "number of non-seasonal lags = " + numNonSeasonalLags + "\n" + 
+               "number of repetitions = " + numReps + "\n" + 
+               "lambda = " + lambda;
     }
 }

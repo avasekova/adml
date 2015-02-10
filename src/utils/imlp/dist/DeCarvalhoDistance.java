@@ -16,6 +16,7 @@ public class DeCarvalhoDistance extends IchinoYaguchiDistance {
     
     @Override
     public String toString() {
-        return "DeCarvalho (" + getGamma() + ")";
+        return "DeCarvalho distance\n" + 
+               "gamma = " + getGamma();
     }
 }

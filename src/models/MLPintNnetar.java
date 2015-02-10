@@ -64,7 +64,7 @@ public class MLPintNnetar implements Forecastable {
                 paramsCenter.getSeasonality());
 
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.MLP_INT_NNETAR);
-        report.setModelDescription("(" + ((MLPintNnetarParams)parameters).getDistance() + ")");
+        report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         
         

@@ -79,7 +79,7 @@ public class VARint implements Forecastable {
         List<Interval> fitted = Utils.zipCentersRadiiToIntervals(fitCenter, fitRadius);
         
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.VAR_INT);
-        report.setModelDescription("(lag=" + finalLag + ",dist=" + params.getDistance() + ")");
+        report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);
         report.setRealValues(realOutputs);

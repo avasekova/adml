@@ -118,7 +118,7 @@ public class IntervalMLPCcode implements Forecastable {
         
         IntervalMLPCcodeParams params = (IntervalMLPCcodeParams) parameters;
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.INTERVAL_MLP_C_CODE);
-        report.setModelDescription("(" + params.getDistance() + ")");
+        report.setModelDescription(params.toString());
         
         //delete any previous files:
         File file = new File(CONFIG_RES);
