@@ -34,8 +34,8 @@ public class RBF implements Forecastable {
         final String UNSCALED_FORECAST_TEST = "unscaled." + FORECAST_TEST;
         
         RBFParams params = (RBFParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RBF + "(hid=" + params.getNumNodesHidden() + ")");
-        report.setModelDescription("");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RBF);
+        report.setModelDescription("(hid=" + params.getNumNodesHidden() + ")");
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), 
                 params.getOutVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());

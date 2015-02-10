@@ -36,9 +36,9 @@ public class ErrorMeasuresTableModel_CTS extends AbstractTableModel {
             } else {
                 if (rowIndex < reports.size() + 1) {
                     //a stupid way to indent, but... whatever
-                    return "   " + reports.get(rowIndex - 1).getModelName() + reports.get(rowIndex - 1).getModelDescription();
+                    return "   " + reports.get(rowIndex - 1).toString();
                 } else { //rowIndex > reports.size() + 1
-                    return "   " + reports.get(rowIndex - (reports.size() + 2)).getModelName() + reports.get(rowIndex - (reports.size() + 2)).getModelDescription();
+                    return "   " + reports.get(rowIndex - (reports.size() + 2)).toString();
                 }
             }
         } else {

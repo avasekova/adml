@@ -21,9 +21,19 @@ public class Utils {
     public static final int REASONABLY_MANY_MODELS = 10;
     
     private static int counter = 0;
+    private static int modelID = 0;
     private final static double EPSILON = 0.000000001;
     
     private static final double STEP = 0.01;
+    
+    public static int getModelID() {
+        modelID++;
+        return modelID;
+    }
+    
+    public static void resetModelID() {
+        modelID = 0;
+    }
     
     public static boolean equalsDoubles(double value, double target) {
         return ((value >= target*(1-EPSILON)) && (value <= target*(1+EPSILON)));

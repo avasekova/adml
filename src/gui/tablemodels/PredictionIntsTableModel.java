@@ -18,7 +18,7 @@ public class PredictionIntsTableModel extends AbstractTableModel {
         this.reports = reports;
         List<String> colnames = new ArrayList<>();
         for (TrainAndTestReportCrisp r : reports) {
-            colnames.add(r.getModelName() + r.getModelDescription());
+            colnames.add(r.toString());
             num4castsTestAndFutureMax = Math.max(num4castsTestAndFutureMax, r.getPredictionIntervalsLowers().length);
         }
         this.columnNames = colnames;

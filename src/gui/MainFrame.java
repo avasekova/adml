@@ -538,6 +538,10 @@ public class MainFrame extends javax.swing.JFrame {
         panelCombinationWeightsAll = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         panelCombinationWeights = new javax.swing.JPanel();
+        panelModelDescriptionsAll = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        textAreaModelsInfo = new javax.swing.JTextArea();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -3492,6 +3496,40 @@ public class MainFrame extends javax.swing.JFrame {
     panelEverything.addTab("Combination weights", panelCombinationWeightsAll);
     panelEverything.removeTabAt(panelEverything.getTabCount() - 1);
 
+    jLabel23.setText("Models and methods used in the last analysis:");
+
+    textAreaModelsInfo.setColumns(20);
+    textAreaModelsInfo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+    textAreaModelsInfo.setLineWrap(true);
+    textAreaModelsInfo.setRows(5);
+    textAreaModelsInfo.setFocusable(false);
+    jScrollPane8.setViewportView(textAreaModelsInfo);
+
+    javax.swing.GroupLayout panelModelDescriptionsAllLayout = new javax.swing.GroupLayout(panelModelDescriptionsAll);
+    panelModelDescriptionsAll.setLayout(panelModelDescriptionsAllLayout);
+    panelModelDescriptionsAllLayout.setHorizontalGroup(
+        panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
+                    .addComponent(jLabel23)
+                    .addGap(0, 1165, Short.MAX_VALUE))
+                .addComponent(jScrollPane8))
+            .addContainerGap())
+    );
+    panelModelDescriptionsAllLayout.setVerticalGroup(
+        panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(jLabel23)
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 617, Short.MAX_VALUE)
+            .addContainerGap())
+    );
+
+    panelEverything.addTab("Model descriptions", panelModelDescriptionsAll);
+
     getContentPane().add(panelEverything, java.awt.BorderLayout.CENTER);
 
     menuFile.setText("File");
@@ -3716,6 +3754,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
+        Utils.resetModelID();
+        
         buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
         buttonExportForecastValues.setEnabled(true);
         buttonExportResiduals.setEnabled(true);
@@ -3732,6 +3772,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Forecastable nnetar = new Nnetar();
                 for (NnetarParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnetar.forecast(dataTableModel, p));
+                    report.setID(Utils.getModelID());
                     reportsCTS.add(report);
                 }
             }
@@ -3745,6 +3786,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Forecastable neuralnet = new Neuralnet();
                 for (NeuralnetParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (neuralnet.forecast(dataTableModel, p));
+                    report.setID(Utils.getModelID());
                     reportsCTS.add(report);
                 }
             }
@@ -3759,6 +3801,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable nnet = new Nnet();
                     for (NnetParams p : params) {
                         TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (nnet.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsCTS.add(report);
                     }
                 }
@@ -3776,6 +3819,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable cCode = new IntervalMLPCcode();
                     for (IntervalMLPCcodeParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (cCode.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -3797,6 +3841,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                 for (MLPintNnetarParams p : params) {
                     TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(dataTableModel, p));
+                    report.setID(Utils.getModelID());
                     reportsIntTS.add(report);
                 }
             }
@@ -3816,6 +3861,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     for (MLPintNnetParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (mlpInt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -3833,6 +3879,7 @@ public class MainFrame extends javax.swing.JFrame {
                 for (ArimaParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (arima.forecast(dataTableModel, p));
                     if (report != null) {
+                        report.setID(Utils.getModelID());
                         reportsCTS.add(report);
                     }
                 }
@@ -3847,6 +3894,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Forecastable kNN = new KNNfnn();
                 for (KNNfnnParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNN.forecast(dataTableModel, p));
+                    report.setID(Utils.getModelID());
                     reportsCTS.add(report);
                 }
             }
@@ -3860,6 +3908,7 @@ public class MainFrame extends javax.swing.JFrame {
 //                Forecastable kNNcustom = new KNNcustom();
 //                for (KNNcustomParams p : params) {
 //                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNcustom.forecast(dataTableModel, p));
+//                    report.setID(Utils.getModelID());
 //                    reportsCTS.add(report);
 //                }
 //            }
@@ -3873,6 +3922,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Forecastable kNNkknn = new KNNkknn();
                 for (KNNkknnParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (kNNkknn.forecast(dataTableModel, p));
+                    report.setID(Utils.getModelID());
                     reportsCTS.add(report);
                 }
             }
@@ -3887,6 +3937,7 @@ public class MainFrame extends javax.swing.JFrame {
 //                    VAR var = new VAR();
 //                    for (VARParams p : params) {
 //                        List<TrainAndTestReportCrisp> reports = var.forecast(p);
+//                        report.setID(Utils.getModelID());
 //                        reportsCTS.addAll(reports);
 //                    }
 //                }
@@ -3904,6 +3955,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable rbf = new RBF();
                     for (RBFParams p : params) {
                         TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (rbf.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsCTS.add(report);
                     }
                 }
@@ -3927,6 +3979,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     for (RBFintParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (rbfInt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -3944,6 +3997,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable varInt = new VARint();
                     for (VARintParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) varInt.forecast(dataTableModel, p);
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -3971,6 +4025,7 @@ public class MainFrame extends javax.swing.JFrame {
             
             RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
             TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
+            report.setID(Utils.getModelID());
             reportsIntTS.add(report);
         }
         
@@ -3989,6 +4044,7 @@ public class MainFrame extends javax.swing.JFrame {
             
             RandomWalk randomWalk = new RandomWalk();
             TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, params));
+            report.setID(Utils.getModelID());
             reportsCTS.add(report);
         }
         
@@ -4005,6 +4061,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     for (HybridParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (hybrid.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -4022,6 +4079,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable holt = new Holt();
                     for (HoltParams p : params) {
                         TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (holt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsCTS.add(report);
                     }
                 }
@@ -4043,6 +4101,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     for (HoltIntParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (holtInt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -4061,6 +4120,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable intHolt = new IntervalHolt();
                     for (IntervalHoltParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (intHolt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -4077,6 +4137,7 @@ public class MainFrame extends javax.swing.JFrame {
                 Forecastable ses = new SES();
                 for (SESParams p : params) {
                     TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (ses.forecast(dataTableModel, p));
+                    report.setID(Utils.getModelID());
                     reportsCTS.add(report);
                 }
             }
@@ -4095,6 +4156,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     for (SESintParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (sesInt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -4113,6 +4175,7 @@ public class MainFrame extends javax.swing.JFrame {
                     Forecastable holtWinters = new HoltWinters();
                     for (HoltWintersParams p : params) {
                         TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (holtWinters.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsCTS.add(report);
                     }
                 }
@@ -4134,6 +4197,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     for (HoltWintersIntParams p : params) {
                         TrainAndTestReportInterval report = (TrainAndTestReportInterval) (holtWintersInt.forecast(dataTableModel, p));
+                        report.setID(Utils.getModelID());
                         reportsIntTS.add(report);
                     }
                 }
@@ -4149,6 +4213,8 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReport> allReports = new ArrayList<>();
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
+        
+        writeAllModelDetails(allReports);
         
         //////////////////
         //add all reports as time series
@@ -5990,6 +6056,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -6026,6 +6093,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
@@ -6097,6 +6165,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelMLPPercentTrain;
     private javax.swing.JPanel panelMLPintPercentTrain;
     private javax.swing.JPanel panelMLPintSettingsDistance;
+    private javax.swing.JPanel panelModelDescriptionsAll;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelPlotImage;
     private javax.swing.JPanel panelPlotSettings;
@@ -6187,6 +6256,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlots;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
+    private javax.swing.JTextArea textAreaModelsInfo;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
     private javax.swing.JTextField textFieldMaxStructBreaks;
@@ -7234,5 +7304,19 @@ public class MainFrame extends javax.swing.JFrame {
         ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons(trueFalse);
         ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons(trueFalse);
         ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons(trueFalse);
+    }
+    
+    private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
+        StringBuilder details = new StringBuilder();
+        for (TrainAndTestReport r : allReports) {
+            details.append(r.getModelName()).append(" (").append(r.getID()).append(")");
+            details.append("\n");
+            details.append("--------------------");
+            details.append("\n");
+            details.append(r.getModelDescription());
+            details.append("\n\n");
+        }
+        
+        textAreaModelsInfo.setText(details.toString());
     }
 }

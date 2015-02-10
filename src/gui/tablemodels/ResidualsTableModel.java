@@ -25,13 +25,13 @@ public class ResidualsTableModel extends AbstractTableModel {
                 if (rows > maxRows) {
                     maxRows = rows;
                 }
-                residuals.put(r.getModelName() + r.getModelDescription(), computeResiduals((TrainAndTestReportCrisp)r));
+                residuals.put(r.toString(), computeResiduals((TrainAndTestReportCrisp)r));
             } else if (r instanceof TrainAndTestReportInterval) {
                 int rows = ((TrainAndTestReportInterval)r).getRealValuesLowers().size();
                 if (rows > maxRows) {
                     maxRows = rows;
                 }
-                residuals.put(r.getModelName() + r.getModelDescription(), computeResiduals((TrainAndTestReportInterval)r));
+                residuals.put(r.toString(), computeResiduals((TrainAndTestReportInterval)r));
             }
         }
     }

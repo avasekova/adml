@@ -7,6 +7,7 @@ public abstract class TrainAndTestReport implements Plottable {
     //TODO nejak vylepsit, *Interval a *Crisp fitted vals sa velmi podobaju, mohlo by sa s nimi
     //                                       dat pracovat jednotne...
     
+    private int id;
     private final String modelName;
     private String modelDescription = "";
     private ErrorMeasures errorMeasures;
@@ -20,6 +21,14 @@ public abstract class TrainAndTestReport implements Plottable {
     public TrainAndTestReport(String modelName, boolean average) { 
         this.modelName = modelName;
         this.average = average;
+    }
+    
+    public int getID() {
+        return id;
+    }
+    
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getModelName() {
@@ -84,6 +93,6 @@ public abstract class TrainAndTestReport implements Plottable {
     
     @Override
     public String toString() {
-        return modelName + modelDescription;
+        return modelName + " (" + id + ")"; //+ modelDescription;
     }
 }
