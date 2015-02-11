@@ -232,7 +232,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotRestoreIntTSRangeY = new javax.swing.JButton();
         buttonPlotZoomIntTS = new javax.swing.JButton();
         jSeparator9 = new javax.swing.JSeparator();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        scrollPaneListPlotLegend = new javax.swing.JScrollPane();
         listPlotLegend = new javax.swing.JList();
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
@@ -967,19 +967,24 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(300, 130));
+        scrollPaneListPlotLegend.setPreferredSize(new java.awt.Dimension(300, 130));
 
         listPlotLegend.setModel(new DefaultListModel());
         listPlotLegend.setCellRenderer(new PlotLegendListCellRenderer());
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
+                //nerob vobec nic
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (listPlotLegend.getSelectedIndex() == -1) {
+                    listPlotLegend.setSelectedIndex(listPlotLegend.locationToIndex(e.getPoint()));
+                }
                 ((PlotLegendTurnOFFableListElement)(((DefaultListModel)listPlotLegend.getModel())
                     .getElementAt(listPlotLegend.getSelectedIndex()))).dispatchEvent(e);
         }
-
-        @Override
-        public void mouseReleased(MouseEvent e) { }
         @Override
         public void mouseEntered(MouseEvent e) { }
         @Override
@@ -988,7 +993,7 @@ public class MainFrame extends javax.swing.JFrame {
         public void mouseClicked(MouseEvent e) { }
     };
     listPlotLegend.addMouseListener(mouseListener);
-    jScrollPane3.setViewportView(listPlotLegend);
+    scrollPaneListPlotLegend.setViewportView(listPlotLegend);
 
     buttonLegendSelectAll.setText("Select all");
     buttonLegendSelectAll.addActionListener(new java.awt.event.ActionListener() {
@@ -1063,7 +1068,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(buttonLegendSelectNone, javax.swing.GroupLayout.Alignment.TRAILING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotImageLayout.createSequentialGroup()
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                            .addComponent(scrollPaneListPlotLegend, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(buttonLegendSelectAll)
                             .addGap(12, 12, 12))))
@@ -1118,7 +1123,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelPlotImageLayout.createSequentialGroup()
                     .addGap(14, 14, 14)
                     .addComponent(buttonPlotZoomIntTS))
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(scrollPaneListPlotLegend, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
             .addContainerGap())
@@ -5402,7 +5407,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -5560,6 +5564,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPaneAnalysisBatchInside;
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneForecastVals;
+    private javax.swing.JScrollPane scrollPaneListPlotLegend;
     private javax.swing.JScrollPane scrollPanePredictionIntervals;
     private javax.swing.JScrollPane scrollPaneResiduals;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_centerMain_MLPnnet;

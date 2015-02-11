@@ -1063,56 +1063,7 @@ public class PlotDrawer {
         if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
             for (Plottable p : plots) {
                 if (! "#FFFFFF".equals(p.getColourInPlot())) {
-                    final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p);
-                    MouseListener mListener = new MouseListener() {
-                        @Override
-                        public void mousePressed(MouseEvent e) {
-                            //invert the selection state of the checkbox
-                            element.getReport().setVisible(! element.getReport().isVisible());
-                            listPlotLegend.repaint();
-                            
-                            //and then redraw the plots:
-                            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
-                            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
-                            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
-                            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
-                            
-                            List<TrainAndTestReportCrisp> updatedReportsCTS = new ArrayList<>();
-                            updatedReportsCTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS());
-                            List<TrainAndTestReportInterval> updatedReportsIntTS = new ArrayList<>();
-                            updatedReportsIntTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS());
-                            
-                            for (TrainAndTestReport rep : addedReports) {
-                                if (rep instanceof TrainAndTestReportCrisp) {
-                                    updatedReportsCTS.add((TrainAndTestReportCrisp)rep);
-                                } else {
-                                    if (rep instanceof TrainAndTestReportInterval) {
-                                        updatedReportsIntTS.add((TrainAndTestReportInterval) rep);
-                                    }
-                                }
-                            }
-                            
-                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setAvgConfig(
-                                    new AveragesConfig(new ArrayList<Average>(),  //clear the avgs
-                                ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getAvgConfig().isAvgONLY()));
-                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
-                            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
-                                 
-                            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, 
-                                    (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
-                                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
-                        }
-
-                        @Override
-                        public void mouseReleased(MouseEvent e) { }
-                        @Override
-                        public void mouseEntered(MouseEvent e) { }
-                        @Override
-                        public void mouseExited(MouseEvent e) { }
-                        @Override
-                        public void mouseClicked(MouseEvent e) { }
-                    };
-                    element.addMouseListener(mListener);
+                    final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p, listPlotLegend, addedReports);
                     ((DefaultListModel)(listPlotLegend.getModel())).addElement(element);
                 }
             }
@@ -1141,22 +1092,6 @@ public class PlotDrawer {
         listPlotLegend.setCellRenderer(cellRenderer);
         listPlotLegend.repaint();
     }
-    
-//    private static String getStrWidth(List<String> list) {
-//        StringBuilder rString = new StringBuilder();
-//        rString.append("max(c(");
-//        boolean next = false;
-//        for (String s : list) {
-//            if (next) {
-//                rString.append(", ");
-//            } else {
-//                next = true;
-//            }
-//            rString.append("strwidth(\"").append(s).append("\")");
-//        }
-//        rString.append("))");
-//        return rString.toString();
-//    }
 
     public static void drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
             DataTableModel dataTableModel, JTabbedPane tabbedPaneAnalysisPlots) throws IllegalArgumentException {

@@ -51,4 +51,7 @@ public class Const {
     public static final String SES_INT = "SES(i)";
     public static final String VAR = "VAR";
     public static final String VAR_INT = "VAR(i)";
+    
+    public static final String ADD_TO_DATA = "Add to data";
+    public static final String CHANGE_COLOUR = "Change colour";
 }
