@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JColorChooser;
 import javax.swing.JList;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -20,6 +21,7 @@ import models.TrainAndTestReportInterval;
 import models.avg.Average;
 import models.avg.AveragesConfig;
 import utils.Const;
+import utils.Utils;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.PlotStateKeeper;
 
@@ -39,6 +41,13 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
                     case Const.ADD_TO_DATA:
                         break;
                     case Const.CHANGE_COLOUR:
+                        Color chosenColor = JColorChooser.showDialog(null, "Select Colour", Color.BLACK);
+                        if (chosenColor != null) {
+                            ((PlotLegendTurnOFFableListElement) listPlotLegend.getSelectedValue()).report
+                                    .setColourInPlot(String.format("#%02X%02X%02X", chosenColor.getRed(), 
+                                            chosenColor.getGreen(), chosenColor.getBlue())); //found this at SO
+                            redrawPlots(listPlotLegend, addedReports);
+                        }
                         break;
                     default:
                         throw new IllegalArgumentException("unknown selection in menu");
@@ -57,9 +66,6 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
         
         MouseListener mListener = new CarrambaMouseListener(listPlotLegend, addedReports);
         this.addMouseListener(mListener);
-        
-        
-//        this.addMouseListener((MouseListener) new PlotLegendTurnOFFableListElement.MousePopupListener());
     }
 
     public Plottable getReport() {
@@ -95,38 +101,7 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
             if (! displayPopup(e)) {
                 //invert the selection state of the checkbox
                 getReport().setVisible(! getReport().isVisible());
-                listPlotLegend.repaint();
-
-                //and then redraw the plots:
-                String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
-                String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
-                String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
-                String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
-
-                List<TrainAndTestReportCrisp> updatedReportsCTS = new ArrayList<>();
-                updatedReportsCTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS());
-                List<TrainAndTestReportInterval> updatedReportsIntTS = new ArrayList<>();
-                updatedReportsIntTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS());
-
-                for (TrainAndTestReport rep : addedReports) {
-                    if (rep instanceof TrainAndTestReportCrisp) {
-                        updatedReportsCTS.add((TrainAndTestReportCrisp)rep);
-                    } else {
-                        if (rep instanceof TrainAndTestReportInterval) {
-                            updatedReportsIntTS.add((TrainAndTestReportInterval) rep);
-                        }
-                    }
-                }
-
-                ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setAvgConfig(
-                        new AveragesConfig(new ArrayList<Average>(),  //clear the avgs
-                    ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getAvgConfig().isAvgONLY()));
-                ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
-                ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
-
-                PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, 
-                        (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
-                        rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+                redrawPlots(listPlotLegend, addedReports);
             }
         }
         
@@ -145,5 +120,40 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
 
             return e.isPopupTrigger();
         }
+    }
+    
+    private void redrawPlots(JList listPlotLegend, List<TrainAndTestReport> addedReports) {
+        listPlotLegend.repaint();
+
+        //and then redraw the plots:
+        String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
+        String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
+        String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
+        String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
+
+        List<TrainAndTestReportCrisp> updatedReportsCTS = new ArrayList<>();
+        updatedReportsCTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS());
+        List<TrainAndTestReportInterval> updatedReportsIntTS = new ArrayList<>();
+        updatedReportsIntTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS());
+
+        for (TrainAndTestReport rep : addedReports) {
+            if (rep instanceof TrainAndTestReportCrisp) {
+                updatedReportsCTS.add((TrainAndTestReportCrisp)rep);
+            } else {
+                if (rep instanceof TrainAndTestReportInterval) {
+                    updatedReportsIntTS.add((TrainAndTestReportInterval) rep);
+                }
+            }
+        }
+
+        ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setAvgConfig(
+                new AveragesConfig(new ArrayList<Average>(),  //clear the avgs
+            ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getAvgConfig().isAvgONLY()));
+        ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
+        ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
+
+        PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, 
+                (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
+                rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
     }
 }
