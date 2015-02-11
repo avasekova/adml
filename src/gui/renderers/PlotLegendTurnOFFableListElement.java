@@ -58,8 +58,11 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
         menu = new JPopupMenu();
         
         JMenuItem item;
-        menu.add(item = new JMenuItem(Const.ADD_TO_DATA));
+        item = new JMenuItem(Const.ADD_TO_DATA);
         item.addActionListener(menuListener);
+        item.setEnabled(false);
+        menu.add(item);
+        
         menu.add(item = new JMenuItem(Const.CHANGE_COLOUR));
         item.addActionListener(menuListener);
         
