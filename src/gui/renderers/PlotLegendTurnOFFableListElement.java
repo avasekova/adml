@@ -37,10 +37,8 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 switch (e.getActionCommand()) {
                     case Const.ADD_TO_DATA:
-                        System.out.println("adding to data");
                         break;
                     case Const.CHANGE_COLOUR:
-                        System.out.println("changing col");
                         break;
                     default:
                         throw new IllegalArgumentException("unknown selection in menu");
