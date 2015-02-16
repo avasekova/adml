@@ -1060,6 +1060,8 @@ public class PlotDrawer {
             final String rangeXCrisp, final String rangeYCrisp, final String rangeXInt, final String rangeYInt) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
         
+        listPlotLegend.setCellRenderer(cellRenderer); //musi byt nastaveny pred vytvaranim TurnoOFFableElt! tam je repaint
+        
         if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
             for (Plottable p : plots) {
                 if (! "#FFFFFF".equals(p.getColourInPlot())) {
@@ -1071,13 +1073,14 @@ public class PlotDrawer {
             //TODO - should never happen
         }
         
-        listPlotLegend.setCellRenderer(cellRenderer);
         listPlotLegend.repaint();
     }
     
     
     public static void drawLegend(final JList listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
+        
+        listPlotLegend.setCellRenderer(cellRenderer);
         
         if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
             //TODO - should never happen
@@ -1089,7 +1092,6 @@ public class PlotDrawer {
             }
         }
         
-        listPlotLegend.setCellRenderer(cellRenderer);
         listPlotLegend.repaint();
     }
 

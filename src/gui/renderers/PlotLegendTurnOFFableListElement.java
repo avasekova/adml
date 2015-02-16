@@ -1,5 +1,6 @@
 package gui.renderers;
 
+import gui.MainFrame;
 import gui.PlotDrawer;
 import gui.Plottable;
 import java.awt.Color;
@@ -21,7 +22,6 @@ import models.TrainAndTestReportInterval;
 import models.avg.Average;
 import models.avg.AveragesConfig;
 import utils.Const;
-import utils.Utils;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.PlotStateKeeper;
 
@@ -39,6 +39,13 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 switch (e.getActionCommand()) {
                     case Const.ADD_TO_DATA:
+                        PlotLegendTurnOFFableListElement selected = (PlotLegendTurnOFFableListElement) listPlotLegend.getSelectedValue();
+                        if (selected.report instanceof TrainAndTestReportCrisp) {
+                            TrainAndTestReportCrisp r = (TrainAndTestReportCrisp) selected.report;
+                            MainFrame.getInstance().addReportToData(r);
+                        } else if (selected.report instanceof TrainAndTestReportInterval) {
+                            
+                        }
                         break;
                     case Const.CHANGE_COLOUR:
                         Color chosenColor = JColorChooser.showDialog(null, "Select Colour", Color.BLACK);
@@ -60,7 +67,6 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
         JMenuItem item;
         item = new JMenuItem(Const.ADD_TO_DATA);
         item.addActionListener(menuListener);
-        item.setEnabled(false);
         menu.add(item);
         
         menu.add(item = new JMenuItem(Const.CHANGE_COLOUR));

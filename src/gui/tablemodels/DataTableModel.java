@@ -162,6 +162,10 @@ public class DataTableModel extends AbstractTableModel {
         boolean next = false;
         for (String col : par.getColnames()) {
             for (Double d : values.get(col)) {
+                if (d.isNaN()) {
+                    continue;
+                }
+                
                 if (next) {
                     rangeYStringBuilder.append(", ");
                 } else {
@@ -226,11 +230,12 @@ public class DataTableModel extends AbstractTableModel {
             plots.add(new DefaultPlottable(colour, col));
             
             //and compute basic statistics of the data:
-            REXP getMean = rengine.eval("mean(" + TRAINDATA + ")");
+            //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
+            REXP getMean = rengine.eval("mean(" + TRAINDATA + ", na.rm=TRUE)");
             double mean = getMean.asDoubleArray()[0];
-            REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ")");
+            REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ", na.rm=TRUE)");
             double stDev = getStdDev.asDoubleArray()[0];
-            REXP getMedian = rengine.eval("median(" + TRAINDATA + ")");
+            REXP getMedian = rengine.eval("median(" + TRAINDATA + ", na.rm=TRUE)");
             double median = getMedian.asDoubleArray()[0];
             BasicStats basicStats = new BasicStats(col);
             basicStats.setMean(mean);
