@@ -36,7 +36,7 @@ public class Utils {
     }
     
     public static boolean equalsDoubles(double value, double target) {
-        return ((value >= target*(1-EPSILON)) && (value <= target*(1+EPSILON)));
+        return ((value >= target-EPSILON) && (value <= target+EPSILON));
     }
     
     public static List<Double> arrayToList(double[] array) {
