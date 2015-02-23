@@ -14,7 +14,7 @@ import gui.filefilters.RFileFilter;
 import gui.renderers.PlotLegendListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
-import gui.renderers.TableBothHeadersCellColorRenderer;
+import gui.renderers.ErrorTableCellRenderer;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
@@ -5628,8 +5628,8 @@ public class MainFrame extends javax.swing.JFrame {
     private static JGDBufferedPanel gdBufferedPanelPlot;
     private static JGDBufferedPanel gdBufferedPanelPlotResiduals;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
-    private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReportCrisp>()));
-    private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReportInterval>())));
+    private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReport>()));
+    private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReport>())));
     private JTable forecastValuesLatest;
     private JTable residualsTableLatest;
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
@@ -6242,9 +6242,9 @@ public class MainFrame extends javax.swing.JFrame {
         JTabbedPane tabbedPaneTablesErrors = new JTabbedPane(JTabbedPane.TOP);
         tabbedPaneTablesErrors.setSize(panelErrorMeasures.getWidth(), panelErrorMeasures.getHeight());
         
-        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
+        List<TrainAndTestReport> reportsCTS = new ArrayList<>();
         reportsCTS.addAll(rCTS);
-        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
+        List<TrainAndTestReport> reportsIntTS = new ArrayList<>();
         reportsIntTS.addAll(rIntTS);
         for (TrainAndTestReport r : addedReports) {
             if (r instanceof TrainAndTestReportCrisp) {
@@ -6257,7 +6257,7 @@ public class MainFrame extends javax.swing.JFrame {
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //kresli obe
             final JTable errorMeasuresTable_CTS = new JTable();
             errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
-            errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+            errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
             errorMeasuresTable_CTS.setTableHeader(null);
             errorMeasuresTable_CTS.setVisible(true);
 
@@ -6288,7 +6288,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             final JTable errorMeasuresTable_ITS = new JTable();
             errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsIntTS));
-            errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+            errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
             errorMeasuresTable_ITS.setTableHeader(null);
             errorMeasuresTable_ITS.setVisible(true);
 
@@ -6319,7 +6319,7 @@ public class MainFrame extends javax.swing.JFrame {
             if (! reportsCTS.isEmpty()) { //takze IntTS je empty, CTS moze zaplnit cele miesto
                 final JTable errorMeasuresTable_CTS = new JTable();
                 errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
-                errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+                errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
                 errorMeasuresTable_CTS.setTableHeader(null);
                 errorMeasuresTable_CTS.setVisible(true);
 
@@ -6350,7 +6350,7 @@ public class MainFrame extends javax.swing.JFrame {
                 if (! reportsIntTS.isEmpty()) { //CTS je empty, ITS moze zaplnit cele miesto
                     final JTable errorMeasuresTable_ITS = new JTable();
                     errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsIntTS));
-                    errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new TableBothHeadersCellColorRenderer());
+                    errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
                     errorMeasuresTable_ITS.setTableHeader(null);
                     errorMeasuresTable_ITS.setVisible(true);
 
