@@ -43,9 +43,11 @@ import gui.tablemodels.PredictionIntsTableModel;
 import gui.tablemodels.ResidualsTableModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -57,6 +59,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -103,8 +106,6 @@ import models.avg.AverageSimple;
 import models.avg.AverageTheilsU;
 import models.avg.AveragesConfig;
 import models.avg.Median;
-import org.rosuda.JRI.Rengine;
-import org.rosuda.javaGD.JGDBufferedPanel;
 import models.params.AnalysisBatchLine;
 import models.params.ArimaParams;
 import models.params.BasicStats;
@@ -131,6 +132,8 @@ import models.params.SESParams;
 import models.params.SESintParams;
 import models.params.VARParams;
 import models.params.VARintParams;
+import org.rosuda.JRI.Rengine;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
 import utils.CrispOutputVariable;
 import utils.ExcelWriter;
@@ -3982,6 +3985,20 @@ public class MainFrame extends javax.swing.JFrame {
 //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
                     //a na zaver to disablovat, aby sa na to netukalo furt
                     buttonPlotExportPlot.setEnabled(false);
+                    
+                    
+                    
+                    //a exportuj aj legendu (zatial do samostatneho obrazku):
+                    BufferedImage im = new BufferedImage(listPlotLegend.getWidth(), listPlotLegend.getHeight(),
+                            BufferedImage.TYPE_INT_ARGB);
+                    listPlotLegend.paint(im.getGraphics());
+                    try {
+                        //for some reason only works with "PNG", so leave it be for now //TODO fix
+                        ImageIO.write(im, "PNG", new File(fileName + "-legend.png"));
+                    } catch (IOException ex) {
+                        //TODO log
+                        System.out.println(ex.toString());
+                    }
                     break;
                 case JFileChooser.CANCEL_OPTION:
                 default:
