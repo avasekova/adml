@@ -146,6 +146,14 @@ public abstract class ErrorMeasuresTableModel extends AbstractTableModel {
         for (String errorMeasure : names) {
             errorMeasuresMinMaxTrain.put(errorMeasure, getMinMax(errorMeasuresAggTrain.get(errorMeasure)));
             errorMeasuresMinMaxTest.put(errorMeasure, getMinMax(errorMeasuresAggTest.get(errorMeasure)));
+            
+            if (errorMeasure.equals("Mean coverage") || errorMeasure.equals("Mean efficiency")) {
+                MinMaxTuple mmTrain = errorMeasuresMinMaxTrain.get(errorMeasure);
+                MinMaxTuple mmTest = errorMeasuresMinMaxTest.get(errorMeasure);
+                //a teraz to otocit, aby bolo minimum (tj najlepsie) to najvacsie a naopak
+                errorMeasuresMinMaxTrain.put(errorMeasure, new MinMaxTuple(mmTrain.getMax(), mmTrain.getMin()));
+                errorMeasuresMinMaxTest.put(errorMeasure, new MinMaxTuple(mmTest.getMax(), mmTest.getMin()));
+            }
         }
     }
     
