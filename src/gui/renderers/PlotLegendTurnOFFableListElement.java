@@ -36,7 +36,9 @@ public class PlotLegendTurnOFFableListElement extends JPanel implements RightCli
                             TrainAndTestReportCrisp r = (TrainAndTestReportCrisp) selected.report;
                             MainFrame.getInstance().addReportToData(r);
                         } else if (selected.report instanceof TrainAndTestReportInterval) {
-                            
+                            //chcem, aby to pridalo C, R, MIN, MAX
+                            TrainAndTestReportInterval r = (TrainAndTestReportInterval) selected.report;
+                            MainFrame.getInstance().addReportToData(r);
                         }
                         break;
                     case Const.CHANGE_COLOUR:

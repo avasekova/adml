@@ -7092,4 +7092,60 @@ public class MainFrame extends javax.swing.JFrame {
         dataTableModel.addDataForColname(r.toString(), Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         fillGUIelementsWithNewData();
     }
+    
+    public void addReportToData(TrainAndTestReportInterval r) {
+        final String TRAIN_MIN = Const.INPUT + Utils.getCounter();
+        final String TRAIN_MAX = Const.INPUT + Utils.getCounter();
+        final String TRAIN_CENTER = Const.INPUT + Utils.getCounter();
+        final String TRAIN_RADIUS = Const.INPUT + Utils.getCounter();
+        final String TEST_MIN = Const.INPUT + Utils.getCounter();
+        final String TEST_MAX = Const.INPUT + Utils.getCounter();
+        final String TEST_CENTER = Const.INPUT + Utils.getCounter();
+        final String TEST_RADIUS = Const.INPUT + Utils.getCounter();
+        final String FUT_MIN = Const.INPUT + Utils.getCounter();
+        final String FUT_MAX = Const.INPUT + Utils.getCounter();
+        final String FUT_CENTER = Const.INPUT + Utils.getCounter();
+        final String FUT_RADIUS = Const.INPUT + Utils.getCounter();
+        
+        final String CENTERS = Const.INPUT + Utils.getCounter();
+        final String RADII = Const.INPUT + Utils.getCounter();
+        final String LOWERS = Const.INPUT + Utils.getCounter();
+        final String UPPERS = Const.INPUT + Utils.getCounter();
+
+        Rengine rengine = MyRengine.getRengine();
+        
+        rengine.assign(TRAIN_MIN, r.getFittedValuesLowers());
+        rengine.assign(TRAIN_MAX, r.getFittedValuesUppers());
+        rengine.assign(TRAIN_CENTER, r.getFittedValuesCenters());
+        rengine.assign(TRAIN_RADIUS, r.getFittedValuesRadii());
+        
+        rengine.assign(TEST_MIN, r.getForecastValuesTestLowers());
+        rengine.assign(TEST_MAX, r.getForecastValuesTestUppers());
+        rengine.assign(TEST_CENTER, r.getForecastValuesTestCenters());
+        rengine.assign(TEST_RADIUS, r.getForecastValuesTestRadii());
+        
+        if (r.getForecastValuesFuture().isEmpty()) {
+            rengine.eval(LOWERS + " <- c(" + TRAIN_MIN + ", " + TEST_MIN + ")");
+            rengine.eval(UPPERS + " <- c(" + TRAIN_MAX + ", " + TEST_MAX + ")");
+            rengine.eval(CENTERS + " <- c(" + TRAIN_CENTER + ", " + TEST_CENTER + ")");
+            rengine.eval(RADII + " <- c(" + TRAIN_RADIUS + ", " + TEST_RADIUS + ")");
+        } else {
+            rengine.assign(FUT_MIN, r.getForecastValuesFutureLowers());
+            rengine.assign(FUT_MAX, r.getForecastValuesFutureUppers());
+            rengine.assign(FUT_CENTER, r.getForecastValuesFutureCenters());
+            rengine.assign(FUT_RADIUS, r.getForecastValuesFutureRadii());
+            
+            rengine.eval(LOWERS + " <- c(" + TRAIN_MIN + ", " + TEST_MIN + ", " + FUT_MIN + ")");
+            rengine.eval(UPPERS + " <- c(" + TRAIN_MAX + ", " + TEST_MAX + ", " + FUT_MAX + ")");
+            rengine.eval(CENTERS + " <- c(" + TRAIN_CENTER + ", " + TEST_CENTER + ", " + FUT_CENTER + ")");
+            rengine.eval(RADII + " <- c(" + TRAIN_RADIUS + ", " + TEST_RADIUS + ", " + FUT_RADIUS + ")");
+        }
+        
+        //TODO unique identifier of the model wrt Run, or enable rename. now overwrites columns with the same name
+        dataTableModel.addDataForColname(r.toString() + "(LB)", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
+        dataTableModel.addDataForColname(r.toString() + "(UB)", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
+        dataTableModel.addDataForColname(r.toString() + "(C)", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+        dataTableModel.addDataForColname(r.toString() + "(R)", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        fillGUIelementsWithNewData();
+    }
 }
