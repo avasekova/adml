@@ -1,29 +1,30 @@
 package utils.ugliez;
 
+import gui.DefaultPlottable;
 import java.util.List;
 import javax.swing.JList;
 import org.rosuda.javaGD.JGDBufferedPanel;
 
 public class CallParamsDrawPlotGeneral extends CallParams {
     
-    private List<String> colnames;
+    private List<DefaultPlottable> plottables;
     private String plotFunction;
     private String additionalArgs;
 
     public CallParamsDrawPlotGeneral(JList listPlotLegend, JGDBufferedPanel canvasToUse, int width, int height, 
-            List<String> colnames, String plotFunction, String additionalArgs) {
+            List<DefaultPlottable> plottables, String plotFunction, String additionalArgs) {
         super(listPlotLegend, canvasToUse, width, height);
-        this.colnames = colnames;
+        this.plottables = plottables;
         this.plotFunction = plotFunction;
         this.additionalArgs = additionalArgs;
     }
     
-    public List<String> getColnames() {
-        return colnames;
+    public List<DefaultPlottable> getColnames() {
+        return plottables;
     }
 
-    public void setColnames(List<String> colnames) {
-        this.colnames = colnames;
+    public void setColnames(List<DefaultPlottable> plottables) {
+        this.plottables = plottables;
     }
 
     public String getPlotFunction() {

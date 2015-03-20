@@ -5,7 +5,7 @@ import gui.DefaultPlottable;
 import gui.LoadDataCustomizerPanel;
 import gui.MainFrame;
 import gui.PlotDrawer;
-import gui.renderers.PlotLegendListCellRenderer;
+import gui.renderers.PlotLegendSimpleListCellRenderer;
 import gui.Plottable;
 import java.awt.Dimension;
 import java.io.File;
@@ -160,8 +160,8 @@ public class DataTableModel extends AbstractTableModel {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
         boolean next = false;
-        for (String col : par.getColnames()) {
-            for (Double d : values.get(col)) {
+        for (DefaultPlottable col : par.getColnames()) {
+            for (Double d : values.get(col.getColname())) {
                 if (d.isNaN()) {
                     continue;
                 }
@@ -202,23 +202,26 @@ public class DataTableModel extends AbstractTableModel {
         
         boolean next = false;
         List<Plottable> plots = new ArrayList<>();
-        for (String col : par.getColnames()) {
-            String colour = ColourService.getService().getNewColour();
-            List<Double> data = values.get(col);
+        for (DefaultPlottable col : par.getColnames()) {
+            if (col.getColourInPlot() == null) {
+                col.setColourInPlot(ColourService.getService().getNewColour());
+            }
+            
+            List<Double> data = values.get(col.getColname());
             final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
             rengine.assign(TRAINDATA, Utils.listToArray(data));
             if (next) {
                 rengine.eval("par(new=TRUE)");
                 rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
                         + "axes=FALSE, ann=FALSE, "
-                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + colour + "\")");
+                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + col.getColourInPlot() + "\")");
             } else {
                 next = true;
                 String plot = par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", " + "ylab=NULL, ";
                 if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
                     plot += "xaxt=\"n\", "; //suppress X axis
                 }
-                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + colour + "\")";
+                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + col.getColourInPlot() + "\")";
                 
                 rengine.eval(plot);
                 
@@ -227,7 +230,7 @@ public class DataTableModel extends AbstractTableModel {
                 }
             }
             
-            plots.add(new DefaultPlottable(colour, col));
+            plots.add(col);
             
             //and compute basic statistics of the data:
             //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
@@ -237,7 +240,7 @@ public class DataTableModel extends AbstractTableModel {
             double stDev = getStdDev.asDoubleArray()[0];
             REXP getMedian = rengine.eval("median(" + TRAINDATA + ", na.rm=TRUE)");
             double median = getMedian.asDoubleArray()[0];
-            BasicStats basicStats = new BasicStats(col);
+            BasicStats basicStats = new BasicStats(col.getColname());
             basicStats.setMean(mean);
             basicStats.setStdDev(stDev);
             basicStats.setMedian(median);
@@ -246,7 +249,7 @@ public class DataTableModel extends AbstractTableModel {
         }
         
         //add legend
-        PlotDrawer.drawLegend(par.getListPlotLegend(), plots, new PlotLegendListCellRenderer());
+        PlotDrawer.drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
         REXP getX = rengine.eval(rangeX);
         double[] ranX = getX.asDoubleArray();

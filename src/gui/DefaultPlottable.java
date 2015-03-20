@@ -3,10 +3,12 @@ package gui;
 public class DefaultPlottable implements Plottable {
 
     private String text;
+    private String colname; //ktore data to reprezentuje
     private String colourInPlot;
     private boolean visible;
     
-    public DefaultPlottable(String colourInPlot, String text) {
+    public DefaultPlottable(String colname, String colourInPlot, String text) {
+        this.colname = colname;
         this.colourInPlot = colourInPlot;
         this.text = text;
     }
@@ -37,6 +39,14 @@ public class DefaultPlottable implements Plottable {
     @Override
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public String getColname() {
+        return colname;
+    }
+
+    public void setColname(String colname) {
+        this.colname = colname;
     }
     
     @Override

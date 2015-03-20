@@ -1,6 +1,7 @@
 package gui;
 
-import gui.renderers.PlotLegendListCellRenderer;
+import gui.renderers.PlotLegendSimpleListCellRenderer;
+import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.tablemodels.DataTableModel;
@@ -400,7 +401,7 @@ public class PlotDrawer {
         for (String key : residuals.keySet()) {
             final String colourToUseNow = ColourService.getService().getNewColour();
             //add to legend
-            ((DefaultListModel)(listPlotLegendResiduals.getModel())).addElement(new DefaultPlottable(colourToUseNow, key));
+            ((DefaultListModel)(listPlotLegendResiduals.getModel())).addElement(new DefaultPlottable(null, colourToUseNow, key));
             
             String rVectorString = Utils.listToRVectorString(residuals.get(key));
             
@@ -444,7 +445,7 @@ public class PlotDrawer {
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
         
-        listPlotLegendResiduals.setCellRenderer(new PlotLegendListCellRenderer());
+        listPlotLegendResiduals.setCellRenderer(new PlotLegendSimpleListCellRenderer());
         listPlotLegendResiduals.repaint();
         
         return basicStatss;
@@ -503,7 +504,7 @@ public class PlotDrawer {
         List<Plottable> plots = new ArrayList<>();
         plots.addAll(par.getListCentreRadius());
         plots.addAll(par.getListLowerUpper());
-        drawLegend(par.getListPlotLegend(), plots, new PlotLegendListCellRenderer());
+        drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
         REXP getRangeX = rengine.eval(rangeX);
         double[] ranX = getRangeX.asDoubleArray();
@@ -659,7 +660,7 @@ public class PlotDrawer {
         List<Plottable> plots = new ArrayList<>();
         plots.addAll(par.getListCentreRadius());
         plots.addAll(par.getListLowerUpper());
-        drawLegend(par.getListPlotLegend(), plots, new PlotLegendListCellRenderer());
+        drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
         Rengine rengine = MyRengine.getRengine();
         REXP getRangeX = rengine.eval(rangeCenter);
@@ -1090,7 +1091,8 @@ public class PlotDrawer {
         } else {
             for (Plottable p : plots) {
                 if (! "#FFFFFF".equals(p.getColourInPlot())) {
-                    ((DefaultListModel)(listPlotLegend.getModel())).addElement(p);
+                    final PlotLegendSimpleListElement element = new PlotLegendSimpleListElement(p, listPlotLegend);
+                    ((DefaultListModel)(listPlotLegend.getModel())).addElement(element);
                 }
             }
         }

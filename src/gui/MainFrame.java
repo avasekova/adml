@@ -11,10 +11,10 @@ import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
 import gui.filefilters.RFileFilter;
-import gui.renderers.PlotLegendListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.renderers.ErrorTableCellRenderer;
+import gui.renderers.PlotLegendSimpleListElement;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
@@ -43,7 +43,6 @@ import gui.tablemodels.PredictionIntsTableModel;
 import gui.tablemodels.ResidualsTableModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
-import java.awt.Container;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -982,7 +981,7 @@ public class MainFrame extends javax.swing.JFrame {
         scrollPaneListPlotLegend.setPreferredSize(new java.awt.Dimension(300, 130));
 
         listPlotLegend.setModel(new DefaultListModel());
-        listPlotLegend.setCellRenderer(new PlotLegendListCellRenderer());
+        listPlotLegend.setCellRenderer(new gui.renderers.PlotLegendSimpleListCellRenderer());
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -998,6 +997,12 @@ public class MainFrame extends javax.swing.JFrame {
                     .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendTurnOFFableListElement) {
                     ((PlotLegendTurnOFFableListElement)((DefaultListModel)listPlotLegend.getModel())
                         .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
+                } else {
+                    if (((DefaultListModel)listPlotLegend.getModel())
+                        .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendSimpleListElement) {
+                        ((PlotLegendSimpleListElement)((DefaultListModel)listPlotLegend.getModel())
+                            .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
+                    }
                 }
             }
             @Override
@@ -5729,11 +5734,25 @@ public class MainFrame extends javax.swing.JFrame {
         this.continueWithTooManyModels = continueWithTooManyModels;
     }
 
-    private void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs) {
+    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         //String colname = comboBoxColnames.getSelectedItem().toString();
         List<String> colnames = listColnames.getSelectedValuesList();
         
+        List<DefaultPlottable> plottables = new ArrayList<>();
+        for (String col : colnames) {
+            DefaultPlottable p = new DefaultPlottable(col, null, col);
+            plottables.add(p);
+        }
+        
+        drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
+    }
+    
+    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> colnames) {
+        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
+        //String colname = comboBoxColnames.getSelectedItem().toString();
+        
+        //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
         List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
                 gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs));
         buttonPlotExportPlot.setEnabled(true);
@@ -6483,7 +6502,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    private void setPlotRanges(int sizeCTS, int sizeIntTS) {
+    public void setPlotRanges(int sizeCTS, int sizeIntTS) {
         if (sizeCTS == 0) {
             enableZoomPlotCTS(false);
         } else {
