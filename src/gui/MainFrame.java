@@ -250,6 +250,10 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         listColnamesTransform = new javax.swing.JList();
         buttonRemoveTrend = new javax.swing.JButton();
+        buttonAggregateToITS = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        textFieldAggregateToITSevery = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -1169,6 +1173,20 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonAggregateToITS.setText("Aggregate to ITS");
+        buttonAggregateToITS.setEnabled(false);
+        buttonAggregateToITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAggregateToITSActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setText("every");
+
+        textFieldAggregateToITSevery.setText("24");
+
+        jLabel25.setText("observations");
+
         javax.swing.GroupLayout panelTransformLayout = new javax.swing.GroupLayout(panelTransform);
         panelTransform.setLayout(panelTransformLayout);
         panelTransformLayout.setHorizontalGroup(
@@ -1180,8 +1198,16 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(buttonLogTransformSeries)
                     .addComponent(buttonDiffSeries)
-                    .addComponent(buttonRemoveTrend))
-                .addContainerGap(975, Short.MAX_VALUE))
+                    .addComponent(buttonRemoveTrend)
+                    .addGroup(panelTransformLayout.createSequentialGroup()
+                        .addComponent(buttonAggregateToITS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel25)))
+                .addContainerGap(875, Short.MAX_VALUE))
         );
         panelTransformLayout.setVerticalGroup(
             panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1193,7 +1219,13 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonLogTransformSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonRemoveTrend))
+                        .addComponent(buttonRemoveTrend)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAggregateToITS)
+                            .addComponent(jLabel24)
+                            .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)))
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(390, Short.MAX_VALUE))
         );
@@ -5173,6 +5205,59 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonExportAnalysisTextActionPerformed
+
+    private void buttonAggregateToITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggregateToITSActionPerformed
+        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
+        
+        Rengine rengine = MyRengine.getRengine();
+        
+        final String VAR = Const.INPUT + Utils.getCounter();
+        final String CHUNKS = Const.INPUT + Utils.getCounter();
+        final String LOWERB = Const.INPUT + Utils.getCounter();
+        final String UPPERB = Const.INPUT + Utils.getCounter();
+        final String CENTERS = Const.INPUT + Utils.getCounter();
+        final String RADII = Const.INPUT + Utils.getCounter();
+        final int length = Integer.parseInt(textFieldAggregateToITSevery.getText());
+        
+        for (String selected : selectedVars) {
+            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            
+            //found this on SO: http://stackoverflow.com/a/3321659
+            //split into chunks of given length
+            rengine.eval(CHUNKS + " <- split(" + VAR + ", ceiling(seq_along(" + VAR + ")/" + length + "))");
+            int numChunks = rengine.eval("length(" + CHUNKS + ")").asIntArray()[0];
+            
+            StringBuilder mins = new StringBuilder("c(");
+            StringBuilder maxs = new StringBuilder("c(");
+            for (int i = 0; i < numChunks; i++) {
+                if (i > 0) {
+                    mins.append(",");
+                    maxs.append(",");
+                }
+                
+                mins.append("min(").append(CHUNKS).append("[[").append(i+1).append("]]").append(")");
+                maxs.append("max(").append(CHUNKS).append("[[").append(i+1).append("]]").append(")");
+            }
+            mins.append(")");
+            maxs.append(")");
+            
+            //vytvor LB a UB
+            rengine.eval(LOWERB + " <- " + mins.toString());
+            rengine.eval(UPPERB + " <- " + maxs.toString());
+            
+            //vytvor este C a R
+            rengine.eval(CENTERS + " <- (" + UPPERB + " + " + LOWERB + ")/2");
+            rengine.eval(RADII + " <- (" + UPPERB + " - " + LOWERB + ")/2");
+            
+            //pridaj vsetko medzi data
+            dataTableModel.addDataForColname("LB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(LOWERB).asDoubleArray()));
+            dataTableModel.addDataForColname("UB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(UPPERB).asDoubleArray()));
+            dataTableModel.addDataForColname("C_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+            dataTableModel.addDataForColname("R_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        }
+        
+        fillGUIelementsWithNewData();
+    }//GEN-LAST:event_buttonAggregateToITSActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5245,6 +5330,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
+    private javax.swing.JButton buttonAggregateToITS;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonDiffSeries;
@@ -5402,6 +5488,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -5604,6 +5692,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaModelsInfo;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
+    private javax.swing.JTextField textFieldAggregateToITSevery;
     private javax.swing.JTextField textFieldMaxStructBreaks;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
@@ -6594,6 +6683,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
+    //TODO neslo by nejakou lambdou nasetovat vsetkym? map(List<buttons>....., setEnabled(trueFalse))
     private void enableAllButtons(boolean trueFalse) {
         buttonPlotColname.setEnabled(trueFalse);
         buttonTrainAndTest.setEnabled(trueFalse);
@@ -6632,6 +6722,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonDiffSeries.setEnabled(trueFalse);
         buttonLogTransformSeries.setEnabled(trueFalse);
         buttonRemoveTrend.setEnabled(trueFalse);
+        buttonAggregateToITS.setEnabled(trueFalse);
         
         buttonPlotAllITS.setEnabled(trueFalse);
         buttonPlotAllITSScatterplot.setEnabled(trueFalse);
