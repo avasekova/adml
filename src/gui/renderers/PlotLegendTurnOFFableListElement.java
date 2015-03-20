@@ -73,7 +73,7 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
         item.addActionListener(menuListener);
         
         
-        MouseListener mListener = new CarrambaMouseListener(listPlotLegend, addedReports);
+        MouseListener mListener = new RightClickLegendPopupMouseListener(listPlotLegend, addedReports);
         this.addMouseListener(mListener);
     }
 
@@ -90,12 +90,12 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
         return report.toString();
     }
     
-    class CarrambaMouseListener extends MouseAdapter {
+    class RightClickLegendPopupMouseListener extends MouseAdapter {
         
         private final JList listPlotLegend;
         private final List<TrainAndTestReport> addedReports;
         
-        public CarrambaMouseListener(final JList listPlotLegend, final List<TrainAndTestReport> addedReports) {
+        public RightClickLegendPopupMouseListener(final JList listPlotLegend, final List<TrainAndTestReport> addedReports) {
             this.listPlotLegend = listPlotLegend;
             this.addedReports = addedReports;
         }
@@ -156,7 +156,7 @@ public class PlotLegendTurnOFFableListElement extends JPanel {
         }
 
         ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setAvgConfig(
-                new AveragesConfig(new ArrayList<Average>(),  //clear the avgs
+                new AveragesConfig(new ArrayList<>(),  //clear the avgs
             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getAvgConfig().isAvgONLY()));
         ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
         ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
