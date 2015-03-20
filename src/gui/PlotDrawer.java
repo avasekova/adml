@@ -4,6 +4,7 @@ import gui.renderers.PlotLegendListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.tablemodels.DataTableModel;
+import static gui.tablemodels.DataTableModel.LABELS_AXIS_X;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
@@ -496,6 +497,8 @@ public class PlotDrawer {
             }
         }
         
+        rengine.eval("axis(1,at=seq(1,length(" + LABELS_AXIS_X + ")),labels=" + LABELS_AXIS_X + ",las=2)");
+        
         //draw legend
         List<Plottable> plots = new ArrayList<>();
         plots.addAll(par.getListCentreRadius());
@@ -559,18 +562,18 @@ public class PlotDrawer {
         if (par) { //continue from the previous plot
             rengine.eval("par(new=TRUE)");
             //dont draw axes
-            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE, xaxt=\"n\")"); //hack
             rengine.eval("par(new=TRUE)");
             //here either
-            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE)");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE, xaxt=\"n\")");
             rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         } else { //start a new plot
             rengine.eval("require(JavaGD)");
             rengine.eval("JavaGD()"); // zacne novy plot
-            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE)"); //hack
+            rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE, xaxt=\"n\")"); //hack
             rengine.eval("par(new=TRUE)");
             //draw axes, since this is the first plot
-            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", ylab=\"" +      ""      + "\")");
+            rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", ylab=\"" +      ""      + "\", xaxt=\"n\")");
             rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         }
         
