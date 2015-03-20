@@ -55,7 +55,7 @@ class RightClickLegendPopupMouseListener extends MouseAdapter {
     private boolean displayPopup(MouseEvent e) {
         if (e.isPopupTrigger()) {
             listPlotLegend.setSelectedIndex(listPlotLegend.locationToIndex(e.getPoint())); //select the item
-            outer.getMenu().show(listPlotLegend.getParent(), e.getX(), e.getY());
+            outer.getMenu().show(listPlotLegend/*.getParent()*/, e.getX(), e.getY());
         }
         return e.isPopupTrigger();
     }
