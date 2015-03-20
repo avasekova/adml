@@ -1,8 +1,6 @@
 package gui.renderers;
 
 import gui.tablemodels.ErrorMeasuresTableModel;
-import gui.tablemodels.ErrorMeasuresTableModel_CTS;
-import gui.tablemodels.ErrorMeasuresTableModel_ITS;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;

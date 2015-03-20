@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportCrisp;
-import utils.Utils;
 import utils.imlp.IntervalLowerUpper;
 
 public class PredictionIntsTableModel extends AbstractTableModel {
