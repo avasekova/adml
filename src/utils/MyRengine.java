@@ -35,6 +35,7 @@ public class MyRengine extends Rengine {
             //adding my own functions:
             re.eval("MLPtoR.scale <- function(x) { (x - min(x))/(max(x) - min(x)) }");
             re.eval("MLPtoR.unscale <- function(x,y) { x * (max(y) - min(y)) + min(y) }");
+            re.eval("Modus <- function(x) { ux <- unique(x);    ux[which.max(tabulate(match(x, ux)))] }");
             //add more functions here
             
             //adding scripts (hack - can only add functions one by one, not a whole file full of them):

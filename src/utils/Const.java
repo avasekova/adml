@@ -28,6 +28,7 @@ public class Const {
     
     //model names
     public static final String ARIMA = "ARIMA";
+    public static final String BINOM_PROP = "Binomial Proportion";
     public static final String HOLT = "Holt";
     public static final String HOLT_INT = "Holt(i)";
     public static final String HOLT_WINTERS = "Holt-Winters";

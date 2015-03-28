@@ -1127,6 +1127,21 @@ public class PlotDrawer {
 
         tabbedPaneAnalysisPlots.repaint();
     }
+    
+    public static void drawBayesBetaTriplotToGrid(List<String> diagramsPlots, JTabbedPane tabbedPanePlots) throws IllegalArgumentException {
+        //nechaj tie ploty vyplut do mriezky
+        List<JGDBufferedPanel> panels = drawToGrid(tabbedPanePlots.getWidth(), tabbedPanePlots.getHeight(),
+                diagramsPlots, 1, 1);
+        
+        //a tu mriezku nakresli
+        tabbedPanePlots.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : panels) {
+            tabbedPanePlots.addTab("Page "+(++i), p);
+        }
+
+        tabbedPanePlots.repaint();
+    }
 
     private static String getRangeYCrisp(Collection<List<Double>> values) {
         StringBuilder rangesY = new StringBuilder("range(c(");

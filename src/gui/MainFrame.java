@@ -17,6 +17,7 @@ import gui.renderers.ErrorTableCellRenderer;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
+import gui.settingspanels.BinomPropSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.HoltSettingsPanel;
 import gui.settingspanels.HoltWintersSettingsPanel;
@@ -108,6 +109,7 @@ import models.avg.Median;
 import models.params.AnalysisBatchLine;
 import models.params.ArimaParams;
 import models.params.BasicStats;
+import models.params.BinomPropParams;
 import models.params.HoltIntParams;
 import models.params.HoltParams;
 import models.params.HoltWintersIntParams;
@@ -553,6 +555,15 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         textAreaModelsInfo = new javax.swing.JTextArea();
+        panelBayesianAll = new javax.swing.JPanel();
+        panelBayesianSettings = new javax.swing.JTabbedPane();
+        jPanel5 = new javax.swing.JPanel();
+        panelBinomPropPlot = new javax.swing.JPanel();
+        tabbedPaneBinomPropPlot = new javax.swing.JTabbedPane();
+        panelBinomPropSettings = new BinomPropSettingsPanel();
+        panelBinomPropInfo = new javax.swing.JScrollPane();
+        textAreaBinomPropInfo = new javax.swing.JTextArea();
+        buttonBinomPropComputePosterior = new javax.swing.JButton();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -772,7 +783,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
                                     .addComponent(jLabel20))))
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -780,7 +791,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addComponent(jLabel17)
-                        .addGap(391, 472, Short.MAX_VALUE))
+                        .addGap(391, 449, Short.MAX_VALUE))
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
@@ -789,7 +800,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(buttonPlotRemoveITS)
                                     .addComponent(buttonPlotAddITS))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonPlotAllITSScatterplot)
@@ -3583,6 +3594,71 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Model descriptions", panelModelDescriptionsAll);
 
+        panelBayesianSettings.setTabPlacement(javax.swing.JTabbedPane.LEFT);
+
+        panelBinomPropPlot.setLayout(new java.awt.BorderLayout());
+        panelBinomPropPlot.add(tabbedPaneBinomPropPlot, java.awt.BorderLayout.CENTER);
+
+        textAreaBinomPropInfo.setColumns(20);
+        textAreaBinomPropInfo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        textAreaBinomPropInfo.setRows(5);
+        textAreaBinomPropInfo.setFocusable(false);
+        textAreaBinomPropInfo.setOpaque(false);
+        panelBinomPropInfo.setViewportView(textAreaBinomPropInfo);
+
+        buttonBinomPropComputePosterior.setText("Compute posterior");
+        buttonBinomPropComputePosterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBinomPropComputePosteriorActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonBinomPropComputePosterior))
+                    .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(panelBinomPropPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(panelBinomPropPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonBinomPropComputePosterior)
+                            .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        panelBayesianSettings.addTab("Binomial Proportion", jPanel5);
+
+        javax.swing.GroupLayout panelBayesianAllLayout = new javax.swing.GroupLayout(panelBayesianAll);
+        panelBayesianAll.setLayout(panelBayesianAllLayout);
+        panelBayesianAllLayout.setHorizontalGroup(
+            panelBayesianAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelBayesianSettings, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        panelBayesianAllLayout.setVerticalGroup(
+            panelBayesianAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(panelBayesianSettings)
+        );
+
+        panelEverything.addTab("Bayesian", panelBayesianAll);
+
         getContentPane().add(panelEverything, java.awt.BorderLayout.CENTER);
 
         menuFile.setText("File");
@@ -5263,6 +5339,66 @@ public class MainFrame extends javax.swing.JFrame {
         
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonAggregateToITSActionPerformed
+
+    private void buttonBinomPropComputePosteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropComputePosteriorActionPerformed
+        //TODO skontrolovat, ze je vsetko zadane, inak to spadne
+        List<BinomPropParams> params = getParamsBinomProp(panelBinomPropSettings);
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(LearnBayes)");
+        
+        final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
+        final String P = Const.INPUT + Utils.getCounter();
+        final String MEAN = Const.INPUT + Utils.getCounter();
+        final String MODE = Const.INPUT + Utils.getCounter();
+        final String POSTERIOR = Const.OUTPUT + Utils.getCounter();
+        
+        List<String> plots = new ArrayList<>();
+        StringBuilder info = new StringBuilder();
+        
+        for (int i = 0; i < params.size(); i++) {
+            String BETA_PARAMS_NOW = BETA_PARAMS + "." + i;
+            BinomPropParams par = params.get(i);
+            
+            //prepare the plots
+            String beta = BETA_PARAMS_NOW + " <- beta.select("
+                    + "list(p = " + par.getQuantileOne() + "/100, "
+                         + "x = " + par.getQuantileOneValue() + "), "
+                    + "list(p = " + par.getQuantileTwo() + "/100, "
+                         + "x = " + par.getQuantileTwoValue() + "))";
+            rengine.eval(beta);
+            
+            String distrAndTriplot = beta + ";"
+                    + "triplot(" + BETA_PARAMS_NOW + ", c(" + par.getNumSuccesses() + ", "
+                                       + (par.getNumObservations() - par.getNumSuccesses())
+                            + "))";
+            plots.add(distrAndTriplot);
+            
+            
+            //and write summary into the info panel:
+            rengine.eval(P + " <- seq(0.005, 0.995, length=500)");
+            rengine.eval(POSTERIOR + " <- dbeta(" + P + ", " + BETA_PARAMS_NOW + "[1] + " + params.get(0).getNumSuccesses()
+                                                      + ", " + BETA_PARAMS_NOW + "[2] + " 
+                                                  + (params.get(0).getNumObservations() - params.get(0).getNumSuccesses())
+                                            + ")");
+            rengine.eval(MEAN + " <- mean(" + POSTERIOR + ")");
+            rengine.eval(MODE + " <- Modus(" + POSTERIOR + ")");
+
+            double priorOne = rengine.eval(BETA_PARAMS_NOW + "[1]").asDoubleArray()[0];
+            double priorTwo = rengine.eval(BETA_PARAMS_NOW + "[2]").asDoubleArray()[0];
+            info.append("Prior distribution: beta(")
+                    .append(priorOne).append(", ").append(priorTwo).append(")\n")
+                    .append("Posterior distribution: beta(").append(priorOne + params.get(0).getNumSuccesses()).append(", ")
+                    .append(priorTwo + (params.get(0).getNumObservations() - params.get(0).getNumSuccesses())).append(")\n");
+            info.append("Mean: ").append(rengine.eval(MEAN).asDoubleArray()[0]).append("\n");
+            info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
+        }
+        
+        //draw plots into the right panel
+        PlotDrawer.drawBayesBetaTriplotToGrid(plots, tabbedPaneBinomPropPlot);
+        
+        textAreaBinomPropInfo.setText(info.toString());
+    }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5337,6 +5473,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAggregateToITS;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
+    private javax.swing.JButton buttonBinomPropComputePosterior;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonDiffSeries;
     private javax.swing.JButton buttonExportAnalysisPlots;
@@ -5524,6 +5661,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelRPkg1;
     private javax.swing.JLabel jLabelTrainingInfo;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
@@ -5570,8 +5708,13 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelARIMAPercTrain;
     private javax.swing.JPanel panelAnalysisBatch;
     private javax.swing.JPanel panelAnalysisSettings;
+    private javax.swing.JPanel panelBayesianAll;
+    private javax.swing.JTabbedPane panelBayesianSettings;
     private javax.swing.JPanel panelBestModelCriterionMLPint;
     private javax.swing.JPanel panelBestModelCriterionRBFint;
+    private javax.swing.JScrollPane panelBinomPropInfo;
+    private javax.swing.JPanel panelBinomPropPlot;
+    private javax.swing.JPanel panelBinomPropSettings;
     private javax.swing.JPanel panelCombinationWeights;
     private javax.swing.JPanel panelCombinationWeightsAll;
     private javax.swing.JPanel panelData;
@@ -5692,8 +5835,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlots;
+    private javax.swing.JTabbedPane tabbedPaneBinomPropPlot;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
+    private javax.swing.JTextArea textAreaBinomPropInfo;
     private javax.swing.JTextArea textAreaModelsInfo;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
@@ -6329,6 +6474,15 @@ public class MainFrame extends javax.swing.JFrame {
         SettingsPanel.setSomethingList(HoltWintersIntParams.class, resultList, "setParamsRadius",
                 HoltWintersParams.class, resultListRadius);
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(HoltWintersIntParams.class, resultList);
+        
+        return resultList;
+    }
+    
+    private List<BinomPropParams> getParamsBinomProp(javax.swing.JPanel panelBinomPropSettings) {
+        List<BinomPropParams> resultList = new ArrayList<>();
+        resultList.add(new BinomPropParams());
+        
+        ((BinomPropSettingsPanel)panelBinomPropSettings).setSpecificParams(BinomPropParams.class, resultList);
         
         return resultList;
     }
