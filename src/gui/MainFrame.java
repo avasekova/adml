@@ -5342,6 +5342,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonBinomPropComputePosteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropComputePosteriorActionPerformed
         //TODO skontrolovat, ze je vsetko zadane, inak to spadne
+        //TODO a vyhodit potom hlasku
         List<BinomPropParams> params = getParamsBinomProp(panelBinomPropSettings);
         
         Rengine rengine = MyRengine.getRengine();
