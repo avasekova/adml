@@ -5516,15 +5516,6 @@ public class MainFrame extends javax.swing.JFrame {
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
         final String PREDICTED_DISTR = Const.OUTPUT + Utils.getCounter();
-//        final String POSTERIOR_SAMPLE = Const.OUTPUT + Utils.getCounter();
-//        final String BETA_POSTERIOR_PARAMS = Const.OUTPUT + Utils.getCounter();
-        
-        /*
-        n <- 20
-        s <- 0:n
-        pred.probs <- pbetap(beta.par, n, s)
-        plot(s, pred.probs, type="h")
-        */
         
         List<String> plots = new ArrayList<>();
         
