@@ -564,6 +564,10 @@ public class MainFrame extends javax.swing.JFrame {
         panelBinomPropInfo = new javax.swing.JScrollPane();
         textAreaBinomPropInfo = new javax.swing.JTextArea();
         buttonBinomPropComputePosterior = new javax.swing.JButton();
+        buttonBinomPropSimulate = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        textFieldBinomPropPercProbInterval = new javax.swing.JTextField();
+        jLabel27 = new javax.swing.JLabel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -791,7 +795,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addComponent(jLabel17)
-                        .addGap(391, 449, Short.MAX_VALUE))
+                        .addGap(391, 425, Short.MAX_VALUE))
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
@@ -800,7 +804,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(buttonPlotRemoveITS)
                                     .addComponent(buttonPlotAddITS))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonPlotAllITSScatterplot)
@@ -1099,7 +1103,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonLegendSelectNone, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotImageLayout.createSequentialGroup()
-                                .addComponent(scrollPaneListPlotLegend, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                                .addComponent(scrollPaneListPlotLegend, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonLegendSelectAll)
                                 .addGap(12, 12, 12))))
@@ -1223,7 +1227,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel25)))
-                .addContainerGap(875, Short.MAX_VALUE))
+                .addContainerGap(827, Short.MAX_VALUE))
         );
         panelTransformLayout.setVerticalGroup(
             panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1255,7 +1259,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelData.setLayout(panelDataLayout);
         panelDataLayout.setHorizontalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1404, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1356, Short.MAX_VALUE)
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1324,7 +1328,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_MLP)
-                        .addGap(0, 1156, Short.MAX_VALUE)))
+                        .addGap(0, 1108, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsMLPLayout.setVerticalGroup(
@@ -1379,7 +1383,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(jLabel101)
-                        .addGap(547, 650, Short.MAX_VALUE))
+                        .addGap(547, 602, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_radius)
                         .addContainerGap())))
@@ -1422,7 +1426,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(jLabel88)
-                        .addGap(0, 665, Short.MAX_VALUE))
+                        .addGap(0, 617, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -1478,7 +1482,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 1245, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
                                 .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49)
@@ -1499,7 +1503,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 1313, Short.MAX_VALUE))
+                .addGap(0, 1265, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
             paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1585,7 +1589,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsIntervalMLPLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_intMLP)
-                        .addGap(0, 1156, Short.MAX_VALUE)))
+                        .addGap(0, 1108, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsIntervalMLPLayout.setVerticalGroup(
@@ -1624,7 +1628,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_RBF)
-                        .addGap(0, 1156, Short.MAX_VALUE))
+                        .addGap(0, 1108, Short.MAX_VALUE))
                     .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1696,7 +1700,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(jLabel151)
-                                .addGap(0, 723, Short.MAX_VALUE))
+                                .addGap(0, 675, Short.MAX_VALUE))
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())))
@@ -1774,7 +1778,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_ARIMA)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1146, Short.MAX_VALUE)))
+                        .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsARIMALayout.setVerticalGroup(
@@ -1825,7 +1829,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel64)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1183, Short.MAX_VALUE))
+                        .addGap(0, 1135, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsKNNLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_KNN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1876,7 +1880,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                                 .addComponent(buttonSettingsAddToBatch_VARint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 704, Short.MAX_VALUE)))
+                                .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)))
                         .addGap(10, 10, 10)
                         .addComponent(panelVARintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1918,7 +1922,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsSESLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_SES)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1150, Short.MAX_VALUE)))
+                        .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsSESLayout.setVerticalGroup(
@@ -1964,7 +1968,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelSettingsMethodsSESintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsSESintLayout.createSequentialGroup()
                                 .addComponent(jLabel154)
-                                .addGap(0, 603, Short.MAX_VALUE))
+                                .addGap(0, 555, Short.MAX_VALUE))
                             .addComponent(panelSESint_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2029,7 +2033,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsHoltLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_Holt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1150, Short.MAX_VALUE)))
+                        .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsHoltLayout.setVerticalGroup(
@@ -2075,7 +2079,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelSettingsMethodsHoltIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsHoltIntLayout.createSequentialGroup()
                                 .addComponent(jLabel152)
-                                .addGap(0, 603, Short.MAX_VALUE))
+                                .addGap(0, 555, Short.MAX_VALUE))
                             .addComponent(panelHoltInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2147,7 +2151,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                                 .addComponent(buttonSettingsAddToBatch_IntervalHolt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE))
+                                .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE))
                             .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -2197,7 +2201,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelSettingsMethodsHoltWintersLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_HoltWinters)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1150, Short.MAX_VALUE)))
+                        .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsHoltWintersLayout.setVerticalGroup(
@@ -2259,7 +2263,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
                                 .addComponent(buttonSettingsAddToBatch_HoltWintersInt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 651, Short.MAX_VALUE)))
+                                .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelHoltWintersIntDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -2376,7 +2380,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 620, Short.MAX_VALUE))
+                                .addGap(0, 572, Short.MAX_VALUE))
                             .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -2409,7 +2413,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, 1404, Short.MAX_VALUE)
+            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, 1356, Short.MAX_VALUE)
         );
         panelAnalysisSettingsLayout.setVerticalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3151,7 +3155,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(buttonRunExportErrorMeasures)
-                        .addGap(0, 742, Short.MAX_VALUE)))
+                        .addGap(0, 694, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelErrorMeasuresAllLayout.setVerticalGroup(
@@ -3203,7 +3207,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelResiduals.setLayout(panelResidualsLayout);
         panelResidualsLayout.setHorizontalGroup(
             panelResidualsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE)
+            .addComponent(scrollPaneResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, 445, Short.MAX_VALUE)
         );
         panelResidualsLayout.setVerticalGroup(
             panelResidualsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3354,7 +3358,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(buttonForecastValsHideAllButAvg)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel14)
-                .addGap(0, 591, Short.MAX_VALUE))
+                .addGap(0, 543, Short.MAX_VALUE))
             .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelForecastValsAllLayout.setVerticalGroup(
@@ -3438,7 +3442,7 @@ public class MainFrame extends javax.swing.JFrame {
             panelPredictionIntervalsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addComponent(buttonExportPredictionIntervals)
-                .addGap(0, 1339, Short.MAX_VALUE))
+                .addGap(0, 1291, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3493,7 +3497,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 1384, Short.MAX_VALUE)
+                    .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 1336, Short.MAX_VALUE)
                     .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
@@ -3529,7 +3533,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelCombinationWeights.setLayout(panelCombinationWeightsLayout);
         panelCombinationWeightsLayout.setHorizontalGroup(
             panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1384, Short.MAX_VALUE)
+            .addGap(0, 1336, Short.MAX_VALUE)
         );
         panelCombinationWeightsLayout.setVerticalGroup(
             panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3578,7 +3582,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
                         .addComponent(jLabel23)
-                        .addGap(0, 1165, Short.MAX_VALUE))
+                        .addGap(0, 1117, Short.MAX_VALUE))
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
@@ -3613,6 +3617,19 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonBinomPropSimulate.setText("Simulate from posterior distr.");
+        buttonBinomPropSimulate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBinomPropSimulateActionPerformed(evt);
+            }
+        });
+
+        jLabel26.setText("and construct the");
+
+        textFieldBinomPropPercProbInterval.setText("90");
+
+        jLabel27.setText("% probability interval");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -3621,12 +3638,21 @@ public class MainFrame extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonBinomPropComputePosterior))
-                    .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelBinomPropPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 759, Short.MAX_VALUE)
+                        .addComponent(buttonBinomPropSimulate)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel26)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldBinomPropPercProbInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel27))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel5Layout.createSequentialGroup()
+                            .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(buttonBinomPropComputePosterior))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelBinomPropPlot, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -3638,9 +3664,15 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonBinomPropComputePosterior)
-                            .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonBinomPropSimulate)
+                            .addComponent(jLabel26)
+                            .addComponent(textFieldBinomPropPercProbInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel27))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -5400,6 +5432,47 @@ public class MainFrame extends javax.swing.JFrame {
         
         textAreaBinomPropInfo.setText(info.toString());
     }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
+
+    private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
+        List<BinomPropParams> params = getParamsBinomProp(panelBinomPropSettings);
+        
+        Rengine rengine = MyRengine.getRengine();
+        rengine.eval("require(LearnBayes)");
+        
+        final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
+        final String RESULT = Const.OUTPUT + Utils.getCounter();
+        final String POSTERIOR_SAMPLE = Const.OUTPUT + Utils.getCounter();
+        final String BETA_POSTERIOR_PARAMS = Const.OUTPUT + Utils.getCounter();
+        
+        StringBuilder info = new StringBuilder();
+        
+        for (int i = 0; i < params.size(); i++) {
+            String BETA_PARAMS_NOW = BETA_PARAMS + "." + i;
+            BinomPropParams par = params.get(i);
+            
+            rengine.eval(BETA_PARAMS_NOW + " <- beta.select("
+                    + "list(p = " + par.getQuantileOne() + "/100, "
+                         + "x = " + par.getQuantileOneValue() + "), "
+                    + "list(p = " + par.getQuantileTwo() + "/100, "
+                         + "x = " + par.getQuantileTwoValue() + "))");
+            
+            rengine.eval(BETA_POSTERIOR_PARAMS + " <- " + BETA_PARAMS_NOW + " + c(" + par.getNumSuccesses() + ", "
+                    + (par.getNumObservations() - par.getNumSuccesses()) +  ")");
+            
+            rengine.eval(POSTERIOR_SAMPLE + " <- rbeta(1000, " + BETA_POSTERIOR_PARAMS + "[1], "
+                    + BETA_POSTERIOR_PARAMS + "[2])");
+            
+            //quantile(post.sample, c(0.05, 0.95))
+            double alpha = (100 - Double.parseDouble(textFieldBinomPropPercProbInterval.getText()))/2;
+            rengine.eval(RESULT + " <- quantile(" + POSTERIOR_SAMPLE + ", c(" + alpha/100 + ", " + (100-alpha)/100 + "))");
+            
+            info.append(textFieldBinomPropPercProbInterval.getText()).append("% probability interval for the posterior:\n")
+                    .append("(").append(Utils.valToDecPoints(rengine.eval(RESULT + "[1]").asDoubleArray()[0])).append(",")
+                    .append(Utils.valToDecPoints(rengine.eval(RESULT + "[2]").asDoubleArray()[0])).append(")\n\n");
+        }
+        
+        textAreaBinomPropInfo.setText(info.toString());
+    }//GEN-LAST:event_buttonBinomPropSimulateActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5475,6 +5548,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonAggregateToITS;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonBinomPropComputePosterior;
+    private javax.swing.JButton buttonBinomPropSimulate;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonDiffSeries;
     private javax.swing.JButton buttonExportAnalysisPlots;
@@ -5633,6 +5707,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -5844,6 +5920,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
     private javax.swing.JTextField textFieldAggregateToITSevery;
+    private javax.swing.JTextField textFieldBinomPropPercProbInterval;
     private javax.swing.JTextField textFieldMaxStructBreaks;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
