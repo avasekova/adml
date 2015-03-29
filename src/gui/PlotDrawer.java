@@ -1128,7 +1128,8 @@ public class PlotDrawer {
         tabbedPaneAnalysisPlots.repaint();
     }
     
-    public static void drawBayesBetaTriplotToGrid(List<String> diagramsPlots, JTabbedPane tabbedPanePlots) throws IllegalArgumentException {
+    //TODO refactor vsetky tieto drawXXXtoGrid - aby pouzivali nejaky spolocny zaklad. vsetky su rovnake.
+    public static void drawBayesToGrid(List<String> diagramsPlots, JTabbedPane tabbedPanePlots) throws IllegalArgumentException {
         //nechaj tie ploty vyplut do mriezky
         List<JGDBufferedPanel> panels = drawToGrid(tabbedPanePlots.getWidth(), tabbedPanePlots.getHeight(),
                 diagramsPlots, 1, 1);
