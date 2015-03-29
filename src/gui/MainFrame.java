@@ -3663,17 +3663,17 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(buttonBinomPropSimulate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldBinomPropPercProbInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(buttonBinomPropPredict)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel28)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldBinomPropNumFutureObs, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)))
+                                .addComponent(textFieldBinomPropNumFutureObs))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(buttonBinomPropSimulate)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel26)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldBinomPropPercProbInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel27)
@@ -5495,14 +5495,15 @@ public class MainFrame extends javax.swing.JFrame {
             rengine.eval(POSTERIOR_SAMPLE + " <- rbeta(1000, " + BETA_POSTERIOR_PARAMS + "[1], "
                     + BETA_POSTERIOR_PARAMS + "[2])");
             
-            //quantile(post.sample, c(0.05, 0.95))
-            //TODO vziat vsetky z toho pola
-            double alpha = (100 - Double.parseDouble(textFieldBinomPropPercProbInterval.getText()))/2;
-            rengine.eval(RESULT + " <- quantile(" + POSTERIOR_SAMPLE + ", c(" + alpha/100 + ", " + (100-alpha)/100 + "))");
-            
-            info.append(textFieldBinomPropPercProbInterval.getText()).append("% probability interval for the posterior:\n")
-                    .append("(").append(Utils.valToDecPoints(rengine.eval(RESULT + "[1]").asDoubleArray()[0])).append(",")
-                    .append(Utils.valToDecPoints(rengine.eval(RESULT + "[2]").asDoubleArray()[0])).append(")\n\n");
+            List<Double> alphasssRaw = FieldsParser.parseDoubles(textFieldBinomPropPercProbInterval);
+            for (Double alphaRaw : alphasssRaw) {
+                double alpha = (100 - alphaRaw)/2;
+                rengine.eval(RESULT + " <- quantile(" + POSTERIOR_SAMPLE + ", c(" + alpha/100 + ", " + (100-alpha)/100 + "))");
+                
+                info.append(textFieldBinomPropPercProbInterval.getText()).append("% probability interval for the posterior:\n")
+                        .append("(").append(Utils.valToDecPoints(rengine.eval(RESULT + "[1]").asDoubleArray()[0])).append(",")
+                        .append(Utils.valToDecPoints(rengine.eval(RESULT + "[2]").asDoubleArray()[0])).append(")\n\n");
+            }
         }
         
         textAreaBinomPropInfo.setText(info.toString());
@@ -5522,7 +5523,6 @@ public class MainFrame extends javax.swing.JFrame {
         for (int i = 0; i < params.size(); i++) {
             String BETA_PARAMS_NOW = BETA_PARAMS + "." + i;
             BinomPropParams par = params.get(i);
-            int numFutureObs = Integer.parseInt(textFieldBinomPropNumFutureObs.getText());
             
             rengine.eval(BETA_PARAMS_NOW + " <- beta.select("
                     + "list(p = " + par.getQuantileOne() + "/100, "
@@ -5530,12 +5530,16 @@ public class MainFrame extends javax.swing.JFrame {
                     + "list(p = " + par.getQuantileTwo() + "/100, "
                          + "x = " + par.getQuantileTwoValue() + "))");
             
-            //TODO vziat vsetky z toho pola NumFutureobs
-            rengine.eval(PREDICTED_DISTR + " <- pbetap(" + BETA_PARAMS_NOW + ", " + numFutureObs
-                                         + ", 0:" + numFutureObs + ")");
-            plots.add("plot(0:" + numFutureObs + ", " + PREDICTED_DISTR + ", type=\"h\", "
-                    + "xlab = \"Number of successes in the future " + numFutureObs + " observations\", "
-                    + "ylab = \"Probability of each number of successes\")");
+            
+            List<Integer> numFutureObsss = FieldsParser.parseIntegers(textFieldBinomPropNumFutureObs);
+            for (int j = 0; j < numFutureObsss.size(); j++) {
+                String PREDICTED_DISTR_NOW = PREDICTED_DISTR + "." + i + "." + j;
+                rengine.eval(PREDICTED_DISTR_NOW + " <- pbetap(" + BETA_PARAMS_NOW + ", " + numFutureObsss.get(j)
+                                         + ", 0:" + numFutureObsss.get(j) + ")");
+                plots.add("plot(0:" + numFutureObsss.get(j) + ", " + PREDICTED_DISTR_NOW + ", type=\"h\", "
+                        + "xlab = \"Number of successes in the future " + numFutureObsss.get(j) + " observations\", "
+                        + "ylab = \"Probability of each number of successes\")");
+            }
         }
         
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
