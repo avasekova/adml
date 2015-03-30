@@ -5406,9 +5406,12 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAggregateToITSActionPerformed
 
     private void buttonBinomPropComputePosteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropComputePosteriorActionPerformed
-        //TODO skontrolovat, ze je vsetko zadane, inak to spadne
-        //TODO a vyhodit potom hlasku
-        List<BinomPropParams> params = getParamsBinomProp(panelBinomPropSettings);
+        List<BinomPropParams> params;
+        try {
+            params = getParamsBinomProp(panelBinomPropSettings);
+        } catch (IllegalArgumentException e) {
+            return;
+        }
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(LearnBayes)");
@@ -5443,21 +5446,21 @@ public class MainFrame extends javax.swing.JFrame {
             
             //and write summary into the info panel:
             rengine.eval(P + " <- seq(0.005, 0.995, length=500)");
-            rengine.eval(POSTERIOR + " <- dbeta(" + P + ", " + BETA_PARAMS_NOW + "[1] + " + params.get(0).getNumSuccesses()
+            rengine.eval(POSTERIOR + " <- dbeta(" + P + ", " + BETA_PARAMS_NOW + "[1] + " + par.getNumSuccesses()
                                                       + ", " + BETA_PARAMS_NOW + "[2] + " 
-                                                  + (params.get(0).getNumObservations() - params.get(0).getNumSuccesses())
+                                                  + (par.getNumObservations() - par.getNumSuccesses())
                                             + ")");
             rengine.eval(MEAN + " <- mean(" + POSTERIOR + ")");
             rengine.eval(MODE + " <- Modus(" + POSTERIOR + ")");
-
-            double priorOne = rengine.eval(BETA_PARAMS_NOW + "[1]").asDoubleArray()[0];
-            double priorTwo = rengine.eval(BETA_PARAMS_NOW + "[2]").asDoubleArray()[0];
+            
+            double priorOne = 42; //rengine.eval(BETA_PARAMS_NOW + "[1]").asDoubleArray()[0];
+            double priorTwo = 42; //rengine.eval(BETA_PARAMS_NOW + "[2]").asDoubleArray()[0];
             info.append("Prior distribution: beta(")
                     .append(priorOne).append(", ").append(priorTwo).append(")\n")
-                    .append("Posterior distribution: beta(").append(priorOne + params.get(0).getNumSuccesses()).append(", ")
-                    .append(priorTwo + (params.get(0).getNumObservations() - params.get(0).getNumSuccesses())).append(")\n");
-            info.append("Mean: ").append(rengine.eval(MEAN).asDoubleArray()[0]).append("\n");
-            info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
+                    .append("Posterior distribution: beta(").append(priorOne + par.getNumSuccesses()).append(", ")
+                    .append(priorTwo + (par.getNumObservations() - par.getNumSuccesses())).append(")\n");
+//            info.append("Mean: ").append(rengine.eval(MEAN).asDoubleArray()[0]).append("\n");
+//            info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
         }
         
         //draw plots into the right panel
@@ -5467,7 +5470,16 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
 
     private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
-        List<BinomPropParams> params = getParamsBinomProp(panelBinomPropSettings);
+        List<BinomPropParams> params;
+        try {
+            params = getParamsBinomProp(panelBinomPropSettings);
+            if (textFieldBinomPropPercProbInterval.getText().isEmpty()) {
+                textAreaBinomPropInfo.setText("<no prediction interval specified>");
+                return;
+            }
+        } catch (IllegalArgumentException e) {
+            return;
+        }
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(LearnBayes)");
@@ -5510,7 +5522,17 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonBinomPropSimulateActionPerformed
 
     private void buttonBinomPropPredictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropPredictActionPerformed
-        List<BinomPropParams> params = getParamsBinomProp(panelBinomPropSettings);
+        List<BinomPropParams> params;
+        try {
+            params = getParamsBinomProp(panelBinomPropSettings);
+            //TODO zlepsit?
+            if (textFieldBinomPropNumFutureObs.getText().isEmpty()) {
+                textAreaBinomPropInfo.setText("<no number of future observations specified>");
+                return;
+            }
+        } catch (IllegalArgumentException e) {
+            return;
+        }
         
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(LearnBayes)");
@@ -6631,7 +6653,7 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<BinomPropParams> getParamsBinomProp(javax.swing.JPanel panelBinomPropSettings) {
+    private List<BinomPropParams> getParamsBinomProp(javax.swing.JPanel panelBinomPropSettings) throws IllegalArgumentException {
         List<BinomPropParams> resultList = new ArrayList<>();
         resultList.add(new BinomPropParams());
         

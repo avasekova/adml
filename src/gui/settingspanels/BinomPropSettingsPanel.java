@@ -1,7 +1,9 @@
 package gui.settingspanels;
 
 import java.util.List;
+import javax.swing.JOptionPane;
 import models.params.Params;
+import utils.Const;
 import utils.FieldsParser;
 
 public class BinomPropSettingsPanel extends SettingsPanel {
@@ -160,7 +162,13 @@ public class BinomPropSettingsPanel extends SettingsPanel {
     }
     
     @Override
-    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
+    public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
+        if ("".equals(getQuantileOne()) || "".equals(getQuantileOneValue()) || "".equals(getQuantileTwo()) || "".equals(getQuantileTwoValue())
+                                        || "".equals(getNumObservations())  || "".equals(getNumSuccesses())) {
+            JOptionPane.showMessageDialog(null, "All fields in the box need to be filled in for " + Const.BINOM_PROP + " analyses to run.");
+            throw new IllegalArgumentException(Const.BINOM_PROP + " not all filled in"); //TODO zaviest si vlastne vynimky pre tieto SettingsPanely, modely, atd.
+        }
+        
         SettingsPanel.setSomethingList(classss, resultList, "setQuantileOne", Integer.class, FieldsParser.parseIntegers(getQuantileOne()));
         SettingsPanel.setSomethingList(classss, resultList, "setQuantileOneValue", Double.class, FieldsParser.parseDoubles(getQuantileOneValue()));
         SettingsPanel.setSomethingList(classss, resultList, "setQuantileTwo", Integer.class, FieldsParser.parseIntegers(getQuantileTwo()));
