@@ -157,6 +157,8 @@ import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
+
+//TODO (v celom projekte) nahradit obycajne require(Rpackage) za kontrolu, ci to nieco naloadovalo (vracia BOOL), a ak nie, vyplut warning
 public class MainFrame extends javax.swing.JFrame {
 
     private static MainFrame INSTANCE = null; //created in main()
