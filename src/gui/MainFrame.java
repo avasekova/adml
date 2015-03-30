@@ -5453,14 +5453,14 @@ public class MainFrame extends javax.swing.JFrame {
             rengine.eval(MEAN + " <- mean(" + POSTERIOR + ")");
             rengine.eval(MODE + " <- Modus(" + POSTERIOR + ")");
             
-            double priorOne = 42; //rengine.eval(BETA_PARAMS_NOW + "[1]").asDoubleArray()[0];
-            double priorTwo = 42; //rengine.eval(BETA_PARAMS_NOW + "[2]").asDoubleArray()[0];
+            double priorOne = rengine.eval(BETA_PARAMS_NOW + "[1]").asDoubleArray()[0];
+            double priorTwo = rengine.eval(BETA_PARAMS_NOW + "[2]").asDoubleArray()[0];
             info.append("Prior distribution: beta(")
                     .append(priorOne).append(", ").append(priorTwo).append(")\n")
                     .append("Posterior distribution: beta(").append(priorOne + par.getNumSuccesses()).append(", ")
                     .append(priorTwo + (par.getNumObservations() - par.getNumSuccesses())).append(")\n");
-//            info.append("Mean: ").append(rengine.eval(MEAN).asDoubleArray()[0]).append("\n");
-//            info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
+            info.append("Mean: ").append(rengine.eval(MEAN).asDoubleArray()[0]).append("\n");
+            info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
         }
         
         //draw plots into the right panel
