@@ -16,6 +16,7 @@ import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.renderers.ErrorTableCellRenderer;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.settingspanels.ARIMASettingsPanel;
+import gui.settingspanels.BayesianNNSettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.BinomPropSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
@@ -73,6 +74,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 import models.Arima;
+import models.BNN;
 import models.Forecastable;
 import models.Holt;
 import models.HoltInt;
@@ -109,6 +111,7 @@ import models.avg.Median;
 import models.params.AnalysisBatchLine;
 import models.params.ArimaParams;
 import models.params.BasicStats;
+import models.params.BayesianNNParams;
 import models.params.BinomPropParams;
 import models.params.HoltIntParams;
 import models.params.HoltParams;
@@ -136,6 +139,7 @@ import models.params.VARintParams;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
+import static utils.Const.BNN;
 import utils.CrispOutputVariable;
 import utils.ExcelWriter;
 import utils.FieldsParser;
@@ -424,6 +428,10 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybridPercentTrain = new PercentTrainSettingsPanel();
         panelSettingsHybridDistance = new DistanceSettingsPanel();
         buttonSettingsAddToBatch_Hybrid = new javax.swing.JButton();
+        paneSettingsMethodsBayNN = new javax.swing.JPanel();
+        buttonSettingsAddToBatch_BayNN = new javax.swing.JButton();
+        panelBayNNPercentTrain = new PercentTrainSettingsPanel();
+        panelSettingsBayesNNinside = new BayesianNNSettingsPanel();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         jLabelTrainingInfo = new javax.swing.JLabel();
@@ -509,6 +517,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxAvgMedianCTS = new javax.swing.JCheckBox();
         checkBoxAvgMedianIntTSperM = new javax.swing.JCheckBox();
         checkBoxAvgMedianIntTS = new javax.swing.JCheckBox();
+        checkBoxRunBayesianNN = new javax.swing.JCheckBox();
         panelErrorMeasuresAll = new javax.swing.JPanel();
         panelErrorMeasures = new javax.swing.JPanel();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
@@ -2415,6 +2424,42 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("[Hybrid]", paneSettingsMethodsHybrid);
 
+        buttonSettingsAddToBatch_BayNN.setText("Add to Analysis batch");
+        buttonSettingsAddToBatch_BayNN.setEnabled(false);
+        buttonSettingsAddToBatch_BayNN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_BayNNActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout paneSettingsMethodsBayNNLayout = new javax.swing.GroupLayout(paneSettingsMethodsBayNN);
+        paneSettingsMethodsBayNN.setLayout(paneSettingsMethodsBayNNLayout);
+        paneSettingsMethodsBayNNLayout.setHorizontalGroup(
+            paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsBayNNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsBayesNNinside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(paneSettingsMethodsBayNNLayout.createSequentialGroup()
+                        .addComponent(buttonSettingsAddToBatch_BayNN)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelBayNNPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        paneSettingsMethodsBayNNLayout.setVerticalGroup(
+            paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsBayNNLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonSettingsAddToBatch_BayNN)
+                    .addComponent(panelBayNNPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelSettingsBayesNNinside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        paneSettingsMethods.addTab("Bayesian NN", paneSettingsMethodsBayNN);
+
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
@@ -2740,6 +2785,8 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        checkBoxRunBayesianNN.setText("Bayesian NN");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -2834,7 +2881,10 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addComponent(checkBoxRunMLPnnet)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(checkBoxRunRBF))
-                                        .addComponent(checkBoxRunRandomWalkCTS))
+                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addComponent(checkBoxRunRandomWalkCTS)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(checkBoxRunBayesianNN)))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -3021,10 +3071,15 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(checkBoxRunHolt)
                                     .addComponent(checkBoxRunSES)
                                     .addComponent(checkBoxRunHoltWinters))
-                                .addGap(1, 1, 1)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel72)
-                                    .addComponent(checkBoxRunRandomWalkCTS))
+                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addGap(1, 1, 1)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel72)
+                                            .addComponent(checkBoxRunRandomWalkCTS)))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunBayesianNN)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
@@ -4073,6 +4128,10 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (checkBoxRunHoltWintersInt.isSelected()) {
             buttonSettingsAddToBatch_HoltWintersIntActionPerformed(null);
+        }
+        
+        if (checkBoxRunBayesianNN.isSelected()) {
+            buttonSettingsAddToBatch_BayNNActionPerformed(null);
         }
         
         runModels(false);
@@ -5568,6 +5627,15 @@ public class MainFrame extends javax.swing.JFrame {
         
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
     }//GEN-LAST:event_buttonBinomPropPredictActionPerformed
+
+    private void buttonSettingsAddToBatch_BayNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BayNNActionPerformed
+        try {
+            List<BayesianNNParams> paramsBNN = getParamsBNN(panelBayNNPercentTrain, comboBoxColnamesRun, panelSettingsBayesNNinside);
+            batchTableModel.addLine(new AnalysisBatchLine(Const.BNN, paramsBNN));
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_BayNNActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5685,6 +5753,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonRunShowHiddenErrorMeasures;
     private javax.swing.JButton buttonSettingsAddToBatch_ARIMA;
+    private javax.swing.JButton buttonSettingsAddToBatch_BayNN;
     private javax.swing.JButton buttonSettingsAddToBatch_Holt;
     private javax.swing.JButton buttonSettingsAddToBatch_HoltWinters;
     private javax.swing.JButton buttonSettingsAddToBatch_HoltWintersInt;
@@ -5725,6 +5794,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxAvgTheilsuIntTS;
     private javax.swing.JCheckBox checkBoxAvgTheilsuIntTSperM;
     private javax.swing.JCheckBox checkBoxRunARIMA;
+    private javax.swing.JCheckBox checkBoxRunBayesianNN;
     private javax.swing.JCheckBox checkBoxRunHolt;
     private javax.swing.JCheckBox checkBoxRunHoltInt;
     private javax.swing.JCheckBox checkBoxRunHoltWinters;
@@ -5873,6 +5943,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuFileLoad;
     private javax.swing.JTabbedPane paneSettingsMethods;
     private javax.swing.JPanel paneSettingsMethodsARIMA;
+    private javax.swing.JPanel paneSettingsMethodsBayNN;
     private javax.swing.JPanel paneSettingsMethodsHybrid;
     private javax.swing.JPanel paneSettingsMethodsIntervalMLP;
     private javax.swing.JPanel paneSettingsMethodsKNN;
@@ -5883,6 +5954,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelARIMAPercTrain;
     private javax.swing.JPanel panelAnalysisBatch;
     private javax.swing.JPanel panelAnalysisSettings;
+    private javax.swing.JPanel panelBayNNPercentTrain;
     private javax.swing.JPanel panelBayesianAll;
     private javax.swing.JTabbedPane panelBayesianSettings;
     private javax.swing.JPanel panelBestModelCriterionMLPint;
@@ -5942,6 +6014,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSESmain;
     private javax.swing.JPanel panelSESpercentTrain;
     private javax.swing.JPanel panelSettingsARIMAMain;
+    private javax.swing.JPanel panelSettingsBayesNNinside;
     private javax.swing.JPanel panelSettingsHybridDistance;
     private javax.swing.JPanel panelSettingsHybridPercentTrain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain;
@@ -6385,6 +6458,28 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
         SettingsPanel.setSomethingOneValue(RBFintParams.class, resultList, "setCriterion",
                 Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
+        
+        return resultList;
+    }
+    
+    private List<BayesianNNParams> getParamsBNN(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsBNN) throws IllegalArgumentException {
+        BayesianNNParams par = new BayesianNNParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        
+        List<BayesianNNParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        setParamsGeneral(BayesianNNParams.class, resultList);
+        ((BayesianNNSettingsPanel)panelSettingsBNN).setSpecificParams(BayesianNNParams.class, resultList);
+        //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
+        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
+        outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
+        outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
+        List<CrispOutputVariable> outVarList = new ArrayList<>();
+        outVarList.add(outVar);
+        SettingsPanel.setSomethingOneValue(BayesianNNParams.class, resultList, "setOutVars", List.class, outVarList);
         
         return resultList;
     }
@@ -7090,6 +7185,7 @@ public class MainFrame extends javax.swing.JFrame {
         ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons(trueFalse);
         ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons(trueFalse);
         ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons(trueFalse);
+        ((BayesianNNSettingsPanel)panelSettingsBayesNNinside).enableAllButtons(trueFalse);
     }
     
     private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
@@ -7181,6 +7277,10 @@ public class MainFrame extends javax.swing.JFrame {
                         forecastable = new SES();
                         break;
                     case Const.VAR:
+                        break;
+                        
+                    case Const.BNN:
+                        forecastable = new BNN();
                         break;
 
                 }

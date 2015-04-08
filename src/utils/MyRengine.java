@@ -3,6 +3,7 @@ package utils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,7 +78,7 @@ public class MyRengine extends Rengine {
     
     public void assignMatrix(String name, Map<String, List<Double>> matrixColumns) {
         for (String s : matrixColumns.keySet()) {
-            this.assign(name + "." + s, Utils.listToArray(matrixColumns.get(s)));
+            instance.assign(name + "." + s, Utils.listToArray(matrixColumns.get(s)));
         }
         
         StringBuilder sb = new StringBuilder("cbind(");
@@ -93,7 +94,7 @@ public class MyRengine extends Rengine {
         }
         sb.append(")");
         
-        this.eval(name + " <- " + sb.toString());
+        instance.eval(name + " <- " + sb.toString());
     }
     
     public void assignMatrix(String name, List<List<Double>> matrixColumns) {
