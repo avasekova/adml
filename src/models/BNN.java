@@ -4,7 +4,7 @@ import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import models.params.BayesianNNParams;
+import models.params.BNNParams;
 import models.params.Params;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
@@ -33,7 +33,7 @@ public class BNN implements Forecastable {
         final String FIT = Const.FIT + Utils.getCounter();
         final String FORECAST_TEST = Const.FORECAST_VALS + Utils.getCounter();
         
-        BayesianNNParams params = (BayesianNNParams) parameters;
+        BNNParams params = (BNNParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.BNN);
         report.setModelDescription(params.toString());
         

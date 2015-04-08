@@ -30,6 +30,7 @@ public class Const {
     public static final String ARIMA = "ARIMA";
     public static final String BINOM_PROP = "Binomial Proportion";
     public static final String BNN = "Bayesian NN";
+    public static final String BNN_INT = "Bayesian NN(i)";
     public static final String HOLT = "Holt";
     public static final String HOLT_INT = "Holt(i)";
     public static final String HOLT_WINTERS = "Holt-Winters";

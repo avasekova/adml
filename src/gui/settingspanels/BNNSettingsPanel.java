@@ -11,9 +11,9 @@ import utils.Const;
 import utils.CrispExplanatoryVariable;
 import utils.FieldsParser;
 
-public class BayesianNNSettingsPanel extends SettingsPanel {
+public class BNNSettingsPanel extends SettingsPanel {
 
-    public BayesianNNSettingsPanel() {
+    public BNNSettingsPanel() {
         initComponents();
     }
 

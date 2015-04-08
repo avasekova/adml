@@ -5,7 +5,7 @@ import java.util.List;
 import utils.CrispExplanatoryVariable;
 import utils.CrispOutputVariable;
 
-public class BayesianNNParams extends Params {
+public class BNNParams extends Params {
     
     private Integer numNodesHidden;
     private List<CrispExplanatoryVariable> explVars = new ArrayList<>();
@@ -45,8 +45,8 @@ public class BayesianNNParams extends Params {
     }
 
     @Override
-    public BayesianNNParams getClone() {
-        BayesianNNParams param = new BayesianNNParams();
+    public BNNParams getClone() {
+        BNNParams param = new BNNParams();
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setSeasonality(this.getSeasonality());

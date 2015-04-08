@@ -16,7 +16,7 @@ import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.renderers.ErrorTableCellRenderer;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.settingspanels.ARIMASettingsPanel;
-import gui.settingspanels.BayesianNNSettingsPanel;
+import gui.settingspanels.BNNSettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.BinomPropSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
@@ -75,6 +75,7 @@ import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 import models.Arima;
 import models.BNN;
+import models.BNNint;
 import models.Forecastable;
 import models.Holt;
 import models.HoltInt;
@@ -111,7 +112,8 @@ import models.avg.Median;
 import models.params.AnalysisBatchLine;
 import models.params.ArimaParams;
 import models.params.BasicStats;
-import models.params.BayesianNNParams;
+import models.params.BNNParams;
+import models.params.BNNintParams;
 import models.params.BinomPropParams;
 import models.params.HoltIntParams;
 import models.params.HoltParams;
@@ -428,10 +430,23 @@ public class MainFrame extends javax.swing.JFrame {
         panelSettingsHybridPercentTrain = new PercentTrainSettingsPanel();
         panelSettingsHybridDistance = new DistanceSettingsPanel();
         buttonSettingsAddToBatch_Hybrid = new javax.swing.JButton();
-        paneSettingsMethodsBayNN = new javax.swing.JPanel();
-        buttonSettingsAddToBatch_BayNN = new javax.swing.JButton();
-        panelBayNNPercentTrain = new PercentTrainSettingsPanel();
-        panelSettingsBayesNNinside = new BayesianNNSettingsPanel();
+        paneSettingsMethodsBNN = new javax.swing.JPanel();
+        buttonSettingsAddToBatch_BNN = new javax.swing.JButton();
+        panelBNNPercentTrain = new PercentTrainSettingsPanel();
+        panelSettingsBNNinside = new gui.settingspanels.BNNSettingsPanel();
+        paneSettingsMethodsBNNint = new javax.swing.JPanel();
+        buttonSettingsAddToBatch_BNNint = new javax.swing.JButton();
+        panelBNNintPercentTrain = new PercentTrainSettingsPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel33 = new javax.swing.JLabel();
+        jLabel160 = new javax.swing.JLabel();
+        panelBNNintSettingsDistance = new DistanceSettingsPanel();
+        jLabel139 = new javax.swing.JLabel();
+        textFieldNumNetworksToTrainBNNint = new javax.swing.JTextField();
+        panelBestModelCriterionBNNint = new gui.settingspanels.BestModelCriterionIntervalSettingsPanel();
+        panelSettingsBNNint_center = new BNNSettingsPanel();
+        panelSettingsBNNint_radius = new BNNSettingsPanel();
+        jSeparator13 = new javax.swing.JSeparator();
         panelRunOutside = new javax.swing.JPanel();
         comboBoxColnamesRun = new javax.swing.JComboBox();
         jLabelTrainingInfo = new javax.swing.JLabel();
@@ -517,7 +532,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxAvgMedianCTS = new javax.swing.JCheckBox();
         checkBoxAvgMedianIntTSperM = new javax.swing.JCheckBox();
         checkBoxAvgMedianIntTS = new javax.swing.JCheckBox();
-        checkBoxRunBayesianNN = new javax.swing.JCheckBox();
+        checkBoxRunBNN = new javax.swing.JCheckBox();
+        checkBoxRunBNNInt = new javax.swing.JCheckBox();
         panelErrorMeasuresAll = new javax.swing.JPanel();
         panelErrorMeasures = new javax.swing.JPanel();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
@@ -810,7 +826,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addComponent(jLabel17)
-                        .addGap(391, 472, Short.MAX_VALUE))
+                        .addGap(391, 449, Short.MAX_VALUE))
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                         .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
@@ -819,7 +835,7 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(buttonPlotRemoveITS)
                                     .addComponent(buttonPlotAddITS))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonPlotAllITSScatterplot)
@@ -1497,7 +1513,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 1293, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsMLPintLayout.createSequentialGroup()
                                 .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(49, 49, 49)
@@ -1535,7 +1551,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(comboBoxRPackageMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelMLPintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel48)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2424,47 +2440,136 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("[Hybrid]", paneSettingsMethodsHybrid);
 
-        buttonSettingsAddToBatch_BayNN.setText("Add to Analysis batch");
-        buttonSettingsAddToBatch_BayNN.setEnabled(false);
-        buttonSettingsAddToBatch_BayNN.addActionListener(new java.awt.event.ActionListener() {
+        buttonSettingsAddToBatch_BNN.setText("Add to Analysis batch");
+        buttonSettingsAddToBatch_BNN.setEnabled(false);
+        buttonSettingsAddToBatch_BNN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonSettingsAddToBatch_BayNNActionPerformed(evt);
+                buttonSettingsAddToBatch_BNNActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout paneSettingsMethodsBayNNLayout = new javax.swing.GroupLayout(paneSettingsMethodsBayNN);
-        paneSettingsMethodsBayNN.setLayout(paneSettingsMethodsBayNNLayout);
-        paneSettingsMethodsBayNNLayout.setHorizontalGroup(
-            paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneSettingsMethodsBayNNLayout.createSequentialGroup()
+        javax.swing.GroupLayout paneSettingsMethodsBNNLayout = new javax.swing.GroupLayout(paneSettingsMethodsBNN);
+        paneSettingsMethodsBNN.setLayout(paneSettingsMethodsBNNLayout);
+        paneSettingsMethodsBNNLayout.setHorizontalGroup(
+            paneSettingsMethodsBNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsBNNLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelSettingsBayesNNinside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(paneSettingsMethodsBayNNLayout.createSequentialGroup()
-                        .addComponent(buttonSettingsAddToBatch_BayNN)
+                .addGroup(paneSettingsMethodsBNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsBNNinside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(paneSettingsMethodsBNNLayout.createSequentialGroup()
+                        .addComponent(buttonSettingsAddToBatch_BNN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelBayNNPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(panelBNNPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        paneSettingsMethodsBayNNLayout.setVerticalGroup(
-            paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paneSettingsMethodsBayNNLayout.createSequentialGroup()
+        paneSettingsMethodsBNNLayout.setVerticalGroup(
+            paneSettingsMethodsBNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsBNNLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(paneSettingsMethodsBayNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonSettingsAddToBatch_BayNN)
-                    .addComponent(panelBayNNPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(paneSettingsMethodsBNNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonSettingsAddToBatch_BNN)
+                    .addComponent(panelBNNPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelSettingsBayesNNinside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(panelSettingsBNNinside, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        paneSettingsMethods.addTab("Bayesian NN", paneSettingsMethodsBayNN);
+        paneSettingsMethods.addTab("Bayesian NN", paneSettingsMethodsBNN);
+
+        buttonSettingsAddToBatch_BNNint.setText("Add to Analysis Batch");
+        buttonSettingsAddToBatch_BNNint.setEnabled(false);
+        buttonSettingsAddToBatch_BNNint.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_BNNintActionPerformed(evt);
+            }
+        });
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel30.setText("Center:");
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel33.setText("Radius:");
+
+        jLabel160.setText("Distance to use for computing the error measures:");
+
+        jLabel139.setText("Num of networks to train:");
+
+        textFieldNumNetworksToTrainBNNint.setText("1");
+
+        jSeparator13.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        javax.swing.GroupLayout paneSettingsMethodsBNNintLayout = new javax.swing.GroupLayout(paneSettingsMethodsBNNint);
+        paneSettingsMethodsBNNint.setLayout(paneSettingsMethodsBNNintLayout);
+        paneSettingsMethodsBNNintLayout.setHorizontalGroup(
+            paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                        .addComponent(buttonSettingsAddToBatch_BNNint)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelBNNintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                        .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel30)
+                            .addComponent(panelSettingsBNNint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                                .addComponent(jLabel33)
+                                .addGap(626, 626, 626))
+                            .addComponent(panelSettingsBNNint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                        .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel160)
+                            .addComponent(panelBNNintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                        .addComponent(jLabel139)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldNumNetworksToTrainBNNint, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(panelBestModelCriterionBNNint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        paneSettingsMethodsBNNintLayout.setVerticalGroup(
+            paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneSettingsMethodsBNNintLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelBNNintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonSettingsAddToBatch_BNNint))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel33)
+                    .addComponent(jLabel30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panelSettingsBNNint_center, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(jSeparator13, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelSettingsBNNint_radius, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel160)
+                .addGap(4, 4, 4)
+                .addComponent(panelBNNintSettingsDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel139)
+                        .addComponent(textFieldNumNetworksToTrainBNNint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelBestModelCriterionBNNint, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        paneSettingsMethods.addTab("Bayesian NN(i)", paneSettingsMethodsBNNint);
 
         javax.swing.GroupLayout panelAnalysisSettingsLayout = new javax.swing.GroupLayout(panelAnalysisSettings);
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, 1404, Short.MAX_VALUE)
+            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.PREFERRED_SIZE, 1404, Short.MAX_VALUE)
         );
         panelAnalysisSettingsLayout.setVerticalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -2785,7 +2890,9 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        checkBoxRunBayesianNN.setText("Bayesian NN");
+        checkBoxRunBNN.setText("Bayesian NN");
+
+        checkBoxRunBNNInt.setText("BNN(i)");
 
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
@@ -2849,129 +2956,132 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(checkBoxRunHybrid)
-                                .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                    .addComponent(checkBoxRunMLPintNnetar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunMLPintNnet)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunRBFint)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunVARint)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunSESint)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunHoltInt)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunHoltWintersInt)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel3))
-                                .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                            .addComponent(checkBoxRunMLPnnetar)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(checkBoxRunMLPneuralnet)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(checkBoxRunMLPnnet)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(checkBoxRunRBF))
-                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                            .addComponent(checkBoxRunRandomWalkCTS)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(checkBoxRunBayesianNN)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                            .addComponent(checkBoxRunARIMA)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxRunKNNfnn)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(checkBoxRunKNNcustom)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(checkBoxRunKNNkknn))
-                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                            .addGap(129, 129, 129)
-                                            .addComponent(jLabel72)))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(checkBoxRunVAR)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunSES)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunHolt)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunHoltWinters))
-                                .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                    .addComponent(checkBoxRunIntervalMLPCcode)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(checkBoxRunIntervalMLPneuralnet)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(checkBoxRunKNNinterval)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunIntervalHolt)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(checkBoxRunIntervalRandomWalk)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(jLabel133)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
-                                .addGap(622, 622, 622)
+                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxAvgTheilsuCTSperM)
-                                    .addComponent(checkBoxAvgMedianCTSperM))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxAvgMedianCTS)
-                                    .addComponent(checkBoxAvgTheilsuCTS)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addGap(18, 18, 18)
-                                .addComponent(checkBoxAvgSimpleCTSperM)
-                                .addGap(18, 18, 18)
-                                .addComponent(checkBoxAvgSimpleCTS)
-                                .addGap(32, 32, 32)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(checkBoxAvgMDeCTSperM)
+                                    .addComponent(checkBoxRunHybrid)
+                                    .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jSeparator12, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addGap(181, 181, 181)
-                                        .addComponent(checkBoxAvgMDeCTS))))
-                            .addComponent(checkBoxAvgONLY, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(18, 18, 18)
-                                .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxAvgSimpleIntTSperM)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(checkBoxAvgSimpleIntTS)
-                                        .addGap(32, 32, 32)
-                                        .addComponent(checkBoxAvgMDeIntTSperM)
-                                        .addGap(32, 32, 32)
-                                        .addComponent(checkBoxAvgMDeIntTS)
                                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addGap(211, 211, 211)
-                                                .addComponent(checkBoxAvgMedianIntTS))
+                                                .addComponent(checkBoxRunMLPnnetar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunMLPneuralnet)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunMLPnnet)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunRBF))
                                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                                .addGap(50, 50, 50)
-                                                .addComponent(checkBoxAvgTheilsuIntTSperM)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(checkBoxAvgTheilsuIntTS))))
-                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                                        .addComponent(checkBoxAvgCvgEffIntTSperM)
+                                                .addComponent(checkBoxRunRandomWalkCTS)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunBNN)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxAvgCvgEffIntTS)
-                                        .addGap(16, 16, 16)
-                                        .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
+                                        .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addComponent(checkBoxRunARIMA)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkBoxRunKNNfnn)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(checkBoxRunKNNcustom)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(checkBoxRunKNNkknn))
+                                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                .addGap(129, 129, 129)
+                                                .addComponent(jLabel72)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(checkBoxAvgCenterLogRadiusIntTS)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(checkBoxAvgMedianIntTSperM)))))
-                        .addGap(140, 140, 140))
+                                        .addComponent(checkBoxRunVAR)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunSES)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunHolt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunHoltWinters))
+                                    .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                        .addComponent(checkBoxRunIntervalMLPCcode)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunIntervalMLPneuralnet)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(checkBoxRunKNNinterval)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunIntervalHolt)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(checkBoxRunIntervalRandomWalk)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel133)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
+                                    .addGap(622, 622, 622)
+                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkBoxAvgTheilsuCTSperM)
+                                        .addComponent(checkBoxAvgMedianCTSperM))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkBoxAvgMedianCTS)
+                                        .addComponent(checkBoxAvgTheilsuCTS)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(checkBoxAvgSimpleCTSperM)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(checkBoxAvgSimpleCTS)
+                                    .addGap(32, 32, 32)
+                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(checkBoxAvgMDeCTSperM)
+                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addGap(181, 181, 181)
+                                            .addComponent(checkBoxAvgMDeCTS))))
+                                .addComponent(checkBoxAvgONLY, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panelRunOutsideLayout.createSequentialGroup()
+                                    .addComponent(jLabel16)
+                                    .addGap(18, 18, 18)
+                                    .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addComponent(checkBoxAvgSimpleIntTSperM)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(checkBoxAvgSimpleIntTS)
+                                            .addGap(32, 32, 32)
+                                            .addComponent(checkBoxAvgMDeIntTSperM)
+                                            .addGap(32, 32, 32)
+                                            .addComponent(checkBoxAvgMDeIntTS)
+                                            .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                    .addGap(211, 211, 211)
+                                                    .addComponent(checkBoxAvgMedianIntTS))
+                                                .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                                    .addGap(50, 50, 50)
+                                                    .addComponent(checkBoxAvgTheilsuIntTSperM)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(checkBoxAvgTheilsuIntTS))))
+                                        .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                            .addComponent(checkBoxAvgCvgEffIntTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(checkBoxAvgCvgEffIntTS)
+                                            .addGap(16, 16, 16)
+                                            .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(checkBoxAvgCenterLogRadiusIntTS)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(checkBoxAvgMedianIntTSperM)))))
+                            .addGroup(panelRunOutsideLayout.createSequentialGroup()
+                                .addComponent(checkBoxRunMLPintNnetar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMLPintNnet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunRBFint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunVARint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunSESint)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunHoltInt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunHoltWintersInt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(checkBoxRunBNNInt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel3)))
+                        .addGap(88, 88, 88))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(buttonTrainAndTest)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -3079,7 +3189,7 @@ public class MainFrame extends javax.swing.JFrame {
                                             .addComponent(checkBoxRunRandomWalkCTS)))
                                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(checkBoxRunBayesianNN)))
+                                        .addComponent(checkBoxRunBNN)))
                                 .addGap(18, 18, 18)
                                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
@@ -3093,7 +3203,8 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(checkBoxRunVARint)
                                     .addComponent(checkBoxRunHoltInt)
                                     .addComponent(checkBoxRunSESint)
-                                    .addComponent(checkBoxRunHoltWintersInt))
+                                    .addComponent(checkBoxRunHoltWintersInt)
+                                    .addComponent(checkBoxRunBNNInt))
                                 .addGap(18, 18, 18)
                                 .addComponent(jSeparator11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
@@ -4130,8 +4241,12 @@ public class MainFrame extends javax.swing.JFrame {
             buttonSettingsAddToBatch_HoltWintersIntActionPerformed(null);
         }
         
-        if (checkBoxRunBayesianNN.isSelected()) {
-            buttonSettingsAddToBatch_BayNNActionPerformed(null);
+        if (checkBoxRunBNN.isSelected()) {
+            buttonSettingsAddToBatch_BNNActionPerformed(null);
+        }
+        
+        if (checkBoxRunBNNInt.isSelected()) {
+            buttonSettingsAddToBatch_BNNintActionPerformed(null);
         }
         
         runModels(false);
@@ -5628,14 +5743,26 @@ public class MainFrame extends javax.swing.JFrame {
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
     }//GEN-LAST:event_buttonBinomPropPredictActionPerformed
 
-    private void buttonSettingsAddToBatch_BayNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BayNNActionPerformed
+    private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
         try {
-            List<BayesianNNParams> paramsBNN = getParamsBNN(panelBayNNPercentTrain, comboBoxColnamesRun, panelSettingsBayesNNinside);
+            List<BNNParams> paramsBNN = getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
             batchTableModel.addLine(new AnalysisBatchLine(Const.BNN, paramsBNN));
         } catch (IllegalArgumentException e) {
             //TODO
         }
-    }//GEN-LAST:event_buttonSettingsAddToBatch_BayNNActionPerformed
+    }//GEN-LAST:event_buttonSettingsAddToBatch_BNNActionPerformed
+
+    private void buttonSettingsAddToBatch_BNNintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNintActionPerformed
+        try {
+            List<BNNintParams> paramsBNNint = getParamsBNNint(panelBNNintPercentTrain, comboBoxRunFakeIntCenter,
+                panelSettingsBNNint_center, comboBoxRunFakeIntRadius, panelSettingsBNNint_radius,
+                panelBNNintSettingsDistance, textFieldNumNetworksToTrainBNNint,
+                panelBestModelCriterionBNNint);
+            batchTableModel.addLine(new AnalysisBatchLine(Const.BNN_INT, paramsBNNint));
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_BNNintActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5753,7 +5880,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonRunShowHiddenErrorMeasures;
     private javax.swing.JButton buttonSettingsAddToBatch_ARIMA;
-    private javax.swing.JButton buttonSettingsAddToBatch_BayNN;
+    private javax.swing.JButton buttonSettingsAddToBatch_BNN;
+    private javax.swing.JButton buttonSettingsAddToBatch_BNNint;
     private javax.swing.JButton buttonSettingsAddToBatch_Holt;
     private javax.swing.JButton buttonSettingsAddToBatch_HoltWinters;
     private javax.swing.JButton buttonSettingsAddToBatch_HoltWintersInt;
@@ -5794,7 +5922,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxAvgTheilsuIntTS;
     private javax.swing.JCheckBox checkBoxAvgTheilsuIntTSperM;
     private javax.swing.JCheckBox checkBoxRunARIMA;
-    private javax.swing.JCheckBox checkBoxRunBayesianNN;
+    private javax.swing.JCheckBox checkBoxRunBNN;
+    private javax.swing.JCheckBox checkBoxRunBNNInt;
     private javax.swing.JCheckBox checkBoxRunHolt;
     private javax.swing.JCheckBox checkBoxRunHoltInt;
     private javax.swing.JCheckBox checkBoxRunHoltWinters;
@@ -5849,6 +5978,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
     private javax.swing.JLabel jLabel138;
+    private javax.swing.JLabel jLabel139;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel143;
     private javax.swing.JLabel jLabel15;
@@ -5863,6 +5993,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel158;
     private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel160;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -5878,8 +6009,10 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -5918,6 +6051,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -5943,7 +6077,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuFileLoad;
     private javax.swing.JTabbedPane paneSettingsMethods;
     private javax.swing.JPanel paneSettingsMethodsARIMA;
-    private javax.swing.JPanel paneSettingsMethodsBayNN;
+    private javax.swing.JPanel paneSettingsMethodsBNN;
+    private javax.swing.JPanel paneSettingsMethodsBNNint;
     private javax.swing.JPanel paneSettingsMethodsHybrid;
     private javax.swing.JPanel paneSettingsMethodsIntervalMLP;
     private javax.swing.JPanel paneSettingsMethodsKNN;
@@ -5954,9 +6089,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelARIMAPercTrain;
     private javax.swing.JPanel panelAnalysisBatch;
     private javax.swing.JPanel panelAnalysisSettings;
-    private javax.swing.JPanel panelBayNNPercentTrain;
+    private javax.swing.JPanel panelBNNPercentTrain;
+    private javax.swing.JPanel panelBNNintPercentTrain;
+    private javax.swing.JPanel panelBNNintSettingsDistance;
     private javax.swing.JPanel panelBayesianAll;
     private javax.swing.JTabbedPane panelBayesianSettings;
+    private javax.swing.JPanel panelBestModelCriterionBNNint;
     private javax.swing.JPanel panelBestModelCriterionMLPint;
     private javax.swing.JPanel panelBestModelCriterionRBFint;
     private javax.swing.JScrollPane panelBinomPropInfo;
@@ -6014,7 +6152,9 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSESmain;
     private javax.swing.JPanel panelSESpercentTrain;
     private javax.swing.JPanel panelSettingsARIMAMain;
-    private javax.swing.JPanel panelSettingsBayesNNinside;
+    private javax.swing.JPanel panelSettingsBNNinside;
+    private javax.swing.JPanel panelSettingsBNNint_center;
+    private javax.swing.JPanel panelSettingsBNNint_radius;
     private javax.swing.JPanel panelSettingsHybridDistance;
     private javax.swing.JPanel panelSettingsHybridPercentTrain;
     private javax.swing.JPanel panelSettingsHybrid_centerMain;
@@ -6095,6 +6235,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextField textFieldBinomPropPercProbInterval;
     private javax.swing.JTextField textFieldMaxStructBreaks;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
+    private javax.swing.JTextField textFieldNumNetworksToTrainBNNint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
     private javax.swing.JTextField textFieldPlotRangeCTSXfrom;
     private javax.swing.JTextField textFieldPlotRangeCTSXto;
@@ -6462,24 +6603,52 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
-    private List<BayesianNNParams> getParamsBNN(javax.swing.JPanel percentTrainSettingsPanel,
+    private List<BNNParams> getParamsBNN(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsBNN) throws IllegalArgumentException {
-        BayesianNNParams par = new BayesianNNParams();
+        BNNParams par = new BNNParams();
         //zohnat vsetky parametre pre dany model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
-        List<BayesianNNParams> resultList = new ArrayList<>();
+        List<BNNParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        setParamsGeneral(BayesianNNParams.class, resultList);
-        ((BayesianNNSettingsPanel)panelSettingsBNN).setSpecificParams(BayesianNNParams.class, resultList);
+        setParamsGeneral(BNNParams.class, resultList);
+        ((BNNSettingsPanel)panelSettingsBNN).setSpecificParams(BNNParams.class, resultList);
         //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
         CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
         outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
         outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
         List<CrispOutputVariable> outVarList = new ArrayList<>();
         outVarList.add(outVar);
-        SettingsPanel.setSomethingOneValue(BayesianNNParams.class, resultList, "setOutVars", List.class, outVarList);
+        SettingsPanel.setSomethingOneValue(BNNParams.class, resultList, "setOutVars", List.class, outVarList);
+        
+        return resultList;
+    }
+    
+    private List<BNNintParams> getParamsBNNint(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsBNNint_center,
+            javax.swing.JComboBox comboBoxColName_radius, javax.swing.JPanel panelSettingsBNNint_radius, 
+            javax.swing.JPanel panelSettingsDistance, javax.swing.JTextField numNetsToTrainField,
+            javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
+        
+        List<BNNParams> resultListCenter = getParamsBNN(percentTrainSettingsPanel, comboBoxColName_center,
+                panelSettingsBNNint_center);
+        List<BNNParams> resultListRadius = getParamsBNN(percentTrainSettingsPanel, comboBoxColName_radius,
+                panelSettingsBNNint_radius);
+        
+        BNNintParams par = new BNNintParams();
+        
+        List<BNNintParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsCenter",
+                BNNParams.class, resultListCenter);
+        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsRadius",
+                BNNParams.class, resultListRadius);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(BNNintParams.class, resultList);
+        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setNumNetsToTrain",
+                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
+        SettingsPanel.setSomethingOneValue(BNNintParams.class, resultList, "setCriterion",
+                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
         
         return resultList;
     }
@@ -7150,6 +7319,8 @@ public class MainFrame extends javax.swing.JFrame {
         buttonSettingsAddToBatch_SES.setEnabled(trueFalse);
         buttonSettingsAddToBatch_SESint.setEnabled(trueFalse);
         buttonSettingsAddToBatch_VARint.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_BNN.setEnabled(trueFalse);
+        buttonSettingsAddToBatch_BNNint.setEnabled(trueFalse);
 
         buttonACF.setEnabled(trueFalse);
         buttonPACF.setEnabled(trueFalse);
@@ -7185,7 +7356,9 @@ public class MainFrame extends javax.swing.JFrame {
         ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons(trueFalse);
         ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons(trueFalse);
         ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons(trueFalse);
-        ((BayesianNNSettingsPanel)panelSettingsBayesNNinside).enableAllButtons(trueFalse);
+        ((BNNSettingsPanel)panelSettingsBNNinside).enableAllButtons(trueFalse);
+        ((BNNSettingsPanel)panelSettingsBNNint_center).enableAllButtons(trueFalse);
+        ((BNNSettingsPanel)panelSettingsBNNint_radius).enableAllButtons(trueFalse);
     }
     
     private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
@@ -7324,6 +7497,9 @@ public class MainFrame extends javax.swing.JFrame {
                             break;
                         case Const.VAR_INT:
                             forecastable = new VARint();
+                            break;
+                        case Const.BNN_INT:
+                            forecastable = new BNNint();
                             break;
                     }
 
