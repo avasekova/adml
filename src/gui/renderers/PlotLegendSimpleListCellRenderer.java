@@ -1,5 +1,7 @@
 package gui.renderers;
 
+import gui.DefaultPlottable;
+import gui.Plottable;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
@@ -17,7 +19,12 @@ public class PlotLegendSimpleListCellRenderer extends DefaultListCellRenderer {
         
         JLabel colourLabel = new JLabel("   ");
         colourLabel.setOpaque(true); //bez toho nefunguje setBkg
-        colourLabel.setBackground(((PlotLegendSimpleListElement)value).getColour());
+        if (value instanceof PlotLegendSimpleListElement) {
+            colourLabel.setBackground(((PlotLegendSimpleListElement)value).getColour());
+        } else {
+            colourLabel.setBackground(Color.decode(((Plottable)value).getColourInPlot()));
+        }
+        
         
         JLabel fillLabel = new JLabel("  ");
         
