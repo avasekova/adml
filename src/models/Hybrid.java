@@ -4,6 +4,7 @@ import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import models.params.ArimaParams;
+import models.params.BNNParams;
 import models.params.HoltParams;
 import models.params.HybridParams;
 import models.params.KNNfnnParams;
@@ -58,6 +59,9 @@ public class Hybrid implements Forecastable {
         } else if (paramsCenter instanceof SESParams) {
             SES ses = new SES();
             reportCenter = (TrainAndTestReportCrisp) ses.forecast(dataTableModel, paramsCenter);
+        } else if (paramsCenter instanceof BNNParams) {
+            BNN bnn = new BNN();
+            reportCenter = (TrainAndTestReportCrisp) bnn.forecast(dataTableModel, paramsCenter);
         }
         
         //radius
@@ -85,6 +89,9 @@ public class Hybrid implements Forecastable {
         } else if (paramsRadius instanceof SESParams) {
             SES ses = new SES();
             reportRadius = (TrainAndTestReportCrisp) ses.forecast(dataTableModel, paramsRadius);
+        } else if (paramsRadius instanceof BNNParams) {
+            BNN bnn = new BNN();
+            reportRadius = (TrainAndTestReportCrisp) bnn.forecast(dataTableModel, paramsRadius);
         }
         
         //zbytok je potom taky isty
