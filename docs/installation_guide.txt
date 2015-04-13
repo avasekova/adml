@@ -1,0 +1,20 @@
+- install R - just Core files and 64-bit files
+- install Java (JRE) - v7u71, 64-bit
+- notice that neither R_HOME nor JAVA_HOME has been set up
+- install all necessary packages (install.packages(...package...,dependencies=TRUE)). The order does not matter, but I did it in this order: rJava, forecast, JavaGD, XLConnect, FNN, kknn, nnet, scales, reshape, RSNNS, vars, psych, nortest, tseries, bfast, LearnBayes
+- run it just like that (a double-click on MLPtoR.jar or from cmd: "java -jar MLPtoR.jar")
+- UnsatisfiedLinkError: no jri in java.library.path
+- specify R_HOME (it should be sth like C:\Program Files\R\R-3.1.1)
+- add path to R.dll (%R_HOME%/bin/x64) and to jri.dll (%R_HOME%/library/rJava/jri/x64)
+- close the Terminal (if it was run from the Terminal)
+- try again
+- now it works for me
+
+
+
++ cygwin1.dll to run the C code
+
+
++ might be necessary to add %JAVA_HOME%\jre\bin\server to the Path
+
++ if LearnBayes (or any other package) does not load using JRI, it might be necessary to manually copy+paste/move the package from %USER_HOME%\R\win-library\   to %R_HOME%
