@@ -47,5 +47,10 @@ public class BNNintParams extends PseudoIntervalParams {
         
         return param;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\nnumNetsToTrain=" + numNetsToTrain;
+    }
     
 }

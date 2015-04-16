@@ -59,9 +59,12 @@ public class BNNParams extends Params {
         
         return param;
     }
-    
+
     @Override
     public String toString() {
-        return "(to be added)";
+        return "numNodesHidden = " + numNodesHidden + ",\n"
+                + "explVars=" + explVars + ",\n"
+                + "outVars=" + outVars + ",\n"
+                + "maxIterations=" + maxIterations;
     }
 }

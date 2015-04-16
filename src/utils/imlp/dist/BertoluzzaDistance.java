@@ -4,8 +4,8 @@ import utils.imlp.Interval;
 
 public class BertoluzzaDistance extends WeightedEuclideanDistance {
     
-    public BertoluzzaDistance(double beta) {
-        super(beta);
+    public BertoluzzaDistance() {
+        super(1/3);
     }
     
     @Override
@@ -16,6 +16,6 @@ public class BertoluzzaDistance extends WeightedEuclideanDistance {
     @Override
     public String toString() {
         return "Bertoluzza distance\n" +
-               "beta = " + getBeta();
+               "beta = 1/3";
     }
 }

@@ -81,10 +81,14 @@ public class IntervalMLPCcodeParams extends Params {
         
         return param;
     }
-    
+
     @Override
     public String toString() {
-        return "Distance: " + distance + "\n" +
-               "(the rest will be added soon)";
+        return "numNodesHidden=" + numNodesHidden + ",\n"
+                + "numIterations=" + numIterations + ",\n"
+                + "explVars=" + explVars + ",\n"
+                + "outVars=" + outVars + ",\n"
+                + "distance=" + distance + ",\n"
+                + "numNetworks=" + numNetworks;
     }
 }

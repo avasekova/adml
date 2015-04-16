@@ -3742,11 +3742,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel23.setText("Models and methods used in the last analysis:");
 
+        textAreaModelsInfo.setEditable(false);
         textAreaModelsInfo.setColumns(20);
         textAreaModelsInfo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
         textAreaModelsInfo.setLineWrap(true);
         textAreaModelsInfo.setRows(5);
-        textAreaModelsInfo.setFocusable(false);
         jScrollPane8.setViewportView(textAreaModelsInfo);
 
         javax.swing.GroupLayout panelModelDescriptionsAllLayout = new javax.swing.GroupLayout(panelModelDescriptionsAll);
@@ -7163,27 +7163,6 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotRestoreIntTSRangeX.setEnabled(trueFalse);
         buttonPlotRestoreIntTSRangeY.setEnabled(trueFalse);
         buttonPlotZoomIntTS.setEnabled(trueFalse);
-    }
-
-    private Distance getSelectedDistance(JComboBox comboBoxDistance, JTextField euclid_beta, JTextField ichino_gamma, JTextField decarvalho_gamma, JTextField bertoluzza_beta) {
-        switch (comboBoxDistance.getSelectedItem().toString()) {
-            case "Euclidean distance":
-                double beta = Double.parseDouble(euclid_beta.getText());
-                return new WeightedEuclideanDistance(beta);
-            case "Hausdorff distance":
-                return new HausdorffDistance();
-            case "Ichino-Yaguchi distance":
-                double gamma = Double.parseDouble(ichino_gamma.getText());
-                return new IchinoYaguchiDistance(gamma);
-            case "De Carvalho distance":
-                gamma = Double.parseDouble(decarvalho_gamma.getText());
-                return new DeCarvalhoDistance(gamma);
-            case "Bertoluzza distance":
-                gamma = Double.parseDouble(bertoluzza_beta.getText());
-                return new BertoluzzaDistance(gamma);
-            default:
-                return null;
-        }
     }
 
     private void outputPredictionIntervals(List<TrainAndTestReportCrisp> reportsCTS) {

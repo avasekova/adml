@@ -54,10 +54,11 @@ public class KNNkknnParams extends Params {
         
         return param;
     }
-    
+
     @Override
     public String toString() {
-        return "best k = " + bestNumNeighbours + "\n" +
-               "max k = " + maxNeighbours;
+        return "max k=" + maxNeighbours + ",\n"
+                + "best k=" + bestNumNeighbours + ",\n"
+                + "lag=" + lag;
     }
 }

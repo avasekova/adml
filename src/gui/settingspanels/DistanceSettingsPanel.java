@@ -149,7 +149,8 @@ public class DistanceSettingsPanel extends SettingsPanel {
 
         jLabel4.setText("beta:");
 
-        textFieldBertoluzzaBeta.setText("0.5");
+        textFieldBertoluzzaBeta.setText("1/3");
+        textFieldBertoluzzaBeta.setEnabled(false);
 
         javax.swing.GroupLayout panelDistanceBertoluzzaLayout = new javax.swing.GroupLayout(panelDistanceBertoluzza);
         panelDistanceBertoluzza.setLayout(panelDistanceBertoluzzaLayout);
@@ -252,8 +253,8 @@ public class DistanceSettingsPanel extends SettingsPanel {
                 gamma = Double.parseDouble(textFieldDecarvalhoGamma.getText());
                 return new DeCarvalhoDistance(gamma);
             case "Bertoluzza distance":
-                gamma = Double.parseDouble(textFieldBertoluzzaBeta.getText());
-                return new BertoluzzaDistance(gamma);
+                //gamma = Double.parseDouble(textFieldBertoluzzaBeta.getText());
+                return new BertoluzzaDistance();
             default:
                 return null;
         }
