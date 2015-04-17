@@ -45,4 +45,9 @@ public class IntervalOutputVariable {
         hash = 17 * hash + this.intervalNames.hashCode();
         return hash;
     }
+    
+    @Override
+    public String toString() {
+        return "{name=" + name + ", intvl=" + intervalNames + "}";
+    }
 }

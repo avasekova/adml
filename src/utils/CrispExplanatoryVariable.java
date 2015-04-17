@@ -1,7 +1,5 @@
 package utils;
 
-import utils.imlp.IntervalNames;
-
 public class CrispExplanatoryVariable {
     
     private String name;
@@ -54,5 +52,10 @@ public class CrispExplanatoryVariable {
         hash = 17 * hash + this.fieldName.hashCode();
         hash = 17 * hash + this.lag;
         return hash;
+    }
+
+    @Override
+    public String toString() {
+        return "{name=" + name + ", field=" + fieldName + ", lag=" + lag + "}";
     }
 }

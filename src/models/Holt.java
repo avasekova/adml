@@ -37,7 +37,7 @@ public class Holt implements Forecastable {
         
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
         
-        int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
+        int num4castsTestAndFuture /*= 1; */ = inputTest.size() + params.getNumForecasts();
         if (params.getPredIntPercent() == 0) {
             rengine.eval(FORECAST_MODEL + " <- forecast::holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
                 ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", damped=" + params.getDamped() + ")");
@@ -62,6 +62,10 @@ public class Holt implements Forecastable {
         double finalAlpha = getFinalAlpha.asDoubleArray()[0];
         REXP getFinalBeta = rengine.eval(FORECAST_MODEL + "$model$par[\"beta\"]");
         double finalBeta = getFinalBeta.asDoubleArray()[0];
+        
+        //tak a teraz postupne napredikujeme ten zbytok
+        
+        
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT);
         report.setModelDescription(params.toString());

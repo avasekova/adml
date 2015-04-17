@@ -196,6 +196,7 @@ public class NnetParams extends Params {
                "weight decay = " + weightDecay + "\n" + 
                "hessian = " + Utils.booleanToHumanString(hessian) + "\n" + 
                "trace optimization = " + Utils.booleanToHumanString(traceOptimization) + "\n" + 
-               "max number of weights = " + maxNumOfWeights;
+               "max number of weights = " + maxNumOfWeights +
+               "expl.vars = " + explVars;
     }
 }

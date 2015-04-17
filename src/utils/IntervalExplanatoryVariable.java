@@ -55,4 +55,9 @@ public class IntervalExplanatoryVariable {
         hash = 17 * hash + this.lag;
         return hash;
     }
+    
+    @Override
+    public String toString() {
+        return "{name=" + name + ", intvl=" + intervalNames + ", lag=" + lag + "}";
+    }
 }

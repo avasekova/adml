@@ -1,7 +1,5 @@
 package utils;
 
-import utils.imlp.IntervalNames;
-
 public class CrispOutputVariable {
     
     private String name;
@@ -44,5 +42,10 @@ public class CrispOutputVariable {
         hash = 17 * hash + this.name.hashCode();
         hash = 17 * hash + this.fieldName.hashCode();
         return hash;
+    }
+    
+    @Override
+    public String toString() {
+        return "{name=" + name + ", field=" + fieldName + "}";
     }
 }
