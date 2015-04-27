@@ -81,21 +81,27 @@ public class DataTableModel extends AbstractTableModel {
         //then load new
         Rengine rengine = MyRengine.getRengine();
         
-        rengine.eval("require(XLConnect)");
         String filePathEscaped = file.getPath().replace("\\","/"); //toto je snad lepsie kvoli platformovej prenositelnosti..?
-        rengine.eval(WORKBOOK + " <- loadWorkbook(\"" + filePathEscaped + "\")");
-        
+        String header = "";
         //read data
         switch (customizer.getColnamesType()) {
             case FIRST_ROW:
-                rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = TRUE)"); //header=TRUE
+                header = "TRUE";
                 break;
             case DUMMY:
-                rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = FALSE)"); //header=FALSE
-                break;
             case CUSTOM:
-                rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = FALSE)"); //header=FALSE
+                header = "FALSE";
                 break;
+        }
+        
+        if (".csv".equals(file.getName().substring(file.getName().lastIndexOf('.'), file.getName().length()))) {
+            //csv sa loaduje inak ako xls(x)
+            rengine.eval(DATA + " <- read.csv(file=\"" + filePathEscaped + "\", header=" + header + ", sep=\",\")");
+        } else {
+            rengine.eval("require(XLConnect)");
+            rengine.eval(WORKBOOK + " <- loadWorkbook(\"" + filePathEscaped + "\")");
+        
+            rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = " + header + ")"); //header=TRUE
         }
         
         //read X labels

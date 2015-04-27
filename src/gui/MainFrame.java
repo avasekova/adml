@@ -10,6 +10,7 @@ import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.FileFilterXlsXlsx;
+import gui.filefilters.FileFilterXlsXlsxCsv;
 import gui.filefilters.RFileFilter;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
@@ -3932,7 +3933,7 @@ public class MainFrame extends javax.swing.JFrame {
         JFileChooser fileChooser = new JFileChooser((File)null);
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.setFileFilter(new FileFilterXlsXlsx());
+        fileChooser.setFileFilter(new FileFilterXlsXlsxCsv());
         LoadDataCustomizerPanel customizer = new LoadDataCustomizerPanel();
         fileChooser.setAccessory(customizer);
         if (evt.getSource() == menuFileLoad) {
