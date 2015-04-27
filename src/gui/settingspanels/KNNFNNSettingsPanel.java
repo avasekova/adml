@@ -26,7 +26,7 @@ public class KNNFNNSettingsPanel extends SettingsPanel {
         jLabel46 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         textFieldLag = new javax.swing.JTextField();
-        spinnerNumNeighbours = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+        spinnerNumNeighbours = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
 
         jLabel46.setText("Number of neighbours considered:");
 

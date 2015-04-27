@@ -24,7 +24,7 @@ public class KNNkknnSettingsPanel extends SettingsPanel {
     private void initComponents() {
 
         jLabel73 = new javax.swing.JLabel();
-        spinnerNumNeighbours = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+        spinnerNumNeighbours = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
         jLabel75 = new javax.swing.JLabel();
         jLabel74 = new javax.swing.JLabel();
         textFieldLag = new javax.swing.JTextField();
@@ -78,7 +78,7 @@ public class KNNkknnSettingsPanel extends SettingsPanel {
     // End of variables declaration//GEN-END:variables
 
     public String getNumNeighbours() {
-        return spinnerNumNeighbours.getValue().toString();
+        return spinnerNumNeighbours.getValue().toString(); //TODO obmedzit v SpinnerNumberModele maximalnu hodnotu na nieco neprekracujuce velkost suboru
     }
     
     public String getLag() {
