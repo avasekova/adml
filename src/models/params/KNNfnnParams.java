@@ -5,7 +5,6 @@ public class KNNfnnParams extends Params {
     private String colName;
     
     private int numNeighbours;
-    private int lag;
 
     public String getColName() {
         return colName;
@@ -22,14 +21,6 @@ public class KNNfnnParams extends Params {
     public void setNumNeighbours(Integer numNeighbours) {
         this.numNeighbours = numNeighbours;
     }
-
-    public int getLag() {
-        return lag;
-    }
-
-    public void setLag(Integer lag) {
-        this.lag = lag;
-    }
     
     @Override
     public KNNfnnParams getClone() {
@@ -37,7 +28,6 @@ public class KNNfnnParams extends Params {
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setSeasonality(this.getSeasonality());
-        param.setLag(lag);
         param.setNumForecasts(this.getNumForecasts());
         param.setNumNeighbours(numNeighbours);
         param.setPercentTrain(this.getPercentTrain());
@@ -48,7 +38,6 @@ public class KNNfnnParams extends Params {
 
     @Override
     public String toString() {
-        return "numNeighbours=" + numNeighbours + ",\n"
-                + "lag=" + lag;
+        return "numNeighbours=" + numNeighbours;
     }
 }

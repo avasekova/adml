@@ -35,10 +35,12 @@ public class KNNkknn implements Forecastable {
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(kknn)");
         
+        final int LAG = 1;
+        
         rengine.assign(INPUT, Utils.listToArray(dataToUse));
         rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
-        rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
-        rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + params.getLag() + "):length(" + OUTPUT + ")]"); //(1+lag):length
+        rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + LAG + ")]"); //1:(length-lag)
+        rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + LAG + "):length(" + OUTPUT + ")]"); //(1+lag):length
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         
@@ -72,7 +74,7 @@ public class KNNkknn implements Forecastable {
         params.setBestNumNeighbours(bestK);
         
         
-        rengine.eval(OUTPUT + " <- c(rep(NA, " + params.getLag() + "), " + OUTPUT + ")");
+        rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT + ")");
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
         REXP getOutputTrain = rengine.eval(OUTPUT_TRAIN);
@@ -95,7 +97,7 @@ public class KNNkknn implements Forecastable {
         report.setRealOutputsTest(outputTest);
         
 //        report.setForecastValuesFuture(); //nothing yet
-        report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + FITTED_VALS + ", " + FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(rep(NA, " + LAG + "), " + FITTED_VALS + ", " + FORECAST_VALS + "))");
         report.setErrorMeasures(errorMeasures);
         
         return report;

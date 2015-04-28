@@ -17,30 +17,17 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel46" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="jLabel46" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="spinnerNumNeighbours" alignment="0" max="32767" attributes="0"/>
-                  <Component id="textFieldLag" alignment="0" min="-2" pref="45" max="-2" attributes="0"/>
-              </Group>
+              <Component id="spinnerNumNeighbours" min="-2" pref="45" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="spinnerNumNeighbours" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textFieldLag" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+          <Group type="103" groupAlignment="3" attributes="0">
+              <Component id="jLabel46" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Component id="spinnerNumNeighbours" alignment="3" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -49,16 +36,6 @@
     <Component class="javax.swing.JLabel" name="jLabel46">
       <Properties>
         <Property name="text" type="java.lang.String" value="Number of neighbours considered:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel7">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Lag:"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JTextField" name="textFieldLag">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="1"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSpinner" name="spinnerNumNeighbours">

@@ -6,7 +6,6 @@ public class KNNkknnParams extends Params {
     
     private int maxNeighbours;
     private long bestNumNeighbours;
-    private int lag;
 
     public String getColName() {
         return colName;
@@ -31,14 +30,6 @@ public class KNNkknnParams extends Params {
     public void setBestNumNeighbours(long bestNumNeighbours) {
         this.bestNumNeighbours = bestNumNeighbours;
     }
-
-    public int getLag() {
-        return lag;
-    }
-
-    public void setLag(Integer lag) {
-        this.lag = lag;
-    }
     
     @Override
     public KNNkknnParams getClone() {
@@ -46,7 +37,6 @@ public class KNNkknnParams extends Params {
         param.setDataRangeFrom(this.getDataRangeFrom());
         param.setDataRangeTo(this.getDataRangeTo());
         param.setSeasonality(this.getSeasonality());
-        param.setLag(lag);
         param.setMaxNeighbours(maxNeighbours);
         param.setNumForecasts(this.getNumForecasts());
         param.setPercentTrain(this.getPercentTrain());
@@ -58,7 +48,6 @@ public class KNNkknnParams extends Params {
     @Override
     public String toString() {
         return "max k=" + maxNeighbours + ",\n"
-                + "best k=" + bestNumNeighbours + ",\n"
-                + "lag=" + lag;
+                + "best k=" + bestNumNeighbours;
     }
 }

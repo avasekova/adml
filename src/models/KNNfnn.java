@@ -20,23 +20,17 @@ public class KNNfnn implements Forecastable {
         final String NBRS_WITH_TEST = Const.NEIGHBOURS + Utils.getCounter();
         
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
-        final String SCALED_INPUT_TRAIN = "scaled." + INPUT_TRAIN;
-        
         final String INPUT_TEST = Const.INPUT + Utils.getCounter();
-        final String SCALED_INPUT_TEST = "scaled." + INPUT_TEST;
         
         final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
-        final String SCALED_OUTPUT_TRAIN = "scaled." + OUTPUT_TRAIN;
-        final String UNSCALED_PREDICTED_TRAIN = "predicted." + OUTPUT_TRAIN;
+        final String PREDICTED_TRAIN = "predicted." + OUTPUT_TRAIN;
         
         final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
-        final String SCALED_OUTPUT_TEST = "scaled." + OUTPUT_TEST;
-        final String UNSCALED_PREDICTED_TEST = "predicted." + OUTPUT_TEST;
+        final String PREDICTED_TEST = "predicted." + OUTPUT_TEST;
         
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
-        final String SCALED_INPUT = "scaled." + INPUT;
-        final String SCALED_OUTPUT = "scaled." + OUTPUT;
+        final String PREDICTED_OUTPUT = Const.OUTPUT + Utils.getCounter();
         
         KNNfnnParams params = (KNNfnnParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_FNN);
@@ -48,45 +42,36 @@ public class KNNfnn implements Forecastable {
         Rengine rengine = MyRengine.getRengine();
         rengine.eval("require(FNN)");
         
+        final int LAG = 1;
+        
         //vyrobit dva subory dat (vstupy, vystupy), lagnuty o prislusny lag (rovnaka dlzka)
         rengine.assign(INPUT, Utils.listToArray(dataToUse));
         rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
-        rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + params.getLag() + ")]"); //1:(length-lag)
-        rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + params.getLag() + "):length(" + OUTPUT + ")]"); //(1+lag):length
-        
-        rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + INPUT + ")");
-        rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + OUTPUT + ")");
         
         //potom z dlzky tychto suborov vypocitat numTrainingEntries podla percentTrain
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         
         //potom si vyrobit trainingValues, testingValues
-        rengine.eval(SCALED_INPUT_TRAIN + " <- " + SCALED_INPUT + "[1:" + numTrainingEntries + "]");
-        rengine.eval(SCALED_INPUT_TEST + " <- " + SCALED_INPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_INPUT + ")]");
+        rengine.eval(INPUT_TRAIN + " <- " + INPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(INPUT_TEST + " <- " + INPUT + "[" + (numTrainingEntries+1) + ":(length(" + INPUT + ")-1)]");
         
-        rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[2:" + (numTrainingEntries+1) + "]");
         
-        rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + SCALED_OUTPUT + ")]");
+        rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+2) + ":length(" + OUTPUT + ")]");
         
         //first run it without testing data - will give residuals for training data
-        rengine.eval(NBRS_NO_TEST + " <- FNN::knn.reg(" + SCALED_INPUT_TRAIN + ", y = " + SCALED_OUTPUT_TRAIN
+        rengine.eval(NBRS_NO_TEST + " <- FNN::knn.reg(" + INPUT_TRAIN + ", y = " + OUTPUT_TRAIN
                                                     + ", k = " + params.getNumNeighbours() + ")");
-        
-        //the predicted values are in NBRS_NO_TEST$pred, but they need to be scaled back using OUTPUT_TRAIN scale
-        rengine.eval(UNSCALED_PREDICTED_TRAIN + " <- MLPtoR.unscale(" + NBRS_NO_TEST + "$pred, " + OUTPUT + ")");
-        REXP getPredictedValsNoTest = rengine.eval(UNSCALED_PREDICTED_TRAIN);
-        double[] predictedTrain = getPredictedValsNoTest.asDoubleArray();
+        rengine.eval(PREDICTED_TRAIN + " <- " + NBRS_NO_TEST + "$pred");
         
         //then run it with testing data (TODO and later with forecasts)
-        rengine.eval(NBRS_WITH_TEST + " <- FNN::knn.reg(train = " + SCALED_INPUT_TRAIN + ", test = data.frame(" + SCALED_INPUT_TEST
-                                                   + "), y = " + SCALED_OUTPUT_TRAIN + ", k = " + params.getNumNeighbours() + ")");
-        //the predicted values for test data are in NBRS_NO_TEST$pred, but they need to be scaled back using OUTPUT_TEST scale
-        rengine.eval(UNSCALED_PREDICTED_TEST + " <- MLPtoR.unscale(" + NBRS_WITH_TEST + "$pred, " + OUTPUT + ")");
-        REXP getPredictedValsWithTest = rengine.eval(UNSCALED_PREDICTED_TEST);
-        double[] predictedTest = getPredictedValsWithTest.asDoubleArray();
+        rengine.eval(NBRS_WITH_TEST + " <- FNN::knn.reg(train = " + INPUT_TRAIN + ", test = data.frame(" + INPUT_TEST
+                                                   + "), y = " + OUTPUT_TRAIN + ", k = " + params.getNumNeighbours() + ")");
+        rengine.eval(PREDICTED_TEST + " <- " + NBRS_WITH_TEST + "$pred");
         
-        rengine.eval(OUTPUT + " <- c(rep(NA, " + params.getLag() + "), " + OUTPUT + ")");
+        //cele to posunut podla lagu:
+        rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
         
@@ -95,26 +80,36 @@ public class KNNfnn implements Forecastable {
         
         REXP getTestingOutputs = rengine.eval(OUTPUT_TEST);
         double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        //-----
+        rengine.eval(PREDICTED_OUTPUT + " <- c(rep(NA, " + LAG + "), " + PREDICTED_TRAIN + ", " + PREDICTED_TEST + ")");
+        rengine.eval(PREDICTED_TRAIN + " <- " + PREDICTED_OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(PREDICTED_TEST + " <- " + PREDICTED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + PREDICTED_OUTPUT + ")]");
+        
+        REXP getTrainingPredicted = rengine.eval(PREDICTED_TRAIN);
+        double[] trainingPredicted = getTrainingPredicted.asDoubleArray();
+        
+        REXP getTestingPredicted = rengine.eval(PREDICTED_TEST);
+        double[] testingPredicted = getTestingPredicted.asDoubleArray();
         
         //then compute ErrorMeasures
         //TODO check the error measures, pretoze si myslim, ze to napriklad nepocita s tym posunom kvoli lagu. a potom
         // napriklad pre test data mam len par pozorovani, ale priemerne errory delim celkovym poctom testov, a vychadzaju
         // mi velmi male errory. bud je chybny graf alebo pocitanie errorov, pretoze na grafe su vyssie hodnoty
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 
-                Utils.arrayToList(testingOutputs), Utils.arrayToList(predictedTrain), Utils.arrayToList(predictedTest), 
+                Utils.arrayToList(testingOutputs), Utils.arrayToList(trainingPredicted), Utils.arrayToList(testingPredicted), 
                 parameters.getSeasonality());
         
         report.setErrorMeasures(errorMeasures);
         
         //then report.setEverything
-        report.setFittedValues(predictedTrain);
-        report.setForecastValuesTest(predictedTest);
+        report.setFittedValues(trainingPredicted);
+        report.setForecastValuesTest(testingPredicted);
 //        report.setForecastValuesFuture(); //nothing yet
         
         report.setRealOutputsTrain(trainingOutputs);
         report.setRealOutputsTest(testingOutputs);
         
-        report.setPlotCode("plot.ts(c(rep(NA, " + params.getLag() + "), " + UNSCALED_PREDICTED_TRAIN + ", " + UNSCALED_PREDICTED_TEST + "))");
+        report.setPlotCode("plot.ts(c(" + PREDICTED_TRAIN + ", " + PREDICTED_TEST + "))");
         
         return report;
     }
