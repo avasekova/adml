@@ -23,6 +23,7 @@ public class KNNkknn implements Forecastable {
         final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
         final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
         final String MODEL = Const.MODEL + Utils.getCounter();
+        final String PREDICTED_OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String FORECAST_VALS = Const.FORECAST_VALS + Utils.getCounter();
         final String FITTED_VALS = Const.FIT + Utils.getCounter();
         final String BEST_K = "bestk" + Utils.getCounter();
@@ -39,15 +40,13 @@ public class KNNkknn implements Forecastable {
         
         rengine.assign(INPUT, Utils.listToArray(dataToUse));
         rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
-        rengine.eval(INPUT + " <- " + INPUT + "[1:(length(" + INPUT + ") - " + LAG + ")]"); //1:(length-lag)
-        rengine.eval(OUTPUT + " <- " + OUTPUT + "[(1 + " + LAG + "):length(" + OUTPUT + ")]"); //(1+lag):length
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         
         rengine.eval(INPUT_TRAIN + " <- " + INPUT + "[1:" + numTrainingEntries + "]");
-        rengine.eval(INPUT_TEST + " <- " + INPUT + "[" + (numTrainingEntries+1) + ":length(" + INPUT + ")]");
-        rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
-        rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
+        rengine.eval(INPUT_TEST + " <- " + INPUT + "[" + (numTrainingEntries+1) + ":(length(" + INPUT + ")-1)]");
+        rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[2:" + (numTrainingEntries+1) + "]");
+        rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+2) + ":length(" + OUTPUT + ")]");
         
         //nescalujem, dufam, ze nebude treba
         
@@ -56,16 +55,11 @@ public class KNNkknn implements Forecastable {
         
         //fitted.values(model)[model$best.parameters$k][[1]][1:51]     - dalo zabrat na to prist, tak to nemazat...
         rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")[" + MODEL + "$best.parameters$k][[1]][1:" + numTrainingEntries + "]");
-        REXP getTrainingVals = rengine.eval(FITTED_VALS);
-        double[] trainingVals = getTrainingVals.asDoubleArray();
         
         //test data forecasts
         //pozor, treba nazvat tie stlpce v data.frame tak isto, ako sa volaju vo formulke v train.kknn - zato tu je IN/OUT_TRAIN
         rengine.eval(FORECAST_VALS + " <- predict(" + MODEL + ", data.frame(" + INPUT_TRAIN + " = " + INPUT_TEST + ", "
                                                                               + OUTPUT_TRAIN + " = " + OUTPUT_TEST + "))");
-        //velmi dufam, ze to bude fungovat, a nie ze to interpretuje tie IN/OUT_TRAIN ako hodnoty miesto nazvov :(
-        REXP getTestingVals = rengine.eval(FORECAST_VALS);
-        double[] testingVals = getTestingVals.asDoubleArray();
         
         rengine.eval(BEST_K + " <- " + MODEL + "$best.parameters$k");
         REXP getBestK = rengine.eval(BEST_K);
@@ -73,31 +67,43 @@ public class KNNkknn implements Forecastable {
         long bestK = Math.round(bestKarray[0]); //will be integer anyway
         params.setBestNumNeighbours(bestK);
         
-        
-        rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT + ")");
+        //cele to posunut podla lagu:
+        rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
-        REXP getOutputTrain = rengine.eval(OUTPUT_TRAIN);
-        double[] outputTrain = getOutputTrain.asDoubleArray();
-        REXP getOutputTest = rengine.eval(OUTPUT_TEST);
-        double[] outputTest = getOutputTest.asDoubleArray();
+        
+        REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
+        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
+        
+        REXP getTestingOutputs = rengine.eval(OUTPUT_TEST);
+        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        //-----
+        rengine.eval(PREDICTED_OUTPUT + " <- c(rep(NA, " + LAG + "), " + FITTED_VALS + ", " + FORECAST_VALS + ")");
+        rengine.eval(FITTED_VALS + " <- " + PREDICTED_OUTPUT + "[1:" + numTrainingEntries + "]");
+        rengine.eval(FORECAST_VALS + " <- " + PREDICTED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + PREDICTED_OUTPUT + ")]");
+        
+        REXP getTrainingPredicted = rengine.eval(FITTED_VALS);
+        double[] trainingPredicted = getTrainingPredicted.asDoubleArray();
+        
+        REXP getTestingPredicted = rengine.eval(FORECAST_VALS);
+        double[] testingPredicted = getTestingPredicted.asDoubleArray();
         
         
-        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(outputTrain), 
-                Utils.arrayToList(outputTest), Utils.arrayToList(trainingVals), Utils.arrayToList(testingVals), 
+        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 
+                Utils.arrayToList(testingOutputs), Utils.arrayToList(trainingPredicted), Utils.arrayToList(testingPredicted), 
                 parameters.getSeasonality());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_KKNN); //MODEL$best.parameters$k
         report.setModelDescription(params.toString());
         report.setNumTrainingEntries(numTrainingEntries);
-        report.setFittedValues(trainingVals);
-        report.setForecastValuesTest(testingVals); //TODO add forecasts...
+        report.setFittedValues(trainingPredicted);
+        report.setForecastValuesTest(testingPredicted); //TODO add forecasts...
         
-        report.setRealOutputsTrain(outputTrain);
-        report.setRealOutputsTest(outputTest);
+        report.setRealOutputsTrain(trainingOutputs);
+        report.setRealOutputsTest(testingOutputs);
         
 //        report.setForecastValuesFuture(); //nothing yet
-        report.setPlotCode("plot.ts(c(rep(NA, " + LAG + "), " + FITTED_VALS + ", " + FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + FITTED_VALS + ", " + FORECAST_VALS + "))");
         report.setErrorMeasures(errorMeasures);
         
         return report;

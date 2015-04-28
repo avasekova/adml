@@ -18,16 +18,12 @@ public class KNNfnn implements Forecastable {
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         final String NBRS_NO_TEST = Const.NEIGHBOURS + Utils.getCounter();
         final String NBRS_WITH_TEST = Const.NEIGHBOURS + Utils.getCounter();
-        
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String INPUT_TEST = Const.INPUT + Utils.getCounter();
-        
         final String OUTPUT_TRAIN = Const.OUTPUT + Utils.getCounter();
         final String PREDICTED_TRAIN = "predicted." + OUTPUT_TRAIN;
-        
         final String OUTPUT_TEST = Const.OUTPUT + Utils.getCounter();
         final String PREDICTED_TEST = "predicted." + OUTPUT_TEST;
-        
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String PREDICTED_OUTPUT = Const.OUTPUT + Utils.getCounter();
@@ -57,7 +53,6 @@ public class KNNfnn implements Forecastable {
         rengine.eval(INPUT_TEST + " <- " + INPUT + "[" + (numTrainingEntries+1) + ":(length(" + INPUT + ")-1)]");
         
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[2:" + (numTrainingEntries+1) + "]");
-        
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+2) + ":length(" + OUTPUT + ")]");
         
         //first run it without testing data - will give residuals for training data
