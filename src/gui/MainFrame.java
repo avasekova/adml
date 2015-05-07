@@ -3,6 +3,7 @@ package gui;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.dialogs.DialogAddIntervalExplanatoryVar;
 import gui.dialogs.DialogAddIntervalOutputVar;
+import gui.dialogs.DialogConvertLbUbCenterRadius;
 import gui.dialogs.DialogLbUbCenterRadius;
 import gui.dialogs.DialogTooManyModels;
 import gui.filefilters.FileFilterEps;
@@ -264,6 +265,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         textFieldAggregateToITSevery = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
+        buttonConvertITSLBUBCR = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -1241,6 +1243,14 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel25.setText("observations");
 
+        buttonConvertITSLBUBCR.setText("Convert LB/UB <-> C/R");
+        buttonConvertITSLBUBCR.setEnabled(false);
+        buttonConvertITSLBUBCR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConvertITSLBUBCRActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelTransformLayout = new javax.swing.GroupLayout(panelTransform);
         panelTransform.setLayout(panelTransformLayout);
         panelTransformLayout.setHorizontalGroup(
@@ -1260,7 +1270,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel25)))
+                        .addComponent(jLabel25))
+                    .addComponent(buttonConvertITSLBUBCR))
                 .addContainerGap(875, Short.MAX_VALUE))
         );
         panelTransformLayout.setVerticalGroup(
@@ -1279,7 +1290,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonAggregateToITS)
                             .addComponent(jLabel24)
                             .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25)))
+                            .addComponent(jLabel25))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonConvertITSLBUBCR))
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(390, Short.MAX_VALUE))
         );
@@ -5770,6 +5783,14 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_BNNintActionPerformed
+
+    private void buttonConvertITSLBUBCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConvertITSLBUBCRActionPerformed
+        DialogConvertLbUbCenterRadius dialogConvertLBUBCenterRadius = DialogConvertLbUbCenterRadius.getInstance(this, true);
+        dialogConvertLBUBCenterRadius.setColnames(dataTableModel.getColnames());
+        dialogConvertLBUBCenterRadius.setVisible(true);
+        
+        fillGUIelementsWithNewData();
+    }//GEN-LAST:event_buttonConvertITSLBUBCRActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5848,6 +5869,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonBinomPropPredict;
     private javax.swing.JButton buttonBinomPropSimulate;
     private javax.swing.JButton buttonBoxplots;
+    private javax.swing.JButton buttonConvertITSLBUBCR;
     private javax.swing.JButton buttonDiffSeries;
     private javax.swing.JButton buttonExportAnalysisPlots;
     private javax.swing.JButton buttonExportAnalysisText;
@@ -7249,7 +7271,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }
 
-    private void fillGUIelementsWithNewData() {
+    private void fillGUIelementsWithNewData() { //TODO pridat observer na polia v dataTableModele?
         cleanGUIelements();
         
         textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
@@ -7341,6 +7363,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonLogTransformSeries.setEnabled(trueFalse);
         buttonRemoveTrend.setEnabled(trueFalse);
         buttonAggregateToITS.setEnabled(trueFalse);
+        buttonConvertITSLBUBCR.setEnabled(trueFalse);
         
         buttonPlotAllITS.setEnabled(trueFalse);
         buttonPlotAllITSScatterplot.setEnabled(trueFalse);
@@ -7757,6 +7780,48 @@ public class MainFrame extends javax.swing.JFrame {
         dataTableModel.addDataForColname(r.toString() + "(UB)", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
         dataTableModel.addDataForColname(r.toString() + "(C)", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
         dataTableModel.addDataForColname(r.toString() + "(R)", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        fillGUIelementsWithNewData();
+    }
+
+    public void convertITStoLBUB(IntervalNamesCentreRadius namesCR) {
+        Rengine rengine = MyRengine.getRengine();
+        
+        final String CENTERS = Const.INPUT + Utils.getCounter();
+        final String RADII = Const.INPUT + Utils.getCounter();
+        final String LOWERS = Const.INPUT + Utils.getCounter();
+        final String UPPERS = Const.INPUT + Utils.getCounter();
+        
+        rengine.assign(CENTERS, Utils.listToArray(dataTableModel.getDataForColname(namesCR.getCentre())));
+        rengine.assign(RADII, Utils.listToArray(dataTableModel.getDataForColname(namesCR.getRadius())));
+        rengine.eval(LOWERS + " <- " + CENTERS + " - " + RADII);
+        rengine.eval(UPPERS + " <- " + CENTERS + " + " + RADII);
+        
+
+        //pridaj vsetko medzi data
+        dataTableModel.addDataForColname("LB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
+        dataTableModel.addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
+        
+        fillGUIelementsWithNewData();
+    }
+
+    public void convertITStoCR(IntervalNamesLowerUpper namesLBUB) {
+        Rengine rengine = MyRengine.getRengine();
+        
+        final String CENTERS = Const.INPUT + Utils.getCounter();
+        final String RADII = Const.INPUT + Utils.getCounter();
+        final String LOWERS = Const.INPUT + Utils.getCounter();
+        final String UPPERS = Const.INPUT + Utils.getCounter();
+        
+        rengine.assign(LOWERS, Utils.listToArray(dataTableModel.getDataForColname(namesLBUB.getLowerBound())));
+        rengine.assign(UPPERS, Utils.listToArray(dataTableModel.getDataForColname(namesLBUB.getUpperBound())));
+        rengine.eval(CENTERS + " <- (" + UPPERS + " + " + LOWERS + ")/2");
+        rengine.eval(RADII + " <- (" + UPPERS + " - " + LOWERS + ")/2");
+        
+
+        //pridaj vsetko medzi data
+        dataTableModel.addDataForColname("C" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+        dataTableModel.addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        
         fillGUIelementsWithNewData();
     }
 }

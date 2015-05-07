@@ -933,6 +933,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="buttonConvertITSLBUBCR" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="875" max="32767" attributes="0"/>
                   </Group>
@@ -956,6 +957,8 @@
                                   <Component id="textFieldAggregateToITSevery" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="buttonConvertITSLBUBCR" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane7" min="-2" pref="258" max="-2" attributes="0"/>
                       </Group>
@@ -1031,6 +1034,15 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="observations"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonConvertITSLBUBCR">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Convert LB/UB &lt;-&gt; C/R"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonConvertITSLBUBCRActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
