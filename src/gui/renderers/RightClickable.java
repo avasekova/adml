@@ -14,6 +14,7 @@ import models.avg.AveragesConfig;
 import utils.Const;
 import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
+import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
 public interface RightClickable {
@@ -59,6 +60,8 @@ public interface RightClickable {
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
             MainFrame.getInstance().drawPlotGeneral(true, "plot.ts", "", ((CallParamsDrawPlotGeneral)PlotStateKeeper.getLastCallParams()).getColnames());
             MainFrame.getInstance().setPlotRanges(1, 0);
+        } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
+            PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
         }
     };
     

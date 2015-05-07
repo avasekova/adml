@@ -129,7 +129,7 @@ public class PlotDrawer {
             //teraz nakresli vsetko
             for (TrainAndTestReportCrisp r : whatToDrawNow) {
                 if (! r.isVisible()) { //skip those that are turned off
-                    if (r.getColourInPlot().equals("#FFFFFF")) {
+                    if (r.getColourInPlot() == null) {
                         ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
                     }
                     //do not discard the colour in case it was given, i.e. no new colour would have been asked for anyway
@@ -141,7 +141,7 @@ public class PlotDrawer {
                 }
                 
                 String colourToUseNow;
-                if (refreshOnly || (!r.getColourInPlot().equals("#FFFFFF"))) { //get the colour that was used previously
+                if (refreshOnly || (r.getColourInPlot() != null)) { //get the colour that was used previously
                     colourToUseNow = r.getColourInPlot();
                 } else { //else get a new one
                     colourToUseNow = ColourService.getService().getNewColour();
@@ -184,7 +184,7 @@ public class PlotDrawer {
 
                 //add a dashed vertical line to separate test and train
                 rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
-                if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
+                if ((! refreshOnly) && (r.getColourInPlot() == null)) {
                     r.setColourInPlot(colourToUseNow);
                 }
             }
@@ -236,7 +236,7 @@ public class PlotDrawer {
             //now draw
             for (TrainAndTestReportInterval r : whatToDrawNow) {
                 if (! r.isVisible()) { //skip those that are turned off
-                    if (r.getColourInPlot().equals("#FFFFFF")) {
+                    if (r.getColourInPlot() == null) {
                         ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
                     }
                     //do not discard the colour in case it was given, i.e. no new colour would have been asked for anyway
@@ -248,7 +248,7 @@ public class PlotDrawer {
                 }
                 
                 String colourToUseNow;
-                if (refreshOnly || (!r.getColourInPlot().equals("#FFFFFF"))) { //get the colour that was used previously
+                if (refreshOnly || (r.getColourInPlot() != null)) { //get the colour that was used previously
                     colourToUseNow = r.getColourInPlot();
                 } else { //else get a new one
                     colourToUseNow = ColourService.getService().getNewColour();
@@ -309,7 +309,7 @@ public class PlotDrawer {
 
                 wasSthDrawnIntTS = true;
 
-                if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
+                if ((! refreshOnly) && (r.getColourInPlot() == null)) {
                     r.setColourInPlot(colourToUseNow);
                 }
             }
@@ -427,7 +427,7 @@ public class PlotDrawer {
             //add a dashed vertical line to separate test and train
             //possible later when I replace String keys with TrainAndTestReport keys in the residuals map
 //            rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
-//            if ((! refreshOnly) && (r.getColourInPlot().equals("#FFFFFF"))) {
+//            if ((! refreshOnly) && (r.getColourInPlot().equals("....."))) {
 //                r.setColourInPlot(colourToUseNow);
 //            }
             
@@ -475,10 +475,11 @@ public class PlotDrawer {
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             //remember the colour for the legend
-            String colour = ColourService.getService().getNewColour();
-            interval.setColourInPlot(colour);
+            if (interval.getColourInPlot() == null) {
+                interval.setColourInPlot(ColourService.getService().getNewColour());
+            }
             
-            String lineStyle = ", lwd=4, col=\"" + colour + "\"";
+            String lineStyle = ", lwd=4, col=\"" + interval.getColourInPlot() + "\"";
             drawPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
                     par.getDataTableModel().getDataForColname(interval.getRadius()), next, lineStyle, rangeX, rangeY);
             if (! next) {
@@ -489,10 +490,11 @@ public class PlotDrawer {
         next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            String colour = ColourService.getService().getNewColour();
-            interval.setColourInPlot(colour);
+            if (interval.getColourInPlot() == null) {
+                interval.setColourInPlot(ColourService.getService().getNewColour());
+            }
             
-            String lineStyle = ", lwd=4, col=\"" + colour + "\"";
+            String lineStyle = ", lwd=4, col=\"" + interval.getColourInPlot() + "\"";
             drawPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
                     par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeX, rangeY);
             if (! next) {
@@ -1082,7 +1084,7 @@ public class PlotDrawer {
         
         if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
             for (Plottable p : plots) {
-                if (! "#FFFFFF".equals(p.getColourInPlot())) {
+                if (p.getColourInPlot() != null) {
                     final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p, listPlotLegend, addedReports);
                     ((DefaultListModel)(listPlotLegend.getModel())).addElement(element);
                 }
@@ -1104,7 +1106,7 @@ public class PlotDrawer {
             //TODO - should never happen
         } else {
             for (Plottable p : plots) {
-                if (! "#FFFFFF".equals(p.getColourInPlot())) {
+                if (p.getColourInPlot() != null) {
                     final PlotLegendSimpleListElement element = new PlotLegendSimpleListElement(p, listPlotLegend);
                     ((DefaultListModel)(listPlotLegend.getModel())).addElement(element);
                 }
