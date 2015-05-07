@@ -4,7 +4,6 @@ import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.Params;
 import models.params.RBFParams;
 import utils.Const;
@@ -53,7 +52,7 @@ public class RBF implements Forecastable {
             List<List<Double>> trainingInputsScaled = RBF.getInputsCut(allInputsScaled, 0, numTrainingEntries);
             List<List<Double>> testingInputsScaled = RBF.getInputsCut(allInputsScaled, numTrainingEntries, allInputsScaled.get(0).size());
             
-            Rengine rengine = MyRengine.getRengine();
+            MyRengine rengine = MyRengine.getRengine();
             rengine.eval("require(RSNNS)");
             
             ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
@@ -93,6 +92,9 @@ public class RBF implements Forecastable {
             
             //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.
             //TODO doplnit, ked budem doplnat aj do iMLP C code, lebo to bude fungovat tak isto.
+            
+            //POZOR, nemazat z plotu
+            rengine.rm(SCALED_INPUT_TRAIN, SCALED_INPUT_TEST, OUTPUT, SCALED_OUTPUT, SCALED_OUTPUT_TRAIN, SCALED_OUTPUT_TEST, NNETWORK, FIT, FORECAST_TEST);
             }
         
         return report;
@@ -137,7 +139,7 @@ public class RBF implements Forecastable {
         final String SCALED = "scaled." + Utils.getCounter();
         final String LIST = Const.INPUT + Utils.getCounter();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         List<List<Double>> inputs = new ArrayList<>();
         

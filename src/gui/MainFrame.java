@@ -10,7 +10,6 @@ import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
-import gui.filefilters.FileFilterXlsXlsx;
 import gui.filefilters.FileFilterXlsXlsxCsv;
 import gui.filefilters.RFileFilter;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
@@ -143,7 +142,6 @@ import models.params.VARintParams;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
-import static utils.Const.BNN;
 import utils.CrispOutputVariable;
 import utils.ExcelWriter;
 import utils.FieldsParser;
@@ -154,12 +152,7 @@ import utils.imlp.Interval;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.dist.BertoluzzaDistance;
-import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.Distance;
-import utils.imlp.dist.HausdorffDistance;
-import utils.imlp.dist.IchinoYaguchiDistance;
-import utils.imlp.dist.WeightedEuclideanDistance;
 import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
@@ -4331,7 +4324,7 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File plotFile = fileChooser.getSelectedFile();
-                    Rengine rengine = MyRengine.getRengine();
+                    MyRengine rengine = MyRengine.getRengine();
 
                     String device = "";
                     String ext = "";
@@ -5083,7 +5076,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonNormalityTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalityTestsActionPerformed
         try {
-            Rengine rengine = MyRengine.getRengine();
+            MyRengine rengine = MyRengine.getRengine();
             
             rengine.eval("require(nortest)");
             
@@ -5091,9 +5084,9 @@ public class MainFrame extends javax.swing.JFrame {
             selectedValuesList.addAll(listColnames.getSelectedValuesList());
             
             StringBuilder results = new StringBuilder();
+            String DATA = Const.INPUT + Utils.getCounter();
             
             for (String selectedVal : selectedValuesList) {
-                String DATA = Const.INPUT + Utils.getCounter();
                 rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
                 
                 results.append("------------\n").append("Testing ").append(selectedVal).append(" for normality:\n\n");
@@ -5126,6 +5119,8 @@ public class MainFrame extends javax.swing.JFrame {
             //and show the normal probability plots:
             PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
             setPlotRanges(0, 0);
+            
+            rengine.rm(DATA);
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -5133,7 +5128,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonStationarityTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStationarityTestActionPerformed
         try {
-            Rengine rengine = MyRengine.getRengine();
+            MyRengine rengine = MyRengine.getRengine();
             
             rengine.eval("require(tseries)");
             
@@ -5141,9 +5136,9 @@ public class MainFrame extends javax.swing.JFrame {
             selectedValuesList.addAll(listColnames.getSelectedValuesList());
             
             StringBuilder results = new StringBuilder();
+            String DATA = Const.INPUT + Utils.getCounter();
             
             for (String selectedVal : selectedValuesList) {
-                String DATA = Const.INPUT + Utils.getCounter();
                 rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
                 
                 results.append("------------\n").append("Testing ").append(selectedVal).append(" for stationarity:\n\n");
@@ -5165,6 +5160,7 @@ public class MainFrame extends javax.swing.JFrame {
             
             textAreaPlotBasicStats.setText(results.toString());
             setPlotRanges(0, 0);
+            rengine.rm(DATA);
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -5173,7 +5169,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonDiffSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiffSeriesActionPerformed
         List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         final String VAR = Const.INPUT + Utils.getCounter();
         
@@ -5186,13 +5182,15 @@ public class MainFrame extends javax.swing.JFrame {
             dataTableModel.addDataForColname("DIFF(" + selected + ")", newData);
         }
         
+        rengine.rm(VAR);
+        
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonDiffSeriesActionPerformed
 
     private void buttonLogTransformSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogTransformSeriesActionPerformed
         List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         final String VAR = Const.INPUT + Utils.getCounter();
         
@@ -5202,13 +5200,15 @@ public class MainFrame extends javax.swing.JFrame {
             dataTableModel.addDataForColname("LOG(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         }
         
+        rengine.rm(VAR);
+        
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonLogTransformSeriesActionPerformed
 
     private void buttonRemoveTrendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveTrendActionPerformed
         List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         final String VAR = Const.INPUT + Utils.getCounter();
         final String DATA = Const.INPUT + Utils.getCounter();
@@ -5232,6 +5232,8 @@ public class MainFrame extends javax.swing.JFrame {
             
             dataTableModel.addDataForColname("NOTREND(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         }
+        
+        rengine.rm(VAR, DATA, REG);
         
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonRemoveTrendActionPerformed
@@ -5281,7 +5283,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportResidualsActionPerformed
 
     private void buttonStructBreaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStructBreaksActionPerformed
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
 
         rengine.eval("require(bfast)");
 
@@ -5301,12 +5303,12 @@ public class MainFrame extends javax.swing.JFrame {
         List<String> plots = new ArrayList<>();
         StringBuilder strBreaksInfo = new StringBuilder();
         
+        final String DATA = Const.INPUT + Utils.getCounter();
+        final String DATA_TS = DATA + "ts";
+        final String FIT = Const.FIT + Utils.getCounter();
+        
         //najprv vybavit jednoduche hodnoty
         for (String selectedVal : selectedValuesList) {
-            final String DATA = Const.INPUT + Utils.getCounter();
-            final String DATA_TS = DATA + "ts";
-            final String FIT = Const.FIT + Utils.getCounter();
-            
             rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
             rengine.eval(DATA_TS + " <- ts(" + DATA + ")");
             
@@ -5333,15 +5335,15 @@ public class MainFrame extends javax.swing.JFrame {
             strBreaksInfo.append("\n\n");
         }
         
+        final String DATA1 = Const.INPUT + Utils.getCounter();
+        final String DATA1_TS = DATA1 + "ts";
+        final String DATA2 = Const.INPUT + Utils.getCounter();
+        final String DATA2_TS = DATA2 + "ts";
+        final String FIT1 = Const.FIT + Utils.getCounter();
+        final String FIT2 = Const.FIT + Utils.getCounter();
+        
         //potom intervaly:
         for (IntervalNames i : selectedIntervalsList) {
-            final String DATA1 = Const.INPUT + Utils.getCounter();
-            final String DATA1_TS = DATA1 + "ts";
-            final String DATA2 = Const.INPUT + Utils.getCounter();
-            final String DATA2_TS = DATA2 + "ts";
-            final String FIT1 = Const.FIT + Utils.getCounter();
-            final String FIT2 = Const.FIT + Utils.getCounter();
-            
             String ylab1 = "";;
             String ylab2 = "";
             if (i instanceof IntervalNamesCentreRadius) {
@@ -5420,6 +5422,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         setPlotRanges(0, 0);
         buttonExportAnalysisPlots.setEnabled(true);
+        
+        rengine.rm(DATA, DATA_TS, FIT, DATA1, DATA1_TS, DATA2, DATA2_TS, FIT1, FIT2);
     }//GEN-LAST:event_buttonStructBreaksActionPerformed
 
     private void buttonExportAnalysisPlotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsActionPerformed
@@ -5473,7 +5477,7 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File plotFile = fileChooser.getSelectedFile();
-                    Rengine rengine = MyRengine.getRengine();
+                    MyRengine rengine = MyRengine.getRengine();
 
                     String device = "";
                     String ext = "";
@@ -5551,7 +5555,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonAggregateToITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggregateToITSActionPerformed
         List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         final String VAR = Const.INPUT + Utils.getCounter();
         final String CHUNKS = Const.INPUT + Utils.getCounter();
@@ -5598,6 +5602,8 @@ public class MainFrame extends javax.swing.JFrame {
             dataTableModel.addDataForColname("R_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         }
         
+        rengine.rm(VAR, CHUNKS, LOWERB, UPPERB, CENTERS, RADII);
+        
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonAggregateToITSActionPerformed
 
@@ -5609,7 +5615,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(LearnBayes)");
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
@@ -5663,6 +5669,8 @@ public class MainFrame extends javax.swing.JFrame {
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
         
         textAreaBinomPropInfo.setText(info.toString());
+        
+        rengine.rm(BETA_PARAMS, P, MEAN, MODE, POSTERIOR);
     }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
 
     private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
@@ -5677,7 +5685,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(LearnBayes)");
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
@@ -5712,7 +5720,11 @@ public class MainFrame extends javax.swing.JFrame {
                         .append("(").append(Utils.valToDecPoints(rengine.eval(RESULT + "[1]").asDoubleArray()[0])).append(",")
                         .append(Utils.valToDecPoints(rengine.eval(RESULT + "[2]").asDoubleArray()[0])).append(")\n\n");
             }
+            
+            rengine.rm(BETA_PARAMS_NOW);
         }
+        
+        rengine.rm(BETA_PARAMS, RESULT, POSTERIOR_SAMPLE, BETA_POSTERIOR_PARAMS);
         
         textAreaBinomPropInfo.setText(info.toString());
     }//GEN-LAST:event_buttonBinomPropSimulateActionPerformed
@@ -5730,7 +5742,7 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(LearnBayes)");
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
@@ -5757,10 +5769,16 @@ public class MainFrame extends javax.swing.JFrame {
                 plots.add("plot(0:" + numFutureObsss.get(j) + ", " + PREDICTED_DISTR_NOW + ", type=\"h\", "
                         + "xlab = \"Number of successes in the future " + numFutureObsss.get(j) + " observations\", "
                         + "ylab = \"Probability of each number of successes\")");
+                
+                rengine.rm(PREDICTED_DISTR_NOW);
             }
+            
+            rengine.rm(BETA_PARAMS_NOW);
         }
         
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
+        
+        rengine.rm(BETA_PARAMS, PREDICTED_DISTR);
     }//GEN-LAST:event_buttonBinomPropPredictActionPerformed
 
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
@@ -7711,7 +7729,7 @@ public class MainFrame extends javax.swing.JFrame {
         final String FUT = Const.INPUT + Utils.getCounter();
         final String VAR = Const.INPUT + Utils.getCounter();
 
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         rengine.assign(TRAIN, r.getFittedValues());
         rengine.assign(TEST, r.getForecastValuesTest());
@@ -7726,6 +7744,8 @@ public class MainFrame extends javax.swing.JFrame {
         //TODO unique identifier of the model wrt Run, or enable rename. now overwrites columns with the same name
         dataTableModel.addDataForColname(r.toString(), Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         fillGUIelementsWithNewData();
+        
+        rengine.rm(TRAIN, TEST, FUT, VAR);
     }
     
     public void addReportToData(TrainAndTestReportInterval r) {
@@ -7747,7 +7767,7 @@ public class MainFrame extends javax.swing.JFrame {
         final String LOWERS = Const.INPUT + Utils.getCounter();
         final String UPPERS = Const.INPUT + Utils.getCounter();
 
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         rengine.assign(TRAIN_MIN, r.getFittedValuesLowers());
         rengine.assign(TRAIN_MAX, r.getFittedValuesUppers());
@@ -7782,10 +7802,15 @@ public class MainFrame extends javax.swing.JFrame {
         dataTableModel.addDataForColname(r.toString() + "(C)", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
         dataTableModel.addDataForColname(r.toString() + "(R)", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         fillGUIelementsWithNewData();
+        
+        rengine.rm(TRAIN_MIN, TRAIN_MAX, TRAIN_CENTER, TRAIN_RADIUS,
+                TEST_MIN, TEST_MAX, TEST_CENTER, TEST_RADIUS,
+                FUT_MIN, FUT_MAX, FUT_CENTER, FUT_RADIUS,
+                LOWERS, UPPERS, CENTERS, RADII);
     }
 
     public void convertITStoLBUB(IntervalNamesCentreRadius namesCR) {
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         final String CENTERS = Const.INPUT + Utils.getCounter();
         final String RADII = Const.INPUT + Utils.getCounter();
@@ -7803,10 +7828,12 @@ public class MainFrame extends javax.swing.JFrame {
         dataTableModel.addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
         
         fillGUIelementsWithNewData();
+        
+        rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
     }
 
     public void convertITStoCR(IntervalNamesLowerUpper namesLBUB) {
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         final String CENTERS = Const.INPUT + Utils.getCounter();
         final String RADII = Const.INPUT + Utils.getCounter();
@@ -7824,5 +7851,7 @@ public class MainFrame extends javax.swing.JFrame {
         dataTableModel.addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         
         fillGUIelementsWithNewData();
+        
+        rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
     }
 }

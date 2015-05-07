@@ -22,7 +22,6 @@ import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.Average;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import models.params.BasicStats;
 import utils.Const;
@@ -107,7 +106,7 @@ public class PlotDrawer {
         
         //then proceed to drawing
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         
         MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
@@ -179,6 +178,8 @@ public class PlotDrawer {
                                               + r.getForecastValuesTest()[r.getForecastValuesTest().length-1] + "),"
                                + "density=NA, col=" + getRGBColorStringForHEX(colourToUseNow, 30) 
                                + ", border=NA)"); //TODO col podla aktualnej
+                    
+                    rengine.rm(UPPERS, LOWERS_REVERSE);
                 }
 
                 //add a dashed vertical line to separate test and train
@@ -217,6 +218,8 @@ public class PlotDrawer {
                 PlotStateKeeper.setCrispYmin(rangeY[0]);
                 PlotStateKeeper.setCrispYmax(rangeY[1]);
             }
+            
+            rengine.rm("all.data");
         }
         
         if (! reportsIntTS.isEmpty()) { //plot ITS
@@ -311,6 +314,8 @@ public class PlotDrawer {
                 }
             }
             
+            rengine.rm("lower", "upper");
+            
             //tu by mali byt nakreslene vsetky ITS aj s priemermi
             
             if (wasSthDrawnIntTS) { //inak to moze skocit vedla do CTS plotu
@@ -351,6 +356,8 @@ public class PlotDrawer {
                 PlotStateKeeper.setIntYmin(rangeY[0]);
                 PlotStateKeeper.setIntYmax(rangeY[1]);
             }
+            
+            rengine.rm("all.lower", "all.upper");
         }
         
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
@@ -384,7 +391,7 @@ public class PlotDrawer {
         
         ColourService.getService().resetCounter();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         
         MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
@@ -458,7 +465,7 @@ public class PlotDrawer {
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         
@@ -524,11 +531,13 @@ public class PlotDrawer {
         final String UPPER = Const.INPUT + Utils.getCounter();
         final int count = lowerBound.size();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.assign(LOWER, Utils.listToArray(lowerBound));
         rengine.assign(UPPER, Utils.listToArray(upperBound));
         
         drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeX, rangeY);
+        
+        rengine.rm(LOWER, UPPER);
     }
     
     private static void drawPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
@@ -539,7 +548,7 @@ public class PlotDrawer {
         final String UPPER = Const.INPUT + Utils.getCounter();
         final int count = center.size();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.assign(CENTER, Utils.listToArray(center));
         rengine.assign(RADIUS, Utils.listToArray(radius));
         REXP getLower = rengine.eval(CENTER + " - " + RADIUS);
@@ -548,11 +557,13 @@ public class PlotDrawer {
         rengine.assign(UPPER, getUpper);
         
         drawPlotITSNow(width, height, LOWER, UPPER, count, par, lineStyle, rangeX, rangeY);
+        
+        rengine.rm(CENTER, RADIUS, LOWER, UPPER);
     }
     
     private static void drawPlotITSNow(int width, int height, final String LOWER, final String UPPER, final int count,
             boolean par, String lineStyle, String rangeX, String rangeY) {
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         String lim = "xlim = " + rangeX + ", ylim = " + rangeY;
         
         if (par) { //continue from the previous plot
@@ -586,7 +597,7 @@ public class PlotDrawer {
         final String CENTER = Const.INPUT + Utils.getCounter();
         final String RADIUS = Const.INPUT + Utils.getCounter();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         ColourService.getService().resetCounter();
         
         //ako prve prerobit vsetky LU(mena) na CR(cisla):
@@ -619,6 +630,8 @@ public class PlotDrawer {
         String rangeRadius = getRangeYMultipleInterval(allValsRadius);
         
         drawScatterPlotsITS(drawNew, par, rangeCenter, rangeRadius);
+        
+        rengine.rm(CENTER, RADIUS, LOWER, UPPER);
     }
     
     public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
@@ -657,7 +670,7 @@ public class PlotDrawer {
         plots.addAll(par.getListLowerUpper());
         drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         REXP getRangeX = rengine.eval(rangeCenter);
         double[] ranX = getRangeX.asDoubleArray();
         REXP getRangeY = rengine.eval(rangeRadius);
@@ -683,13 +696,15 @@ public class PlotDrawer {
         final String RADIUS = Const.INPUT + Utils.getCounter();
         final int count = lowerBound.size();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.assign(LOWER, Utils.listToArray(lowerBound));
         rengine.assign(UPPER, Utils.listToArray(upperBound));
         rengine.eval(CENTER + " <- (" + UPPER + " + " + LOWER + ")/2");
         rengine.eval(RADIUS + " <- (" + UPPER + " - " + LOWER + ")/2");
         
         drawScatterPlotITSNow(width, height, CENTER, RADIUS, count, par, lineStyle, rangeX, rangeY);
+        
+        rengine.rm(CENTER, RADIUS, LOWER, UPPER);
     }
     
     private static void drawScatterPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
@@ -698,16 +713,18 @@ public class PlotDrawer {
         final String RADIUS = Const.INPUT + Utils.getCounter();
         final int count = center.size();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.assign(CENTER, Utils.listToArray(center));
         rengine.assign(RADIUS, Utils.listToArray(radius));
         
         drawScatterPlotITSNow(width, height, CENTER, RADIUS, count, par, lineStyle, rangeX, rangeY);
+        
+        rengine.rm(CENTER, RADIUS);
     }
     
     private static void drawScatterPlotITSNow(int width, int height, final String CENTER, final String RADIUS, final int count,
             boolean par, String lineColour, String rangeX, String rangeY) {
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         String lim = "xlim = " + rangeX + ", ylim = " + rangeY;
         
@@ -731,7 +748,7 @@ public class PlotDrawer {
     public static void drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         final int start = Utils.getCounter();
         int counter = 0;
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         StringBuilder formula = new StringBuilder("~");
         StringBuilder labels = new StringBuilder("labels=c(");
         boolean next = false;
@@ -757,6 +774,8 @@ public class PlotDrawer {
             labels.append("\"").append(interval.getRadius()).append("\"");
             
             counter++;
+            
+            rengine.rm(CENTER, RADIUS);
         }
         labels.append(")");
         
@@ -1016,7 +1035,7 @@ public class PlotDrawer {
         if (plots.isEmpty()) {
             return panelsList;
         } else {
-            Rengine rengine = MyRengine.getRengine();
+            MyRengine rengine = MyRengine.getRengine();
             rengine.eval("require(JavaGD)");
             
             int currentIndex = 0;
@@ -1099,7 +1118,7 @@ public class PlotDrawer {
             DataTableModel dataTableModel, JTabbedPane tabbedPaneAnalysisPlots) throws IllegalArgumentException {
         //najprv si nasysli vsetky diagramy
         List<String> diagramsPlots = new ArrayList<>();
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         for (String selectedVal : selectedValuesList) {
             String NAME = "myplots." + Utils.getCounter();
@@ -1112,6 +1131,8 @@ public class PlotDrawer {
                 plotFunction = plottingFunction + "(" + NAME + ", xlab=\"" + selectedVal + "\", main=\"\")";
             }
             diagramsPlots.add(plotFunction);
+            
+            rengine.rm(NAME);
         }
         
         //potom ich nechaj vyplut do mriezky

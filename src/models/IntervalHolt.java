@@ -3,7 +3,6 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.IntervalHoltParams;
 import models.params.Params;
 import utils.Const;
@@ -40,7 +39,7 @@ public class IntervalHolt implements Forecastable {
         List<Double> inputTestCenter = dataToUseCenter.subList(numTrainingEntries, dataToUseCenter.size());
         List<Double> inputTestRadius = dataToUseRadius.subList(numTrainingEntries, dataToUseCenter.size());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");
         
         rengine.assign(INPUT_TRAIN_CENTER, Utils.listToArray(inputTrainCenter));
@@ -88,6 +87,8 @@ public class IntervalHolt implements Forecastable {
                 Utils.zipCentersRadiiToIntervals(inputTestCenter, inputTestRadius), 
                 fittedIntervals, forecastsTest, params.getDistance(), params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
+        
+        rengine.rm(FORECAST, FORECAST_MODEL, INPUT_TRAIN, INPUT_TRAIN_CENTER, INPUT_TRAIN_RADIUS, FIT_LOWER, FIT_UPPER);
         
         return report;
     }

@@ -1,6 +1,5 @@
 package gui.renderers;
 
-import gui.DefaultPlottable;
 import gui.Plottable;
 import java.awt.Color;
 import java.awt.Component;

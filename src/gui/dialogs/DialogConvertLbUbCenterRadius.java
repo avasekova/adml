@@ -1,14 +1,9 @@
 package gui.dialogs;
 
 import gui.MainFrame;
-import gui.tablemodels.DataTableModel;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import org.rosuda.JRI.Rengine;
-import utils.Const;
-import utils.MyRengine;
-import utils.Utils;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
