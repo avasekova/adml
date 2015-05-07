@@ -240,7 +240,7 @@
     </Component>
     <Component class="javax.swing.JSpinner" name="spinnerAddExplVarLag">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(0, 0, 1000, 1))"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1))"/>
       </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="buttonOKAddExplVar">
