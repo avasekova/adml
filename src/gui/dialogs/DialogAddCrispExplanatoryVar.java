@@ -39,7 +39,7 @@ public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        spinnerAddExplVarLag = new javax.swing.JSpinner(new SpinnerNumberModel(0, 0, 1000, 1));
+        spinnerAddExplVarLag = new javax.swing.JSpinner(new SpinnerNumberModel(0, 0, Integer.MAX_VALUE, 1));
         buttonOKAddExplVar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
