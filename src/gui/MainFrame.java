@@ -7310,6 +7310,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void cleanGUIelements() {
         ((DefaultListModel)(listColnames.getModel())).removeAllElements();
         ((DefaultListModel)(listColnamesTransform.getModel())).removeAllElements();
+        ((DefaultListModel)(listPlotITSspecs.getModel())).removeAllElements();
         comboBoxColnamesRun.removeAllItems();
         comboBoxRunFakeIntCenter.removeAllItems();
         comboBoxRunFakeIntRadius.removeAllItems();
