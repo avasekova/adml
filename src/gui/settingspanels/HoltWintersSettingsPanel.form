@@ -16,7 +16,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="panelSeasonality" max="32767" attributes="0"/>
+          <Component id="panelFrequency" max="32767" attributes="0"/>
           <Component id="checkBoxDamped" alignment="0" min="-2" max="-2" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
@@ -79,7 +79,7 @@
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="checkBoxDamped" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="panelSeasonality" max="32767" attributes="0"/>
+              <Component id="panelFrequency" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -135,9 +135,9 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxOptimizeGammaActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JPanel" name="panelSeasonality">
+    <Container class="javax.swing.JPanel" name="panelFrequency">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new SeasonalitySettingsPanel()"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new gui.settingspanels.FrequencySettingsPanel()"/>
       </AuxValues>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>

@@ -7003,6 +7003,14 @@ public class MainFrame extends javax.swing.JFrame {
         setParamsGeneral(HoltWintersParams.class, resultList);
         ((HoltWintersSettingsPanel)panelSettingsHoltWint).setSpecificParams(HoltWintersParams.class, resultList);
         
+        if (resultList.get(resultList.size() - 1).getFrequency() > 24) {
+            int result = JOptionPane.showConfirmDialog(this, "Seasonal frequency larger than 24, so a TBATS model will be used instead of Holt-Winters. "
+                    + "This may take a few minutes. Continue?", "Seasonality too large for HW", JOptionPane.YES_NO_OPTION);
+            if ((result == JOptionPane.NO_OPTION) || (result == JOptionPane.CLOSED_OPTION)) {
+                return new ArrayList<>(); //nerob nic
+            }
+        }
+        
         return resultList;
     }
     

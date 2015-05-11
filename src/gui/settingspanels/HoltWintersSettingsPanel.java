@@ -2,6 +2,7 @@ package gui.settingspanels;
 
 import java.util.List;
 import javax.swing.JOptionPane;
+import models.params.HoltWintersParams;
 import models.params.Params;
 import utils.Const;
 import utils.FieldsParser;
@@ -36,7 +37,7 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         jLabel3 = new javax.swing.JLabel();
         textFieldGamma = new javax.swing.JTextField();
         checkBoxOptimizeGamma = new javax.swing.JCheckBox();
-        panelSeasonality = new SeasonalitySettingsPanel();
+        panelFrequency = new gui.settingspanels.FrequencySettingsPanel();
         comboboxSeasonalityAddMult = new javax.swing.JComboBox();
 
         jLabel1.setText("Alpha (level):");
@@ -74,7 +75,7 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelSeasonality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelFrequency, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(checkBoxDamped)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel3)
@@ -124,7 +125,7 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
                 .addGap(18, 18, 18)
                 .addComponent(checkBoxDamped)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelSeasonality, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelFrequency, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -162,7 +163,7 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel panelSeasonality;
+    private javax.swing.JPanel panelFrequency;
     private javax.swing.JTextField textFieldAlpha;
     private javax.swing.JTextField textFieldBeta;
     private javax.swing.JTextField textFieldGamma;
@@ -230,6 +231,6 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setSeasonalityAddMult", String.class, getSeasonalityAddMult());
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", Integer.class, ((SeasonalitySettingsPanel)panelSeasonality).getFrequency());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", Integer.class, ((FrequencySettingsPanel)panelFrequency).getFrequency());
     }
 }

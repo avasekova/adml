@@ -3,12 +3,12 @@ package gui.settingspanels;
 import java.util.List;
 import models.params.Params;
 
-public class SeasonalitySettingsPanel extends SettingsPanel {
+public class FrequencySettingsPanel extends SettingsPanel {
 
     /**
      * Creates new form SeasonalitySettingsPanel
      */
-    public SeasonalitySettingsPanel() {
+    public FrequencySettingsPanel() {
         initComponents();
     }
 
@@ -70,7 +70,6 @@ public class SeasonalitySettingsPanel extends SettingsPanel {
     private javax.swing.JTextField textFieldFrequency;
     // End of variables declaration//GEN-END:variables
 
-    //TODO spravit krajsie!
     public Integer getFrequency() {
         return Integer.parseInt(textFieldFrequency.getText());
     }
