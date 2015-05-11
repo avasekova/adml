@@ -457,7 +457,7 @@ public class PlotDrawer {
         List<Double> allVals = getAllVals(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
 //        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
         String rangeY = getRangeYMultipleInterval(allVals);
-        String rangeX = "range(c(1," + par.getDataTableModel().getRowCount() + "))";
+        String rangeX = getRangeXMultipleInterval(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
         
         drawPlotsITS(drawNew, par, rangeX, rangeY);
     }
@@ -823,6 +823,23 @@ public class PlotDrawer {
         rangeY.append("))");
         return rangeY.toString();
     }
+    
+    private static String getRangeXMultipleInterval(DataTableModel dataTableModel, List<IntervalNamesCentreRadius> intCRs, List<IntervalNamesLowerUpper> intLBUBs) {
+        int maxLength = 0;
+        for (IntervalNamesCentreRadius ncr : intCRs) {
+            if (dataTableModel.getDataForColname(ncr.getCentre()).size() > maxLength) {
+                maxLength = dataTableModel.getDataForColname(ncr.getCentre()).size();
+            }
+        }
+        
+        for (IntervalNamesLowerUpper nlu : intLBUBs) {
+            if (dataTableModel.getDataForColname(nlu.getLowerBound()).size() > maxLength) {
+                maxLength = dataTableModel.getDataForColname(nlu.getLowerBound()).size();
+            }
+        }
+        
+        return "range(c(1," + maxLength + "))";
+    }
 
     private static List<Double> getAllVals(DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
         //TODO maybe later "optimize" a bit - netreba tahat vsetky data z dataTableModela, iba unique mena... a tak.
@@ -1183,6 +1200,23 @@ public class PlotDrawer {
         rangesY.append("))");
         
         return rangesY.toString();
+    }
+    
+    private static String getRangeXCrisp(DataTableModel dataTableModel, List<IntervalNamesCentreRadius> intCRs, List<IntervalNamesLowerUpper> intLBUBs) {
+        int maxLength = 0;
+        for (IntervalNamesCentreRadius ncr : intCRs) {
+            if (dataTableModel.getDataForColname(ncr.getCentre()).size() > maxLength) {
+                maxLength = dataTableModel.getDataForColname(ncr.getCentre()).size();
+            }
+        }
+        
+        for (IntervalNamesLowerUpper nlu : intLBUBs) {
+            if (dataTableModel.getDataForColname(nlu.getLowerBound()).size() > maxLength) {
+                maxLength = dataTableModel.getDataForColname(nlu.getLowerBound()).size();
+            }
+        }
+        
+        return "range(c(1," + maxLength + "))";
     }
     
 }

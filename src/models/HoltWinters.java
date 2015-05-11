@@ -38,15 +38,31 @@ public class HoltWinters implements Forecastable {
         rengine.eval(INPUT_TRAIN + " <- ts(" + INPUT_TRAIN + ", frequency=" + params.getFrequency() + ")");
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
-        rengine.eval(FORECAST_MODEL + " <- forecast::hw(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
+        
+        if (params.getFrequency() <= 24) { //forecast::HW zvladne do 24
+            //TODO potom to robit krajsie ako takto IFovat - ak je velka frekvencia, presmerovat na tbats a normalne zavolat komplet iny model
+            rengine.eval(FORECAST_MODEL + " <- forecast::hw(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
                 ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", gamma=" + params.getGamma()
                 + ", seasonal=\"" + params.getSeasonalityAddMult() + "\""
                 + ", damped=" + params.getDamped() + ")");
+            rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
+            rengine.eval(FORECAST + " <- data.frame(" + FORECAST_MODEL + ")[\"Point.Forecast\"][1:" + num4castsTestAndFuture + ",]"); //if somebody renames this field in the next version, well...
+            REXP getFinalAlpha = rengine.eval(FORECAST_MODEL + "$model$par[\"alpha\"]");
+            double finalAlpha = getFinalAlpha.asDoubleArray()[0];
+            REXP getFinalBeta = rengine.eval(FORECAST_MODEL + "$model$par[\"beta\"]");
+            double finalBeta = getFinalBeta.asDoubleArray()[0];
+            REXP getFinalGamma = rengine.eval(FORECAST_MODEL + "$model$par[\"gamma\"]");
+            double finalGamma = getFinalGamma.asDoubleArray()[0];
+        } else {
+            rengine.eval(FORECAST_MODEL + " <- forecast::tbats(" + INPUT_TRAIN + ")");
+            rengine.eval(FIT + " <- fitted.values(" + FORECAST_MODEL + ")");
+            rengine.eval(FORECAST + " <- forecast(" + FORECAST_MODEL + ", h=" + num4castsTestAndFuture + ")$mean");
+        }
         
         //ak to nie su seasonal data, R skonci s chybou
         if (rengine.eval(FORECAST_MODEL) == null) {
             TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
-            report.setModelDescription("(non-seasonal data!)");
+            report.setModelDescription("(unable to fit the requested model)");
             report.setRealOutputsTrain(Utils.listToArray(inputTrain));
             report.setFittedValues(Utils.listToArray(inputTrain));
             report.setRealOutputsTest(Utils.listToArray(inputTest));
@@ -58,22 +74,13 @@ public class HoltWinters implements Forecastable {
             return report;
         }
         
-        rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
         REXP getFittedVals = rengine.eval(FIT);
         double[] fittedVals = getFittedVals.asDoubleArray();
         
-        rengine.eval(FORECAST + " <- data.frame(" + FORECAST_MODEL + ")[\"Point.Forecast\"][1:" + num4castsTestAndFuture + ",]"); //if somebody renames this field in the next version, well...
         REXP getForecastTestAndFuture = rengine.eval(FORECAST);
         List<Double> forecastTestAndFuture = Utils.arrayToList(getForecastTestAndFuture.asDoubleArray());
         List<Double> forecastTest = forecastTestAndFuture.subList(0, inputTest.size());
         List<Double> forecastFuture = forecastTestAndFuture.subList(inputTest.size(), forecastTestAndFuture.size());
-        
-        REXP getFinalAlpha = rengine.eval(FORECAST_MODEL + "$model$par[\"alpha\"]");
-        double finalAlpha = getFinalAlpha.asDoubleArray()[0];
-        REXP getFinalBeta = rengine.eval(FORECAST_MODEL + "$model$par[\"beta\"]");
-        double finalBeta = getFinalBeta.asDoubleArray()[0];
-        REXP getFinalGamma = rengine.eval(FORECAST_MODEL + "$model$par[\"gamma\"]");
-        double finalGamma = getFinalGamma.asDoubleArray()[0];
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
         report.setModelDescription(params.toString());
