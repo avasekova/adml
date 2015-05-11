@@ -2,7 +2,6 @@ package models;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.rosuda.JRI.Rengine;
 import models.params.RandomWalkParams;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
@@ -32,7 +31,7 @@ public class RandomWalk { //TODO implements Forecastable!
         report.setRealOutputsTrain(Utils.listToArray(trainRealOutputs));
         report.setRealOutputsTest(Utils.listToArray(testRealOutputs));
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.assign(DATA_FIT, Utils.listToArray(trainForecastOutputs));
         rengine.assign(DATA_FORECAST, Utils.listToArray(testForecastOutputs));
         report.setPlotCode("plot.ts(c(" + DATA_FIT + "," + DATA_FORECAST + "))");

@@ -7,24 +7,24 @@ import java.util.List;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
-public class DialogLbUbCenterRadius extends javax.swing.JDialog {
+public class DialogConvertLbUbCenterRadius extends javax.swing.JDialog {
     
-    private static DialogLbUbCenterRadius INSTANCE = null;
+    private static DialogConvertLbUbCenterRadius INSTANCE = null;
     
-    public static DialogLbUbCenterRadius getInstance(java.awt.Frame parent, boolean modal) {
+    public static DialogConvertLbUbCenterRadius getInstance(java.awt.Frame parent, boolean modal) {
         if (INSTANCE == null) {
-            INSTANCE = new DialogLbUbCenterRadius(parent, modal);
+            INSTANCE = new DialogConvertLbUbCenterRadius(parent, modal);
         }
         
         return INSTANCE;
     }
     
     /**
-     * Creates new form DialogLbUbCenterRadius
+     * Creates new form DialogConvertLbUbCenterRadius
      * @param parent
      * @param modal
      */
-    private DialogLbUbCenterRadius(java.awt.Frame parent, boolean modal) {
+    private DialogConvertLbUbCenterRadius(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -91,7 +91,7 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
         comboBoxRadius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
         comboBoxRadius.setEnabled(false);
 
-        buttonOKPlotITS.setText("OK");
+        buttonOKPlotITS.setText("Convert to C/R");
         buttonOKPlotITS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonOKPlotITSActionPerformed(evt);
@@ -120,14 +120,12 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
                             .addComponent(labelRadius))
                         .addGap(33, 33, 33)
                         .addGroup(panelDialogLbUbCenterRadiusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(comboBoxCenter, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboBoxCenter, 0, 133, Short.MAX_VALUE)
                             .addComponent(comboBoxRadius, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(panelDialogLbUbCenterRadiusLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
                         .addComponent(buttonOKPlotITS)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonCancelPlotITS)
-                        .addGap(0, 55, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonCancelPlotITS))
                     .addGroup(panelDialogLbUbCenterRadiusLayout.createSequentialGroup()
                         .addGroup(panelDialogLbUbCenterRadiusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(panelDialogLbUbCenterRadiusLayout.createSequentialGroup()
@@ -200,6 +198,8 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
             labelRadius.setEnabled(false);
             comboBoxCenter.setEnabled(false);
             comboBoxRadius.setEnabled(false);
+            
+            buttonOKPlotITS.setText("Convert to C/R");
         }
     }//GEN-LAST:event_radioButtonLbUbActionPerformed
 
@@ -213,19 +213,22 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
             labelUB.setEnabled(false);
             comboBoxLowerBound.setEnabled(false);
             comboBoxUpperBound.setEnabled(false);
+            
+            buttonOKPlotITS.setText("Convert to LB/UB");
         }
     }//GEN-LAST:event_radioButtonCenterRadiusActionPerformed
 
     private void buttonOKPlotITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKPlotITSActionPerformed
         if (radioButtonCenterRadius.isSelected()) {
             ((MainFrame)(this.getParent())).
-                    addPlotITS_CentreRadius(new IntervalNamesCentreRadius(comboBoxCenter.getSelectedItem().toString(),
-                                                      comboBoxRadius.getSelectedItem().toString()));
+                    convertITStoLBUB(new IntervalNamesCentreRadius(comboBoxCenter.getSelectedItem().toString(),
+                            comboBoxRadius.getSelectedItem().toString()));
         } else {
             ((MainFrame)(this.getParent())).
-                    addPlotITS_LowerUpper(new IntervalNamesLowerUpper(comboBoxLowerBound.getSelectedItem().toString(),
-                                                      comboBoxUpperBound.getSelectedItem().toString()));
+                    convertITStoCR(new IntervalNamesLowerUpper(comboBoxLowerBound.getSelectedItem().toString(),
+                            comboBoxUpperBound.getSelectedItem().toString()));
         }
+        
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_buttonOKPlotITSActionPerformed
 
@@ -250,15 +253,16 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogLbUbCenterRadius.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DialogConvertLbUbCenterRadius.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogLbUbCenterRadius dialog = new DialogLbUbCenterRadius(new javax.swing.JFrame(), true);
+                DialogConvertLbUbCenterRadius dialog = new DialogConvertLbUbCenterRadius(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

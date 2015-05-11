@@ -3,7 +3,6 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.Params;
 import models.params.VARintParams;
 import utils.Const;
@@ -37,7 +36,7 @@ public class VARint implements Forecastable {
         List<Double> inputsCenter = dataTableModel.getDataForColname(params.getCenter()).subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         List<Double> inputsRadius = dataTableModel.getDataForColname(params.getRadius()).subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(vars)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*inputsCenter.size());
         
@@ -105,6 +104,8 @@ public class VARint implements Forecastable {
                 params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
+        rengine.rm(FORECAST_MODEL, INPUT, INPUT_TRAIN, INPUTCENTER, INPUTRADIUS, FORECAST, FORECAST_CENTER, FORECAST_RADIUS, FIT,
+                FIT_CENTER, FIT_RADIUS, REAL_OUTPUT, REAL_OUTPUT_CENTER, REAL_OUTPUT_RADIUS);
         
         return report;
     }

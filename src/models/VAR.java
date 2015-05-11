@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.Params;
 import models.params.VARParams;
 import utils.Const;
@@ -30,7 +29,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         
         Map<String, List<Double>> dataToUse = trimToRange((params.getDataRangeFrom() - 1), params.getDataRangeTo(), params.getData());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(vars)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.get(dataToUse.keySet().toArray(new String[]{})[0]).size());
         
@@ -87,6 +86,8 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
 
             allReports.add(report);
         }
+        
+        rengine.rm(FORECAST_MODEL, INPUT, FIT, REAL_OUTPUT);
         
         
         return allReports;

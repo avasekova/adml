@@ -6,8 +6,6 @@ import java.util.List;
 import models.params.BNNParams;
 import models.params.BNNintParams;
 import models.params.Params;
-import models.params.RBFParams;
-import models.params.RBFintParams;
 import utils.BestModelCriterionInterval;
 import utils.Const;
 import utils.ErrorMeasuresInterval;

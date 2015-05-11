@@ -3,7 +3,6 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.HoltParams;
 import models.params.Params;
 import utils.Const;
@@ -28,7 +27,7 @@ public class Holt implements Forecastable {
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         
@@ -95,6 +94,8 @@ public class Holt implements Forecastable {
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(inputTrain, inputTest, 
                 Utils.arrayToList(fittedVals), forecastTest, params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
+        
+        rengine.rm(FORECAST_MODEL, INPUT_TRAIN, PRED_INT_LOWER, PRED_INT_UPPER); //POZOR, nemazat FIT, FORECAST
         
         return report;
     }

@@ -104,5 +104,15 @@ public class MyRengine extends Rengine {
         
         assignMatrix(name, matrixColumnsWithNames);
     }
+    
+    public void rm(String name) {
+        instance.eval("rm(" + name + ")");
+    }
+    
+    public void rm(String... names) {
+        for (String n : names) {
+            rm(n);
+        }
+    }
 
 }

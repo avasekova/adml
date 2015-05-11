@@ -4,7 +4,6 @@ import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.NnetParams;
 import models.params.Params;
 import utils.Const;
@@ -60,7 +59,7 @@ public class Nnet implements Forecastable {
         List<List<Double>> trainingInputsScaled = RBF.getInputsCut(allInputsScaled, 0, numTrainingEntries);
         List<List<Double>> testingInputsScaled = RBF.getInputsCut(allInputsScaled, numTrainingEntries, allInputsScaled.get(0).size());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(nnet)");
 
         ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
@@ -163,6 +162,10 @@ public class Nnet implements Forecastable {
 //        }
         
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + ")");
+        
+        //POZOR - nemazat z plotov
+        rengine.rm(OUTPUT, SCALED_OUTPUT, ORIGINAL_OUTPUT, INPUT_TRAIN, SCALED_INPUT_TRAIN, INPUT_TEST, SCALED_INPUT_TEST, OUTPUT_TRAIN, SCALED_OUTPUT_TRAIN,
+                OUTPUT_TEST, SCALED_OUTPUT_TEST, FORECAST_VALS, FITTED_VALS, UNSCALED_FITTED_VALS, UNSCALED_FORECAST_VALS, ALL_AUX, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST);
         
         return report;
     }

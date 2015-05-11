@@ -3,7 +3,6 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.KNNfnnParams;
 import models.params.Params;
 import utils.Const;
@@ -35,7 +34,7 @@ public class KNNfnn implements Forecastable {
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(FNN)");
         
         final int LAG = 1;
@@ -105,6 +104,8 @@ public class KNNfnn implements Forecastable {
         report.setRealOutputsTest(testingOutputs);
         
         report.setPlotCode("plot.ts(c(" + PREDICTED_TRAIN + ", " + PREDICTED_TEST + "))");
+        
+        rengine.rm(NBRS_NO_TEST, NBRS_WITH_TEST, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, INPUT, OUTPUT, PREDICTED_OUTPUT); //POZOR, nemazat PREDICTED_TRAIN, PREDICTED_TEST
         
         return report;
     }

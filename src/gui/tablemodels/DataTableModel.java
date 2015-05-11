@@ -79,7 +79,7 @@ public class DataTableModel extends AbstractTableModel {
         //do not forget to clean all the comboboxes, lists, etc. in the GUI!
         
         //then load new
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         String filePathEscaped = file.getPath().replace("\\","/"); //toto je snad lepsie kvoli platformovej prenositelnosti..?
         String header = "";
@@ -198,7 +198,7 @@ public class DataTableModel extends AbstractTableModel {
     public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(JavaGD)");
         rengine.eval("JavaGD()");
         

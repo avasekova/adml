@@ -3,7 +3,6 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.KNNcustomParams;
 import models.params.Params;
 import utils.Const;
@@ -30,7 +29,7 @@ public class KNNcustom implements Forecastable {
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         
         String distanceFunction = "abs.difference"; //default
         switch (params.getDistanceMethodName()) {
@@ -98,6 +97,8 @@ public class KNNcustom implements Forecastable {
         report.setErrorMeasures(errorMeasures);
         
         //TODO ako ziskat z mojej funkcie fitted vals?
+        
+        rengine.rm(INPUT, OUTPUT, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, FORECAST);
         
         return report;
     }

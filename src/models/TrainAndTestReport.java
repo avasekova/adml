@@ -16,7 +16,7 @@ public abstract class TrainAndTestReport implements Plottable {
     private boolean visible = true;
     private final boolean average;
     
-    private String colourInPlot = "#FFFFFF"; //the name of R colour used in the last plot for this Report
+    private String colourInPlot; //the name of R colour used in the last plot for this Report
     
     public TrainAndTestReport(String modelName, boolean average) { 
         this.modelName = modelName;

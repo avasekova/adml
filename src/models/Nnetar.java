@@ -38,7 +38,7 @@ public class Nnetar implements Forecastable {
         List<Double> allData = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(params.getColName())));
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
@@ -103,6 +103,9 @@ public class Nnetar implements Forecastable {
         
         //TODO neskor vybrat najlepsi a ten naplotovat! zatial plotuje prvy :/
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + "$model[[1]]$wts, struct = " + NNETWORK + "$model[[1]]$n)");
+        
+        //POZOR - nemazat z plotov
+        rengine.rm(TRAINDATA, FORECAST_MODEL, TEST, OUTPUT, ORIGINAL_OUTPUT, OUTPUT_TRAIN, OUTPUT_TEST, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST);
         
         return report;
     }

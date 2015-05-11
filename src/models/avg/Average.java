@@ -8,7 +8,6 @@ import java.util.Map;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
@@ -203,7 +202,7 @@ public abstract class Average {
 
                 String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                 
-                Rengine rengine = MyRengine.getRengine();
+                MyRengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
                 TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(" + getName() + ")", true);
                 REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
@@ -280,7 +279,7 @@ public abstract class Average {
         if (! allTheSame) { //throw an error, we cannot compute it like this
             return null;
         } else {
-            Rengine rengine = MyRengine.getRengine();
+            MyRengine rengine = MyRengine.getRengine();
             
             if (reportsIntTS.size() == 1) { //does not make sense to compute average over one series
                 return reportsIntTS.get(0);
@@ -406,6 +405,8 @@ public abstract class Average {
                 reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());
                 realValuesTrain.addAll(realValuesTest);
                 reportAvgAllITS.setRealValues(realValuesTrain);
+                
+                rengine.rm("lowerTrain", "lowerTest", "lowerFuture", "upperTrain", "upperTest", "upperFuture");
 
                 return reportAvgAllITS;
             }

@@ -5,7 +5,6 @@ import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
@@ -97,7 +96,7 @@ public class AverageEqCenterEqLogRadius extends Average {
         if (! allTheSame) { //throw an error, we cannot compute it like this
             return null;
         } else {
-            Rengine rengine = MyRengine.getRengine();
+            MyRengine rengine = MyRengine.getRengine();
             
             if (reportsIntTS.size() == 1) { //does not make sense to compute average over one series
                 return reportsIntTS.get(0);
@@ -221,6 +220,8 @@ public class AverageEqCenterEqLogRadius extends Average {
                 reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());
                 realValuesTrain.addAll(realValuesTest);
                 reportAvgAllITS.setRealValues(realValuesTrain);
+                
+                rengine.rm("centerTrain", "centerTest", "centerFuture", "radiusTrain", "radiusTest", "radiusFuture");
 
                 return reportAvgAllITS;
             }

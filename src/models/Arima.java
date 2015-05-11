@@ -4,7 +4,6 @@ import gui.tablemodels.DataTableModel;
 import java.util.Arrays;
 import java.util.List;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import models.params.ArimaParams;
 import models.params.Params;
 import utils.Const;
@@ -38,7 +37,7 @@ public class Arima implements Forecastable {
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
-        Rengine rengine = MyRengine.getRengine();
+        MyRengine rengine = MyRengine.getRengine();
         rengine.eval("require(forecast)");
         
         rengine.assign(INPUT, Utils.listToArray(dataToUse));
@@ -62,6 +61,8 @@ public class Arima implements Forecastable {
             double[] allArray = getAll.asDoubleArray();
             arimaDescription = "(" + allArray[0] + ", " + allArray[5] + ", " + allArray[1] + ")(" + allArray[2]
                                + ", " + allArray[6] + ", " + allArray[3] + ")";
+            
+            rengine.rm(ORDER);
         } else {
             rengine.eval(MODEL + " <- forecast::Arima(" + SCALED_INPUT_TRAIN + ", order = c(" + params.getNonSeasPotato() + ", "
                                                                        + params.getNonSeasDonkey() + ", "
@@ -95,7 +96,7 @@ public class Arima implements Forecastable {
             rengine.eval(FORECAST_VALS + " <- forecast::forecast(" + MODEL + ", h = " + numForecasts + ", " +
                 "level=" + params.getPredIntPercent() + ")"); //predict all
         }
-                                        
+        
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)
         rengine.eval(FORECAST_VALS_CUT + " <- " + FORECAST_VALS + "$mean[1:" + numForecasts + "]");
         rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS_CUT + ", " + INPUT + ")");
@@ -150,6 +151,9 @@ public class Arima implements Forecastable {
         }
         
         
+        rengine.rm(INPUT, SCALED_INPUT, INPUT_TRAIN, SCALED_INPUT_TRAIN, INPUT_TEST, SCALED_INPUT_TEST, MODEL, FITTED_VALS, 
+                FORECAST_VALS, FORECAST_VALS_CUT, PRED_INT_LOWER, PRED_INT_UPPER);
+        //POZOR! nemazat UNSCALED_FITTED a UNSCALED_FORECAST - sucast plotu!
         
         return report;
     }

@@ -57,16 +57,14 @@
                           </Group>
                           <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="comboBoxCenter" max="32767" attributes="0"/>
+                              <Component id="comboBoxCenter" pref="133" max="32767" attributes="0"/>
                               <Component id="comboBoxRadius" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                           <Component id="buttonOKPlotITS" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="buttonCancelPlotITS" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="55" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
@@ -204,7 +202,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="buttonOKPlotITS">
           <Properties>
-            <Property name="text" type="java.lang.String" value="OK"/>
+            <Property name="text" type="java.lang.String" value="Convert to C/R"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonOKPlotITSActionPerformed"/>
