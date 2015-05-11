@@ -262,6 +262,7 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldAggregateToITSevery = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
         buttonConvertITSLBUBCR = new javax.swing.JButton();
+        buttonConvertITSLBUBCR1 = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -1244,6 +1245,14 @@ public class MainFrame extends javax.swing.JFrame {
         buttonConvertITSLBUBCR.setText("Convert LB/UB <-> C/R");
         buttonConvertITSLBUBCR.setEnabled(false);
         buttonConvertITSLBUBCR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConvertITSLBUBCRActionPerformed(evt);
+            }
+        });
+
+        buttonConvertITSLBUBCR1.setText("Convert LB/UB <-> C/R");
+        buttonConvertITSLBUBCR1.setEnabled(false);
+        buttonConvertITSLBUBCR1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonConvertITSLBUBCRActionPerformed(evt);
             }
@@ -2787,7 +2796,6 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunHoltWinters.setText("Holt-Winters (under construction)");
 
         checkBoxRunHoltWintersInt.setText("Holt-Winters(i)");
-        checkBoxRunHoltWintersInt.setEnabled(false);
 
         checkBoxRunRandomWalkCTS.setText("random walk for CTS");
 
@@ -5915,6 +5923,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonBinomPropSimulate;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonConvertITSLBUBCR;
+    private javax.swing.JButton buttonConvertITSLBUBCR1;
     private javax.swing.JButton buttonDiffSeries;
     private javax.swing.JButton buttonExportAnalysisPlots;
     private javax.swing.JButton buttonExportAnalysisText;

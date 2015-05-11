@@ -1044,7 +1044,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonConvertITSLBUBCRActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonConvertITSLBUBCR">
+            <Component class="javax.swing.JButton" name="buttonConvertITSLBUBCR1">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Convert LB/UB &lt;-&gt; C/R"/>
                 <Property name="enabled" type="boolean" value="false"/>
@@ -4613,7 +4613,6 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunHoltWintersInt">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Holt-Winters(i)"/>
-                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunRandomWalkCTS">

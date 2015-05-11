@@ -38,9 +38,6 @@ public class HoltWintersInt implements Forecastable {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        realOutputsIntervalTrain.addAll(realOutputsIntervalTest);
-        
-        
         //ak to nie su seasonal data, R skonci s chybou
         if (reportCenter.getFittedValues().length == 0) { //ak neni fit, predpokladam, ze neni nic...
             TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_WINTERS_INT);
@@ -66,6 +63,7 @@ public class HoltWintersInt implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
+        realOutputsIntervalTrain.addAll(realOutputsIntervalTest);
         report.setRealValues(realOutputsIntervalTrain);
         
         return report;
