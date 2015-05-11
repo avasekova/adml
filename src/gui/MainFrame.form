@@ -2197,12 +2197,24 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                         </Container>
+                        <Container class="javax.swing.JPanel" name="panelSettingsKNNoptions_myown">
+                          <AuxValues>
+                            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new KNNmyownSettingsPanel()"/>
+                          </AuxValues>
+                          <Constraints>
+                            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
+                              <CardConstraints cardName="card5"/>
+                            </Constraint>
+                          </Constraints>
+
+                          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                        </Container>
                       </SubComponents>
                     </Container>
                     <Component class="javax.swing.JComboBox" name="comboBoxKNNoptions">
                       <Properties>
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { Const.KNN_FNN, Const.KNN_KKNN/*, Const.KNN_CUSTOM*/ })" type="code"/>
+                          <Connection code="new javax.swing.DefaultComboBoxModel(new String[] { Const.KNN_FNN, Const.KNN_KKNN/*, Const.KNN_CUSTOM*/, Const.KNN_MYOWN })" type="code"/>
                         </Property>
                       </Properties>
                       <Events>
@@ -3799,7 +3811,7 @@
                                       <Component id="textFieldRunNumForecasts" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace pref="97" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
@@ -3811,159 +3823,151 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Component id="checkBoxRunHybrid" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jSeparator10" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
+                          <Component id="jSeparator11" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
+                          <Component id="jSeparator12" alignment="0" min="-2" pref="194" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="checkBoxRunMLPnnetar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunMLPneuralnet" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunMLPnnet" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunRBF" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Component id="checkBoxRunRandomWalkCTS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunBNN" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                                      <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNfnn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNcustom" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNkknn" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunKNNmyown" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunVAR" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunSES" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunHolt" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="checkBoxRunHoltWinters" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="checkBoxRunIntervalMLPCcode" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxRunKNNinterval" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunIntervalHolt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunIntervalRandomWalk" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel133" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="622" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkBoxAvgTheilsuCTSperM" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxAvgMedianCTSperM" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkBoxAvgMedianCTS" min="-2" max="-2" attributes="0"/>
+                                  <Component id="checkBoxAvgTheilsuCTS" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="checkBoxAvgSimpleCTSperM" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="checkBoxAvgSimpleCTS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="checkBoxAvgMDeCTSperM" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgMDeCTS" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <Component id="checkBoxAvgONLY" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="checkBoxAvgSimpleIntTSperM" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgSimpleIntTS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgMDeIntTSperM" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgMDeIntTS" min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="checkBoxRunHybrid" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jSeparator10" min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Component id="jSeparator11" min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Component id="jSeparator12" min="-2" pref="194" max="-2" attributes="0"/>
                                           <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="checkBoxRunMLPnnetar" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunMLPneuralnet" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunMLPnnet" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunRBF" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" attributes="0">
-                                                      <Component id="checkBoxRunRandomWalkCTS" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunBNN" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <Component id="checkBoxRunARIMA" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunKNNfnn" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunKNNcustom" min="-2" max="-2" attributes="0"/>
-                                                      <EmptySpace max="-2" attributes="0"/>
-                                                      <Component id="checkBoxRunKNNkknn" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                                  <Group type="102" alignment="0" attributes="0">
-                                                      <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-                                                      <Component id="jLabel72" min="-2" max="-2" attributes="0"/>
-                                                  </Group>
-                                              </Group>
+                                              <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
+                                              <Component id="checkBoxAvgMedianIntTS" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+                                              <Component id="checkBoxAvgTheilsuIntTSperM" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunVAR" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunSES" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunHolt" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunHoltWinters" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" attributes="0">
-                                              <Component id="checkBoxRunIntervalMLPCcode" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunIntervalMLPneuralnet" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunKNNinterval" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunIntervalHolt" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="checkBoxRunIntervalRandomWalk" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="jLabel133" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="-2" pref="622" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="checkBoxAvgTheilsuCTSperM" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgMedianCTSperM" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="checkBoxAvgMedianCTS" min="-2" max="-2" attributes="0"/>
-                                              <Component id="checkBoxAvgTheilsuCTS" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="checkBoxAvgSimpleCTSperM" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="checkBoxAvgSimpleCTS" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="checkBoxAvgMDeCTSperM" min="-2" max="-2" attributes="0"/>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <EmptySpace min="-2" pref="181" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgMDeCTS" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                      </Group>
-                                      <Component id="checkBoxAvgONLY" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="checkBoxAvgSimpleIntTSperM" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgSimpleIntTS" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgMDeIntTSperM" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgMDeIntTS" min="-2" max="-2" attributes="0"/>
-                                                  <Group type="103" groupAlignment="0" attributes="0">
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="211" max="-2" attributes="0"/>
-                                                          <Component id="checkBoxAvgMedianIntTS" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                      <Group type="102" alignment="0" attributes="0">
-                                                          <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-                                                          <Component id="checkBoxAvgTheilsuIntTSperM" min="-2" max="-2" attributes="0"/>
-                                                          <EmptySpace max="-2" attributes="0"/>
-                                                          <Component id="checkBoxAvgTheilsuIntTS" min="-2" max="-2" attributes="0"/>
-                                                      </Group>
-                                                  </Group>
-                                              </Group>
-                                              <Group type="102" alignment="0" attributes="0">
-                                                  <Component id="checkBoxAvgCvgEffIntTSperM" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgCvgEffIntTS" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgCenterLogRadiusIntTSperM" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgCenterLogRadiusIntTS" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                                  <Component id="checkBoxAvgMedianIntTSperM" min="-2" max="-2" attributes="0"/>
-                                              </Group>
+                                              <Component id="checkBoxAvgTheilsuIntTS" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgCvgEffIntTSperM" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunMLPintNnet" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunRBFint" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunVARint" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunSESint" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunHoltInt" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunHoltWintersInt" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgCvgEffIntTS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgCenterLogRadiusIntTSperM" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="checkBoxRunBNNInt" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgCenterLogRadiusIntTS" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="checkBoxAvgMedianIntTSperM" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="checkBoxRunMLPintNnetar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunMLPintNnet" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunRBFint" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunVARint" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunSESint" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunHoltInt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="checkBoxRunHoltWintersInt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxRunBNNInt" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="buttonTrainAndTest" min="-2" max="-2" attributes="0"/>
@@ -3981,9 +3985,9 @@
                               <Component id="checkBoxRunIncludeRMSSE" min="-2" pref="225" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="textFieldRunRMSSESeasonality" min="-2" pref="24" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <EmptySpace min="45" pref="46" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -4090,6 +4094,7 @@
                                           <Component id="checkBoxRunHolt" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunSES" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="checkBoxRunHoltWinters" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="checkBoxRunKNNmyown" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
@@ -4502,6 +4507,9 @@
                 <Property name="text" type="java.lang.String" value="VAR"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxRunVARActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunRBF">
               <Properties>
@@ -4758,6 +4766,12 @@
             <Component class="javax.swing.JCheckBox" name="checkBoxRunBNNInt">
               <Properties>
                 <Property name="text" type="java.lang.String" value="BNN(i)"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxRunKNNmyown">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="kNN (my own)"/>
+                <Property name="enabled" type="boolean" value="false"/>
               </Properties>
             </Component>
           </SubComponents>

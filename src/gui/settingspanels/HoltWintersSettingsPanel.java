@@ -230,6 +230,6 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setSeasonalityAddMult", String.class, getSeasonalityAddMult());
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setDamped", R_Bool.class, isDamped());
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", String.class, ((SeasonalitySettingsPanel)panelSeasonality).getFrequency());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", Integer.class, ((SeasonalitySettingsPanel)panelSeasonality).getFrequency());
     }
 }

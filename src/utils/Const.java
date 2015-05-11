@@ -41,6 +41,7 @@ public class Const {
     public static final String KNN_CUSTOM = "KNN(custom)";
     public static final String KNN_FNN = "KNN(FNN)";
     public static final String KNN_KKNN = "KNN(kknn)";
+    public static final String KNN_MYOWN = "KNN(custom impl)";
     public static final String MLP_INT_NNET = "MLP(i)(nnet)";
     public static final String MLP_INT_NNETAR = "MLP(i)(nnetar)";
     public static final String NEURALNET = "MLP(neuralnet)";

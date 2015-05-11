@@ -4,7 +4,7 @@ public class HoltWintersParams extends HoltParams {
     
     private String gamma;
     private String seasonalityAddMult;
-    private String frequency;
+    private Integer frequency;
 
     public String getGamma() {
         return gamma;
@@ -22,11 +22,11 @@ public class HoltWintersParams extends HoltParams {
         this.seasonalityAddMult = seasonalityAddMult;
     }
 
-    public String getFrequency() {
+    public Integer getFrequency() {
         return frequency;
     }
 
-    public void setFrequency(String frequency) {
+    public void setFrequency(Integer frequency) {
         this.frequency = frequency;
     }
     

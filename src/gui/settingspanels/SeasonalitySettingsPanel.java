@@ -21,15 +21,18 @@ public class SeasonalitySettingsPanel extends SettingsPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        comboBoxTypeSeasonality = new javax.swing.JComboBox();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-
-        comboBoxTypeSeasonality.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Daily", "Monthly", "Quarterly", "Yearly" }));
-
-        jLabel1.setText("data");
+        jLabel3 = new javax.swing.JLabel();
+        textFieldFrequency = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel2.setText("(works only sometimes...)");
+
+        jLabel3.setText("Frequency: repeating every");
+
+        textFieldFrequency.setText("12");
+
+        jLabel4.setText("observations");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -37,51 +40,43 @@ public class SeasonalitySettingsPanel extends SettingsPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(comboBoxTypeSeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel2))
+                        .addComponent(textFieldFrequency, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel4)))
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(comboBoxTypeSeasonality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
-                .addComponent(jLabel2))
+                    .addComponent(jLabel3)
+                    .addComponent(textFieldFrequency, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox comboBoxTypeSeasonality;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField textFieldFrequency;
     // End of variables declaration//GEN-END:variables
 
     //TODO spravit krajsie!
-    public String getFrequency() {
-        switch (comboBoxTypeSeasonality.getSelectedItem().toString()) {
-            case "Daily":
-                return "frequency=7"; //the data is sampled daily and the natural observation period is a week
-//            case "Weekly":
-//                return "frequency=52";
-            case "Monthly":
-                return "frequency=12";
-            case "Quarterly":
-                return "frequency=4";
-            case "Yearly":
-                return "frequency=1";
-        }
-        
-        return "frequency=1";
+    public Integer getFrequency() {
+        return Integer.parseInt(textFieldFrequency.getText());
     }
     
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
-        SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", String.class, getFrequency());
+        SettingsPanel.setSomethingOneValue(classss, resultList, "setFrequency", Integer.class, getFrequency());
     }
 }

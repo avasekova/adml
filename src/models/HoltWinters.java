@@ -36,7 +36,7 @@ public class HoltWinters implements Forecastable {
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
         
         //musim si z toho spravit seasonal data
-        rengine.eval(INPUT_TRAIN + " <- ts(" + INPUT_TRAIN + ", " + params.getFrequency() + ")");
+        rengine.eval(INPUT_TRAIN + " <- ts(" + INPUT_TRAIN + ", frequency=" + params.getFrequency() + ")");
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast::hw(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
@@ -49,8 +49,11 @@ public class HoltWinters implements Forecastable {
             TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
             report.setModelDescription("(non-seasonal data!)");
             report.setRealOutputsTrain(Utils.listToArray(inputTrain));
+            report.setFittedValues(Utils.listToArray(inputTrain));
             report.setRealOutputsTest(Utils.listToArray(inputTest));
-            report.setPlotCode("plot.ts(c())"); //dummy
+            report.setForecastValuesTest(Utils.listToArray(inputTest));
+            report.setNumTrainingEntries(inputTrain.size());
+            report.setPlotCode("plot.ts(rep(0," + dataToUse.size() + "))"); //dummy
             report.setErrorMeasures(new ErrorMeasuresCrisp());
         
             return report;
