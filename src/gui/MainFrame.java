@@ -29,6 +29,7 @@ import gui.settingspanels.KNNCustomSettingsPanel;
 import gui.settingspanels.KNNFNNSettingsPanel;
 import gui.settingspanels.KNNkknnSettingsPanel;
 import gui.settingspanels.KNNmyownSettingsPanel;
+import gui.settingspanels.MAvgSettingsPanel;
 import gui.settingspanels.MLPNnetSettingsPanel;
 import gui.settingspanels.MLPNnetarSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
@@ -89,6 +90,7 @@ import models.IntervalMLPCcode;
 import models.KNNfnn;
 import models.KNNkknn;
 import models.KNNmyown;
+import models.MAvg;
 import models.MLPintNnet;
 import models.MLPintNnetar;
 import models.Neuralnet;
@@ -128,6 +130,7 @@ import models.params.IntervalMLPCcodeParams;
 import models.params.KNNfnnParams;
 import models.params.KNNkknnParams;
 import models.params.KNNmyownParams;
+import models.params.MAvgParams;
 import models.params.MLPintNnetParams;
 import models.params.MLPintNnetarParams;
 import models.params.NeuralnetParams;
@@ -367,6 +370,9 @@ public class MainFrame extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JSeparator();
         panelSESintDistance = new DistanceSettingsPanel();
         buttonSettingsAddToBatch_SESint = new javax.swing.JButton();
+        panelSettingsMethodsMAvg = new javax.swing.JPanel();
+        buttonSettingsAddToBatch_MAvg = new javax.swing.JButton();
+        panelMAvgMain = new MAvgSettingsPanel();
         panelSettingsMethodsHolt = new javax.swing.JPanel();
         panelHoltPercentTrain = new PercentTrainSettingsPanel();
         panelHoltInside = new HoltSettingsPanel();
@@ -538,6 +544,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunBNN = new javax.swing.JCheckBox();
         checkBoxRunBNNInt = new javax.swing.JCheckBox();
         checkBoxRunKNNmyown = new javax.swing.JCheckBox();
+        checkBoxRunMAvg = new javax.swing.JCheckBox();
         panelErrorMeasuresAll = new javax.swing.JPanel();
         panelErrorMeasures = new javax.swing.JPanel();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
@@ -2069,6 +2076,39 @@ public class MainFrame extends javax.swing.JFrame {
 
         paneSettingsMethods.addTab("SES(i)", panelSettingsMethodsSESint);
 
+        buttonSettingsAddToBatch_MAvg.setText("Add to Analysis Batch");
+        buttonSettingsAddToBatch_MAvg.setEnabled(false);
+        buttonSettingsAddToBatch_MAvg.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSettingsAddToBatch_MAvgActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelSettingsMethodsMAvgLayout = new javax.swing.GroupLayout(panelSettingsMethodsMAvg);
+        panelSettingsMethodsMAvg.setLayout(panelSettingsMethodsMAvgLayout);
+        panelSettingsMethodsMAvgLayout.setHorizontalGroup(
+            panelSettingsMethodsMAvgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsMAvgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelSettingsMethodsMAvgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelSettingsMethodsMAvgLayout.createSequentialGroup()
+                        .addComponent(buttonSettingsAddToBatch_MAvg)
+                        .addGap(0, 1156, Short.MAX_VALUE))
+                    .addComponent(panelMAvgMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelSettingsMethodsMAvgLayout.setVerticalGroup(
+            panelSettingsMethodsMAvgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelSettingsMethodsMAvgLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(buttonSettingsAddToBatch_MAvg)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelMAvgMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        paneSettingsMethods.addTab("MA", panelSettingsMethodsMAvg);
+
         buttonSettingsAddToBatch_Holt.setText("Add to Analysis batch");
         buttonSettingsAddToBatch_Holt.setEnabled(false);
         buttonSettingsAddToBatch_Holt.addActionListener(new java.awt.event.ActionListener() {
@@ -2927,6 +2967,8 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunKNNmyown.setText("kNN (my own)");
         checkBoxRunKNNmyown.setEnabled(false);
 
+        checkBoxRunMAvg.setText("MA");
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -3004,7 +3046,9 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
                                 .addComponent(checkBoxRunRandomWalkCTS)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(checkBoxRunBNN)))
+                                .addComponent(checkBoxRunBNN)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(checkBoxRunMAvg)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createSequentialGroup()
@@ -3215,7 +3259,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel72)
                                     .addComponent(checkBoxRunRandomWalkCTS)
-                                    .addComponent(checkBoxRunBNN))
+                                    .addComponent(checkBoxRunBNN)
+                                    .addComponent(checkBoxRunMAvg))
                                 .addGap(20, 20, 20)
                                 .addComponent(jSeparator10, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
@@ -4262,6 +4307,10 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (checkBoxRunSESint.isSelected()) {
             buttonSettingsAddToBatch_SESintActionPerformed(null);
+        }
+        
+        if (checkBoxRunMAvg.isSelected()) {
+            buttonSettingsAddToBatch_MAvgActionPerformed(null);
         }
         
         if (checkBoxRunHoltWinters.isSelected()) {
@@ -5844,6 +5893,15 @@ public class MainFrame extends javax.swing.JFrame {
         
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonConvertITSLBUBCRActionPerformed
+
+    private void buttonSettingsAddToBatch_MAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MAvgActionPerformed
+        try {
+            List<MAvgParams> paramsMAvg = getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
+            batchTableModel.addLine(new AnalysisBatchLine(Const.MAvg, paramsMAvg));
+        } catch (IllegalArgumentException e) {
+            //TODO
+        }
+    }//GEN-LAST:event_buttonSettingsAddToBatch_MAvgActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5972,6 +6030,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonSettingsAddToBatch_Hybrid;
     private javax.swing.JButton buttonSettingsAddToBatch_IntervalHolt;
     private javax.swing.JButton buttonSettingsAddToBatch_KNN;
+    private javax.swing.JButton buttonSettingsAddToBatch_MAvg;
     private javax.swing.JButton buttonSettingsAddToBatch_MLP;
     private javax.swing.JButton buttonSettingsAddToBatch_MLPint;
     private javax.swing.JButton buttonSettingsAddToBatch_RBF;
@@ -6022,6 +6081,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxRunKNNinterval;
     private javax.swing.JCheckBox checkBoxRunKNNkknn;
     private javax.swing.JCheckBox checkBoxRunKNNmyown;
+    private javax.swing.JCheckBox checkBoxRunMAvg;
     private javax.swing.JCheckBox checkBoxRunMLPintNnet;
     private javax.swing.JCheckBox checkBoxRunMLPintNnetar;
     private javax.swing.JCheckBox checkBoxRunMLPneuralnet;
@@ -6211,6 +6271,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelIntervalHoltMain;
     private javax.swing.JPanel panelIntervalHoltPercentTrain;
     private javax.swing.JPanel panelKNNPercTrain;
+    private javax.swing.JPanel panelMAvgMain;
     private javax.swing.JPanel panelMLPPercentTrain;
     private javax.swing.JPanel panelMLPintPercentTrain;
     private javax.swing.JPanel panelMLPintSettingsDistance;
@@ -6285,6 +6346,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsMethodsHoltWinters;
     private javax.swing.JPanel panelSettingsMethodsHoltWintersInt;
     private javax.swing.JPanel panelSettingsMethodsIntervalHolt;
+    private javax.swing.JPanel panelSettingsMethodsMAvg;
     private javax.swing.JPanel panelSettingsMethodsSES;
     private javax.swing.JPanel panelSettingsMethodsSESint;
     private javax.swing.JPanel panelSettingsMethodsVARint;
@@ -6999,6 +7061,22 @@ public class MainFrame extends javax.swing.JFrame {
         return resultList;
     }
     
+    //TODO vsetky tieto getParams metody by sa podla mna dali spravit genericke, aj tak tam je vsade setSpecificParams atd
+    private List<MAvgParams> getParamsMAvg(JComboBox comboBoxColname, JPanel main) {
+        MAvgParams par = new MAvgParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(100);
+        par.setColName(comboBoxColname.getSelectedItem().toString()); //data
+        
+        List<MAvgParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        setParamsGeneral(MAvgParams.class, resultList);
+        ((MAvgSettingsPanel)main).setSpecificParams(MAvgParams.class, resultList);
+        
+        return resultList;
+    }
+    
     private List<HoltWintersParams> getParamsHoltWinters(JPanel percentTrainSettingsPanel, JPanel panelSettingsHoltWint,
             JComboBox comboBoxColName) throws IllegalArgumentException {
         HoltWintersParams par = new HoltWintersParams();
@@ -7560,6 +7638,8 @@ public class MainFrame extends javax.swing.JFrame {
                     case Const.SES:
                         forecastable = new SES();
                         break;
+                    case Const.MAvg:
+                        forecastable = new MAvg();
                     case Const.VAR:
                         break;
                         
