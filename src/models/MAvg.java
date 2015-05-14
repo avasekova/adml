@@ -36,7 +36,6 @@ public class MAvg implements Forecastable {
         rengine.eval(FIT + " <- forecast::ma(" + INPUT_TRAIN + ", order=" + params.getOrder() + ")");
         REXP getFittedVals = rengine.eval(FIT);
         double[] fittedVals = getFittedVals.asDoubleArray();
-        System.out.println(Arrays.toString(fittedVals));
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.MAvg);
         report.setModelDescription(params.toString());
