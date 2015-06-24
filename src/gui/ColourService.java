@@ -1,6 +1,11 @@
 package gui;
 public class ColourService {
     
+    //TODO vykradnut nieco ako:
+    ///https://github.com/mbostock/d3/blob/master/lib/colorbrewer/colorbrewer.js
+    ///https://github.com/mbostock/d3/blob/master/lib/colorbrewer/colorbrewer.css
+    ///https://github.com/mbostock/d3/wiki/Ordinal-Scales
+    
     private static ColourService instance = null;
     private int counter = -1;
     private static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
