@@ -48,6 +48,7 @@ import gui.tablemodels.PredictionIntsTableModel;
 import gui.tablemodels.ResidualsTableModel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
@@ -65,6 +66,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import static javax.swing.JFileChooser.SAVE_DIALOG;
@@ -74,6 +76,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
 import models.Arima;
@@ -192,31 +195,45 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonGroup_runFakeIntCRLBUB = new javax.swing.ButtonGroup();
         panelEverything = new javax.swing.JTabbedPane();
-        panelPlotSettings = new javax.swing.JPanel();
+        panelCTS = new javax.swing.JPanel();
         buttonPlotColname = new javax.swing.JButton();
         buttonACF = new javax.swing.JButton();
         buttonPACF = new javax.swing.JButton();
-        buttonPlotAllITS = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         listColnames = new javax.swing.JList();
         jScrollPane2 = new javax.swing.JScrollPane();
         textAreaPlotBasicStats = new javax.swing.JTextArea();
         jSeparator2 = new javax.swing.JSeparator();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        listPlotITSspecs = new javax.swing.JList();
-        buttonPlotRemoveITS = new javax.swing.JButton();
-        buttonPlotAddITS = new javax.swing.JButton();
-        buttonPlotAllITSScatterplot = new javax.swing.JButton();
-        buttonPlotAllITSScatterplotMatrix = new javax.swing.JButton();
         buttonBoxplots = new javax.swing.JButton();
         buttonHistograms = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        tabbedPaneAnalysisPlots = new javax.swing.JTabbedPane();
+        tabbedPaneAnalysisPlotsCTS = new javax.swing.JTabbedPane();
         buttonNormProbPlot = new javax.swing.JButton();
-        buttonExportAnalysisPlots = new javax.swing.JButton();
+        buttonExportAnalysisPlotsCTS = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         buttonExportAnalysisText = new javax.swing.JButton();
+        panelTransform = new javax.swing.JPanel();
+        buttonLogTransformSeries = new javax.swing.JButton();
+        buttonDiffSeries = new javax.swing.JButton();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        listColnamesTransform = new javax.swing.JList();
+        buttonRemoveTrend = new javax.swing.JButton();
+        buttonAggregateToITS = new javax.swing.JButton();
+        jLabel24 = new javax.swing.JLabel();
+        textFieldAggregateToITSevery = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        buttonConvertITSLBUBCR1 = new javax.swing.JButton();
+        buttonNormalize = new javax.swing.JButton();
+        panelIntTS = new javax.swing.JPanel();
+        buttonPlotAddITS = new javax.swing.JButton();
+        buttonPlotRemoveITS = new javax.swing.JButton();
+        buttonPlotAllITS = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        listPlotITSspecs = new javax.swing.JList();
+        buttonPlotAllITSScatterplot = new javax.swing.JButton();
+        buttonPlotAllITSScatterplotMatrix = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jSeparator14 = new javax.swing.JSeparator();
+        buttonConvertITSLBUBCR = new javax.swing.JButton();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -247,18 +264,6 @@ public class MainFrame extends javax.swing.JFrame {
         listPlotLegend = new javax.swing.JList();
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
-        panelTransform = new javax.swing.JPanel();
-        buttonLogTransformSeries = new javax.swing.JButton();
-        buttonDiffSeries = new javax.swing.JButton();
-        jScrollPane7 = new javax.swing.JScrollPane();
-        listColnamesTransform = new javax.swing.JList();
-        buttonRemoveTrend = new javax.swing.JButton();
-        buttonAggregateToITS = new javax.swing.JButton();
-        jLabel24 = new javax.swing.JLabel();
-        textFieldAggregateToITSevery = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
-        buttonConvertITSLBUBCR = new javax.swing.JButton();
-        buttonConvertITSLBUBCR1 = new javax.swing.JButton();
         panelTestsOutside = new javax.swing.JPanel();
         buttonNormalityTests = new javax.swing.JButton();
         buttonStationarityTest = new javax.swing.JButton();
@@ -267,6 +272,15 @@ public class MainFrame extends javax.swing.JFrame {
         textFieldMaxStructBreaks = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        listColnamesTests = new javax.swing.JList();
+        jSeparator15 = new javax.swing.JSeparator();
+        tabbedPaneAnalysisPlotsCTS1 = new javax.swing.JTabbedPane();
+        buttonExportTextAreaTests = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        textAreaTests = new javax.swing.JTextArea();
+        buttonExportTestsPlots = new javax.swing.JButton();
+        jLabel34 = new javax.swing.JLabel();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -624,7 +638,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.setPreferredSize(new java.awt.Dimension(1361, 687));
 
-        panelPlotSettings.setPreferredSize(new java.awt.Dimension(1361, 614));
+        panelCTS.setPreferredSize(new java.awt.Dimension(1361, 614));
 
         buttonPlotColname.setText("Plot selected time series");
         buttonPlotColname.setEnabled(false);
@@ -653,14 +667,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonPlotAllITS.setText("Plot all specified ITS");
-        buttonPlotAllITS.setEnabled(false);
-        buttonPlotAllITS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotAllITSActionPerformed(evt);
-            }
-        });
-
         listColnames.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(listColnames);
 
@@ -678,10 +684,228 @@ public class MainFrame extends javax.swing.JFrame {
 
         jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        jScrollPane4.setPreferredSize(new java.awt.Dimension(247, 130));
+        buttonBoxplots.setText("Boxplots");
+        buttonBoxplots.setEnabled(false);
+        buttonBoxplots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBoxplotsActionPerformed(evt);
+            }
+        });
 
-        listPlotITSspecs.setModel(new DefaultListModel());
-        jScrollPane4.setViewportView(listPlotITSspecs);
+        buttonHistograms.setText("Histograms");
+        buttonHistograms.setEnabled(false);
+        buttonHistograms.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonHistogramsActionPerformed(evt);
+            }
+        });
+
+        buttonNormProbPlot.setText("Normal probability plot");
+        buttonNormProbPlot.setEnabled(false);
+        buttonNormProbPlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNormProbPlotActionPerformed(evt);
+            }
+        });
+
+        buttonExportAnalysisPlotsCTS.setText("Export currently shown plot");
+        buttonExportAnalysisPlotsCTS.setEnabled(false);
+        buttonExportAnalysisPlotsCTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportAnalysisPlotsCTSActionPerformed(evt);
+            }
+        });
+
+        jLabel22.setText("(Broken - only exports the last tab.)");
+
+        buttonExportAnalysisText.setText("Save the contents of the box below:");
+        buttonExportAnalysisText.setEnabled(false);
+        buttonExportAnalysisText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportAnalysisTextActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
+        panelCTS.setLayout(panelCTSLayout);
+        panelCTSLayout.setHorizontalGroup(
+            panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCTSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelCTSLayout.createSequentialGroup()
+                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonExportAnalysisText))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotColname)
+                            .addComponent(buttonHistograms)
+                            .addComponent(buttonBoxplots)
+                            .addComponent(buttonNormProbPlot)
+                            .addGroup(panelCTSLayout.createSequentialGroup()
+                                .addComponent(buttonACF)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonPACF)))
+                        .addGap(0, 10, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabbedPaneAnalysisPlotsCTS)
+                    .addGroup(panelCTSLayout.createSequentialGroup()
+                        .addComponent(buttonExportAnalysisPlotsCTS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel22)
+                        .addGap(0, 429, Short.MAX_VALUE)))
+                .addGap(16, 16, 16))
+        );
+        panelCTSLayout.setVerticalGroup(
+            panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelCTSLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator2)
+                    .addGroup(panelCTSLayout.createSequentialGroup()
+                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelCTSLayout.createSequentialGroup()
+                                .addComponent(buttonPlotColname)
+                                .addGap(18, 18, 18)
+                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonACF)
+                                    .addComponent(buttonPACF))
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonBoxplots)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonHistograms)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonNormProbPlot))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)
+                        .addComponent(buttonExportAnalysisText)
+                        .addGap(9, 9, 9)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
+                    .addGroup(panelCTSLayout.createSequentialGroup()
+                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonExportAnalysisPlotsCTS)
+                            .addComponent(jLabel22))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tabbedPaneAnalysisPlotsCTS)))
+                .addContainerGap())
+        );
+
+        panelEverything.addTab("CTS", panelCTS);
+
+        buttonLogTransformSeries.setText("Log-transform selected");
+        buttonLogTransformSeries.setEnabled(false);
+        buttonLogTransformSeries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLogTransformSeriesActionPerformed(evt);
+            }
+        });
+
+        buttonDiffSeries.setText("Difference selected");
+        buttonDiffSeries.setEnabled(false);
+        buttonDiffSeries.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDiffSeriesActionPerformed(evt);
+            }
+        });
+
+        listColnamesTransform.setModel(new DefaultListModel());
+        jScrollPane7.setViewportView(listColnamesTransform);
+
+        buttonRemoveTrend.setText("Remove trend");
+        buttonRemoveTrend.setEnabled(false);
+        buttonRemoveTrend.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRemoveTrendActionPerformed(evt);
+            }
+        });
+
+        buttonAggregateToITS.setText("Aggregate to ITS");
+        buttonAggregateToITS.setEnabled(false);
+        buttonAggregateToITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAggregateToITSActionPerformed(evt);
+            }
+        });
+
+        jLabel24.setText("every");
+
+        textFieldAggregateToITSevery.setText("24");
+
+        jLabel25.setText("observations");
+
+        buttonConvertITSLBUBCR1.setText("Convert LB/UB <-> C/R");
+        buttonConvertITSLBUBCR1.setEnabled(false);
+        buttonConvertITSLBUBCR1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConvertITSLBUBCRActionPerformed(evt);
+            }
+        });
+
+        buttonNormalize.setText("Normalize");
+        buttonNormalize.setEnabled(false);
+
+        javax.swing.GroupLayout panelTransformLayout = new javax.swing.GroupLayout(panelTransform);
+        panelTransform.setLayout(panelTransformLayout);
+        panelTransformLayout.setHorizontalGroup(
+            panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTransformLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonLogTransformSeries)
+                    .addComponent(buttonDiffSeries)
+                    .addComponent(buttonRemoveTrend)
+                    .addGroup(panelTransformLayout.createSequentialGroup()
+                        .addComponent(buttonAggregateToITS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel25))
+                    .addComponent(buttonNormalize))
+                .addContainerGap(875, Short.MAX_VALUE))
+        );
+        panelTransformLayout.setVerticalGroup(
+            panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTransformLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTransformLayout.createSequentialGroup()
+                        .addComponent(buttonDiffSeries)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonLogTransformSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonNormalize)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonRemoveTrend)
+                        .addGap(18, 18, 18)
+                        .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonAggregateToITS)
+                            .addComponent(jLabel24)
+                            .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel25)))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(390, Short.MAX_VALUE))
+        );
+
+        panelEverything.addTab("CTS transformation", panelTransform);
+
+        panelIntTS.setName(""); // NOI18N
+
+        buttonPlotAddITS.setText("Specify new ITS");
+        buttonPlotAddITS.setEnabled(false);
+        buttonPlotAddITS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPlotAddITSActionPerformed(evt);
+            }
+        });
 
         buttonPlotRemoveITS.setText("Remove selected ITS");
         buttonPlotRemoveITS.setEnabled(false);
@@ -691,13 +915,18 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonPlotAddITS.setText("Specify new ITS");
-        buttonPlotAddITS.setEnabled(false);
-        buttonPlotAddITS.addActionListener(new java.awt.event.ActionListener() {
+        buttonPlotAllITS.setText("Plot all specified ITS");
+        buttonPlotAllITS.setEnabled(false);
+        buttonPlotAllITS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotAddITSActionPerformed(evt);
+                buttonPlotAllITSActionPerformed(evt);
             }
         });
+
+        jScrollPane4.setPreferredSize(new java.awt.Dimension(247, 130));
+
+        listPlotITSspecs.setModel(new DefaultListModel());
+        jScrollPane4.setViewportView(listPlotITSspecs);
 
         buttonPlotAllITSScatterplot.setText("Scatterplots all in one");
         buttonPlotAllITSScatterplot.setEnabled(false);
@@ -715,162 +944,73 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonBoxplots.setText("Boxplots");
-        buttonBoxplots.setEnabled(false);
-        buttonBoxplots.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBoxplotsActionPerformed(evt);
-            }
-        });
-
-        buttonHistograms.setText("Histograms");
-        buttonHistograms.setEnabled(false);
-        buttonHistograms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonHistogramsActionPerformed(evt);
-            }
-        });
-
-        jLabel17.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel17.setText("TODO the design of this window and the Plot window. this is UGLY.");
-
         jLabel18.setText("Note: for now ignores ITS specified as [LB, UB]");
 
-        buttonNormProbPlot.setText("Normal probability plot");
-        buttonNormProbPlot.setEnabled(false);
-        buttonNormProbPlot.addActionListener(new java.awt.event.ActionListener() {
+        jSeparator14.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        buttonConvertITSLBUBCR.setText("Convert LB/UB <-> C/R");
+        buttonConvertITSLBUBCR.setEnabled(false);
+        buttonConvertITSLBUBCR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNormProbPlotActionPerformed(evt);
+                buttonConvertITSLBUBCRActionPerformed(evt);
             }
         });
 
-        buttonExportAnalysisPlots.setText("Export currently shown plot");
-        buttonExportAnalysisPlots.setEnabled(false);
-        buttonExportAnalysisPlots.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportAnalysisPlotsActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setText("(Broken - only exports the last tab.)");
-
-        buttonExportAnalysisText.setText("Save the contents of the box below:");
-        buttonExportAnalysisText.setEnabled(false);
-        buttonExportAnalysisText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportAnalysisTextActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelPlotSettingsLayout = new javax.swing.GroupLayout(panelPlotSettings);
-        panelPlotSettings.setLayout(panelPlotSettingsLayout);
-        panelPlotSettingsLayout.setHorizontalGroup(
-            panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+        javax.swing.GroupLayout panelIntTSLayout = new javax.swing.GroupLayout(panelIntTS);
+        panelIntTS.setLayout(panelIntTSLayout);
+        panelIntTSLayout.setHorizontalGroup(
+            panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIntTSLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonExportAnalysisText))
+                .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelIntTSLayout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotColname)
-                            .addComponent(buttonHistograms)
-                            .addComponent(buttonBoxplots)
-                            .addComponent(buttonNormProbPlot)
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addComponent(buttonACF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPACF)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonPlotAllITS)
+                            .addComponent(buttonPlotRemoveITS)
+                            .addComponent(buttonPlotAddITS)))
+                    .addComponent(buttonPlotAllITSScatterplot)
+                    .addGroup(panelIntTSLayout.createSequentialGroup()
+                        .addComponent(buttonPlotAllITSScatterplotMatrix)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel18)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addGap(391, 449, Short.MAX_VALUE))
-                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonPlotAllITS)
-                                    .addComponent(buttonPlotRemoveITS)
-                                    .addComponent(buttonPlotAddITS))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonPlotAllITSScatterplot)
-                                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                        .addComponent(buttonPlotAllITSScatterplotMatrix)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel18))))
-                            .addComponent(tabbedPaneAnalysisPlots)
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addComponent(buttonExportAnalysisPlots)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel22)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(buttonConvertITSLBUBCR)
+                .addContainerGap(705, Short.MAX_VALUE))
         );
-        panelPlotSettingsLayout.setVerticalGroup(
-            panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+        panelIntTSLayout.setVerticalGroup(
+            panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelIntTSLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
-                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addComponent(buttonPlotColname)
-                                .addGap(18, 18, 18)
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonACF)
-                                    .addComponent(buttonPACF))
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonBoxplots)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonHistograms)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonNormProbPlot))
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(7, 7, 7)
-                        .addComponent(buttonExportAnalysisText)
-                        .addGap(9, 9, 9)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
-                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addComponent(buttonPlotAllITSScatterplot)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonPlotAllITSScatterplotMatrix)
-                                    .addComponent(jLabel18)))
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
+                .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator14)
+                    .addGroup(panelIntTSLayout.createSequentialGroup()
+                        .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(buttonConvertITSLBUBCR)
+                            .addGroup(panelIntTSLayout.createSequentialGroup()
+                                .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(panelIntTSLayout.createSequentialGroup()
                                         .addComponent(buttonPlotAddITS)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonPlotRemoveITS)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonPlotAllITS))
-                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel17)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonExportAnalysisPlots)
-                            .addComponent(jLabel22))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabbedPaneAnalysisPlots)))
+                                .addComponent(buttonPlotAllITSScatterplot)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonPlotAllITSScatterplotMatrix)
+                                    .addComponent(jLabel18))))
+                        .addGap(0, 327, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        panelEverything.addTab("Plot settings", panelPlotSettings);
+        panelEverything.addTab("ITS", panelIntTS);
+        panelIntTS.getAccessibleContext().setAccessibleName("");
 
         buttonPlotExportPlot.setText("Save currently shown plot");
         buttonPlotExportPlot.setEnabled(false);
@@ -1147,111 +1287,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Plot", panelPlotImage);
 
-        buttonLogTransformSeries.setText("Log-transform selected");
-        buttonLogTransformSeries.setEnabled(false);
-        buttonLogTransformSeries.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLogTransformSeriesActionPerformed(evt);
-            }
-        });
-
-        buttonDiffSeries.setText("Difference selected");
-        buttonDiffSeries.setEnabled(false);
-        buttonDiffSeries.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonDiffSeriesActionPerformed(evt);
-            }
-        });
-
-        listColnamesTransform.setModel(new DefaultListModel());
-        jScrollPane7.setViewportView(listColnamesTransform);
-
-        buttonRemoveTrend.setText("Remove trend");
-        buttonRemoveTrend.setEnabled(false);
-        buttonRemoveTrend.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRemoveTrendActionPerformed(evt);
-            }
-        });
-
-        buttonAggregateToITS.setText("Aggregate to ITS");
-        buttonAggregateToITS.setEnabled(false);
-        buttonAggregateToITS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAggregateToITSActionPerformed(evt);
-            }
-        });
-
-        jLabel24.setText("every");
-
-        textFieldAggregateToITSevery.setText("24");
-
-        jLabel25.setText("observations");
-
-        buttonConvertITSLBUBCR.setText("Convert LB/UB <-> C/R");
-        buttonConvertITSLBUBCR.setEnabled(false);
-        buttonConvertITSLBUBCR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConvertITSLBUBCRActionPerformed(evt);
-            }
-        });
-
-        buttonConvertITSLBUBCR1.setText("Convert LB/UB <-> C/R");
-        buttonConvertITSLBUBCR1.setEnabled(false);
-        buttonConvertITSLBUBCR1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonConvertITSLBUBCRActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelTransformLayout = new javax.swing.GroupLayout(panelTransform);
-        panelTransform.setLayout(panelTransformLayout);
-        panelTransformLayout.setHorizontalGroup(
-            panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTransformLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonLogTransformSeries)
-                    .addComponent(buttonDiffSeries)
-                    .addComponent(buttonRemoveTrend)
-                    .addGroup(panelTransformLayout.createSequentialGroup()
-                        .addComponent(buttonAggregateToITS)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel25))
-                    .addComponent(buttonConvertITSLBUBCR))
-                .addContainerGap(875, Short.MAX_VALUE))
-        );
-        panelTransformLayout.setVerticalGroup(
-            panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTransformLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTransformLayout.createSequentialGroup()
-                        .addComponent(buttonDiffSeries)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonLogTransformSeries, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonRemoveTrend)
-                        .addGap(18, 18, 18)
-                        .addGroup(panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonAggregateToITS)
-                            .addComponent(jLabel24)
-                            .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel25))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonConvertITSLBUBCR))
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(390, Short.MAX_VALUE))
-        );
-
-        panelEverything.addTab("Data transformation", panelTransform);
-
         buttonNormalityTests.setText("Tests for normality");
         buttonNormalityTests.setEnabled(false);
         buttonNormalityTests.addActionListener(new java.awt.event.ActionListener() {
@@ -1285,43 +1320,110 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel21.setForeground(new java.awt.Color(255, 0, 0));
         jLabel21.setText("TODO: seasonal");
 
+        listColnamesTests.setModel(new DefaultListModel());
+        jScrollPane9.setViewportView(listColnamesTests);
+
+        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
+
+        buttonExportTextAreaTests.setText("Save the contents of the box below:");
+        buttonExportTextAreaTests.setEnabled(false);
+        buttonExportTextAreaTests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportTextAreaTestsActionPerformed(evt);
+            }
+        });
+
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(164, 89));
+
+        textAreaTests.setEditable(false);
+        textAreaTests.setColumns(20);
+        textAreaTests.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        textAreaTests.setLineWrap(true);
+        textAreaTests.setRows(5);
+        textAreaTests.setFocusable(false);
+        textAreaTests.setMaximumSize(new java.awt.Dimension(32767, 32767));
+        textAreaTests.setOpaque(false);
+        jScrollPane3.setViewportView(textAreaTests);
+
+        buttonExportTestsPlots.setText("Export currently shown plot");
+        buttonExportTestsPlots.setEnabled(false);
+        buttonExportTestsPlots.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportTestsPlotsActionPerformed(evt);
+            }
+        });
+
+        jLabel34.setText("(Broken - only exports the last tab.)");
+
         javax.swing.GroupLayout panelTestsOutsideLayout = new javax.swing.GroupLayout(panelTestsOutside);
         panelTestsOutside.setLayout(panelTestsOutsideLayout);
         panelTestsOutsideLayout.setHorizontalGroup(
             panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                .addGap(317, 317, 317)
+                .addContainerGap()
                 .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonNormalityTests)
-                    .addComponent(buttonStationarityTest)
                     .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                        .addComponent(buttonStructBreaks)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel19)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel20))))
-                .addContainerGap(812, Short.MAX_VALUE))
+                            .addComponent(buttonNormalityTests)
+                            .addComponent(buttonStationarityTest)
+                            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                                .addComponent(buttonStructBreaks)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel21)
+                                    .addComponent(jLabel20)))))
+                    .addComponent(buttonExportTextAreaTests)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabbedPaneAnalysisPlotsCTS1)
+                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                        .addComponent(buttonExportTestsPlots)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel34)
+                        .addGap(0, 470, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         panelTestsOutsideLayout.setVerticalGroup(
             panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                .addGap(146, 146, 146)
-                .addComponent(buttonNormalityTests)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonStationarityTest)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel21)
-                .addGap(7, 7, 7)
-                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonStructBreaks)
-                    .addComponent(jLabel19)
-                    .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel20))
-                .addContainerGap(411, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                                .addComponent(buttonNormalityTests)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonStationarityTest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel21)
+                                .addGap(7, 7, 7)
+                                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonStructBreaks)
+                                    .addComponent(jLabel19)
+                                    .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel20))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonExportTextAreaTests)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
+                    .addComponent(jSeparator15, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTestsOutsideLayout.createSequentialGroup()
+                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonExportTestsPlots)
+                            .addComponent(jLabel34))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tabbedPaneAnalysisPlotsCTS1)))
+                .addContainerGap())
         );
 
         panelEverything.addTab("Tests", panelTestsOutside);
@@ -4041,7 +4143,7 @@ public class MainFrame extends javax.swing.JFrame {
         drawPlotGeneral(true, "plot.ts", "");
         setPlotRanges(1, 0);
         
-        panelEverything.setSelectedIndex(1);
+        panelEverything.setSelectedComponent(panelPlotImage);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -4061,15 +4163,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlots.setEnabled(true);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlots.setEnabled(true);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
@@ -4984,6 +5086,8 @@ public class MainFrame extends javax.swing.JFrame {
                 panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
+        
+        panelEverything.setSelectedComponent(panelPlotImage);
     }//GEN-LAST:event_buttonPlotAllITSScatterplotActionPerformed
 
     private void buttonHideAllErrorsExceptAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHideAllErrorsExceptAvgActionPerformed
@@ -5097,6 +5201,8 @@ public class MainFrame extends javax.swing.JFrame {
                 panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 0);
+        
+        panelEverything.setSelectedComponent(panelPlotImage);
     }//GEN-LAST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
 
     private void checkBoxAvgMedianCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMedianCTSperMActionPerformed
@@ -5132,15 +5238,15 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
 
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlots.setEnabled(true);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
 
     private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlots.setEnabled(true);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonHistogramsActionPerformed
 
     private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed
@@ -5165,9 +5271,9 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotResidualsActionPerformed
 
     private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlots.setEnabled(true);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonNormProbPlotActionPerformed
 
     private void buttonNormalityTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalityTestsActionPerformed
@@ -5177,7 +5283,7 @@ public class MainFrame extends javax.swing.JFrame {
             rengine.eval("require(nortest)");
             
             List<String> selectedValuesList = new ArrayList<>();
-            selectedValuesList.addAll(listColnames.getSelectedValuesList());
+            selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
             
             StringBuilder results = new StringBuilder();
             String DATA = Const.INPUT + Utils.getCounter();
@@ -5210,10 +5316,10 @@ public class MainFrame extends javax.swing.JFrame {
                 results.append("\n");
             }
             
-            textAreaPlotBasicStats.setText(results.toString());
+            textAreaTests.setText(results.toString());
             
             //and show the normal probability plots:
-            PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlots);
+            PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS1);
             setPlotRanges(0, 0);
             
             rengine.rm(DATA);
@@ -5229,7 +5335,7 @@ public class MainFrame extends javax.swing.JFrame {
             rengine.eval("require(tseries)");
             
             List<String> selectedValuesList = new ArrayList<>();
-            selectedValuesList.addAll(listColnames.getSelectedValuesList());
+            selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
             
             StringBuilder results = new StringBuilder();
             String DATA = Const.INPUT + Utils.getCounter();
@@ -5254,7 +5360,7 @@ public class MainFrame extends javax.swing.JFrame {
                 results.append("\n");
             }
             
-            textAreaPlotBasicStats.setText(results.toString());
+            textAreaTests.setText(results.toString());
             setPlotRanges(0, 0);
             rengine.rm(DATA);
         } catch (IllegalArgumentException e) {
@@ -5384,7 +5490,7 @@ public class MainFrame extends javax.swing.JFrame {
         rengine.eval("require(bfast)");
 
         List<String> selectedValuesList = new ArrayList<>();
-        selectedValuesList.addAll(listColnames.getSelectedValuesList());
+        selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
         List<IntervalNames> selectedIntervalsList = new ArrayList<>();
         selectedIntervalsList.addAll(listPlotITSspecs.getSelectedValuesList());
         
@@ -5499,30 +5605,30 @@ public class MainFrame extends javax.swing.JFrame {
         
         //TODO refactor odtialto------------------
         //potom ich nechaj vyplut do mriezky
-        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlots.getWidth(), 
-                tabbedPaneAnalysisPlots.getHeight(), plots, 1, 1);
+        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsCTS1.getWidth(), 
+                tabbedPaneAnalysisPlotsCTS1.getHeight(), plots, 1, 1);
         
         //a tu mriezku nakresli
-        tabbedPaneAnalysisPlots.removeAll();
+        tabbedPaneAnalysisPlotsCTS1.removeAll();
         int i = 0;
         for (JGDBufferedPanel p : panels) {
-            tabbedPaneAnalysisPlots.addTab("Page "+(++i), p);
+            tabbedPaneAnalysisPlotsCTS1.addTab("Page "+(++i), p);
         }
 
-        tabbedPaneAnalysisPlots.repaint();
+        tabbedPaneAnalysisPlotsCTS1.repaint();
         //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
         
         
         //a vypis info
-        textAreaPlotBasicStats.setText(strBreaksInfo.toString());
+        textAreaTests.setText(strBreaksInfo.toString());
 
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlots.setEnabled(true);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
         
         rengine.rm(DATA, DATA_TS, FIT, DATA1, DATA1_TS, DATA2, DATA2_TS, FIT1, FIT2);
     }//GEN-LAST:event_buttonStructBreaksActionPerformed
 
-    private void buttonExportAnalysisPlotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsActionPerformed
+    private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
         //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
         //TODO vymysliet
         JFileChooser fileChooser = new JFileChooser() {
@@ -5569,7 +5675,7 @@ public class MainFrame extends javax.swing.JFrame {
         fileChooser.addChoosableFileFilter(new FileFilterPng());
         fileChooser.addChoosableFileFilter(new FileFilterPdf());
         
-        if (evt.getSource() == buttonExportAnalysisPlots) {
+        if (evt.getSource() == buttonExportAnalysisPlotsCTS) {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File plotFile = fileChooser.getSelectedFile();
@@ -5599,53 +5705,10 @@ public class MainFrame extends javax.swing.JFrame {
                 //nothing
             }
         }
-    }//GEN-LAST:event_buttonExportAnalysisPlotsActionPerformed
+    }//GEN-LAST:event_buttonExportAnalysisPlotsCTSActionPerformed
 
     private void buttonExportAnalysisTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisTextActionPerformed
-        //TODO refactor this out to my own class; it is repeated quite a few times throughout the code
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
-        fileChooser.setSelectedFile(new File("analysis.txt"));
-        if (evt.getSource() == buttonExportAnalysisText) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File file = fileChooser.getSelectedFile();
-                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                        String text = textAreaPlotBasicStats.getText();
-                        text = text.replace("\n", System.lineSeparator());
-                        writer.append(text);
-                        writer.flush();
-                    } catch (IOException e) {
-                        //TODO log
-                    }
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
-        }
+        exportTextArea(evt, buttonExportAnalysisText, textAreaPlotBasicStats);
     }//GEN-LAST:event_buttonExportAnalysisTextActionPerformed
 
     private void buttonAggregateToITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggregateToITSActionPerformed
@@ -5917,6 +5980,91 @@ public class MainFrame extends javax.swing.JFrame {
             //TODO
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_MAvgActionPerformed
+
+    private void buttonExportTextAreaTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportTextAreaTestsActionPerformed
+        exportTextArea(evt, buttonExportTextAreaTests, textAreaTests);
+    }//GEN-LAST:event_buttonExportTextAreaTestsActionPerformed
+
+    private void buttonExportTestsPlotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportTestsPlotsActionPerformed
+        //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
+        //TODO vymysliet
+        
+        //TODo refactor: je to skopirovane z ExportPlotsCTS...
+        JFileChooser fileChooser = new JFileChooser() {
+            @Override
+            public void approveSelection() {
+                File f = getSelectedFile();
+                
+                //teraz tomu prestavit priponu, ak ma priponu:
+                String fileName = f.getPath().replace("\\", "\\\\");
+                if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
+                    //tipnem si, ze je tam pripona, a odrezem ju
+                    String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                    String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
+                    if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
+                        f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());
+                    }
+                }
+                
+                if (f.exists() && getDialogType() == SAVE_DIALOG) {
+                    int result = JOptionPane.showConfirmDialog(this, "File " + f.toString() + " exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
+                    switch (result) {
+                        case JOptionPane.YES_OPTION:
+                            super.approveSelection();
+                            return;
+                        case JOptionPane.NO_OPTION:
+                            return;
+                        case JOptionPane.CLOSED_OPTION:
+                            return;
+                        case JOptionPane.CANCEL_OPTION:
+                            cancelSelection();
+                            return;
+                    }
+                }
+                super.approveSelection();
+            }
+        };
+        fileChooser.setCurrentDirectory(null);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("plotExport.eps"));
+        
+        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
+        fileChooser.addChoosableFileFilter(new FileFilterEps());
+        fileChooser.addChoosableFileFilter(new FileFilterPs());
+        fileChooser.addChoosableFileFilter(new FileFilterPng());
+        fileChooser.addChoosableFileFilter(new FileFilterPdf());
+        
+        if (evt.getSource() == buttonExportTestsPlots) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File plotFile = fileChooser.getSelectedFile();
+                    MyRengine rengine = MyRengine.getRengine();
+
+                    String device = "";
+                    String ext = "";
+                    if (fileChooser.getFileFilter() instanceof RFileFilter) {
+                        device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
+                        ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
+                    }
+                    
+                    String fileName = plotFile.getPath().replace("\\", "\\\\");
+                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
+                        //tipnem si, ze je tam pripona
+                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
+                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+                        } //else to bola nejaka ina cast mena za bodkou
+                    }
+                    
+                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+//                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
+    }//GEN-LAST:event_buttonExportTestsPlotsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -5998,12 +6146,14 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonConvertITSLBUBCR;
     private javax.swing.JButton buttonConvertITSLBUBCR1;
     private javax.swing.JButton buttonDiffSeries;
-    private javax.swing.JButton buttonExportAnalysisPlots;
+    private javax.swing.JButton buttonExportAnalysisPlotsCTS;
     private javax.swing.JButton buttonExportAnalysisText;
     private javax.swing.JButton buttonExportDiagramsNN;
     private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.JButton buttonExportResiduals;
+    private javax.swing.JButton buttonExportTestsPlots;
+    private javax.swing.JButton buttonExportTextAreaTests;
     private javax.swing.JButton buttonForecastValsHideAllButAvg;
     private javax.swing.JButton buttonForecastValsHideNoForecasts;
     private javax.swing.JButton buttonForecastValsShowHidden;
@@ -6015,6 +6165,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonLogTransformSeries;
     private javax.swing.JButton buttonNormProbPlot;
     private javax.swing.JButton buttonNormalityTests;
+    private javax.swing.JButton buttonNormalize;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITS;
@@ -6153,7 +6304,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel159;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel160;
-    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
@@ -6172,6 +6322,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -6201,16 +6352,20 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
+    private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -6225,6 +6380,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
     private javax.swing.JList listColnames;
+    private javax.swing.JList listColnamesTests;
     private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listPlotLegend;
@@ -6259,6 +6415,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane panelBinomPropInfo;
     private javax.swing.JPanel panelBinomPropPlot;
     private javax.swing.JPanel panelBinomPropSettings;
+    private javax.swing.JPanel panelCTS;
     private javax.swing.JPanel panelCombinationWeights;
     private javax.swing.JPanel panelCombinationWeightsAll;
     private javax.swing.JPanel panelData;
@@ -6282,6 +6439,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelHoltWintersInt_radius;
     private javax.swing.JPanel panelHoltWintersPercentTrain;
     private javax.swing.JPanel panelIntMLPPercentTrain;
+    private javax.swing.JPanel panelIntTS;
     private javax.swing.JPanel panelIntervalHoltDistance;
     private javax.swing.JPanel panelIntervalHoltMain;
     private javax.swing.JPanel panelIntervalHoltPercentTrain;
@@ -6293,7 +6451,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelModelDescriptionsAll;
     private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelPlotImage;
-    private javax.swing.JPanel panelPlotSettings;
     private javax.swing.JPanel panelPredictionIntervals;
     private javax.swing.JPanel panelPredictionIntervalsAll;
     private javax.swing.JPanel panelRBFPercentTrain;
@@ -6387,7 +6544,8 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPPackage_nnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
-    private javax.swing.JTabbedPane tabbedPaneAnalysisPlots;
+    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
+    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS1;
     private javax.swing.JTabbedPane tabbedPaneBinomPropPlot;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
@@ -6395,6 +6553,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JTextArea textAreaModelsInfo;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
+    private javax.swing.JTextArea textAreaTests;
     private javax.swing.JTextField textFieldAggregateToITSevery;
     private javax.swing.JTextField textFieldBinomPropNumFutureObs;
     private javax.swing.JTextField textFieldBinomPropPercProbInterval;
@@ -7452,6 +7611,7 @@ public class MainFrame extends javax.swing.JFrame {
         for (String colname : dataTableModel.getColnames()) {
             ((DefaultListModel)(listColnames.getModel())).addElement(colname);
             ((DefaultListModel)(listColnamesTransform.getModel())).addElement(colname);
+            ((DefaultListModel)(listColnamesTests.getModel())).addElement(colname);
             comboBoxColnamesRun.addItem(colname);
             comboBoxRunFakeIntCenter.addItem(colname);
             comboBoxRunFakeIntRadius.addItem(colname);
@@ -7484,6 +7644,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void cleanGUIelements() {
         ((DefaultListModel)(listColnames.getModel())).removeAllElements();
         ((DefaultListModel)(listColnamesTransform.getModel())).removeAllElements();
+        ((DefaultListModel)(listColnamesTests.getModel())).removeAllElements();
         ((DefaultListModel)(listPlotITSspecs.getModel())).removeAllElements();
         comboBoxColnamesRun.removeAllItems();
         comboBoxRunFakeIntCenter.removeAllItems();
@@ -7533,9 +7694,12 @@ public class MainFrame extends javax.swing.JFrame {
         buttonStructBreaks.setEnabled(trueFalse);
         
         buttonExportAnalysisText.setEnabled(trueFalse);
+        buttonExportTestsPlots.setEnabled(trueFalse);
+        buttonExportTextAreaTests.setEnabled(trueFalse);
         
         buttonDiffSeries.setEnabled(trueFalse);
         buttonLogTransformSeries.setEnabled(trueFalse);
+        buttonNormalize.setEnabled(trueFalse);
         buttonRemoveTrend.setEnabled(trueFalse);
         buttonAggregateToITS.setEnabled(trueFalse);
         buttonConvertITSLBUBCR.setEnabled(trueFalse);
@@ -8014,5 +8178,52 @@ public class MainFrame extends javax.swing.JFrame {
         fillGUIelementsWithNewData();
         
         rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
+    }
+
+    private void exportTextArea(ActionEvent evt, JButton whichButton, JTextArea whichTextArea) {
+        //TODO refactor this out to my own class; it is repeated quite a few times throughout the code
+        JFileChooser fileChooser = new JFileChooser() {
+            @Override
+            public void approveSelection() {
+                File f = getSelectedFile();
+                if (f.exists() && getDialogType() == SAVE_DIALOG) {
+                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
+                    switch (result) {
+                        case JOptionPane.YES_OPTION:
+                            super.approveSelection();
+                            return;
+                        case JOptionPane.NO_OPTION:
+                            return;
+                        case JOptionPane.CLOSED_OPTION:
+                            return;
+                        case JOptionPane.CANCEL_OPTION:
+                            cancelSelection();
+                            return;
+                    }
+                }
+                super.approveSelection();
+            }
+        };
+        fileChooser.setCurrentDirectory(null);
+        fileChooser.setMultiSelectionEnabled(false);
+        fileChooser.setSelectedFile(new File("analysis.txt"));
+        if (evt.getSource() == whichButton) {
+            switch (fileChooser.showSaveDialog(this)) {
+                case JFileChooser.APPROVE_OPTION:
+                    File file = fileChooser.getSelectedFile();
+                    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                        String text = whichTextArea.getText();
+                        text = text.replace("\n", System.lineSeparator());
+                        writer.append(text);
+                        writer.flush();
+                    } catch (IOException e) {
+                        //TODO log
+                    }
+                    break;
+                case JFileChooser.CANCEL_OPTION:
+                default:
+                //nothing
+            }
+        }
     }
 }

@@ -632,8 +632,6 @@ public class PlotDrawer {
         String rangeRadius = getRangeYMultipleInterval(allValsRadius);
         
         drawScatterPlotsITS(drawNew, par, rangeCenter, rangeRadius);
-        
-        rengine.rm(CENTER, RADIUS, LOWER, UPPER);
     }
     
     public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
@@ -705,8 +703,6 @@ public class PlotDrawer {
         rengine.eval(RADIUS + " <- (" + UPPER + " - " + LOWER + ")/2");
         
         drawScatterPlotITSNow(width, height, CENTER, RADIUS, count, par, lineStyle, rangeX, rangeY);
-        
-        rengine.rm(CENTER, RADIUS, LOWER, UPPER);
     }
     
     private static void drawScatterPlotITS_CenterRadius(int width, int height, List<Double> center, List<Double> radius,
@@ -720,8 +716,6 @@ public class PlotDrawer {
         rengine.assign(RADIUS, Utils.listToArray(radius));
         
         drawScatterPlotITSNow(width, height, CENTER, RADIUS, count, par, lineStyle, rangeX, rangeY);
-        
-        rengine.rm(CENTER, RADIUS);
     }
     
     private static void drawScatterPlotITSNow(int width, int height, final String CENTER, final String RADIUS, final int count,
@@ -776,8 +770,6 @@ public class PlotDrawer {
             labels.append("\"").append(interval.getRadius()).append("\"");
             
             counter++;
-            
-            rengine.rm(CENTER, RADIUS);
         }
         labels.append(")");
         
@@ -1150,8 +1142,6 @@ public class PlotDrawer {
                 plotFunction = plottingFunction + "(" + NAME + ", xlab=\"" + selectedVal + "\", main=\"\")";
             }
             diagramsPlots.add(plotFunction);
-            
-            rengine.rm(NAME);
         }
         
         //potom ich nechaj vyplut do mriezky
