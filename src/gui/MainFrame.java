@@ -214,13 +214,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         tabbedPaneAnalysisPlots = new javax.swing.JTabbedPane();
         buttonNormProbPlot = new javax.swing.JButton();
-        buttonNormalityTests = new javax.swing.JButton();
-        buttonStationarityTest = new javax.swing.JButton();
-        buttonStructBreaks = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
-        textFieldMaxStructBreaks = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
         buttonExportAnalysisPlots = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         buttonExportAnalysisText = new javax.swing.JButton();
@@ -266,6 +259,16 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         buttonConvertITSLBUBCR = new javax.swing.JButton();
         buttonConvertITSLBUBCR1 = new javax.swing.JButton();
+        panelTestsOutside = new javax.swing.JPanel();
+        buttonNormalityTests = new javax.swing.JButton();
+        buttonStationarityTest = new javax.swing.JButton();
+        buttonStructBreaks = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        textFieldMaxStructBreaks = new javax.swing.JTextField();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        listColnames1 = new javax.swing.JList();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -743,39 +746,6 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonNormalityTests.setText("Tests for normality");
-        buttonNormalityTests.setEnabled(false);
-        buttonNormalityTests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNormalityTestsActionPerformed(evt);
-            }
-        });
-
-        buttonStationarityTest.setText("Tests for stationarity");
-        buttonStationarityTest.setEnabled(false);
-        buttonStationarityTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStationarityTestActionPerformed(evt);
-            }
-        });
-
-        buttonStructBreaks.setText("Find structural breaks");
-        buttonStructBreaks.setEnabled(false);
-        buttonStructBreaks.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStructBreaksActionPerformed(evt);
-            }
-        });
-
-        jLabel19.setText("Max");
-
-        textFieldMaxStructBreaks.setText("2");
-
-        jLabel20.setText("structural breaks");
-
-        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel21.setText("TODO: seasonal");
-
         buttonExportAnalysisPlots.setText("Export currently shown plot");
         buttonExportAnalysisPlots.setEnabled(false);
         buttonExportAnalysisPlots.addActionListener(new java.awt.event.ActionListener() {
@@ -814,21 +784,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
                                 .addComponent(buttonACF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPACF))
-                            .addComponent(buttonNormalityTests)
-                            .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                        .addComponent(buttonStructBreaks)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(buttonStationarityTest))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20))))
+                                .addComponent(buttonPACF)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -881,26 +837,11 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonHistograms)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonNormProbPlot)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonNormalityTests)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                        .addComponent(buttonStationarityTest)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotSettingsLayout.createSequentialGroup()
-                                        .addComponent(jLabel21)
-                                        .addGap(7, 7, 7))))
+                                .addComponent(buttonNormProbPlot))
                             .addGroup(panelPlotSettingsLayout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                        .addGroup(panelPlotSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonStructBreaks)
-                            .addComponent(jLabel19)
-                            .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel20)
-                            .addComponent(buttonExportAnalysisText))
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(7, 7, 7)
+                        .addComponent(buttonExportAnalysisText)
                         .addGap(9, 9, 9)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
                     .addGroup(panelPlotSettingsLayout.createSequentialGroup()
@@ -1312,6 +1253,90 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         panelEverything.addTab("Data transformation", panelTransform);
+
+        buttonNormalityTests.setText("Tests for normality");
+        buttonNormalityTests.setEnabled(false);
+        buttonNormalityTests.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNormalityTestsActionPerformed(evt);
+            }
+        });
+
+        buttonStationarityTest.setText("Tests for stationarity");
+        buttonStationarityTest.setEnabled(false);
+        buttonStationarityTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStationarityTestActionPerformed(evt);
+            }
+        });
+
+        buttonStructBreaks.setText("Find structural breaks");
+        buttonStructBreaks.setEnabled(false);
+        buttonStructBreaks.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonStructBreaksActionPerformed(evt);
+            }
+        });
+
+        jLabel19.setText("Max");
+
+        textFieldMaxStructBreaks.setText("2");
+
+        jLabel20.setText("structural breaks");
+
+        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel21.setText("TODO: seasonal");
+
+        listColnames1.setModel(new DefaultListModel());
+        jScrollPane3.setViewportView(listColnames1);
+
+        javax.swing.GroupLayout panelTestsOutsideLayout = new javax.swing.GroupLayout(panelTestsOutside);
+        panelTestsOutside.setLayout(panelTestsOutsideLayout);
+        panelTestsOutsideLayout.setHorizontalGroup(
+            panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(buttonNormalityTests)
+                    .addComponent(buttonStationarityTest)
+                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                        .addComponent(buttonStructBreaks)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel21)
+                            .addComponent(jLabel20))))
+                .addContainerGap(812, Short.MAX_VALUE))
+        );
+        panelTestsOutsideLayout.setVerticalGroup(
+            panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                        .addGap(146, 146, 146)
+                        .addComponent(buttonNormalityTests)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(buttonStationarityTest)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel21)
+                        .addGap(7, 7, 7)
+                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buttonStructBreaks)
+                            .addComponent(jLabel19)
+                            .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel20)))
+                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(404, Short.MAX_VALUE))
+        );
+
+        panelEverything.addTab("Tests", panelTestsOutside);
 
         jTableData.setModel(dataTableModel);
         scrollPaneData.setViewportView(jTableData);
@@ -4027,6 +4052,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
         drawPlotGeneral(true, "plot.ts", "");
         setPlotRanges(1, 0);
+        
+        panelEverything.setSelectedIndex(1);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
@@ -6186,6 +6213,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
@@ -6210,6 +6238,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
     private javax.swing.JList listColnames;
+    private javax.swing.JList listColnames1;
     private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listPlotLegend;
@@ -6353,6 +6382,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel panelSettingsRBFMain;
     private javax.swing.JPanel panelSettingsRBFint_center;
     private javax.swing.JPanel panelSettingsRBFint_radius;
+    private javax.swing.JPanel panelTestsOutside;
     private javax.swing.JPanel panelTransform;
     private javax.swing.JPanel panelVARintDistance;
     private javax.swing.JPanel panelVARintInside;
