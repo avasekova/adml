@@ -148,6 +148,7 @@ import models.params.SESParams;
 import models.params.SESintParams;
 import models.params.VARParams;
 import models.params.VARintParams;
+import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
@@ -211,6 +212,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonExportAnalysisPlotsCTS = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         buttonExportAnalysisText = new javax.swing.JButton();
+        buttonBasicStats = new javax.swing.JButton();
         panelTransform = new javax.swing.JPanel();
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
@@ -726,6 +728,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonBasicStats.setText("Basic statistics");
+        buttonBasicStats.setEnabled(false);
+        buttonBasicStats.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBasicStatsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
         panelCTS.setLayout(panelCTSLayout);
         panelCTSLayout.setHorizontalGroup(
@@ -746,7 +756,8 @@ public class MainFrame extends javax.swing.JFrame {
                             .addGroup(panelCTSLayout.createSequentialGroup()
                                 .addComponent(buttonACF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPACF)))
+                                .addComponent(buttonPACF))
+                            .addComponent(buttonBasicStats))
                         .addGap(0, 10, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -780,7 +791,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonHistograms)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonNormProbPlot))
+                                .addComponent(buttonNormProbPlot)
+                                .addGap(18, 18, 18)
+                                .addComponent(buttonBasicStats))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addComponent(buttonExportAnalysisText)
@@ -6065,6 +6078,43 @@ public class MainFrame extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_buttonExportTestsPlotsActionPerformed
+
+    private void buttonBasicStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBasicStatsActionPerformed
+        //TODO refactor: toto sa da volat z basicPlots (tam je ten isty kod, ale prepleteny s plotovanim)
+        
+        MyRengine rengine = MyRengine.getRengine();
+        
+        //mean, standard deviation, median
+        StringBuilder basicStatsString = new StringBuilder();
+        final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
+
+        List<String> selected = listColnames.getSelectedValuesList();
+        for (String col : selected) {
+            List<Double> data = dataTableModel.getDataForColname(col);
+            
+            rengine.assign(TRAINDATA, Utils.listToArray(data));
+            
+            //and compute basic statistics of the data:
+            //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
+            REXP getMean = rengine.eval("mean(" + TRAINDATA + ", na.rm=TRUE)");
+            double mean = getMean.asDoubleArray()[0];
+            REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ", na.rm=TRUE)");
+            double stDev = getStdDev.asDoubleArray()[0];
+            REXP getMedian = rengine.eval("median(" + TRAINDATA + ", na.rm=TRUE)");
+            double median = getMedian.asDoubleArray()[0];
+            BasicStats stat = new BasicStats(col);
+            stat.setMean(mean);
+            stat.setStdDev(stDev);
+            stat.setMedian(median);
+            
+            basicStatsString.append(stat.toString());
+            basicStatsString.append(System.lineSeparator());
+        }
+        
+        rengine.rm(TRAINDATA);
+        
+        textAreaPlotBasicStats.setText(basicStatsString.toString());
+    }//GEN-LAST:event_buttonBasicStatsActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
@@ -6139,6 +6189,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAggregateToITS;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
+    private javax.swing.JButton buttonBasicStats;
     private javax.swing.JButton buttonBinomPropComputePosterior;
     private javax.swing.JButton buttonBinomPropPredict;
     private javax.swing.JButton buttonBinomPropSimulate;
@@ -7684,6 +7735,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonACF.setEnabled(trueFalse);
         buttonPACF.setEnabled(trueFalse);
+        buttonBasicStats.setEnabled(trueFalse);
 
         buttonBoxplots.setEnabled(trueFalse);
         buttonHistograms.setEnabled(trueFalse);
