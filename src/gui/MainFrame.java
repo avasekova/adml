@@ -861,6 +861,11 @@ public class MainFrame extends javax.swing.JFrame {
 
         buttonNormalize.setText("Normalize");
         buttonNormalize.setEnabled(false);
+        buttonNormalize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonNormalizeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelTransformLayout = new javax.swing.GroupLayout(panelTransform);
         panelTransform.setLayout(panelTransformLayout);
@@ -6115,6 +6120,25 @@ public class MainFrame extends javax.swing.JFrame {
         
         textAreaPlotBasicStats.setText(basicStatsString.toString());
     }//GEN-LAST:event_buttonBasicStatsActionPerformed
+
+    private void buttonNormalizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalizeActionPerformed
+        //TODO refactor. je to to iste ako LOG a mozno aj ine transformacie
+        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
+        
+        MyRengine rengine = MyRengine.getRengine();
+        
+        final String VAR = Const.INPUT + Utils.getCounter();
+        
+        for (String selected : selectedVars) {
+            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.eval(VAR + " <- MLPtoR.scale(" + VAR + ")");
+            dataTableModel.addDataForColname("NORM(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+        }
+        
+        rengine.rm(VAR);
+        
+        fillGUIelementsWithNewData();
+    }//GEN-LAST:event_buttonNormalizeActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
