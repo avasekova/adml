@@ -35,8 +35,8 @@ public class KNNmyown implements Forecastable {
         List<Double> allData = dataTableModel.getDataForColname(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
-        Rengine rengine = MyRengine.getRengine();
-        rengine.eval("require(FNN)");
+        MyRengine rengine = MyRengine.getRengine();
+        rengine.require("FNN");
         
         final int LAG = 1;
         

@@ -33,7 +33,7 @@ public class KNNkknn implements Forecastable {
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(kknn)");
+        rengine.require("kknn");
         
         final int LAG = 1;
         

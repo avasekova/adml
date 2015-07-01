@@ -53,7 +53,7 @@ public class RBF implements Forecastable {
             List<List<Double>> testingInputsScaled = RBF.getInputsCut(allInputsScaled, numTrainingEntries, allInputsScaled.get(0).size());
             
             MyRengine rengine = MyRengine.getRengine();
-            rengine.eval("require(RSNNS)");
+            rengine.require("RSNNS");
             
             ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
             ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TEST, testingInputsScaled);

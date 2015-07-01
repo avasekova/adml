@@ -26,7 +26,7 @@ public class HoltWinters implements Forecastable {
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(forecast)");
+        rengine.require("forecast");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         
         List<Double> inputTrain = dataToUse.subList(0, numTrainingEntries);

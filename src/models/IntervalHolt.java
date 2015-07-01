@@ -40,7 +40,7 @@ public class IntervalHolt implements Forecastable {
         List<Double> inputTestRadius = dataToUseRadius.subList(numTrainingEntries, dataToUseCenter.size());
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(forecast)");
+        rengine.require("forecast");
         
         rengine.assign(INPUT_TRAIN_CENTER, Utils.listToArray(inputTrainCenter));
         rengine.assign(INPUT_TRAIN_RADIUS, Utils.listToArray(inputTrainRadius));

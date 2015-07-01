@@ -39,7 +39,7 @@ public class Nnetar implements Forecastable {
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(forecast)");
+        rengine.require("forecast");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         

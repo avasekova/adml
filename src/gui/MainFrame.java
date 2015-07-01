@@ -5298,7 +5298,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             MyRengine rengine = MyRengine.getRengine();
             
-            rengine.eval("require(nortest)");
+            rengine.require("nortest");
             
             List<String> selectedValuesList = new ArrayList<>();
             selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
@@ -5350,7 +5350,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             MyRengine rengine = MyRengine.getRengine();
             
-            rengine.eval("require(tseries)");
+            rengine.require("tseries");
             
             List<String> selectedValuesList = new ArrayList<>();
             selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
@@ -5505,7 +5505,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonStructBreaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStructBreaksActionPerformed
         MyRengine rengine = MyRengine.getRengine();
 
-        rengine.eval("require(bfast)");
+        rengine.require("bfast");
 
         List<String> selectedValuesList = new ArrayList<>();
         selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
@@ -5793,7 +5793,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(LearnBayes)");
+        rengine.require("LearnBayes");
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
         final String P = Const.INPUT + Utils.getCounter();
@@ -5863,7 +5863,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(LearnBayes)");
+        rengine.require("LearnBayes");
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
         final String RESULT = Const.OUTPUT + Utils.getCounter();
@@ -5920,7 +5920,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(LearnBayes)");
+        rengine.require("LearnBayes");
         
         final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
         final String PREDICTED_DISTR = Const.OUTPUT + Utils.getCounter();

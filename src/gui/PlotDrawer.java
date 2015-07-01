@@ -107,7 +107,7 @@ public class PlotDrawer {
         //then proceed to drawing
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(JavaGD)");
+        rengine.require("JavaGD");
         
         MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
         rengine.eval("JavaGD()");
@@ -392,7 +392,7 @@ public class PlotDrawer {
         ColourService.getService().resetCounter();
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(JavaGD)");
+        rengine.require("JavaGD");
         
         MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
         rengine.eval("JavaGD()");
@@ -466,7 +466,7 @@ public class PlotDrawer {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(JavaGD)");
+        rengine.require("JavaGD");
         rengine.eval("JavaGD()");
         
         ColourService.getService().resetCounter();
@@ -577,7 +577,7 @@ public class PlotDrawer {
             rengine.eval("plot.ts(" + UPPER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE, xaxt=\"n\")");
             rengine.eval("segments(1:" + count + ", " + LOWER + ", 1:" + count + ", " + UPPER + ", " + lim + lineStyle + ")");
         } else { //start a new plot
-            rengine.eval("require(JavaGD)");
+            rengine.require("JavaGD");
             rengine.eval("JavaGD()"); // zacne novy plot
             rengine.eval("plot.ts(" + LOWER + ", " + lim + ", type=\"n\", axes=FALSE, ann=FALSE, xaxt=\"n\")"); //hack
             rengine.eval("par(new=TRUE)");
@@ -729,7 +729,7 @@ public class PlotDrawer {
             //don't draw axes
             rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", axes=FALSE, ann=FALSE)");
         } else { //start a new plot
-            rengine.eval("require(JavaGD)");
+            rengine.require("JavaGD");
             rengine.eval("JavaGD()"); // zacne novy plot
             rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", xlab=\"Center\", ylab=\"Radius\")");
         }
@@ -788,8 +788,8 @@ public class PlotDrawer {
         }
         
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
-        rengine.eval("require(JavaGD)");
-        rengine.eval("require(psych)");
+        rengine.require("JavaGD");
+        rengine.require("psych");
         rengine.eval("JavaGD()"); // zacne novy plot
         rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
@@ -1047,7 +1047,7 @@ public class PlotDrawer {
             return panelsList;
         } else {
             MyRengine rengine = MyRengine.getRengine();
-            rengine.eval("require(JavaGD)");
+            rengine.require("JavaGD");
             
             int currentIndex = 0;
             while (currentIndex < plots.size()) {

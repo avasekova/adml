@@ -54,7 +54,7 @@ public class BNN implements Forecastable {
             List<List<Double>> testingInputs = RBF.getInputsCut(allInputs, numTrainingEntries, allInputs.get(0).size());
             
             MyRengine rengine = MyRengine.getRengine();
-            rengine.eval("require(brnn)");
+            rengine.require("brnn");
             
             ((MyRengine)rengine).assignMatrix(INPUT_TRAIN, trainingInputs);
             ((MyRengine)rengine).assignMatrix(INPUT_TEST, testingInputs);

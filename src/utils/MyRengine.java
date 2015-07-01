@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
+import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 
 public class MyRengine extends Rengine {
@@ -113,6 +115,33 @@ public class MyRengine extends Rengine {
         for (String n : names) {
             rm(n);
         }
+    }
+    
+    //TODO urobit nieco (kniznicnu funkciu, anotaciu, neviem) co zamedzi kopirovaniu "if (!rengine.require) throw sth...."
+    //     do kazdeho Forecastable. proste aby toto require vybavilo aj chybu pri nenajdeni baliku a nevyprodukovanie modelu
+    public boolean require(String packageName) {
+        final String SUCCESS = "successihope";
+        instance.eval(SUCCESS + " <- require(" + packageName + ")");
+        
+        if (! instance.eval(SUCCESS).asBool().isTRUE()) {
+            JOptionPane.showMessageDialog(null, "The required package '" + packageName + "' was not successfully loaded, so "
+                    + "the results of this analysis may be corrupted. "
+                    + "Please make sure it is installed in your R environment and try again.");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public boolean require(String... packageNames) {
+        boolean success = true;
+        for (String p : packageNames) {
+            if (! require(p)) {
+                success = false;
+            }
+        }
+        
+        return success;
     }
 
 }

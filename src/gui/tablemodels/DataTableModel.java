@@ -98,7 +98,7 @@ public class DataTableModel extends AbstractTableModel {
             //csv sa loaduje inak ako xls(x)
             rengine.eval(DATA + " <- read.csv(file=\"" + filePathEscaped + "\", header=" + header + ", sep=\",\")");
         } else {
-            rengine.eval("require(XLConnect)");
+            rengine.require("XLConnect");
             rengine.eval(WORKBOOK + " <- loadWorkbook(\"" + filePathEscaped + "\")");
         
             rengine.eval(DATA + " <- readWorksheet(" + WORKBOOK + ", sheet = 1, header = " + header + ")"); //header=TRUE
@@ -199,7 +199,7 @@ public class DataTableModel extends AbstractTableModel {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(JavaGD)");
+        rengine.require("JavaGD");
         rengine.eval("JavaGD()");
         
         ColourService.getService().resetCounter();

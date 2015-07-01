@@ -37,7 +37,7 @@ public class VARint implements Forecastable {
         List<Double> inputsRadius = dataTableModel.getDataForColname(params.getRadius()).subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(vars)");
+        rengine.require("vars");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*inputsCenter.size());
         
         rengine.assign(INPUTCENTER, Utils.listToArray(inputsCenter));

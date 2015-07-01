@@ -30,7 +30,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         Map<String, List<Double>> dataToUse = trimToRange((params.getDataRangeFrom() - 1), params.getDataRangeTo(), params.getData());
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(vars)");
+        rengine.require("vars");
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.get(dataToUse.keySet().toArray(new String[]{})[0]).size());
         
         //nenastavim realOutputsTest (zatial pouzivam 100% na train) - takze to moze niekde vyhadzovat NPE

@@ -38,7 +38,7 @@ public class Arima implements Forecastable {
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(forecast)");
+        rengine.require("forecast");
         
         rengine.assign(INPUT, Utils.listToArray(dataToUse));
         rengine.eval(SCALED_INPUT + " <- MLPtoR.scale(" + INPUT + ")");

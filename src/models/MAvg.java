@@ -26,7 +26,7 @@ public class MAvg implements Forecastable {
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();
-        rengine.eval("require(forecast)");
+        rengine.require("forecast");
         int numTrainingEntries = dataToUse.size();
         
         List<Double> inputTrain = dataToUse;
