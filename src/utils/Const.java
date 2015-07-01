@@ -59,4 +59,7 @@ public class Const {
     
     public static final String ADD_TO_DATA = "Add to data";
     public static final String CHANGE_COLOUR = "Change colour";
+    
+    public static final String ALL = "ALL";
+    public static final String NONE = "NONE";
 }

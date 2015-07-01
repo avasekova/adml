@@ -65,6 +65,7 @@ import java.util.Map;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import static javax.swing.JFileChooser.SAVE_DIALOG;
@@ -4687,35 +4688,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportForecastValuesActionPerformed
 
     private void checkBoxAvgSimpleCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleCTSperMActionPerformed
-        if (checkBoxAvgSimpleCTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgSimpleCTSperM);
     }//GEN-LAST:event_checkBoxAvgSimpleCTSperMActionPerformed
 
     private void checkBoxAvgSimpleCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleCTSActionPerformed
-        if (checkBoxAvgSimpleCTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgSimpleCTS);
     }//GEN-LAST:event_checkBoxAvgSimpleCTSActionPerformed
 
     private void checkBoxAvgSimpleIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleIntTSperMActionPerformed
-        if (checkBoxAvgSimpleIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgSimpleIntTSperM);
     }//GEN-LAST:event_checkBoxAvgSimpleIntTSperMActionPerformed
 
     private void checkBoxAvgSimpleIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleIntTSActionPerformed
-        if (checkBoxAvgSimpleIntTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgSimpleIntTS);
     }//GEN-LAST:event_checkBoxAvgSimpleIntTSActionPerformed
 
     private void comboBoxSettingsHybridMethod_centerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSettingsHybridMethod_centerActionPerformed
@@ -4992,34 +4977,30 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
 
     private void buttonLegendSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectAllActionPerformed
-        if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
-            //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
-            DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
-            for (int i = 0; i < model.size(); i++) {
-                ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport().setVisible(true);
-            }
-            
-            //to iste ako v buttonLegenSelectNone a v drawLegend - mouseListener. TODO refactor
-            listPlotLegend.repaint();
-            //and then redraw the plots:
-            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
-            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
-            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
-            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
-            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
-                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
-        } //else nereaguj
+        selectAllOrNone(Const.ALL);
     }//GEN-LAST:event_buttonLegendSelectAllActionPerformed
 
     private void buttonLegendSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectNoneActionPerformed
+        selectAllOrNone(Const.NONE);
+    }//GEN-LAST:event_buttonLegendSelectNoneActionPerformed
+
+    private void selectAllOrNone(String selectWhat) {
         if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
             //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
             DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
-            for (int i = 0; i < model.size(); i++) {
-                Plottable p = ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport();
-                if ((p instanceof TrainAndTestReport) && (! ((TrainAndTestReport)p).isAverage())) {
-                    p.setVisible(false);
-                }
+            
+            switch (selectWhat) {
+                case Const.NONE:
+                    for (int i = 0; i < model.size(); i++) {
+                        Plottable p = ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport();
+                        if ((p instanceof TrainAndTestReport) && (! ((TrainAndTestReport)p).isAverage())) {
+                            p.setVisible(false);
+                        }
+                    }   break;
+                case Const.ALL:
+                    for (int i = 0; i < model.size(); i++) {
+                        ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport().setVisible(true);
+                }   break;
             }
             
             //to iste ako v buttonLegenSelectAll a v drawLegend - mouseListener. TODO refactor
@@ -5032,8 +5013,8 @@ public class MainFrame extends javax.swing.JFrame {
             PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
                     rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
         } //else nereaguj
-    }//GEN-LAST:event_buttonLegendSelectNoneActionPerformed
-
+    }
+    
     private void buttonRunShowHiddenErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunShowHiddenErrorMeasuresActionPerformed
         ((ErrorMeasuresTableModel_CTS)errorMeasuresLatest_CTS.getModel()).showAllHiddenRows();
         ((ErrorMeasuresTableModel_ITS)errorMeasuresLatest_IntTS.getModel()).showAllHiddenRows();
@@ -5067,101 +5048,61 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonHideAllErrorsExceptAvgActionPerformed
 
     private void checkBoxAvgMDeCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeCTSperMActionPerformed
-        if (checkBoxAvgMDeCTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMDeCTSperM);
     }//GEN-LAST:event_checkBoxAvgMDeCTSperMActionPerformed
-
+    
     private void checkBoxAvgMDeIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeIntTSperMActionPerformed
-        if (checkBoxAvgMDeIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMDeIntTSperM);
     }//GEN-LAST:event_checkBoxAvgMDeIntTSperMActionPerformed
 
     private void checkBoxAvgMDeCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeCTSActionPerformed
-        if (checkBoxAvgMDeCTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMDeCTS);
     }//GEN-LAST:event_checkBoxAvgMDeCTSActionPerformed
 
     private void checkBoxAvgMDeIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMDeIntTSActionPerformed
-        if (checkBoxAvgMDeIntTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMDeIntTS);
     }//GEN-LAST:event_checkBoxAvgMDeIntTSActionPerformed
 
     private void checkBoxAvgTheilsuCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuCTSperMActionPerformed
-        if (checkBoxAvgTheilsuCTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgTheilsuCTSperM);
     }//GEN-LAST:event_checkBoxAvgTheilsuCTSperMActionPerformed
 
     private void checkBoxAvgTheilsuIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuIntTSperMActionPerformed
-        if (checkBoxAvgTheilsuIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgTheilsuIntTSperM);
     }//GEN-LAST:event_checkBoxAvgTheilsuIntTSperMActionPerformed
 
     private void checkBoxAvgTheilsuCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuCTSActionPerformed
-        if (checkBoxAvgTheilsuCTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgTheilsuCTS);
     }//GEN-LAST:event_checkBoxAvgTheilsuCTSActionPerformed
 
     private void checkBoxAvgTheilsuIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgTheilsuIntTSActionPerformed
-        if (checkBoxAvgTheilsuIntTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgTheilsuIntTS);
     }//GEN-LAST:event_checkBoxAvgTheilsuIntTSActionPerformed
 
     private void checkBoxAvgCvgEffIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgCvgEffIntTSperMActionPerformed
-        if (checkBoxAvgCvgEffIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgCvgEffIntTSperM);
     }//GEN-LAST:event_checkBoxAvgCvgEffIntTSperMActionPerformed
-
+    
     private void checkBoxAvgCvgEffIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgCvgEffIntTSActionPerformed
-        if (checkBoxAvgCvgEffIntTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgCvgEffIntTS);
     }//GEN-LAST:event_checkBoxAvgCvgEffIntTSActionPerformed
 
     private void checkBoxAvgCenterLogRadiusIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgCenterLogRadiusIntTSperMActionPerformed
-        if (checkBoxAvgCenterLogRadiusIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgCenterLogRadiusIntTSperM);
     }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSperMActionPerformed
 
     private void checkBoxAvgCenterLogRadiusIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
-        if (checkBoxAvgCenterLogRadiusIntTS.isSelected()) { //ak sa to prave zafajklo
+        checkBoxAvgGotSelected(checkBoxAvgCenterLogRadiusIntTS);
+    }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
+
+    private void checkBoxAvgGotSelected(JCheckBox checkBox) {
+        if (checkBox.isSelected()) { //ak sa to prave zafajklo
             checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
         } else { //prave sa to odfajklo
             maybeTurnOffPlotAvgONLY();
         }
-    }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
-
+    }
+    
     private void buttonPlotAllITSScatterplotMatrixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
         buttonPlotAllITSScatterplot.doClick(); //hack. for some reason does not draw the matrix without setting up the
                                                //   plot with drawing sth else first.
@@ -5177,35 +5118,19 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
 
     private void checkBoxAvgMedianCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMedianCTSperMActionPerformed
-        if (checkBoxAvgMedianCTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMedianCTSperM);
     }//GEN-LAST:event_checkBoxAvgMedianCTSperMActionPerformed
 
     private void checkBoxAvgMedianCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMedianCTSActionPerformed
-        if (checkBoxAvgMedianCTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMedianCTS);
     }//GEN-LAST:event_checkBoxAvgMedianCTSActionPerformed
 
     private void checkBoxAvgMedianIntTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMedianIntTSperMActionPerformed
-        if (checkBoxAvgMedianIntTSperM.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMedianIntTSperM);
     }//GEN-LAST:event_checkBoxAvgMedianIntTSperMActionPerformed
 
     private void checkBoxAvgMedianIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgMedianIntTSActionPerformed
-        if (checkBoxAvgMedianIntTS.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
-            maybeTurnOffPlotAvgONLY();
-        }
+        checkBoxAvgGotSelected(checkBoxAvgMedianIntTS);
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
 
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
