@@ -32,15 +32,10 @@ public class DataTableModel extends AbstractTableModel {
     private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
     public static final String LABELS_AXIS_X = Const.LABELS + Utils.getCounter();
     
+    private int maxRows = 0;
+    
     @Override
     public int getRowCount() {
-        int maxRows = 0;
-        for (List<Double> vals : values.values()) {
-            if (vals.size() > maxRows) {
-                maxRows = vals.size();
-            }
-        }
-        
         return maxRows;
     }
 
@@ -157,6 +152,11 @@ public class DataTableModel extends AbstractTableModel {
             REXP getColumn = rengine.eval(DATA + "[," + i + "]");
             double[] doubleArray = getColumn.asDoubleArray();
             values.put(colName, Utils.arrayToList(doubleArray));
+            
+            if (doubleArray.length > maxRows) {
+                maxRows = doubleArray.length;
+            }
+            
             i++;
         }
     }
@@ -294,6 +294,10 @@ public class DataTableModel extends AbstractTableModel {
         values.put(colname, data);
         if (! columnNames.contains(colname)) {
             columnNames.add(colname);
+            
+            if (data.size() > maxRows) {
+                maxRows = data.size();
+            }
         }
     }
 }

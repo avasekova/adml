@@ -171,6 +171,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     private MainFrame() {
         initComponents();
+        addComponentsToGroups();
     }
     
     public static synchronized MainFrame getInstance() {
@@ -4245,27 +4246,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void radioButtonRunFakeIntCenterRadiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonRunFakeIntCenterRadiusActionPerformed
         if (radioButtonRunFakeIntCenterRadius.isSelected()) {
-            labelRunFakeIntCenter.setEnabled(true);
-            labelRunFakeIntRadius.setEnabled(true);
-            comboBoxRunFakeIntCenter.setEnabled(true);
-            comboBoxRunFakeIntRadius.setEnabled(true);
-            labelRunFakeIntLower.setEnabled(false);
-            labelRunFakeIntUpper.setEnabled(false);
-            comboBoxRunFakeIntLower.setEnabled(false);
-            comboBoxRunFakeIntUpper.setEnabled(false);
+            groupRunControlsCenterRadius.enableAll();
+            groupRunControlsLowerUpper.disableAll();
         }
     }//GEN-LAST:event_radioButtonRunFakeIntCenterRadiusActionPerformed
 
     private void radioButtonRunFakeIntLowerUpperActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonRunFakeIntLowerUpperActionPerformed
         if (radioButtonRunFakeIntLowerUpper.isSelected()) {
-            labelRunFakeIntLower.setEnabled(true);
-            labelRunFakeIntUpper.setEnabled(true);
-            comboBoxRunFakeIntLower.setEnabled(true);
-            comboBoxRunFakeIntUpper.setEnabled(true);
-            labelRunFakeIntCenter.setEnabled(false);
-            labelRunFakeIntRadius.setEnabled(false);
-            comboBoxRunFakeIntCenter.setEnabled(false);
-            comboBoxRunFakeIntRadius.setEnabled(false);
+            groupRunControlsCenterRadius.disableAll();
+            groupRunControlsLowerUpper.enableAll();
         }
     }//GEN-LAST:event_radioButtonRunFakeIntLowerUpperActionPerformed
 
@@ -4318,6 +4307,8 @@ public class MainFrame extends javax.swing.JFrame {
         AnalysisBatchTableModel lastKnownBatchModel = new AnalysisBatchTableModel();
         lastKnownBatchModel.setAllLines(batchTableModel.getAllLines());
         batchTableModel.clear();
+        
+        //TODO mozno si nahadzat tie checkboxy do ComponentGroup a prechadzat ich len v cykle a nie takto natvrdo?
 
         if (checkBoxRunMLPnnetar.isSelected()) {
             comboBoxRPackage.setSelectedItem(Const.NNETAR);
@@ -4728,79 +4719,50 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxAvgSimpleIntTSActionPerformed
 
     private void comboBoxSettingsHybridMethod_centerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSettingsHybridMethod_centerActionPerformed
-        CardLayout card = (CardLayout)panelSettingsHybrid_centerMain.getLayout();
-        switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
-            case Const.NNETAR:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_MLPnnetar");
-                break;
-            case Const.NNET:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_MLPnnet");
-                break;
-            case Const.RBF:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_RBF");
-                break;
-            case Const.ARIMA:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_ARIMA");
-                break;
-            case Const.KNN_FNN:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_KNNFNN");
-                break;
-            case Const.KNN_KKNN:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_KNNkknn");
-                break;
-            case Const.SES:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_SES");
-                break;
-            case Const.HOLT:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_Holt");
-                break;
-            case Const.BNN:
-                card.show(panelSettingsHybrid_centerMain, "panelSettingsHybrid_centerMain_BNN");
-                break;
-        }
-        panelSettingsHybrid_centerMain.repaint();
+        switchHybridToCard("center", comboBoxSettingsHybridMethod_center, panelSettingsHybrid_centerMain);
     }//GEN-LAST:event_comboBoxSettingsHybridMethod_centerActionPerformed
 
     private void comboBoxSettingsHybridMethod_radiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxSettingsHybridMethod_radiusActionPerformed
-        CardLayout card = (CardLayout)panelSettingsHybrid_radiusMain.getLayout();
-        switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
-            case Const.NNETAR:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_MLPnnetar");
-                break;
-            case Const.NNET:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_MLPnnet");
-                break;
-            case Const.RBF:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_RBF");
-                break;
-            case Const.ARIMA:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_ARIMA");
-                break;
-            case Const.KNN_FNN:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_KNNFNN");
-                break;
-            case Const.KNN_KKNN:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_KNNkknn");
-                break;
-            case Const.SES:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_SES");
-                break;
-            case Const.HOLT:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_Holt");
-                break;
-            case Const.BNN:
-                card.show(panelSettingsHybrid_radiusMain, "panelSettingsHybrid_radiusMain_BNN");
-                break;
-        }
-        panelSettingsHybrid_radiusMain.repaint();
+        switchHybridToCard("radius", comboBoxSettingsHybridMethod_radius, panelSettingsHybrid_radiusMain);
     }//GEN-LAST:event_comboBoxSettingsHybridMethod_radiusActionPerformed
 
-    private void checkBoxRunIncludeRMSSEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunIncludeRMSSEActionPerformed
-        if (checkBoxRunIncludeRMSSE.isSelected()) {
-            textFieldRunRMSSESeasonality.setEnabled(true);
-        } else {
-            textFieldRunRMSSESeasonality.setEnabled(false);
+    private void switchHybridToCard(String centerOrRadius, JComboBox comboBox, JPanel panel) {
+        CardLayout card = (CardLayout)panel.getLayout();
+        //TODO neslo by tie panely nazvat tak, aby sa odstranil ten switch? ze uz priamo by tam mali tu konstantu v mene
+        switch (comboBox.getSelectedItem().toString()) {
+            case Const.NNETAR:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_MLPnnetar");
+                break;
+            case Const.NNET:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_MLPnnet");
+                break;
+            case Const.RBF:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_RBF");
+                break;
+            case Const.ARIMA:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_ARIMA");
+                break;
+            case Const.KNN_FNN:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_KNNFNN");
+                break;
+            case Const.KNN_KKNN:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_KNNkknn");
+                break;
+            case Const.SES:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_SES");
+                break;
+            case Const.HOLT:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_Holt");
+                break;
+            case Const.BNN:
+                card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_BNN");
+                break;
         }
+        panel.repaint();
+    }
+    
+    private void checkBoxRunIncludeRMSSEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunIncludeRMSSEActionPerformed
+        textFieldRunRMSSESeasonality.setEnabled(checkBoxRunIncludeRMSSE.isSelected());
     }//GEN-LAST:event_checkBoxRunIncludeRMSSEActionPerformed
 
     private void buttonRunAnalysisBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunAnalysisBatchActionPerformed
@@ -6131,6 +6093,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNormalizeActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
+        //TODO mozno tieto dat spolu do ComponentGroup
         if ((! checkBoxAvgSimpleCTS.isSelected()) &&
             (! checkBoxAvgSimpleCTSperM.isSelected()) &&
             (! checkBoxAvgSimpleIntTS.isSelected()) &&
@@ -8255,5 +8218,22 @@ public class MainFrame extends javax.swing.JFrame {
                 //nothing
             }
         }
+    }
+    
+    //groups
+    private final ComponentGroup groupButtons = new ComponentGroup();
+    private final ComponentGroup groupRunControlsCenterRadius = new ComponentGroup();
+    private final ComponentGroup groupRunControlsLowerUpper = new ComponentGroup();
+    private final ComponentGroup groupZoomControlsCTS = new ComponentGroup();
+    private final ComponentGroup groupZoomControlsIntTS = new ComponentGroup();
+    
+    private void addComponentsToGroups() {
+        groupRunControlsCenterRadius.addAll(labelRunFakeIntCenter, labelRunFakeIntRadius, comboBoxRunFakeIntCenter,
+                comboBoxRunFakeIntRadius);
+        
+        groupRunControlsLowerUpper.addAll(labelRunFakeIntLower, labelRunFakeIntUpper, comboBoxRunFakeIntLower,
+                comboBoxRunFakeIntUpper);
+        
+        
     }
 }
