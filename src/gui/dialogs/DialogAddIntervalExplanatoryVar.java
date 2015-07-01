@@ -287,7 +287,7 @@ public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogAddIntervalExplanatoryVar dialog = new DialogAddIntervalExplanatoryVar(new javax.swing.JFrame(), true);
+                DialogAddIntervalExplanatoryVar dialog = new DialogAddIntervalExplanatoryVar(null, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

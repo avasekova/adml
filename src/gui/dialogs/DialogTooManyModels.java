@@ -127,7 +127,7 @@ public class DialogTooManyModels extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogTooManyModels dialog = new DialogTooManyModels(new javax.swing.JFrame(), true);
+                DialogTooManyModels dialog = new DialogTooManyModels(null, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

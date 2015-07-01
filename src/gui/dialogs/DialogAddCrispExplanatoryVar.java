@@ -164,7 +164,7 @@ public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DialogAddCrispExplanatoryVar dialog = new DialogAddCrispExplanatoryVar(new javax.swing.JFrame(), true);
+                DialogAddCrispExplanatoryVar dialog = new DialogAddCrispExplanatoryVar(null, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

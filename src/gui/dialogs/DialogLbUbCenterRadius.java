@@ -258,7 +258,7 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                DialogLbUbCenterRadius dialog = new DialogLbUbCenterRadius(new javax.swing.JFrame(), true);
+                DialogLbUbCenterRadius dialog = new DialogLbUbCenterRadius(null, true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
