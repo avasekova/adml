@@ -169,7 +169,6 @@ import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
 
-//TODO (v celom projekte) nahradit obycajne require(Rpackage) za kontrolu, ci to nieco naloadovalo (vracia BOOL), a ak nie, vyplut warning
 public class MainFrame extends javax.swing.JFrame {
 
     private static MainFrame INSTANCE = null; //created in main()
@@ -4127,8 +4126,6 @@ public class MainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuFileLoadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileLoadActionPerformed
-
-        //TODO odkomentovat------------------------------------------------------
         JFileChooser fileChooser = new JFileChooser((File)null);
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
@@ -4139,7 +4136,6 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showOpenDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     this.loadedFile = fileChooser.getSelectedFile();
-//                                               this.loadedFile = new File("C:\\Users\\Andrejka\\Documents\\fi_muni\\phd\\3d_semester-madrid\\w02\\javier redondo\\brent_prices_its_2000_2014.xlsx");
                     dataTableModel.openFile(loadedFile, customizer);
                     dataTableModel.fireTableStructureChanged();
                     fillGUIelementsWithNewData();
@@ -4307,7 +4303,6 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File errorMeasuresFile = fileChooser.getSelectedFile();
-                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     ExcelWriter.errorJTablesToExcel((ErrorMeasuresTableModel_CTS)(errorMeasuresLatest_CTS.getModel()),
                         (ErrorMeasuresTableModel_ITS)(errorMeasuresLatest_IntTS.getModel()), errorMeasuresFile);
                     break;
@@ -4691,7 +4686,6 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File forecastValuesFile = fileChooser.getSelectedFile();
-                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     ExcelWriter.forecastJTableToExcel((ForecastValsTableModel)(forecastValuesLatest.getModel()), forecastValuesFile);
                     break;
                 case JFileChooser.CANCEL_OPTION:
@@ -5489,7 +5483,6 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     File residualsFile = fileChooser.getSelectedFile();
-                    //TODO mozno sa tu spytat, ci chce prepisat existujuci subor
                     ExcelWriter.residualsJTableToExcel((ResidualsTableModel)(residualsTableLatest.getModel()), residualsFile);
                     break;
                 case JFileChooser.CANCEL_OPTION:
