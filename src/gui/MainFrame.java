@@ -62,15 +62,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import static javax.swing.JFileChooser.SAVE_DIALOG;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -149,7 +146,6 @@ import models.params.SESintParams;
 import models.params.VARParams;
 import models.params.VARintParams;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
 import utils.CrispOutputVariable;
@@ -173,9 +169,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     private static MainFrame INSTANCE = null; //created in main()
     
-    /**
-     * Creates new form MainFrame
-     */
     private MainFrame() {
         initComponents();
     }
