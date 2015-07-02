@@ -9,6 +9,8 @@ public class ComponentGroup {
     
     private final Set<Component> components = new HashSet<>();
     
+    public enum ENABLED { ALL, NONE, SOME }
+    
     public void add(Component c) {
         components.add(c);
     }
@@ -54,6 +56,35 @@ public class ComponentGroup {
     public void disableAll() {
         for (Component c : components) {
             c.setEnabled(false);
+        }
+    }
+    
+    public ENABLED areEnabled() {
+        boolean enabledAtLeastOne = false;
+        boolean disabledAtLeastOne = false;
+        
+        for (Component c : components) {
+            if (c.isEnabled()) {
+                if (disabledAtLeastOne) {
+                    return ENABLED.SOME;
+                }
+                
+                enabledAtLeastOne = true;
+            } else {
+                if (enabledAtLeastOne) {
+                    return ENABLED.SOME;
+                }
+                
+                disabledAtLeastOne = true;
+            }
+        }
+        
+        if (enabledAtLeastOne && !disabledAtLeastOne) {
+            return ENABLED.ALL;
+        } else if (enabledAtLeastOne && disabledAtLeastOne) {
+            return ENABLED.SOME;
+        } else { //(!enabled && disabled) || (!enabled && !disabled)
+            return ENABLED.NONE; //may also indicate that the group is empty
         }
     }
 }

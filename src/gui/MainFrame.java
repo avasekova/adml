@@ -3843,7 +3843,7 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        tableAnalysisBatch.setModel(batchTableModel);
+        tableAnalysisBatch.setModel(AnalysisBatchTableModel.getInstance());
         TableColumn firstColumn = tableAnalysisBatch.getColumnModel().getColumn(0);
         firstColumn.setMinWidth(10);
         firstColumn.setMaxWidth(50);
@@ -4304,9 +4304,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
         //zazalohovat si aktualny batchTableModel
-        AnalysisBatchTableModel lastKnownBatchModel = new AnalysisBatchTableModel();
-        lastKnownBatchModel.setAllLines(batchTableModel.getAllLines());
-        batchTableModel.clear();
+        AnalysisBatchTableModel lastKnownBatchModel = AnalysisBatchTableModel.getInstance();
+        lastKnownBatchModel.setAllLines(AnalysisBatchTableModel.getInstance().getAllLines());
+        AnalysisBatchTableModel.getInstance().clear();
         
         //TODO mozno si nahadzat tie checkboxy do ComponentGroup a prechadzat ich len v cykle a nie takto natvrdo?
 
@@ -4450,7 +4450,7 @@ public class MainFrame extends javax.swing.JFrame {
         runModels(false);
         
         //a vratit tam stary batchTableModel
-        batchTableModel.setAllLines(lastKnownBatchModel.getAllLines());
+        AnalysisBatchTableModel.getInstance().setAllLines(lastKnownBatchModel.getAllLines());
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
@@ -4759,7 +4759,7 @@ public class MainFrame extends javax.swing.JFrame {
             case Const.NNET:
                 try {
                     List<NnetParams> paramsNnet = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.NNET, paramsNnet));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNET, paramsNnet));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4767,7 +4767,7 @@ public class MainFrame extends javax.swing.JFrame {
             case Const.NNETAR:
                 try {
                     List<NnetarParams> paramsNnetar = getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.NNETAR, paramsNnetar));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNETAR, paramsNnetar));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4785,7 +4785,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.MLP_INT_NNET, paramsNnet));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MLP_INT_NNET, paramsNnet));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4796,7 +4796,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.MLP_INT_NNETAR, paramsNnetar));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MLP_INT_NNETAR, paramsNnetar));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4811,7 +4811,7 @@ public class MainFrame extends javax.swing.JFrame {
             case Const.INTERVAL_MLP_C_CODE:
                 try {
                     List<IntervalMLPCcodeParams> paramsIMLP = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.INTERVAL_MLP_C_CODE, paramsIMLP));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_MLP_C_CODE, paramsIMLP));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4824,7 +4824,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_RBFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_RBFActionPerformed
         try {
             List<RBFParams> paramsRBF = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.RBF, paramsRBF));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF, paramsRBF));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4836,7 +4836,7 @@ public class MainFrame extends javax.swing.JFrame {
                 panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
                 panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
                 panelBestModelCriterionRBFint);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.RBF_INT, paramsRBFint));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF_INT, paramsRBFint));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4845,7 +4845,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_ARIMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_ARIMAActionPerformed
         try {
             List<ArimaParams> paramsArima = getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.ARIMA, paramsArima));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.ARIMA, paramsArima));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4856,7 +4856,7 @@ public class MainFrame extends javax.swing.JFrame {
             case Const.KNN_FNN:
                 try {
                     List<KNNfnnParams> paramsFNN = getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.KNN_FNN, paramsFNN));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_FNN, paramsFNN));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4864,7 +4864,7 @@ public class MainFrame extends javax.swing.JFrame {
             case Const.KNN_KKNN:
                 try {
                     List<KNNkknnParams> paramsKKNN = getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.KNN_KKNN, paramsKKNN));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_KKNN, paramsKKNN));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4874,7 +4874,7 @@ public class MainFrame extends javax.swing.JFrame {
             case Const.KNN_MYOWN:
                 try {
                     List<KNNmyownParams> paramsMyOwn = getParamsKNNmyown(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_myown);
-                    batchTableModel.addLine(new AnalysisBatchLine(Const.KNN_MYOWN, paramsMyOwn));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_MYOWN, paramsMyOwn));
                 } catch (IllegalArgumentException e) {
                     //TODO
                 }
@@ -4885,7 +4885,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_VARintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_VARintActionPerformed
         try {
             List<VARintParams> paramsVARint = getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.VAR_INT, paramsVARint));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.VAR_INT, paramsVARint));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4894,7 +4894,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_SESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_SESActionPerformed
         try {
             List<SESParams> paramsSES = getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.SES, paramsSES));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES, paramsSES));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4905,7 +4905,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<SESintParams> paramsSESint = getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
                         comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
                         panelSESintDistance);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.SES_INT, paramsSESint));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES_INT, paramsSESint));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4914,7 +4914,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_HoltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltActionPerformed
         try {
             List<HoltParams> paramsHolt = getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.HOLT, paramsHolt));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT, paramsHolt));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4925,7 +4925,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<HoltIntParams> paramsHoltInt = getParamsHoltInt(panelHoltIntPercentTrain, panelHoltInt_center, 
                         comboBoxRunFakeIntCenter, panelHoltIntPercentTrain, panelHoltInt_radius, comboBoxRunFakeIntRadius,
                         panelHoltIntDistance);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.HOLT_INT, paramsHoltInt));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_INT, paramsHoltInt));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4935,7 +4935,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             List<IntervalHoltParams> paramsIntervalHolt = getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
                         comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.INTERVAL_HOLT, paramsIntervalHolt));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_HOLT, paramsIntervalHolt));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4945,7 +4945,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             List<HoltWintersParams> paramsHoltWinters = getParamsHoltWinters(panelHoltWintersPercentTrain, 
                         panelHoltWintersInside, comboBoxColnamesRun);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.HOLT_WINTERS, paramsHoltWinters));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS, paramsHoltWinters));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4956,7 +4956,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<HoltWintersIntParams> paramsHoltWintersInt = getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.HOLT_WINTERS_INT, paramsHoltWintersInt));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS_INT, paramsHoltWintersInt));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -4965,7 +4965,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_HybridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HybridActionPerformed
         try {
             List<HybridParams> paramsHybrid = getParamsHybrid();
-            batchTableModel.addLine(new AnalysisBatchLine(Const.HYBRID, paramsHybrid));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HYBRID, paramsHybrid));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -5425,7 +5425,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
         try {
             List<BNNParams> paramsBNN = getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.BNN, paramsBNN));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN, paramsBNN));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -5437,7 +5437,7 @@ public class MainFrame extends javax.swing.JFrame {
                 panelSettingsBNNint_center, comboBoxRunFakeIntRadius, panelSettingsBNNint_radius,
                 panelBNNintSettingsDistance, textFieldNumNetworksToTrainBNNint,
                 panelBestModelCriterionBNNint);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.BNN_INT, paramsBNNint));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN_INT, paramsBNNint));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -5454,7 +5454,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonSettingsAddToBatch_MAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MAvgActionPerformed
         try {
             List<MAvgParams> paramsMAvg = getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
-            batchTableModel.addLine(new AnalysisBatchLine(Const.MAvg, paramsMAvg));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MAvg, paramsMAvg));
         } catch (IllegalArgumentException e) {
             //TODO
         }
@@ -5555,32 +5555,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNormalizeActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
-        //TODO mozno tieto dat spolu do ComponentGroup
-        if ((! checkBoxAvgSimpleCTS.isSelected()) &&
-            (! checkBoxAvgSimpleCTSperM.isSelected()) &&
-            (! checkBoxAvgSimpleIntTS.isSelected()) &&
-            (! checkBoxAvgSimpleIntTSperM.isSelected()) &&
-                
-            (! checkBoxAvgMDeCTS.isSelected()) &&
-            (! checkBoxAvgMDeCTSperM.isSelected()) &&
-            (! checkBoxAvgMDeIntTS.isSelected()) &&
-            (! checkBoxAvgMDeIntTSperM.isSelected()) &&
-                
-            (! checkBoxAvgTheilsuCTS.isSelected()) &&
-            (! checkBoxAvgTheilsuCTSperM.isSelected()) &&
-            (! checkBoxAvgTheilsuIntTS.isSelected()) &&
-            (! checkBoxAvgTheilsuIntTSperM.isSelected()) &&
-                
-            (! checkBoxAvgCvgEffIntTS.isSelected()) &&
-            (! checkBoxAvgCvgEffIntTSperM.isSelected()) &&
-                
-            (! checkBoxAvgCenterLogRadiusIntTS.isSelected()) &&
-            (! checkBoxAvgCenterLogRadiusIntTSperM.isSelected()) &&
-                
-            (! checkBoxAvgMedianCTS.isSelected()) &&
-            (! checkBoxAvgMedianCTSperM.isSelected()) &&
-            (! checkBoxAvgMedianIntTS.isSelected()) &&
-            (! checkBoxAvgMedianIntTSperM.isSelected())) {
+        if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
             checkBoxAvgONLY.setSelected(false);
             checkBoxAvgONLY.setEnabled(false);
         }
@@ -6030,13 +6005,12 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
-    private static final AnalysisBatchTableModel batchTableModel = new AnalysisBatchTableModel();
     public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
     private static JGDBufferedPanel gdBufferedPanelPlot;
     private static JGDBufferedPanel gdBufferedPanelPlotResiduals;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
-    private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<TrainAndTestReport>()));
-    private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<TrainAndTestReport>())));
+    private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<>()));
+    private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<>())));
     private JTable forecastValuesLatest;
     private JTable residualsTableLatest;
     private List<IntervalNamesCentreRadius> listITSPlotCentreRadius = new ArrayList<>();
@@ -6044,7 +6018,7 @@ public class MainFrame extends javax.swing.JFrame {
     private boolean continueWithTooManyModels = true;
     
     public void setContinueWithTooManyModels(boolean continueWithTooManyModels) {
-        this.continueWithTooManyModels = continueWithTooManyModels;
+        this.continueWithTooManyModels = continueWithTooManyModels; //TODO toto tiez zavana skaredym dizajnom, prerobit
     }
 
     public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs) {
@@ -7224,7 +7198,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
         List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
 
-        for (AnalysisBatchLine l : batchTableModel.getAllLines()) {
+        for (AnalysisBatchLine l : AnalysisBatchTableModel.getInstance().getAllLines()) {
             List<? extends Params> params = new ArrayList<>();
             try {
                 params = l.getModelParams();
@@ -7688,12 +7662,23 @@ public class MainFrame extends javax.swing.JFrame {
     private final ComponentGroup groupZoomControlsCTS = new ComponentGroup();
     private final ComponentGroup groupZoomControlsIntTS = new ComponentGroup();
     
+    private final ComponentGroup groupCheckBoxesAvg_withoutAvgONLY = new ComponentGroup();
+    
     private void addComponentsToGroups() {
         groupRunControlsCenterRadius.addAll(labelRunFakeIntCenter, labelRunFakeIntRadius, comboBoxRunFakeIntCenter,
                 comboBoxRunFakeIntRadius);
         
         groupRunControlsLowerUpper.addAll(labelRunFakeIntLower, labelRunFakeIntUpper, comboBoxRunFakeIntLower,
                 comboBoxRunFakeIntUpper);
+        
+        groupCheckBoxesAvg_withoutAvgONLY.addAll(
+                checkBoxAvgSimpleCTS, checkBoxAvgSimpleCTSperM, checkBoxAvgSimpleIntTS, checkBoxAvgSimpleIntTSperM, 
+                checkBoxAvgMDeCTS, checkBoxAvgMDeCTSperM, checkBoxAvgMDeIntTS, checkBoxAvgMDeIntTSperM,
+                checkBoxAvgTheilsuCTS, checkBoxAvgTheilsuCTSperM, checkBoxAvgTheilsuIntTS, checkBoxAvgTheilsuIntTSperM,
+                checkBoxAvgCvgEffIntTS, checkBoxAvgCvgEffIntTSperM,
+                checkBoxAvgCenterLogRadiusIntTS, checkBoxAvgCenterLogRadiusIntTSperM,
+                checkBoxAvgMedianCTS, checkBoxAvgMedianCTSperM, checkBoxAvgMedianIntTS, checkBoxAvgMedianIntTSperM);
+        
         
         
     }

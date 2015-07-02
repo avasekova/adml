@@ -9,6 +9,20 @@ public class AnalysisBatchTableModel extends AbstractTableModel {
 
     private List<AnalysisBatchLine> lines = new ArrayList<>();
     
+    private static AnalysisBatchTableModel INSTANCE = null;
+    
+    private AnalysisBatchTableModel() {
+        super();
+    }
+    
+    public static synchronized AnalysisBatchTableModel getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new AnalysisBatchTableModel();
+        }
+        
+        return INSTANCE;
+    }
+    
     @Override
     public int getRowCount() {
         return lines.size();

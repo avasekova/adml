@@ -5689,7 +5689,7 @@
                 <Component class="javax.swing.JTable" name="tableAnalysisBatch">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="batchTableModel" type="code"/>
+                      <Connection code="AnalysisBatchTableModel.getInstance()" type="code"/>
                     </Property>
                   </Properties>
                   <AuxValues>
