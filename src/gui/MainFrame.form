@@ -4778,9 +4778,6 @@
                 <Property name="text" type="java.lang.String" value="VAR"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxRunVARActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="checkBoxRunRBF">
               <Properties>

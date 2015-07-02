@@ -1,5 +1,6 @@
 package gui;
 
+import analysis.AnalysisUtils;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.dialogs.DialogAddIntervalExplanatoryVar;
 import gui.dialogs.DialogAddIntervalOutputVar;
@@ -146,8 +147,9 @@ import models.params.SESParams;
 import models.params.SESintParams;
 import models.params.VARParams;
 import models.params.VARintParams;
-import models.stattests.StatisticalTests;
-import models.stattests.Transformations;
+import analysis.StatisticalTests;
+import analysis.Transformations;
+import models.BinomProp;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
@@ -2927,11 +2929,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunVAR.setText("VAR");
         checkBoxRunVAR.setEnabled(false);
-        checkBoxRunVAR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkBoxRunVARActionPerformed(evt);
-            }
-        });
 
         checkBoxRunRBF.setText("RBF");
 
@@ -5245,123 +5242,18 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportResidualsActionPerformed
 
     private void buttonStructBreaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStructBreaksActionPerformed
-        MyRengine rengine = MyRengine.getRengine();
-
-        rengine.require("bfast");
-
-        List<String> selectedValuesList = new ArrayList<>();
-        selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
-        List<IntervalNames> selectedIntervalsList = new ArrayList<>();
-        selectedIntervalsList.addAll(listPlotITSspecs.getSelectedValuesList());
-        
         int breaks = 5;
-        
         try {
             breaks = Integer.parseInt(textFieldMaxStructBreaks.getText());
         } catch (NumberFormatException e) {
             //TODO log
         }
         
-        List<String> plots = new ArrayList<>();
-        StringBuilder strBreaksInfo = new StringBuilder();
-        
-        final String DATA = Const.INPUT + Utils.getCounter();
-        final String DATA_TS = DATA + "ts";
-        final String FIT = Const.FIT + Utils.getCounter();
-        
-        //najprv vybavit jednoduche hodnoty
-        for (String selectedVal : selectedValuesList) {
-            rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
-            rengine.eval(DATA_TS + " <- ts(" + DATA + ")");
-            
-            rengine.eval(FIT + " <- bfast(" + DATA_TS + ", h=10/length(" + DATA + "), season=\"none\", max.iter=1, breaks="
-                    + breaks + ")");
-            
-            //draw the plot with str. breaks
-            StringBuilder pl = new StringBuilder("plot.ts(");
-            pl.append(DATA).append(", col=\"red\", ylab=\"").append(selectedVal).append("\");")
-                    .append("lines(").append(FIT).append("$output[[1]]$Tt)").append(";")
-                    .append("abline(v=").append(FIT).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
-            plots.add(pl.toString());
-            
-            double[] breakpoints = null;
-            if (rengine.eval(FIT + "$output[[1]]$bp.Vt$breakpoints") != null) {
-                breakpoints = rengine.eval(FIT + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
-            }
-            strBreaksInfo.append("-----\n").append("Structural breaks for ").append(selectedVal).append(":\n");
-            if (breakpoints == null) {
-                strBreaksInfo.append("(No structural breaks detected.)");
-            } else {
-                strBreaksInfo.append(Arrays.toString(breakpoints));
-            }
-            strBreaksInfo.append("\n\n");
-        }
-        
-        final String DATA1 = Const.INPUT + Utils.getCounter();
-        final String DATA1_TS = DATA1 + "ts";
-        final String DATA2 = Const.INPUT + Utils.getCounter();
-        final String DATA2_TS = DATA2 + "ts";
-        final String FIT1 = Const.FIT + Utils.getCounter();
-        final String FIT2 = Const.FIT + Utils.getCounter();
-        
-        //potom intervaly:
-        for (IntervalNames i : selectedIntervalsList) {
-            String ylab1 = "";;
-            String ylab2 = "";
-            if (i instanceof IntervalNamesCentreRadius) {
-                ylab1 = ((IntervalNamesCentreRadius)i).getCentre();
-                ylab2 = ((IntervalNamesCentreRadius)i).getRadius();
-            } else {
-                ylab1 = ((IntervalNamesLowerUpper)i).getLowerBound();
-                ylab2 = ((IntervalNamesLowerUpper)i).getUpperBound();
-            }
-            rengine.assign(DATA1, Utils.listToArray(DataTableModel.getInstance().getDataForColname(ylab1)));
-            rengine.assign(DATA2, Utils.listToArray(DataTableModel.getInstance().getDataForColname(ylab2)));
-            rengine.eval(DATA1_TS + " <- ts(" + DATA1 + ")");
-            rengine.eval(DATA2_TS + " <- ts(" + DATA2 + ")");
-            
-            rengine.eval(FIT1 + " <- bfast(" + DATA1_TS + ", h=10/length(" + DATA1 + "), season=\"none\", max.iter=1, breaks="
-                    + breaks + ")");
-            rengine.eval(FIT2 + " <- bfast(" + DATA2_TS + ", h=10/length(" + DATA2 + "), season=\"none\", max.iter=1, breaks="
-                    + breaks + ")");
-            
-            //draw the plot with str. breaks - first component
-            StringBuilder pl = new StringBuilder();
-            pl.append("par(mfrow=c(2,1))");
-            pl.append(";");
-            pl.append("plot.ts(").append(DATA1).append(", col=\"red\", ylab=\"").append(ylab1).append("\");")
-                    .append("lines(").append(FIT1).append("$output[[1]]$Tt)").append(";")
-                    .append("abline(v=").append(FIT1).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
-            pl.append(";");
-            //draw the plot with str. breaks - second component
-            pl.append("plot.ts(").append(DATA2).append(", col=\"red\", ylab=\"").append(ylab2).append("\");")
-                    .append("lines(").append(FIT2).append("$output[[1]]$Tt)").append(";")
-                    .append("abline(v=").append(FIT2).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
-            plots.add(pl.toString());
-            
-            double[] breakpoints1 = null;
-            if (rengine.eval(FIT1 + "$output[[1]]$bp.Vt$breakpoints") != null) {
-                breakpoints1 = rengine.eval(FIT1 + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
-            }
-            
-            double[] breakpoints2 = null;
-            if (rengine.eval(FIT2 + "$output[[1]]$bp.Vt$breakpoints") != null) {
-                breakpoints2 = rengine.eval(FIT2 + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
-            }
-            strBreaksInfo.append("-----\n").append("Structural breaks for ").append(i.toString()).append(":\n");
-            if (breakpoints1 == null) {
-                strBreaksInfo.append("(No structural breaks detected for the first component.)");
-            } else {
-                strBreaksInfo.append(Arrays.toString(breakpoints1));
-            }
-            strBreaksInfo.append("\n");
-            if (breakpoints2 == null) {
-                strBreaksInfo.append("(No structural breaks detected for the second component.)");
-            } else {
-                strBreaksInfo.append(Arrays.toString(breakpoints2));
-            }
-            strBreaksInfo.append("\n\n");
-        }
+        List<String> plots = StatisticalTests.stucturalBreaksTests(listColnamesTests.getSelectedValuesList(), 
+                listPlotITSspecs.getSelectedValuesList(), breaks); //bacha, posledny prvok je to info
+        //TODO toto potom vyriesit lepsie (uz na urovni tej metody, ktora to zle vracia
+        String structBreaksInfo = plots.get(plots.size() - 1);
+        plots.remove(plots.size() - 1);
         
         //TODO refactor odtialto------------------
         //potom ich nechaj vyplut do mriezky
@@ -5378,14 +5270,11 @@ public class MainFrame extends javax.swing.JFrame {
         tabbedPaneAnalysisPlotsCTS1.repaint();
         //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
         
-        
         //a vypis info
-        textAreaTests.setText(strBreaksInfo.toString());
+        textAreaTests.setText(structBreaksInfo);
 
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
-        
-        rengine.rm(DATA, DATA_TS, FIT, DATA1, DATA1_TS, DATA2, DATA2_TS, FIT1, FIT2);
     }//GEN-LAST:event_buttonStructBreaksActionPerformed
 
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
@@ -5472,57 +5361,8 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportAnalysisTextActionPerformed
 
     private void buttonAggregateToITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggregateToITSActionPerformed
-        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
-        
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String VAR = Const.INPUT + Utils.getCounter();
-        final String CHUNKS = Const.INPUT + Utils.getCounter();
-        final String LOWERB = Const.INPUT + Utils.getCounter();
-        final String UPPERB = Const.INPUT + Utils.getCounter();
-        final String CENTERS = Const.INPUT + Utils.getCounter();
-        final String RADII = Const.INPUT + Utils.getCounter();
         final int length = Integer.parseInt(textFieldAggregateToITSevery.getText());
-        
-        for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
-            
-            //found this on SO: http://stackoverflow.com/a/3321659
-            //split into chunks of given length
-            rengine.eval(CHUNKS + " <- split(" + VAR + ", ceiling(seq_along(" + VAR + ")/" + length + "))");
-            int numChunks = rengine.eval("length(" + CHUNKS + ")").asIntArray()[0];
-            
-            StringBuilder mins = new StringBuilder("c(");
-            StringBuilder maxs = new StringBuilder("c(");
-            for (int i = 0; i < numChunks; i++) {
-                if (i > 0) {
-                    mins.append(",");
-                    maxs.append(",");
-                }
-                
-                mins.append("min(").append(CHUNKS).append("[[").append(i+1).append("]]").append(")");
-                maxs.append("max(").append(CHUNKS).append("[[").append(i+1).append("]]").append(")");
-            }
-            mins.append(")");
-            maxs.append(")");
-            
-            //vytvor LB a UB
-            rengine.eval(LOWERB + " <- " + mins.toString());
-            rengine.eval(UPPERB + " <- " + maxs.toString());
-            
-            //vytvor este C a R
-            rengine.eval(CENTERS + " <- (" + UPPERB + " + " + LOWERB + ")/2");
-            rengine.eval(RADII + " <- (" + UPPERB + " - " + LOWERB + ")/2");
-            
-            //pridaj vsetko medzi data
-            DataTableModel.getInstance().addDataForColname("LB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(LOWERB).asDoubleArray()));
-            DataTableModel.getInstance().addDataForColname("UB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(UPPERB).asDoubleArray()));
-            DataTableModel.getInstance().addDataForColname("C_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
-            DataTableModel.getInstance().addDataForColname("R_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
-        }
-        
-        rengine.rm(VAR, CHUNKS, LOWERB, UPPERB, CENTERS, RADII);
-        
+        Transformations.aggregateToITS(listColnamesTransform.getSelectedValuesList(), length);
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonAggregateToITSActionPerformed
 
@@ -5534,62 +5374,15 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        MyRengine rengine = MyRengine.getRengine();
-        rengine.require("LearnBayes");
-        
-        final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
-        final String P = Const.INPUT + Utils.getCounter();
-        final String MEAN = Const.INPUT + Utils.getCounter();
-        final String MODE = Const.INPUT + Utils.getCounter();
-        final String POSTERIOR = Const.OUTPUT + Utils.getCounter();
-        
-        List<String> plots = new ArrayList<>();
-        StringBuilder info = new StringBuilder();
-        
-        for (int i = 0; i < params.size(); i++) {
-            String BETA_PARAMS_NOW = BETA_PARAMS + "." + i;
-            BinomPropParams par = params.get(i);
-            
-            //prepare the plots
-            String beta = BETA_PARAMS_NOW + " <- beta.select("
-                    + "list(p = " + par.getQuantileOne() + "/100, "
-                         + "x = " + par.getQuantileOneValue() + "), "
-                    + "list(p = " + par.getQuantileTwo() + "/100, "
-                         + "x = " + par.getQuantileTwoValue() + "))";
-            rengine.eval(beta);
-            
-            String distrAndTriplot = beta + ";"
-                    + "triplot(" + BETA_PARAMS_NOW + ", c(" + par.getNumSuccesses() + ", "
-                                       + (par.getNumObservations() - par.getNumSuccesses())
-                            + "))";
-            plots.add(distrAndTriplot);
-            
-            
-            //and write summary into the info panel:
-            rengine.eval(P + " <- seq(0.005, 0.995, length=500)");
-            rengine.eval(POSTERIOR + " <- dbeta(" + P + ", " + BETA_PARAMS_NOW + "[1] + " + par.getNumSuccesses()
-                                                      + ", " + BETA_PARAMS_NOW + "[2] + " 
-                                                  + (par.getNumObservations() - par.getNumSuccesses())
-                                            + ")");
-            rengine.eval(MEAN + " <- mean(" + POSTERIOR + ")");
-            rengine.eval(MODE + " <- Modus(" + POSTERIOR + ")");
-            
-            double priorOne = rengine.eval(BETA_PARAMS_NOW + "[1]").asDoubleArray()[0];
-            double priorTwo = rengine.eval(BETA_PARAMS_NOW + "[2]").asDoubleArray()[0];
-            info.append("Prior distribution: beta(")
-                    .append(priorOne).append(", ").append(priorTwo).append(")\n")
-                    .append("Posterior distribution: beta(").append(priorOne + par.getNumSuccesses()).append(", ")
-                    .append(priorTwo + (par.getNumObservations() - par.getNumSuccesses())).append(")\n");
-            info.append("Mean: ").append(rengine.eval(MEAN).asDoubleArray()[0]).append("\n");
-            info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
-        }
+        List<String> plots = BinomProp.binomPropComputePosterior(params);
+        //TODO odstranit tento hnusny hack
+        String info = plots.get(plots.size() - 1);
+        plots.remove(plots.size() - 1);
         
         //draw plots into the right panel
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
         
-        textAreaBinomPropInfo.setText(info.toString());
-        
-        rengine.rm(BETA_PARAMS, P, MEAN, MODE, POSTERIOR);
+        textAreaBinomPropInfo.setText(info);
     }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
 
     private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
@@ -5604,48 +5397,9 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        MyRengine rengine = MyRengine.getRengine();
-        rengine.require("LearnBayes");
+        List<Double> alphasssRaw = FieldsParser.parseDoubles(textFieldBinomPropPercProbInterval);
         
-        final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
-        final String RESULT = Const.OUTPUT + Utils.getCounter();
-        final String POSTERIOR_SAMPLE = Const.OUTPUT + Utils.getCounter();
-        final String BETA_POSTERIOR_PARAMS = Const.OUTPUT + Utils.getCounter();
-        
-        StringBuilder info = new StringBuilder();
-        
-        for (int i = 0; i < params.size(); i++) {
-            String BETA_PARAMS_NOW = BETA_PARAMS + "." + i;
-            BinomPropParams par = params.get(i);
-            
-            rengine.eval(BETA_PARAMS_NOW + " <- beta.select("
-                    + "list(p = " + par.getQuantileOne() + "/100, "
-                         + "x = " + par.getQuantileOneValue() + "), "
-                    + "list(p = " + par.getQuantileTwo() + "/100, "
-                         + "x = " + par.getQuantileTwoValue() + "))");
-            
-            rengine.eval(BETA_POSTERIOR_PARAMS + " <- " + BETA_PARAMS_NOW + " + c(" + par.getNumSuccesses() + ", "
-                    + (par.getNumObservations() - par.getNumSuccesses()) +  ")");
-            
-            rengine.eval(POSTERIOR_SAMPLE + " <- rbeta(1000, " + BETA_POSTERIOR_PARAMS + "[1], "
-                    + BETA_POSTERIOR_PARAMS + "[2])");
-            
-            List<Double> alphasssRaw = FieldsParser.parseDoubles(textFieldBinomPropPercProbInterval);
-            for (Double alphaRaw : alphasssRaw) {
-                double alpha = (100 - alphaRaw)/2;
-                rengine.eval(RESULT + " <- quantile(" + POSTERIOR_SAMPLE + ", c(" + alpha/100 + ", " + (100-alpha)/100 + "))");
-                
-                info.append(textFieldBinomPropPercProbInterval.getText()).append("% probability interval for the posterior:\n")
-                        .append("(").append(Utils.valToDecPoints(rengine.eval(RESULT + "[1]").asDoubleArray()[0])).append(",")
-                        .append(Utils.valToDecPoints(rengine.eval(RESULT + "[2]").asDoubleArray()[0])).append(")\n\n");
-            }
-            
-            rengine.rm(BETA_PARAMS_NOW);
-        }
-        
-        rengine.rm(BETA_PARAMS, RESULT, POSTERIOR_SAMPLE, BETA_POSTERIOR_PARAMS);
-        
-        textAreaBinomPropInfo.setText(info.toString());
+        textAreaBinomPropInfo.setText(BinomProp.binomPropSimulate(params, alphasssRaw));
     }//GEN-LAST:event_buttonBinomPropSimulateActionPerformed
 
     private void buttonBinomPropPredictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropPredictActionPerformed
@@ -5661,43 +5415,11 @@ public class MainFrame extends javax.swing.JFrame {
             return;
         }
         
-        MyRengine rengine = MyRengine.getRengine();
-        rengine.require("LearnBayes");
+        List<Integer> numFutureObsss = FieldsParser.parseIntegers(textFieldBinomPropNumFutureObs);
         
-        final String BETA_PARAMS = Const.INPUT + Utils.getCounter();
-        final String PREDICTED_DISTR = Const.OUTPUT + Utils.getCounter();
-        
-        List<String> plots = new ArrayList<>();
-        
-        for (int i = 0; i < params.size(); i++) {
-            String BETA_PARAMS_NOW = BETA_PARAMS + "." + i;
-            BinomPropParams par = params.get(i);
-            
-            rengine.eval(BETA_PARAMS_NOW + " <- beta.select("
-                    + "list(p = " + par.getQuantileOne() + "/100, "
-                         + "x = " + par.getQuantileOneValue() + "), "
-                    + "list(p = " + par.getQuantileTwo() + "/100, "
-                         + "x = " + par.getQuantileTwoValue() + "))");
-            
-            
-            List<Integer> numFutureObsss = FieldsParser.parseIntegers(textFieldBinomPropNumFutureObs);
-            for (int j = 0; j < numFutureObsss.size(); j++) {
-                String PREDICTED_DISTR_NOW = PREDICTED_DISTR + "." + i + "." + j;
-                rengine.eval(PREDICTED_DISTR_NOW + " <- pbetap(" + BETA_PARAMS_NOW + ", " + numFutureObsss.get(j)
-                                         + ", 0:" + numFutureObsss.get(j) + ")");
-                plots.add("plot(0:" + numFutureObsss.get(j) + ", " + PREDICTED_DISTR_NOW + ", type=\"h\", "
-                        + "xlab = \"Number of successes in the future " + numFutureObsss.get(j) + " observations\", "
-                        + "ylab = \"Probability of each number of successes\")");
-                
-                rengine.rm(PREDICTED_DISTR_NOW);
-            }
-            
-            rengine.rm(BETA_PARAMS_NOW);
-        }
+        List<String> plots = BinomProp.binomPropPredict(params, numFutureObsss);
         
         PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
-        
-        rengine.rm(BETA_PARAMS, PREDICTED_DISTR);
     }//GEN-LAST:event_buttonBinomPropPredictActionPerformed
 
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
@@ -5721,9 +5443,6 @@ public class MainFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_BNNintActionPerformed
 
-    private void checkBoxRunVARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxRunVARActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkBoxRunVARActionPerformed
     private void buttonConvertITSLBUBCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConvertITSLBUBCRActionPerformed
         DialogConvertLbUbCenterRadius dialogConvertLBUBCenterRadius = DialogConvertLbUbCenterRadius.getInstance(this, true);
         dialogConvertLBUBCenterRadius.setColnames(DataTableModel.getInstance().getColnames());
@@ -5827,58 +5546,11 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportTestsPlotsActionPerformed
 
     private void buttonBasicStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBasicStatsActionPerformed
-        //TODO refactor: toto sa da volat z basicPlots (tam je ten isty kod, ale prepleteny s plotovanim)
-        
-        MyRengine rengine = MyRengine.getRengine();
-        
-        //mean, standard deviation, median
-        StringBuilder basicStatsString = new StringBuilder();
-        final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
-
-        List<String> selected = listColnames.getSelectedValuesList();
-        for (String col : selected) {
-            List<Double> data = DataTableModel.getInstance().getDataForColname(col);
-            
-            rengine.assign(TRAINDATA, Utils.listToArray(data));
-            
-            //and compute basic statistics of the data:
-            //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
-            REXP getMean = rengine.eval("mean(" + TRAINDATA + ", na.rm=TRUE)");
-            double mean = getMean.asDoubleArray()[0];
-            REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ", na.rm=TRUE)");
-            double stDev = getStdDev.asDoubleArray()[0];
-            REXP getMedian = rengine.eval("median(" + TRAINDATA + ", na.rm=TRUE)");
-            double median = getMedian.asDoubleArray()[0];
-            BasicStats stat = new BasicStats(col);
-            stat.setMean(mean);
-            stat.setStdDev(stDev);
-            stat.setMedian(median);
-            
-            basicStatsString.append(stat.toString());
-            basicStatsString.append(System.lineSeparator());
-        }
-        
-        rengine.rm(TRAINDATA);
-        
-        textAreaPlotBasicStats.setText(basicStatsString.toString());
+        textAreaPlotBasicStats.setText(AnalysisUtils.getBasicStats(listColnames.getSelectedValuesList()));
     }//GEN-LAST:event_buttonBasicStatsActionPerformed
 
     private void buttonNormalizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalizeActionPerformed
-        //TODO refactor. je to to iste ako LOG a mozno aj ine transformacie
-        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
-        
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String VAR = Const.INPUT + Utils.getCounter();
-        
-        for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
-            rengine.eval(VAR + " <- MLPtoR.scale(" + VAR + ")");
-            DataTableModel.getInstance().addDataForColname("NORM(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
-        }
-        
-        rengine.rm(VAR);
-        
+        Transformations.normalize(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonNormalizeActionPerformed
     
