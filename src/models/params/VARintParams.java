@@ -1,5 +1,12 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import gui.settingspanels.VARintSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
 import utils.imlp.dist.Distance;
 
 public class VARintParams extends Params {
@@ -93,5 +100,22 @@ public class VARintParams extends Params {
                "Radius: " + radius + "\n" + 
                "lag = " + lag + "\n" + 
                "type = " + type;
+    }
+    
+    
+    public static List<VARintParams> getParamsVARint(JPanel percentTrainSettingsPanel, JPanel distanceSettingsPanel, 
+            JPanel panelSettingsVARint) throws IllegalArgumentException {
+        VARintParams par = new VARintParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        
+        List<VARintParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(VARintParams.class, resultList);
+        ((VARintSettingsPanel)panelSettingsVARint).setSpecificParams(VARintParams.class, resultList);
+        ((DistanceSettingsPanel)distanceSettingsPanel).setSpecificParams(VARintParams.class, resultList);
+        
+        return resultList;
     }
 }

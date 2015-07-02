@@ -1,5 +1,8 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.IntMLPCcodeSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
 import java.util.ArrayList;
 import java.util.List;
 import utils.IntervalExplanatoryVariable;
@@ -90,5 +93,22 @@ public class IntervalMLPCcodeParams extends Params {
                 + "outVars=" + outVars + ",\n"
                 + "distance=" + distance + ",\n"
                 + "numNetworks=" + numNetworks;
+    }
+    
+    public static List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JPanel panelSettingsIMLPCcode) throws IllegalArgumentException {
+        IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        
+        List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(IntervalMLPCcodeParams.class, resultList);
+        ((IntMLPCcodeSettingsPanel)panelSettingsIMLPCcode).setSpecificParams(IntervalMLPCcodeParams.class, resultList);
+        
+        //TODO add the criterion here
+        
+        return resultList;
     }
 }

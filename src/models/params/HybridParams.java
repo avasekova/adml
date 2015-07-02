@@ -1,7 +1,5 @@
 package models.params;
 
-import utils.imlp.dist.Distance;
-
 public class HybridParams extends PseudoIntervalParams {
     
     private Params paramsCenter;

@@ -1,5 +1,16 @@
 package models.params;
 
+import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.MLPNnetarSettingsPanel;
+import gui.settingspanels.SettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import utils.FieldsParser;
+import utils.Improvable;
+
 public class MLPintNnetarParams extends PseudoIntervalParams {
     
     private NnetarParams paramsCenter;
@@ -52,5 +63,34 @@ public class MLPintNnetarParams extends PseudoIntervalParams {
     @Override
     public String toString() {
         return super.toString() + "\nnumNetsToTrain=" + numNetsToTrain;
+    }
+    
+    
+    public static List<MLPintNnetarParams> getParamsMLPintNnetar(javax.swing.JPanel percentTrainSettingsPanel_center,
+            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnetar_center,
+            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
+            javax.swing.JPanel panelSettingsNnetar_radius, javax.swing.JPanel panelSettingsDistance,
+            JTextField numNetsToTrainField, JPanel panelBestModelCriterion) {
+        List<NnetarParams> resultListCenter = NnetarParams.getParamsNnetar(percentTrainSettingsPanel_center, comboBoxColName_center, 
+                panelSettingsNnetar_center);
+        List<NnetarParams> resultListRadius = NnetarParams.getParamsNnetar(percentTrainSettingsPanel_radius, comboBoxColName_radius, 
+                panelSettingsNnetar_radius);
+        
+        MLPintNnetarParams par = new MLPintNnetarParams();
+        
+        List<MLPintNnetarParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetarParams.class, resultList);
+        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsCenter",
+                NnetarParams.class, resultListCenter);
+        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsRadius",
+                NnetarParams.class, resultListRadius);
+        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setNumNetsToTrain",
+                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
+        SettingsPanel.setSomethingOneValue(MLPintNnetarParams.class, resultList, "setCriterion",
+                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
+        
+        return resultList;
     }
 }

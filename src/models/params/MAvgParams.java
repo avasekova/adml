@@ -1,5 +1,12 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.MAvgSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+
 public class MAvgParams extends Params {
     
     private String colName;
@@ -40,4 +47,19 @@ public class MAvgParams extends Params {
         return "time series = " + colName + "\n" + 
                "order = " + order;
     }    
+    
+    public static List<MAvgParams> getParamsMAvg(JComboBox comboBoxColname, JPanel main) {
+        MAvgParams par = new MAvgParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(100);
+        par.setColName(comboBoxColname.getSelectedItem().toString()); //data
+        
+        List<MAvgParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(MAvgParams.class, resultList);
+        ((MAvgSettingsPanel)main).setSpecificParams(MAvgParams.class, resultList);
+        
+        return resultList;
+    }
 }

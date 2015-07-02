@@ -1,5 +1,13 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import gui.settingspanels.SESSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+
 public class SESParams extends Params {
     
     private String colName;
@@ -40,4 +48,20 @@ public class SESParams extends Params {
         return "time series = " + colName + "\n" + 
                "alpha = " + alpha;
     }    
+    
+    
+    public static List<SESParams> getParamsSES(JPanel percentTrainSettingsPanel, JComboBox comboBoxColname, JPanel main) {
+        SESParams par = new SESParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColname.getSelectedItem().toString()); //data
+        
+        List<SESParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(SESParams.class, resultList);
+        ((SESSettingsPanel)main).setSpecificParams(SESParams.class, resultList);
+        
+        return resultList;
+    }
 }

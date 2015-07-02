@@ -1,5 +1,12 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.HoltSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import utils.R_Bool;
 
 public class HoltParams extends SESParams {
@@ -55,4 +62,22 @@ public class HoltParams extends SESParams {
         return "alpha = " + getAlpha() + "\n" +
                "beta = " + beta;
     }
+    
+    
+    public static List<HoltParams> getParamsHolt(JPanel percentTrainSettingsPanel, JPanel panelSettingsHolt,
+            JComboBox comboBoxColName) throws IllegalArgumentException {
+        HoltParams par = new HoltParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
+        
+        List<HoltParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(HoltParams.class, resultList);
+        ((HoltSettingsPanel)panelSettingsHolt).setSpecificParams(HoltParams.class, resultList);
+        
+        return resultList;
+    }
+    
 }

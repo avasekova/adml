@@ -1,5 +1,9 @@
 package models.params;
 
+import gui.settingspanels.BinomPropSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinomPropParams extends Params {
     
     private int quantileOne;
@@ -78,5 +82,15 @@ public class BinomPropParams extends Params {
     @Override
     public String toString() {
         return "BinomPropParams{" + "quantileOne=" + quantileOne + ", quantileOneValue=" + quantileOneValue + ", quantileTwo=" + quantileTwo + ", quantileTwoValue=" + quantileTwoValue + ", numObservations=" + numObservations + ", numSuccesses=" + numSuccesses + '}';
+    }
+    
+    
+    public static List<BinomPropParams> getParamsBinomProp(javax.swing.JPanel panelBinomPropSettings) throws IllegalArgumentException {
+        List<BinomPropParams> resultList = new ArrayList<>();
+        resultList.add(new BinomPropParams());
+        
+        ((BinomPropSettingsPanel)panelBinomPropSettings).setSpecificParams(BinomPropParams.class, resultList);
+        
+        return resultList;
     }
 }

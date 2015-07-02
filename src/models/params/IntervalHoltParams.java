@@ -1,5 +1,13 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.IntHoltSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import utils.imlp.dist.Distance;
 
 public class IntervalHoltParams extends Params {
@@ -73,5 +81,24 @@ public class IntervalHoltParams extends Params {
                "Radius:\n" + colNameRadius + "\n" +
                "alpha = " + alpha + "\n" + 
                "beta = " + beta;
+    }
+    
+    
+    public static List<IntervalHoltParams> getParamsIntervalHolt(JPanel percentTrainSettingsPanel, JComboBox comboBoxCenter,
+            JComboBox comboBoxRadius, JPanel distancePanel, JPanel panelSettingsHolt) {
+        IntervalHoltParams par = new IntervalHoltParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColNameCenter(comboBoxCenter.getSelectedItem().toString()); //data
+        par.setColNameRadius(comboBoxRadius.getSelectedItem().toString());
+        
+        List<IntervalHoltParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(IntervalHoltParams.class, resultList);
+        ((IntHoltSettingsPanel)panelSettingsHolt).setSpecificParams(IntervalHoltParams.class, resultList);
+        ((DistanceSettingsPanel)distancePanel).setSpecificParams(IntervalHoltParams.class, resultList);
+        
+        return resultList;
     }
 }

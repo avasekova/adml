@@ -1,5 +1,9 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.SettingsPanel;
+import gui.settingspanels.VARSettingsPanel;
+import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,5 +89,31 @@ public class VARParams extends Params {
         return "endogenous variables = " + endogenousVars + "\n" + 
                "lag = " + lag + "\n" + 
                "type = " + type;
+    }
+    
+    
+    public static List<VARParams> getParamsVAR(javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsVAR) throws IllegalArgumentException {
+        VARParams par = new VARParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(100); //uses all data for training
+        
+        List<VARParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(VARParams.class, resultList);
+        ((VARSettingsPanel)panelSettingsVAR).setSpecificParams(VARParams.class, resultList);
+        //TODO prehodit dnu?
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
+                String.class, comboBoxColName.getSelectedItem().toString());
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarVals",
+                List.class, DataTableModel.getInstance().getDataForColname(comboBoxColName.getSelectedItem().toString()));
+        
+        Map<String, List<Double>> data = new HashMap<>();
+        for (Object var : ((VARSettingsPanel)panelSettingsVAR).getEndogenousVars()) {
+            data.put(var.toString(), DataTableModel.getInstance().getDataForColname(var.toString()));
+        }
+        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setData", Map.class, data);
+        
+        return resultList;
     }
 }

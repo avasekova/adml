@@ -1,9 +1,7 @@
 package gui.settingspanels;
 
 import java.util.List;
-import javax.swing.JOptionPane;
 import models.params.Params;
-import utils.Utils;
 
 public class SESSettingsPanel extends SettingsPanel {
 

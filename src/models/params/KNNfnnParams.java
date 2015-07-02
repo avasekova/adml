@@ -1,5 +1,11 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.KNNFNNSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+
 public class KNNfnnParams extends Params {
     
     private String colName;
@@ -39,5 +45,22 @@ public class KNNfnnParams extends Params {
     @Override
     public String toString() {
         return "numNeighbours=" + numNeighbours;
+    }
+    
+    
+    public static List<KNNfnnParams> getParamsKNNfnn(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNfnn) {
+        KNNfnnParams par = new KNNfnnParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
+        
+        List<KNNfnnParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(KNNfnnParams.class, resultList);
+        ((KNNFNNSettingsPanel)panelSettingsKNNfnn).setSpecificParams(KNNfnnParams.class, resultList);
+        
+        return resultList;
     }
 }

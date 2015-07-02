@@ -1,5 +1,14 @@
 package models.params;
 
+import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.MLPNnetSettingsPanel;
+import gui.settingspanels.SettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import utils.FieldsParser;
+import utils.Improvable;
+
 public class MLPintNnetParams extends PseudoIntervalParams {
     
     private NnetParams paramsCenter;
@@ -52,5 +61,36 @@ public class MLPintNnetParams extends PseudoIntervalParams {
     @Override
     public String toString() {
         return super.toString() + "\nnumNetsToTrain=" + numNetsToTrain;
+    }
+    
+    
+    public static List<MLPintNnetParams> getParamsMLPintNnet(javax.swing.JPanel percentTrainSettingsPanel_center,
+            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnet_center,
+            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
+            javax.swing.JPanel panelSettingsNnet_radius, javax.swing.JPanel panelSettingsDistance,
+            javax.swing.JTextField numNetsToTrainField, 
+            javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
+        List<NnetParams> resultListCenter = NnetParams.getParamsNnet(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsNnet_center);
+        List<NnetParams> resultListRadius = NnetParams.getParamsNnet(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsNnet_radius);
+        
+        
+        MLPintNnetParams par = new MLPintNnetParams();
+        
+        List<MLPintNnetParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetParams.class, resultList);
+        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsCenter",
+                NnetParams.class, resultListCenter);
+        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
+                NnetParams.class, resultListRadius);
+        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
+                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
+        SettingsPanel.setSomethingOneValue(MLPintNnetParams.class, resultList, "setCriterion",
+                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
+        
+        return resultList;
     }
 }

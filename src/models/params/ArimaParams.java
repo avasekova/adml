@@ -1,9 +1,14 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.ARIMASettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
 import utils.Utils;
 
 public class ArimaParams extends Params {
-    
+
     private String colName;
     
     private int nonSeasPotato;
@@ -129,5 +134,17 @@ public class ArimaParams extends Params {
                "seasonal Q = " + seasQuark + "\n" + 
                "optimize = " +  Utils.booleanToHumanString(optimize) + "\n" +
                "with constant = " + Utils.booleanToHumanString(withConstant);
+    }
+    
+    
+    public static List<ArimaParams> getParamsArima(javax.swing.JPanel percentTrainSettingsPanel, javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsArima) {
+        ArimaParams par = new ArimaParams();
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel) percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString());
+        List<ArimaParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        MainFrame.getInstance().setParamsGeneral(ArimaParams.class, resultList);
+        ((ARIMASettingsPanel) panelSettingsArima).setSpecificParams(ArimaParams.class, resultList);
+        return resultList;
     }
 }

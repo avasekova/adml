@@ -1,5 +1,11 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.KNNkknnSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+
 public class KNNkknnParams extends Params {
     
     private String colName;
@@ -49,5 +55,22 @@ public class KNNkknnParams extends Params {
     public String toString() {
         return "max k=" + maxNeighbours + ",\n"
                 + "best k=" + bestNumNeighbours;
+    }
+    
+    
+    public static List<KNNkknnParams> getParamsKNNkknn(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNkknn) {
+        KNNkknnParams par = new KNNkknnParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
+        
+        List<KNNkknnParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(KNNkknnParams.class, resultList);
+        ((KNNkknnSettingsPanel)panelSettingsKNNkknn).setSpecificParams(KNNkknnParams.class, resultList);
+        
+        return resultList;
     }
 }

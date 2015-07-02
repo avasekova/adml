@@ -462,5 +462,4 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setWeightDecay", Double.class, Utils.getDoubleOrDefault(getWeightDecay()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setTraceOptimization", R_Bool.class, Utils.booleanToRBool(isTraceOptimization()));
     }
-
 }

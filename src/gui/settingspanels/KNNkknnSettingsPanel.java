@@ -66,5 +66,5 @@ public class KNNkknnSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingList(classss, resultList, "setMaxNeighbours", Integer.class, FieldsParser.parseIntegers(getNumNeighbours()));
     }
-
+    
 }

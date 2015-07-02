@@ -4760,7 +4760,7 @@ public class MainFrame extends javax.swing.JFrame {
         switch (comboBoxRPackage.getSelectedItem().toString()) {
             case Const.NNET:
                 try {
-                    List<NnetParams> paramsNnet = getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
+                    List<NnetParams> paramsNnet = NnetParams.getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNET, paramsNnet));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4768,7 +4768,7 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case Const.NNETAR:
                 try {
-                    List<NnetarParams> paramsNnetar = getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
+                    List<NnetarParams> paramsNnetar = NnetarParams.getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNETAR, paramsNnetar));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4783,7 +4783,8 @@ public class MainFrame extends javax.swing.JFrame {
         switch (comboBoxRPackageMLPint.getSelectedItem().toString()) {
             case Const.NNET:
                 try {
-                    List<MLPintNnetParams> paramsNnet = getParamsMLPintNnet(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                    List<MLPintNnetParams> paramsNnet = MLPintNnetParams.getParamsMLPintNnet(panelMLPintPercentTrain, 
+                            comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
@@ -4794,7 +4795,8 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case Const.NNETAR:
                 try {
-                    List<MLPintNnetarParams> paramsNnetar = getParamsMLPintNnetar(panelMLPintPercentTrain, comboBoxRunFakeIntCenter, 
+                    List<MLPintNnetarParams> paramsNnetar = MLPintNnetarParams.getParamsMLPintNnetar(panelMLPintPercentTrain, 
+                            comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
@@ -4812,7 +4814,7 @@ public class MainFrame extends javax.swing.JFrame {
         switch (comboBoxIntervalMLPMode.getSelectedItem().toString()) {
             case Const.INTERVAL_MLP_C_CODE:
                 try {
-                    List<IntervalMLPCcodeParams> paramsIMLP = getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
+                    List<IntervalMLPCcodeParams> paramsIMLP = IntervalMLPCcodeParams.getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_MLP_C_CODE, paramsIMLP));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4825,7 +4827,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_RBFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_RBFActionPerformed
         try {
-            List<RBFParams> paramsRBF = getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
+            List<RBFParams> paramsRBF = RBFParams.getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF, paramsRBF));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -4834,7 +4836,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_RBFintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_RBFintActionPerformed
         try {
-            List<RBFintParams> paramsRBFint = getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
+            List<RBFintParams> paramsRBFint = RBFintParams.getParamsRBFint(panelRBFintPercentTrain, comboBoxRunFakeIntCenter, 
                 panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
                 panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
                 panelBestModelCriterionRBFint);
@@ -4846,7 +4848,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_ARIMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_ARIMAActionPerformed
         try {
-            List<ArimaParams> paramsArima = getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
+            List<ArimaParams> paramsArima = ArimaParams.getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.ARIMA, paramsArima));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -4857,7 +4859,7 @@ public class MainFrame extends javax.swing.JFrame {
         switch (comboBoxKNNoptions.getSelectedItem().toString()) {
             case Const.KNN_FNN:
                 try {
-                    List<KNNfnnParams> paramsFNN = getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
+                    List<KNNfnnParams> paramsFNN = KNNfnnParams.getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_FNN, paramsFNN));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4865,7 +4867,7 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case Const.KNN_KKNN:
                 try {
-                    List<KNNkknnParams> paramsKKNN = getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
+                    List<KNNkknnParams> paramsKKNN = KNNkknnParams.getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_KKNN, paramsKKNN));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4875,7 +4877,7 @@ public class MainFrame extends javax.swing.JFrame {
                 break;
             case Const.KNN_MYOWN:
                 try {
-                    List<KNNmyownParams> paramsMyOwn = getParamsKNNmyown(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_myown);
+                    List<KNNmyownParams> paramsMyOwn = KNNmyownParams.getParamsKNNmyown(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_myown);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_MYOWN, paramsMyOwn));
                 } catch (IllegalArgumentException e) {
                     //TODO
@@ -4886,7 +4888,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_VARintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_VARintActionPerformed
         try {
-            List<VARintParams> paramsVARint = getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
+            List<VARintParams> paramsVARint = VARintParams.getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.VAR_INT, paramsVARint));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -4895,7 +4897,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_SESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_SESActionPerformed
         try {
-            List<SESParams> paramsSES = getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
+            List<SESParams> paramsSES = SESParams.getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES, paramsSES));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -4904,7 +4906,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_SESintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_SESintActionPerformed
         try {
-            List<SESintParams> paramsSESint = getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
+            List<SESintParams> paramsSESint = SESintParams.getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
                         comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
                         panelSESintDistance);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES_INT, paramsSESint));
@@ -4915,7 +4917,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_HoltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltActionPerformed
         try {
-            List<HoltParams> paramsHolt = getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
+            List<HoltParams> paramsHolt = HoltParams.getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT, paramsHolt));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -4924,7 +4926,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_HoltintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltintActionPerformed
         try {
-            List<HoltIntParams> paramsHoltInt = getParamsHoltInt(panelHoltIntPercentTrain, panelHoltInt_center, 
+            List<HoltIntParams> paramsHoltInt = HoltIntParams.getParamsHoltInt(panelHoltIntPercentTrain, panelHoltInt_center, 
                         comboBoxRunFakeIntCenter, panelHoltIntPercentTrain, panelHoltInt_radius, comboBoxRunFakeIntRadius,
                         panelHoltIntDistance);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_INT, paramsHoltInt));
@@ -4935,7 +4937,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_IntervalHoltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_IntervalHoltActionPerformed
         try {
-            List<IntervalHoltParams> paramsIntervalHolt = getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
+            List<IntervalHoltParams> paramsIntervalHolt = IntervalHoltParams.getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
                         comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_HOLT, paramsIntervalHolt));
         } catch (IllegalArgumentException e) {
@@ -4945,7 +4947,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_HoltWintersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltWintersActionPerformed
         try {
-            List<HoltWintersParams> paramsHoltWinters = getParamsHoltWinters(panelHoltWintersPercentTrain, 
+            List<HoltWintersParams> paramsHoltWinters = HoltWintersParams.getParamsHoltWinters(panelHoltWintersPercentTrain, 
                         panelHoltWintersInside, comboBoxColnamesRun);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS, paramsHoltWinters));
         } catch (IllegalArgumentException e) {
@@ -4955,7 +4957,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_HoltWintersIntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltWintersIntActionPerformed
         try {
-            List<HoltWintersIntParams> paramsHoltWintersInt = getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
+            List<HoltWintersIntParams> paramsHoltWintersInt = HoltWintersIntParams.getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS_INT, paramsHoltWintersInt));
@@ -5371,7 +5373,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonBinomPropComputePosteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropComputePosteriorActionPerformed
         List<BinomPropParams> params;
         try {
-            params = getParamsBinomProp(panelBinomPropSettings);
+            params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
         } catch (IllegalArgumentException e) {
             return;
         }
@@ -5390,7 +5392,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
         List<BinomPropParams> params;
         try {
-            params = getParamsBinomProp(panelBinomPropSettings);
+            params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
             if (textFieldBinomPropPercProbInterval.getText().isEmpty()) {
                 textAreaBinomPropInfo.setText("<no prediction interval specified>");
                 return;
@@ -5407,7 +5409,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonBinomPropPredictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropPredictActionPerformed
         List<BinomPropParams> params;
         try {
-            params = getParamsBinomProp(panelBinomPropSettings);
+            params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
             //TODO zlepsit?
             if (textFieldBinomPropNumFutureObs.getText().isEmpty()) {
                 textAreaBinomPropInfo.setText("<no number of future observations specified>");
@@ -5426,7 +5428,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
         try {
-            List<BNNParams> paramsBNN = getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
+            List<BNNParams> paramsBNN = BNNParams.getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN, paramsBNN));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -5435,7 +5437,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_BNNintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNintActionPerformed
         try {
-            List<BNNintParams> paramsBNNint = getParamsBNNint(panelBNNintPercentTrain, comboBoxRunFakeIntCenter,
+            List<BNNintParams> paramsBNNint = BNNintParams.getParamsBNNint(panelBNNintPercentTrain, comboBoxRunFakeIntCenter,
                 panelSettingsBNNint_center, comboBoxRunFakeIntRadius, panelSettingsBNNint_radius,
                 panelBNNintSettingsDistance, textFieldNumNetworksToTrainBNNint,
                 panelBestModelCriterionBNNint);
@@ -5455,7 +5457,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonSettingsAddToBatch_MAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MAvgActionPerformed
         try {
-            List<MAvgParams> paramsMAvg = getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
+            List<MAvgParams> paramsMAvg = MAvgParams.getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MAvg, paramsMAvg));
         } catch (IllegalArgumentException e) {
             //TODO
@@ -6050,7 +6052,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonPlotExportPlot.setEnabled(true);
     }
     
-    private <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
+    public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingList(classss, resultList, "setNumForecasts", 
                 Integer.class, FieldsParser.parseIntegers(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(classss, resultList, "setDataRangeFrom",
@@ -6065,358 +6067,6 @@ public class MainFrame extends javax.swing.JFrame {
                 Integer.class, seasonality);
     }
     
-    //TODO Java 8 a posielat metodu ako param, aby to nebolo tak ohavne?
-    private List<NnetarParams> getParamsNnetar(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnetar) {
-        NnetarParams par = new NnetarParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<NnetarParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(NnetarParams.class, resultList);
-        ((MLPNnetarSettingsPanel)panelSettingsNnetar).setSpecificParams(NnetarParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<NeuralnetParams> getParamsNeuralnet() {
-        NeuralnetParams params = new NeuralnetParams();
-        //zohnat vsetky parametre pre dany model:
-        //TODO: vymysliet nejak vseobecne! zatial je to natvrdo pre nnetar
-//        params.put("percentTrain", sliderPercentTrain.getValue());
-//        params.setNumForecasts(FieldsParser.parseIntegers(textFieldRunNumForecasts));
-//        //TODO chytat vynimky, resp. validator na cisla
-//        params.put("numNodesHidden", FieldsParser.parseIntegers(textFieldNumNodesInHiddenSingleLayer));
-//        params.put("numSeasonalLags", FieldsParser.parseIntegers(textFieldNumSeasonalLags));
-//        params.put("numNonSeasonalLags", FieldsParser.parseIntegers(textFieldNumNonSeasonalLags));
-//        params.put("numReps", FieldsParser.parseIntegers(textFieldNumReps));
-//        params.put("lambda", FieldsParser.parseIntegers(textFieldLambda));
-//        params.put("numForecasts", FieldsParser.parseIntegers(textFieldNumForecasts)); //tieto sa pripocitaju k testovacim forecasts!
-        
-        List<NeuralnetParams> resultList = new ArrayList<>();
-        resultList.add(params);
-        return resultList;
-    }
-    
-    private List<NnetParams> getParamsNnet(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnet) throws IllegalArgumentException {
-        NnetParams par = new NnetParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<NnetParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(NnetParams.class, resultList);
-        ((MLPNnetSettingsPanel)panelSettingsNnet).setSpecificParams(NnetParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JPanel panelSettingsIMLPCcode) throws IllegalArgumentException {
-        IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        
-        List<IntervalMLPCcodeParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(IntervalMLPCcodeParams.class, resultList);
-        ((IntMLPCcodeSettingsPanel)panelSettingsIMLPCcode).setSpecificParams(IntervalMLPCcodeParams.class, resultList);
-        
-        //TODO add the criterion here
-        
-        return resultList;
-    }
-    
-    private List<MLPintNnetarParams> getParamsMLPintNnetar(javax.swing.JPanel percentTrainSettingsPanel_center,
-            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnetar_center,
-            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
-            javax.swing.JPanel panelSettingsNnetar_radius, javax.swing.JPanel panelSettingsDistance,
-            JTextField numNetsToTrainField, JPanel panelBestModelCriterion) {
-        List<NnetarParams> resultListCenter = getParamsNnetar(percentTrainSettingsPanel_center, comboBoxColName_center, 
-                panelSettingsNnetar_center);
-        List<NnetarParams> resultListRadius = getParamsNnetar(percentTrainSettingsPanel_radius, comboBoxColName_radius, 
-                panelSettingsNnetar_radius);
-        
-        MLPintNnetarParams par = new MLPintNnetarParams();
-        
-        List<MLPintNnetarParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetarParams.class, resultList);
-        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsCenter",
-                NnetarParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsRadius",
-                NnetarParams.class, resultListRadius);
-        SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
-        SettingsPanel.setSomethingOneValue(MLPintNnetarParams.class, resultList, "setCriterion",
-                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
-        
-        return resultList;
-    }
-    
-    private List<MLPintNnetParams> getParamsMLPintNnet(javax.swing.JPanel percentTrainSettingsPanel_center,
-            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsNnet_center,
-            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
-            javax.swing.JPanel panelSettingsNnet_radius, javax.swing.JPanel panelSettingsDistance,
-            javax.swing.JTextField numNetsToTrainField, 
-            javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
-        List<NnetParams> resultListCenter = getParamsNnet(percentTrainSettingsPanel_center, comboBoxColName_center,
-                panelSettingsNnet_center);
-        List<NnetParams> resultListRadius = getParamsNnet(percentTrainSettingsPanel_radius, comboBoxColName_radius,
-                panelSettingsNnet_radius);
-        
-        
-        MLPintNnetParams par = new MLPintNnetParams();
-        
-        List<MLPintNnetParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetParams.class, resultList);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsCenter",
-                NnetParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
-                NnetParams.class, resultListRadius);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
-        SettingsPanel.setSomethingOneValue(MLPintNnetParams.class, resultList, "setCriterion",
-                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
-        
-        return resultList;
-    }
-    
-    private List<ArimaParams> getParamsArima(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsArima) {
-        ArimaParams par = new ArimaParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<ArimaParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(ArimaParams.class, resultList);
-        ((ARIMASettingsPanel)panelSettingsArima).setSpecificParams(ArimaParams.class, resultList);
-        
-        return resultList;
-    }
-    
-//    private List<KNNcustomParams> getParamsKNNcustom() { //TODO multiple vals
-//        KNNcustomParams params = new KNNcustomParams();
-//        //zohnat vsetky parametre pre dany model:
-//        params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelKNNPercTrain).getPercentTrain()));
-//        params.setColName(comboBoxColnamesRun.getSelectedItem().toString()); //data
-//        params.setNumForecasts(FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0));
-//        params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-//        params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-//        //TODO setSpecific params
-//        params.setNumNeighbours(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getNumNeighbours()));
-//        params.setLengthHistory(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLengthHistory()));
-//        params.setLag(Integer.parseInt(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getLag()));
-//        params.setDistanceMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getDistance());
-//        params.setCombinationMethodName(((KNNCustomSettingsPanel)panelSettingsKNNoptions_custom).getCombination());
-//        
-//        List<KNNcustomParams> resultList = new ArrayList<>();
-//        resultList.add(params);
-//        return resultList;
-//    }
-    
-    private List<KNNfnnParams> getParamsKNNfnn(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNfnn) {
-        KNNfnnParams par = new KNNfnnParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<KNNfnnParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(KNNfnnParams.class, resultList);
-        ((KNNFNNSettingsPanel)panelSettingsKNNfnn).setSpecificParams(KNNfnnParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<KNNkknnParams> getParamsKNNkknn(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNkknn) {
-        KNNkknnParams par = new KNNkknnParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<KNNkknnParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(KNNkknnParams.class, resultList);
-        ((KNNkknnSettingsPanel)panelSettingsKNNkknn).setSpecificParams(KNNkknnParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<KNNmyownParams> getParamsKNNmyown(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsKNNmyown) {
-        KNNmyownParams par = new KNNmyownParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<KNNmyownParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(KNNmyownParams.class, resultList);
-        ((KNNmyownSettingsPanel)panelSettingsKNNmyown).setSpecificParams(KNNmyownParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<VARParams> getParamsVAR(javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsVAR) throws IllegalArgumentException {
-        VARParams par = new VARParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(100); //uses all data for training
-        
-        List<VARParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(VARParams.class, resultList);
-        ((VARSettingsPanel)panelSettingsVAR).setSpecificParams(VARParams.class, resultList);
-        //TODO prehodit dnu?
-        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
-                String.class, comboBoxColName.getSelectedItem().toString());
-        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarVals",
-                List.class, DataTableModel.getInstance().getDataForColname(comboBoxColName.getSelectedItem().toString()));
-        
-        Map<String, List<Double>> data = new HashMap<>();
-        for (Object var : ((VARSettingsPanel)panelSettingsVAR).getEndogenousVars()) {
-            data.put(var.toString(), DataTableModel.getInstance().getDataForColname(var.toString()));
-        }
-        SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setData", Map.class, data);
-        
-        return resultList;
-    }
-    
-    private List<VARintParams> getParamsVARint(JPanel percentTrainSettingsPanel, JPanel distanceSettingsPanel, 
-            JPanel panelSettingsVARint) throws IllegalArgumentException {
-        VARintParams par = new VARintParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        
-        List<VARintParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(VARintParams.class, resultList);
-        ((VARintSettingsPanel)panelSettingsVARint).setSpecificParams(VARintParams.class, resultList);
-        ((DistanceSettingsPanel)distanceSettingsPanel).setSpecificParams(VARintParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<RBFParams> getParamsRBF(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsRBF) throws IllegalArgumentException {
-        RBFParams par = new RBFParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        
-        List<RBFParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(RBFParams.class, resultList);
-        ((RBFSettingsPanel)panelSettingsRBF).setSpecificParams(RBFParams.class, resultList);
-        //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
-        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
-        outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
-        outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
-        List<CrispOutputVariable> outVarList = new ArrayList<>();
-        outVarList.add(outVar);
-        SettingsPanel.setSomethingOneValue(RBFParams.class, resultList, "setOutVars", List.class, outVarList);
-        
-        return resultList;
-    }
-    
-    private List<RBFintParams> getParamsRBFint(javax.swing.JPanel percentTrainSettingsPanel_center,
-            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsRBF_center,
-            javax.swing.JPanel percentTrainSettingsPanel_radius, javax.swing.JComboBox comboBoxColName_radius, 
-            javax.swing.JPanel panelSettingsRBF_radius, javax.swing.JPanel panelSettingsDistance,
-            javax.swing.JTextField numNetsToTrainField,
-            javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
-        List<RBFParams> resultListCenter = getParamsRBF(percentTrainSettingsPanel_center, comboBoxColName_center,
-                panelSettingsRBF_center);
-        List<RBFParams> resultListRadius = getParamsRBF(percentTrainSettingsPanel_radius, comboBoxColName_radius,
-                panelSettingsRBF_radius);
-        
-        RBFintParams par = new RBFintParams();
-        
-        List<RBFintParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsCenter",
-                RBFParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsRadius",
-                RBFParams.class, resultListRadius);
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(RBFintParams.class, resultList);
-        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
-        SettingsPanel.setSomethingOneValue(RBFintParams.class, resultList, "setCriterion",
-                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
-        
-        return resultList;
-    }
-    
-    private List<BNNParams> getParamsBNN(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsBNN) throws IllegalArgumentException {
-        BNNParams par = new BNNParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        
-        List<BNNParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(BNNParams.class, resultList);
-        ((BNNSettingsPanel)panelSettingsBNN).setSpecificParams(BNNParams.class, resultList);
-        //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
-        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
-        outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
-        outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
-        List<CrispOutputVariable> outVarList = new ArrayList<>();
-        outVarList.add(outVar);
-        SettingsPanel.setSomethingOneValue(BNNParams.class, resultList, "setOutVars", List.class, outVarList);
-        
-        return resultList;
-    }
-    
-    private List<BNNintParams> getParamsBNNint(javax.swing.JPanel percentTrainSettingsPanel,
-            javax.swing.JComboBox comboBoxColName_center, javax.swing.JPanel panelSettingsBNNint_center,
-            javax.swing.JComboBox comboBoxColName_radius, javax.swing.JPanel panelSettingsBNNint_radius, 
-            javax.swing.JPanel panelSettingsDistance, javax.swing.JTextField numNetsToTrainField,
-            javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
-        
-        List<BNNParams> resultListCenter = getParamsBNN(percentTrainSettingsPanel, comboBoxColName_center,
-                panelSettingsBNNint_center);
-        List<BNNParams> resultListRadius = getParamsBNN(percentTrainSettingsPanel, comboBoxColName_radius,
-                panelSettingsBNNint_radius);
-        
-        BNNintParams par = new BNNintParams();
-        
-        List<BNNintParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsCenter",
-                BNNParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsRadius",
-                BNNParams.class, resultListRadius);
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(BNNintParams.class, resultList);
-        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
-        SettingsPanel.setSomethingOneValue(BNNintParams.class, resultList, "setCriterion",
-                Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
-        
-        return resultList;
-    }
-    
     private List<HybridParams> getParamsHybrid() throws IllegalArgumentException {
         HybridParams par = new HybridParams();
         List<HybridParams> resultList = new ArrayList<>();
@@ -6424,63 +6074,63 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
             case Const.NNETAR:
-                List<NnetarParams> resultListCenterNnetar = getParamsNnetar(panelSettingsHybridPercentTrain,
+                List<NnetarParams> resultListCenterNnetar = NnetarParams.getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetarParams.class, resultListCenterNnetar);
                 break;
             case Const.NNET:
-                List<NnetParams> resultListCenterNnet = getParamsNnet(panelSettingsHybridPercentTrain,
+                List<NnetParams> resultListCenterNnet = NnetParams.getParamsNnet(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnet);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetParams.class, resultListCenterNnet);
                 break;
             case Const.RBF:
-                List<RBFParams> resultListCenterRBF = getParamsRBF(panelSettingsHybridPercentTrain,
+                List<RBFParams> resultListCenterRBF = RBFParams.getParamsRBF(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_RBF);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         RBFParams.class, resultListCenterRBF);
                 break;
             case Const.ARIMA:
-                List<ArimaParams> resultListCenterARIMA = getParamsArima(panelSettingsHybridPercentTrain,
+                List<ArimaParams> resultListCenterARIMA = ArimaParams.getParamsArima(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_ARIMA);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         ArimaParams.class, resultListCenterARIMA);
                 break;
             case Const.KNN_FNN:
-                List<KNNfnnParams> resultListCenterKNNFNN = getParamsKNNfnn(panelSettingsHybridPercentTrain,
+                List<KNNfnnParams> resultListCenterKNNFNN = KNNfnnParams.getParamsKNNfnn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNFNN);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNfnnParams.class, resultListCenterKNNFNN);
                 break;
             case Const.KNN_KKNN:
-                List<KNNkknnParams> resultListCenterKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
+                List<KNNkknnParams> resultListCenterKNNkknn = KNNkknnParams.getParamsKNNkknn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNkknnParams.class, resultListCenterKNNkknn);
                 break;
             case Const.SES:
-                List<SESParams> resultListCenterSES = getParamsSES(panelSettingsHybridPercentTrain, 
+                List<SESParams> resultListCenterSES = SESParams.getParamsSES(panelSettingsHybridPercentTrain, 
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_SES);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         SESParams.class, resultListCenterSES);
                 break;
             case Const.HOLT:
-                List<HoltParams> resultListCenterHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
+                List<HoltParams> resultListCenterHolt = HoltParams.getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_centerMain_Holt, comboBoxRunFakeIntCenter);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         HoltParams.class, resultListCenterHolt);
                 break;
             case Const.BNN:
-                List<BNNParams> resultListCenterBNN = getParamsBNN(panelSettingsHybridPercentTrain,
+                List<BNNParams> resultListCenterBNN = BNNParams.getParamsBNN(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_BNN);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
@@ -6495,63 +6145,63 @@ public class MainFrame extends javax.swing.JFrame {
         
         switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
             case Const.NNETAR:
-                List<NnetarParams> resultListRadiusNnetar = getParamsNnetar(panelSettingsHybridPercentTrain,
+                List<NnetarParams> resultListRadiusNnetar = NnetarParams.getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetarParams.class, resultListRadiusNnetar);
                 break;
             case Const.NNET:
-                List<NnetParams> resultListRadiusNnet = getParamsNnet(panelSettingsHybridPercentTrain,
+                List<NnetParams> resultListRadiusNnet = NnetParams.getParamsNnet(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnet);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetParams.class, resultListRadiusNnet);
                 break;
             case Const.RBF:
-                List<RBFParams> resultListRadiusRBF = getParamsRBF(panelSettingsHybridPercentTrain,
+                List<RBFParams> resultListRadiusRBF = RBFParams.getParamsRBF(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_RBF);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         RBFParams.class, resultListRadiusRBF);
                 break;
             case Const.ARIMA:
-                List<ArimaParams> resultListRadiusARIMA = getParamsArima(panelSettingsHybridPercentTrain,
+                List<ArimaParams> resultListRadiusARIMA = ArimaParams.getParamsArima(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_ARIMA);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         ArimaParams.class, resultListRadiusARIMA);
                 break;
             case Const.KNN_FNN:
-                List<KNNfnnParams> resultListRadiusKNNFNN = getParamsKNNfnn(panelSettingsHybridPercentTrain,
+                List<KNNfnnParams> resultListRadiusKNNFNN = KNNfnnParams.getParamsKNNfnn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNFNN);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNfnnParams.class, resultListRadiusKNNFNN);
                 break;
             case Const.KNN_KKNN:
-                List<KNNkknnParams> resultListRadiusKNNkknn = getParamsKNNkknn(panelSettingsHybridPercentTrain,
+                List<KNNkknnParams> resultListRadiusKNNkknn = KNNkknnParams.getParamsKNNkknn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNkknnParams.class, resultListRadiusKNNkknn);
                 break;
             case Const.SES:
-                List<SESParams> resultListRadiusSES = getParamsSES(panelSettingsHybridPercentTrain, 
+                List<SESParams> resultListRadiusSES = SESParams.getParamsSES(panelSettingsHybridPercentTrain, 
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_SES);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         SESParams.class, resultListRadiusSES);
                 break;
             case Const.HOLT:
-                List<HoltParams> resultListRadiusHolt = getParamsHolt(panelSettingsHybridPercentTrain, 
+                List<HoltParams> resultListRadiusHolt = HoltParams.getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_radiusMain_Holt, comboBoxRunFakeIntRadius);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         HoltParams.class, resultListRadiusHolt);
                 break;
             case Const.BNN:
-                List<BNNParams> resultListRadiusBNN = getParamsBNN(panelSettingsHybridPercentTrain,
+                List<BNNParams> resultListRadiusBNN = BNNParams.getParamsBNN(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_BNN);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
@@ -6565,167 +6215,6 @@ public class MainFrame extends javax.swing.JFrame {
         ((DistanceSettingsPanel)panelSettingsHybridDistance).setSpecificParams(HybridParams.class, resultList);
         SettingsPanel.setSomethingList(HybridParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, FieldsParser.parseIntegers(textFieldNumNetworksToTrainRBFint));
-        
-        return resultList;
-    }
-    
-    private List<HoltParams> getParamsHolt(JPanel percentTrainSettingsPanel, JPanel panelSettingsHolt,
-            JComboBox comboBoxColName) throws IllegalArgumentException {
-        HoltParams par = new HoltParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<HoltParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(HoltParams.class, resultList);
-        ((HoltSettingsPanel)panelSettingsHolt).setSpecificParams(HoltParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<HoltIntParams> getParamsHoltInt(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsHolt_center,
-                JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsHolt_radius,
-                JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
-        List<HoltParams> resultListCenter = getParamsHolt(percentTrainSettingsPanel_center, panelSettingsHolt_center,
-                comboBoxColName_center);
-        List<HoltParams> resultListRadius = getParamsHolt(percentTrainSettingsPanel_radius, panelSettingsHolt_radius,
-                comboBoxColName_radius);
-        
-        HoltIntParams par = new HoltIntParams();
-        
-        List<HoltIntParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        SettingsPanel.setSomethingList(HoltIntParams.class, resultList, "setParamsCenter",
-                HoltParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(HoltIntParams.class, resultList, "setParamsRadius",
-                HoltParams.class, resultListRadius);
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(HoltIntParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<IntervalHoltParams> getParamsIntervalHolt(JPanel percentTrainSettingsPanel, JComboBox comboBoxCenter,
-            JComboBox comboBoxRadius, JPanel distancePanel, JPanel panelSettingsHolt) {
-        IntervalHoltParams par = new IntervalHoltParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColNameCenter(comboBoxCenter.getSelectedItem().toString()); //data
-        par.setColNameRadius(comboBoxRadius.getSelectedItem().toString());
-        
-        List<IntervalHoltParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(IntervalHoltParams.class, resultList);
-        ((IntHoltSettingsPanel)panelSettingsHolt).setSpecificParams(IntervalHoltParams.class, resultList);
-        ((DistanceSettingsPanel)distancePanel).setSpecificParams(IntervalHoltParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<SESParams> getParamsSES(JPanel percentTrainSettingsPanel, JComboBox comboBoxColname, JPanel main) {
-        SESParams par = new SESParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColname.getSelectedItem().toString()); //data
-        
-        List<SESParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(SESParams.class, resultList);
-        ((SESSettingsPanel)main).setSpecificParams(SESParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<SESintParams> getParamsSESint(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsSES_center,
-                JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsSES_radius,
-                JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
-        List<SESParams> resultListCenter = getParamsSES(percentTrainSettingsPanel_center, comboBoxColName_center,
-                panelSettingsSES_center);
-        List<SESParams> resultListRadius = getParamsSES(percentTrainSettingsPanel_radius, comboBoxColName_radius,
-                panelSettingsSES_radius);
-        
-        SESintParams par = new SESintParams();
-        
-        List<SESintParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsCenter",
-                SESParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsRadius",
-                SESParams.class, resultListRadius);
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(SESintParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    //TODO vsetky tieto getParams metody by sa podla mna dali spravit genericke, aj tak tam je vsade setSpecificParams atd
-    private List<MAvgParams> getParamsMAvg(JComboBox comboBoxColname, JPanel main) {
-        MAvgParams par = new MAvgParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(100);
-        par.setColName(comboBoxColname.getSelectedItem().toString()); //data
-        
-        List<MAvgParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(MAvgParams.class, resultList);
-        ((MAvgSettingsPanel)main).setSpecificParams(MAvgParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<HoltWintersParams> getParamsHoltWinters(JPanel percentTrainSettingsPanel, JPanel panelSettingsHoltWint,
-            JComboBox comboBoxColName) throws IllegalArgumentException {
-        HoltWintersParams par = new HoltWintersParams();
-        //zohnat vsetky parametre pre dany model:
-        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
-        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
-        
-        List<HoltWintersParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        
-        setParamsGeneral(HoltWintersParams.class, resultList);
-        ((HoltWintersSettingsPanel)panelSettingsHoltWint).setSpecificParams(HoltWintersParams.class, resultList);
-        
-        if (resultList.get(resultList.size() - 1).getFrequency() > 24) {
-            int result = JOptionPane.showConfirmDialog(this, "Seasonal frequency larger than 24, so a TBATS model will be used instead of Holt-Winters. "
-                    + "This may take a few minutes. Continue?", "Seasonality too large for HW", JOptionPane.YES_NO_OPTION);
-            if ((result == JOptionPane.NO_OPTION) || (result == JOptionPane.CLOSED_OPTION)) {
-                return new ArrayList<>(); //nerob nic
-            }
-        }
-        
-        return resultList;
-    }
-    
-    private List<HoltWintersIntParams> getParamsHoltWintersInt(JPanel percentTrainSettingsPanel_center, 
-                JPanel panelSettingsHolt_center, JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, 
-                JPanel panelSettingsHolt_radius, JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
-        List<HoltWintersParams> resultListCenter = getParamsHoltWinters(percentTrainSettingsPanel_center, 
-                panelSettingsHolt_center, comboBoxColName_center);
-        List<HoltWintersParams> resultListRadius = getParamsHoltWinters(percentTrainSettingsPanel_radius, 
-                panelSettingsHolt_radius, comboBoxColName_radius);
-        
-        HoltWintersIntParams par = new HoltWintersIntParams();
-        
-        List<HoltWintersIntParams> resultList = new ArrayList<>();
-        resultList.add(par);
-        SettingsPanel.setSomethingList(HoltWintersIntParams.class, resultList, "setParamsCenter",
-                HoltWintersParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(HoltWintersIntParams.class, resultList, "setParamsRadius",
-                HoltWintersParams.class, resultListRadius);
-        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(HoltWintersIntParams.class, resultList);
-        
-        return resultList;
-    }
-    
-    private List<BinomPropParams> getParamsBinomProp(javax.swing.JPanel panelBinomPropSettings) throws IllegalArgumentException {
-        List<BinomPropParams> resultList = new ArrayList<>();
-        resultList.add(new BinomPropParams());
-        
-        ((BinomPropSettingsPanel)panelBinomPropSettings).setSpecificParams(BinomPropParams.class, resultList);
         
         return resultList;
     }

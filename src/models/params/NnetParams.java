@@ -1,5 +1,8 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.MLPNnetSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
 import java.util.ArrayList;
 import java.util.List;
 import utils.CrispExplanatoryVariable;
@@ -198,5 +201,22 @@ public class NnetParams extends Params {
                "trace optimization = " + Utils.booleanToHumanString(traceOptimization) + "\n" + 
                "max number of weights = " + maxNumOfWeights +
                "expl.vars = " + explVars;
+    }
+
+    
+    public static List<NnetParams> getParamsNnet(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnet) throws IllegalArgumentException {
+        NnetParams par = new NnetParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
+        
+        List<NnetParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(NnetParams.class, resultList);
+        ((MLPNnetSettingsPanel)panelSettingsNnet).setSpecificParams(NnetParams.class, resultList);
+        
+        return resultList;
     }
 }

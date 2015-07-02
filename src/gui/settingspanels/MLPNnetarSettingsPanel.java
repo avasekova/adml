@@ -227,5 +227,4 @@ public class MLPNnetarSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingList(classss, resultList, "setNumReps", Integer.class, FieldsParser.parseIntegers(getNumReps()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setLambda", Double.class, Utils.getDoubleOrDefault(getLambda()));
     }
-    
 }

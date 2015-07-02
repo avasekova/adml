@@ -1,5 +1,11 @@
 package models.params;
 
+import gui.MainFrame;
+import gui.settingspanels.MLPNnetarSettingsPanel;
+import gui.settingspanels.PercentTrainSettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+
 public class NnetarParams extends Params {
     
     private String colName;
@@ -83,5 +89,22 @@ public class NnetarParams extends Params {
                "number of non-seasonal lags = " + numNonSeasonalLags + "\n" + 
                "number of repetitions = " + numReps + "\n" + 
                "lambda = " + lambda;
+    }
+    
+    
+    public static List<NnetarParams> getParamsNnetar(javax.swing.JPanel percentTrainSettingsPanel,
+            javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnetar) {
+        NnetarParams par = new NnetarParams();
+        //zohnat vsetky parametre pre dany model:
+        par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
+        par.setColName(comboBoxColName.getSelectedItem().toString()); //data
+        
+        List<NnetarParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        
+        MainFrame.getInstance().setParamsGeneral(NnetarParams.class, resultList);
+        ((MLPNnetarSettingsPanel)panelSettingsNnetar).setSpecificParams(NnetarParams.class, resultList);
+        
+        return resultList;
     }
 }

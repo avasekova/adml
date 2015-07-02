@@ -1,6 +1,12 @@
 package models.params;
 
-import utils.imlp.dist.Distance;
+import gui.settingspanels.DistanceSettingsPanel;
+import gui.settingspanels.SESSettingsPanel;
+import gui.settingspanels.SettingsPanel;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
 
 public class SESintParams extends PseudoIntervalParams {
     
@@ -38,5 +44,27 @@ public class SESintParams extends PseudoIntervalParams {
         param.setDistance(this.getDistance());
         
         return param;
+    }
+    
+    
+    public static List<SESintParams> getParamsSESint(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsSES_center,
+                JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsSES_radius,
+                JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
+        List<SESParams> resultListCenter = SESParams.getParamsSES(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsSES_center);
+        List<SESParams> resultListRadius = SESParams.getParamsSES(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsSES_radius);
+        
+        SESintParams par = new SESintParams();
+        
+        List<SESintParams> resultList = new ArrayList<>();
+        resultList.add(par);
+        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsCenter",
+                SESParams.class, resultListCenter);
+        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsRadius",
+                SESParams.class, resultListRadius);
+        ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(SESintParams.class, resultList);
+        
+        return resultList;
     }
 }
