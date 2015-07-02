@@ -146,6 +146,8 @@ import models.params.SESParams;
 import models.params.SESintParams;
 import models.params.VARParams;
 import models.params.VARintParams;
+import models.stattests.StatisticalTests;
+import models.stattests.Transformations;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
@@ -5173,166 +5175,29 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonNormProbPlotActionPerformed
 
     private void buttonNormalityTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalityTestsActionPerformed
-        try {
-            MyRengine rengine = MyRengine.getRengine();
-            
-            rengine.require("nortest");
-            
-            List<String> selectedValuesList = new ArrayList<>();
-            selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
-            
-            StringBuilder results = new StringBuilder();
-            String DATA = Const.INPUT + Utils.getCounter();
-            
-            for (String selectedVal : selectedValuesList) {
-                rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
-                
-                results.append("------------\n").append("Testing ").append(selectedVal).append(" for normality:\n\n");
-                
-                results.append("Anderson-Darling test for normality:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("ad.test(" + DATA + ")$p.value").asDouble()).append("\n");
-                
-                results.append("Cramer-von Mises test for normality:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("cvm.test(" + DATA + ")$p.value").asDouble()).append("\n");
-                
-                results.append("Lilliefors (Kolmogorov-Smirnov) test for normality:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("lillie.test(" + DATA + ")$p.value").asDouble()).append("\n");
-                
-                results.append("Pearson chi-square test for normality:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("pearson.test(" + DATA + ")$p.value").asDouble()).append("\n");
-                
-                results.append("Shapiro-Francia test for normality:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("sf.test(" + DATA + ")$p.value").asDouble()).append("\n");
-                
-                results.append("\n");
-            }
-            
-            textAreaTests.setText(results.toString());
-            
-            //and show the normal probability plots:
-            PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS1);
-            setPlotRanges(0, 0);
-            
-            rengine.rm(DATA);
-        } catch (IllegalArgumentException e) {
-            //TODO
-        }
+        textAreaTests.setText(StatisticalTests.normalProbabilityTests(listColnamesTests.getSelectedValuesList()));
+
+        //and show the normal probability plots:
+        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS1);
+        setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonNormalityTestsActionPerformed
 
     private void buttonStationarityTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStationarityTestActionPerformed
-        try {
-            MyRengine rengine = MyRengine.getRengine();
-            
-            rengine.require("tseries");
-            
-            List<String> selectedValuesList = new ArrayList<>();
-            selectedValuesList.addAll(listColnamesTests.getSelectedValuesList());
-            
-            StringBuilder results = new StringBuilder();
-            String DATA = Const.INPUT + Utils.getCounter();
-            
-            for (String selectedVal : selectedValuesList) {
-                rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
-                
-                results.append("------------\n").append("Testing ").append(selectedVal).append(" for stationarity:\n\n");
-                
-                results.append("Ljung-Box test:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("Box.test(" + DATA + ", lag=20, type=\"Ljung-Box\")$p.value").asDouble()).append("\n");
-                
-                results.append("Augmented Dickey–Fuller test:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("adf.test(" + DATA + ", alternative=\"stationary\")$p.value").asDouble()).append("\n");
-                
-                results.append("Kwiatkowski-Phillips-Schmidt-Shin test:\n");
-                results.append("   - p-value: ");
-                results.append(rengine.eval("kpss.test(" + DATA + ")$p.value").asDouble()).append("\n");
-                
-                results.append("\n");
-            }
-            
-            textAreaTests.setText(results.toString());
-            setPlotRanges(0, 0);
-            rengine.rm(DATA);
-        } catch (IllegalArgumentException e) {
-            //TODO
-        }
+        textAreaTests.setText(StatisticalTests.stationarityTests(listColnamesTests.getSelectedValuesList()));
     }//GEN-LAST:event_buttonStationarityTestActionPerformed
 
     private void buttonDiffSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiffSeriesActionPerformed
-        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
-        
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String VAR = Const.INPUT + Utils.getCounter();
-        
-        for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
-            rengine.eval(VAR + " <- " + VAR + "[2:length(" + VAR + ")] - " + VAR + "[1:(length(" + VAR + ") - 1)]");
-            List<Double> newData = new ArrayList<>();
-            //newData.add(Double.NaN); //TODO vymysliet, ako to posunut doprava... teraz je to 'zarovnane' dolava, co je zle
-            newData.addAll(Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
-            DataTableModel.getInstance().addDataForColname("DIFF(" + selected + ")", newData);
-        }
-        
-        rengine.rm(VAR);
-        
+        Transformations.difference(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonDiffSeriesActionPerformed
 
     private void buttonLogTransformSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLogTransformSeriesActionPerformed
-        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
-        
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String VAR = Const.INPUT + Utils.getCounter();
-        
-        for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
-            rengine.eval(VAR + " <- log(" + VAR + ")");
-            DataTableModel.getInstance().addDataForColname("LOG(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
-        }
-        
-        rengine.rm(VAR);
-        
+        Transformations.logTransform(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonLogTransformSeriesActionPerformed
 
     private void buttonRemoveTrendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveTrendActionPerformed
-        List<String> selectedVars = listColnamesTransform.getSelectedValuesList();
-        
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String VAR = Const.INPUT + Utils.getCounter();
-        final String DATA = Const.INPUT + Utils.getCounter();
-        final String REG = Const.INPUT + Utils.getCounter();
-        
-        for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
-            
-            //najprv si k tomu zozeniem regresnu priamku:
-            //k nej si potrebujem vyrobit ten frame:
-            rengine.eval(DATA + " <- cbind(seq(1, length(" + VAR + ")), " + VAR + ")");
-            //teraz mu premenujem stlpce
-            rengine.eval("colnames(" + DATA + ") <- c(\"x\", \"y\")");
-            //mozem poskladat rovnicu regresnej priamky:
-            rengine.eval(REG + " <- lm(y ~ x, data = data.frame(" + DATA + "))");
-            //z toho vytiahnem koeficienty a odcitam tuto priamku od povodnych dat, tj odstranim trend
-            rengine.eval(VAR + " <- " + VAR + " - (" + REG + "$coefficients[1] + " 
-                                                     + REG + "$coefficients[2]*seq(1, length(" + VAR + ")))"
-//                             + " + mean(" + VAR + ")"               //pripadne odkomentovat toto, aby ta nova TS krizovala staru
-                        );
-            
-            DataTableModel.getInstance().addDataForColname("NOTREND(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
-        }
-        
-        rengine.rm(VAR, DATA, REG);
-        
+        Transformations.removeTrend(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonRemoveTrendActionPerformed
 
