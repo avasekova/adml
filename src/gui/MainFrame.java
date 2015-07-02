@@ -149,6 +149,8 @@ import models.params.VARParams;
 import models.params.VARintParams;
 import analysis.StatisticalTests;
 import analysis.Transformations;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.BinomProp;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
@@ -6033,24 +6035,19 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
+        
+        //mean, standard deviation, median
+        textAreaPlotBasicStats.setText(AnalysisUtils.getBasicStats(colnames));
     }
     
-    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> colnames) {
+    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         //String colname = comboBoxColnames.getSelectedItem().toString();
         
         //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        List<BasicStats> basicStats = DataTableModel.getInstance().drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
-                gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs));
+        DataTableModel.getInstance().drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
+                gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), plottables, plotFunction, additionalArgs));
         buttonPlotExportPlot.setEnabled(true);
-        
-        //mean, standard deviation, median
-        StringBuilder basicStatsString = new StringBuilder();
-        for (BasicStats stat : basicStats) {
-            basicStatsString.append(stat.toString());
-            basicStatsString.append(System.lineSeparator());
-        }
-        textAreaPlotBasicStats.setText(basicStatsString.toString());
     }
     
     private <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {

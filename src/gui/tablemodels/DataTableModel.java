@@ -175,8 +175,8 @@ public class DataTableModel extends AbstractTableModel {
         }
     }
     
-    //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
+    //TODO refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
+    public void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
         boolean next = false;
@@ -206,10 +206,10 @@ public class DataTableModel extends AbstractTableModel {
             rangeX = "range(c(0,10*log10(" + getRowCount() + ")))";
         }
         
-        return drawPlotGeneral(drawNew, par, rangeX, rangeY);
+        drawPlotGeneral(drawNew, par, rangeX, rangeY);
     }
     
-    public List<BasicStats> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
+    public void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
         MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         MyRengine rengine = MyRengine.getRengine();
@@ -217,8 +217,6 @@ public class DataTableModel extends AbstractTableModel {
         rengine.eval("JavaGD()");
         
         ColourService.getService().resetCounter();
-        
-        List<BasicStats> basicStatss = new ArrayList<>();
         
         boolean next = false;
         List<Plottable> plots = new ArrayList<>();
@@ -251,21 +249,6 @@ public class DataTableModel extends AbstractTableModel {
             }
             
             plots.add(col);
-            
-            //and compute basic statistics of the data:
-            //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
-            REXP getMean = rengine.eval("mean(" + TRAINDATA + ", na.rm=TRUE)");
-            double mean = getMean.asDoubleArray()[0];
-            REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ", na.rm=TRUE)");
-            double stDev = getStdDev.asDoubleArray()[0];
-            REXP getMedian = rengine.eval("median(" + TRAINDATA + ", na.rm=TRUE)");
-            double median = getMedian.asDoubleArray()[0];
-            BasicStats basicStats = new BasicStats(col.getColname());
-            basicStats.setMean(mean);
-            basicStats.setStdDev(stDev);
-            basicStats.setMedian(median);
-            
-            basicStatss.add(basicStats);
         }
         
         //add legend
@@ -292,8 +275,6 @@ public class DataTableModel extends AbstractTableModel {
         // we have to resize it back to the size we want it to have.
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
-        
-        return basicStatss;
     }
     
     public List<String> getColnames() {

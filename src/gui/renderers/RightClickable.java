@@ -3,6 +3,7 @@ package gui.renderers;
 import gui.MainFrame;
 import gui.PlotDrawer;
 import gui.Plottable;
+import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JList;
