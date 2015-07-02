@@ -28,11 +28,25 @@ public class DataTableModel extends AbstractTableModel {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
     //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
     
+    private static DataTableModel INSTANCE = null; //TODO mozno bude inak, ked povolim loadovat viac suborov
+    
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
     private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
     public static final String LABELS_AXIS_X = Const.LABELS + Utils.getCounter();
     
     private int maxRows = 0;
+    
+    private DataTableModel() {
+        super();
+    }
+    
+    public static synchronized DataTableModel getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new DataTableModel();
+        }
+        
+        return INSTANCE;
+    }
     
     @Override
     public int getRowCount() {

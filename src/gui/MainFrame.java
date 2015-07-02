@@ -1444,7 +1444,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         panelEverything.addTab("Tests", panelTestsOutside);
 
-        jTableData.setModel(dataTableModel);
+        jTableData.setModel(DataTableModel.getInstance());
         scrollPaneData.setViewportView(jTableData);
 
         javax.swing.GroupLayout panelDataLayout = new javax.swing.GroupLayout(panelData);
@@ -4135,8 +4135,8 @@ public class MainFrame extends javax.swing.JFrame {
             switch (fileChooser.showOpenDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     this.loadedFile = fileChooser.getSelectedFile();
-                    dataTableModel.openFile(loadedFile, customizer);
-                    dataTableModel.fireTableStructureChanged();
+                    DataTableModel.getInstance().openFile(loadedFile, customizer);
+                    DataTableModel.getInstance().fireTableStructureChanged();
                     fillGUIelementsWithNewData();
                     break;
                 case JFileChooser.CANCEL_OPTION:
@@ -4176,13 +4176,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
+        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
+        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonPACFActionPerformed
@@ -4190,7 +4190,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(), dataTableModel,
+                panelPlot.getHeight(), DataTableModel.getInstance(),
                 listITSPlotCentreRadius, listITSPlotLowerUpper, false));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
@@ -4229,7 +4229,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
         dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
-        dialogLBUBCenterRadius.setColnames(dataTableModel.getColnames());
+        dialogLBUBCenterRadius.setColnames(DataTableModel.getInstance().getColnames());
         dialogLBUBCenterRadius.setVisible(true);
     }//GEN-LAST:event_buttonPlotAddITSActionPerformed
 
@@ -4562,7 +4562,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonRunRestoreRangeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunRestoreRangeAllActionPerformed
         textFieldRunDataRangeFrom.setText("1");
-        textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
+        textFieldRunDataRangeTo.setText("" + DataTableModel.getInstance().getRowCount());
     }//GEN-LAST:event_buttonRunRestoreRangeAllActionPerformed
 
     private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed
@@ -4616,7 +4616,7 @@ public class MainFrame extends javax.swing.JFrame {
             String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
             String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
             
-            dataTableModel.drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
+            DataTableModel.getInstance().drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
             setPlotRanges(1, 0); //hack - cokolvek ine ako nula na prvom mieste
         }
     }//GEN-LAST:event_buttonPlotZoomCTSActionPerformed
@@ -5035,7 +5035,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+                panelPlot.getHeight(), DataTableModel.getInstance(), listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
         
@@ -5110,7 +5110,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(), dataTableModel, listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+                panelPlot.getHeight(), DataTableModel.getInstance(), listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 0);
         
@@ -5134,13 +5134,13 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
 
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
+        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
 
     private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
+        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonHistogramsActionPerformed
@@ -5167,7 +5167,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotResidualsActionPerformed
 
     private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS);
+        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonNormProbPlotActionPerformed
@@ -5185,7 +5185,7 @@ public class MainFrame extends javax.swing.JFrame {
             String DATA = Const.INPUT + Utils.getCounter();
             
             for (String selectedVal : selectedValuesList) {
-                rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
+                rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
                 
                 results.append("------------\n").append("Testing ").append(selectedVal).append(" for normality:\n\n");
                 
@@ -5215,7 +5215,7 @@ public class MainFrame extends javax.swing.JFrame {
             textAreaTests.setText(results.toString());
             
             //and show the normal probability plots:
-            PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), dataTableModel, tabbedPaneAnalysisPlotsCTS1);
+            PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS1);
             setPlotRanges(0, 0);
             
             rengine.rm(DATA);
@@ -5237,7 +5237,7 @@ public class MainFrame extends javax.swing.JFrame {
             String DATA = Const.INPUT + Utils.getCounter();
             
             for (String selectedVal : selectedValuesList) {
-                rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
+                rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
                 
                 results.append("------------\n").append("Testing ").append(selectedVal).append(" for stationarity:\n\n");
                 
@@ -5272,12 +5272,12 @@ public class MainFrame extends javax.swing.JFrame {
         final String VAR = Const.INPUT + Utils.getCounter();
         
         for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             rengine.eval(VAR + " <- " + VAR + "[2:length(" + VAR + ")] - " + VAR + "[1:(length(" + VAR + ") - 1)]");
             List<Double> newData = new ArrayList<>();
             //newData.add(Double.NaN); //TODO vymysliet, ako to posunut doprava... teraz je to 'zarovnane' dolava, co je zle
             newData.addAll(Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
-            dataTableModel.addDataForColname("DIFF(" + selected + ")", newData);
+            DataTableModel.getInstance().addDataForColname("DIFF(" + selected + ")", newData);
         }
         
         rengine.rm(VAR);
@@ -5293,9 +5293,9 @@ public class MainFrame extends javax.swing.JFrame {
         final String VAR = Const.INPUT + Utils.getCounter();
         
         for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             rengine.eval(VAR + " <- log(" + VAR + ")");
-            dataTableModel.addDataForColname("LOG(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("LOG(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         }
         
         rengine.rm(VAR);
@@ -5313,7 +5313,7 @@ public class MainFrame extends javax.swing.JFrame {
         final String REG = Const.INPUT + Utils.getCounter();
         
         for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             
             //najprv si k tomu zozeniem regresnu priamku:
             //k nej si potrebujem vyrobit ten frame:
@@ -5328,7 +5328,7 @@ public class MainFrame extends javax.swing.JFrame {
 //                             + " + mean(" + VAR + ")"               //pripadne odkomentovat toto, aby ta nova TS krizovala staru
                         );
             
-            dataTableModel.addDataForColname("NOTREND(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("NOTREND(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         }
         
         rengine.rm(VAR, DATA, REG);
@@ -5406,7 +5406,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         //najprv vybavit jednoduche hodnoty
         for (String selectedVal : selectedValuesList) {
-            rengine.assign(DATA, Utils.listToArray(dataTableModel.getDataForColname(selectedVal)));
+            rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
             rengine.eval(DATA_TS + " <- ts(" + DATA + ")");
             
             rengine.eval(FIT + " <- bfast(" + DATA_TS + ", h=10/length(" + DATA + "), season=\"none\", max.iter=1, breaks="
@@ -5450,8 +5450,8 @@ public class MainFrame extends javax.swing.JFrame {
                 ylab1 = ((IntervalNamesLowerUpper)i).getLowerBound();
                 ylab2 = ((IntervalNamesLowerUpper)i).getUpperBound();
             }
-            rengine.assign(DATA1, Utils.listToArray(dataTableModel.getDataForColname(ylab1)));
-            rengine.assign(DATA2, Utils.listToArray(dataTableModel.getDataForColname(ylab2)));
+            rengine.assign(DATA1, Utils.listToArray(DataTableModel.getInstance().getDataForColname(ylab1)));
+            rengine.assign(DATA2, Utils.listToArray(DataTableModel.getInstance().getDataForColname(ylab2)));
             rengine.eval(DATA1_TS + " <- ts(" + DATA1 + ")");
             rengine.eval(DATA2_TS + " <- ts(" + DATA2 + ")");
             
@@ -5620,7 +5620,7 @@ public class MainFrame extends javax.swing.JFrame {
         final int length = Integer.parseInt(textFieldAggregateToITSevery.getText());
         
         for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             
             //found this on SO: http://stackoverflow.com/a/3321659
             //split into chunks of given length
@@ -5650,10 +5650,10 @@ public class MainFrame extends javax.swing.JFrame {
             rengine.eval(RADII + " <- (" + UPPERB + " - " + LOWERB + ")/2");
             
             //pridaj vsetko medzi data
-            dataTableModel.addDataForColname("LB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(LOWERB).asDoubleArray()));
-            dataTableModel.addDataForColname("UB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(UPPERB).asDoubleArray()));
-            dataTableModel.addDataForColname("C_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
-            dataTableModel.addDataForColname("R_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("LB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(LOWERB).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("UB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(UPPERB).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("C_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("R_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         }
         
         rengine.rm(VAR, CHUNKS, LOWERB, UPPERB, CENTERS, RADII);
@@ -5861,7 +5861,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_checkBoxRunVARActionPerformed
     private void buttonConvertITSLBUBCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConvertITSLBUBCRActionPerformed
         DialogConvertLbUbCenterRadius dialogConvertLBUBCenterRadius = DialogConvertLbUbCenterRadius.getInstance(this, true);
-        dialogConvertLBUBCenterRadius.setColnames(dataTableModel.getColnames());
+        dialogConvertLBUBCenterRadius.setColnames(DataTableModel.getInstance().getColnames());
         dialogConvertLBUBCenterRadius.setVisible(true);
         
         fillGUIelementsWithNewData();
@@ -5972,7 +5972,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         List<String> selected = listColnames.getSelectedValuesList();
         for (String col : selected) {
-            List<Double> data = dataTableModel.getDataForColname(col);
+            List<Double> data = DataTableModel.getInstance().getDataForColname(col);
             
             rengine.assign(TRAINDATA, Utils.listToArray(data));
             
@@ -6007,9 +6007,9 @@ public class MainFrame extends javax.swing.JFrame {
         final String VAR = Const.INPUT + Utils.getCounter();
         
         for (String selected : selectedVars) {
-            rengine.assign(VAR, Utils.listToArray(dataTableModel.getDataForColname(selected)));
+            rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             rengine.eval(VAR + " <- MLPtoR.scale(" + VAR + ")");
-            dataTableModel.addDataForColname("NORM(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+            DataTableModel.getInstance().addDataForColname("NORM(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         }
         
         rengine.rm(VAR);
@@ -6493,7 +6493,6 @@ public class MainFrame extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
-    private static final DataTableModel dataTableModel = new DataTableModel();
     private static final AnalysisBatchTableModel batchTableModel = new AnalysisBatchTableModel();
     public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
     private static JGDBufferedPanel gdBufferedPanelPlot;
@@ -6530,7 +6529,7 @@ public class MainFrame extends javax.swing.JFrame {
         //String colname = comboBoxColnames.getSelectedItem().toString();
         
         //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        List<BasicStats> basicStats = dataTableModel.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
+        List<BasicStats> basicStats = DataTableModel.getInstance().drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
                 gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), colnames, plotFunction, additionalArgs));
         buttonPlotExportPlot.setEnabled(true);
         
@@ -6783,11 +6782,11 @@ public class MainFrame extends javax.swing.JFrame {
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
                 String.class, comboBoxColName.getSelectedItem().toString());
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarVals",
-                List.class, dataTableModel.getDataForColname(comboBoxColName.getSelectedItem().toString()));
+                List.class, DataTableModel.getInstance().getDataForColname(comboBoxColName.getSelectedItem().toString()));
         
         Map<String, List<Double>> data = new HashMap<>();
         for (Object var : ((VARSettingsPanel)panelSettingsVAR).getEndogenousVars()) {
-            data.put(var.toString(), dataTableModel.getDataForColname(var.toString()));
+            data.put(var.toString(), DataTableModel.getInstance().getDataForColname(var.toString()));
         }
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setData", Map.class, data);
         
@@ -7524,8 +7523,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void fillGUIelementsWithNewData() { //TODO pridat observer na polia v dataTableModele?
         cleanGUIelements();
         
-        textFieldRunDataRangeTo.setText("" + dataTableModel.getRowCount());
-        for (String colname : dataTableModel.getColnames()) {
+        textFieldRunDataRangeTo.setText("" + DataTableModel.getInstance().getRowCount());
+        for (String colname : DataTableModel.getInstance().getColnames()) {
             ((DefaultListModel)(listColnames.getModel())).addElement(colname);
             ((DefaultListModel)(listColnamesTransform.getModel())).addElement(colname);
             ((DefaultListModel)(listColnamesTests.getModel())).addElement(colname);
@@ -7535,10 +7534,10 @@ public class MainFrame extends javax.swing.JFrame {
             comboBoxRunFakeIntLower.addItem(colname);
             comboBoxRunFakeIntUpper.addItem(colname);
         }
-        DialogAddIntervalExplanatoryVar.setColNames(dataTableModel.getColnames());
-        DialogAddIntervalOutputVar.setColNames(dataTableModel.getColnames());
-        DialogAddCrispExplanatoryVar.setColNames(dataTableModel.getColnames());
-        VARSettingsPanel.setColNames(dataTableModel.getColnames());
+        DialogAddIntervalExplanatoryVar.setColNames(DataTableModel.getInstance().getColnames());
+        DialogAddIntervalOutputVar.setColNames(DataTableModel.getInstance().getColnames());
+        DialogAddCrispExplanatoryVar.setColNames(DataTableModel.getInstance().getColnames());
+        VARSettingsPanel.setColNames(DataTableModel.getInstance().getColnames());
 //        panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //musim ho znovu vytvorit, inak je uz vytvoreny a nema
 //                                                       //tam tie colnames.
 //        paneSettingsMethodsVAR.removeAll();
@@ -7547,13 +7546,13 @@ public class MainFrame extends javax.swing.JFrame {
 //        paneSettingsMethodsVAR.add(panelSettingsVARMain);
 //        paneSettingsMethodsVAR.repaint();
 
-        VARintSettingsPanel.setColNames(dataTableModel.getColnames());
+        VARintSettingsPanel.setColNames(DataTableModel.getInstance().getColnames());
         panelVARintInside.removeAll();
         panelVARintInsideBecause = new VARintSettingsPanel();
         panelVARintInside.add(panelVARintInsideBecause);
         panelVARintInside.repaint();
 
-        if (! dataTableModel.getColnames().isEmpty()) {
+        if (! DataTableModel.getInstance().getColnames().isEmpty()) {
             enableAllButtons(true);
         }
     }
@@ -7569,7 +7568,7 @@ public class MainFrame extends javax.swing.JFrame {
         comboBoxRunFakeIntLower.removeAllItems();
         comboBoxRunFakeIntUpper.removeAllItems();
         
-        if (! dataTableModel.getColnames().isEmpty()) {
+        if (! DataTableModel.getInstance().getColnames().isEmpty()) {
             enableAllButtons(false);
         }
     }
@@ -7749,7 +7748,7 @@ public class MainFrame extends javax.swing.JFrame {
                 
                 if (forecastable != null) {
                     for (Params p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(dataTableModel, p));
+                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(DataTableModel.getInstance(), p));
                         if (report != null) {
                             report.setID(Utils.getModelID());
                             reportsCTS.add(report);
@@ -7794,7 +7793,7 @@ public class MainFrame extends javax.swing.JFrame {
 
                     if (forecastable != null) {
                         for (Params p : params) {
-                            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(dataTableModel, p));
+                            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(DataTableModel.getInstance(), p));
                             report.setID(Utils.getModelID());
                             reportsIntTS.add(report);
                         }
@@ -7808,8 +7807,8 @@ public class MainFrame extends javax.swing.JFrame {
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
             String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
             String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
-            List<Interval> dataRandomWalk = Utils.zipCentersRadiiToIntervals(dataTableModel.getDataForColname(colnameCenter),
-                    dataTableModel.getDataForColname(colnameRadius));
+            List<Interval> dataRandomWalk = Utils.zipCentersRadiiToIntervals(DataTableModel.getInstance().getDataForColname(colnameCenter),
+                    DataTableModel.getInstance().getDataForColname(colnameRadius));
 
             Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
             RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
@@ -7830,7 +7829,7 @@ public class MainFrame extends javax.swing.JFrame {
         
         if (checkBoxRunRandomWalkCTS.isSelected()) {
             String colname = comboBoxColnamesRun.getSelectedItem().toString();
-            List<Double> dataRandomWalk = dataTableModel.getDataForColname(colname);
+            List<Double> dataRandomWalk = DataTableModel.getInstance().getDataForColname(colname);
 
             RandomWalkParams params = new RandomWalkParams(); //TODO add support for rangeRun
             params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
@@ -7873,7 +7872,7 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
                 new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(),
-                dataTableModel.getDataForColname(colname_CTS), dataTableModel.getRowCount(), numForecasts, reportsCTS,
+                DataTableModel.getInstance().getDataForColname(colname_CTS), DataTableModel.getInstance().getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, 
                 new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
@@ -7985,7 +7984,7 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         //TODO unique identifier of the model wrt Run, or enable rename. now overwrites columns with the same name
-        dataTableModel.addDataForColname(r.toString(), Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname(r.toString(), Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
         fillGUIelementsWithNewData();
         
         rengine.rm(TRAIN, TEST, FUT, VAR);
@@ -8040,10 +8039,10 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         //TODO unique identifier of the model wrt Run, or enable rename. now overwrites columns with the same name
-        dataTableModel.addDataForColname(r.toString() + "(LB)", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
-        dataTableModel.addDataForColname(r.toString() + "(UB)", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
-        dataTableModel.addDataForColname(r.toString() + "(C)", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
-        dataTableModel.addDataForColname(r.toString() + "(R)", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname(r.toString() + "(LB)", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname(r.toString() + "(UB)", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname(r.toString() + "(C)", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname(r.toString() + "(R)", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         fillGUIelementsWithNewData();
         
         rengine.rm(TRAIN_MIN, TRAIN_MAX, TRAIN_CENTER, TRAIN_RADIUS,
@@ -8060,15 +8059,15 @@ public class MainFrame extends javax.swing.JFrame {
         final String LOWERS = Const.INPUT + Utils.getCounter();
         final String UPPERS = Const.INPUT + Utils.getCounter();
         
-        rengine.assign(CENTERS, Utils.listToArray(dataTableModel.getDataForColname(namesCR.getCentre())));
-        rengine.assign(RADII, Utils.listToArray(dataTableModel.getDataForColname(namesCR.getRadius())));
+        rengine.assign(CENTERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesCR.getCentre())));
+        rengine.assign(RADII, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesCR.getRadius())));
         rengine.eval(LOWERS + " <- " + CENTERS + " - " + RADII);
         rengine.eval(UPPERS + " <- " + CENTERS + " + " + RADII);
         
 
         //pridaj vsetko medzi data
-        dataTableModel.addDataForColname("LB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
-        dataTableModel.addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname("LB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
         
         fillGUIelementsWithNewData();
         
@@ -8083,15 +8082,15 @@ public class MainFrame extends javax.swing.JFrame {
         final String LOWERS = Const.INPUT + Utils.getCounter();
         final String UPPERS = Const.INPUT + Utils.getCounter();
         
-        rengine.assign(LOWERS, Utils.listToArray(dataTableModel.getDataForColname(namesLBUB.getLowerBound())));
-        rengine.assign(UPPERS, Utils.listToArray(dataTableModel.getDataForColname(namesLBUB.getUpperBound())));
+        rengine.assign(LOWERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesLBUB.getLowerBound())));
+        rengine.assign(UPPERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesLBUB.getUpperBound())));
         rengine.eval(CENTERS + " <- (" + UPPERS + " + " + LOWERS + ")/2");
         rengine.eval(RADII + " <- (" + UPPERS + " - " + LOWERS + ")/2");
         
 
         //pridaj vsetko medzi data
-        dataTableModel.addDataForColname("C" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
-        dataTableModel.addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname("C" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         
         fillGUIelementsWithNewData();
         
