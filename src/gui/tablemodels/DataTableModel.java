@@ -1,13 +1,6 @@
 package gui.tablemodels;
 
-import gui.ColourService;
-import gui.DefaultPlottable;
 import gui.LoadDataCustomizerPanel;
-import gui.MainFrame;
-import gui.PlotDrawer;
-import gui.renderers.PlotLegendSimpleListCellRenderer;
-import gui.Plottable;
-import java.awt.Dimension;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,13 +9,9 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
-import models.params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
-import utils.ugliez.PlotStateKeeper;
 import utils.Utils;
-import utils.ugliez.CallParamsDrawPlotGeneral;
 
 public class DataTableModel extends AbstractTableModel {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
@@ -173,108 +162,6 @@ public class DataTableModel extends AbstractTableModel {
             
             i++;
         }
-    }
-    
-    //TODO refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-    public void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
-        //get the Y range first (assuming X is the same)
-        StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
-        boolean next = false;
-        for (DefaultPlottable col : par.getColnames()) {
-            for (Double d : values.get(col.getColname())) {
-                if (d.isNaN()) {
-                    continue;
-                }
-                
-                if (next) {
-                    rangeYStringBuilder.append(", ");
-                } else {
-                    next = true;
-                }
-                rangeYStringBuilder.append(d);
-            }
-        }
-        rangeYStringBuilder.append("))");
-        String rangeY = rangeYStringBuilder.toString();
-        String rangeX = "range(c(0, " + getRowCount() + "))";
-        
-        if ("acf".equals(par.getPlotFunction()) || "pacf".equals(par.getPlotFunction())) {
-            rangeY = "range(c(-1,1))";
-            
-            //String rangeX = "range(c(0, " + getRowCount() + "))";
-            //default lagmax: 10*log10(N)
-            rangeX = "range(c(0,10*log10(" + getRowCount() + ")))";
-        }
-        
-        drawPlotGeneral(drawNew, par, rangeX, rangeY);
-    }
-    
-    public void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
-        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
-        
-        MyRengine rengine = MyRengine.getRengine();
-        rengine.require("JavaGD");
-        rengine.eval("JavaGD()");
-        
-        ColourService.getService().resetCounter();
-        
-        boolean next = false;
-        List<Plottable> plots = new ArrayList<>();
-        for (DefaultPlottable col : par.getColnames()) {
-            if (col.getColourInPlot() == null) {
-                col.setColourInPlot(ColourService.getService().getNewColour());
-            }
-            
-            List<Double> data = values.get(col.getColname());
-            final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
-            rengine.assign(TRAINDATA, Utils.listToArray(data));
-            if (next) {
-                rengine.eval("par(new=TRUE)");
-                rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
-                        + "axes=FALSE, ann=FALSE, "
-                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + col.getColourInPlot() + "\")");
-            } else {
-                next = true;
-                String plot = par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", " + "ylab=NULL, ";
-                if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
-                    plot += "xaxt=\"n\", "; //suppress X axis
-                }
-                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + col.getColourInPlot() + "\")";
-                
-                rengine.eval(plot);
-                
-                if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
-                    rengine.eval("axis(1,at=seq(1,length(" + LABELS_AXIS_X + ")),labels=" + LABELS_AXIS_X + ",las=2)");
-                }
-            }
-            
-            plots.add(col);
-        }
-        
-        //add legend
-        PlotDrawer.drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
-        
-        REXP getX = rengine.eval(rangeX);
-        double[] ranX = getX.asDoubleArray();
-        REXP getY = rengine.eval(rangeY);
-        double[] ranY = getY.asDoubleArray();
-        PlotStateKeeper.setLastDrawnCrispXmin(ranX[0]);
-        PlotStateKeeper.setLastDrawnCrispXmax(ranX[1]);
-        PlotStateKeeper.setLastDrawnCrispYmin(ranY[0]);
-        PlotStateKeeper.setLastDrawnCrispYmax(ranY[1]);
-        
-        if (drawNew) {
-            PlotStateKeeper.setCrispXmax(ranX[1]);
-            PlotStateKeeper.setCrispYmax(ranY[1]);
-        }
-        
-        PlotStateKeeper.setLastCallParams(par);
-        
-        // R always draws a plot of a default size to the JavaGD device.
-        // But our GDBufferedPanel is supposed to have a different size, so
-        // we have to resize it back to the size we want it to have.
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
     }
     
     public List<String> getColnames() {

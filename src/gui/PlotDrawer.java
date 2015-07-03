@@ -1210,4 +1210,105 @@ public class PlotDrawer {
         return "range(c(1," + maxLength + "))";
     }
     
+    
+    public static void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
+        //get the Y range first (assuming X is the same)
+        StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
+        boolean next = false;
+        for (DefaultPlottable col : par.getColnames()) {
+            for (Double d : DataTableModel.getInstance().getDataForColname(col.getColname())) {
+                if (d.isNaN()) {
+                    continue;
+                }
+                
+                if (next) {
+                    rangeYStringBuilder.append(", ");
+                } else {
+                    next = true;
+                }
+                rangeYStringBuilder.append(d);
+            }
+        }
+        rangeYStringBuilder.append("))");
+        String rangeY = rangeYStringBuilder.toString();
+        String rangeX = "range(c(0, " + DataTableModel.getInstance().getRowCount() + "))";
+        
+        if ("acf".equals(par.getPlotFunction()) || "pacf".equals(par.getPlotFunction())) {
+            rangeY = "range(c(-1,1))";
+            
+            //String rangeX = "range(c(0, " + getRowCount() + "))";
+            //default lagmax: 10*log10(N)
+            rangeX = "range(c(0,10*log10(" + DataTableModel.getInstance().getRowCount() + ")))";
+        }
+        
+        drawPlotGeneral(drawNew, par, rangeX, rangeY);
+    }
+    
+    public static void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
+        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        
+        MyRengine rengine = MyRengine.getRengine();
+        rengine.require("JavaGD");
+        rengine.eval("JavaGD()");
+        
+        ColourService.getService().resetCounter();
+        
+        boolean next = false;
+        List<Plottable> plots = new ArrayList<>();
+        for (DefaultPlottable col : par.getColnames()) {
+            if (col.getColourInPlot() == null) {
+                col.setColourInPlot(ColourService.getService().getNewColour());
+            }
+            
+            List<Double> data = DataTableModel.getInstance().getDataForColname(col.getColname());
+            final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
+            rengine.assign(TRAINDATA, Utils.listToArray(data));
+            if (next) {
+                rengine.eval("par(new=TRUE)");
+                rengine.eval(par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", "
+                        + "axes=FALSE, ann=FALSE, "
+                        + "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + col.getColourInPlot() + "\")");
+            } else {
+                next = true;
+                String plot = par.getPlotFunction() + "(" + TRAINDATA + par.getAdditionalArgs() + ", " + "ylab=NULL, ";
+                if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
+                    plot += "xaxt=\"n\", "; //suppress X axis
+                }
+                plot += "xlim=" + rangeX + ", ylim=" + rangeY + ", lwd=2, col=\"" + col.getColourInPlot() + "\")";
+                
+                rengine.eval(plot);
+                
+                if ((! par.getPlotFunction().equals("acf")) && (! par.getPlotFunction().equals("pacf"))) {
+                    rengine.eval("axis(1,at=seq(1,length(" + LABELS_AXIS_X + ")),labels=" + LABELS_AXIS_X + ",las=2)");
+                }
+            }
+            
+            plots.add(col);
+        }
+        
+        //add legend
+        PlotDrawer.drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
+        
+        REXP getX = rengine.eval(rangeX);
+        double[] ranX = getX.asDoubleArray();
+        REXP getY = rengine.eval(rangeY);
+        double[] ranY = getY.asDoubleArray();
+        PlotStateKeeper.setLastDrawnCrispXmin(ranX[0]);
+        PlotStateKeeper.setLastDrawnCrispXmax(ranX[1]);
+        PlotStateKeeper.setLastDrawnCrispYmin(ranY[0]);
+        PlotStateKeeper.setLastDrawnCrispYmax(ranY[1]);
+        
+        if (drawNew) {
+            PlotStateKeeper.setCrispXmax(ranX[1]);
+            PlotStateKeeper.setCrispYmax(ranY[1]);
+        }
+        
+        PlotStateKeeper.setLastCallParams(par);
+        
+        // R always draws a plot of a default size to the JavaGD device.
+        // But our GDBufferedPanel is supposed to have a different size, so
+        // we have to resize it back to the size we want it to have.
+        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+    }
 }

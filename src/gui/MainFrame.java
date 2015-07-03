@@ -4560,7 +4560,7 @@ public class MainFrame extends javax.swing.JFrame {
             String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
             String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
             
-            DataTableModel.getInstance().drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
+            PlotDrawer.drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
             setPlotRanges(1, 0); //hack - cokolvek ine ako nula na prvom mieste
         }
     }//GEN-LAST:event_buttonPlotZoomCTSActionPerformed
@@ -5874,7 +5874,7 @@ public class MainFrame extends javax.swing.JFrame {
         //String colname = comboBoxColnames.getSelectedItem().toString();
         
         //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        DataTableModel.getInstance().drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
+        PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
                 gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), plottables, plotFunction, additionalArgs));
         buttonPlotExportPlot.setEnabled(true);
     }
