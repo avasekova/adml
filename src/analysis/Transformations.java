@@ -6,6 +6,8 @@ import java.util.List;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
 
 public class Transformations {
     
@@ -126,5 +128,46 @@ public class Transformations {
         }
         
         rengine.rm(VAR);
+    }
+    
+    public static void convertITStoLBUB(IntervalNamesCentreRadius namesCR) {
+        MyRengine rengine = MyRengine.getRengine();
+        
+        final String CENTERS = Const.INPUT + Utils.getCounter();
+        final String RADII = Const.INPUT + Utils.getCounter();
+        final String LOWERS = Const.INPUT + Utils.getCounter();
+        final String UPPERS = Const.INPUT + Utils.getCounter();
+        
+        rengine.assign(CENTERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesCR.getCentre())));
+        rengine.assign(RADII, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesCR.getRadius())));
+        rengine.eval(LOWERS + " <- " + CENTERS + " - " + RADII);
+        rengine.eval(UPPERS + " <- " + CENTERS + " + " + RADII);
+        
+        //pridaj vsetko medzi data
+        DataTableModel.getInstance().addDataForColname("LB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
+        
+        rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
+    }
+    
+    public static void convertITStoCR(IntervalNamesLowerUpper namesLBUB) {
+        MyRengine rengine = MyRengine.getRengine();
+        
+        final String CENTERS = Const.INPUT + Utils.getCounter();
+        final String RADII = Const.INPUT + Utils.getCounter();
+        final String LOWERS = Const.INPUT + Utils.getCounter();
+        final String UPPERS = Const.INPUT + Utils.getCounter();
+        
+        rengine.assign(LOWERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesLBUB.getLowerBound())));
+        rengine.assign(UPPERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesLBUB.getUpperBound())));
+        rengine.eval(CENTERS + " <- (" + UPPERS + " + " + LOWERS + ")/2");
+        rengine.eval(RADII + " <- (" + UPPERS + " - " + LOWERS + ")/2");
+        
+
+        //pridaj vsetko medzi data
+        DataTableModel.getInstance().addDataForColname("C" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
+        DataTableModel.getInstance().addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        
+        rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
     }
 }

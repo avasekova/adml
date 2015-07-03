@@ -19,6 +19,8 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
      */
     public MLPNnetSettingsPanel() {
         initComponents();
+        
+        setButtons(buttonAddExplVar, buttonRemoveExplVar);
     }
 
     /**

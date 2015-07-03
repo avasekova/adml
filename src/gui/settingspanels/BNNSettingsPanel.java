@@ -15,6 +15,8 @@ public class BNNSettingsPanel extends SettingsPanel {
 
     public BNNSettingsPanel() {
         initComponents();
+        
+        setButtons(buttonAddExplVar, buttonRemoveExplVar);
     }
 
     /**

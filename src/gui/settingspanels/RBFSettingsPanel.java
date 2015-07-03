@@ -18,6 +18,8 @@ public class RBFSettingsPanel extends SettingsPanel {
      */
     public RBFSettingsPanel() {
         initComponents();
+        
+        setButtons(buttonAddExplVar, buttonRemoveExplVar);
     }
 
     /**

@@ -6390,9 +6390,9 @@ public class MainFrame extends javax.swing.JFrame {
 
     public void setPlotRanges(int sizeCTS, int sizeIntTS) {
         if (sizeCTS == 0) {
-            enableZoomPlotCTS(false);
+            groupZoomControlsCTS.disableAll();
         } else {
-            enableZoomPlotCTS(true);
+            groupZoomControlsCTS.enableAll();
             textFieldPlotRangeCTSXfrom.setText("" + PlotStateKeeper.getLastDrawnCrispXmin());
             textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
             textFieldPlotRangeCTSYfrom.setText("" + PlotStateKeeper.getLastDrawnCrispYmin());
@@ -6400,34 +6400,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
         
         if (sizeIntTS == 0) {
-            enableZoomPlotIntTS(false);
+            groupZoomControlsIntTS.disableAll();
         } else {
-            enableZoomPlotIntTS(true);
+            groupZoomControlsIntTS.enableAll();
             textFieldPlotRangeIntTSXfrom.setText("" + PlotStateKeeper.getLastDrawnIntXmin());
             textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
             textFieldPlotRangeIntTSYfrom.setText("" + PlotStateKeeper.getLastDrawnIntYmin());
             textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         }
-    }
-    
-    private void enableZoomPlotCTS(boolean trueFalse) {
-        textFieldPlotRangeCTSXfrom.setEnabled(trueFalse);
-        textFieldPlotRangeCTSXto.setEnabled(trueFalse);
-        textFieldPlotRangeCTSYfrom.setEnabled(trueFalse);
-        textFieldPlotRangeCTSYto.setEnabled(trueFalse);
-        buttonPlotRestoreCTSRangeX.setEnabled(trueFalse);
-        buttonPlotRestoreCTSRangeY.setEnabled(trueFalse);
-        buttonPlotZoomCTS.setEnabled(trueFalse);
-    }
-    
-    private void enableZoomPlotIntTS(boolean trueFalse) {
-        textFieldPlotRangeIntTSXfrom.setEnabled(trueFalse);
-        textFieldPlotRangeIntTSXto.setEnabled(trueFalse);
-        textFieldPlotRangeIntTSYfrom.setEnabled(trueFalse);
-        textFieldPlotRangeIntTSYto.setEnabled(trueFalse);
-        buttonPlotRestoreIntTSRangeX.setEnabled(trueFalse);
-        buttonPlotRestoreIntTSRangeY.setEnabled(trueFalse);
-        buttonPlotZoomIntTS.setEnabled(trueFalse);
     }
 
     private void outputPredictionIntervals(List<TrainAndTestReportCrisp> reportsCTS) {
@@ -6550,7 +6530,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelVARintInside.repaint();
 
         if (! DataTableModel.getInstance().getColnames().isEmpty()) {
-            enableAllButtons(true);
+            enableAllButtons();
         }
     }
 
@@ -6566,102 +6546,60 @@ public class MainFrame extends javax.swing.JFrame {
         comboBoxRunFakeIntUpper.removeAllItems();
         
         if (! DataTableModel.getInstance().getColnames().isEmpty()) {
-            enableAllButtons(false);
+            disableAllButtons();
         }
     }
 
-    //TODO neslo by nejakou lambdou nasetovat vsetkym? map(List<buttons>....., setEnabled(trueFalse))
-    private void enableAllButtons(boolean trueFalse) {
-        buttonPlotColname.setEnabled(trueFalse);
-        buttonTrainAndTest.setEnabled(trueFalse);
-        buttonRunAnalysisBatch.setEnabled(trueFalse);
-
-        buttonSettingsAddToBatch_MLP.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_MLPint.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_intMLP.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_RBF.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_RBFint.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_ARIMA.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_Holt.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_HoltWinters.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_HoltWintersInt.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_Holtint.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_Hybrid.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_IntervalHolt.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_KNN.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_SES.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_SESint.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_VARint.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_BNN.setEnabled(trueFalse);
-        buttonSettingsAddToBatch_BNNint.setEnabled(trueFalse);
-
-        buttonACF.setEnabled(trueFalse);
-        buttonPACF.setEnabled(trueFalse);
-        buttonBasicStats.setEnabled(trueFalse);
-
-        buttonBoxplots.setEnabled(trueFalse);
-        buttonHistograms.setEnabled(trueFalse);
-        buttonNormProbPlot.setEnabled(trueFalse);
-        buttonNormalityTests.setEnabled(trueFalse);
-        buttonStationarityTest.setEnabled(trueFalse);
+    private void enableAllButtons() {
+        groupButtons.enableAll();
         
-        buttonStructBreaks.setEnabled(trueFalse);
+        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
+        ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons();
+        ((RBFSettingsPanel)panelSettingsRBFint_center).enableAllButtons();
+        ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons();
+        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons();
+        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).enableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).enableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons();
+        ((BNNSettingsPanel)panelSettingsBNNinside).enableAllButtons();
+        ((BNNSettingsPanel)panelSettingsBNNint_center).enableAllButtons();
+        ((BNNSettingsPanel)panelSettingsBNNint_radius).enableAllButtons();
+        ((BNNSettingsPanel)panelSettingsHybrid_centerMain_BNN).enableAllButtons();
+        ((BNNSettingsPanel)panelSettingsHybrid_radiusMain_BNN).enableAllButtons();
+    }
+    
+    private void disableAllButtons() {
+        groupButtons.disableAll();
         
-        buttonExportAnalysisText.setEnabled(trueFalse);
-        buttonExportTestsPlots.setEnabled(trueFalse);
-        buttonExportTextAreaTests.setEnabled(trueFalse);
-        
-        buttonDiffSeries.setEnabled(trueFalse);
-        buttonLogTransformSeries.setEnabled(trueFalse);
-        buttonNormalize.setEnabled(trueFalse);
-        buttonRemoveTrend.setEnabled(trueFalse);
-        buttonAggregateToITS.setEnabled(trueFalse);
-        buttonConvertITSLBUBCR.setEnabled(trueFalse);
-        
-        buttonPlotAllITS.setEnabled(trueFalse);
-        buttonPlotAllITSScatterplot.setEnabled(trueFalse);
-        buttonPlotAllITSScatterplotMatrix.setEnabled(trueFalse);
-        buttonPlotAddITS.setEnabled(trueFalse);
-        buttonPlotRemoveITS.setEnabled(trueFalse);
-        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons(trueFalse);
-        ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons(trueFalse);
-        ((RBFSettingsPanel)panelSettingsRBFint_center).enableAllButtons(trueFalse);
-        ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons(trueFalse);
-        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons(trueFalse);
-        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons(trueFalse);
-        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).enableAllButtons(trueFalse);
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).enableAllButtons(trueFalse);
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons(trueFalse);
-        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons(trueFalse);
-        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons(trueFalse);
-        ((BNNSettingsPanel)panelSettingsBNNinside).enableAllButtons(trueFalse);
-        ((BNNSettingsPanel)panelSettingsBNNint_center).enableAllButtons(trueFalse);
-        ((BNNSettingsPanel)panelSettingsBNNint_radius).enableAllButtons(trueFalse);
-        ((BNNSettingsPanel)panelSettingsHybrid_centerMain_BNN).enableAllButtons(trueFalse);
-        ((BNNSettingsPanel)panelSettingsHybrid_radiusMain_BNN).enableAllButtons(trueFalse);
+        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).disableAllButtons();
+        ((RBFSettingsPanel)panelSettingsRBFMain).disableAllButtons();
+        ((RBFSettingsPanel)panelSettingsRBFint_center).disableAllButtons();
+        ((RBFSettingsPanel)panelSettingsRBFint_radius).disableAllButtons();
+        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).disableAllButtons();
+        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).disableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).disableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).disableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).disableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).disableAllButtons();
+        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).disableAllButtons();
+        ((BNNSettingsPanel)panelSettingsBNNinside).disableAllButtons();
+        ((BNNSettingsPanel)panelSettingsBNNint_center).disableAllButtons();
+        ((BNNSettingsPanel)panelSettingsBNNint_radius).disableAllButtons();
+        ((BNNSettingsPanel)panelSettingsHybrid_centerMain_BNN).disableAllButtons();
+        ((BNNSettingsPanel)panelSettingsHybrid_radiusMain_BNN).disableAllButtons();
     }
     
     private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
-        StringBuilder details = new StringBuilder();
-        for (TrainAndTestReport r : allReports) {
-            details.append(r.getModelName()).append(" (").append(r.getID()).append(")");
-            details.append("\n");
-            details.append("--------------------");
-            details.append("\n");
-            details.append(r.getModelDescription());
-            details.append("\n\n");
-        }
-        
-        textAreaModelsInfo.setText(details.toString());
+        textAreaModelsInfo.setText(AnalysisUtils.getModelDetails(allReports));
     }
     
     private void runModels(boolean isBatch) {
         Utils.resetModelID();
 
-        buttonRunExportErrorMeasures.setEnabled(true); //enable error measures exporting after the first run
-        buttonExportForecastValues.setEnabled(true);
-        buttonExportResiduals.setEnabled(true);
-        
+        groupExportButtons.enableAll();
         
         ///hack: turn off all AVG checkboxes in case the params tried to take values from them.
         //  it is not safe to support average in these settings; there may be too many differences, we cannot check everything
@@ -6963,135 +6901,23 @@ public class MainFrame extends javax.swing.JFrame {
     }
     
     public void addReportToData(TrainAndTestReportCrisp r) {
-        final String TRAIN = Const.INPUT + Utils.getCounter();
-        final String TEST = Const.INPUT + Utils.getCounter();
-        final String FUT = Const.INPUT + Utils.getCounter();
-        final String VAR = Const.INPUT + Utils.getCounter();
-
-        MyRengine rengine = MyRengine.getRengine();
-        
-        rengine.assign(TRAIN, r.getFittedValues());
-        rengine.assign(TEST, r.getForecastValuesTest());
-        
-        if (r.getForecastValuesFuture().length == 0) {
-            rengine.eval(VAR + " <- c(" + TRAIN + ", " + TEST + ")");
-        } else {
-            rengine.assign(FUT, r.getForecastValuesFuture());
-            rengine.eval(VAR + " <- c(" + TRAIN + ", " + TEST + ", " + FUT + ")");
-        }
-        
-        //TODO unique identifier of the model wrt Run, or enable rename. now overwrites columns with the same name
-        DataTableModel.getInstance().addDataForColname(r.toString(), Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
+        AnalysisUtils.addReportToData(r);
         fillGUIelementsWithNewData();
-        
-        rengine.rm(TRAIN, TEST, FUT, VAR);
     }
     
     public void addReportToData(TrainAndTestReportInterval r) {
-        final String TRAIN_MIN = Const.INPUT + Utils.getCounter();
-        final String TRAIN_MAX = Const.INPUT + Utils.getCounter();
-        final String TRAIN_CENTER = Const.INPUT + Utils.getCounter();
-        final String TRAIN_RADIUS = Const.INPUT + Utils.getCounter();
-        final String TEST_MIN = Const.INPUT + Utils.getCounter();
-        final String TEST_MAX = Const.INPUT + Utils.getCounter();
-        final String TEST_CENTER = Const.INPUT + Utils.getCounter();
-        final String TEST_RADIUS = Const.INPUT + Utils.getCounter();
-        final String FUT_MIN = Const.INPUT + Utils.getCounter();
-        final String FUT_MAX = Const.INPUT + Utils.getCounter();
-        final String FUT_CENTER = Const.INPUT + Utils.getCounter();
-        final String FUT_RADIUS = Const.INPUT + Utils.getCounter();
-        
-        final String CENTERS = Const.INPUT + Utils.getCounter();
-        final String RADII = Const.INPUT + Utils.getCounter();
-        final String LOWERS = Const.INPUT + Utils.getCounter();
-        final String UPPERS = Const.INPUT + Utils.getCounter();
-
-        MyRengine rengine = MyRengine.getRengine();
-        
-        rengine.assign(TRAIN_MIN, r.getFittedValuesLowers());
-        rengine.assign(TRAIN_MAX, r.getFittedValuesUppers());
-        rengine.assign(TRAIN_CENTER, r.getFittedValuesCenters());
-        rengine.assign(TRAIN_RADIUS, r.getFittedValuesRadii());
-        
-        rengine.assign(TEST_MIN, r.getForecastValuesTestLowers());
-        rengine.assign(TEST_MAX, r.getForecastValuesTestUppers());
-        rengine.assign(TEST_CENTER, r.getForecastValuesTestCenters());
-        rengine.assign(TEST_RADIUS, r.getForecastValuesTestRadii());
-        
-        if (r.getForecastValuesFuture().isEmpty()) {
-            rengine.eval(LOWERS + " <- c(" + TRAIN_MIN + ", " + TEST_MIN + ")");
-            rengine.eval(UPPERS + " <- c(" + TRAIN_MAX + ", " + TEST_MAX + ")");
-            rengine.eval(CENTERS + " <- c(" + TRAIN_CENTER + ", " + TEST_CENTER + ")");
-            rengine.eval(RADII + " <- c(" + TRAIN_RADIUS + ", " + TEST_RADIUS + ")");
-        } else {
-            rengine.assign(FUT_MIN, r.getForecastValuesFutureLowers());
-            rengine.assign(FUT_MAX, r.getForecastValuesFutureUppers());
-            rengine.assign(FUT_CENTER, r.getForecastValuesFutureCenters());
-            rengine.assign(FUT_RADIUS, r.getForecastValuesFutureRadii());
-            
-            rengine.eval(LOWERS + " <- c(" + TRAIN_MIN + ", " + TEST_MIN + ", " + FUT_MIN + ")");
-            rengine.eval(UPPERS + " <- c(" + TRAIN_MAX + ", " + TEST_MAX + ", " + FUT_MAX + ")");
-            rengine.eval(CENTERS + " <- c(" + TRAIN_CENTER + ", " + TEST_CENTER + ", " + FUT_CENTER + ")");
-            rengine.eval(RADII + " <- c(" + TRAIN_RADIUS + ", " + TEST_RADIUS + ", " + FUT_RADIUS + ")");
-        }
-        
-        //TODO unique identifier of the model wrt Run, or enable rename. now overwrites columns with the same name
-        DataTableModel.getInstance().addDataForColname(r.toString() + "(LB)", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
-        DataTableModel.getInstance().addDataForColname(r.toString() + "(UB)", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
-        DataTableModel.getInstance().addDataForColname(r.toString() + "(C)", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
-        DataTableModel.getInstance().addDataForColname(r.toString() + "(R)", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
+        AnalysisUtils.addReportToData(r);
         fillGUIelementsWithNewData();
-        
-        rengine.rm(TRAIN_MIN, TRAIN_MAX, TRAIN_CENTER, TRAIN_RADIUS,
-                TEST_MIN, TEST_MAX, TEST_CENTER, TEST_RADIUS,
-                FUT_MIN, FUT_MAX, FUT_CENTER, FUT_RADIUS,
-                LOWERS, UPPERS, CENTERS, RADII);
     }
 
     public void convertITStoLBUB(IntervalNamesCentreRadius namesCR) {
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String CENTERS = Const.INPUT + Utils.getCounter();
-        final String RADII = Const.INPUT + Utils.getCounter();
-        final String LOWERS = Const.INPUT + Utils.getCounter();
-        final String UPPERS = Const.INPUT + Utils.getCounter();
-        
-        rengine.assign(CENTERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesCR.getCentre())));
-        rengine.assign(RADII, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesCR.getRadius())));
-        rengine.eval(LOWERS + " <- " + CENTERS + " - " + RADII);
-        rengine.eval(UPPERS + " <- " + CENTERS + " + " + RADII);
-        
-
-        //pridaj vsetko medzi data
-        DataTableModel.getInstance().addDataForColname("LB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
-        DataTableModel.getInstance().addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
-        
+        Transformations.convertITStoLBUB(namesCR);
         fillGUIelementsWithNewData();
-        
-        rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
     }
 
     public void convertITStoCR(IntervalNamesLowerUpper namesLBUB) {
-        MyRengine rengine = MyRengine.getRengine();
-        
-        final String CENTERS = Const.INPUT + Utils.getCounter();
-        final String RADII = Const.INPUT + Utils.getCounter();
-        final String LOWERS = Const.INPUT + Utils.getCounter();
-        final String UPPERS = Const.INPUT + Utils.getCounter();
-        
-        rengine.assign(LOWERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesLBUB.getLowerBound())));
-        rengine.assign(UPPERS, Utils.listToArray(DataTableModel.getInstance().getDataForColname(namesLBUB.getUpperBound())));
-        rengine.eval(CENTERS + " <- (" + UPPERS + " + " + LOWERS + ")/2");
-        rengine.eval(RADII + " <- (" + UPPERS + " - " + LOWERS + ")/2");
-        
-
-        //pridaj vsetko medzi data
-        DataTableModel.getInstance().addDataForColname("C" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
-        DataTableModel.getInstance().addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
-        
+        Transformations.convertITStoCR(namesLBUB);
         fillGUIelementsWithNewData();
-        
-        rengine.rm(CENTERS, RADII, LOWERS, UPPERS);
     }
 
     private void exportTextArea(ActionEvent evt, JButton whichButton, JTextArea whichTextArea) {
@@ -7143,6 +6969,7 @@ public class MainFrame extends javax.swing.JFrame {
     
     //groups
     private final ComponentGroup groupButtons = new ComponentGroup();
+    private final ComponentGroup groupExportButtons = new ComponentGroup();
     private final ComponentGroup groupRunControlsCenterRadius = new ComponentGroup();
     private final ComponentGroup groupRunControlsLowerUpper = new ComponentGroup();
     private final ComponentGroup groupZoomControlsCTS = new ComponentGroup();
@@ -7165,7 +6992,27 @@ public class MainFrame extends javax.swing.JFrame {
                 checkBoxAvgCenterLogRadiusIntTS, checkBoxAvgCenterLogRadiusIntTSperM,
                 checkBoxAvgMedianCTS, checkBoxAvgMedianCTSperM, checkBoxAvgMedianIntTS, checkBoxAvgMedianIntTSperM);
         
+        groupZoomControlsCTS.addAll(textFieldPlotRangeCTSXfrom, textFieldPlotRangeCTSXto, textFieldPlotRangeCTSYfrom,
+                textFieldPlotRangeCTSYto, buttonPlotRestoreCTSRangeX, buttonPlotRestoreCTSRangeY, buttonPlotZoomCTS);
         
+        groupZoomControlsIntTS.addAll(textFieldPlotRangeIntTSXfrom, textFieldPlotRangeIntTSXto, textFieldPlotRangeIntTSYfrom,
+                textFieldPlotRangeIntTSYto, buttonPlotRestoreIntTSRangeX, buttonPlotRestoreIntTSRangeY, buttonPlotZoomIntTS);
         
+        //TODO pridat annotation processor alebo daco, co prejde vsetky JButtony deklarovane v MainFrame a napridava ich do
+        //   tejto grupy automaticky
+        groupButtons.addAll(buttonPlotColname, buttonTrainAndTest, buttonRunAnalysisBatch, buttonSettingsAddToBatch_MLP, 
+                buttonSettingsAddToBatch_MLPint, buttonSettingsAddToBatch_intMLP, buttonSettingsAddToBatch_RBF, 
+                buttonSettingsAddToBatch_RBFint, buttonSettingsAddToBatch_ARIMA, buttonSettingsAddToBatch_Holt, 
+                buttonSettingsAddToBatch_HoltWinters, buttonSettingsAddToBatch_HoltWintersInt, buttonSettingsAddToBatch_Holtint, 
+                buttonSettingsAddToBatch_Hybrid, buttonSettingsAddToBatch_IntervalHolt, buttonSettingsAddToBatch_KNN, 
+                buttonSettingsAddToBatch_SES, buttonSettingsAddToBatch_SESint, buttonSettingsAddToBatch_VARint, 
+                buttonSettingsAddToBatch_BNN, buttonSettingsAddToBatch_BNNint, buttonACF, buttonPACF, buttonBasicStats, 
+                buttonBoxplots, buttonHistograms, buttonNormProbPlot, buttonNormalityTests, buttonStationarityTest,
+                buttonStructBreaks, buttonExportAnalysisText, buttonExportTestsPlots, buttonExportTextAreaTests, 
+                buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
+                buttonConvertITSLBUBCR, buttonPlotAllITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
+                buttonPlotAddITS, buttonPlotRemoveITS);
+        
+        groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
     }
 }

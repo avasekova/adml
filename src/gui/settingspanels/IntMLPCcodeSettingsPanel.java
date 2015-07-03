@@ -25,6 +25,9 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
      */
     public IntMLPCcodeSettingsPanel() {
         initComponents();
+        
+        setButtons(buttonAddDistance, buttonAddExplVar, buttonAddOutVar, 
+                buttonRemoveDistances, buttonRemoveExplVar, buttonRemoveOutVar);
     }
 
     /**
@@ -353,13 +356,6 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         return ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion();
     }
     
-    public void enableAllButtons(boolean trueFalse) {
-        buttonAddExplVar.setEnabled(trueFalse);
-        buttonRemoveExplVar.setEnabled(trueFalse);
-        buttonAddOutVar.setEnabled(trueFalse);
-        buttonRemoveOutVar.setEnabled(trueFalse);
-    }
-
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
         if (getExplVars().isEmpty() || getOutVars().isEmpty() || getDistancesUsed().isEmpty()) {
