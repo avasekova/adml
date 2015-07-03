@@ -149,6 +149,8 @@ import models.params.VARParams;
 import models.params.VARintParams;
 import analysis.StatisticalTests;
 import analysis.Transformations;
+import gui.files.OverwriteFileChooser;
+import gui.files.PlotExtensionFileChooser;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.BinomProp;
@@ -4145,7 +4147,6 @@ public class MainFrame extends javax.swing.JFrame {
                     this.loadedFile = null;
             }
         }
-        
     }//GEN-LAST:event_menuFileLoadActionPerformed
 
     private void menuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExitActionPerformed
@@ -4262,30 +4263,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonRunExportErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunExportErrorMeasuresActionPerformed
         //TODO export with formatting - the highest, lowest vals highlighted etc.
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new OverwriteFileChooser();
         fileChooser.setSelectedFile(new File("error_measures.xls"));
         if (evt.getSource() == buttonRunExportErrorMeasures) {
             switch (fileChooser.showSaveDialog(this)) {
@@ -4469,42 +4447,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBoxRPackageMLPintActionPerformed
 
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                
-                //teraz tomu prestavit priponu, ak ma priponu:
-                String fileName = f.getPath().replace("\\", "\\\\");
-                if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                    //tipnem si, ze je tam pripona, a odrezem ju
-                    String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                    String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
-                    if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
-                        f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());
-                    }
-                }
-                
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "File " + f.toString() + " exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new PlotExtensionFileChooser();
         fileChooser.setSelectedFile(new File("plotExport.eps"));
         
         fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
@@ -4647,30 +4590,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
 
     private void buttonExportForecastValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportForecastValuesActionPerformed
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new OverwriteFileChooser();
         fileChooser.setSelectedFile(new File("forecast_values.xls"));
         if (evt.getSource() == buttonExportForecastValues) {
             switch (fileChooser.showSaveDialog(this)) {
@@ -5204,30 +5124,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void buttonExportResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportResidualsActionPerformed
         //TODO refactor - je to to iste ako export forecasts len s premenovanymi premennymi
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new OverwriteFileChooser();
         fileChooser.setSelectedFile(new File("residuals.xls"));
         if (evt.getSource() == buttonExportResiduals) {
             switch (fileChooser.showSaveDialog(this)) {
@@ -5284,42 +5181,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
         //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
         //TODO vymysliet
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                
-                //teraz tomu prestavit priponu, ak ma priponu:
-                String fileName = f.getPath().replace("\\", "\\\\");
-                if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                    //tipnem si, ze je tam pripona, a odrezem ju
-                    String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                    String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
-                    if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
-                        f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());
-                    }
-                }
-                
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "File " + f.toString() + " exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new PlotExtensionFileChooser();
         fileChooser.setSelectedFile(new File("plotExport.eps"));
         
         fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
@@ -5328,6 +5190,7 @@ public class MainFrame extends javax.swing.JFrame {
         fileChooser.addChoosableFileFilter(new FileFilterPng());
         fileChooser.addChoosableFileFilter(new FileFilterPdf());
         
+        //TODO aj toto sa opakuje, refactor out
         if (evt.getSource() == buttonExportAnalysisPlotsCTS) {
             switch (fileChooser.showSaveDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
@@ -5472,43 +5335,7 @@ public class MainFrame extends javax.swing.JFrame {
         //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
         //TODO vymysliet
         
-        //TODo refactor: je to skopirovane z ExportPlotsCTS...
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                
-                //teraz tomu prestavit priponu, ak ma priponu:
-                String fileName = f.getPath().replace("\\", "\\\\");
-                if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                    //tipnem si, ze je tam pripona, a odrezem ju
-                    String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                    String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
-                    if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
-                        f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());
-                    }
-                }
-                
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "File " + f.toString() + " exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new PlotExtensionFileChooser();
         fileChooser.setSelectedFile(new File("plotExport.eps"));
         
         fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
@@ -6922,30 +6749,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void exportTextArea(ActionEvent evt, JButton whichButton, JTextArea whichTextArea) {
         //TODO refactor this out to my own class; it is repeated quite a few times throughout the code
-        JFileChooser fileChooser = new JFileChooser() {
-            @Override
-            public void approveSelection() {
-                File f = getSelectedFile();
-                if (f.exists() && getDialogType() == SAVE_DIALOG) {
-                    int result = JOptionPane.showConfirmDialog(this, "The file exists, overwrite?", "Existing file", JOptionPane.YES_NO_CANCEL_OPTION);
-                    switch (result) {
-                        case JOptionPane.YES_OPTION:
-                            super.approveSelection();
-                            return;
-                        case JOptionPane.NO_OPTION:
-                            return;
-                        case JOptionPane.CLOSED_OPTION:
-                            return;
-                        case JOptionPane.CANCEL_OPTION:
-                            cancelSelection();
-                            return;
-                    }
-                }
-                super.approveSelection();
-            }
-        };
-        fileChooser.setCurrentDirectory(null);
-        fileChooser.setMultiSelectionEnabled(false);
+        JFileChooser fileChooser = new OverwriteFileChooser();
         fileChooser.setSelectedFile(new File("analysis.txt"));
         if (evt.getSource() == whichButton) {
             switch (fileChooser.showSaveDialog(this)) {
