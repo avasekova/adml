@@ -285,7 +285,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         listColnamesTests = new javax.swing.JList();
         jSeparator15 = new javax.swing.JSeparator();
-        tabbedPaneAnalysisPlotsCTS1 = new javax.swing.JTabbedPane();
+        tabbedPaneAnalysisPlotsTests = new javax.swing.JTabbedPane();
         buttonExportTextAreaTests = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         textAreaTests = new javax.swing.JTextArea();
@@ -1434,7 +1434,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPaneAnalysisPlotsCTS1)
+                    .addComponent(tabbedPaneAnalysisPlotsTests)
                     .addGroup(panelTestsOutsideLayout.createSequentialGroup()
                         .addComponent(buttonExportTestsPlots)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1472,7 +1472,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonExportTestsPlots)
                             .addComponent(jLabel34))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabbedPaneAnalysisPlotsCTS1)))
+                        .addComponent(tabbedPaneAnalysisPlotsTests)))
                 .addContainerGap())
         );
 
@@ -5136,7 +5136,7 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaTests.setText(StatisticalTests.normalProbabilityTests(listColnamesTests.getSelectedValuesList()));
 
         //and show the normal probability plots:
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS1);
+        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsTests);
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonNormalityTestsActionPerformed
 
@@ -5195,24 +5195,24 @@ public class MainFrame extends javax.swing.JFrame {
         
         //TODO refactor odtialto------------------
         //potom ich nechaj vyplut do mriezky
-        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsCTS1.getWidth(), 
-                tabbedPaneAnalysisPlotsCTS1.getHeight(), plots, 1, 1);
+        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsTests.getWidth(), 
+                tabbedPaneAnalysisPlotsTests.getHeight(), plots, 1, 1);
         
         //a tu mriezku nakresli
-        tabbedPaneAnalysisPlotsCTS1.removeAll();
+        tabbedPaneAnalysisPlotsTests.removeAll();
         int i = 0;
         for (JGDBufferedPanel p : panels) {
-            tabbedPaneAnalysisPlotsCTS1.addTab("Page "+(++i), p);
+            tabbedPaneAnalysisPlotsTests.addTab("Page "+(++i), p);
         }
 
-        tabbedPaneAnalysisPlotsCTS1.repaint();
+        tabbedPaneAnalysisPlotsTests.repaint();
         //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
         
         //a vypis info
         textAreaTests.setText(structBreaksInfo);
 
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
+        buttonExportTestsPlots.setEnabled(true);
     }//GEN-LAST:event_buttonStructBreaksActionPerformed
 
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
@@ -5852,7 +5852,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
-    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS1;
+    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
     private javax.swing.JTabbedPane tabbedPaneBinomPropPlot;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;

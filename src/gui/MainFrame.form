@@ -1088,7 +1088,7 @@
                       <Component id="jSeparator15" min="-2" pref="6" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tabbedPaneAnalysisPlotsCTS1" max="32767" attributes="0"/>
+                          <Component id="tabbedPaneAnalysisPlotsTests" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="buttonExportTestsPlots" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1135,7 +1135,7 @@
                                   <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tabbedPaneAnalysisPlotsCTS1" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneAnalysisPlotsTests" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1215,7 +1215,7 @@
                 <Property name="orientation" type="int" value="1"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JTabbedPane" name="tabbedPaneAnalysisPlotsCTS1">
+            <Container class="javax.swing.JTabbedPane" name="tabbedPaneAnalysisPlotsTests">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>

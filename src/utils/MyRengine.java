@@ -144,4 +144,14 @@ public class MyRengine extends Rengine {
         return success;
     }
 
+    @Override
+    public REXP eval(String expression) {
+        String[] commands = expression.split(";"); //TODO override "rengine.eval" so that it accepts multiple commands separated by ";"
+        REXP returnVal = null;
+        for (String command : commands) {
+            returnVal = super.eval(command);
+        }
+        
+        return returnVal;
+    }
 }

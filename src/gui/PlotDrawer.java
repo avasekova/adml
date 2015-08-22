@@ -1059,10 +1059,7 @@ public class PlotDrawer {
                 
                 int counter = maxCol*maxRow;
                 while ((counter > 0) && (currentIndex < plots.size())) {
-                    String[] commands = plots.get(currentIndex).split(";"); //TODO override "rengine.eval" so that it accepts multiple commands separated by ";"
-                    for (String command : commands) {
-                        rengine.eval(command);
-                    }
+                    rengine.eval(plots.get(currentIndex));
                     
                     currentIndex++;
                     counter--;
