@@ -219,6 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         buttonExportAnalysisText = new javax.swing.JButton();
         buttonBasicStats = new javax.swing.JButton();
+        buttonCTSclearSelection = new javax.swing.JButton();
         panelTransform = new javax.swing.JPanel();
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
@@ -242,6 +243,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jSeparator14 = new javax.swing.JSeparator();
         buttonConvertITSLBUBCR = new javax.swing.JButton();
+        buttonITSclearSelection = new javax.swing.JButton();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -742,6 +744,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonCTSclearSelection.setText("(Clear selection)");
+        buttonCTSclearSelection.setEnabled(false);
+        buttonCTSclearSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCTSclearSelectionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
         panelCTS.setLayout(panelCTSLayout);
         panelCTSLayout.setHorizontalGroup(
@@ -755,7 +765,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonExportAnalysisText))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotColname)
+                            .addGroup(panelCTSLayout.createSequentialGroup()
+                                .addComponent(buttonPlotColname)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonCTSclearSelection))
                             .addComponent(buttonHistograms)
                             .addComponent(buttonBoxplots)
                             .addComponent(buttonNormProbPlot)
@@ -787,7 +800,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelCTSLayout.createSequentialGroup()
                         .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCTSLayout.createSequentialGroup()
-                                .addComponent(buttonPlotColname)
+                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonPlotColname)
+                                    .addComponent(buttonCTSclearSelection))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(buttonACF)
@@ -980,6 +995,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonITSclearSelection.setText("(Clear selection)");
+        buttonITSclearSelection.setEnabled(false);
+        buttonITSclearSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonITSclearSelectionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelIntTSLayout = new javax.swing.GroupLayout(panelIntTS);
         panelIntTS.setLayout(panelIntTSLayout);
         panelIntTSLayout.setHorizontalGroup(
@@ -993,7 +1016,8 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(buttonPlotSelectedITS)
                             .addComponent(buttonPlotRemoveITS)
-                            .addComponent(buttonPlotAddITS)))
+                            .addComponent(buttonPlotAddITS)
+                            .addComponent(buttonITSclearSelection)))
                     .addComponent(buttonPlotAllITSScatterplot)
                     .addGroup(panelIntTSLayout.createSequentialGroup()
                         .addComponent(buttonPlotAllITSScatterplotMatrix)
@@ -1021,7 +1045,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonPlotRemoveITS)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonPlotSelectedITS))
+                                        .addComponent(buttonPlotSelectedITS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonITSclearSelection))
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonPlotAllITSScatterplot)
@@ -5395,6 +5421,14 @@ public class MainFrame extends javax.swing.JFrame {
         Transformations.normalize(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonNormalizeActionPerformed
+
+    private void buttonCTSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCTSclearSelectionActionPerformed
+        listColnames.setSelectedIndices(new int[]{});
+    }//GEN-LAST:event_buttonCTSclearSelectionActionPerformed
+
+    private void buttonITSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonITSclearSelectionActionPerformed
+        listPlotITSspecs.setSelectedIndices(new int[]{});
+    }//GEN-LAST:event_buttonITSclearSelectionActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
@@ -5414,6 +5448,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonBinomPropPredict;
     private javax.swing.JButton buttonBinomPropSimulate;
     private javax.swing.JButton buttonBoxplots;
+    private javax.swing.JButton buttonCTSclearSelection;
     private javax.swing.JButton buttonConvertITSLBUBCR;
     private javax.swing.JButton buttonConvertITSLBUBCR1;
     private javax.swing.JButton buttonDiffSeries;
@@ -5431,6 +5466,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
     private javax.swing.JButton buttonHistograms;
+    private javax.swing.JButton buttonITSclearSelection;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonLogTransformSeries;
@@ -6826,7 +6862,7 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonStructBreaks, buttonExportAnalysisText, buttonExportTestsPlots, buttonExportTextAreaTests, 
                 buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
                 buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
-                buttonPlotAddITS, buttonPlotRemoveITS);
+                buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
     }
