@@ -509,7 +509,7 @@
                               <Component id="jScrollPane4" min="-2" pref="377" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="buttonPlotAllITS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonPlotSelectedITS" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonPlotRemoveITS" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonPlotAddITS" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
@@ -545,7 +545,7 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="buttonPlotRemoveITS" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonPlotAllITS" min="-2" max="-2" attributes="0"/>
+                                              <Component id="buttonPlotSelectedITS" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jScrollPane4" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
                                       </Group>
@@ -585,13 +585,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRemoveITSActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonPlotAllITS">
+            <Component class="javax.swing.JButton" name="buttonPlotSelectedITS">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Plot all specified ITS"/>
+                <Property name="text" type="java.lang.String" value="Plot all selected ITS"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAllITSActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotSelectedITSActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane4">

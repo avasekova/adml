@@ -234,7 +234,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelIntTS = new javax.swing.JPanel();
         buttonPlotAddITS = new javax.swing.JButton();
         buttonPlotRemoveITS = new javax.swing.JButton();
-        buttonPlotAllITS = new javax.swing.JButton();
+        buttonPlotSelectedITS = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         listPlotITSspecs = new javax.swing.JList();
         buttonPlotAllITSScatterplot = new javax.swing.JButton();
@@ -939,11 +939,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonPlotAllITS.setText("Plot all specified ITS");
-        buttonPlotAllITS.setEnabled(false);
-        buttonPlotAllITS.addActionListener(new java.awt.event.ActionListener() {
+        buttonPlotSelectedITS.setText("Plot all selected ITS");
+        buttonPlotSelectedITS.setEnabled(false);
+        buttonPlotSelectedITS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotAllITSActionPerformed(evt);
+                buttonPlotSelectedITSActionPerformed(evt);
             }
         });
 
@@ -991,7 +991,7 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotAllITS)
+                            .addComponent(buttonPlotSelectedITS)
                             .addComponent(buttonPlotRemoveITS)
                             .addComponent(buttonPlotAddITS)))
                     .addComponent(buttonPlotAllITSScatterplot)
@@ -1021,7 +1021,7 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonPlotRemoveITS)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonPlotAllITS))
+                                        .addComponent(buttonPlotSelectedITS))
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonPlotAllITSScatterplot)
@@ -4189,14 +4189,25 @@ public class MainFrame extends javax.swing.JFrame {
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
-    private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
-        //tu uz len vezmi nasyslene v tych listoch
+    private void buttonPlotSelectedITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotSelectedITSActionPerformed
+        List<IntervalNamesCentreRadius> listITSPlotCR = new ArrayList<>();
+        List<IntervalNamesLowerUpper> listITSPlotLU = new ArrayList<>();
+        
+        List<Object> values = listPlotITSspecs.getSelectedValuesList();
+        for (Object val : values) {
+            if (val instanceof IntervalNamesCentreRadius) {
+                listITSPlotCR.add((IntervalNamesCentreRadius) val);
+            } else if (val instanceof IntervalNamesLowerUpper) {
+                listITSPlotLU.add((IntervalNamesLowerUpper) val);
+            }
+        }
+        
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(), DataTableModel.getInstance(),
-                listITSPlotCentreRadius, listITSPlotLowerUpper, false));
+                listITSPlotCR, listITSPlotLU, false));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
-    }//GEN-LAST:event_buttonPlotAllITSActionPerformed
+    }//GEN-LAST:event_buttonPlotSelectedITSActionPerformed
 
     private void comboBoxIntervalMLPModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntervalMLPModeActionPerformed
         CardLayout card = (CardLayout)panelSettingsIntervalMLPMode.getLayout();
@@ -5428,7 +5439,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonNormalize;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
-    private javax.swing.JButton buttonPlotAllITS;
     private javax.swing.JButton buttonPlotAllITSScatterplot;
     private javax.swing.JButton buttonPlotAllITSScatterplotMatrix;
     private javax.swing.JButton buttonPlotColname;
@@ -5439,6 +5449,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotRestoreCTSRangeY;
     private javax.swing.JButton buttonPlotRestoreIntTSRangeX;
     private javax.swing.JButton buttonPlotRestoreIntTSRangeY;
+    private javax.swing.JButton buttonPlotSelectedITS;
     private javax.swing.JButton buttonPlotZoomCTS;
     private javax.swing.JButton buttonPlotZoomIntTS;
     private javax.swing.JButton buttonRemoveTrend;
@@ -6814,7 +6825,7 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonBoxplots, buttonHistograms, buttonNormProbPlot, buttonNormalityTests, buttonStationarityTest,
                 buttonStructBreaks, buttonExportAnalysisText, buttonExportTestsPlots, buttonExportTextAreaTests, 
                 buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
-                buttonConvertITSLBUBCR, buttonPlotAllITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
+                buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
                 buttonPlotAddITS, buttonPlotRemoveITS);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
