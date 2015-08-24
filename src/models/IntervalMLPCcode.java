@@ -221,10 +221,7 @@ public class IntervalMLPCcode implements Forecastable {
         
         try {
             //TODO neskor zabranit spustaniu viacerych veci naraz (disablovat Run button, kym neskonci aktualna)
-            //TODO neskor zrusit to cierne okno, ale zatial sa to chova divne, ked ho vypnem :(
-            //        toto vyzeralo, ze funguje: Process p = Runtime.getRuntime().exec("cmd /c call config.bat");
-            //              - kde v config.bat je: "@ECHO OFF     c config"
-            Process p = Runtime.getRuntime().exec("cmd /c start /wait c " + CONFIG);
+            Process p = new ProcessBuilder("c", CONFIG).start();
             p.waitFor();
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(IntervalMLPCcode.class.getName()).log(Level.SEVERE, null, ex);
