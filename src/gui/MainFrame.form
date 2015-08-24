@@ -104,7 +104,11 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="buttonPlotColname" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="buttonPlotColname" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonCTSclearSelection" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                                   <Component id="buttonHistograms" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonBoxplots" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonNormProbPlot" min="-2" max="-2" attributes="0"/>
@@ -144,7 +148,10 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="buttonPlotColname" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="buttonPlotColname" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonCTSclearSelection" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="buttonACF" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -331,6 +338,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBasicStatsActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JButton" name="buttonCTSclearSelection">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="(Clear selection)"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCTSclearSelectionActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="panelTransform">
@@ -509,9 +525,10 @@
                               <Component id="jScrollPane4" min="-2" pref="377" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="buttonPlotAllITS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonPlotSelectedITS" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonPlotRemoveITS" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="buttonPlotAddITS" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonITSclearSelection" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="buttonPlotAllITSScatterplot" min="-2" max="-2" attributes="0"/>
@@ -545,7 +562,9 @@
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Component id="buttonPlotRemoveITS" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="buttonPlotAllITS" min="-2" max="-2" attributes="0"/>
+                                              <Component id="buttonPlotSelectedITS" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="buttonITSclearSelection" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jScrollPane4" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
                                       </Group>
@@ -585,13 +604,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotRemoveITSActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="buttonPlotAllITS">
+            <Component class="javax.swing.JButton" name="buttonPlotSelectedITS">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Plot all specified ITS"/>
+                <Property name="text" type="java.lang.String" value="Plot all selected ITS"/>
                 <Property name="enabled" type="boolean" value="false"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotAllITSActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPlotSelectedITSActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane4">
@@ -650,6 +669,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonConvertITSLBUBCRActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonITSclearSelection">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="(Clear selection)"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonITSclearSelectionActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -1060,7 +1088,7 @@
                       <Component id="jSeparator15" min="-2" pref="6" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tabbedPaneAnalysisPlotsCTS1" max="32767" attributes="0"/>
+                          <Component id="tabbedPaneAnalysisPlotsTests" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="buttonExportTestsPlots" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1107,7 +1135,7 @@
                                   <Component id="jLabel34" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tabbedPaneAnalysisPlotsCTS1" max="32767" attributes="0"/>
+                              <Component id="tabbedPaneAnalysisPlotsTests" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1187,7 +1215,7 @@
                 <Property name="orientation" type="int" value="1"/>
               </Properties>
             </Component>
-            <Container class="javax.swing.JTabbedPane" name="tabbedPaneAnalysisPlotsCTS1">
+            <Container class="javax.swing.JTabbedPane" name="tabbedPaneAnalysisPlotsTests">
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>

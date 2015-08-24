@@ -219,6 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel22 = new javax.swing.JLabel();
         buttonExportAnalysisText = new javax.swing.JButton();
         buttonBasicStats = new javax.swing.JButton();
+        buttonCTSclearSelection = new javax.swing.JButton();
         panelTransform = new javax.swing.JPanel();
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
@@ -234,7 +235,7 @@ public class MainFrame extends javax.swing.JFrame {
         panelIntTS = new javax.swing.JPanel();
         buttonPlotAddITS = new javax.swing.JButton();
         buttonPlotRemoveITS = new javax.swing.JButton();
-        buttonPlotAllITS = new javax.swing.JButton();
+        buttonPlotSelectedITS = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         listPlotITSspecs = new javax.swing.JList();
         buttonPlotAllITSScatterplot = new javax.swing.JButton();
@@ -242,6 +243,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jSeparator14 = new javax.swing.JSeparator();
         buttonConvertITSLBUBCR = new javax.swing.JButton();
+        buttonITSclearSelection = new javax.swing.JButton();
         panelPlotImage = new javax.swing.JPanel();
         buttonPlotExportPlot = new javax.swing.JButton();
         panelPlot = new javax.swing.JPanel();
@@ -283,7 +285,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane9 = new javax.swing.JScrollPane();
         listColnamesTests = new javax.swing.JList();
         jSeparator15 = new javax.swing.JSeparator();
-        tabbedPaneAnalysisPlotsCTS1 = new javax.swing.JTabbedPane();
+        tabbedPaneAnalysisPlotsTests = new javax.swing.JTabbedPane();
         buttonExportTextAreaTests = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         textAreaTests = new javax.swing.JTextArea();
@@ -742,6 +744,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonCTSclearSelection.setText("(Clear selection)");
+        buttonCTSclearSelection.setEnabled(false);
+        buttonCTSclearSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCTSclearSelectionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
         panelCTS.setLayout(panelCTSLayout);
         panelCTSLayout.setHorizontalGroup(
@@ -755,7 +765,10 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonExportAnalysisText))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotColname)
+                            .addGroup(panelCTSLayout.createSequentialGroup()
+                                .addComponent(buttonPlotColname)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonCTSclearSelection))
                             .addComponent(buttonHistograms)
                             .addComponent(buttonBoxplots)
                             .addComponent(buttonNormProbPlot)
@@ -787,7 +800,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addGroup(panelCTSLayout.createSequentialGroup()
                         .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelCTSLayout.createSequentialGroup()
-                                .addComponent(buttonPlotColname)
+                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonPlotColname)
+                                    .addComponent(buttonCTSclearSelection))
                                 .addGap(18, 18, 18)
                                 .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(buttonACF)
@@ -939,11 +954,11 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        buttonPlotAllITS.setText("Plot all specified ITS");
-        buttonPlotAllITS.setEnabled(false);
-        buttonPlotAllITS.addActionListener(new java.awt.event.ActionListener() {
+        buttonPlotSelectedITS.setText("Plot all selected ITS");
+        buttonPlotSelectedITS.setEnabled(false);
+        buttonPlotSelectedITS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotAllITSActionPerformed(evt);
+                buttonPlotSelectedITSActionPerformed(evt);
             }
         });
 
@@ -980,6 +995,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonITSclearSelection.setText("(Clear selection)");
+        buttonITSclearSelection.setEnabled(false);
+        buttonITSclearSelection.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonITSclearSelectionActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelIntTSLayout = new javax.swing.GroupLayout(panelIntTS);
         panelIntTS.setLayout(panelIntTSLayout);
         panelIntTSLayout.setHorizontalGroup(
@@ -991,9 +1014,10 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotAllITS)
+                            .addComponent(buttonPlotSelectedITS)
                             .addComponent(buttonPlotRemoveITS)
-                            .addComponent(buttonPlotAddITS)))
+                            .addComponent(buttonPlotAddITS)
+                            .addComponent(buttonITSclearSelection)))
                     .addComponent(buttonPlotAllITSScatterplot)
                     .addGroup(panelIntTSLayout.createSequentialGroup()
                         .addComponent(buttonPlotAllITSScatterplotMatrix)
@@ -1021,7 +1045,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(buttonPlotRemoveITS)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(buttonPlotAllITS))
+                                        .addComponent(buttonPlotSelectedITS)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(buttonITSclearSelection))
                                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonPlotAllITSScatterplot)
@@ -1408,7 +1434,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPaneAnalysisPlotsCTS1)
+                    .addComponent(tabbedPaneAnalysisPlotsTests)
                     .addGroup(panelTestsOutsideLayout.createSequentialGroup()
                         .addComponent(buttonExportTestsPlots)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1446,7 +1472,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(buttonExportTestsPlots)
                             .addComponent(jLabel34))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabbedPaneAnalysisPlotsCTS1)))
+                        .addComponent(tabbedPaneAnalysisPlotsTests)))
                 .addContainerGap())
         );
 
@@ -4189,14 +4215,25 @@ public class MainFrame extends javax.swing.JFrame {
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonPACFActionPerformed
 
-    private void buttonPlotAllITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSActionPerformed
-        //tu uz len vezmi nasyslene v tych listoch
+    private void buttonPlotSelectedITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotSelectedITSActionPerformed
+        List<IntervalNamesCentreRadius> listITSPlotCR = new ArrayList<>();
+        List<IntervalNamesLowerUpper> listITSPlotLU = new ArrayList<>();
+        
+        List<Object> values = listPlotITSspecs.getSelectedValuesList();
+        for (Object val : values) {
+            if (val instanceof IntervalNamesCentreRadius) {
+                listITSPlotCR.add((IntervalNamesCentreRadius) val);
+            } else if (val instanceof IntervalNamesLowerUpper) {
+                listITSPlotLU.add((IntervalNamesLowerUpper) val);
+            }
+        }
+        
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
                 panelPlot.getHeight(), DataTableModel.getInstance(),
-                listITSPlotCentreRadius, listITSPlotLowerUpper, false));
+                listITSPlotCR, listITSPlotLU, false));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
-    }//GEN-LAST:event_buttonPlotAllITSActionPerformed
+    }//GEN-LAST:event_buttonPlotSelectedITSActionPerformed
 
     private void comboBoxIntervalMLPModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntervalMLPModeActionPerformed
         CardLayout card = (CardLayout)panelSettingsIntervalMLPMode.getLayout();
@@ -5099,7 +5136,7 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaTests.setText(StatisticalTests.normalProbabilityTests(listColnamesTests.getSelectedValuesList()));
 
         //and show the normal probability plots:
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS1);
+        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsTests);
         setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonNormalityTestsActionPerformed
 
@@ -5158,24 +5195,24 @@ public class MainFrame extends javax.swing.JFrame {
         
         //TODO refactor odtialto------------------
         //potom ich nechaj vyplut do mriezky
-        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsCTS1.getWidth(), 
-                tabbedPaneAnalysisPlotsCTS1.getHeight(), plots, 1, 1);
+        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsTests.getWidth(), 
+                tabbedPaneAnalysisPlotsTests.getHeight(), plots, 1, 1);
         
         //a tu mriezku nakresli
-        tabbedPaneAnalysisPlotsCTS1.removeAll();
+        tabbedPaneAnalysisPlotsTests.removeAll();
         int i = 0;
         for (JGDBufferedPanel p : panels) {
-            tabbedPaneAnalysisPlotsCTS1.addTab("Page "+(++i), p);
+            tabbedPaneAnalysisPlotsTests.addTab("Page "+(++i), p);
         }
 
-        tabbedPaneAnalysisPlotsCTS1.repaint();
+        tabbedPaneAnalysisPlotsTests.repaint();
         //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
         
         //a vypis info
         textAreaTests.setText(structBreaksInfo);
 
         setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
+        buttonExportTestsPlots.setEnabled(true);
     }//GEN-LAST:event_buttonStructBreaksActionPerformed
 
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
@@ -5384,6 +5421,14 @@ public class MainFrame extends javax.swing.JFrame {
         Transformations.normalize(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonNormalizeActionPerformed
+
+    private void buttonCTSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCTSclearSelectionActionPerformed
+        listColnames.setSelectedIndices(new int[]{});
+    }//GEN-LAST:event_buttonCTSclearSelectionActionPerformed
+
+    private void buttonITSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonITSclearSelectionActionPerformed
+        listPlotITSspecs.setSelectedIndices(new int[]{});
+    }//GEN-LAST:event_buttonITSclearSelectionActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
@@ -5403,6 +5448,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonBinomPropPredict;
     private javax.swing.JButton buttonBinomPropSimulate;
     private javax.swing.JButton buttonBoxplots;
+    private javax.swing.JButton buttonCTSclearSelection;
     private javax.swing.JButton buttonConvertITSLBUBCR;
     private javax.swing.JButton buttonConvertITSLBUBCR1;
     private javax.swing.JButton buttonDiffSeries;
@@ -5420,6 +5466,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
     private javax.swing.JButton buttonHistograms;
+    private javax.swing.JButton buttonITSclearSelection;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonLogTransformSeries;
@@ -5428,7 +5475,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonNormalize;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPlotAddITS;
-    private javax.swing.JButton buttonPlotAllITS;
     private javax.swing.JButton buttonPlotAllITSScatterplot;
     private javax.swing.JButton buttonPlotAllITSScatterplotMatrix;
     private javax.swing.JButton buttonPlotColname;
@@ -5439,6 +5485,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonPlotRestoreCTSRangeY;
     private javax.swing.JButton buttonPlotRestoreIntTSRangeX;
     private javax.swing.JButton buttonPlotRestoreIntTSRangeY;
+    private javax.swing.JButton buttonPlotSelectedITS;
     private javax.swing.JButton buttonPlotZoomCTS;
     private javax.swing.JButton buttonPlotZoomIntTS;
     private javax.swing.JButton buttonRemoveTrend;
@@ -5805,7 +5852,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
-    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS1;
+    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
     private javax.swing.JTabbedPane tabbedPaneBinomPropPlot;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
@@ -6814,8 +6861,8 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonBoxplots, buttonHistograms, buttonNormProbPlot, buttonNormalityTests, buttonStationarityTest,
                 buttonStructBreaks, buttonExportAnalysisText, buttonExportTestsPlots, buttonExportTextAreaTests, 
                 buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
-                buttonConvertITSLBUBCR, buttonPlotAllITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
-                buttonPlotAddITS, buttonPlotRemoveITS);
+                buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
+                buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
     }
