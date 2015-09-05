@@ -4233,6 +4233,8 @@ public class MainFrame extends javax.swing.JFrame {
                 listITSPlotCR, listITSPlotLU, false));
         buttonPlotExportPlot.setEnabled(true);
         setPlotRanges(0, 1);
+        
+        panelEverything.setSelectedComponent(panelPlotImage);
     }//GEN-LAST:event_buttonPlotSelectedITSActionPerformed
 
     private void comboBoxIntervalMLPModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntervalMLPModeActionPerformed
