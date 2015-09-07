@@ -440,15 +440,12 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     
     @Override
     public void enableAllElements(boolean trueFalse) { //TODO islo by nejak krajsie, automaticky? pomocou mojich ComponentGroups alebo anotacie a nejak hromadne?
-        buttonAddExplVar.setEnabled(trueFalse);
-        buttonRemoveExplVar.setEnabled(trueFalse);
         checkBoxSkipConn.setEnabled(trueFalse);
         checkBoxTraceOptimization.setEnabled(trueFalse);
         jLabel10.setEnabled(trueFalse);
         jLabel11.setEnabled(trueFalse);
         jLabel12.setEnabled(trueFalse);
         jLabel13.setEnabled(trueFalse);
-        jLabel137.setEnabled(trueFalse);
         jLabel14.setEnabled(trueFalse);
         jLabel15.setEnabled(trueFalse);
         jLabel16.setEnabled(trueFalse);
@@ -469,8 +466,6 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         radioButtonLeastSqrs.setEnabled(trueFalse);
         radioButtonLogistic.setEnabled(trueFalse);
         radioButtonLoglinSoftmax.setEnabled(trueFalse);
-        scrollPaneExplVars.setEnabled(trueFalse);
-        tableExplVars.setEnabled(trueFalse);
         textFieldAbstol.setEnabled(trueFalse);
         textFieldInitRange.setEnabled(trueFalse);
         textFieldMaxit.setEnabled(trueFalse);

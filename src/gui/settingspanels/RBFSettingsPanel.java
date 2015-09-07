@@ -194,16 +194,9 @@ public class RBFSettingsPanel extends SettingsPanel {
     
     @Override
     public void enableAllElements(boolean trueFalse) {
-        buttonAddExplVar.setEnabled(trueFalse);
-        buttonRemoveExplVar.setEnabled(trueFalse);
-        comboBoxOutputVar.setEnabled(trueFalse);
-        jLabel137.setEnabled(trueFalse);
-        jLabel139.setEnabled(trueFalse);
         jLabel140.setEnabled(trueFalse);
         jLabel141.setEnabled(trueFalse);
-        jLabel142.setEnabled(trueFalse);
         jLabel162.setEnabled(trueFalse);
-        tableExplVars.setEnabled(trueFalse);
         textFieldMaxIt.setEnabled(trueFalse);
         textFieldNumHidden.setEnabled(trueFalse);
     }

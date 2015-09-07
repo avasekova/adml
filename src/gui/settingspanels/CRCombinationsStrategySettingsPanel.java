@@ -4,8 +4,7 @@ import java.util.List;
 import models.params.Params;
 
 public class CRCombinationsStrategySettingsPanel extends SettingsPanel {
-    //TODO mozno nedisablovat expl vars (a podobne veci), lebo je hrozne otravne vzdy to musiet prepnut v tych radiobuttonoch, pridat explVar, a zase prepnut na disablovany Radius
-
+    
     private final SettingsPanel[] radiusPanels;
     
     /**
