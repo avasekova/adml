@@ -6542,7 +6542,7 @@ public class MainFrame extends javax.swing.JFrame {
             } catch (IllegalArgumentException e) {
                 //TODO log?
             }
-            showDialogTooManyModelsInCase(numModels, l.getModel());
+            showDialogTooManyModelsInCase(numModels, l.getModel()); //TODO ukazat ich vsetky naraz na zaciatku, aby to clovek odklikal a mohol ist na obed, nieze sa to zasekne po kazdom modele
             
             if (continueWithTooManyModels) {
                 Forecastable forecastable = null;
