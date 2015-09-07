@@ -6533,121 +6533,130 @@ public class MainFrame extends javax.swing.JFrame {
         List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
         List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
 
+        //najprv prebehnut vsetky BatchLines, ci nahodou niektora nema privela modelov a ci sa teda bude spustat:
+        List<AnalysisBatchLine> runOnlyTheseBatchLines = new ArrayList<>();
         for (AnalysisBatchLine l : AnalysisBatchTableModel.getInstance().getAllLines()) {
-            List<? extends Params> params = new ArrayList<>();
             int numModels = 0;
             try {
-                params = l.getModelParams();
                 numModels = l.getNumModels();
             } catch (IllegalArgumentException e) {
                 //TODO log?
             }
-            showDialogTooManyModelsInCase(numModels, l.getModel()); //TODO ukazat ich vsetky naraz na zaciatku, aby to clovek odklikal a mohol ist na obed, nieze sa to zasekne po kazdom modele
+            showDialogTooManyModelsInCase(numModels, l.getModel());
             
             if (continueWithTooManyModels) {
-                Forecastable forecastable = null;
-                
-                switch (l.getModel()) { //crisp models
-                    case Const.ARIMA:
-                        forecastable = new Arima();
-                        break;
-                    case Const.HOLT:
-                        forecastable = new Holt();
-                        break;
-                    case Const.HOLT_WINTERS:
-                        forecastable = new HoltWinters();
-                        break;
-                    case Const.KNN_CUSTOM:
-                        break;
-                    case Const.KNN_FNN:
-                        forecastable = new KNNfnn();
-                        break;
-                    case Const.KNN_KKNN:
-                        forecastable = new KNNkknn();
-                        break;
-                    case Const.KNN_MYOWN:
-                        forecastable = new KNNmyown();
-                        break;
-                    case Const.NEURALNET:
-                        forecastable = new Neuralnet();
-                        break;
-                    case Const.NNET:
-                        forecastable = new Nnet();
-                        break;
-                    case Const.NNETAR:
-                        forecastable = new Nnetar();
-                        break;
-                    case Const.RBF:
-                        forecastable = new RBF();
-                        break;
-                    case Const.SES:
-                        forecastable = new SES();
-                        break;
-                    case Const.MAvg:
-                        forecastable = new MAvg();
-                    case Const.VAR:
-                        break;
-                        
-                    case Const.BNN:
-                        forecastable = new BNN();
-                        break;
+                runOnlyTheseBatchLines.add(l);
+            }
+        }
+        
+        //a potom uz ist len cez tie, ktore bud maju malo modelov, alebo bolo potvrdene, ze maju bezat aj s velkym poctom
+        for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
+            Forecastable forecastable = null;
 
+            switch (l.getModel()) { //crisp models
+                case Const.ARIMA:
+                    forecastable = new Arima();
+                    break;
+                case Const.HOLT:
+                    forecastable = new Holt();
+                    break;
+                case Const.HOLT_WINTERS:
+                    forecastable = new HoltWinters();
+                    break;
+                case Const.KNN_CUSTOM:
+                    break;
+                case Const.KNN_FNN:
+                    forecastable = new KNNfnn();
+                    break;
+                case Const.KNN_KKNN:
+                    forecastable = new KNNkknn();
+                    break;
+                case Const.KNN_MYOWN:
+                    forecastable = new KNNmyown();
+                    break;
+                case Const.NEURALNET:
+                    forecastable = new Neuralnet();
+                    break;
+                case Const.NNET:
+                    forecastable = new Nnet();
+                    break;
+                case Const.NNETAR:
+                    forecastable = new Nnetar();
+                    break;
+                case Const.RBF:
+                    forecastable = new RBF();
+                    break;
+                case Const.SES:
+                    forecastable = new SES();
+                    break;
+                case Const.MAvg:
+                    forecastable = new MAvg();
+                case Const.VAR:
+                    break;
+
+                case Const.BNN:
+                    forecastable = new BNN();
+                    break;
+
+            }
+
+            
+            List<? extends Params> params = new ArrayList<>();
+            params = l.getModelParams();
+            
+            if (forecastable != null) {
+                for (Params p : params) {
+                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(DataTableModel.getInstance(), p));
+                    if (report != null) {
+                        report.setID(Utils.getModelID());
+                        reportsCTS.add(report);
+                    }
                 }
-                
+            } else { //inak je to intervalovy model, pokracovat
+                switch (l.getModel()) {
+                    case Const.HOLT_INT:
+                        forecastable = new HoltInt();
+                        break;
+                    case Const.HOLT_WINTERS_INT:
+                        forecastable = new HoltWintersInt();
+                        break;
+                    case Const.HYBRID:
+                        forecastable = new Hybrid();
+                        break;
+                    case Const.INTERVAL_HOLT:
+                        forecastable = new IntervalHolt();
+                        break;
+                    case Const.INTERVAL_MLP_C_CODE:
+                        forecastable = new IntervalMLPCcode();
+                        break;
+                    case Const.MLP_INT_NNET:
+                        forecastable = new MLPintNnet();
+                        break;
+                    case Const.MLP_INT_NNETAR:
+                        forecastable = new MLPintNnetar();
+                        break;
+                    case Const.RBF_INT:
+                        forecastable = new RBFint();
+                        break;
+                    case Const.SES_INT:
+                        forecastable = new SESint();
+                        break;
+                    case Const.VAR_INT:
+                        forecastable = new VARint();
+                        break;
+                    case Const.BNN_INT:
+                        forecastable = new BNNint();
+                        break;
+                }
+
                 if (forecastable != null) {
                     for (Params p : params) {
-                        TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(DataTableModel.getInstance(), p));
-                        if (report != null) {
-                            report.setID(Utils.getModelID());
-                            reportsCTS.add(report);
-                        }
+                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(DataTableModel.getInstance(), p));
+                        report.setID(Utils.getModelID());
+                        reportsIntTS.add(report);
                     }
-                } else { //inak je to intervalovy model, pokracovat
-                    switch (l.getModel()) {
-                        case Const.HOLT_INT:
-                            forecastable = new HoltInt();
-                            break;
-                        case Const.HOLT_WINTERS_INT:
-                            forecastable = new HoltWintersInt();
-                            break;
-                        case Const.HYBRID:
-                            forecastable = new Hybrid();
-                            break;
-                        case Const.INTERVAL_HOLT:
-                            forecastable = new IntervalHolt();
-                            break;
-                        case Const.INTERVAL_MLP_C_CODE:
-                            forecastable = new IntervalMLPCcode();
-                            break;
-                        case Const.MLP_INT_NNET:
-                            forecastable = new MLPintNnet();
-                            break;
-                        case Const.MLP_INT_NNETAR:
-                            forecastable = new MLPintNnetar();
-                            break;
-                        case Const.RBF_INT:
-                            forecastable = new RBFint();
-                            break;
-                        case Const.SES_INT:
-                            forecastable = new SESint();
-                            break;
-                        case Const.VAR_INT:
-                            forecastable = new VARint();
-                            break;
-                        case Const.BNN_INT:
-                            forecastable = new BNNint();
-                            break;
-                    }
-
-                    if (forecastable != null) {
-                        for (Params p : params) {
-                            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(DataTableModel.getInstance(), p));
-                            report.setID(Utils.getModelID());
-                            reportsIntTS.add(report);
-                        }
-                    } else { //still null?
-                        throw new IllegalArgumentException("should have found something by now..?");
-                    }
+                } else { //still null?
+                    throw new IllegalArgumentException("should have found something by now..?");
                 }
             }
         }
