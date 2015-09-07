@@ -57,6 +57,11 @@ public class MAvgSettingsPanel extends SettingsPanel {
     private javax.swing.JTextField textFieldOrder;
     // End of variables declaration//GEN-END:variables
     
+
+    @Override
+    public void enableAllElements(boolean trueFalse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setOrder", Integer.class, getOrder());

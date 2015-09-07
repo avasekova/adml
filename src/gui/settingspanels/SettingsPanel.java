@@ -93,4 +93,6 @@ public abstract class SettingsPanel extends JPanel {
         groupButtons.addAll(buttons);
     }
     
+    public abstract void enableAllElements(boolean trueFalse);
+    
 }

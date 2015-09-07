@@ -438,9 +438,45 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
         return textFieldWeightDecay.getText();
     }
     
-    public void enableAllButtons(boolean trueFalse) {
+    @Override
+    public void enableAllElements(boolean trueFalse) { //TODO islo by nejak krajsie, automaticky? pomocou mojich ComponentGroups alebo anotacie a nejak hromadne?
         buttonAddExplVar.setEnabled(trueFalse);
         buttonRemoveExplVar.setEnabled(trueFalse);
+        checkBoxSkipConn.setEnabled(trueFalse);
+        checkBoxTraceOptimization.setEnabled(trueFalse);
+        jLabel10.setEnabled(trueFalse);
+        jLabel11.setEnabled(trueFalse);
+        jLabel12.setEnabled(trueFalse);
+        jLabel13.setEnabled(trueFalse);
+        jLabel137.setEnabled(trueFalse);
+        jLabel14.setEnabled(trueFalse);
+        jLabel15.setEnabled(trueFalse);
+        jLabel16.setEnabled(trueFalse);
+        jLabel17.setEnabled(trueFalse);
+        jLabel18.setEnabled(trueFalse);
+        jLabel19.setEnabled(trueFalse);
+        jLabel20.setEnabled(trueFalse);
+        jLabel21.setEnabled(trueFalse);
+        jLabel22.setEnabled(trueFalse);
+        jLabel23.setEnabled(trueFalse);
+        jLabel24.setEnabled(trueFalse);
+        jLabel25.setEnabled(trueFalse);
+        jLabel26.setEnabled(trueFalse);
+        jLabel27.setEnabled(trueFalse);
+        jLabel29.setEnabled(trueFalse);
+        labelInitRangeMirror.setEnabled(trueFalse);
+        radioButtonCensoredOn.setEnabled(trueFalse);
+        radioButtonLeastSqrs.setEnabled(trueFalse);
+        radioButtonLogistic.setEnabled(trueFalse);
+        radioButtonLoglinSoftmax.setEnabled(trueFalse);
+        scrollPaneExplVars.setEnabled(trueFalse);
+        tableExplVars.setEnabled(trueFalse);
+        textFieldAbstol.setEnabled(trueFalse);
+        textFieldInitRange.setEnabled(trueFalse);
+        textFieldMaxit.setEnabled(trueFalse);
+        textFieldNumNodesHidden.setEnabled(trueFalse);
+        textFieldReltol.setEnabled(trueFalse);
+        textFieldWeightDecay.setEnabled(trueFalse);
     }
 
     @Override

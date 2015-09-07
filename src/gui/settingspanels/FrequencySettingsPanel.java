@@ -73,6 +73,11 @@ public class FrequencySettingsPanel extends SettingsPanel {
     public Integer getFrequency() {
         return Integer.parseInt(textFieldFrequency.getText());
     }
+
+    @Override
+    public void enableAllElements(boolean trueFalse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {

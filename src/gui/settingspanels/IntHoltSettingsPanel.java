@@ -197,6 +197,11 @@ public class IntHoltSettingsPanel extends SettingsPanel {
                 //tak snad je toto korektne prepisanie tej podmienky:
                 (beta00 <= alpha00) && (beta01 <= alpha01) && (beta10 <= alpha10) && (beta11 <= alpha11));
     }
+
+    @Override
+    public void enableAllElements(boolean trueFalse) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {

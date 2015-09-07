@@ -58,7 +58,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-60,0,0,5,-127"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,2,-59,0,0,5,99"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
@@ -119,7 +119,7 @@
                                   </Group>
                                   <Component id="buttonBasicStats" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="10" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                       </Group>
@@ -132,7 +132,7 @@
                               <Component id="buttonExportAnalysisPlotsCTS" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="429" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="408" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
@@ -171,7 +171,7 @@
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Component id="buttonExportAnalysisText" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Component id="jScrollPane2" pref="354" max="32767" attributes="0"/>
+                              <Component id="jScrollPane2" pref="355" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -380,7 +380,7 @@
                           </Group>
                           <Component id="buttonNormalize" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="875" max="32767" attributes="0"/>
+                      <EmptySpace pref="845" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -407,7 +407,7 @@
                           </Group>
                           <Component id="jScrollPane7" min="-2" pref="258" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="390" max="32767" attributes="0"/>
+                      <EmptySpace pref="391" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -542,7 +542,7 @@
                       <Component id="jSeparator14" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="buttonConvertITSLBUBCR" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="705" max="32767" attributes="0"/>
+                      <EmptySpace pref="675" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -577,7 +577,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="327" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="328" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -759,7 +759,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="buttonLegendSelectNone" alignment="1" min="-2" max="-2" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="scrollPaneListPlotLegend" pref="275" max="32767" attributes="0"/>
+                                      <Component id="scrollPaneListPlotLegend" pref="245" max="32767" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonLegendSelectAll" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
@@ -834,7 +834,7 @@
                           <Component id="scrollPaneListPlotLegend" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="panelPlot" pref="579" max="32767" attributes="0"/>
+                      <Component id="panelPlot" pref="580" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1093,7 +1093,7 @@
                               <Component id="buttonExportTestsPlots" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel34" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="470" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="440" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -1126,7 +1126,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonExportTextAreaTests" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="344" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="345" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jSeparator15" alignment="1" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
@@ -1286,12 +1286,12 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="1404" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="1374" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="scrollPaneData" alignment="0" pref="659" max="32767" attributes="0"/>
+                  <Component id="scrollPaneData" alignment="0" pref="660" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
@@ -1334,7 +1334,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="paneSettingsMethods" alignment="0" pref="1404" max="32767" attributes="0"/>
+                  <Component id="paneSettingsMethods" alignment="0" pref="1374" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -1380,7 +1380,7 @@
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_MLP" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="1156" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="1126" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1402,7 +1402,7 @@
                                   <Component id="panelMLPPercentTrain" min="-2" pref="40" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="panelSettingsMLPPackage" pref="557" max="32767" attributes="0"/>
+                              <Component id="panelSettingsMLPPackage" pref="558" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1530,15 +1530,6 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="panelSettingsMLPintPackage" max="32767" attributes="0"/>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="panelMLPintSettingsDistance" min="-2" pref="300" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="textFieldNumNetsToTrainMLPint" min="-2" pref="24" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="panelBestModelCriterionMLPint" max="32767" attributes="0"/>
-                                          </Group>
                                           <Group type="102" alignment="0" attributes="0">
                                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                                               <Component id="comboBoxRPackageMLPint" min="-2" max="-2" attributes="0"/>
@@ -1552,13 +1543,24 @@
                                               </Group>
                                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="panelMLPintSettingsDistance" min="-2" pref="300" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="textFieldNumNetsToTrainMLPint" min="-2" pref="24" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="panelBestModelCriterionMLPint" min="-2" pref="275" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="panelCRCombinationsStrategyMLPint" max="32767" attributes="0"/>
+                                          </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="1313" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1283" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1583,7 +1585,8 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jLabel48" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelCRCombinationsStrategyMLPint" pref="38" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="panelBestModelCriterionMLPint" max="32767" attributes="0"/>
                                       <Component id="panelMLPintSettingsDistance" pref="38" max="32767" attributes="0"/>
@@ -1596,7 +1599,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
-                              <EmptySpace min="0" pref="654" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="655" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1638,7 +1641,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel101" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="547" pref="650" max="32767" attributes="0"/>
+                                              <EmptySpace min="547" pref="620" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="scrollPane_panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
@@ -1661,7 +1664,7 @@
                                               </Group>
                                               <EmptySpace max="-2" attributes="0"/>
                                               <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="scrollPane_panelSettingsMLPintPackage_nnet_center" pref="414" max="32767" attributes="0"/>
+                                                  <Component id="scrollPane_panelSettingsMLPintPackage_nnet_center" pref="415" max="32767" attributes="0"/>
                                                   <Component id="scrollPane_panelSettingsMLPintPackage_nnet_radius" max="32767" attributes="0"/>
                                               </Group>
                                           </Group>
@@ -1741,7 +1744,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel88" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="665" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="635" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
@@ -1761,7 +1764,7 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="panelSettingsMLPintPackage_nnetar_center" pref="414" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsMLPintPackage_nnetar_center" pref="415" max="32767" attributes="0"/>
                                           <Component id="panelSettingsMLPintPackage_nnetar_radius" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -1859,6 +1862,13 @@
                         <Property name="text" type="java.lang.String" value="1"/>
                       </Properties>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="panelCRCombinationsStrategyMLPint">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CRCombinationsStrategySettingsPanel((SettingsPanel) panelSettingsMLPintPackage_nnet_radius, (SettingsPanel) panelSettingsMLPintPackage_nnetar_radius)"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="paneSettingsMethodsIntervalMLP">
@@ -1886,7 +1896,7 @@
                                   <Component id="panelSettingsIntervalMLPMode" max="32767" attributes="0"/>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_intMLP" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="1156" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="1126" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1908,7 +1918,7 @@
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="panelSettingsIntervalMLPMode" min="-2" pref="490" max="-2" attributes="0"/>
-                              <EmptySpace pref="73" max="32767" attributes="0"/>
+                              <EmptySpace pref="74" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2010,7 +2020,7 @@
                                   <Component id="panelRBFPercentTrain" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_RBF" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="1156" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="1126" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="panelSettingsRBFMain" max="32767" attributes="0"/>
                               </Group>
@@ -2026,7 +2036,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="panelRBFPercentTrain" min="-2" pref="31" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelSettingsRBFMain" pref="561" max="32767" attributes="0"/>
+                              <Component id="panelSettingsRBFMain" pref="562" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2070,9 +2080,13 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="panelCRCombinationStrategyRBFint" min="-2" pref="497" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel157" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -2097,7 +2111,7 @@
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel151" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="723" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="693" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="panelSettingsRBFint_radius" max="32767" attributes="0"/>
@@ -2156,7 +2170,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jSeparator5" max="32767" attributes="0"/>
-                                          <Component id="panelSettingsRBFint_center" pref="383" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsRBFint_center" pref="384" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -2172,7 +2186,9 @@
                                   </Group>
                                   <Component id="panelBestModelCriterionRBFint" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="panelCRCombinationStrategyRBFint" min="-2" pref="35" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2271,6 +2287,13 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
                     </Container>
+                    <Container class="javax.swing.JPanel" name="panelCRCombinationStrategyRBFint">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CRCombinationsStrategySettingsPanel((SettingsPanel) panelSettingsRBFint_radius)"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="paneSettingsMethodsARIMA">
@@ -2292,7 +2315,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_ARIMA" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="panelARIMAPercTrain" pref="1146" max="32767" attributes="0"/>
+                                      <Component id="panelARIMAPercTrain" pref="1116" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2308,7 +2331,7 @@
                                   <Component id="buttonSettingsAddToBatch_ARIMA" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="panelSettingsARIMAMain" pref="581" max="32767" attributes="0"/>
+                              <Component id="panelSettingsARIMAMain" pref="582" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2360,7 +2383,7 @@
                                       <Component id="jLabel64" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="comboBoxKNNoptions" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="1183" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="1153" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_KNN" min="-2" max="-2" attributes="0"/>
@@ -2386,7 +2409,7 @@
                                   <Component id="comboBoxKNNoptions" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                              <Component id="panelSettingsKNNoptions" pref="549" max="32767" attributes="0"/>
+                              <Component id="panelSettingsKNNoptions" pref="550" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -2501,7 +2524,7 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="buttonSettingsAddToBatch_VARint" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="panelVARintPercentTrain" pref="704" max="32767" attributes="0"/>
+                                              <Component id="panelVARintPercentTrain" pref="674" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
@@ -2526,7 +2549,7 @@
                                   <Component id="buttonSettingsAddToBatch_VARint" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelVARintInside" pref="561" max="32767" attributes="0"/>
+                              <Component id="panelVARintInside" pref="562" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2600,7 +2623,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_SES" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="panelSESpercentTrain" pref="1150" max="32767" attributes="0"/>
+                                      <Component id="panelSESpercentTrain" pref="1120" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2616,7 +2639,7 @@
                                   <Component id="buttonSettingsAddToBatch_SES" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelSESmain" pref="581" max="32767" attributes="0"/>
+                              <Component id="panelSESmain" pref="582" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2660,16 +2683,16 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
+                                          <Group type="102" attributes="0">
                                               <Component id="jLabel154" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                           </Group>
-                                          <Component id="panelSESint_center" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="panelSESint_center" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jSeparator7" min="-2" pref="2" max="-2" attributes="0"/>
@@ -2679,17 +2702,17 @@
                                           <Component id="panelSESint_radius" alignment="0" min="-2" pref="635" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="panelCRCombinationStrategySESint" alignment="0" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="buttonSettingsAddToBatch_SESint" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="panelSESintPercentTrain" max="32767" attributes="0"/>
-                                          </Group>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-                                      <Component id="panelSESintDistance" min="-2" pref="499" max="-2" attributes="0"/>
+                                      <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="buttonSettingsAddToBatch_SESint" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="panelSESintPercentTrain" min="-2" pref="616" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="panelSESintDistance" pref="490" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2702,27 +2725,27 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel51" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="panelSESintDistance" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="panelSESintPercentTrain" alignment="0" pref="40" max="32767" attributes="0"/>
-                                  </Group>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="panelSESintDistance" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="panelSESintPercentTrain" alignment="0" pref="40" max="32767" attributes="0"/>
                                   <Component id="buttonSettingsAddToBatch_SESint" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel154" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel155" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="panelCRCombinationStrategySESint" min="-2" pref="52" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="jLabel154" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel155" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="panelSESint_center" alignment="0" pref="536" max="32767" attributes="0"/>
-                                          <Component id="panelSESint_radius" alignment="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="panelSESint_radius" pref="484" max="32767" attributes="0"/>
+                                          <Component id="panelSESint_center" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
-                                  <Component id="jSeparator7" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="jSeparator7" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -2793,6 +2816,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSettingsAddToBatch_SESintActionPerformed"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="panelCRCombinationStrategySESint">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CRCombinationsStrategySettingsPanel((SettingsPanel) panelSESint_radius)"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="panelSettingsMethodsMAvg">
@@ -2812,7 +2842,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_MAvg" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="0" pref="1156" max="32767" attributes="0"/>
+                                      <EmptySpace min="0" pref="1126" max="32767" attributes="0"/>
                                   </Group>
                                   <Component id="panelMAvgMain" max="32767" attributes="0"/>
                               </Group>
@@ -2870,7 +2900,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_Holt" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="panelHoltPercentTrain" pref="1150" max="32767" attributes="0"/>
+                                      <Component id="panelHoltPercentTrain" pref="1120" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -2886,7 +2916,7 @@
                                   <Component id="buttonSettingsAddToBatch_Holt" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelHoltInside" pref="581" max="32767" attributes="0"/>
+                              <Component id="panelHoltInside" pref="582" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -2930,14 +2960,15 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="panelCRCombinationsStrategyHoltInt" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel152" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="603" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="573" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="panelHoltInt_center" max="32767" attributes="0"/>
                                       </Group>
@@ -2979,20 +3010,21 @@
                                   </Group>
                                   <Component id="buttonSettingsAddToBatch_Holtint" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel152" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel153" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
+                              <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
+                              <Component id="panelCRCombinationsStrategyHoltInt" pref="38" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jLabel152" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="panelHoltInt_center" pref="536" max="32767" attributes="0"/>
-                                          <Component id="panelHoltInt_radius" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="panelHoltInt_center" min="-2" pref="495" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jSeparator6" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel153" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="panelHoltInt_radius" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jSeparator6" alignment="1" min="-2" pref="520" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -3063,6 +3095,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSettingsAddToBatch_HoltintActionPerformed"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="panelCRCombinationsStrategyHoltInt">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CRCombinationsStrategySettingsPanel((SettingsPanel) panelHoltInt_radius)"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="panelSettingsMethodsIntervalHolt">
@@ -3086,7 +3125,7 @@
                                           <Group type="102" attributes="0">
                                               <Component id="buttonSettingsAddToBatch_IntervalHolt" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="panelIntervalHoltPercentTrain" pref="654" max="32767" attributes="0"/>
+                                              <Component id="panelIntervalHoltPercentTrain" pref="624" max="32767" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -3119,7 +3158,7 @@
                                   <Component id="buttonSettingsAddToBatch_IntervalHolt" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelIntervalHoltMain" pref="561" max="32767" attributes="0"/>
+                              <Component id="panelIntervalHoltMain" pref="562" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -3195,7 +3234,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_HoltWinters" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="panelHoltWintersPercentTrain" pref="1150" max="32767" attributes="0"/>
+                                      <Component id="panelHoltWintersPercentTrain" pref="1120" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -3211,7 +3250,7 @@
                                   <Component id="buttonSettingsAddToBatch_HoltWinters" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="panelHoltWintersInside" pref="581" max="32767" attributes="0"/>
+                              <Component id="panelHoltWintersInside" pref="582" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -3258,6 +3297,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="panelCRCombinationStrategyHoltWintersInt" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" alignment="0" attributes="0">
@@ -3267,7 +3307,7 @@
                                           <Component id="panelHoltWintersInt_center" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="jSeparator8" min="-2" pref="2" max="-2" attributes="0"/>
+                                      <Component id="jSeparator8" min="-2" pref="12" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Group type="102" attributes="0">
@@ -3283,7 +3323,7 @@
                                           <Group type="102" alignment="0" attributes="0">
                                               <Component id="buttonSettingsAddToBatch_HoltWintersInt" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                              <Component id="panelHoltWintersIntPercentTrain" pref="651" max="32767" attributes="0"/>
+                                              <Component id="panelHoltWintersIntPercentTrain" pref="621" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -3296,7 +3336,7 @@
                     </DimensionLayout>
                     <DimensionLayout dim="1">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
+                          <Group type="102" alignment="1" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel52" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -3307,20 +3347,21 @@
                                   </Group>
                                   <Component id="buttonSettingsAddToBatch_HoltWintersInt" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="panelCRCombinationStrategyHoltWintersInt" min="-2" pref="40" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel158" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel159" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="panelHoltWintersInt_center" pref="536" max="32767" attributes="0"/>
-                                          <Component id="panelHoltWintersInt_radius" max="32767" attributes="0"/>
-                                      </Group>
+                                      <Component id="jLabel158" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="panelHoltWintersInt_center" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="jSeparator8" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jLabel159" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="panelHoltWintersInt_radius" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Component id="jSeparator8" alignment="1" min="-2" pref="516" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -3391,6 +3432,13 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonSettingsAddToBatch_HoltWintersIntActionPerformed"/>
                       </Events>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="panelCRCombinationStrategyHoltWintersInt">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CRCombinationsStrategySettingsPanel((SettingsPanel) panelHoltWintersInt_radius)"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
                 <Container class="javax.swing.JPanel" name="paneSettingsMethodsHybrid">
@@ -3434,7 +3482,7 @@
                                               <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                               <Component id="comboBoxSettingsHybridMethod_radius" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="0" pref="620" max="32767" attributes="0"/>
+                                              <EmptySpace min="0" pref="590" max="32767" attributes="0"/>
                                           </Group>
                                           <Component id="panelSettingsHybrid_radiusMain" max="32767" attributes="0"/>
                                       </Group>
@@ -3465,7 +3513,7 @@
                               <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jSeparator3" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="panelSettingsHybrid_radiusMain" pref="549" max="32767" attributes="0"/>
+                                  <Component id="panelSettingsHybrid_radiusMain" pref="550" max="32767" attributes="0"/>
                                   <Component id="panelSettingsHybrid_centerMain" alignment="1" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -3859,9 +3907,10 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="panelCRCombinationStrategyBNNint" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="buttonSettingsAddToBatch_BNNint" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
@@ -3870,7 +3919,7 @@
                                   <Group type="102" alignment="1" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="jLabel30" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="panelSettingsBNNint_center" alignment="0" pref="586" max="32767" attributes="0"/>
+                                          <Component id="panelSettingsBNNint_center" alignment="0" pref="556" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="jSeparator13" min="-2" pref="18" max="-2" attributes="0"/>
@@ -3884,18 +3933,18 @@
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel160" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="panelBNNintSettingsDistance" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel139" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="textFieldNumNetworksToTrainBNNint" min="-2" pref="29" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="panelBestModelCriterionBNNint" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel160" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="panelBNNintSettingsDistance" alignment="0" min="-2" pref="300" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -3933,7 +3982,9 @@
                                   </Group>
                                   <Component id="panelBestModelCriterionBNNint" min="-2" pref="20" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="panelCRCombinationStrategyBNNint" pref="107" max="32767" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -4019,6 +4070,13 @@
                         <Property name="orientation" type="int" value="1"/>
                       </Properties>
                     </Component>
+                    <Container class="javax.swing.JPanel" name="panelCRCombinationStrategyBNNint">
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new CRCombinationsStrategySettingsPanel((SettingsPanel) panelSettingsBNNint_radius)"/>
+                      </AuxValues>
+
+                      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+                    </Container>
                   </SubComponents>
                 </Container>
               </SubComponents>
@@ -4107,7 +4165,7 @@
                                       <Component id="textFieldRunNumForecasts" min="-2" pref="35" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="97" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="jLabelTrainingInfo" min="-2" max="-2" attributes="0"/>
@@ -4285,7 +4343,7 @@
                               <Component id="textFieldRunRMSSESeasonality" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="45" pref="46" max="32767" attributes="0"/>
+                      <EmptySpace min="45" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -5105,7 +5163,7 @@
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="buttonRunExportErrorMeasures" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="742" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="712" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -5140,7 +5198,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="608" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="609" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -5220,7 +5278,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="panelResidualsPlot" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane5" pref="99" max="32767" attributes="0"/>
+                                      <Component id="jScrollPane5" pref="100" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -5312,7 +5370,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneResiduals" alignment="0" pref="493" max="32767" attributes="0"/>
+                          <Component id="scrollPaneResiduals" alignment="0" pref="463" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -5412,7 +5470,7 @@
                       <Component id="buttonForecastValsHideAllButAvg" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="591" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="561" max="32767" attributes="0"/>
                   </Group>
                   <Component id="panelForecastVals" max="32767" attributes="0"/>
               </Group>
@@ -5453,7 +5511,7 @@
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="scrollPaneForecastVals" alignment="0" pref="630" max="32767" attributes="0"/>
+                      <Component id="scrollPaneForecastVals" alignment="0" pref="631" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -5588,7 +5646,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Component id="buttonExportPredictionIntervals" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="1339" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1309" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -5625,7 +5683,7 @@
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="scrollPanePredictionIntervals" pref="614" max="32767" attributes="0"/>
+                          <Component id="scrollPanePredictionIntervals" pref="615" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -5660,7 +5718,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="scrollPaneAnalysisBatchInside" pref="1384" max="32767" attributes="0"/>
+                          <Component id="scrollPaneAnalysisBatchInside" pref="1354" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -5690,7 +5748,7 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scrollPaneAnalysisBatchInside" pref="608" max="32767" attributes="0"/>
+                      <Component id="scrollPaneAnalysisBatchInside" pref="609" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -5796,12 +5854,12 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="1384" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="1354" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <EmptySpace min="0" pref="619" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="620" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
               </Layout>
@@ -5825,7 +5883,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="1165" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1135" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane8" max="32767" attributes="0"/>
                       </Group>
@@ -5839,7 +5897,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel23" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPane8" pref="617" max="32767" attributes="0"/>
+                      <Component id="jScrollPane8" pref="618" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -5964,7 +6022,7 @@
                                   <Group type="102" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="buttonBinomPropComputePosterior" min="-2" max="-2" attributes="0"/>
-                                          <Component id="panelBinomPropSettings" pref="116" max="32767" attributes="0"/>
+                                          <Component id="panelBinomPropSettings" pref="117" max="32767" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="3" attributes="0">

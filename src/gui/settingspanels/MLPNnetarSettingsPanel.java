@@ -216,6 +216,20 @@ public class MLPNnetarSettingsPanel extends SettingsPanel {
     public String getNumSeasonalLags() {
         return textFieldNumSeasonalLags.getText();
     }
+    
+    @Override
+    public void enableAllElements(boolean trueFalse) {
+        jLabel1.setEnabled(trueFalse);
+        jLabel2.setEnabled(trueFalse);
+        jLabel3.setEnabled(trueFalse);
+        jLabel4.setEnabled(trueFalse);
+        jLabel5.setEnabled(trueFalse);
+        textFieldLambda.setEnabled(trueFalse);
+        textFieldNumNodesHidden.setEnabled(trueFalse);
+        textFieldNumNonSeasonalLags.setEnabled(trueFalse);
+        textFieldNumReps.setEnabled(trueFalse);
+        textFieldNumSeasonalLags.setEnabled(trueFalse);
+    }
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
