@@ -4,30 +4,25 @@ import java.util.List;
 
 public class AnalysisBatchLine {
     
-    private String model;
-    private List<? extends Params> modelParams;
+    private final String model;
+    private final List<? extends Params> modelParams;
+    private final int numModels;
     
-    public AnalysisBatchLine() {}
-    
-    public AnalysisBatchLine(String model, List<? extends Params> modelParams) {
+    public AnalysisBatchLine(String model, List<? extends Params> modelParams, int numModels) {
         this.model = model;
         this.modelParams = modelParams;
+        this.numModels = numModels;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public List<? extends Params> getModelParams() {
         return modelParams;
     }
 
-    public void setModelParams(List<Params> modelParams) {
-        this.modelParams = modelParams;
+    public int getNumModels() {
+        return numModels;
     }
-    
 }
