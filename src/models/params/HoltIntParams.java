@@ -1,7 +1,6 @@
 package models.params;
 
 import gui.settingspanels.DistanceSettingsPanel;
-import gui.settingspanels.HoltSettingsPanel;
 import gui.settingspanels.SettingsPanel;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,19 +49,30 @@ public class HoltIntParams extends PseudoIntervalParams {
     public static List<HoltIntParams> getParamsHoltInt(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsHolt_center,
                 JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsHolt_radius,
                 JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
-        List<HoltParams> resultListCenter = HoltParams.getParamsHolt(percentTrainSettingsPanel_center, panelSettingsHolt_center,
-                comboBoxColName_center);
-        List<HoltParams> resultListRadius = HoltParams.getParamsHolt(percentTrainSettingsPanel_radius, panelSettingsHolt_radius,
-                comboBoxColName_radius);
         
         HoltIntParams par = new HoltIntParams();
         
         List<HoltIntParams> resultList = new ArrayList<>();
         resultList.add(par);
+        
+        List<HoltParams> resultListCenter = HoltParams.getParamsHolt(percentTrainSettingsPanel_center, panelSettingsHolt_center,
+                comboBoxColName_center);
         SettingsPanel.setSomethingList(HoltIntParams.class, resultList, "setParamsCenter",
                 HoltParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(HoltIntParams.class, resultList, "setParamsRadius",
+        
+        List<HoltParams> resultListRadius = HoltParams.getParamsHolt(percentTrainSettingsPanel_radius, panelSettingsHolt_radius,
+                comboBoxColName_radius);
+        if (((SettingsPanel) panelSettingsHolt_radius).isTakenIntoAccount()) {
+            SettingsPanel.setSomethingList(HoltIntParams.class, resultList, "setParamsRadius",
                 HoltParams.class, resultListRadius);
+        } else {
+            for (HoltIntParams params : resultList) {
+                params.setParamsRadius(params.getParamsCenter().getClone());
+                //ale este preplacnut naspat niektore veci
+                params.getParamsRadius().setColName(resultListRadius.get(0).getColName());
+            }
+        }
+        
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(HoltIntParams.class, resultList);
         
         return resultList;

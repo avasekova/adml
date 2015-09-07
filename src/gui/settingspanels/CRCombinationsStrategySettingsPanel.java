@@ -88,6 +88,7 @@ public class CRCombinationsStrategySettingsPanel extends SettingsPanel {
     private void enableAllRadiusPanels(boolean trueFalse) {
         for (SettingsPanel p : radiusPanels) {
             p.enableAllElements(trueFalse);
+            p.setTakenIntoAccount(trueFalse);
         }
     }
 

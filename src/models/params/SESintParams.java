@@ -1,7 +1,6 @@
 package models.params;
 
 import gui.settingspanels.DistanceSettingsPanel;
-import gui.settingspanels.SESSettingsPanel;
 import gui.settingspanels.SettingsPanel;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,19 +49,29 @@ public class SESintParams extends PseudoIntervalParams {
     public static List<SESintParams> getParamsSESint(JPanel percentTrainSettingsPanel_center, JPanel panelSettingsSES_center,
                 JComboBox comboBoxColName_center, JPanel percentTrainSettingsPanel_radius, JPanel panelSettingsSES_radius,
                 JComboBox comboBoxColName_radius, JPanel panelSettingsDistance) {
-        List<SESParams> resultListCenter = SESParams.getParamsSES(percentTrainSettingsPanel_center, comboBoxColName_center,
-                panelSettingsSES_center);
-        List<SESParams> resultListRadius = SESParams.getParamsSES(percentTrainSettingsPanel_radius, comboBoxColName_radius,
-                panelSettingsSES_radius);
         
         SESintParams par = new SESintParams();
         
         List<SESintParams> resultList = new ArrayList<>();
         resultList.add(par);
+        
+        List<SESParams> resultListCenter = SESParams.getParamsSES(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsSES_center);
         SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsCenter",
                 SESParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsRadius",
+        
+        List<SESParams> resultListRadius = SESParams.getParamsSES(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsSES_radius);
+        if (((SettingsPanel) panelSettingsSES_radius).isTakenIntoAccount()) {
+            SettingsPanel.setSomethingList(SESintParams.class, resultList, "setParamsRadius",
                 SESParams.class, resultListRadius);
+        } else {
+            for (SESintParams params : resultList) {
+                params.setParamsRadius(params.getParamsCenter().getClone());
+                //ale este preplacnut naspat niektore veci
+                params.getParamsRadius().setColName(resultListRadius.get(0).getColName());
+            }
+        }
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(SESintParams.class, resultList);
         
         return resultList;

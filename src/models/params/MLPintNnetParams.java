@@ -2,7 +2,6 @@ package models.params;
 
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
-import gui.settingspanels.MLPNnetSettingsPanel;
 import gui.settingspanels.SettingsPanel;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,11 +69,6 @@ public class MLPintNnetParams extends PseudoIntervalParams {
             javax.swing.JPanel panelSettingsNnet_radius, javax.swing.JPanel panelSettingsDistance,
             javax.swing.JTextField numNetsToTrainField, 
             javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
-        List<NnetParams> resultListCenter = NnetParams.getParamsNnet(percentTrainSettingsPanel_center, comboBoxColName_center,
-                panelSettingsNnet_center);
-        List<NnetParams> resultListRadius = NnetParams.getParamsNnet(percentTrainSettingsPanel_radius, comboBoxColName_radius,
-                panelSettingsNnet_radius);
-        
         
         MLPintNnetParams par = new MLPintNnetParams();
         
@@ -82,10 +76,27 @@ public class MLPintNnetParams extends PseudoIntervalParams {
         resultList.add(par);
         
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(MLPintNnetParams.class, resultList);
+        
+        List<NnetParams> resultListCenter = NnetParams.getParamsNnet(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsNnet_center);
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsCenter",
                 NnetParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
+        
+        List<NnetParams> resultListRadius = NnetParams.getParamsNnet(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsNnet_radius);
+        if (((SettingsPanel) panelSettingsNnet_radius).isTakenIntoAccount()) {
+            SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setParamsRadius",
                 NnetParams.class, resultListRadius);
+        } else {
+            for (MLPintNnetParams params : resultList) {
+                params.setParamsRadius(params.getParamsCenter().getClone());
+                //ale este preplacnut naspat explVars a colName! inak tam bude fakt UPLNE vsetko z Center, a to nechceme
+                params.getParamsRadius().setColName(resultListRadius.get(0).getColName());
+                params.getParamsRadius().setExplVars(resultListRadius.get(0).getExplVars());
+            }
+        }
+        
+        
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
         SettingsPanel.setSomethingOneValue(MLPintNnetParams.class, resultList, "setCriterion",

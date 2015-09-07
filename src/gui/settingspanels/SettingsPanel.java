@@ -15,6 +15,7 @@ import models.params.Params;
 public abstract class SettingsPanel extends JPanel {
     
     private ComponentGroup groupButtons = new ComponentGroup();
+    private boolean takenIntoAccount = true;
     
     public abstract <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList);
     
@@ -95,4 +96,12 @@ public abstract class SettingsPanel extends JPanel {
     
     public abstract void enableAllElements(boolean trueFalse);
     
+    //je tu kvoli radius panelom (ktore sa nepouziju do parametrov, ak je toto vypnute) a CRCombinationStrategy panelom (ktore ich pomocou tohto vypinaju)
+    public void setTakenIntoAccount(boolean takenIntoAccount) {
+        this.takenIntoAccount = takenIntoAccount;
+    }
+    
+    public boolean isTakenIntoAccount() {
+        return takenIntoAccount;
+    }
 }

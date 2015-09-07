@@ -69,19 +69,31 @@ public class RBFintParams extends PseudoIntervalParams {
             javax.swing.JPanel panelSettingsRBF_radius, javax.swing.JPanel panelSettingsDistance,
             javax.swing.JTextField numNetsToTrainField,
             javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
-        List<RBFParams> resultListCenter = RBFParams.getParamsRBF(percentTrainSettingsPanel_center, comboBoxColName_center,
-                panelSettingsRBF_center);
-        List<RBFParams> resultListRadius = RBFParams.getParamsRBF(percentTrainSettingsPanel_radius, comboBoxColName_radius,
-                panelSettingsRBF_radius);
         
         RBFintParams par = new RBFintParams();
         
         List<RBFintParams> resultList = new ArrayList<>();
         resultList.add(par);
+        
+        List<RBFParams> resultListCenter = RBFParams.getParamsRBF(percentTrainSettingsPanel_center, comboBoxColName_center,
+                panelSettingsRBF_center);
         SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsCenter",
                 RBFParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsRadius",
+        
+        List<RBFParams> resultListRadius = RBFParams.getParamsRBF(percentTrainSettingsPanel_radius, comboBoxColName_radius,
+                panelSettingsRBF_radius);
+        if (((SettingsPanel) panelSettingsRBF_radius).isTakenIntoAccount()) {
+            SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setParamsRadius",
                 RBFParams.class, resultListRadius);
+        } else {
+            for (RBFintParams params : resultList) {
+                params.setParamsRadius(params.getParamsCenter().getClone());
+                //ale este preplacnut naspat niektore veci
+                params.getParamsRadius().setExplVars(resultListRadius.get(0).getExplVars());
+                params.getParamsRadius().setOutVars(resultListRadius.get(0).getOutVars());
+            }
+        }
+        
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(RBFintParams.class, resultList);
         SettingsPanel.setSomethingList(RBFintParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));

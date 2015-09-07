@@ -1,6 +1,5 @@
 package models.params;
 
-import gui.settingspanels.BNNSettingsPanel;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.SettingsPanel;
@@ -69,19 +68,29 @@ public class BNNintParams extends PseudoIntervalParams {
             javax.swing.JPanel panelSettingsDistance, javax.swing.JTextField numNetsToTrainField,
             javax.swing.JPanel panelBestModelCriterion) throws IllegalArgumentException {
         
-        List<BNNParams> resultListCenter = BNNParams.getParamsBNN(percentTrainSettingsPanel, comboBoxColName_center,
-                panelSettingsBNNint_center);
-        List<BNNParams> resultListRadius = BNNParams.getParamsBNN(percentTrainSettingsPanel, comboBoxColName_radius,
-                panelSettingsBNNint_radius);
-        
         BNNintParams par = new BNNintParams();
         
         List<BNNintParams> resultList = new ArrayList<>();
         resultList.add(par);
+        
+        List<BNNParams> resultListCenter = BNNParams.getParamsBNN(percentTrainSettingsPanel, comboBoxColName_center,
+                panelSettingsBNNint_center);
         SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsCenter",
                 BNNParams.class, resultListCenter);
-        SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsRadius",
+        
+        List<BNNParams> resultListRadius = BNNParams.getParamsBNN(percentTrainSettingsPanel, comboBoxColName_radius,
+                panelSettingsBNNint_radius);
+        if (((SettingsPanel) panelSettingsBNNint_radius).isTakenIntoAccount()) {
+            SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setParamsRadius",
                 BNNParams.class, resultListRadius);
+        } else {
+            for (BNNintParams params : resultList) {
+                params.setParamsRadius(params.getParamsCenter().getClone());
+                //ale este preplacnut naspat niektore veci
+                params.getParamsRadius().setExplVars(resultListRadius.get(0).getExplVars());
+                params.getParamsRadius().setOutVars(resultListRadius.get(0).getOutVars());
+            }
+        }
         ((DistanceSettingsPanel)panelSettingsDistance).setSpecificParams(BNNintParams.class, resultList);
         SettingsPanel.setSomethingList(BNNintParams.class, resultList, "setNumNetsToTrain",
                 Integer.class, FieldsParser.parseIntegers(numNetsToTrainField));
