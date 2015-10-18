@@ -221,6 +221,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonExportAnalysisText = new javax.swing.JButton();
         buttonBasicStats = new javax.swing.JButton();
         buttonCTSclearSelection = new javax.swing.JButton();
+        buttonPCA = new javax.swing.JButton();
         panelTransform = new javax.swing.JPanel();
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
@@ -759,6 +760,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonPCA.setText("Principal Components Analysis");
+        buttonPCA.setEnabled(false);
+        buttonPCA.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonPCAActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
         panelCTS.setLayout(panelCTSLayout);
         panelCTSLayout.setHorizontalGroup(
@@ -783,8 +792,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(buttonACF)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonPACF))
-                            .addComponent(buttonBasicStats))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(buttonBasicStats)
+                            .addComponent(buttonPCA))
+                        .addGap(0, 1, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -821,7 +831,9 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonNormProbPlot)
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonBasicStats))
+                                .addComponent(buttonBasicStats)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(buttonPCA))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(7, 7, 7)
                         .addComponent(buttonExportAnalysisText)
@@ -1761,9 +1773,8 @@ public class MainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelCRCombinationsStrategyMLPint, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                    .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(panelBestModelCriterionMLPint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))
+                    .addComponent(panelBestModelCriterionMLPint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelMLPintSettingsDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel12)
                         .addComponent(textFieldNumNetsToTrainMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -5460,6 +5471,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonITSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonITSclearSelectionActionPerformed
         listPlotITSspecs.setSelectedIndices(new int[]{});
     }//GEN-LAST:event_buttonITSclearSelectionActionPerformed
+
+    private void buttonPCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPCAActionPerformed
+        textAreaPlotBasicStats.setText(AnalysisUtils.getPrincipalComponents(listColnames.getSelectedValuesList()));
+    }//GEN-LAST:event_buttonPCAActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
@@ -5505,6 +5520,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonNormalityTests;
     private javax.swing.JButton buttonNormalize;
     private javax.swing.JButton buttonPACF;
+    private javax.swing.JButton buttonPCA;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITSScatterplot;
     private javax.swing.JButton buttonPlotAllITSScatterplotMatrix;
@@ -6910,7 +6926,8 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonStructBreaks, buttonExportAnalysisText, buttonExportTestsPlots, buttonExportTextAreaTests, 
                 buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
                 buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
-                buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection);
+                buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection,
+                buttonPCA);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
     }

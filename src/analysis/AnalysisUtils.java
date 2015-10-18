@@ -1,6 +1,7 @@
 package analysis;
 
 import gui.tablemodels.DataTableModel;
+import java.util.ArrayList;
 import java.util.List;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
@@ -144,6 +145,54 @@ public class AnalysisUtils {
                 TEST_MIN, TEST_MAX, TEST_CENTER, TEST_RADIUS,
                 FUT_MIN, FUT_MAX, FUT_CENTER, FUT_RADIUS,
                 LOWERS, UPPERS, CENTERS, RADII);
+    }
+
+    public static String getPrincipalComponents(List<String> selectedValuesList) {
+        List<Integer> counters = new ArrayList<>();
+        
+        MyRengine rengine = MyRengine.getRengine();
+        rengine.require("FactoMineR");
+        
+        for (int i = 0; i < selectedValuesList.size(); i++) {
+            int counter = Utils.getCounter();
+            counters.add(counter);
+            
+            String DATA = Const.INPUT + counter;
+            
+            List<Double> data = DataTableModel.getInstance().getDataForColname(selectedValuesList.get(i));
+            
+            rengine.assign(DATA, Utils.listToArray(data));
+        }
+        
+        //spackat df z oznacenych stlpcov
+        
+        StringBuilder dataFrame = new StringBuilder("data.frame(");
+        for (int i = 0; i < counters.size(); i++) {
+            dataFrame.append(Const.INPUT).append(counters.get(i)).append(",");
+        }
+        dataFrame.deleteCharAt(dataFrame.length() - 1);
+        dataFrame.append(")");
+        
+        final String INPUT = Const.INPUT + Utils.getCounter();
+        
+        rengine.eval(INPUT + " <- " + dataFrame.toString());
+        
+        final String RESULT = Const.OUTPUT + Utils.getCounter();
+        rengine.eval(RESULT + " <- PCA(" + INPUT + ", graph = FALSE)"); //TODO output the graph, maybe?
+        
+        rengine.eval(RESULT + " <- " + RESULT + "$eig$eigenvalue");
+        
+        double[] eigenValues = rengine.eval(RESULT).asDoubleArray();
+        
+        StringBuilder output = new StringBuilder("eigenvalues: ");
+        for (int i = 0; i < eigenValues.length; i++) {
+            output.append(Utils.valToDecPoints(eigenValues[i])).append(" ");
+            output.append("[").append(selectedValuesList.get(i)).append("], ");
+        }
+        output.deleteCharAt(output.length() - 1);
+        output.deleteCharAt(output.length() - 1);
+        
+        return output.toString();
     }
     
     

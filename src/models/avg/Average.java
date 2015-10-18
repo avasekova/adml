@@ -253,7 +253,7 @@ public abstract class Average {
                 if (reportAvgMethod != null) {
                     avgReports.add(reportAvgMethod);
                 } else { //should never happen for the same method
-                    System.err.println("nerovnake percenttrain v ramci 1 modelu pri avg ITS per method :/");
+                    System.err.println("not equal percenttrain for 1 model (avg ITS per method)");
                 }
             }
         }

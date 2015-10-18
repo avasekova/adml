@@ -118,8 +118,9 @@
                                       <Component id="buttonPACF" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="buttonBasicStats" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonPCA" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane2" max="32767" attributes="0"/>
                       </Group>
@@ -165,6 +166,8 @@
                                       <Component id="buttonNormProbPlot" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="buttonBasicStats" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="buttonPCA" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jScrollPane1" min="-2" pref="244" max="-2" attributes="0"/>
                               </Group>
@@ -345,6 +348,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCTSclearSelectionActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonPCA">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Principal Components Analysis"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonPCAActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -1587,10 +1599,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="panelCRCombinationsStrategyMLPint" pref="38" max="32767" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="panelBestModelCriterionMLPint" max="32767" attributes="0"/>
-                                      <Component id="panelMLPintSettingsDistance" pref="38" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="panelBestModelCriterionMLPint" max="32767" attributes="0"/>
+                                  <Component id="panelMLPintSettingsDistance" pref="38" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="textFieldNumNetsToTrainMLPint" alignment="3" min="-2" max="-2" attributes="0"/>
