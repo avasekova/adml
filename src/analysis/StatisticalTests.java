@@ -204,4 +204,30 @@ public class StatisticalTests {
         
         return plots;
     }
+
+    public static String KMOTest(List<String> selectedValuesList) {
+        MyRengine rengine = MyRengine.getRengine();
+
+        rengine.require("psych");
+        
+        final String INPUT = rengine.createDataFrame(selectedValuesList);
+        
+        final String RESULT = Const.OUTPUT + Utils.getCounter();
+        rengine.eval(RESULT + " <- KMO(cor(" + INPUT + "))");
+        
+        double MSA = rengine.eval(RESULT + "$MSA").asDouble(); //The overall Measure of Sampling Adequacy
+        double[] MSAi = rengine.eval(RESULT + "$MSAi").asDoubleArray(); //The measure of sampling adequacy for each item
+        
+        StringBuilder results = new StringBuilder("Results of the KMO test:\n");
+        results.append("Overall MSA: ").append(Utils.valToDecPoints(MSA)).append("\n\n");
+        results.append("MSA for each item:\n");
+        
+        for (int i = 0; i < MSAi.length; i++) {
+            results.append(Utils.valToDecPoints(MSAi[i])).append(" [").append(selectedValuesList.get(i)).append("]").append("\n");
+        }
+        
+        rengine.rm(INPUT);
+        
+        return results.toString();
+    }
 }

@@ -1091,6 +1091,7 @@
                                           <Component id="jLabel20" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
+                                  <Component id="buttonKMOTest" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="buttonExportTextAreaTests" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1133,6 +1134,8 @@
                                           <Component id="textFieldMaxStructBreaks" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel20" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonKMOTest" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1283,6 +1286,15 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="(Broken - only exports the last tab.)"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonKMOTest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="KMO test"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonKMOTestActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

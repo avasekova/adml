@@ -168,6 +168,8 @@ public class AnalysisUtils {
         output.deleteCharAt(output.length() - 1);
         output.deleteCharAt(output.length() - 1);
         
+        rengine.rm(INPUT);
+        
         return output.toString();
     }
     
