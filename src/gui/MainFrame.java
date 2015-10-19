@@ -294,6 +294,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonExportTestsPlots = new javax.swing.JButton();
         jLabel34 = new javax.swing.JLabel();
         buttonKMOTest = new javax.swing.JButton();
+        buttonBartlettsTest = new javax.swing.JButton();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -1433,6 +1434,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonBartlettsTest.setText("Bartlett's test");
+        buttonBartlettsTest.setEnabled(false);
+        buttonBartlettsTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonBartlettsTestActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelTestsOutsideLayout = new javax.swing.GroupLayout(panelTestsOutside);
         panelTestsOutside.setLayout(panelTestsOutsideLayout);
         panelTestsOutsideLayout.setHorizontalGroup(
@@ -1456,7 +1465,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel21)
                                     .addComponent(jLabel20)))
-                            .addComponent(buttonKMOTest)))
+                            .addComponent(buttonKMOTest)
+                            .addComponent(buttonBartlettsTest)))
                     .addComponent(buttonExportTextAreaTests)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1492,7 +1502,9 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel20))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonKMOTest)))
+                                .addComponent(buttonKMOTest)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(buttonBartlettsTest)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(buttonExportTextAreaTests)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5491,6 +5503,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonKMOTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKMOTestActionPerformed
         textAreaTests.setText(StatisticalTests.KMOTest(listColnamesTests.getSelectedValuesList()));
     }//GEN-LAST:event_buttonKMOTestActionPerformed
+
+    private void buttonBartlettsTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBartlettsTestActionPerformed
+        textAreaTests.setText(StatisticalTests.bartlettsTest(listColnamesTests.getSelectedValuesList()));
+    }//GEN-LAST:event_buttonBartlettsTestActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
@@ -5505,6 +5521,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAggregateToITS;
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
+    private javax.swing.JButton buttonBartlettsTest;
     private javax.swing.JButton buttonBasicStats;
     private javax.swing.JButton buttonBinomPropComputePosterior;
     private javax.swing.JButton buttonBinomPropPredict;
@@ -6944,7 +6961,7 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
                 buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
                 buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection,
-                buttonPCA, buttonKMOTest);
+                buttonPCA, buttonKMOTest, buttonBartlettsTest);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
     }

@@ -1092,6 +1092,7 @@
                                       </Group>
                                   </Group>
                                   <Component id="buttonKMOTest" min="-2" max="-2" attributes="0"/>
+                                  <Component id="buttonBartlettsTest" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="buttonExportTextAreaTests" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -1136,6 +1137,8 @@
                                       </Group>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="buttonKMOTest" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="buttonBartlettsTest" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -1294,6 +1297,15 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonKMOTestActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonBartlettsTest">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Bartlett&apos;s test"/>
+                <Property name="enabled" type="boolean" value="false"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonBartlettsTestActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

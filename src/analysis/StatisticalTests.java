@@ -230,4 +230,22 @@ public class StatisticalTests {
         
         return results.toString();
     }
+
+    public static String bartlettsTest(List<String> selectedValuesList) {
+        MyRengine rengine = MyRengine.getRengine();
+
+        rengine.require("psych");
+        
+        final String INPUT = rengine.createDataFrame(selectedValuesList);
+        
+        final String RESULT = Const.OUTPUT + Utils.getCounter();
+        rengine.eval(RESULT + " <- cortest.bartlett(cor(" + INPUT + "), n=" + 
+                DataTableModel.getInstance().getDataForColname(selectedValuesList.get(0)).size() + ")");
+        
+        double pValue = rengine.eval(RESULT + "$p.value").asDouble();
+        
+        rengine.rm(INPUT);
+        
+        return "Results of the Bartlett's test:\np value = " + Utils.valToDecPoints(pValue);
+    }
 }
