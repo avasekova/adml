@@ -1308,4 +1308,28 @@ public class PlotDrawer {
         MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
     }
+
+    static void drawScreePlot(List<String> selectedValuesList, JTabbedPane tabbedPaneAnalysisPlots) {
+        MyRengine rengine = MyRengine.getRengine();
+
+        rengine.require("psych");
+        
+        final String INPUT = rengine.createDataFrame(selectedValuesList);
+        
+        List<String> plots = new ArrayList<>();
+        plots.add("scree(cor(" + INPUT + "), factors=FALSE)");
+        
+        List<JGDBufferedPanel> panels = drawToGrid(tabbedPaneAnalysisPlots.getWidth(), tabbedPaneAnalysisPlots.getHeight(),
+                plots, 1, 1);
+        
+        tabbedPaneAnalysisPlots.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : panels) {
+            tabbedPaneAnalysisPlots.addTab("Page "+(++i), p);
+        }
+
+        tabbedPaneAnalysisPlots.repaint();
+        
+        rengine.rm(INPUT);
+    }
 }

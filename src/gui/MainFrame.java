@@ -222,6 +222,7 @@ public class MainFrame extends javax.swing.JFrame {
         buttonBasicStats = new javax.swing.JButton();
         buttonCTSclearSelection = new javax.swing.JButton();
         buttonPCA = new javax.swing.JButton();
+        buttonScreePlot = new javax.swing.JButton();
         panelTransform = new javax.swing.JPanel();
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
@@ -770,6 +771,14 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        buttonScreePlot.setText("Scree plot");
+        buttonScreePlot.setEnabled(false);
+        buttonScreePlot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonScreePlotActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
         panelCTS.setLayout(panelCTSLayout);
         panelCTSLayout.setHorizontalGroup(
@@ -788,14 +797,17 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonCTSclearSelection))
                             .addComponent(buttonHistograms)
-                            .addComponent(buttonBoxplots)
                             .addComponent(buttonNormProbPlot)
-                            .addGroup(panelCTSLayout.createSequentialGroup()
-                                .addComponent(buttonACF)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonPACF))
                             .addComponent(buttonBasicStats)
-                            .addComponent(buttonPCA))
+                            .addComponent(buttonPCA)
+                            .addGroup(panelCTSLayout.createSequentialGroup()
+                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonACF)
+                                    .addComponent(buttonBoxplots))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buttonScreePlot)
+                                    .addComponent(buttonPACF))))
                         .addGap(0, 1, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -827,7 +839,9 @@ public class MainFrame extends javax.swing.JFrame {
                                     .addComponent(buttonACF)
                                     .addComponent(buttonPACF))
                                 .addGap(18, 18, 18)
-                                .addComponent(buttonBoxplots)
+                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(buttonBoxplots)
+                                    .addComponent(buttonScreePlot))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonHistograms)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -5507,6 +5521,12 @@ public class MainFrame extends javax.swing.JFrame {
     private void buttonBartlettsTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBartlettsTestActionPerformed
         textAreaTests.setText(StatisticalTests.bartlettsTest(listColnamesTests.getSelectedValuesList()));
     }//GEN-LAST:event_buttonBartlettsTestActionPerformed
+
+    private void buttonScreePlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonScreePlotActionPerformed
+        PlotDrawer.drawScreePlot(listColnames.getSelectedValuesList(), tabbedPaneAnalysisPlotsCTS);
+        setPlotRanges(0, 0);
+        buttonExportAnalysisPlotsCTS.setEnabled(true);
+    }//GEN-LAST:event_buttonScreePlotActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
@@ -5574,6 +5594,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonRunShowHiddenErrorMeasures;
+    private javax.swing.JButton buttonScreePlot;
     private javax.swing.JButton buttonSettingsAddToBatch_ARIMA;
     private javax.swing.JButton buttonSettingsAddToBatch_BNN;
     private javax.swing.JButton buttonSettingsAddToBatch_BNNint;
@@ -6961,7 +6982,7 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
                 buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
                 buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection,
-                buttonPCA, buttonKMOTest, buttonBartlettsTest);
+                buttonPCA, buttonKMOTest, buttonBartlettsTest, buttonScreePlot);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
     }
