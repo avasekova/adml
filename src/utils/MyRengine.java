@@ -1,8 +1,10 @@
 package utils;
 
+import gui.tablemodels.DataTableModel;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -153,5 +155,35 @@ public class MyRengine extends Rengine {
         }
         
         return returnVal;
+    }
+    
+    public String createDataFrame(List<String> selectedColumns) {
+        List<Integer> counters = new ArrayList<>();
+        
+        //naassignovat oznacene stlpce   TODO neskor sa budu assignovat defaultne pri loadnuti suboru, tak toto nebude treba
+        for (int i = 0; i < selectedColumns.size(); i++) {
+            int counter = Utils.getCounter();
+            counters.add(counter);
+            
+            String DATA = Const.INPUT + counter;
+            
+            List<Double> data = DataTableModel.getInstance().getDataForColname(selectedColumns.get(i));
+            
+            instance.assign(DATA, Utils.listToArray(data));
+        }
+        
+        //zlepit do data frame
+        StringBuilder dataFrame = new StringBuilder("data.frame(");
+        for (int i = 0; i < counters.size(); i++) {
+            dataFrame.append(Const.INPUT).append(counters.get(i)).append(",");
+        }
+        dataFrame.deleteCharAt(dataFrame.length() - 1);
+        dataFrame.append(")");
+        
+        final String INPUT = Const.INPUT + Utils.getCounter();
+        
+        instance.eval(INPUT + " <- " + dataFrame.toString());
+        
+        return INPUT;
     }
 }

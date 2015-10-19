@@ -148,34 +148,10 @@ public class AnalysisUtils {
     }
 
     public static String getPrincipalComponents(List<String> selectedValuesList) {
-        List<Integer> counters = new ArrayList<>();
-        
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("FactoMineR");
         
-        for (int i = 0; i < selectedValuesList.size(); i++) {
-            int counter = Utils.getCounter();
-            counters.add(counter);
-            
-            String DATA = Const.INPUT + counter;
-            
-            List<Double> data = DataTableModel.getInstance().getDataForColname(selectedValuesList.get(i));
-            
-            rengine.assign(DATA, Utils.listToArray(data));
-        }
-        
-        //spackat df z oznacenych stlpcov
-        
-        StringBuilder dataFrame = new StringBuilder("data.frame(");
-        for (int i = 0; i < counters.size(); i++) {
-            dataFrame.append(Const.INPUT).append(counters.get(i)).append(",");
-        }
-        dataFrame.deleteCharAt(dataFrame.length() - 1);
-        dataFrame.append(")");
-        
-        final String INPUT = Const.INPUT + Utils.getCounter();
-        
-        rengine.eval(INPUT + " <- " + dataFrame.toString());
+        final String INPUT = rengine.createDataFrame(selectedValuesList);
         
         final String RESULT = Const.OUTPUT + Utils.getCounter();
         rengine.eval(RESULT + " <- PCA(" + INPUT + ", graph = FALSE)"); //TODO output the graph, maybe?
