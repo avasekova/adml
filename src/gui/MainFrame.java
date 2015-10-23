@@ -695,7 +695,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         textAreaPlotBasicStats.setEditable(false);
         textAreaPlotBasicStats.setColumns(20);
-        textAreaPlotBasicStats.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
+        textAreaPlotBasicStats.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         textAreaPlotBasicStats.setLineWrap(true);
         textAreaPlotBasicStats.setRows(5);
         textAreaPlotBasicStats.setFocusable(false);

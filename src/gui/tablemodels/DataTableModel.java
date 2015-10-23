@@ -124,7 +124,7 @@ public class DataTableModel extends AbstractTableModel {
 
             rengine.eval(DATA + " <- " + DATA + "[2:length(" + DATA + ")]"); //a odrezem prvy stlpec
         } else {
-            rengine.eval(LABELS_AXIS_X + " <- seq(1,length(" + DATA + "[,1]))");
+            rengine.eval(LABELS_AXIS_X + " <- seq(1,length(" + DATA + "[,1]))"); //TODO nie je ich tu o jedno viac ako ma?
         }
         
         //and get names of columns

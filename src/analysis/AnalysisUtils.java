@@ -2,6 +2,7 @@ package analysis;
 
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
@@ -156,9 +157,7 @@ public class AnalysisUtils {
         final String RESULT = Const.OUTPUT + Utils.getCounter();
         rengine.eval(RESULT + " <- PCA(" + INPUT + ", graph = FALSE)"); //TODO output the graph, maybe?
         
-        rengine.eval(RESULT + " <- " + RESULT + "$eig$eigenvalue");
-        
-        double[] eigenValues = rengine.eval(RESULT).asDoubleArray();
+        double[] eigenValues = rengine.eval(RESULT + "$eig$eigenvalue").asDoubleArray();
         
         StringBuilder output = new StringBuilder("eigenvalues: ");
         for (int i = 0; i < eigenValues.length; i++) {
@@ -167,6 +166,36 @@ public class AnalysisUtils {
         }
         output.deleteCharAt(output.length() - 1);
         output.deleteCharAt(output.length() - 1);
+        
+        /////
+        //and output the scores for the whole dataset:
+        //test
+        output.append("\n\n\n");
+        
+        output.append("Scores of the supplied data on the principal components:\n\n");
+        
+        rengine.eval(RESULT + " <- princomp(" + INPUT + ", scores = TRUE)");
+        double[][] scores = rengine.eval(RESULT + "$scores").asDoubleMatrix();
+        
+        for (String val : selectedValuesList) {
+            output.append(String.format("%0$-15s", val)).append("|"); //TODO format!
+        }
+        output.deleteCharAt(output.length() - 1);
+        output.append("\n");
+        for (String val : selectedValuesList) {
+            output.append("---------------").append("-");
+        }
+        output.append("\n");
+        
+        //TODO if rownames in the input file, output rowname to each row
+        for (int row = 0; row < scores.length; row++) {
+            for (int col = 0; col < scores[row].length; col++) {
+                output.append(String.format("%0$-15s", Utils.valToDecPoints(scores[row][col])));
+                output.append("|");
+            }
+            output.deleteCharAt(output.length() - 1);
+            output.append("\n");
+        }
         
         rengine.rm(INPUT);
         
