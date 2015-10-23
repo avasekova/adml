@@ -159,7 +159,11 @@ public class AnalysisUtils {
         
         double[] eigenValues = rengine.eval(RESULT + "$eig$eigenvalue").asDoubleArray();
         
-        StringBuilder output = new StringBuilder("eigenvalues: ");
+        StringBuilder output = new StringBuilder("(Warning: the eigenvalues, rotated component matrix and scores were all calculated using different R packages.)");
+        
+        output.append("\n\n");
+        
+        output.append("eigenvalues: ");
         for (int i = 0; i < eigenValues.length; i++) {
             output.append(Utils.valToDecPoints(eigenValues[i])).append(" ");
             output.append("[").append(selectedValuesList.get(i)).append("], ");
@@ -167,15 +171,43 @@ public class AnalysisUtils {
         output.deleteCharAt(output.length() - 1);
         output.deleteCharAt(output.length() - 1);
         
+        ////
+        //rotated components matrix:
+        output.append("\n\n\n");
+        
+        output.append("Rotated components matrix:\n\n");
+        
+        rengine.eval(RESULT + " <- prcomp(" + INPUT + ", retx = TRUE)");
+        double[][] scores = rengine.eval(RESULT + "$x").asDoubleMatrix();
+        
+        for (String val : selectedValuesList) {
+            output.append(String.format("%0$-15s", val)).append("|"); //TODO format!
+        }
+        output.deleteCharAt(output.length() - 1);
+        output.append("\n");
+        for (String val : selectedValuesList) {
+            output.append("---------------").append("-");
+        }
+        output.append("\n");
+        
+        //TODO if rownames in the input file, output rowname to each row
+        for (int row = 0; row < scores.length; row++) {
+            for (int col = 0; col < scores[row].length; col++) {
+                output.append(String.format("%0$-15s", Utils.valToDecPoints(scores[row][col])));
+                output.append("|");
+            }
+            output.deleteCharAt(output.length() - 1);
+            output.append("\n");
+        }
+        
         /////
-        //and output the scores for the whole dataset:
-        //test
+        //the scores for the whole dataset:
         output.append("\n\n\n");
         
         output.append("Scores of the supplied data on the principal components:\n\n");
         
         rengine.eval(RESULT + " <- princomp(" + INPUT + ", scores = TRUE)");
-        double[][] scores = rengine.eval(RESULT + "$scores").asDoubleMatrix();
+        scores = rengine.eval(RESULT + "$scores").asDoubleMatrix();
         
         for (String val : selectedValuesList) {
             output.append(String.format("%0$-15s", val)).append("|"); //TODO format!
