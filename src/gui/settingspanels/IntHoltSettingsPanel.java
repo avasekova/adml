@@ -158,8 +158,8 @@ public class IntHoltSettingsPanel extends SettingsPanel {
                 textFieldAlphaRow1Col1.getText().isEmpty()) {
             return "NULL";
         } else {
-            return "cbind(c(" + textFieldAlphaRow0Col0.getText() + "," + textFieldAlphaRow1Col0.getText() + "),"
-                    +    "c(" + textFieldAlphaRow0Col1.getText() + "," + textFieldAlphaRow1Col1.getText() + "))";
+            return "c(" + textFieldAlphaRow0Col0.getText() + "," + textFieldAlphaRow1Col0.getText()
+                    + "," + textFieldAlphaRow0Col1.getText() + "," + textFieldAlphaRow1Col1.getText() + ")";
         }
     }
     
@@ -169,8 +169,8 @@ public class IntHoltSettingsPanel extends SettingsPanel {
                 textFieldBetaRow1Col1.getText().isEmpty()) {
             return "NULL";
         } else {
-            return "cbind(c(" + textFieldBetaRow0Col0.getText() + "," + textFieldBetaRow1Col0.getText() + "),"
-                    +    "c(" + textFieldBetaRow0Col1.getText() + "," + textFieldBetaRow1Col1.getText() + "))";
+            return "c(" + textFieldBetaRow0Col0.getText() + "," + textFieldBetaRow1Col0.getText()
+                    + "," + textFieldBetaRow0Col1.getText() + "," + textFieldBetaRow1Col1.getText() + ")";
         }
     }
     

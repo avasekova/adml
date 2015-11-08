@@ -8,7 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import utils.imlp.dist.BertoluzzaDistance;
+import utils.imlp.dist.DeCarvalhoDistance;
 import utils.imlp.dist.Distance;
+import utils.imlp.dist.HausdorffDistance;
+import utils.imlp.dist.IchinoYaguchiDistance;
+import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalHoltParams extends Params {
     
@@ -52,6 +57,20 @@ public class IntervalHoltParams extends Params {
 
     public Distance getDistance() {
         return distance;
+    }
+    
+    public String getDistanceId() {
+        if (distance instanceof WeightedEuclideanDistance) {
+            return "WE";
+        } else if (distance instanceof HausdorffDistance) {
+            return "H";
+        } else if (distance instanceof DeCarvalhoDistance) {
+            return "DC";
+        } else if (distance instanceof IchinoYaguchiDistance) {
+            return "IY";
+        }
+        
+        return "Not supported";
     }
 
     public void setDistance(Distance distance) {

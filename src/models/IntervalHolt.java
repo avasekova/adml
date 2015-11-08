@@ -11,6 +11,8 @@ import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
+import utils.imlp.dist.IchinoYaguchiDistance;
+import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalHolt implements Forecastable {
     //A.holt(dejta, h=10, alpha=alpha, beta=beta, gamma=FALSE)
@@ -19,14 +21,17 @@ public class IntervalHolt implements Forecastable {
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
-        final String INPUT_TRAIN_CENTER = INPUT_TRAIN + ".center";
-        final String INPUT_TRAIN_RADIUS = INPUT_TRAIN + ".radius";
+        final String INPUT_TRAIN_LOWER = INPUT_TRAIN + ".lower";
+        final String INPUT_TRAIN_UPPER = INPUT_TRAIN + ".upper";
         final String FIT_LOWER = Const.FIT + Utils.getCounter();
         final String FIT_UPPER = Const.FIT + Utils.getCounter();
         final String FORECAST = Const.FORECAST_VALS + Utils.getCounter();
+        final String FORECAST_LOWER = FORECAST + ".lower";
+        final String FORECAST_UPPER = FORECAST + ".upper";
         
         IntervalHoltParams params = (IntervalHoltParams) parameters;
         
+        //bacha, tu si vsade navytvaram C+R, ale iHolt pracuje s L+U, takze potom previest
         List<Double> allDataCenter = dataTableModel.getDataForColname(params.getColNameCenter());
         List<Double> allDataRadius = dataTableModel.getDataForColname(params.getColNameRadius());
         List<Double> dataToUseCenter = allDataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
@@ -42,36 +47,57 @@ public class IntervalHolt implements Forecastable {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("forecast");
         
-        rengine.assign(INPUT_TRAIN_CENTER, Utils.listToArray(inputTrainCenter));
-        rengine.assign(INPUT_TRAIN_RADIUS, Utils.listToArray(inputTrainRadius));
+        rengine.assign(INPUT_TRAIN + ".center", Utils.listToArray(inputTrainCenter));
+        rengine.assign(INPUT_TRAIN + ".radius", Utils.listToArray(inputTrainRadius));
+        rengine.eval(INPUT_TRAIN_LOWER + " <- (" + INPUT_TRAIN + ".center - " + INPUT_TRAIN + ".radius)");
+        rengine.eval(INPUT_TRAIN_UPPER + " <- (" + INPUT_TRAIN + ".center + " + INPUT_TRAIN + ".radius)");
         
-        //potrebujem maticu LB a UB, a mam Center a Radius
-        rengine.eval(INPUT_TRAIN + " <- cbind((" + INPUT_TRAIN_CENTER + "-" + INPUT_TRAIN_RADIUS + ")," + 
-                                             "(" + INPUT_TRAIN_CENTER + "+" + INPUT_TRAIN_RADIUS + "))");
+        //ts(file.df.ok, start = 1, end = file.df.len, frequency = 1)
+        rengine.eval(INPUT_TRAIN + " <- data.frame(lowerboundary = " + INPUT_TRAIN_LOWER
+                                                + ", upperboundary = " + INPUT_TRAIN_UPPER + ")");
         
         int num4castsTestAndTrain = inputTestCenter.size() + params.getNumForecasts();
-        rengine.eval(FORECAST_MODEL + " <- A.holt(" + INPUT_TRAIN + ", h=" + num4castsTestAndTrain + ", alpha=" + 
-                params.getAlpha() + ", beta=" + params.getBeta() + ", gamma=FALSE)");
         
-        rengine.eval(FIT_LOWER + " <- fitted(" + FORECAST_MODEL + ")[,1][1:" + numTrainingEntries + "]");
-        rengine.eval(FIT_UPPER + " <- fitted(" + FORECAST_MODEL + ")[,2][1:" + numTrainingEntries + "]");
+        double weBeta = 0.5;
+        if (params.getDistance() instanceof WeightedEuclideanDistance) {
+            weBeta = ((WeightedEuclideanDistance) params.getDistance()).getBeta();
+        }
+        double iyGama = 0.5;
+        if (params.getDistance() instanceof IchinoYaguchiDistance) {
+            iyGama = ((IchinoYaguchiDistance) params.getDistance()).getGamma();
+        }
+        
+        //inv.holt(my.ts, h = 5, alpha = a, beta = b, control = list(distance="E", we.beta = 0.5, iy.gama = 0.5))
+        rengine.eval(FORECAST_MODEL + " <- inv.holt(" + INPUT_TRAIN + ", h = " + num4castsTestAndTrain
+                       + ", alpha = " + params.getAlpha() + ", beta = " + params.getBeta() + ", "
+                       + "control = list(distance = \"" + params.getDistanceId() + "\", we.beta = " + weBeta
+                       + ", iy.gama = " + iyGama + "))");
+        
+        //-2, ptz neprodukuje fit pre prve dve
+        rengine.eval(FIT_LOWER + " <- " + FORECAST_MODEL + "$model$fitted[1:" + (numTrainingEntries-2) + ",2]");
+        rengine.eval(FIT_UPPER + " <- " + FORECAST_MODEL + "$model$fitted[1:" + (numTrainingEntries-2) + ",1]");
         REXP getFitLower = rengine.eval(FIT_LOWER);
         List<Double> fitLower = Utils.arrayToList(getFitLower.asDoubleArray());
         REXP getFitUpper = rengine.eval(FIT_UPPER);
         List<Double> fitUpper = Utils.arrayToList(getFitUpper.asDoubleArray());
+        //a pridat tie prve dve hluche:
+        fitLower.add(0, Double.NaN);
+        fitLower.add(0, Double.NaN);
+        fitUpper.add(0, Double.NaN);
+        fitUpper.add(0, Double.NaN);
         
         List<Interval> fittedIntervals = Utils.zipLowerUpperToIntervals(fitLower, fitUpper);
         
-        //zatial neviem forecastovat; produkuje to len bodove forecasty a navyse neviem, odkial ich berie.
-        //TODO doplnit forecasty, zatial pouzijem toto ako LB=UB=tentoZlyForecast
-        rengine.eval(FORECAST + " <- data.frame(" + FORECAST_MODEL + ")[\"Point.Forecast\"]"
-                + "[1:" + num4castsTestAndTrain + ",]");
-        REXP getForecastsAll = rengine.eval(FORECAST);
-        List<Double> forecastsAll = Utils.arrayToList(getForecastsAll.asDoubleArray());
+        rengine.eval(FORECAST_LOWER + " <- " + FORECAST_MODEL + "$mean[1:" + num4castsTestAndTrain + ",2]");
+        rengine.eval(FORECAST_UPPER + " <- " + FORECAST_MODEL + "$mean[1:" + num4castsTestAndTrain + ",1]");
+        REXP getForecastLower = rengine.eval(FORECAST_LOWER);
+        List<Double> forecastLower = Utils.arrayToList(getForecastLower.asDoubleArray());
+        REXP getForecastUpper = rengine.eval(FORECAST_UPPER);
+        List<Double> forecastUpper = Utils.arrayToList(getForecastUpper.asDoubleArray());
         
-        List<Interval> forecastIntervalsAll = Utils.zipLowerUpperToIntervals(forecastsAll, forecastsAll); //TODO!
-        List<Interval> forecastsTest = forecastIntervalsAll.subList(0, num4castsTestAndTrain);
-        List<Interval> forecastsFuture = forecastIntervalsAll.subList(num4castsTestAndTrain, forecastIntervalsAll.size());
+        List<Interval> forecastIntervalsAll = Utils.zipLowerUpperToIntervals(forecastLower, forecastUpper);
+        List<Interval> forecastsTest = forecastIntervalsAll.subList(0, num4castsTestAndTrain - params.getNumForecasts());
+        List<Interval> forecastsFuture = forecastIntervalsAll.subList(num4castsTestAndTrain - params.getNumForecasts(), forecastIntervalsAll.size());
         
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.INTERVAL_HOLT);
         report.setModelDescription(params.toString());
@@ -88,7 +114,8 @@ public class IntervalHolt implements Forecastable {
                 fittedIntervals, forecastsTest, params.getDistance(), params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
-        rengine.rm(FORECAST, FORECAST_MODEL, INPUT_TRAIN, INPUT_TRAIN_CENTER, INPUT_TRAIN_RADIUS, FIT_LOWER, FIT_UPPER);
+        rengine.rm(FORECAST, FORECAST_MODEL, INPUT_TRAIN, INPUT_TRAIN_LOWER, INPUT_TRAIN_UPPER, FIT_LOWER, FIT_UPPER,
+                INPUT_TRAIN + ".center", INPUT_TRAIN + ".radius");
         
         return report;
     }

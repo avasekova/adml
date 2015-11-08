@@ -89,6 +89,8 @@ public class Arima implements Forecastable {
         double[] fitted = getFittedValues.asDoubleArray();
         
         //"forecast" testing data
+        //in case I was wondering about this again: yes, it does compute the forecasts _directly_ (not iteratively using
+        //  forecast values in the subsequent forecasts)
         int numForecasts = dataToUse.size() - numTrainingEntries + params.getNumForecasts();
         if (params.getPredIntPercent() == 0) {
             rengine.eval(FORECAST_VALS + " <- forecast::forecast(" + MODEL + ", h = " + numForecasts + ")"); //predict all
