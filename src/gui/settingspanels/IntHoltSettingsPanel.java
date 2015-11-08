@@ -1,5 +1,6 @@
 package gui.settingspanels;
 
+import gui.ComponentGroup;
 import java.util.List;
 import javax.swing.JOptionPane;
 import models.params.Params;
@@ -13,6 +14,9 @@ public class IntHoltSettingsPanel extends SettingsPanel {
      */
     public IntHoltSettingsPanel() {
         initComponents();
+        
+        alphaElements.addAll(textFieldAlphaRow0Col0, textFieldAlphaRow0Col1, textFieldAlphaRow1Col0, textFieldAlphaRow1Col1);
+        betaElements.addAll(textFieldBetaRow0Col0, textFieldBetaRow0Col1, textFieldBetaRow1Col0, textFieldBetaRow1Col1);
     }
 
     /**
@@ -42,7 +46,6 @@ public class IntHoltSettingsPanel extends SettingsPanel {
         jLabel2.setText("Beta (trend):");
 
         checkBoxOptimizeAlpha.setText("optimize");
-        checkBoxOptimizeAlpha.setEnabled(false);
         checkBoxOptimizeAlpha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxOptimizeAlphaActionPerformed(evt);
@@ -50,7 +53,6 @@ public class IntHoltSettingsPanel extends SettingsPanel {
         });
 
         checkBoxOptimizeBeta.setText("optimize");
-        checkBoxOptimizeBeta.setEnabled(false);
         checkBoxOptimizeBeta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 checkBoxOptimizeBetaActionPerformed(evt);
@@ -122,17 +124,17 @@ public class IntHoltSettingsPanel extends SettingsPanel {
 
     private void checkBoxOptimizeAlphaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxOptimizeAlphaActionPerformed
         if (checkBoxOptimizeAlpha.isSelected()) {
-            textFieldAlphaRow0Col0.setEnabled(false);
+            alphaElements.disableAll();
         } else {
-            textFieldAlphaRow0Col0.setEnabled(true);
+            alphaElements.enableAll();
         }
     }//GEN-LAST:event_checkBoxOptimizeAlphaActionPerformed
 
     private void checkBoxOptimizeBetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxOptimizeBetaActionPerformed
         if (checkBoxOptimizeBeta.isSelected()) {
-            textFieldBetaRow0Col0.setEnabled(false);
+            betaElements.disableAll();
         } else {
-            textFieldBetaRow0Col0.setEnabled(true);
+            betaElements.enableAll();
         }
     }//GEN-LAST:event_checkBoxOptimizeBetaActionPerformed
 
@@ -152,6 +154,9 @@ public class IntHoltSettingsPanel extends SettingsPanel {
     private javax.swing.JTextField textFieldBetaRow1Col1;
     // End of variables declaration//GEN-END:variables
 
+    private ComponentGroup alphaElements = new ComponentGroup();
+    private ComponentGroup betaElements = new ComponentGroup();
+    
     public String getAlpha() {
         if (checkBoxOptimizeAlpha.isSelected() || textFieldAlphaRow0Col0.getText().isEmpty() ||
                 textFieldAlphaRow0Col1.getText().isEmpty() || textFieldAlphaRow1Col0.getText().isEmpty() ||
@@ -205,10 +210,6 @@ public class IntHoltSettingsPanel extends SettingsPanel {
     
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
-        if ("NULL".equals(getAlpha()) || "NULL".equals(getBeta())) {
-            JOptionPane.showMessageDialog(null, Const.HOLT + " will not run (optimization of params not supported)");
-            throw new IllegalArgumentException(Const.HOLT + " params optimize error");
-        }
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && (!isAlphaBetaOK())) {
             JOptionPane.showMessageDialog(null, Const.HOLT + " will not run (wrong params)");
             throw new IllegalArgumentException(Const.HOLT + " params error");

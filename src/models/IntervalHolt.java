@@ -67,10 +67,18 @@ public class IntervalHolt implements Forecastable {
             iyGama = ((IchinoYaguchiDistance) params.getDistance()).getGamma();
         }
         
+        String alpha = "";
+        if (! params.getAlpha().equals("NULL")) {
+            alpha = ", alpha = " + params.getAlpha();
+        }
+        String beta = "";
+        if (! params.getBeta().equals("NULL")) {
+            beta = ", beta = " + params.getBeta();
+        }
+        
         //inv.holt(my.ts, h = 5, alpha = a, beta = b, control = list(distance="E", we.beta = 0.5, iy.gama = 0.5))
         rengine.eval(FORECAST_MODEL + " <- inv.holt(" + INPUT_TRAIN + ", h = " + num4castsTestAndTrain
-                       + ", alpha = " + params.getAlpha() + ", beta = " + params.getBeta() + ", "
-                       + "control = list(distance = \"" + params.getDistanceId() + "\", we.beta = " + weBeta
+                       + alpha + beta + ", control = list(distance = \"" + params.getDistanceId() + "\", we.beta = " + weBeta
                        + ", iy.gama = " + iyGama + "))");
         
         //-2, ptz neprodukuje fit pre prve dve

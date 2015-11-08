@@ -112,7 +112,6 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxOptimizeAlpha">
       <Properties>
         <Property name="text" type="java.lang.String" value="optimize"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxOptimizeAlphaActionPerformed"/>
@@ -121,7 +120,6 @@
     <Component class="javax.swing.JCheckBox" name="checkBoxOptimizeBeta">
       <Properties>
         <Property name="text" type="java.lang.String" value="optimize"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxOptimizeBetaActionPerformed"/>

@@ -423,7 +423,6 @@ public class MainFrame extends javax.swing.JFrame {
         panelCRCombinationsStrategyHoltInt = new CRCombinationsStrategySettingsPanel((SettingsPanel) panelHoltInt_radius);
         panelSettingsMethodsIntervalHolt = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
         panelIntervalHoltPercentTrain = new PercentTrainSettingsPanel();
         panelIntervalHoltDistance = new DistanceSettingsPanel();
         panelIntervalHoltMain = new IntHoltSettingsPanel();
@@ -2456,9 +2455,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel10.setText("Holt's method for interval data as in Maia and De Carvalho (2011).");
 
-        jLabel11.setForeground(new java.awt.Color(204, 0, 51));
-        jLabel11.setText("Experimental. Produces only point forecasts, which are probably wrong anyway.");
-
         buttonSettingsAddToBatch_IntervalHolt.setText("Add to Analysis batch");
         buttonSettingsAddToBatch_IntervalHolt.setEnabled(false);
         buttonSettingsAddToBatch_IntervalHolt.addActionListener(new java.awt.event.ActionListener() {
@@ -2483,8 +2479,7 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
                             .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel11)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(10, 10, 10)
                         .addComponent(panelIntervalHoltDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 486, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -2493,9 +2488,7 @@ public class MainFrame extends javax.swing.JFrame {
             panelSettingsMethodsIntervalHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelSettingsMethodsIntervalHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
+                .addComponent(jLabel10)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelSettingsMethodsIntervalHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMethodsIntervalHoltLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -5685,7 +5678,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel127;
