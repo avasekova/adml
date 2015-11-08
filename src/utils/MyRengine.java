@@ -16,7 +16,7 @@ public class MyRengine extends Rengine {
     //TODO na konci kazdeho pouzivania Rengine (v modeloch atd): "rm" vsetky objekty, co uz nebudem potrebovat
     
     private static MyRengine instance = null;
-    
+
     private MyRengine() {
         super();
     }
@@ -42,34 +42,39 @@ public class MyRengine extends Rengine {
             re.eval("Modus <- function(x) { ux <- unique(x);    ux[which.max(tabulate(match(x, ux)))] }");
             //add more functions here
             
-            //adding scripts (hack - can only add functions one by one, not a whole file full of them):
-            StringBuilder scripts = new StringBuilder();
-            try (BufferedReader reader = new BufferedReader(new FileReader("scripts.R"))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    line = line.trim();
-                    if ((! line.isEmpty()) && (! line.startsWith("#"))) { //do not evaluate comments and empty lines
-                        //further analyze the line and strip any remaining comments:
-                        line = line.split("#")[0]; //take whatever there is until the comment
-                        scripts.append(line).append("\n"); //bloody hell, it took ages to find out that it doesn't accept System.lineSeparator(), but accepts "\n"...
-                    }
-                }
-            } catch (IOException e) {
-                //TODO log
-            }
-            
-            //for some reason I cannot make it load more functions in a single call of re.eval
-            String scriptsAll = scripts.toString();
-            String[] functions = scriptsAll.split("---"); //the file needs to separate the functions with ---
-                                                          //(it will not compile, but we don't need it to...)
-            for (String fun : functions) {
-                re.eval(fun);
-            }
+            addScriptsFromFile(re, "scripts.R");
+            addScriptsFromFile(re, "scripts_iholt.R");
             
             instance = new MyRengine();
         }
         
         return instance;
+    }
+    
+    private static void addScriptsFromFile(Rengine re, String file) {
+        //adding scripts (hack - can only add functions one by one, not a whole file full of them):
+        StringBuilder scripts = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                line = line.trim();
+                if ((! line.isEmpty()) && (! line.startsWith("#"))) { //do not evaluate comments and empty lines
+                    //further analyze the line and strip any remaining comments:
+                    line = line.split("#")[0]; //take whatever there is until the comment
+                    scripts.append(line).append("\n"); //bloody hell, it took ages to find out that it doesn't accept System.lineSeparator(), but accepts "\n"...
+                }
+            }
+        } catch (IOException e) {
+            //TODO log
+        }
+
+        //for some reason I cannot make it load more functions in a single call of re.eval
+        String scriptsAll = scripts.toString();
+        String[] functions = scriptsAll.split("---"); //the file needs to separate the functions with ---
+                                                      //(it will not compile, but we don't need it to...)
+        for (String fun : functions) {
+            re.eval(fun);
+        }
     }
     
     public static void stopRengine() {
