@@ -166,15 +166,27 @@ public class MyRengine extends Rengine {
         List<Integer> counters = new ArrayList<>();
         
         //naassignovat oznacene stlpce   TODO neskor sa budu assignovat defaultne pri loadnuti suboru, tak toto nebude treba
-        for (int i = 0; i < selectedColumns.size(); i++) {
+        List<List<Double>> data = new ArrayList<>();
+        boolean hasNaNs = false;
+        int maxLength = 0;
+        for (String col : selectedColumns) {
+            List<Double> d = (DataTableModel.getInstance().getDataForColname(col));
+            if (d.contains(Double.NaN)) {
+                hasNaNs = true;
+            }
+            
+            if (d.size() > maxLength) {
+                maxLength = d.size();
+            }
+            data.add(d);
+        }
+        
+        for (List<Double> d : data) {
             int counter = Utils.getCounter();
             counters.add(counter);
-            
             String DATA = Const.INPUT + counter;
-            
-            List<Double> data = DataTableModel.getInstance().getDataForColname(selectedColumns.get(i));
-            
-            instance.assign(DATA, Utils.listToArray(data));
+            instance.assign(DATA, Utils.listToArray(d));
+            instance.eval(DATA + " <- c(rep(NA," + (maxLength - d.size()) + "), " + DATA + ")");
         }
         
         //zlepit do data frame
@@ -186,8 +198,15 @@ public class MyRengine extends Rengine {
         dataFrame.append(")");
         
         final String INPUT = Const.INPUT + Utils.getCounter();
-        
         instance.eval(INPUT + " <- " + dataFrame.toString());
+        
+        if (hasNaNs) {
+            //dopocitat missing vals, lebo sa to inak stazuje
+            final String WITH_MISSING = Const.OUTPUT + Utils.getCounter();
+            instance.require("missMDA");
+            instance.eval(WITH_MISSING + " <- imputePCA(" + INPUT + ", ncp=1)");
+            instance.eval(INPUT + " <- " + WITH_MISSING + "$completeObs");
+        }
         
         return INPUT;
     }
