@@ -9,6 +9,7 @@ import static java.lang.Double.NaN;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.swing.JTextField;
 import utils.imlp.dist.Distance;
 import utils.imlp.Interval;
@@ -20,19 +21,18 @@ public class Utils {
     public static final int NUM_DECIMAL_POINTS = 6;
     public static final int REASONABLY_MANY_MODELS = 10;
     
-    private static int counter = 0;
-    private static int modelID = 0;
+    private static final AtomicInteger counter = new AtomicInteger(0);
+    private static final AtomicInteger modelID = new AtomicInteger(0);
     private final static double EPSILON = 0.000000001;
     
     private static final double STEP = 0.01;
     
     public static int getModelID() {
-        modelID++;
-        return modelID;
+        return modelID.incrementAndGet();
     }
     
     public static void resetModelID() {
-        modelID = 0;
+        modelID.set(0);
     }
     
     public static boolean equalsDoubles(double value, double target) {
@@ -239,8 +239,7 @@ public class Utils {
     }
     
     public static int getCounter() {
-        counter++;
-        return counter;
+        return counter.incrementAndGet();
     }
     
     public static List<Interval> getForecastsFromOutFile(File outFile) {
