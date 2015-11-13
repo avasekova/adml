@@ -155,6 +155,7 @@ import gui.settingspanels.CRCombinationsStrategySettingsPanel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.BinomProp;
+import models.avg.AverageEigenvalsPCA;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
@@ -580,6 +581,7 @@ public class MainFrame extends javax.swing.JFrame {
         checkBoxRunBNNInt = new javax.swing.JCheckBox();
         checkBoxRunKNNmyown = new javax.swing.JCheckBox();
         checkBoxRunMAvg = new javax.swing.JCheckBox();
+        checkBoxAvgEigenvalsPCAIntTS = new javax.swing.JCheckBox();
         panelErrorMeasuresAll = new javax.swing.JPanel();
         panelErrorMeasures = new javax.swing.JPanel();
         buttonRunShowHiddenErrorMeasures = new javax.swing.JButton();
@@ -3197,6 +3199,13 @@ public class MainFrame extends javax.swing.JFrame {
 
         checkBoxRunMAvg.setText("MA");
 
+        checkBoxAvgEigenvalsPCAIntTS.setText("WDP eigenvals of PCA");
+        checkBoxAvgEigenvalsPCAIntTS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkBoxAvgEigenvalsPCAIntTSActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelRunOutsideLayout = new javax.swing.GroupLayout(panelRunOutside);
         panelRunOutside.setLayout(panelRunOutsideLayout);
         panelRunOutsideLayout.setHorizontalGroup(
@@ -3364,7 +3373,8 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(checkBoxAvgCenterLogRadiusIntTS)
                                 .addGap(18, 18, 18)
-                                .addComponent(checkBoxAvgMedianIntTSperM))))
+                                .addComponent(checkBoxAvgMedianIntTSperM))
+                            .addComponent(checkBoxAvgEigenvalsPCAIntTS)))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
                         .addComponent(checkBoxRunMLPintNnetar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -3563,12 +3573,14 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addComponent(checkBoxAvgCenterLogRadiusIntTSperM)
                                 .addComponent(checkBoxAvgCenterLogRadiusIntTS)
                                 .addComponent(checkBoxAvgMedianIntTSperM)))
-                        .addGap(21, 21, 21)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(checkBoxAvgEigenvalsPCAIntTS)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(checkBoxAvgONLY))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(75, 75, 75))
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(86, Short.MAX_VALUE))
         );
 
         panelEverything.addTab("Run", panelRunOutside);
@@ -5520,6 +5532,10 @@ public class MainFrame extends javax.swing.JFrame {
         setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonScreePlotActionPerformed
+
+    private void checkBoxAvgEigenvalsPCAIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgEigenvalsPCAIntTSActionPerformed
+        checkBoxAvgGotSelected(checkBoxAvgEigenvalsPCAIntTS);
+    }//GEN-LAST:event_checkBoxAvgEigenvalsPCAIntTSActionPerformed
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
@@ -5614,6 +5630,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTSperM;
     private javax.swing.JCheckBox checkBoxAvgCvgEffIntTS;
     private javax.swing.JCheckBox checkBoxAvgCvgEffIntTSperM;
+    private javax.swing.JCheckBox checkBoxAvgEigenvalsPCAIntTS;
     private javax.swing.JCheckBox checkBoxAvgMDeCTS;
     private javax.swing.JCheckBox checkBoxAvgMDeCTSperM;
     private javax.swing.JCheckBox checkBoxAvgMDeIntTS;
@@ -6430,6 +6447,7 @@ public class MainFrame extends javax.swing.JFrame {
                 checkBoxAvgCenterLogRadiusIntTS.isSelected()));
         avgList.add(new Median(checkBoxAvgMedianCTSperM.isSelected(), checkBoxAvgMedianCTS.isSelected(),
                 checkBoxAvgMedianIntTSperM.isSelected(), checkBoxAvgMedianIntTS.isSelected()));
+        avgList.add(new AverageEigenvalsPCA(false, false, false, checkBoxAvgEigenvalsPCAIntTS.isSelected(), reportsIntTS));
         
         return avgList;
     }

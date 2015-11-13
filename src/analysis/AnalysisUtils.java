@@ -1,8 +1,6 @@
 package analysis;
 
 import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;

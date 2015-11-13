@@ -22,7 +22,6 @@ To create a new Average implementation:
 - create a class extending Average
 - add checkboxes in the GUI (probably 4: CTS_perM, CTS, ITS_perM, ITS)
 - add actionlisteners to maybe disable AVGONLY
-- change MainFrame.maybeTurnOffAvgONLY
 - add this average to MainFrame.getAllAvgs
 */
 public abstract class Average {

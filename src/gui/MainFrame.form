@@ -4343,6 +4343,7 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="checkBoxAvgMedianIntTSperM" min="-2" max="-2" attributes="0"/>
                                   </Group>
+                                  <Component id="checkBoxAvgEigenvalsPCAIntTS" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -4592,15 +4593,17 @@
                                       <Component id="checkBoxAvgMedianIntTSperM" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="checkBoxAvgEigenvalsPCAIntTS" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="checkBoxAvgONLY" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="jSeparator1" min="-2" pref="452" max="-2" attributes="0"/>
+                              <Component id="jSeparator1" min="-2" pref="463" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                      <EmptySpace pref="86" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -5170,6 +5173,14 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="MA"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JCheckBox" name="checkBoxAvgEigenvalsPCAIntTS">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="WDP eigenvals of PCA"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="checkBoxAvgEigenvalsPCAIntTSActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
