@@ -58,17 +58,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+
+import static java.util.concurrent.TimeUnit.DAYS;
 import static javax.swing.JFileChooser.SAVE_DIALOG;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -152,6 +150,8 @@ import analysis.Transformations;
 import gui.files.OverwriteFileChooser;
 import gui.files.PlotExtensionFileChooser;
 import gui.settingspanels.CRCombinationsStrategySettingsPanel;
+
+import java.util.concurrent.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.BinomProp;
@@ -6587,9 +6587,116 @@ public class MainFrame extends javax.swing.JFrame {
     private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
         textAreaModelsInfo.setText(AnalysisUtils.getModelDetails(allReports));
     }
-    
+
+    private Forecastable getCrispModel(String modelCode){
+        Forecastable forecastable = null;
+        switch (modelCode) { //crisp models
+            case Const.ARIMA:
+                forecastable = new Arima();
+                break;
+            case Const.HOLT:
+                forecastable = new Holt();
+                break;
+            case Const.HOLT_WINTERS:
+                forecastable = new HoltWinters();
+                break;
+            case Const.KNN_CUSTOM:
+                break;
+            case Const.KNN_FNN:
+                forecastable = new KNNfnn();
+                break;
+            case Const.KNN_KKNN:
+                forecastable = new KNNkknn();
+                break;
+            case Const.KNN_MYOWN:
+                forecastable = new KNNmyown();
+                break;
+            case Const.NEURALNET:
+                forecastable = new Neuralnet();
+                break;
+            case Const.NNET:
+                forecastable = new Nnet();
+                break;
+            case Const.NNETAR:
+                forecastable = new Nnetar();
+                break;
+            case Const.RBF:
+                forecastable = new RBF();
+                break;
+            case Const.SES:
+                forecastable = new SES();
+                break;
+            case Const.MAvg:
+                forecastable = new MAvg();
+            case Const.VAR:
+                break;
+            case Const.BNN:
+                forecastable = new BNN();
+                break;
+        }
+
+        return forecastable;
+    }
+
+    private Forecastable getIntervalModel(String modelCode){
+        Forecastable forecastable = null;
+        switch (modelCode) {
+            case Const.HOLT_INT:
+                forecastable = new HoltInt();
+                break;
+            case Const.HOLT_WINTERS_INT:
+                forecastable = new HoltWintersInt();
+                break;
+            case Const.HYBRID:
+                forecastable = new Hybrid();
+                break;
+            case Const.INTERVAL_HOLT:
+                forecastable = new IntervalHolt();
+                break;
+            case Const.INTERVAL_MLP_C_CODE:
+                forecastable = new IntervalMLPCcode();
+                break;
+            case Const.MLP_INT_NNET:
+                forecastable = new MLPintNnet();
+                break;
+            case Const.MLP_INT_NNETAR:
+                forecastable = new MLPintNnetar();
+                break;
+            case Const.RBF_INT:
+                forecastable = new RBFint();
+                break;
+            case Const.SES_INT:
+                forecastable = new SESint();
+                break;
+            case Const.VAR_INT:
+                forecastable = new VARint();
+                break;
+            case Const.BNN_INT:
+                forecastable = new BNNint();
+                break;
+        }
+
+        return forecastable;
+    }
+
+    private static class ModelForecastJob implements Runnable {
+        public List reportList;
+        public Forecastable forecastable;
+        public Params params;
+
+        @Override
+        public void run() {
+            TrainAndTestReport report = forecastable.forecast(DataTableModel.getInstance(), params);
+            if (report != null) {
+                report.setID(Utils.getModelID());
+                reportList.add(report);
+            }
+        }
+    }
+
     private void runModels(boolean isBatch) {
         Utils.resetModelID();
+        final int numThreads = 8;
 
         groupExportButtons.enableAll();
         
@@ -6608,11 +6715,10 @@ public class MainFrame extends javax.swing.JFrame {
             checkBoxAvgONLY.setSelected(false);
             //------------end hack, part 1/2
         }
-        
-        
+
         //vsetky pridaju do zoznamu trainingreports svoje errormeasures a plotcode
-        List<TrainAndTestReportCrisp> reportsCTS = new ArrayList<>();
-        List<TrainAndTestReportInterval> reportsIntTS = new ArrayList<>();
+        List<TrainAndTestReportCrisp> reportsCTS = new CopyOnWriteArrayList<>();
+        List<TrainAndTestReportInterval> reportsIntTS = new CopyOnWriteArrayList<>();
 
         //najprv prebehnut vsetky BatchLines, ci nahodou niektora nema privela modelov a ci sa teda bude spustat:
         List<AnalysisBatchLine> runOnlyTheseBatchLines = new ArrayList<>();
@@ -6629,119 +6735,44 @@ public class MainFrame extends javax.swing.JFrame {
                 runOnlyTheseBatchLines.add(l);
             }
         }
-        
+
         //a potom uz ist len cez tie, ktore bud maju malo modelov, alebo bolo potvrdene, ze maju bezat aj s velkym poctom
+        final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
         for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
             Forecastable forecastable = null;
+            List reportList = reportsCTS;
 
-            switch (l.getModel()) { //crisp models
-                case Const.ARIMA:
-                    forecastable = new Arima();
-                    break;
-                case Const.HOLT:
-                    forecastable = new Holt();
-                    break;
-                case Const.HOLT_WINTERS:
-                    forecastable = new HoltWinters();
-                    break;
-                case Const.KNN_CUSTOM:
-                    break;
-                case Const.KNN_FNN:
-                    forecastable = new KNNfnn();
-                    break;
-                case Const.KNN_KKNN:
-                    forecastable = new KNNkknn();
-                    break;
-                case Const.KNN_MYOWN:
-                    forecastable = new KNNmyown();
-                    break;
-                case Const.NEURALNET:
-                    forecastable = new Neuralnet();
-                    break;
-                case Const.NNET:
-                    forecastable = new Nnet();
-                    break;
-                case Const.NNETAR:
-                    forecastable = new Nnetar();
-                    break;
-                case Const.RBF:
-                    forecastable = new RBF();
-                    break;
-                case Const.SES:
-                    forecastable = new SES();
-                    break;
-                case Const.MAvg:
-                    forecastable = new MAvg();
-                case Const.VAR:
-                    break;
+            // a) crisp model
+            forecastable = getCrispModel(l.getModel());
 
-                case Const.BNN:
-                    forecastable = new BNN();
-                    break;
-
+            // b) interval model
+            if (forecastable == null){
+                forecastable = getIntervalModel(l.getModel());
+                reportList = reportsIntTS;
             }
 
-            
             List<? extends Params> params = new ArrayList<>();
             params = l.getModelParams();
-            
-            if (forecastable != null) {
-                for (Params p : params) {
-                    TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (forecastable.forecast(DataTableModel.getInstance(), p));
-                    if (report != null) {
-                        report.setID(Utils.getModelID());
-                        reportsCTS.add(report);
-                    }
-                }
-            } else { //inak je to intervalovy model, pokracovat
-                switch (l.getModel()) {
-                    case Const.HOLT_INT:
-                        forecastable = new HoltInt();
-                        break;
-                    case Const.HOLT_WINTERS_INT:
-                        forecastable = new HoltWintersInt();
-                        break;
-                    case Const.HYBRID:
-                        forecastable = new Hybrid();
-                        break;
-                    case Const.INTERVAL_HOLT:
-                        forecastable = new IntervalHolt();
-                        break;
-                    case Const.INTERVAL_MLP_C_CODE:
-                        forecastable = new IntervalMLPCcode();
-                        break;
-                    case Const.MLP_INT_NNET:
-                        forecastable = new MLPintNnet();
-                        break;
-                    case Const.MLP_INT_NNETAR:
-                        forecastable = new MLPintNnetar();
-                        break;
-                    case Const.RBF_INT:
-                        forecastable = new RBFint();
-                        break;
-                    case Const.SES_INT:
-                        forecastable = new SESint();
-                        break;
-                    case Const.VAR_INT:
-                        forecastable = new VARint();
-                        break;
-                    case Const.BNN_INT:
-                        forecastable = new BNNint();
-                        break;
-                }
 
-                if (forecastable != null) {
-                    for (Params p : params) {
-                        TrainAndTestReportInterval report = (TrainAndTestReportInterval) (forecastable.forecast(DataTableModel.getInstance(), p));
-                        report.setID(Utils.getModelID());
-                        reportsIntTS.add(report);
-                    }
-                } else { //still null?
-                    throw new IllegalArgumentException("should have found something by now..?");
-                }
+            // For each model parameter do the computation with the model.
+            for (Params p : params) {
+                ModelForecastJob job = new ModelForecastJob();
+                job.forecastable = forecastable;
+                job.params = p;
+                job.reportList = reportList;
+
+                executor.submit(job);
             }
         }
-        
+
+        // Do the job, please.
+        try {
+            final boolean done = executor.awaitTermination(1, DAYS);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
             String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
             String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
