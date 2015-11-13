@@ -67,6 +67,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 import static java.util.concurrent.TimeUnit.DAYS;
+import static javax.swing.JFileChooser.FILE_SYSTEM_VIEW_CHANGED_PROPERTY;
 import static javax.swing.JFileChooser.SAVE_DIALOG;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -6683,14 +6684,25 @@ public class MainFrame extends javax.swing.JFrame {
         public List reportList;
         public Forecastable forecastable;
         public Params params;
+        public String modelName;
+        public int paramIdx = 0;
+        public int paramTotal = 0;
 
         @Override
         public void run() {
+            final long curTime = System.currentTimeMillis();
+            System.out.println(String.format("<%s param=%s total=%s time=%s thread=%s>",
+                    modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName()));
+
             TrainAndTestReport report = forecastable.forecast(DataTableModel.getInstance(), params);
             if (report != null) {
                 report.setID(Utils.getModelID());
                 reportList.add(report);
             }
+
+            final long compTime = System.currentTimeMillis();
+            System.out.println(String.format("</%s param=%s total=%s time=%s spent=%s ms thread=%s>",
+                    modelName, paramIdx, paramTotal, compTime, compTime-curTime, Thread.currentThread().getName()));
         }
     }
 
@@ -6755,12 +6767,17 @@ public class MainFrame extends javax.swing.JFrame {
             params = l.getModelParams();
 
             // For each model parameter do the computation with the model.
+            int paramCnt = 0;
             for (Params p : params) {
                 ModelForecastJob job = new ModelForecastJob();
                 job.forecastable = forecastable;
                 job.params = p;
                 job.reportList = reportList;
+                job.modelName = l.getModel();
+                job.paramIdx = paramCnt++;
+                job.paramTotal = params.size();
 
+                System.out.println(String.format("Submitting job %s, param: %s/%s", l.getModel(), job.paramIdx, job.paramTotal));
                 executor.submit(job);
             }
         }
@@ -6768,6 +6785,7 @@ public class MainFrame extends javax.swing.JFrame {
         // Do the job, please.
         try {
             final boolean done = executor.awaitTermination(1, DAYS);
+            System.out.println("Waiting finished, timeout: " + (!done));
 
         } catch (InterruptedException e) {
             e.printStackTrace();
