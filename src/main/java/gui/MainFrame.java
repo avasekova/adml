@@ -6685,7 +6685,7 @@ public class MainFrame extends javax.swing.JFrame {
             final long computationTime = System.currentTimeMillis() - computationTimeStarted;
             executor.shutdown();
 
-            logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime));
+            logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime);
         } catch (InterruptedException e) {
             logger.error("Computation interrupted", e);
         }
