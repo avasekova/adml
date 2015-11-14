@@ -6624,13 +6624,14 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         //a potom uz ist len cez tie, ktore bud maju malo modelov, alebo bolo potvrdene, ze maju bezat aj s velkym poctom
+        // Iterate over list of models and parameters, create model forecasting jobs and feed executor service with them.
         final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
         for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
             Forecastable forecastable = null;
-            List reportList = reportsCTS;
 
             // a) crisp model
             forecastable = ModelFactory.getCrispModel(l.getModel());
+            List reportList = reportsCTS;
 
             // b) interval model
             if (forecastable == null){
@@ -6638,8 +6639,23 @@ public class MainFrame extends javax.swing.JFrame {
                 reportList = reportsIntTS;
             }
 
+            // c) unknown
+            if (forecastable == null){
+                System.out.println("Error: Unknown model: " + l.getModel());
+                continue;
+            }
+
             List<? extends Params> params = new ArrayList<>();
             params = l.getModelParams();
+
+            // Sanity checking for parameter list, should be non-empty.
+            if (params == null){
+                System.out.println("Error: Null parameter list for model: " + l.getModel());
+                continue;
+            } else if (params.isEmpty()){
+                System.out.println("Warning: Empty parameter list for model: " + l.getModel());
+                continue;
+            }
 
             // For each model parameter create a new job and add it to the executor service for the computation.
             int paramCnt = 0;
