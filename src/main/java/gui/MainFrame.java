@@ -4576,8 +4576,7 @@ public class MainFrame extends javax.swing.JFrame {
                         //for some reason only works with "PNG", so leave it be for now //TODO fix
                         ImageIO.write(im, "PNG", new File(fileName + "-legend.png"));
                     } catch (IOException ex) {
-                        //TODO log
-                        System.out.println(ex.toString());
+                        logger.error("Exception", ex);
                     }
                     break;
                 case JFileChooser.CANCEL_OPTION:
@@ -4766,7 +4765,7 @@ public class MainFrame extends javax.swing.JFrame {
                     List<NnetParams> paramsNnet = NnetParams.getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNET, paramsNnet, paramsNnet.size()));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.NNETAR:
@@ -4774,7 +4773,7 @@ public class MainFrame extends javax.swing.JFrame {
                     List<NnetarParams> paramsNnetar = NnetarParams.getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNETAR, paramsNnetar, paramsNnetar.size()));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.NEURALNET:
@@ -4794,7 +4793,7 @@ public class MainFrame extends javax.swing.JFrame {
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MLP_INT_NNET, paramsNnet, 
                             paramsNnet.size()*(paramsNnet.get(0).getNumNetsToTrain()))); //TODO mozno brat to numNetsToTrain nejak bezpecnejsie?
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.NNETAR:
@@ -4807,7 +4806,7 @@ public class MainFrame extends javax.swing.JFrame {
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MLP_INT_NNETAR, paramsNnetar,
                             paramsNnetar.size()*(paramsNnetar.get(0).getNumNetsToTrain())));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.NEURALNET:
@@ -4823,7 +4822,7 @@ public class MainFrame extends javax.swing.JFrame {
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_MLP_C_CODE, paramsIMLP,
                             paramsIMLP.size()*(paramsIMLP.get(0).getNumNetworks())));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.NEURALNET:
@@ -4836,7 +4835,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<RBFParams> paramsRBF = RBFParams.getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF, paramsRBF, paramsRBF.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_RBFActionPerformed
 
@@ -4848,7 +4847,7 @@ public class MainFrame extends javax.swing.JFrame {
                 panelBestModelCriterionRBFint);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF_INT, paramsRBFint, paramsRBFint.size()*(paramsRBFint.get(0).getNumNetsToTrain())));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_RBFintActionPerformed
 
@@ -4857,7 +4856,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<ArimaParams> paramsArima = ArimaParams.getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.ARIMA, paramsArima, paramsArima.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_ARIMAActionPerformed
 
@@ -4868,7 +4867,7 @@ public class MainFrame extends javax.swing.JFrame {
                     List<KNNfnnParams> paramsFNN = KNNfnnParams.getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_FNN, paramsFNN, paramsFNN.size()));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.KNN_KKNN:
@@ -4876,7 +4875,7 @@ public class MainFrame extends javax.swing.JFrame {
                     List<KNNkknnParams> paramsKKNN = KNNkknnParams.getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_KKNN, paramsKKNN, paramsKKNN.size()));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
             case Const.KNN_CUSTOM:
@@ -4886,7 +4885,7 @@ public class MainFrame extends javax.swing.JFrame {
                     List<KNNmyownParams> paramsMyOwn = KNNmyownParams.getParamsKNNmyown(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_myown);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_MYOWN, paramsMyOwn, paramsMyOwn.size()));
                 } catch (IllegalArgumentException e) {
-                    //TODO
+                    logger.error("Exception", e); // TODO: review logging
                 }
                 break;
         }
@@ -4897,7 +4896,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<VARintParams> paramsVARint = VARintParams.getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.VAR_INT, paramsVARint, paramsVARint.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_VARintActionPerformed
 
@@ -4906,7 +4905,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<SESParams> paramsSES = SESParams.getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES, paramsSES, paramsSES.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_SESActionPerformed
 
@@ -4917,7 +4916,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelSESintDistance);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES_INT, paramsSESint, paramsSESint.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_SESintActionPerformed
 
@@ -4926,7 +4925,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<HoltParams> paramsHolt = HoltParams.getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT, paramsHolt, paramsHolt.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HoltActionPerformed
 
@@ -4937,7 +4936,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelHoltIntDistance);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_INT, paramsHoltInt, paramsHoltInt.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HoltintActionPerformed
 
@@ -4947,7 +4946,7 @@ public class MainFrame extends javax.swing.JFrame {
                         comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_HOLT, paramsIntervalHolt, paramsIntervalHolt.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_IntervalHoltActionPerformed
 
@@ -4957,7 +4956,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelHoltWintersInside, comboBoxColnamesRun);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS, paramsHoltWinters, paramsHoltWinters.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HoltWintersActionPerformed
 
@@ -4968,7 +4967,7 @@ public class MainFrame extends javax.swing.JFrame {
                         panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS_INT, paramsHoltWintersInt, paramsHoltWintersInt.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HoltWintersIntActionPerformed
 
@@ -4977,7 +4976,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<HybridParams> paramsHybrid = getParamsHybrid();
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HYBRID, paramsHybrid, paramsHybrid.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HybridActionPerformed
 
@@ -5233,7 +5232,7 @@ public class MainFrame extends javax.swing.JFrame {
         try {
             breaks = Integer.parseInt(textFieldMaxStructBreaks.getText());
         } catch (NumberFormatException e) {
-            //TODO log
+            logger.error("Exception", e); // TODO: review logging
         }
         
         List<String> plots = StatisticalTests.stucturalBreaksTests(listColnamesTests.getSelectedValuesList(), 
@@ -5380,7 +5379,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<BNNParams> paramsBNN = BNNParams.getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN, paramsBNN, paramsBNN.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_BNNActionPerformed
 
@@ -5392,7 +5391,7 @@ public class MainFrame extends javax.swing.JFrame {
                 panelBestModelCriterionBNNint);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN_INT, paramsBNNint, paramsBNNint.size()*(paramsBNNint.get(0).getNumNetsToTrain())));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_BNNintActionPerformed
 
@@ -5409,7 +5408,7 @@ public class MainFrame extends javax.swing.JFrame {
             List<MAvgParams> paramsMAvg = MAvgParams.getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
             AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MAvg, paramsMAvg, paramsMAvg.size()));
         } catch (IllegalArgumentException e) {
-            //TODO
+            logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_MAvgActionPerformed
 
@@ -6886,7 +6885,7 @@ public class MainFrame extends javax.swing.JFrame {
                         writer.append(text);
                         writer.flush();
                     } catch (IOException e) {
-                        //TODO log
+                        logger.error("IOException", e);
                     }
                     break;
                 case JFileChooser.CANCEL_OPTION:
