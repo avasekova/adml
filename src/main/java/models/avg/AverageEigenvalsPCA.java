@@ -22,32 +22,34 @@ public class AverageEigenvalsPCA extends Average {
             boolean avgIntTS, List<TrainAndTestReportInterval> models) {
         super(avgCTSperM, avgCTS, avgIntTSperM, avgIntTS);
         
-        //pridat vsetky modely do dat
-        List<String> namesOfModelsForPCA_center = new ArrayList<>();
-        List<String> namesOfModelsForPCA_radius = new ArrayList<>();
-        for (TrainAndTestReportInterval r : models) {
-            MainFrame.getInstance().addReportToData(r);
-            namesOfModelsForPCA_center.add(r.toString() + "(C)");
-            namesOfModelsForPCA_radius.add(r.toString() + "(R)");
+        if (avgIntTS) {
+            //pridat vsetky modely do dat
+            List<String> namesOfModelsForPCA_center = new ArrayList<>();
+            List<String> namesOfModelsForPCA_radius = new ArrayList<>();
+            for (TrainAndTestReportInterval r : models) {
+                MainFrame.getInstance().addReportToData(r);
+                namesOfModelsForPCA_center.add(r.toString() + "(C)");
+                namesOfModelsForPCA_radius.add(r.toString() + "(R)");
+            }
+
+            //na vsetkych pridanych spocitat pca: raz pre centers, raz pre radii
+            //TODO konecne zacat robit veci inak ako na kolene, fujha
+            double[] eigenvals_center = computeEigenvals(namesOfModelsForPCA_center);
+            double[] eigenvals_radius = computeEigenvals(namesOfModelsForPCA_radius);
+
+            //zo ziskanych eigenvals tu potom pocitat vahy.
+            denominatorCenters = 0;
+            for (double d : eigenvals_center) {
+                denominatorCenters += d;
+            }
+            denominatorRadii = 0;
+            for (double d : eigenvals_radius) {
+                denominatorRadii += d;
+            }
+
+            eigenValsCenters = getEigenvals(eigenvals_center, namesOfModelsForPCA_center);
+            eigenValsRadii = getEigenvals(eigenvals_radius, namesOfModelsForPCA_radius);
         }
-        
-        //na vsetkych pridanych spocitat pca: raz pre centers, raz pre radii
-        //TODO konecne zacat robit veci inak ako na kolene, fujha
-        double[] eigenvals_center = computeEigenvals(namesOfModelsForPCA_center);
-        double[] eigenvals_radius = computeEigenvals(namesOfModelsForPCA_radius);
-        
-        //zo ziskanych eigenvals tu potom pocitat vahy.
-        denominatorCenters = 0;
-        for (double d : eigenvals_center) {
-            denominatorCenters += d;
-        }
-        denominatorRadii = 0;
-        for (double d : eigenvals_radius) {
-            denominatorRadii += d;
-        }
-        
-        eigenValsCenters = getEigenvals(eigenvals_center, namesOfModelsForPCA_center);
-        eigenValsRadii = getEigenvals(eigenvals_radius, namesOfModelsForPCA_radius);
     }
     
     private Map<String, Double> getEigenvals(double[] eigenvals, List<String> models) {
