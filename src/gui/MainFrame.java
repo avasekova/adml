@@ -19,7 +19,6 @@ import gui.renderers.ErrorTableCellRenderer;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.BNNSettingsPanel;
-import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.BinomPropSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.HoltSettingsPanel;
@@ -67,46 +66,15 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 
 import static java.util.concurrent.TimeUnit.DAYS;
-import static javax.swing.JFileChooser.FILE_SYSTEM_VIEW_CHANGED_PROPERTY;
-import static javax.swing.JFileChooser.SAVE_DIALOG;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.table.TableColumn;
-import models.Arima;
-import models.BNN;
-import models.BNNint;
-import models.Forecastable;
-import models.Holt;
-import models.HoltInt;
-import models.HoltWinters;
-import models.HoltWintersInt;
-import models.Hybrid;
-import models.IntervalHolt;
-import models.IntervalMLPCcode;
-import models.KNNfnn;
-import models.KNNkknn;
-import models.KNNmyown;
-import models.MAvg;
-import models.MLPintNnet;
-import models.MLPintNnetar;
-import models.Neuralnet;
-import models.Nnet;
-import models.Nnetar;
-import models.RBF;
-import models.RBFint;
-import models.RandomWalk;
-import models.RandomWalkInterval;
-import models.SES;
-import models.SESint;
-import models.TrainAndTestReport;
-import models.TrainAndTestReportCrisp;
-import models.TrainAndTestReportInterval;
-import models.VARint;
+
+import models.*;
 import models.avg.Average;
 import models.avg.AverageCoverageEfficiency;
 import models.avg.AverageEqCenterEqLogRadius;
@@ -134,7 +102,6 @@ import models.params.KNNmyownParams;
 import models.params.MAvgParams;
 import models.params.MLPintNnetParams;
 import models.params.MLPintNnetarParams;
-import models.params.NeuralnetParams;
 import models.params.NnetParams;
 import models.params.NnetarParams;
 import models.params.Params;
@@ -144,7 +111,6 @@ import models.params.RandomWalkIntervalParams;
 import models.params.RandomWalkParams;
 import models.params.SESParams;
 import models.params.SESintParams;
-import models.params.VARParams;
 import models.params.VARintParams;
 import analysis.StatisticalTests;
 import analysis.Transformations;
@@ -153,21 +119,15 @@ import gui.files.PlotExtensionFileChooser;
 import gui.settingspanels.CRCombinationsStrategySettingsPanel;
 
 import java.util.concurrent.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import models.BinomProp;
+
 import models.avg.AverageEigenvalsPCA;
-import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
-import utils.CrispOutputVariable;
 import utils.ExcelWriter;
 import utils.FieldsParser;
-import utils.Improvable;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
-import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 import utils.imlp.dist.Distance;
@@ -6589,101 +6549,15 @@ public class MainFrame extends javax.swing.JFrame {
         textAreaModelsInfo.setText(AnalysisUtils.getModelDetails(allReports));
     }
 
-    private Forecastable getCrispModel(String modelCode){
-        Forecastable forecastable = null;
-        switch (modelCode) { //crisp models
-            case Const.ARIMA:
-                forecastable = new Arima();
-                break;
-            case Const.HOLT:
-                forecastable = new Holt();
-                break;
-            case Const.HOLT_WINTERS:
-                forecastable = new HoltWinters();
-                break;
-            case Const.KNN_CUSTOM:
-                break;
-            case Const.KNN_FNN:
-                forecastable = new KNNfnn();
-                break;
-            case Const.KNN_KKNN:
-                forecastable = new KNNkknn();
-                break;
-            case Const.KNN_MYOWN:
-                forecastable = new KNNmyown();
-                break;
-            case Const.NEURALNET:
-                forecastable = new Neuralnet();
-                break;
-            case Const.NNET:
-                forecastable = new Nnet();
-                break;
-            case Const.NNETAR:
-                forecastable = new Nnetar();
-                break;
-            case Const.RBF:
-                forecastable = new RBF();
-                break;
-            case Const.SES:
-                forecastable = new SES();
-                break;
-            case Const.MAvg:
-                forecastable = new MAvg();
-            case Const.VAR:
-                break;
-            case Const.BNN:
-                forecastable = new BNN();
-                break;
-        }
-
-        return forecastable;
-    }
-
-    private Forecastable getIntervalModel(String modelCode){
-        Forecastable forecastable = null;
-        switch (modelCode) {
-            case Const.HOLT_INT:
-                forecastable = new HoltInt();
-                break;
-            case Const.HOLT_WINTERS_INT:
-                forecastable = new HoltWintersInt();
-                break;
-            case Const.HYBRID:
-                forecastable = new Hybrid();
-                break;
-            case Const.INTERVAL_HOLT:
-                forecastable = new IntervalHolt();
-                break;
-            case Const.INTERVAL_MLP_C_CODE:
-                forecastable = new IntervalMLPCcode();
-                break;
-            case Const.MLP_INT_NNET:
-                forecastable = new MLPintNnet();
-                break;
-            case Const.MLP_INT_NNETAR:
-                forecastable = new MLPintNnetar();
-                break;
-            case Const.RBF_INT:
-                forecastable = new RBFint();
-                break;
-            case Const.SES_INT:
-                forecastable = new SESint();
-                break;
-            case Const.VAR_INT:
-                forecastable = new VARint();
-                break;
-            case Const.BNN_INT:
-                forecastable = new BNNint();
-                break;
-        }
-
-        return forecastable;
-    }
-
+    /**
+     * ModelForecastJob represents a single job of a model forecasting with given single parameter set.
+     * Used for parallelization, executorService is fed with bunch of ModelForecastJob instances.
+     */
     private static class ModelForecastJob implements Runnable {
-        public List reportList;
         public Forecastable forecastable;
         public Params params;
+        public List reportList;
+
         public String modelName;
         public int paramIdx = 0;
         public int paramTotal = 0;
@@ -6739,6 +6613,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 numModels = l.getNumModels();
             } catch (IllegalArgumentException e) {
+                e.printStackTrace();
                 //TODO log?
             }
             showDialogTooManyModelsInCase(numModels, l.getModel());
@@ -6755,18 +6630,18 @@ public class MainFrame extends javax.swing.JFrame {
             List reportList = reportsCTS;
 
             // a) crisp model
-            forecastable = getCrispModel(l.getModel());
+            forecastable = ModelFactory.getCrispModel(l.getModel());
 
             // b) interval model
             if (forecastable == null){
-                forecastable = getIntervalModel(l.getModel());
+                forecastable = ModelFactory.getIntervalModel(l.getModel());
                 reportList = reportsIntTS;
             }
 
             List<? extends Params> params = new ArrayList<>();
             params = l.getModelParams();
 
-            // For each model parameter do the computation with the model.
+            // For each model parameter create a new job and add it to the executor service for the computation.
             int paramCnt = 0;
             for (Params p : params) {
                 ModelForecastJob job = new ModelForecastJob();
