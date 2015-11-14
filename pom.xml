@@ -13,6 +13,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.libdir>${project.basedir}/libraries</project.libdir>
+        <project.repodir>${project.basedir}/libraries-repo</project.repodir>
     </properties>
 
     <repositories>
@@ -37,54 +39,151 @@
             <layout>default</layout>
             <name>Repository for library</name>
         </repository>
+
+        <!-- Our repository with local dependencies 0-->
+        <repository>
+            <id>mlp-maven-repo</id>
+            <url>file:///${project.repodir}</url>
+        </repository>
     </repositories>
 
     <dependencies>
-
         <dependency>
-            <groupId>org.rosuda</groupId>
+            <groupId>mlp.org.rosuda</groupId>
             <artifactId>javaGD</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/javaGD.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>org.rosuda</groupId>
+            <groupId>mlp.org.rosuda</groupId>
             <artifactId>JRI</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/JRI.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>org.rosuda</groupId>
+            <groupId>mlp.org.rosuda</groupId>
             <artifactId>REngine</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/REngine.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>org.rosuda</groupId>
+            <groupId>mlp.org.rosuda</groupId>
             <artifactId>JRIEngine</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/JRIEngine.jar</systemPath>
         </dependency>
 
         <dependency>
-            <groupId>jxl</groupId>
+            <groupId>mlp.jxl</groupId>
             <artifactId>jxl</artifactId>
             <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/jxl.jar</systemPath>
+            <scope>compile</scope>
         </dependency>
-
     </dependencies>
 
     <build>
         <plugins>
+
+            <!-- Probably the easiest way to install a local JAR dependency to the local maven repository
+             Source: http://blog.valdaris.com/post/custom-jar/
+             Another solution would be http://stackoverflow.com/questions/4955635/how-to-add-local-jar-files-in-maven-project
+               Thus running plugin install manually from command line but this is not that seamless after project
+               clone by a new developer as a new action is needed in order to build project for the first time
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+                <executions>
+
+                    <!-- javaGD -->
+                    <execution>
+                        <id>0</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>mlp.org.rosuda</groupId>
+                            <artifactId>javaGD</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <localRepositoryPath>${project.repodir}</localRepositoryPath>
+                            <file>${project.libdir}/javaGD.jar</file>
+                        </configuration>
+                    </execution>
+
+                    <!-- JRI -->
+                    <execution>
+                        <id>1</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>mlp.org.rosuda</groupId>
+                            <artifactId>JRI</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <localRepositoryPath>${project.repodir}</localRepositoryPath>
+                            <file>${project.libdir}/JRI.jar</file>
+                        </configuration>
+                    </execution>
+
+                    <!-- JRIEngine -->
+                    <execution>
+                        <id>2</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>mlp.org.rosuda</groupId>
+                            <artifactId>JRIEngine</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <localRepositoryPath>${project.repodir}</localRepositoryPath>
+                            <file>${project.libdir}/JRIEngine.jar</file>
+                        </configuration>
+                    </execution>
+
+                    <!-- REngine -->
+                    <execution>
+                        <id>3</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>mlp.org.rosuda</groupId>
+                            <artifactId>REngine</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <localRepositoryPath>${project.repodir}</localRepositoryPath>
+                            <file>${project.libdir}/REngine.jar</file>
+                        </configuration>
+                    </execution>
+
+                    <!-- jxl -->
+                    <execution>
+                        <id>4</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <groupId>mlp.jxl</groupId>
+                            <artifactId>jxl</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <localRepositoryPath>${project.repodir}</localRepositoryPath>
+                            <file>${project.libdir}/jxl.jar</file>
+                        </configuration>
+                    </execution>
+
+                </executions>
+            </plugin>
+
+            <!-- Project building -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -95,6 +194,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -103,6 +203,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
