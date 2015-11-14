@@ -1,12 +1,15 @@
 package gui;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import javax.swing.JFrame;
 
 public class Main {
-    
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     public static void main(String args[]) {
+        logger.info("Starting the application");
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {
@@ -25,7 +28,7 @@ public class Main {
                 try {
                     Thread.sleep(2000L);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    logger.error("Exception", ex);
                 }
                 
                 MainFrame.getInstance().setVisible(true);
