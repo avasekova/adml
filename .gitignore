@@ -10,3 +10,4 @@
 *.log
 /nbproject/
 /build/
+/out/
