@@ -6572,6 +6572,10 @@ public class MainFrame extends javax.swing.JFrame {
             if (report != null) {
                 report.setID(Utils.getModelID());
                 reportList.add(report);
+
+            } else {
+                System.out.println(String.format("Error: Forecasting for model %s paramIdx %s returned null report",
+                        modelName, paramIdx));
             }
 
             final long compTime = System.currentTimeMillis();
@@ -6626,6 +6630,7 @@ public class MainFrame extends javax.swing.JFrame {
         //a potom uz ist len cez tie, ktore bud maju malo modelov, alebo bolo potvrdene, ze maju bezat aj s velkym poctom
         // Iterate over list of models and parameters, create model forecasting jobs and feed executor service with them.
         final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+        final long computationTimeStarted = System.currentTimeMillis();
         for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
             Forecastable forecastable = null;
 
@@ -6674,10 +6679,13 @@ public class MainFrame extends javax.swing.JFrame {
         }
 
         // Do the job, please.
+        // Waits until all all jobs in the executors are finished.
         try {
             final boolean done = executor.awaitTermination(1, DAYS);
-            System.out.println("Waiting finished, timeout: " + (!done));
+            final long computationTime = System.currentTimeMillis() - computationTimeStarted;
+            executor.shutdown();
 
+            System.out.println(String.format("Waiting finished, success: %s, time elapsed: %s ms", done, computationTime));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
