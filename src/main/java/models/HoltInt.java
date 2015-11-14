@@ -10,7 +10,7 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
-
+// TODO:
 public class HoltInt implements Forecastable {
 
     //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?

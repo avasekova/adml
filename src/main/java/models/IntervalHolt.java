@@ -13,7 +13,7 @@ import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
-
+// TODO:
 public class IntervalHolt implements Forecastable {
     //A.holt(dejta, h=10, alpha=alpha, beta=beta, gamma=FALSE)
 
