@@ -12,3 +12,5 @@
 /build/
 /out/
 /target/
+/libraries-repo/
+/.idea/
