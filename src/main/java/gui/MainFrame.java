@@ -6650,8 +6650,7 @@ public class MainFrame extends javax.swing.JFrame {
                 continue;
             }
 
-            List<? extends Params> params = new ArrayList<>();
-            params = l.getModelParams();
+            List<? extends Params> params = l.getModelParams();
 
             // Sanity checking for parameter list, should be non-empty.
             if (params == null){
@@ -6673,18 +6672,18 @@ public class MainFrame extends javax.swing.JFrame {
                 job.paramIdx = paramCnt++;
                 job.paramTotal = params.size();
 
-                logger.info("Submitting job {}, param: {}/{}", l.getModel(), job.paramIdx, job.paramTotal);
+                logger.info("Submitting job {}, param: {}/{}", l.getModel(), job.paramIdx + 1, job.paramTotal);
                 executor.submit(job);
             }
         }
 
         // Do the job, please.
         // Waits until all all jobs in the executors are finished.
+        executor.shutdown();
         try {
             final boolean done = executor.awaitTermination(1, DAYS);
             final long computationTime = System.currentTimeMillis() - computationTimeStarted;
-            executor.shutdown();
-
+        
             logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime);
         } catch (InterruptedException e) {
             logger.error("Computation interrupted", e);
