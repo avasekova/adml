@@ -122,6 +122,8 @@ import java.util.concurrent.*;
 
 import models.avg.AverageEigenvalsPCA;
 import org.rosuda.javaGD.JGDBufferedPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.Const;
 import utils.ExcelWriter;
 import utils.FieldsParser;
@@ -138,6 +140,7 @@ import utils.ugliez.PlotStateKeeper;
 
 
 public class MainFrame extends javax.swing.JFrame {
+    private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
     private static MainFrame INSTANCE = null; //created in main()
     
@@ -6565,8 +6568,8 @@ public class MainFrame extends javax.swing.JFrame {
         @Override
         public void run() {
             final long curTime = System.currentTimeMillis();
-            System.out.println(String.format("<%s param=%s total=%s time=%s thread=%s>",
-                    modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName()));
+            logger.info("<{} param={} total={} time={} thread={}>",
+                    modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName());
 
             TrainAndTestReport report = forecastable.forecast(DataTableModel.getInstance(), params);
             if (report != null) {
@@ -6574,13 +6577,12 @@ public class MainFrame extends javax.swing.JFrame {
                 reportList.add(report);
 
             } else {
-                System.out.println(String.format("Error: Forecasting for model %s paramIdx %s returned null report",
-                        modelName, paramIdx));
+                logger.error("Error: Forecasting for model {} paramIdx {} returned null report", modelName, paramIdx);
             }
 
             final long compTime = System.currentTimeMillis();
-            System.out.println(String.format("</%s param=%s total=%s time=%s spent=%s ms thread=%s>",
-                    modelName, paramIdx, paramTotal, compTime, compTime-curTime, Thread.currentThread().getName()));
+            logger.info("</{} param={} total={} time={} spent={} ms thread={}>",
+                    modelName, paramIdx, paramTotal, compTime, compTime - curTime, Thread.currentThread().getName());
         }
     }
 
@@ -6617,8 +6619,7 @@ public class MainFrame extends javax.swing.JFrame {
             try {
                 numModels = l.getNumModels();
             } catch (IllegalArgumentException e) {
-                e.printStackTrace();
-                //TODO log?
+                logger.error("Exception", e); // TODO: review logging
             }
             showDialogTooManyModelsInCase(numModels, l.getModel());
             
@@ -6646,7 +6647,7 @@ public class MainFrame extends javax.swing.JFrame {
 
             // c) unknown
             if (forecastable == null){
-                System.out.println("Error: Unknown model: " + l.getModel());
+                logger.error("Unknown model: {}", l.getModel());
                 continue;
             }
 
@@ -6655,10 +6656,10 @@ public class MainFrame extends javax.swing.JFrame {
 
             // Sanity checking for parameter list, should be non-empty.
             if (params == null){
-                System.out.println("Error: Null parameter list for model: " + l.getModel());
+                logger.error("Null parameter list for model: {}", l.getModel());
                 continue;
             } else if (params.isEmpty()){
-                System.out.println("Warning: Empty parameter list for model: " + l.getModel());
+                logger.warn("Empty parameter list for model: {}", l.getModel());
                 continue;
             }
 
@@ -6673,7 +6674,7 @@ public class MainFrame extends javax.swing.JFrame {
                 job.paramIdx = paramCnt++;
                 job.paramTotal = params.size();
 
-                System.out.println(String.format("Submitting job %s, param: %s/%s", l.getModel(), job.paramIdx, job.paramTotal));
+                logger.info("Submitting job {}, param: {}/{}", l.getModel(), job.paramIdx, job.paramTotal);
                 executor.submit(job);
             }
         }
@@ -6685,9 +6686,9 @@ public class MainFrame extends javax.swing.JFrame {
             final long computationTime = System.currentTimeMillis() - computationTimeStarted;
             executor.shutdown();
 
-            System.out.println(String.format("Waiting finished, success: %s, time elapsed: %s ms", done, computationTime));
+            logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("Computation interrupted", e);
         }
 
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
