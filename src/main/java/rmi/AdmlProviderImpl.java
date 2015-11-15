@@ -56,7 +56,7 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
                 System.setSecurityManager(new SecurityManager());
             }
 
-            AdmlProvider stub = (AdmlProvider) UnicastRemoteObject.exportObject(this, 0);
+            AdmlProvider<T> stub = (AdmlProvider<T>) UnicastRemoteObject.exportObject(this, 0);
             Registry registry = LocateRegistry.getRegistry();
             registry.rebind(NAME, stub);
 

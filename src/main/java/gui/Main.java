@@ -50,12 +50,12 @@ public class Main {
 
             if (workerMode){
                 logger.info("Starting in the worker mode");
-                AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>("localhost");
+                AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<TrainAndTestReport>("localhost");
                 worker.work();
 
             } else {
                 logger.info("Starting RMI server");
-                server = new AdmlProviderImpl<>();
+                server = new AdmlProviderImpl<TrainAndTestReport>();
                 server.initServer();
                 server.setJobFinishedListener(MainFrame.getInstance());
                 MainFrame.getInstance().setServer(server);
