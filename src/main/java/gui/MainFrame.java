@@ -119,11 +119,15 @@ import gui.files.PlotExtensionFileChooser;
 import gui.settingspanels.CRCombinationsStrategySettingsPanel;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import models.avg.AverageEigenvalsPCA;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rmi.AdmlProviderImpl;
+import rmi.OnJobFinishedListener;
+import rmi.Task;
 import utils.Const;
 import utils.ExcelWriter;
 import utils.FieldsParser;
@@ -139,11 +143,16 @@ import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
 
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListener<TrainAndTestReport> {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
     private static MainFrame INSTANCE = null; //created in main()
-    
+
+    private AdmlProviderImpl<TrainAndTestReport> server;
+    private final Queue<TrainAndTestReport> taskResults = new ConcurrentLinkedQueue<>();
+    private final AtomicInteger taskToProcess = new AtomicInteger(0);
+    private final AtomicInteger taskProcessed = new AtomicInteger(0);
+
     private MainFrame() {
         initComponents();
         addComponentsToGroups();
@@ -4221,6 +4230,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void menuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExitActionPerformed
         MyRengine.stopRengine();
+        server.shutdown();
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_menuFileExitActionPerformed
 
@@ -6555,10 +6565,12 @@ public class MainFrame extends javax.swing.JFrame {
      * ModelForecastJob represents a single job of a model forecasting with given single parameter set.
      * Used for parallelization, executorService is fed with bunch of ModelForecastJob instances.
      */
-    private static class ModelForecastJob implements Runnable {
+    private static class ModelForecastJob implements Runnable, Task<TrainAndTestReport> {
+        private static final long serialVersionUID = 1L;
+
         public Forecastable forecastable;
         public Params params;
-        public List reportList;
+        public transient List reportList;
 
         public String modelName;
         public int paramIdx = 0;
@@ -6566,11 +6578,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         @Override
         public void run() {
-            final long curTime = System.currentTimeMillis();
-            logger.info("<{} param={} total={} time={} thread={}>",
-                    modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName());
-
-            TrainAndTestReport report = forecastable.forecast(DataTableModel.getInstance(), params);
+            final TrainAndTestReport report = execute();
             if (report != null) {
                 report.setID(Utils.getModelID());
                 reportList.add(report);
@@ -6578,11 +6586,34 @@ public class MainFrame extends javax.swing.JFrame {
             } else {
                 logger.error("Error: Forecasting for model {} paramIdx {} returned null report", modelName, paramIdx);
             }
+        }
+
+        @Override
+        public String getTaskId() {
+            return modelName + "_" + paramIdx;
+        }
+
+        @Override
+        public TrainAndTestReport execute() {
+            final long curTime = System.currentTimeMillis();
+            logger.info("<{} param={} total={} time={} thread={}>",
+                    modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName());
+
+            final TrainAndTestReport report = forecastable.forecast(DataTableModel.getInstance(), params);
 
             final long compTime = System.currentTimeMillis();
             logger.info("</{} param={} total={} time={} spent={} ms thread={}>",
                     modelName, paramIdx, paramTotal, compTime, compTime - curTime, Thread.currentThread().getName());
+
+            return report;
         }
+    }
+
+    @Override
+    public void onJobFinished(Task<TrainAndTestReport> task, TrainAndTestReport jobResult) {
+        logger.info("Job finished {}", task.getTaskId());
+        taskResults.add(jobResult);
+        taskProcessed.incrementAndGet();
     }
 
     private void runModels(boolean isBatch) {
@@ -6631,6 +6662,10 @@ public class MainFrame extends javax.swing.JFrame {
         // Iterate over list of models and parameters, create model forecasting jobs and feed executor service with them.
         final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
         final long computationTimeStarted = System.currentTimeMillis();
+        taskToProcess.set(0);
+        taskProcessed.set(0);
+        taskResults.clear();
+
         for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
             Forecastable forecastable = null;
 
@@ -6673,21 +6708,53 @@ public class MainFrame extends javax.swing.JFrame {
                 job.paramTotal = params.size();
 
                 logger.info("Submitting job {}, param: {}/{}", l.getModel(), job.paramIdx + 1, job.paramTotal);
-                executor.submit(job);
+                //executor.submit(job);
+                server.enqueueJob(job);
+                taskToProcess.getAndIncrement();
             }
         }
 
-        // Do the job, please.
-        // Waits until all all jobs in the executors are finished.
-        executor.shutdown();
-        try {
-            final boolean done = executor.awaitTermination(1, DAYS);
-            final long computationTime = System.currentTimeMillis() - computationTimeStarted;
-        
-            logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime);
-        } catch (InterruptedException e) {
-            logger.error("Computation interrupted", e);
+        logger.info("Waiting to get all jobs done.");
+        while(true){
+            if (taskToProcess.get() == taskProcessed.get()){
+                break;
+            }
+
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                logger.error("Interrupted", e);
+                break;
+            }
         }
+
+        logger.info("Waiting finished");
+        // TODO: refactor, this is baaaaad, ugly from the ugliest.
+        while(!taskResults.isEmpty()){
+            final TrainAndTestReport result = taskResults.poll();
+
+            if (result instanceof TrainAndTestReportCrisp){
+                reportsCTS.add((TrainAndTestReportCrisp) result);
+            } else if (result instanceof TrainAndTestReportInterval){
+                reportsIntTS.add((TrainAndTestReportInterval) result);
+            } else {
+                logger.error("WTF?");
+            }
+        }
+
+        logger.info("Waiting finished, CTS size: {}, interval size: {}", reportsCTS.size(), reportsIntTS.size());
+
+//        // Do the job, please.
+//        // Waits until all all jobs in the executors are finished.
+//        executor.shutdown();
+//        try {
+//            final boolean done = executor.awaitTermination(1, DAYS);
+//            final long computationTime = System.currentTimeMillis() - computationTimeStarted;
+//
+//            logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime);
+//        } catch (InterruptedException e) {
+//            logger.error("Computation interrupted", e);
+//        }
 
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
             String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
@@ -6944,5 +7011,13 @@ public class MainFrame extends javax.swing.JFrame {
                 buttonPCA, buttonKMOTest, buttonBartlettsTest, buttonScreePlot);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
+    }
+
+    public AdmlProviderImpl<TrainAndTestReport> getServer() {
+        return server;
+    }
+
+    public void setServer(AdmlProviderImpl<TrainAndTestReport> server) {
+        this.server = server;
     }
 }

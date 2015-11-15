@@ -35,25 +35,22 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
 
     private OnJobFinishedListener<T> jobFinishedListener;
 
-    protected AdmlProviderImpl() throws RemoteException {
+    public AdmlProviderImpl() throws RemoteException {
         super();
-        initServer();
     }
 
     protected AdmlProviderImpl(int port) throws RemoteException {
         super(port);
-        initServer();
     }
 
     protected AdmlProviderImpl(int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
         super(port, csf, ssf);
-        initServer();
     }
 
     /**
      * Starts main ADMLP server.
      */
-    protected final void initServer(){
+    public void initServer(){
         try {
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());

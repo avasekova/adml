@@ -1,10 +1,14 @@
 package gui;
 
+import models.TrainAndTestReport;
 import org.kohsuke.args4j.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rmi.AdmlProviderImpl;
+import rmi.AdmlWorkerImpl;
 
 import javax.swing.JFrame;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,6 +21,11 @@ public class Main {
 
     @Option(name="--worker", aliases={"-w"}, usage = "Start application in the worker mode, no GUI.")
     private boolean workerMode = false;
+
+    @Option(name="--rmi", aliases={"-r"}, usage = "If set, RMI is used")
+    private boolean rmi = true;
+
+    private AdmlProviderImpl<TrainAndTestReport> server;
 
     /**
      * Command line arguments parser.
@@ -40,10 +49,17 @@ public class Main {
             parseArgs(args);
 
             if (workerMode){
-                logger.error("Worker mode not implemented yet");
-                System.exit(2);
+                logger.info("Starting in the worker mode");
+                AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>("localhost");
+                worker.work();
 
             } else {
+                logger.info("Starting RMI server");
+                server = new AdmlProviderImpl<>();
+                server.initServer();
+                server.setJobFinishedListener(MainFrame.getInstance());
+                MainFrame.getInstance().setServer(server);
+
                 // Not a worker mode -> start GUI
                 startApplicationGUI();
             }
@@ -53,6 +69,9 @@ public class Main {
 
             // print option sample. This is useful some time
             System.err.println(cmdLineParser.printExample(OptionHandlerFilter.ALL, null));
+        } catch (RemoteException e){
+
+            logger.error("Could not start RMI server");
         }
     }
 

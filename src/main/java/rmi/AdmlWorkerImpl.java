@@ -15,14 +15,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Simple implementation by
  * Created by dusanklinec on 15.11.15.
  */
-public class AdmlWorkerImpl implements AdmlWorker {
+public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
     private static final Logger logger = LoggerFactory.getLogger(AdmlWorkerImpl.class);
     private static final long serialVersionUID = 1L;
 
     /**
      * Adml provider from RMI.
      */
-    private AdmlProvider provider;
+    private AdmlProvider<T> provider;
 
     /**
      * Our worker ID.
@@ -44,42 +44,52 @@ public class AdmlWorkerImpl implements AdmlWorker {
             final AdmlWorker workerStub = (AdmlWorker)UnicastRemoteObject.exportObject(this, 0);
 
             //Get a reference to the remote server on this machine
-            provider = (AdmlProvider) Naming.lookup("rmi://"+host+"/ADMLP");
+            provider = (AdmlProvider<T>) Naming.lookup("rmi://"+host+"/ADMLP");
             logger.info("Provider looked up successfully");
 
             // Register to the manager.
             provider.registerWorker(workerId, workerStub);
 
+        } catch(Exception e){
+            logger.error("Error connecting to the server: " + host, e);
+        }
+    }
+
+    /**
+     * Worker method.
+     */
+    public void work(){
+        try {
             // Worker loop.
-            while(isRunning.get()){
+            while (isRunning.get()) {
                 Thread.sleep(100);
-                if (provider.shouldTerminate(workerId)){
+                if (provider.shouldTerminate(workerId)) {
                     break;
                 }
 
-                final Task<Object> job = provider.<Object>getNewJob(workerId, 1000);
-                if (job == null){
+                final Task<T> job = provider.getNewJob(workerId, 1000);
+                if (job == null) {
                     continue;
                 }
 
-                Object result = null;
+                T result = null;
                 try {
                     logger.info("<job name={}>", job.getTaskId());
                     result = job.execute();
                     logger.info("</job name={}>", job.getTaskId());
 
-                }catch (Exception ex){
+                } catch (Exception ex) {
                     logger.error("Exception while evaluation a job", ex);
                 }
 
-                provider.<Object>jobFinished(workerId, job, result);
+                provider.jobFinished(workerId, job, result);
             }
 
             logger.info("Terminating worker {}", workerId);
             provider.unregisterWorker(workerId);
 
         } catch(Exception e){
-            logger.error("Error connecting to the server: " + host, e);
+            logger.error("Exception during worker run", e);
         }
     }
 
@@ -89,7 +99,7 @@ public class AdmlWorkerImpl implements AdmlWorker {
     }
 
     @Override
-    public <T> T executeTask(Task<T> t) throws RemoteException {
+    public T executeTask(Task<T> t) throws RemoteException {
         // TODO: implement
         return null;
     }

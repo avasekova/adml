@@ -10,7 +10,7 @@ import java.rmi.RemoteException;
  *
  * Created by dusanklinec on 15.11.15.
  */
-public interface AdmlWorker extends Remote {
+public interface AdmlWorker<T> extends Remote {
 
     /**
      * Returns worker unique identifier UUID.
@@ -23,11 +23,10 @@ public interface AdmlWorker extends Remote {
      * Synchronous execution of the task.
      *
      * @param t
-     * @param <T>
      * @return
      * @throws RemoteException
      */
-    <T> T executeTask(Task<T> t) throws RemoteException;
+     T executeTask(Task<T> t) throws RemoteException;
 
     /**
      * Tests availability of the client.
