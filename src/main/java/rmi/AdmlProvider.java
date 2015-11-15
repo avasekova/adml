@@ -28,6 +28,24 @@ public interface AdmlProvider extends Remote {
     <T> Task<T> getNewJob(String workerId, long timeout) throws RemoteException;
 
     /**
+     * Worker calls this method when computation is finished.
+     * @param workerId worker string identifier, UUID
+     * @param task  task that was finished
+     * @param jobResult result of the task
+     */
+    <T> void jobFinished(String workerId, Task<T> task, T jobResult);
+
+    /**
+     * Worker signalizes computation progress to the manager.
+     *
+     * @param workerId worker string identifier, UUID
+     * @param taskId task that was finished
+     * @param progress total progress value
+     * @return if true, worker keeps on computing the task. If false, worker stops the computation.
+     */
+    boolean jobProgress(String workerId, String taskId, double progress);
+
+    /**
      * Worker asks provider whether he should cancel computation of the provided job.
      *
      * @param workerId  worker string identifier, UUID
