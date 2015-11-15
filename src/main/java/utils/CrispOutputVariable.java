@@ -1,6 +1,8 @@
 package utils;
 
-public class CrispOutputVariable {
+import java.io.Serializable;
+
+public class CrispOutputVariable implements Serializable {
     
     private String name;
     private String fieldName;

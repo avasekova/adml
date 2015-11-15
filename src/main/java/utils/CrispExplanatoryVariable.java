@@ -1,6 +1,8 @@
 package utils;
 
-public class CrispExplanatoryVariable {
+import java.io.Serializable;
+
+public class CrispExplanatoryVariable implements Serializable {
     
     private String name;
     private String fieldName;

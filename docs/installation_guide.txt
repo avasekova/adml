@@ -1,9 +1,9 @@
 - install R - just Core files and 64-bit files
 - install Java (JRE) - v7u71, 64-bit
 - notice that neither R_HOME nor JAVA_HOME has been set up
-- install all necessary packages (install.packages("name of the package",dependencies=TRUE)). The order does not matter, but I did it in this order: rJava, forecast, JavaGD, XLConnect, FNN, kknn, nnet, scales, reshape, RSNNS, vars, psych, nortest, tseries, bfast, LearnBayes, brnn. It is also possible to install them all at once using this command:
+- install all necessary packages (install.packages("name of the package",dependencies=TRUE)). The order does not matter, but I did it in this order: rJava, forecast, JavaGD, XLConnect, FNN, kknn, nnet, scales, reshape, RSNNS, vars, psych, nortest, tseries, bfast, LearnBayes, brnn, FactoMineR. It is also possible to install them all at once using this command:
 
-install.packages(c("rJava", "forecast", "JavaGD", "XLConnect", "FNN", "kknn", "nnet", "scales", "reshape", "RSNNS", "vars", "psych", "nortest", "tseries", "bfast", "LearnBayes", "brnn"), dependencies=TRUE)
+install.packages(c("rJava", "forecast", "JavaGD", "XLConnect", "FNN", "kknn", "nnet", "scales", "reshape", "RSNNS", "vars", "psych", "nortest", "tseries", "bfast", "LearnBayes", "brnn", "FactoMineR"), dependencies=TRUE)
 
 - run the tool just like that (a double-click on MLPtoR.jar or from cmd: "java -jar MLPtoR.jar")
 - UnsatisfiedLinkError: no jri in java.library.path

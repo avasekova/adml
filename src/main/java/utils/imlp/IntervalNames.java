@@ -2,7 +2,9 @@ package utils.imlp;
 
 import gui.Plottable;
 
-public abstract class IntervalNames implements Plottable {
+import java.io.Serializable;
+
+public abstract class IntervalNames implements Plottable, Serializable {
     
     private String colourInPlot;
     private boolean visible;

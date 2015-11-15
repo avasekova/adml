@@ -2,8 +2,12 @@ package models.params;
 
 import utils.Improvable;
 
-public class Params { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
-    
+import java.io.Serializable;
+
+public class Params implements Serializable { //do not add futureForecastValues to params - no need to. just keep all forecasts (test+future) in one var
+
+    private static final long serialVersionUID = 0L;
+
     private int percentTrain;
     private int numForecasts;
     private int dataRangeFrom;

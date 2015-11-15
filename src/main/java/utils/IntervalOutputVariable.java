@@ -2,7 +2,9 @@ package utils;
 
 import utils.imlp.IntervalNames;
 
-public class IntervalOutputVariable {
+import java.io.Serializable;
+
+public class IntervalOutputVariable implements Serializable {
     
     private String name;
     private IntervalNames intervalNames;
