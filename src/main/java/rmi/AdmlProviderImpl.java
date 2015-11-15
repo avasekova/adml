@@ -116,7 +116,7 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
     }
 
     @Override
-    public void jobFinished(String workerId, Task<T> task, T jobResult) {
+    public void jobFinished(String workerId, Task<T> task, T jobResult) throws RemoteException {
         logger.info("Job has finished");
         if (jobFinishedListener == null){
             logger.error("Job finished listener is null");
@@ -127,7 +127,7 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
     }
 
     @Override
-    public boolean jobProgress(String workerId, String taskId, double progress) {
+    public boolean jobProgress(String workerId, String taskId, double progress) throws RemoteException {
         if (!isRunning.get()){
             return false;
         }

@@ -33,7 +33,7 @@ public interface AdmlProvider<T> extends Remote {
      * @param task  task that was finished
      * @param jobResult result of the task
      */
-    void jobFinished(String workerId, Task<T> task, T jobResult);
+    void jobFinished(String workerId, Task<T> task, T jobResult) throws RemoteException;
 
     /**
      * Worker signalizes computation progress to the manager.
@@ -43,7 +43,7 @@ public interface AdmlProvider<T> extends Remote {
      * @param progress total progress value
      * @return if true, worker keeps on computing the task. If false, worker stops the computation.
      */
-    boolean jobProgress(String workerId, String taskId, double progress);
+    boolean jobProgress(String workerId, String taskId, double progress) throws RemoteException;
 
     /**
      * Worker asks provider whether he should cancel computation of the provided job.
