@@ -151,7 +151,7 @@ public class IntervalMLPCcode implements Forecastable {
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), 
                 params.getOutVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
         
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*data.get(0).size());
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(params.getDataRangeTo()-(params.getDataRangeFrom()-1)));
         report.setNumTrainingEntries(numTrainingEntries);
         
 //        List<Double> trainingPortionOfCenter = centerData.subList(0, numTrainingEntries);
@@ -166,7 +166,7 @@ public class IntervalMLPCcode implements Forecastable {
         File fileTest = new File(TEST_FILE);
         try (BufferedWriter fwTrain = new BufferedWriter(new FileWriter(fileTrain));
              BufferedWriter fwTest = new BufferedWriter(new FileWriter(fileTest))) {
-            for (int i = 0; i < numTrainingEntries; i++) {
+            for (int i = 0; i < numTrainingEntries - maxLag; i++) {
                 for (List<Double> column : data) {
                     fwTrain.write(column.get(i) + "\t");
                     fwTest.write(column.get(i) + "\t");
@@ -177,7 +177,7 @@ public class IntervalMLPCcode implements Forecastable {
             fwTrain.flush();
             
             //a dopisat zvysok do Testu
-            for (int i = numTrainingEntries; i < data.get(0).size(); i++) {
+            for (int i = numTrainingEntries - maxLag; i < data.get(0).size(); i++) {
                 for (List<Double> column : data) {
                     fwTest.write(column.get(i) + "\t");
                 }
@@ -271,8 +271,8 @@ public class IntervalMLPCcode implements Forecastable {
             
 //            report.setForecastValuesFuture(); //nothing yet
             
-            errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realData.subList(0, numTrainingEntries), 
-                    realData.subList(numTrainingEntries, realData.size()), 
+            errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realData.subList(0, numTrainingEntries),
+                    realData.subList(numTrainingEntries, realData.size()),
                     newForecastsTrain, newForecastsTest, params.getDistance(), parameters.getSeasonality());
         }
         
@@ -315,7 +315,8 @@ public class IntervalMLPCcode implements Forecastable {
             
             maxLag = Math.max(maxLag, var.getLag());
         }
-        
+
+        //TODO refactor, uplne to iste...
         for (IntervalOutputVariable var : outVars) {
             List<Double> centers;
             List<Double> radii;
