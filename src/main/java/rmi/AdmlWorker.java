@@ -20,6 +20,16 @@ public interface AdmlWorker extends Remote {
     String getWorkerId() throws RemoteException;
 
     /**
+     * Synchronous execution of the task.
+     *
+     * @param t
+     * @param <T>
+     * @return
+     * @throws RemoteException
+     */
+    <T> T executeTask(Task<T> t) throws RemoteException;
+
+    /**
      * Tests availability of the client.
      *
      * @param pingCtr ping sequence counter
