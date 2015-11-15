@@ -71,7 +71,7 @@ public class Main {
             System.err.println(cmdLineParser.printExample(OptionHandlerFilter.ALL, null));
         } catch (RemoteException e){
 
-            logger.error("Could not start RMI server");
+            logger.error("Could not start RMI server", e);
         }
     }
 
