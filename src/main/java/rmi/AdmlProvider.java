@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
  *
  * Created by dusanklinec on 15.11.15.
  */
-public interface AdmlProvider extends Remote {
+public interface AdmlProvider<T> extends Remote {
     /**
      * Worker machines connected to the job provider server pull a new job using this method from the job queue.
      * If no job is currently in the work queue, null is returned.
@@ -25,7 +25,7 @@ public interface AdmlProvider extends Remote {
      * @return A new task to be executed.
      * @throws RemoteException
      */
-    <T> Task<T> getNewJob(String workerId, long timeout) throws RemoteException;
+    Task<T> getNewJob(String workerId, long timeout) throws RemoteException;
 
     /**
      * Worker calls this method when computation is finished.
@@ -33,7 +33,7 @@ public interface AdmlProvider extends Remote {
      * @param task  task that was finished
      * @param jobResult result of the task
      */
-    <T> void jobFinished(String workerId, Task<T> task, T jobResult);
+    void jobFinished(String workerId, Task<T> task, T jobResult);
 
     /**
      * Worker signalizes computation progress to the manager.
@@ -69,11 +69,10 @@ public interface AdmlProvider extends Remote {
      * New worker machine registers itself to a job provider.
      * Job provider is aware of a new worker capable of executing tasks.
      *
-     * TODO: pass a reference to a AdmlWorker so provider can query workers directly.
      * @param workerId worker string identifier, UUID
      * @throws RemoteException
      */
-    void registerWorker(String workerId) throws RemoteException;
+    void registerWorker(String workerId, AdmlWorker workerCallback) throws RemoteException;
 
     /**
      * Worker is disconnecting from work queue.
