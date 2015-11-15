@@ -6848,6 +6848,8 @@ public class MainFrame extends javax.swing.JFrame {
             panelResiduals.add(scrollPaneResiduals);
             panelResiduals.repaint();
         }
+
+        panelEverything.setSelectedComponent(panelPlotImage);
     }
     
     public void addReportToData(TrainAndTestReportCrisp r) {
