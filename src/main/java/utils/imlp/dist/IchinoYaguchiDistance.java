@@ -4,6 +4,7 @@ import utils.ErrorMeasuresUtils;
 import utils.imlp.Interval;
 
 public class IchinoYaguchiDistance implements Distance {
+    private static final long serialVersionUID = 1L;
     
     private final double gamma;
 

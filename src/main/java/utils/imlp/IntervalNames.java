@@ -5,6 +5,7 @@ import gui.Plottable;
 import java.io.Serializable;
 
 public abstract class IntervalNames implements Plottable, Serializable {
+    private static final long serialVersionUID = 1L;
     
     private String colourInPlot;
     private boolean visible;

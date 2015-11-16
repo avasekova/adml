@@ -12,6 +12,7 @@ import utils.Utils;
 import utils.imlp.Interval;
 
 public class SESint implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?
     @Override

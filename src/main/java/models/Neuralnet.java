@@ -5,6 +5,7 @@ import models.params.NeuralnetParams;
 import models.params.Params;
 
 public class Neuralnet implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public TrainAndTestReportCrisp forecast(DataTableModel dataTableModel, Params parameters) {

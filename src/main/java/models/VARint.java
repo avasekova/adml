@@ -13,6 +13,7 @@ import utils.Utils;
 import utils.imlp.Interval;
 
 public class VARint implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {

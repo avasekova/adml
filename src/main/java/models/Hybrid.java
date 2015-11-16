@@ -21,6 +21,7 @@ import utils.Utils;
 import utils.imlp.Interval;
 
 public class Hybrid implements Forecastable {
+    private static final long serialVersionUID = 1L;
     
     //TODO napisat aj prirucku na pridavanie veci do Hybrid - kde vsade to treba pridat, bo su to asi 3-4 miesta v kode
     @Override

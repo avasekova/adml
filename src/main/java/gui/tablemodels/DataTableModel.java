@@ -2,6 +2,7 @@ package gui.tablemodels;
 
 import gui.LoadDataCustomizerPanel;
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
@@ -13,10 +14,10 @@ import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 
-public class DataTableModel extends AbstractTableModel {
+public class DataTableModel extends AbstractTableModel implements Serializable {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
     //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
-    //private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
     private static DataTableModel INSTANCE = null; //TODO mozno bude inak, ked povolim loadovat viac suborov
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();

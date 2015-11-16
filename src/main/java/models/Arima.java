@@ -13,6 +13,7 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class Arima implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {

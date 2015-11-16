@@ -13,6 +13,7 @@ import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class HoltWintersInt implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?
     @Override

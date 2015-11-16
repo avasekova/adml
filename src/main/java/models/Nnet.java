@@ -14,6 +14,7 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class Nnet implements Forecastable {
+    private static final long serialVersionUID = 1L;
     
     private int maxLag = 0; //a stupid solution, but whatever
 

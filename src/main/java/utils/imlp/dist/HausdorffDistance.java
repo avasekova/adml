@@ -3,6 +3,7 @@ package utils.imlp.dist;
 import utils.imlp.Interval;
 
 public class HausdorffDistance implements Distance {
+    private static final long serialVersionUID = 1L;
     
     @Override
     public double getDistance(Interval forecast, Interval real) {

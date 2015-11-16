@@ -3,6 +3,7 @@ package utils.imlp.dist;
 import utils.imlp.Interval;
 
 public class WeightedEuclideanDistance implements Distance {
+    private static final long serialVersionUID = 1L;
     
     private final double beta;
 

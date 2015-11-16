@@ -14,6 +14,7 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class MAvg implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {

@@ -13,8 +13,9 @@ import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
-// TODO:
+
 public class IntervalHolt implements Forecastable {
+    private static final long serialVersionUID = 1L;
     //A.holt(dejta, h=10, alpha=alpha, beta=beta, gamma=FALSE)
 
     @Override

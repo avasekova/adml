@@ -12,6 +12,7 @@ import utils.Utils;
 
 //(not used, may contain dragons)
 public class KNNcustom implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {

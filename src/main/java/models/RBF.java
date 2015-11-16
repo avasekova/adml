@@ -15,6 +15,7 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class RBF implements Forecastable {
+    private static final long serialVersionUID = 1L;
     
     private int maxLag = 0; //a stupid solution, but whatever
 

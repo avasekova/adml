@@ -12,8 +12,9 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
-// TODO
+
 public class MLPintNnet implements Forecastable {
+    private static final long serialVersionUID = 1L;
     
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {

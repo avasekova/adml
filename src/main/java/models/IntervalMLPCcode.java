@@ -31,6 +31,7 @@ import utils.imlp.dist.IchinoYaguchiDistance;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalMLPCcode implements Forecastable {
+    private static final long serialVersionUID = 1L;
     
     private int maxLag = 0;
     

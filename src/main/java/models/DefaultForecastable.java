@@ -4,6 +4,7 @@ import gui.tablemodels.DataTableModel;
 import models.params.Params;
 
 public class DefaultForecastable implements Forecastable {
+    private static final long serialVersionUID = 1L;
 
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {

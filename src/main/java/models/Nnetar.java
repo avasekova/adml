@@ -17,8 +17,9 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class Nnetar implements Forecastable {
+    private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(Nnetar.class);
-    
+
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters){
         final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
