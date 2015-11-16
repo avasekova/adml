@@ -3,10 +3,8 @@ package rmi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.rmi.Naming;
-import java.rmi.RMISecurityManager;
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.net.MalformedURLException;
+import java.rmi.*;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -31,28 +29,35 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
 
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
 
-    public AdmlWorkerImpl(String host, String svc){
-        try {
-            // Install security manager.  This is only necessary
-            // if the remote object's client stub does not reside
-            // on the client machine (it resides on the server).
-            if (System.getSecurityManager() == null) {
-                System.setSecurityManager(new SecurityManager());
-            }
+    public AdmlWorkerImpl(String host, String svc) throws RemoteException, MalformedURLException, NotBoundException {
+        startWorker(host, -1, svc);
+    }
 
-            // Export ourselves so provider can invoke methods on us.
-            final AdmlWorker workerStub = (AdmlWorker)UnicastRemoteObject.exportObject(this, 0);
+    public AdmlWorkerImpl(String host, int port, String svc) throws RemoteException, MalformedURLException, NotBoundException {
+        startWorker(host, port, svc);
+    }
 
-            //Get a reference to the remote server on this machine
-            provider = (AdmlProvider<T>) Naming.lookup("rmi://"+host+"/" + svc);
-            logger.info("Provider looked up successfully");
-
-            // Register to the manager.
-            provider.registerWorker(workerId, workerStub);
-
-        } catch(Exception e){
-            logger.error("Error connecting to the server: " + host, e);
+    protected void startWorker(String host, int port, String svc) throws RemoteException, MalformedURLException, NotBoundException {
+        // Install security manager.  This is only necessary
+        // if the remote object's client stub does not reside
+        // on the client machine (it resides on the server).
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
         }
+
+        // Export ourselves so provider can invoke methods on us.
+        final AdmlWorker workerStub = (AdmlWorker)UnicastRemoteObject.exportObject(this, 0);
+        String connectURL = "rmi://"+host+"/" + svc;
+        if (port > 0){
+            connectURL = "rmi://"+host+":"+port+"/" + svc;
+        }
+
+        //Get a reference to the remote server on this machine
+        provider = (AdmlProvider<T>) Naming.lookup(connectURL);
+        logger.info("Provider looked up successfully");
+
+        // Register to the manager.
+        provider.registerWorker(workerId, workerStub);
     }
 
     /**
@@ -60,6 +65,7 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
      */
     public void work(){
         try {
+            logger.info("Entering worker loop, waiting for jobs, my id is {}", workerId);
             while (isRunning.get()) {
                 try {
                     Thread.sleep(100);
