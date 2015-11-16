@@ -16,7 +16,7 @@ import utils.Utils;
 public class DataTableModel extends AbstractTableModel {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
     //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
-    
+    //private static final long serialVersionUID = 1L;
     private static DataTableModel INSTANCE = null; //TODO mozno bude inak, ked povolim loadovat viac suborov
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();

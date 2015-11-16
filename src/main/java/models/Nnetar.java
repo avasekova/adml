@@ -8,6 +8,8 @@ import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import models.params.NnetarParams;
 import models.params.Params;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresUtils;
@@ -15,6 +17,7 @@ import utils.MyRengine;
 import utils.Utils;
 
 public class Nnetar implements Forecastable {
+    private static final Logger logger = LoggerFactory.getLogger(Nnetar.class);
     
     @Override
     public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters){
@@ -34,7 +37,9 @@ public class Nnetar implements Forecastable {
         NnetarParams params = (NnetarParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
         report.setModelDescription(params.toString());
-        
+
+        logger.info("Params {}", params.getColName());
+
         List<Double> allData = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(params.getColName())));
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         

@@ -26,6 +26,7 @@ public class Main {
     private boolean rmi = true;
 
     private AdmlProviderImpl<TrainAndTestReport> server;
+    private MainFrame gui;
 
     /**
      * Command line arguments parser.
@@ -57,8 +58,10 @@ public class Main {
                 logger.info("Starting RMI server");
                 server = new AdmlProviderImpl<TrainAndTestReport>();
                 server.initServer();
-                server.setJobFinishedListener(MainFrame.getInstance());
-                MainFrame.getInstance().setServer(server);
+
+                gui =  MainFrame.getInstance();
+                server.setJobFinishedListener(gui);
+                gui.setServer(server);
 
                 // Not a worker mode -> start GUI
                 startApplicationGUI();
@@ -69,7 +72,7 @@ public class Main {
 
             // print option sample. This is useful some time
             System.err.println(cmdLineParser.printExample(OptionHandlerFilter.ALL, null));
-        } catch (RemoteException e){
+        } catch (Exception e){
 
             logger.error("Could not start RMI server", e);
         }
@@ -87,20 +90,20 @@ public class Main {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            logger.error("Exception", ex);
         }
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                MainFrame.getInstance().setExtendedState(JFrame.MAXIMIZED_BOTH); //maximize the window
+                gui.setExtendedState(JFrame.MAXIMIZED_BOTH); //maximize the window
                 try {
                     Thread.sleep(2000L);
                 } catch (InterruptedException ex) {
                     logger.error("Exception", ex);
                 }
 
-                MainFrame.getInstance().setVisible(true);
+                gui.setVisible(true);
             }
         });
     }

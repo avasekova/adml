@@ -3,6 +3,7 @@ package rmi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,7 +20,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Simple worker provider implementation
  * Created by dusanklinec on 15.11.15.
  */
-public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProvider<T> {
+public class AdmlProviderImpl<T> implements AdmlProvider<T> {
     private static final Logger logger = LoggerFactory.getLogger(AdmlProviderImpl.class);
     private static final long serialVersionUID = 1L;
     private static final String NAME = "ADMLP";
@@ -35,18 +36,6 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
 
     private OnJobFinishedListener<T> jobFinishedListener;
 
-    public AdmlProviderImpl() throws RemoteException {
-        super();
-    }
-
-    protected AdmlProviderImpl(int port) throws RemoteException {
-        super(port);
-    }
-
-    protected AdmlProviderImpl(int port, RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
-        super(port, csf, ssf);
-    }
-
     /**
      * Starts main ADMLP server.
      */
@@ -57,11 +46,12 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
             }
 
             AdmlProvider<T> stub = (AdmlProvider<T>) UnicastRemoteObject.exportObject(this, 0);
-            Registry registry = LocateRegistry.getRegistry();
+            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             registry.rebind(NAME, stub);
 
             // Old way.
-            //Naming.bind("rmi://localhost/"+NAME, this);
+//            Naming.bind("rmi://localhost/" + NAME, stub);
+//            Naming.bind(NAME, this);
             logger.info("ADML Provider ready");
         } catch (Exception e){
             logger.error("Failed to start RMI ADML Provider", e);
@@ -117,13 +107,15 @@ public class AdmlProviderImpl<T> extends UnicastRemoteObject implements AdmlProv
 
     @Override
     public void jobFinished(String workerId, Task<T> task, T jobResult) throws RemoteException {
-        logger.info("Job has finished");
+        logger.info("Job has finished {}", jobFinishedListener);
         if (jobFinishedListener == null){
             logger.error("Job finished listener is null");
             return;
         }
 
+        logger.info("Job has finished 2 {}", jobFinishedListener);
         jobFinishedListener.onJobFinished(task, jobResult);
+        logger.info("Job has finished 3 {}", jobFinishedListener);
     }
 
     @Override
