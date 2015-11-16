@@ -96,6 +96,10 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
         for(String wKey : keysToRemove){
             workers.remove(wKey);
         }
+
+        if (!keysToRemove.isEmpty()){
+            logger.info("Workers removed: {}, workers left: {}", keysToRemove.size(), workers.size());
+        }
     }
 
     /**

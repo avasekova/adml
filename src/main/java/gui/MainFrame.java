@@ -6758,6 +6758,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         taskToProcess.set(0);
         taskProcessed.set(0);
         taskResults.clear();
+        if (server != null){
+            server.checkAllWorkers();
+        }
 
         for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
             Forecastable forecastable = null;
