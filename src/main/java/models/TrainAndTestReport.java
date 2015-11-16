@@ -67,6 +67,7 @@ public abstract class TrainAndTestReport implements Plottable, Serializable {
         return nnDiagramPlotCode;
     }
 
+    //TODO fix - zatial nefunguje kvoli ne/zdielaniu R env - posielam len nazov premennej
     public void setNnDiagramPlotCode(String nnDiagramPlotCode) {
         this.nnDiagramPlotCode = nnDiagramPlotCode;
     }

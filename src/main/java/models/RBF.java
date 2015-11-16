@@ -77,7 +77,7 @@ public class RBF implements Forecastable {
             double[] forecastValsTest = getForecastValsTest.asDoubleArray();
             report.setForecastValuesTest(forecastValsTest);
             
-            report.setPlotCode("plot.ts(c(rep(NA, " + maxLag + "), " + UNSCALED_FIT + ", " + UNSCALED_FORECAST_TEST + "))");
+            report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastValsTest) + "))");
             
             //real outputs train and test are just the original data (used only for plotting)
             //za predpokladu, ze mame iba jednu OutVar:
@@ -94,9 +94,8 @@ public class RBF implements Forecastable {
             //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.
             //TODO doplnit, ked budem doplnat aj do iMLP C code, lebo to bude fungovat tak isto.
             
-            //POZOR, nemazat z plotu
-            rengine.rm(SCALED_INPUT_TRAIN, SCALED_INPUT_TEST, OUTPUT, SCALED_OUTPUT, SCALED_OUTPUT_TRAIN, SCALED_OUTPUT_TEST, NNETWORK, FIT, FORECAST_TEST);
-            }
+            rengine.rm(SCALED_INPUT_TRAIN, SCALED_INPUT_TEST, OUTPUT, SCALED_OUTPUT, SCALED_OUTPUT_TRAIN, SCALED_OUTPUT_TEST, NNETWORK, FIT, FORECAST_TEST, UNSCALED_FIT, UNSCALED_FORECAST_TEST);
+        }
         
         return report;
     }

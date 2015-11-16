@@ -72,9 +72,9 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
                 REXP getForecastOutput = rengine.eval(FORECAST);
                 double[] forecastOutput = getForecastOutput.asDoubleArray();
                 report.setForecastValuesFuture(forecastOutput);
-                report.setPlotCode("plot.ts(c(" + FIT_THIS + "," + FORECAST + "))");
+                report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedOutput) + "," + Utils.arrayToRVectorString(forecastOutput) + "))");
             } else {
-                report.setPlotCode("plot.ts(c(" + FIT_THIS + "))");
+                report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedOutput) + "))");
             }
 
 
@@ -85,6 +85,8 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
 
 
             allReports.add(report);
+
+            rengine.rm(FIT_THIS);
         }
         
         rengine.rm(FORECAST_MODEL, INPUT, FIT, REAL_OUTPUT);

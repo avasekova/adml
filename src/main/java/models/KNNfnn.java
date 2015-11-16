@@ -104,9 +104,9 @@ public class KNNfnn implements Forecastable {
         report.setRealOutputsTrain(trainingOutputs);
         report.setRealOutputsTest(testingOutputs);
         
-        report.setPlotCode("plot.ts(c(" + PREDICTED_TRAIN + ", " + PREDICTED_TEST + "))");
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(trainingPredicted) + ", " + Utils.arrayToRVectorString(testingPredicted) + "))");
         
-        rengine.rm(NBRS_NO_TEST, NBRS_WITH_TEST, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, INPUT, OUTPUT, PREDICTED_OUTPUT); //POZOR, nemazat PREDICTED_TRAIN, PREDICTED_TEST
+        rengine.rm(NBRS_NO_TEST, NBRS_WITH_TEST, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, INPUT, OUTPUT, PREDICTED_OUTPUT, PREDICTED_TRAIN, PREDICTED_TEST);
         
         return report;
     }

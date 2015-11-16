@@ -131,7 +131,7 @@ public class Arima implements Forecastable {
         report.setForecastValuesTest(Utils.listToArray(allForecastsList.subList(0, dataToUse.size() - numTrainingEntries)));
         report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(dataToUse.size() - numTrainingEntries, allForecastsList.size())));
         
-        report.setPlotCode("plot.ts(c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fitted) + ", " + Utils.listToRVectorString(allForecastsList) + "))");
         
         report.setErrorMeasures(errorMeasures);
         
@@ -155,8 +155,7 @@ public class Arima implements Forecastable {
         
         
         rengine.rm(INPUT, SCALED_INPUT, INPUT_TRAIN, SCALED_INPUT_TRAIN, INPUT_TEST, SCALED_INPUT_TEST, MODEL, FITTED_VALS, 
-                FORECAST_VALS, FORECAST_VALS_CUT, PRED_INT_LOWER, PRED_INT_UPPER);
-        //POZOR! nemazat UNSCALED_FITTED a UNSCALED_FORECAST - sucast plotu!
+                FORECAST_VALS, FORECAST_VALS_CUT, PRED_INT_LOWER, PRED_INT_UPPER, UNSCALED_FITTED_VALS, UNSCALED_FORECAST_VALS);
         
         return report;
     }

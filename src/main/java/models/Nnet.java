@@ -159,14 +159,14 @@ public class Nnet implements Forecastable {
 //            report.setForecastValuesFuture(futureForecasts);
 //            report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + ", " + FUTURE_FORECASTS + "))");
 //        } else {
-            report.setPlotCode("plot.ts(c(" + FINAL_UNSCALED_FITTED_VALS + ", " + FINAL_UNSCALED_FORECAST_VALS + "))");
+            report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastVals) + "))");
 //        }
         
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + ")");
         
-        //POZOR - nemazat z plotov
         rengine.rm(OUTPUT, SCALED_OUTPUT, ORIGINAL_OUTPUT, INPUT_TRAIN, SCALED_INPUT_TRAIN, INPUT_TEST, SCALED_INPUT_TEST, OUTPUT_TRAIN, SCALED_OUTPUT_TRAIN,
-                OUTPUT_TEST, SCALED_OUTPUT_TEST, FORECAST_VALS, FITTED_VALS, UNSCALED_FITTED_VALS, UNSCALED_FORECAST_VALS, ALL_AUX, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST);
+                OUTPUT_TEST, SCALED_OUTPUT_TEST, FORECAST_VALS, FITTED_VALS, UNSCALED_FITTED_VALS, UNSCALED_FORECAST_VALS, ALL_AUX, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST, NNETWORK,
+                FINAL_UNSCALED_FITTED_VALS, FINAL_UNSCALED_FORECAST_VALS);
         
         return report;
     }

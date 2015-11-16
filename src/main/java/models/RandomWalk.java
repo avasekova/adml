@@ -34,7 +34,7 @@ public class RandomWalk { //TODO implements Forecastable!
         MyRengine rengine = MyRengine.getRengine();
         rengine.assign(DATA_FIT, Utils.listToArray(trainForecastOutputs));
         rengine.assign(DATA_FORECAST, Utils.listToArray(testForecastOutputs));
-        report.setPlotCode("plot.ts(c(" + DATA_FIT + "," + DATA_FORECAST + "))");
+        report.setPlotCode("plot.ts(c(" + DATA_FIT + "," + DATA_FORECAST + "))"); //TODO zmenit potom, ked to bude aktualne - ked bude impl Forecastable
         
         report.setFittedValues(Utils.listToArray(trainForecastOutputs));
         report.setForecastValuesTest(Utils.listToArray(testForecastOutputs));

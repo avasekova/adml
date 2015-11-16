@@ -76,7 +76,7 @@ public class BNN implements Forecastable {
             double[] forecastValsTest = getForecastValsTest.asDoubleArray();
             report.setForecastValuesTest(forecastValsTest);
             
-            report.setPlotCode("plot.ts(c(rep(NA, " + maxLag + "), " + FIT + ", " + FORECAST_TEST + "))");
+            report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastValsTest) + "))");
             
             //real outputs train and test are just the original data (used only for plotting)
             //za predpokladu, ze mame iba jednu OutVar:

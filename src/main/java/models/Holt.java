@@ -74,7 +74,7 @@ public class Holt implements Forecastable {
         report.setFittedValues(fittedVals);
         report.setForecastValuesTest(Utils.listToArray(forecastTest));
         report.setForecastValuesFuture(Utils.listToArray(forecastFuture));
-        report.setPlotCode("plot.ts(c(" + FIT + "," + FORECAST + "))");
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + "," + Utils.listToRVectorString(forecastTestAndFuture) + "))");
         report.setRealOutputsTrain(Utils.listToArray(inputTrain));
         report.setRealOutputsTest(Utils.listToArray(inputTest));
         
@@ -96,7 +96,7 @@ public class Holt implements Forecastable {
                 Utils.arrayToList(fittedVals), forecastTest, params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
-        rengine.rm(FORECAST_MODEL, INPUT_TRAIN, PRED_INT_LOWER, PRED_INT_UPPER); //POZOR, nemazat FIT, FORECAST
+        rengine.rm(FORECAST_MODEL, INPUT_TRAIN, PRED_INT_LOWER, PRED_INT_UPPER, FIT, FORECAST);
         
         return report;
     }

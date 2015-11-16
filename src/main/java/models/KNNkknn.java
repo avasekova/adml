@@ -103,10 +103,10 @@ public class KNNkknn implements Forecastable {
         report.setRealOutputsTest(testingOutputs);
         
 //        report.setForecastValuesFuture(); //nothing yet
-        report.setPlotCode("plot.ts(c(" + FITTED_VALS + ", " + FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(trainingPredicted) + ", " + Utils.arrayToRVectorString(testingPredicted) + "))");
         report.setErrorMeasures(errorMeasures);
         
-        rengine.rm(INPUT, OUTPUT, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, MODEL, PREDICTED_OUTPUT, BEST_K); //POZOR, nemazat FIT a FORECAST
+        rengine.rm(INPUT, OUTPUT, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, MODEL, PREDICTED_OUTPUT, BEST_K, FITTED_VALS, FORECAST_VALS);
         
         return report;
     }

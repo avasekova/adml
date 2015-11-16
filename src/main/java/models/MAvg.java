@@ -45,7 +45,7 @@ public class MAvg implements Forecastable {
         report.setFittedValues(fittedVals);
         report.setForecastValuesTest(Utils.listToArray(new ArrayList<>()));
         report.setForecastValuesFuture(Utils.listToArray(new ArrayList<>()));
-        report.setPlotCode("plot.ts(c(" + FIT + "))"); //musi tam byt aj to c() obalovatko, aj ked je len jeden prvok... on ho totiz v PlotDraweri potom maze a chyba mu. TODO zmenit uz konecne
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + "))"); //musi tam byt aj to c() obalovatko, aj ked je len jeden prvok... on ho totiz v PlotDraweri potom maze a chyba mu. TODO zmenit uz konecne
         report.setRealOutputsTrain(Utils.listToArray(inputTrain));
         report.setRealOutputsTest(Utils.listToArray(new ArrayList<>()));
         
@@ -53,7 +53,7 @@ public class MAvg implements Forecastable {
                 Utils.arrayToList(fittedVals), new ArrayList<>(), params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
-        rengine.rm(INPUT_TRAIN); //POZOR - nemazat z plotu!
+        rengine.rm(INPUT_TRAIN, FIT);
         
         return report;
     }

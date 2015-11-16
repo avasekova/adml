@@ -105,13 +105,13 @@ public class Nnetar implements Forecastable {
         
         
         
-        report.setPlotCode("plot.ts(c(" + FIT + "," + FORECAST_VALS + "))");
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fitted) + "," + Utils.listToRVectorString(allForecastsList) + "))");
         
         //TODO neskor vybrat najlepsi a ten naplotovat! zatial plotuje prvy :/
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + "$model[[1]]$wts, struct = " + NNETWORK + "$model[[1]]$n)");
         
         //POZOR - nemazat z plotov
-        rengine.rm(TRAINDATA, FORECAST_MODEL, TEST, OUTPUT, ORIGINAL_OUTPUT, OUTPUT_TRAIN, OUTPUT_TEST, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST);
+        rengine.rm(TRAINDATA, FORECAST_MODEL, TEST, OUTPUT, ORIGINAL_OUTPUT, OUTPUT_TRAIN, OUTPUT_TEST, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST, FIT, FORECAST_VALS);
         
         return report;
     }
