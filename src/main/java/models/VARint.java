@@ -1,6 +1,8 @@
 package models;
 
 import gui.tablemodels.DataTableModel;
+
+import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import models.params.Params;
@@ -95,8 +97,8 @@ public class VARint implements Forecastable {
         List<Double> forecastCenter = Utils.arrayToList(getForecastCenter.asDoubleArray());
         List<Double> forecastRadius = Utils.arrayToList(getForecastRadius.asDoubleArray());
         List<Interval> forecasts = Utils.zipCentersRadiiToIntervals(forecastCenter, forecastRadius);
-        List<Interval> forecastsTest = forecasts.subList(0, realOutpustTest.size());
-        List<Interval> forecastsFuture = forecasts.subList(realOutpustTest.size(), forecasts.size());
+        List<Interval> forecastsTest = new ArrayList<>(forecasts.subList(0, realOutpustTest.size()));
+        List<Interval> forecastsFuture = new ArrayList<>(forecasts.subList(realOutpustTest.size(), forecasts.size()));
         report.setForecastValuesTest(forecastsTest);
         report.setForecastValuesFuture(forecastsFuture);
         
