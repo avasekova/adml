@@ -31,7 +31,7 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
 
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
 
-    public AdmlWorkerImpl(String host){
+    public AdmlWorkerImpl(String host, String svc){
         try {
             // Install security manager.  This is only necessary
             // if the remote object's client stub does not reside
@@ -44,7 +44,7 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
             final AdmlWorker workerStub = (AdmlWorker)UnicastRemoteObject.exportObject(this, 0);
 
             //Get a reference to the remote server on this machine
-            provider = (AdmlProvider<T>) Naming.lookup("rmi://"+host+"/ADMLP");
+            provider = (AdmlProvider<T>) Naming.lookup("rmi://"+host+"/" + svc);
             logger.info("Provider looked up successfully");
 
             // Register to the manager.
@@ -60,9 +60,14 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
      */
     public void work(){
         try {
-            // Worker loop.
             while (isRunning.get()) {
-                Thread.sleep(100);
+                try {
+                    Thread.sleep(100);
+                } catch(InterruptedException ie){
+                    logger.info("Worker interrupted", ie);
+                    break;
+                }
+
                 if (provider.shouldTerminate(workerId)) {
                     break;
                 }

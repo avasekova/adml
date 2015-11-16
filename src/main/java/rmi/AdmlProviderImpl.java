@@ -23,7 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class AdmlProviderImpl<T> implements AdmlProvider<T> {
     private static final Logger logger = LoggerFactory.getLogger(AdmlProviderImpl.class);
     private static final long serialVersionUID = 1L;
-    private static final String NAME = "ADMLP";
+    public static final String NAME = "ADMLP";
 
     /**
      * Map of registered workers.
@@ -46,12 +46,15 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
             }
 
             AdmlProvider<T> stub = (AdmlProvider<T>) UnicastRemoteObject.exportObject(this, 0);
+
+            // Starting our own registry so it has class definitions of our classes.
+            // Starting a new registry may need to allow it on the local firewall
+            // or to execute manager with administrator rights.
             Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
             registry.rebind(NAME, stub);
 
-            // Old way.
-//            Naming.bind("rmi://localhost/" + NAME, stub);
-//            Naming.bind(NAME, this);
+            // Old way - using default registry
+            // Naming.bind("rmi://localhost/" + NAME, stub);
             logger.info("ADML Provider ready");
         } catch (Exception e){
             logger.error("Failed to start RMI ADML Provider", e);
@@ -107,15 +110,13 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
 
     @Override
     public void jobFinished(String workerId, Task<T> task, T jobResult) throws RemoteException {
-        logger.info("Job has finished {}", jobFinishedListener);
+        logger.info("Job has finished");
         if (jobFinishedListener == null){
             logger.error("Job finished listener is null");
             return;
         }
 
-        logger.info("Job has finished 2 {}", jobFinishedListener);
         jobFinishedListener.onJobFinished(task, jobResult);
-        logger.info("Job has finished 3 {}", jobFinishedListener);
     }
 
     @Override

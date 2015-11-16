@@ -149,7 +149,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private static MainFrame INSTANCE = null; //created in main()
 
     private AdmlProviderImpl<TrainAndTestReport> server;
-    private final ConcurrentLinkedQueue<TrainAndTestReport> taskResults = new ConcurrentLinkedQueue<>();
+    private final Queue<TrainAndTestReport> taskResults = new ConcurrentLinkedQueue<>();
     private final AtomicInteger taskToProcess = new AtomicInteger(0);
     private final AtomicInteger taskProcessed = new AtomicInteger(0);
 
@@ -6611,14 +6611,16 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     @Override
     public void onJobFinished(Task<TrainAndTestReport> task, TrainAndTestReport jobResult) {
-        logger.info("JOB DONE {}", jobResult);
+        logger.info("Job finished {}", jobResult);
+
+        // Adding a null object to the concurrent queue causes freeze.
         if (jobResult!=null) {
             taskResults.add(jobResult);
         }
-        logger.info("JOB DONE 2");
+
         taskProcessed.incrementAndGet();
-        logger.info("Job finished {}, this {}, resSize: {}, taskProcessed {}",
-                task.getTaskId(), this, taskResults.size(), taskProcessed.get());
+        logger.info("Job finished {}, resSize: {}, taskProcessed {}",
+                task.getTaskId(), taskResults.size(), taskProcessed.get());
     }
 
     private void runModels(boolean isBatch) {
@@ -6719,23 +6721,22 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             }
         }
 
-        logger.info("Waiting to get all jobs done {}", taskToProcess.get());
+        logger.info("Waiting to get all jobs done: {}", taskToProcess.get());
         while(true){
             if (taskToProcess.get() <= taskProcessed.get()){
                 break;
             }
 
             try {
-                Thread.sleep(5000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 logger.error("Interrupted", e);
                 break;
             }
-
-            logger.info("Processed: {}, result size: {}, this {}", taskProcessed.get(), taskResults.size(), this);
         }
 
-        logger.info("Waiting finished");
+        logger.info("Waiting finished, result size: {}", taskResults.size());
+
         // TODO: refactor, this is baaaaad, ugly from the ugliest.
         while(!taskResults.isEmpty()){
             final TrainAndTestReport result = taskResults.poll();
