@@ -68,7 +68,7 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
                     break;
                 }
 
-                if (!isRunning.get() || provider.shouldTerminate(workerId)) {
+                if (!isRunning.get() || provider == null || provider.shouldTerminate(workerId)) {
                     break;
                 }
 
@@ -96,7 +96,9 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
             // If shutdown was triggered by the server during shutdown sequence,
             // it is probably dead by now.
             try {
-                provider.unregisterWorker(workerId);
+                if (provider != null) {
+                    provider.unregisterWorker(workerId);
+                }
             }catch(Exception e){
                 logger.error("Could not unregister from the provider, maybe it is dead", e);
             }
