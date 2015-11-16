@@ -1,6 +1,8 @@
 package utils;
 
-public abstract class ErrorMeasures {
+import java.io.Serializable;
+
+public abstract class ErrorMeasures implements Serializable {
     
     public abstract double[] serializeToArray();
     

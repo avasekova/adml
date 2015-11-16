@@ -2,7 +2,9 @@ package utils.imlp;
 
 import utils.Utils;
 
-public abstract class Interval {
+import java.io.Serializable;
+
+public abstract class Interval implements Serializable {
     
     public abstract double getUpperBound();
     public abstract double getLowerBound();
