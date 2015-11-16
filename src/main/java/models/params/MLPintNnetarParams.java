@@ -87,7 +87,7 @@ public class MLPintNnetarParams extends PseudoIntervalParams {
         SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setParamsRadius",
                 NnetarParams.class, resultListRadius);
         SettingsPanel.setSomethingList(MLPintNnetarParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
+                Integer.class, new ArrayList<>(FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1)));
         SettingsPanel.setSomethingOneValue(MLPintNnetarParams.class, resultList, "setCriterion",
                 Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
         

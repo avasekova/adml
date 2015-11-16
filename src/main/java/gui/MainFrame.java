@@ -6021,11 +6021,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     
     public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingList(classss, resultList, "setNumForecasts", 
-                Integer.class, FieldsParser.parseIntegers(textFieldRunNumForecasts).subList(0, 1)); //multiple vals not supported; will work with the first
+                Integer.class, new ArrayList<>(FieldsParser.parseIntegers(textFieldRunNumForecasts).subList(0, 1))); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(classss, resultList, "setDataRangeFrom",
-                Integer.class, FieldsParser.parseIntegers(textFieldRunDataRangeFrom).subList(0, 1)); //multiple vals not supported; will work with the first
+                Integer.class, new ArrayList<>(FieldsParser.parseIntegers(textFieldRunDataRangeFrom).subList(0, 1))); //multiple vals not supported; will work with the first
         SettingsPanel.setSomethingList(classss, resultList, "setDataRangeTo",
-                Integer.class, FieldsParser.parseIntegers(textFieldRunDataRangeTo).subList(0, 1)); //multiple vals not supported; will work with the first
+                Integer.class, new ArrayList<>(FieldsParser.parseIntegers(textFieldRunDataRangeTo).subList(0, 1))); //multiple vals not supported; will work with the first
         Integer seasonality = 0;
         if (checkBoxRunIncludeRMSSE.isSelected()) {
             seasonality = Integer.parseInt(textFieldRunRMSSESeasonality.getText());

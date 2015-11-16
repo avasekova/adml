@@ -98,7 +98,7 @@ public class MLPintNnetParams extends PseudoIntervalParams {
         
         
         SettingsPanel.setSomethingList(MLPintNnetParams.class, resultList, "setNumNetsToTrain",
-                Integer.class, FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1));
+                Integer.class, new ArrayList<>(FieldsParser.parseIntegers(numNetsToTrainField).subList(0, 1)));
         SettingsPanel.setSomethingOneValue(MLPintNnetParams.class, resultList, "setCriterion",
                 Improvable.class, ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion());
         

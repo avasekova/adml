@@ -1,10 +1,15 @@
 package models;
 
 import gui.tablemodels.DataTableModel;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import org.rosuda.JRI.REXP;
 import models.params.IntervalHoltParams;
 import models.params.Params;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
@@ -35,8 +40,8 @@ public class IntervalHolt implements Forecastable {
         //bacha, tu si vsade navytvaram C+R, ale iHolt pracuje s L+U, takze potom previest
         List<Double> allDataCenter = dataTableModel.getDataForColname(params.getColNameCenter());
         List<Double> allDataRadius = dataTableModel.getDataForColname(params.getColNameRadius());
-        List<Double> dataToUseCenter = allDataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
-        List<Double> dataToUseRadius = allDataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
+        List<Double> dataToUseCenter = new ArrayList<>(allDataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
+        List<Double> dataToUseRadius = new ArrayList<>(allDataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
         
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUseCenter.size());
         
@@ -105,12 +110,12 @@ public class IntervalHolt implements Forecastable {
         List<Double> forecastUpper = Utils.arrayToList(getForecastUpper.asDoubleArray());
         
         List<Interval> forecastIntervalsAll = Utils.zipLowerUpperToIntervals(forecastLower, forecastUpper);
-        List<Interval> forecastsTest = forecastIntervalsAll.subList(0, num4castsTestAndTrain - params.getNumForecasts());
-        List<Interval> forecastsFuture = forecastIntervalsAll.subList(num4castsTestAndTrain - params.getNumForecasts(), forecastIntervalsAll.size());
+        List<Interval> forecastsTest = new ArrayList<>(forecastIntervalsAll.subList(0, num4castsTestAndTrain - params.getNumForecasts()));
+        List<Interval> forecastsFuture = new ArrayList<>(forecastIntervalsAll.subList(num4castsTestAndTrain - params.getNumForecasts(), forecastIntervalsAll.size()));
         
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.INTERVAL_HOLT);
         report.setModelDescription(params.toString());
-        
+
         report.setFittedValues(fittedIntervals);
         report.setForecastValuesTest(forecastsTest);
         report.setForecastValuesFuture(forecastsFuture);
