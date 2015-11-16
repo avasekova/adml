@@ -33,7 +33,7 @@ public class AdmlRegistry {
         // Starting our own registry so it has class definitions of our classes.
         // Starting a new registry may need to allow it on the local firewall
         // or to execute manager with administrator rights.
-        registry = LocateRegistry.createRegistry(port);
+        registry = LocateRegistry.createRegistry(port <= 0 ? Registry.REGISTRY_PORT : port);
         return registry;
     }
 
@@ -49,7 +49,7 @@ public class AdmlRegistry {
      * @throws RemoteException
      */
     public Registry lookupRegistry(String host, int port) throws RemoteException {
-        registry = LocateRegistry.getRegistry(host, port);
+        registry = LocateRegistry.getRegistry(host, port <= 0 ? Registry.REGISTRY_PORT : port);
         return registry;
     }
 
@@ -78,7 +78,7 @@ public class AdmlRegistry {
      * @throws RemoteException
      */
     public Registry lookupRegistry(int port) throws RemoteException {
-        registry = LocateRegistry.getRegistry("localhost", port);
+        registry = LocateRegistry.getRegistry("localhost", port <= 0 ? Registry.REGISTRY_PORT : port);
         return registry;
     }
 

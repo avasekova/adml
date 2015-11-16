@@ -35,6 +35,9 @@ public class Main {
             "on localhost.")
     private boolean rmiRegistryOnly = false;
 
+    @Option(name="--rmiregistry-port", aliases={"-p"}, usage = "RMI registry port to use. If negative, the default one is used")
+    private int rmiRegistryPort = -1;
+
     private AdmlRegistry registry;
     private AdmlProviderImpl<TrainAndTestReport> server;
     private MainFrame gui;
@@ -79,7 +82,9 @@ public class Main {
                     rmiRegistryConnect = "localhost";
                 }
 
-                AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>(rmiRegistryConnect, AdmlProviderImpl.NAME);
+                AdmlWorkerImpl<TrainAndTestReport> worker =
+                        new AdmlWorkerImpl<>(rmiRegistryConnect, rmiRegistryPort, AdmlProviderImpl.NAME);
+
                 worker.work();
                 System.exit(0);
 
@@ -87,15 +92,19 @@ public class Main {
                 // Server + main application
                 gui =  MainFrame.getInstance();
                 if (rmi || rmiRegistryConnect != null) {
-                    // If registry hostname to connect is not null, do not create own but use existing
                     registry = new AdmlRegistry();
+
+                    // If registry hostname to connect is not null, do not create own but use existing
                     if (rmiRegistryConnect != null && !rmiRegistryConnect.isEmpty()){
-                        logger.info("Connecting to the RMI registry at {}", rmiRegistryConnect);
-                        registry.lookupRegistry(rmiRegistryConnect);
+                        logger.info("Connecting to the RMI registry at {}, port: {}",
+                                rmiRegistryConnect, rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
+
+                        registry.lookupRegistry(rmiRegistryConnect, rmiRegistryPort);
 
                     } else {
-                        logger.info("Creating new local RMI registry");
-                        registry.createRegistry();
+                        // Create a new local host registry.
+                        logger.info("Creating new local RMI registry, port: {}", rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
+                        registry.createRegistry(rmiRegistryPort);
 
                     }
 
@@ -130,8 +139,8 @@ public class Main {
     protected boolean startLocalRegistry(){
         registry = new AdmlRegistry();
         try {
-            logger.info("Starting local RMI registry");
-            registry.createRegistry();
+            logger.info("Starting local RMI registry, port: {}", rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
+            registry.createRegistry(rmiRegistryPort);
             return true;
 
         } catch (RemoteException e) {

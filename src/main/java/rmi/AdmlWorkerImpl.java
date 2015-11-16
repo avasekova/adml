@@ -30,7 +30,14 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
 
     public AdmlWorkerImpl(String host, String svc) throws RemoteException, MalformedURLException, NotBoundException {
+        startWorker(host, -1, svc);
+    }
 
+    public AdmlWorkerImpl(String host, int port, String svc) throws RemoteException, MalformedURLException, NotBoundException {
+        startWorker(host, port, svc);
+    }
+
+    protected void startWorker(String host, int port, String svc) throws RemoteException, MalformedURLException, NotBoundException {
         // Install security manager.  This is only necessary
         // if the remote object's client stub does not reside
         // on the client machine (it resides on the server).
@@ -40,9 +47,13 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
 
         // Export ourselves so provider can invoke methods on us.
         final AdmlWorker workerStub = (AdmlWorker)UnicastRemoteObject.exportObject(this, 0);
+        String connectURL = "rmi://"+host+"/" + svc;
+        if (port > 0){
+            connectURL = "rmi://"+host+":"+port+"/" + svc;
+        }
 
         //Get a reference to the remote server on this machine
-        provider = (AdmlProvider<T>) Naming.lookup("rmi://"+host+"/" + svc);
+        provider = (AdmlProvider<T>) Naming.lookup(connectURL);
         logger.info("Provider looked up successfully");
 
         // Register to the manager.
