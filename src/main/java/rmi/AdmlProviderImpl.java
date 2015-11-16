@@ -70,6 +70,15 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
             return;
         }
 
+        // Has to have at least one worker registered.
+        if (workers.isEmpty()){
+            logger.error("No workers registered, cannot compute a job");
+            if (jobFinishedListener != null) {
+                jobFinishedListener.onJobFinished(job, null);
+            }
+            return;
+        }
+
         jobQueue.add(job);
     }
 
