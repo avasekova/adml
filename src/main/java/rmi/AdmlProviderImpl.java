@@ -42,28 +42,34 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
     private OnJobFinishedListener<T> jobFinishedListener;
 
     /**
+     * Registry to be used for binding.
+     */
+    private Registry registry;
+
+    /**
      * Starts main ADMLP server.
      */
-    public void initServer(){
-        try {
-            if (System.getSecurityManager() == null) {
-                System.setSecurityManager(new SecurityManager());
-            }
-
-            AdmlProvider<T> stub = (AdmlProvider<T>) UnicastRemoteObject.exportObject(this, 0);
-
-            // Starting our own registry so it has class definitions of our classes.
-            // Starting a new registry may need to allow it on the local firewall
-            // or to execute manager with administrator rights.
-            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
-            registry.rebind(NAME, stub);
-
-            // Old way - using default registry
-            // Naming.bind("rmi://localhost/" + NAME, stub);
-            logger.info("ADML Provider ready");
-        } catch (Exception e){
-            logger.error("Failed to start RMI ADML Provider", e);
+    public void initServer() throws RemoteException {
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
         }
+
+        AdmlProvider<T> stub = (AdmlProvider<T>) UnicastRemoteObject.exportObject(this, 0);
+
+        // Starting our own registry so it has class definitions of our classes.
+        // Starting a new registry may need to allow it on the local firewall
+        // or to execute manager with administrator rights.
+        if(registry == null) {
+            logger.info("Registry was null, creating a new one on the localhost");
+            registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+        }
+
+        // Rebind the exported provider.
+        registry.rebind(NAME, stub);
+
+        // Old way - using default registry
+        // Naming.bind("rmi://localhost/" + NAME, stub);
+        logger.info("ADML Provider ready");
     }
 
     /**
@@ -225,5 +231,13 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
 
     public void setJobFinishedListener(OnJobFinishedListener<T> jobFinishedListener) {
         this.jobFinishedListener = jobFinishedListener;
+    }
+
+    public Registry getRegistry() {
+        return registry;
+    }
+
+    public void setRegistry(Registry registry) {
+        this.registry = registry;
     }
 }
