@@ -4229,8 +4229,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_menuFileLoadActionPerformed
 
     private void menuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExitActionPerformed
+        if (server != null){
+            server.shutdown();
+        }
+        
         MyRengine.stopRengine();
-        server.shutdown();
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_menuFileExitActionPerformed
 
