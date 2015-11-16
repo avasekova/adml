@@ -37,6 +37,10 @@ public class DataTableModel extends AbstractTableModel implements Serializable {
         
         return INSTANCE;
     }
+
+    public static synchronized void setInstance(DataTableModel instance){
+        INSTANCE = instance;
+    }
     
     @Override
     public int getRowCount() {

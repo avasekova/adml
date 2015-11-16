@@ -6580,8 +6580,16 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         public int paramIdx = 0;
         public int paramTotal = 0;
 
+        // If true a new instance for DataTableModel is set to the singleton.
+        // This hack is used to initialize worker with given input data as
+        // DataTableModel.getInstance() may still be somewhere in the code.
+        // Note that Worker's singleton of DataTableModel is by default empty.
+        private transient boolean shouldSetNewDataInstance = true;
+
         @Override
         public void run() {
+            // When executing via executor, do not overwrite data model singleton. Single process.
+            shouldSetNewDataInstance = false;
             final TrainAndTestReport report = execute();
             if (report != null) {
                 report.setID(Utils.getModelID());
@@ -6606,6 +6614,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             // Hacking a bit - start REngine if not started.
             // This code is executed on the worker node, need to start engine.
             MyRengine.getRengine();
+
+            // If in worker process, DataTableModel needs to be reinitialized.
+            if (shouldSetNewDataInstance){
+                logger.info("Rewriting DataTableModel singleton as we are in the worker process");
+                DataTableModel.setInstance(inputData);
+            }
 
             // Execute the job
             final TrainAndTestReport report = forecastable.forecast(inputData, params);
