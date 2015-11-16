@@ -72,7 +72,7 @@ public interface AdmlProvider<T> extends Remote {
      * @param workerId worker string identifier, UUID
      * @throws RemoteException
      */
-    void registerWorker(String workerId, AdmlWorker workerCallback) throws RemoteException;
+    void registerWorker(String workerId, AdmlWorker<T> workerCallback) throws RemoteException;
 
     /**
      * Worker is disconnecting from work queue.

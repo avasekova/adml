@@ -10,11 +10,14 @@ import java.rmi.registry.Registry;
 import java.rmi.server.RMIClientSocketFactory;
 import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Simple worker provider implementation
@@ -25,10 +28,12 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
     private static final long serialVersionUID = 1L;
     public static final String NAME = "ADMLP";
 
+    private static final AtomicLong pingCtr = new AtomicLong(0);
+
     /**
      * Map of registered workers.
      */
-    private final Map<String, AdmlWorker> workers = new ConcurrentHashMap<>();
+    private final Map<String, AdmlWorker<T>> workers = new ConcurrentHashMap<>();
 
     private final AtomicBoolean isRunning = new AtomicBoolean(true);
 
@@ -58,6 +63,38 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
             logger.info("ADML Provider ready");
         } catch (Exception e){
             logger.error("Failed to start RMI ADML Provider", e);
+        }
+    }
+
+    /**
+     * Goes through all workers and remove those failing to respond on ping (connection broken)
+     */
+    public void checkAllWorkers(){
+        if (workers.isEmpty()){
+            return;
+        }
+
+        List<String> keysToRemove = new ArrayList<String>(workers.size());
+        for (Map.Entry<String, AdmlWorker<T>> workerEntry : workers.entrySet()) {
+            final String workerKey = workerEntry.getKey();
+            final AdmlWorker<T> worker = workerEntry.getValue();
+
+            boolean works = true;
+            try {
+                worker.ping(pingCtr.incrementAndGet());
+                works = true;
+            } catch(Exception e){
+                works = false;
+            }
+
+            if (!works){
+                logger.info("Worker is not working {}", workerKey);
+                keysToRemove.add(workerKey);
+            }
+        }
+
+        for(String wKey : keysToRemove){
+            workers.remove(wKey);
         }
     }
 
@@ -95,7 +132,7 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
      * Terminates all connected workers.
      */
     public void shutdown(){
-        for (Map.Entry<String, AdmlWorker> workerEntry : workers.entrySet()) {
+        for (Map.Entry<String, AdmlWorker<T>> workerEntry : workers.entrySet()) {
             try {
                 logger.info("Shutting down worker {}", workerEntry.getKey());
                 workerEntry.getValue().shutdown();
@@ -158,7 +195,7 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
     }
 
     @Override
-    public void registerWorker(String workerId, AdmlWorker workerCallback) throws RemoteException {
+    public void registerWorker(String workerId, AdmlWorker<T> workerCallback) throws RemoteException {
         logger.info("Registering worker {}", workerId);
         workers.put(workerId, workerCallback);
     }
