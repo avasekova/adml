@@ -6569,6 +6569,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         private static final long serialVersionUID = 1L;
 
         public Forecastable forecastable;
+        public DataTableModel inputData;
         public Params params;
         public transient List reportList;
 
@@ -6599,7 +6600,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             logger.info("<{} param={} total={} time={} thread={}>",
                     modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName());
 
-            final TrainAndTestReport report = forecastable.forecast(DataTableModel.getInstance(), params);
+            final TrainAndTestReport report = forecastable.forecast(inputData, params);
 
             final long compTime = System.currentTimeMillis();
             logger.info("</{} param={} total={} time={} spent={} ms thread={}>",
@@ -6709,6 +6710,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 ModelForecastJob job = new ModelForecastJob();
                 job.forecastable = forecastable;
                 job.params = p;
+                job.inputData = DataTableModel.getInstance();
                 job.reportList = reportList;
                 job.modelName = l.getModel();
                 job.paramIdx = paramCnt++;
