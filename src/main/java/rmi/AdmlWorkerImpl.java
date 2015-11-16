@@ -68,7 +68,7 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
                     break;
                 }
 
-                if (provider.shouldTerminate(workerId)) {
+                if (!isRunning.get() || provider.shouldTerminate(workerId)) {
                     break;
                 }
 
@@ -91,11 +91,21 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
             }
 
             logger.info("Terminating worker {}", workerId);
-            provider.unregisterWorker(workerId);
+
+            // Unregister from the provider, if possible.
+            // If shutdown was triggered by the server during shutdown sequence,
+            // it is probably dead by now.
+            try {
+                provider.unregisterWorker(workerId);
+            }catch(Exception e){
+                logger.error("Could not unregister from the provider, maybe it is dead", e);
+            }
 
         } catch(Exception e){
             logger.error("Exception during worker run", e);
         }
+
+        logger.info("Worker terminated {}", workerId);
     }
 
     @Override
@@ -123,7 +133,7 @@ public class AdmlWorkerImpl<T> implements AdmlWorker<T> {
 
     @Override
     public void shutdown() throws RemoteException {
-        logger.info("Shutting down worker {}", workerId);
         isRunning.set(false);
+        logger.info("Shutting down worker {}", workerId);
     }
 }

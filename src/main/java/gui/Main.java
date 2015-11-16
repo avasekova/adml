@@ -54,6 +54,7 @@ public class Main {
                 logger.info("Starting in the worker mode");
                 AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>("localhost", AdmlProviderImpl.NAME);
                 worker.work();
+                System.exit(0);
 
             } else {
                 gui =  MainFrame.getInstance();
