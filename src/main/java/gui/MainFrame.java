@@ -6603,6 +6603,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             logger.info("<{} param={} total={} time={} thread={}>",
                     modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName());
 
+            // Hacking a bit - start REngine if not started.
+            // This code is executed on the worker node, need to start engine.
+            MyRengine.getRengine();
+
+            // Execute the job
             final TrainAndTestReport report = forecastable.forecast(inputData, params);
 
             final long compTime = System.currentTimeMillis();
