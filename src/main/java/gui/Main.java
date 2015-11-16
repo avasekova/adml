@@ -9,8 +9,10 @@ import rmi.AdmlRegistry;
 import rmi.AdmlWorkerImpl;
 
 import javax.swing.JFrame;
+import java.rmi.AccessException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
+import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,7 +127,12 @@ public class Main {
             logger.error("Exception during parsing command line arguments");
             cmdLineParser.printUsage(System.err);
 
-        } catch (RemoteException e){
+        } catch (AccessException | AccessControlException e){
+            logger.error("Access exception", e);
+            logger.error("Security or Access exception indicates you may have forgotten to" +
+                    " you use -Djava.security.policy=java.policy for starting the program. Please check the policy");
+
+        } catch (RemoteException e) {
             logger.error("RMI exception", e);
 
         } catch (Exception e){
