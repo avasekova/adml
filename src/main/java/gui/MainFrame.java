@@ -6610,18 +6610,81 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }
 
+    /**
+     * Handler triggered when a task posted to the worker has een finished.
+     * @param task
+     * @param jobResult
+     */
     @Override
     public void onJobFinished(Task<TrainAndTestReport> task, TrainAndTestReport jobResult) {
-        logger.info("Job finished {}", jobResult);
+        logger.info("Job finished {}, null result: {}", jobResult, jobResult == null);
 
         // Adding a null object to the concurrent queue causes freeze.
-        if (jobResult!=null) {
+        if (jobResult != null) {
             taskResults.add(jobResult);
         }
 
         taskProcessed.incrementAndGet();
         logger.info("Job finished {}, resSize: {}, taskProcessed {}",
                 task.getTaskId(), taskResults.size(), taskProcessed.get());
+
+        if (taskProcessed.get() == taskToProcess.get()){
+            // TODO: when migrating to async, off the main queue, here trigger post-processing.
+            logger.info("All jobs were processed");
+        }
+    }
+
+    /**
+     * Blocks until all tasks are finished using RMI server.
+     *
+     * @param reportsCTS
+     * @param reportsIntTS
+     */
+    private void waitServerTasksFinished(List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsIntTS){
+        while(true){
+            if (taskToProcess.get() <= taskProcessed.get()){
+                break;
+            }
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                logger.error("Interrupted", e);
+                break;
+            }
+        }
+
+        logger.info("Waiting finished, result size: {}", taskResults.size());
+
+        // TODO: refactor, this is baaaaad, ugly from the ugliest.
+        while(!taskResults.isEmpty()){
+            final TrainAndTestReport result = taskResults.poll();
+
+            if (result instanceof TrainAndTestReportCrisp){
+                reportsCTS.add((TrainAndTestReportCrisp) result);
+            } else if (result instanceof TrainAndTestReportInterval){
+                reportsIntTS.add((TrainAndTestReportInterval) result);
+            } else {
+                logger.error("WTF?");
+            }
+        }
+    }
+
+    /**
+     * Blocks until all tasks are finished in the executor.
+     * @param executor
+     */
+    private void waitExecutorTasksFinished(ExecutorService executor){
+        // Do the job, please.
+        // Waits until all all jobs in the executors are finished.
+        executor.shutdown();
+        try {
+            final boolean done = executor.awaitTermination(1, DAYS);
+
+            logger.info("Waiting finished, success: {}", done);
+        } catch (InterruptedException e) {
+            logger.error("Computation interrupted", e);
+        }
     }
 
     private void runModels(boolean isBatch) {
@@ -6716,55 +6779,30 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 job.paramIdx = paramCnt++;
                 job.paramTotal = params.size();
 
-                logger.info("Submitting job {}, param: {}/{}", l.getModel(), job.paramIdx + 1, job.paramTotal);
-                //executor.submit(job);
-                server.enqueueJob(job);
+                if (server != null){
+                    logger.info("Submitting job {}, param: {}/{} to RMI server", l.getModel(), job.paramIdx + 1, job.paramTotal);
+                    server.enqueueJob(job);
+
+                } else {
+                    logger.info("Submitting job {}, param: {}/{} to executor", l.getModel(), job.paramIdx + 1, job.paramTotal);
+                    executor.submit(job);
+                }
+
                 taskToProcess.getAndIncrement();
             }
         }
 
         logger.info("Waiting to get all jobs done: {}", taskToProcess.get());
-        while(true){
-            if (taskToProcess.get() <= taskProcessed.get()){
-                break;
-            }
+        if (server != null){
+            waitServerTasksFinished(reportsCTS, reportsIntTS);
 
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                logger.error("Interrupted", e);
-                break;
-            }
+        } else {
+            waitExecutorTasksFinished(executor);
         }
 
-        logger.info("Waiting finished, result size: {}", taskResults.size());
-
-        // TODO: refactor, this is baaaaad, ugly from the ugliest.
-        while(!taskResults.isEmpty()){
-            final TrainAndTestReport result = taskResults.poll();
-
-            if (result instanceof TrainAndTestReportCrisp){
-                reportsCTS.add((TrainAndTestReportCrisp) result);
-            } else if (result instanceof TrainAndTestReportInterval){
-                reportsIntTS.add((TrainAndTestReportInterval) result);
-            } else {
-                logger.error("WTF?");
-            }
-        }
-
-        logger.info("Waiting finished, CTS size: {}, interval size: {}", reportsCTS.size(), reportsIntTS.size());
-
-//        // Do the job, please.
-//        // Waits until all all jobs in the executors are finished.
-//        executor.shutdown();
-//        try {
-//            final boolean done = executor.awaitTermination(1, DAYS);
-//            final long computationTime = System.currentTimeMillis() - computationTimeStarted;
-//
-//            logger.info("Waiting finished, success: {}, time elapsed: {} ms", done, computationTime);
-//        } catch (InterruptedException e) {
-//            logger.error("Computation interrupted", e);
-//        }
+        final long computationTime = System.currentTimeMillis() - computationTimeStarted;
+        logger.info("Waiting finished, CTS size: {}, interval size: {}, time elapsed {} ms",
+                reportsCTS.size(), reportsIntTS.size(), computationTime);
 
         if (checkBoxRunIntervalRandomWalk.isSelected()) {
             String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();

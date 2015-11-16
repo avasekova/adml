@@ -19,11 +19,11 @@ public class Main {
     @Argument
     private List<String> arguments = new ArrayList<String>(8);
 
-    @Option(name="--worker", aliases={"-w"}, usage = "Start application in the worker mode, no GUI.")
+    @Option(name="--worker", aliases={"-w"}, usage = "Start application in the RMI worker mode, no GUI.")
     private boolean workerMode = false;
 
-    @Option(name="--rmi", aliases={"-r"}, usage = "If set, RMI is used")
-    private boolean rmi = true;
+    @Option(name="--rmi", aliases={"-r"}, usage = "If set, RMI is started in the server mode")
+    private boolean rmi = false;
 
     private AdmlProviderImpl<TrainAndTestReport> server;
     private MainFrame gui;
@@ -50,17 +50,20 @@ public class Main {
             parseArgs(args);
 
             if (workerMode){
+                rmi = true;
                 logger.info("Starting in the worker mode");
                 AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>("localhost", AdmlProviderImpl.NAME);
                 worker.work();
 
             } else {
-                logger.info("Starting RMI server");
-                server = new AdmlProviderImpl<>();
-                server.initServer();
-
                 gui =  MainFrame.getInstance();
-                server.setJobFinishedListener(gui);
+                if (rmi) {
+                    logger.info("Starting RMI server");
+                    server = new AdmlProviderImpl<>();
+                    server.initServer();
+                    server.setJobFinishedListener(gui);
+                }
+
                 gui.setServer(server);
 
                 // Not a worker mode -> start GUI
