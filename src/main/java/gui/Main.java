@@ -9,7 +9,10 @@ import rmi.AdmlRegistry;
 import rmi.AdmlWorkerImpl;
 
 import javax.swing.JFrame;
+import java.io.File;
+import java.net.MalformedURLException;
 import java.rmi.AccessException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
 import java.security.AccessControlException;
@@ -25,6 +28,10 @@ public class Main {
 
     @Option(name="--rmi", aliases={"-r"}, usage = "If set, RMI is started in the server mode")
     private boolean rmi = false;
+
+    @Option(name="--worker-spawn", aliases={"-n"}, usage = "Number of workers to be spawned with the manager process. " +
+            "Use only to start additional workers automatically with manager. Ignored in worker case.")
+    private int workerSpawn = 0;
 
     @Option(name="--worker", aliases={"-w"}, usage = "Start application in the RMI worker mode, no GUI.")
     private boolean workerMode = false;
@@ -83,53 +90,45 @@ public class Main {
                 System.exit(0);
             }
 
-            // Worker vs. master.
+            // Worker
             if (workerMode){
-                // Worker mode.
-                rmi = true;
-                logger.info("Starting in the worker mode");
-                if (rmiRegistryConnect == null){
-                    rmiRegistryConnect = "localhost";
-                }
-
-                AdmlWorkerImpl<TrainAndTestReport> worker =
-                        new AdmlWorkerImpl<>(rmiRegistryConnect, rmiRegistryPort, AdmlProviderImpl.NAME);
-
-                worker.work();
-                System.exit(0);
-
-            } else {
-                // Server + main application
-                gui =  MainFrame.getInstance();
-                if (rmi || rmiRegistryConnect != null) {
-                    registry = new AdmlRegistry();
-
-                    // If registry hostname to connect is not null, do not create own but use existing
-                    if (rmiRegistryConnect != null && !rmiRegistryConnect.isEmpty()){
-                        logger.info("Connecting to the RMI registry at {}, port: {}",
-                                rmiRegistryConnect, rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
-
-                        registry.lookupRegistry(rmiRegistryConnect, rmiRegistryPort);
-
-                    } else {
-                        // Create a new local host registry.
-                        logger.info("Creating new local RMI registry, port: {}", rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
-                        registry.createRegistry(rmiRegistryPort);
-
-                    }
-
-                    logger.info("Binding RMI server");
-                    server = new AdmlProviderImpl<>();
-                    server.setRegistry(registry.getRegistry());
-                    server.setJobFinishedListener(gui);
-                    server.initServer();
-                }
-
-                gui.setServer(server);
-
-                // Not a worker mode -> start GUI
-                startApplicationGUI();
+                workerLogic();
+                return;
             }
+
+            // Server + main application
+            gui =  MainFrame.getInstance();
+            if (rmi || rmiRegistryConnect != null) {
+                registry = new AdmlRegistry();
+
+                // If registry hostname to connect is not null, do not create own but use existing
+                if (rmiRegistryConnect != null && !rmiRegistryConnect.isEmpty()){
+                    logger.info("Connecting to the RMI registry at {}, port: {}",
+                            rmiRegistryConnect, rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
+
+                    registry.lookupRegistry(rmiRegistryConnect, rmiRegistryPort);
+
+                } else {
+                    // Create a new local host registry.
+                    logger.info("Creating new local RMI registry, port: {}", rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
+                    registry.createRegistry(rmiRegistryPort);
+
+                }
+
+                logger.info("Binding RMI server");
+                server = new AdmlProviderImpl<>();
+                server.setRegistry(registry.getRegistry());
+                server.setJobFinishedListener(gui);
+                server.initServer();
+
+                // Spawn some worker processes?
+                spawnWorkers();
+            }
+
+            gui.setServer(server);
+
+            // Not a worker mode -> start GUI
+            startApplicationGUI();
 
         } catch (CmdLineException e) {
             logger.error("Exception during parsing command line arguments");
@@ -145,6 +144,59 @@ public class Main {
 
         } catch (Exception e){
             logger.error("General exception", e);
+        }
+    }
+
+    /**
+     * Acting as a worker.
+     *
+     * @throws RemoteException
+     * @throws NotBoundException
+     * @throws MalformedURLException
+     */
+    protected void workerLogic() throws RemoteException, NotBoundException, MalformedURLException {
+        rmi = true;
+        logger.info("Starting in the worker mode");
+        if (rmiRegistryConnect == null){
+            rmiRegistryConnect = "localhost";
+        }
+
+        AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>(rmiRegistryConnect, rmiRegistryPort, AdmlProviderImpl.NAME);
+
+        // Starts worker loops, blocks until worker is running.
+        worker.work();
+        System.exit(0);
+    }
+
+    /**
+     * Spawn additional workers if enabled in options.
+     */
+    private void spawnWorkers(){
+        if (workerSpawn <= 0){
+            return;
+        }
+
+        final File f = new File(System.getProperty("java.class.path"));
+        final File dir = f.getAbsoluteFile().getParentFile();
+        final String path = dir.toString();
+        logger.info("Class path {}", path);
+
+        for (int i = 0; i < workerSpawn; i++) {
+            try {
+                logger.info("Starting worker process {}/{}", i+1, workerSpawn);
+
+                ProcessBuilder pb = new ProcessBuilder(
+                        "java",
+                        "-Djava.security.policy="+path+"/../java.policy",
+                        "-jar",
+                        f.getAbsolutePath(),
+                        "--worker");
+
+                Process p = pb.start();
+
+            } catch (Exception e) {
+                logger.error("Exception in starting a worker", e);
+            }
         }
     }
 
