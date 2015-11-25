@@ -1,10 +1,11 @@
 package gui.tablemodels;
 
+import utils.CrispOutputVariable;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import utils.CrispOutputVariable;
 
 public class CrispOutVarsTableModel extends AbstractTableModel {
 

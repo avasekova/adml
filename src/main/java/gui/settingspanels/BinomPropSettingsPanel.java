@@ -1,10 +1,11 @@
 package gui.settingspanels;
 
-import java.util.List;
-import javax.swing.JOptionPane;
 import models.params.Params;
 import utils.Const;
 import utils.FieldsParser;
+
+import javax.swing.*;
+import java.util.List;
 
 public class BinomPropSettingsPanel extends SettingsPanel {
 

@@ -5,25 +5,13 @@ import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.tablemodels.DataTableModel;
-import static gui.tablemodels.DataTableModel.LABELS_AXIS_X;
-import java.awt.Dimension;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import javax.swing.DefaultListModel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTabbedPane;
-import javax.swing.ListCellRenderer;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.Average;
+import models.params.BasicStats;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
-import models.params.BasicStats;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -33,6 +21,13 @@ import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.*;
+import java.util.List;
+
+import static gui.tablemodels.DataTableModel.LABELS_AXIS_X;
 
 public class PlotDrawer {
     //TODO toto by cele chcelo upratat, prekopar, mozno refaktorovat do viacerych tried

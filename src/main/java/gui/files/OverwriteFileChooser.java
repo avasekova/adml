@@ -1,9 +1,7 @@
 package gui.files;
 
+import javax.swing.*;
 import java.io.File;
-import javax.swing.JFileChooser;
-import static javax.swing.JFileChooser.SAVE_DIALOG;
-import javax.swing.JOptionPane;
 
 public class OverwriteFileChooser extends JFileChooser {
     

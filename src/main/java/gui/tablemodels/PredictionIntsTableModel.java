@@ -1,10 +1,11 @@
 package gui.tablemodels;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReportCrisp;
 import utils.imlp.IntervalLowerUpper;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class PredictionIntsTableModel extends AbstractTableModel {
 

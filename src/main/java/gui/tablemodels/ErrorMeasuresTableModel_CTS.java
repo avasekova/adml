@@ -1,8 +1,9 @@
 package gui.tablemodels;
 
-import java.util.List;
 import models.TrainAndTestReport;
 import utils.ErrorMeasuresCrisp;
+
+import java.util.List;
 
 public class ErrorMeasuresTableModel_CTS extends ErrorMeasuresTableModel {
     

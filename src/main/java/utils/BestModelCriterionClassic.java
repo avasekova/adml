@@ -1,9 +1,10 @@
 package utils;
 
+import models.TrainAndTestReportCrisp;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import models.TrainAndTestReportCrisp;
 
 public abstract class BestModelCriterionClassic {
     

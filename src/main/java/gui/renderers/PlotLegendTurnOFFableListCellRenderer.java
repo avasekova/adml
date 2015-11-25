@@ -1,14 +1,7 @@
 package gui.renderers;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.FlowLayout;
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.UIManager;
+import javax.swing.*;
+import java.awt.*;
 
 public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRenderer {
     

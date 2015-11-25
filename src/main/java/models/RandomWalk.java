@@ -1,13 +1,10 @@
 package models;
 
+import models.params.RandomWalkParams;
+import utils.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import models.params.RandomWalkParams;
-import utils.Const;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
 
 public class RandomWalk { //TODO implements Forecastable!
     

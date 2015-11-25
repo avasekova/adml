@@ -1,9 +1,10 @@
 package utils.ugliez;
 
 import gui.DefaultPlottable;
-import java.util.List;
-import javax.swing.JList;
 import org.rosuda.javaGD.JGDBufferedPanel;
+
+import javax.swing.*;
+import java.util.List;
 
 public class CallParamsDrawPlotGeneral extends CallParams {
     

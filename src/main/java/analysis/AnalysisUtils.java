@@ -1,7 +1,6 @@
 package analysis;
 
 import gui.tablemodels.DataTableModel;
-import java.util.List;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -10,6 +9,8 @@ import org.rosuda.JRI.REXP;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
+
+import java.util.List;
 
 public class AnalysisUtils {
     

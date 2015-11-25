@@ -3,11 +3,11 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.HoltSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
+import utils.R_Bool;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import utils.R_Bool;
 
 public class HoltParams extends SESParams {
     

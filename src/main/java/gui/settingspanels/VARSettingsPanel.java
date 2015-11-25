@@ -1,17 +1,12 @@
 package gui.settingspanels;
 
-import gui.MainFrame;
-import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import models.params.Params;
-import models.params.VARParams;
 import utils.Const;
 import utils.FieldsParser;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VARSettingsPanel extends SettingsPanel {
     

@@ -1,8 +1,9 @@
 package gui.tablemodels;
 
-import java.util.List;
 import models.TrainAndTestReport;
 import utils.ErrorMeasuresInterval;
+
+import java.util.List;
 
 public class ErrorMeasuresTableModel_ITS extends ErrorMeasuresTableModel {
     

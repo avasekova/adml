@@ -3,10 +3,10 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.PercentTrainSettingsPanel;
 import gui.settingspanels.SESSettingsPanel;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 public class SESParams extends Params {
     

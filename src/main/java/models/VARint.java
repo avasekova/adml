@@ -1,20 +1,14 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
+import models.params.Params;
+import models.params.VARintParams;
+import org.rosuda.JRI.REXP;
+import utils.*;
+import utils.imlp.Interval;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.rosuda.JRI.REXP;
-import models.params.Params;
-import models.params.VARintParams;
-import utils.Const;
-import utils.ErrorMeasuresInterval;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
-import utils.imlp.Interval;
 
 public class VARint implements Forecastable {
     private static final long serialVersionUID = 1L;

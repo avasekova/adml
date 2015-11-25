@@ -4,10 +4,11 @@ import gui.MainFrame;
 import gui.settingspanels.PercentTrainSettingsPanel;
 import gui.settingspanels.RBFSettingsPanel;
 import gui.settingspanels.SettingsPanel;
-import java.util.ArrayList;
-import java.util.List;
 import utils.CrispExplanatoryVariable;
 import utils.CrispOutputVariable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RBFParams extends Params {
     

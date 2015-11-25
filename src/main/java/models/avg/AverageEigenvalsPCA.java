@@ -1,15 +1,16 @@
 package models.avg;
 
 import gui.MainFrame;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AverageEigenvalsPCA extends Average {
     

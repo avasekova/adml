@@ -1,53 +1,41 @@
 package gui;
 
 import analysis.AnalysisUtils;
-import gui.dialogs.DialogAddCrispExplanatoryVar;
-import gui.dialogs.DialogAddIntervalExplanatoryVar;
-import gui.dialogs.DialogAddIntervalOutputVar;
-import gui.dialogs.DialogConvertLbUbCenterRadius;
-import gui.dialogs.DialogLbUbCenterRadius;
-import gui.dialogs.DialogTooManyModels;
-import gui.filefilters.FileFilterEps;
-import gui.filefilters.FileFilterPdf;
-import gui.filefilters.FileFilterPng;
-import gui.filefilters.FileFilterPs;
-import gui.filefilters.FileFilterXlsXlsxCsv;
-import gui.filefilters.RFileFilter;
-import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
-import gui.renderers.PlotLegendTurnOFFableListElement;
+import analysis.StatisticalTests;
+import analysis.Transformations;
+import gui.dialogs.*;
+import gui.filefilters.*;
+import gui.files.OverwriteFileChooser;
+import gui.files.PlotExtensionFileChooser;
 import gui.renderers.ErrorTableCellRenderer;
 import gui.renderers.PlotLegendSimpleListElement;
-import gui.settingspanels.ARIMASettingsPanel;
-import gui.settingspanels.BNNSettingsPanel;
-import gui.settingspanels.BinomPropSettingsPanel;
-import gui.settingspanels.DistanceSettingsPanel;
-import gui.settingspanels.HoltSettingsPanel;
-import gui.settingspanels.HoltWintersSettingsPanel;
-import gui.settingspanels.IntHoltSettingsPanel;
-import gui.settingspanels.IntMLPCcodeSettingsPanel;
-import gui.settingspanels.KNNCustomSettingsPanel;
-import gui.settingspanels.KNNFNNSettingsPanel;
-import gui.settingspanels.KNNkknnSettingsPanel;
-import gui.settingspanels.KNNmyownSettingsPanel;
-import gui.settingspanels.MAvgSettingsPanel;
-import gui.settingspanels.MLPNnetSettingsPanel;
-import gui.settingspanels.MLPNnetarSettingsPanel;
-import gui.settingspanels.PercentTrainSettingsPanel;
-import gui.settingspanels.RBFSettingsPanel;
-import gui.settingspanels.SESSettingsPanel;
-import gui.settingspanels.SettingsPanel;
-import gui.settingspanels.VARSettingsPanel;
-import gui.settingspanels.VARintSettingsPanel;
-import gui.tablemodels.AnalysisBatchTableModel;
-import gui.tablemodels.CombinationWeightsTableModel;
-import gui.tablemodels.DataTableModel;
-import gui.tablemodels.ErrorMeasuresTableModel_CTS;
-import gui.tablemodels.ErrorMeasuresTableModel_ITS;
-import gui.tablemodels.ForecastValsTableModel;
-import gui.tablemodels.PredictionIntsTableModel;
-import gui.tablemodels.ResidualsTableModel;
-import java.awt.BorderLayout;
-import java.awt.CardLayout;
+import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
+import gui.renderers.PlotLegendTurnOFFableListElement;
+import gui.settingspanels.*;
+import gui.tablemodels.*;
+import models.*;
+import models.avg.*;
+import models.params.*;
+import org.rosuda.javaGD.JGDBufferedPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import rmi.AdmlProviderImpl;
+import rmi.OnJobFinishedListener;
+import rmi.Task;
+import utils.*;
+import utils.imlp.Interval;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
+import utils.imlp.dist.Distance;
+import utils.ugliez.CallParamsDrawPlotGeneral;
+import utils.ugliez.CallParamsDrawPlots;
+import utils.ugliez.CallParamsDrawPlotsITS;
+import utils.ugliez.PlotStateKeeper;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import javax.swing.table.TableColumn;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -57,82 +45,17 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.util.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
-import static java.util.concurrent.TimeUnit.DAYS;
-
-import javax.swing.table.TableColumn;
-
-import models.*;
-import models.avg.Average;
-import models.avg.AverageCoverageEfficiency;
-import models.avg.AverageEqCenterEqLogRadius;
-import models.avg.AverageMDE;
-import models.avg.AverageSimple;
-import models.avg.AverageTheilsU;
-import models.avg.AveragesConfig;
-import models.avg.Median;
-import models.params.AnalysisBatchLine;
-import models.params.ArimaParams;
-import models.params.BasicStats;
-import models.params.BNNParams;
-import models.params.BNNintParams;
-import models.params.BinomPropParams;
-import models.params.HoltIntParams;
-import models.params.HoltParams;
-import models.params.HoltWintersIntParams;
-import models.params.HoltWintersParams;
-import models.params.HybridParams;
-import models.params.IntervalHoltParams;
-import models.params.IntervalMLPCcodeParams;
-import models.params.KNNfnnParams;
-import models.params.KNNkknnParams;
-import models.params.KNNmyownParams;
-import models.params.MAvgParams;
-import models.params.MLPintNnetParams;
-import models.params.MLPintNnetarParams;
-import models.params.NnetParams;
-import models.params.NnetarParams;
-import models.params.Params;
-import models.params.RBFParams;
-import models.params.RBFintParams;
-import models.params.RandomWalkIntervalParams;
-import models.params.RandomWalkParams;
-import models.params.SESParams;
-import models.params.SESintParams;
-import models.params.VARintParams;
-import analysis.StatisticalTests;
-import analysis.Transformations;
-import gui.files.OverwriteFileChooser;
-import gui.files.PlotExtensionFileChooser;
-import gui.settingspanels.CRCombinationsStrategySettingsPanel;
-
-import java.util.concurrent.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import models.avg.AverageEigenvalsPCA;
-import org.rosuda.javaGD.JGDBufferedPanel;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import rmi.AdmlProviderImpl;
-import rmi.OnJobFinishedListener;
-import rmi.Task;
-import utils.Const;
-import utils.ExcelWriter;
-import utils.FieldsParser;
-import utils.MyRengine;
-import utils.Utils;
-import utils.imlp.Interval;
-import utils.imlp.IntervalNamesCentreRadius;
-import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.dist.Distance;
-import utils.ugliez.CallParamsDrawPlotGeneral;
-import utils.ugliez.CallParamsDrawPlots;
-import utils.ugliez.CallParamsDrawPlotsITS;
-import utils.ugliez.PlotStateKeeper;
+import static java.util.concurrent.TimeUnit.DAYS;
 
 
 public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListener<TrainAndTestReport> {
@@ -1180,14 +1103,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (((DefaultListModel)listPlotLegend.getModel())
+                if (listPlotLegend.getModel()
                     .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendTurnOFFableListElement) {
-                    ((PlotLegendTurnOFFableListElement)((DefaultListModel)listPlotLegend.getModel())
+                    ((PlotLegendTurnOFFableListElement) listPlotLegend.getModel()
                         .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
                 } else {
-                    if (((DefaultListModel)listPlotLegend.getModel())
+                    if (listPlotLegend.getModel()
                         .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendSimpleListElement) {
-                        ((PlotLegendSimpleListElement)((DefaultListModel)listPlotLegend.getModel())
+                        ((PlotLegendSimpleListElement) listPlotLegend.getModel()
                             .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
                     }
                 }
@@ -4327,9 +4250,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         List<Object> values = listPlotITSspecs.getSelectedValuesList();
         for (Object val : values) {
             if (val instanceof IntervalNamesCentreRadius) {
-                listITSPlotCentreRadius.remove((IntervalNamesCentreRadius) val);
+                listITSPlotCentreRadius.remove(val);
             } else if (val instanceof IntervalNamesLowerUpper) {
-                listITSPlotLowerUpper.remove((IntervalNamesLowerUpper) val);
+                listITSPlotLowerUpper.remove(val);
             }
             ((DefaultListModel)(listPlotITSspecs.getModel())).removeElement(val);
         }
@@ -6201,9 +6124,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         reportsIntTS.addAll(rIntTS);
         for (TrainAndTestReport r : addedReports) {
             if (r instanceof TrainAndTestReportCrisp) {
-                reportsCTS.add((TrainAndTestReportCrisp)r);
+                reportsCTS.add(r);
             } else if (r instanceof TrainAndTestReportInterval) {
-                reportsIntTS.add((TrainAndTestReportInterval)r);
+                reportsIntTS.add(r);
             }
         }
         

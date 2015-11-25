@@ -1,6 +1,14 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
+import models.params.IntervalMLPCcodeParams;
+import models.params.Params;
+import utils.*;
+import utils.imlp.Interval;
+import utils.imlp.IntervalCentreRadius;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
+import utils.imlp.dist.*;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -12,24 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.params.IntervalMLPCcodeParams;
-import models.params.Params;
-import utils.BestModelCriterionInterval;
-import utils.Const;
-import utils.ErrorMeasuresInterval;
-import utils.ErrorMeasuresUtils;
-import utils.IntervalExplanatoryVariable;
-import utils.IntervalOutputVariable;
-import utils.Utils;
-import utils.imlp.Interval;
-import utils.imlp.IntervalCentreRadius;
-import utils.imlp.IntervalNamesCentreRadius;
-import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.dist.BertoluzzaDistance;
-import utils.imlp.dist.DeCarvalhoDistance;
-import utils.imlp.dist.HausdorffDistance;
-import utils.imlp.dist.IchinoYaguchiDistance;
-import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalMLPCcode implements Forecastable {
     private static final long serialVersionUID = 1L;
@@ -47,11 +37,11 @@ public class IntervalMLPCcode implements Forecastable {
         //and then determine which one is the best
         int bestReportNum = 0;
         TrainAndTestReportInterval bestReport = reports.get(0);
-        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, ((IntervalMLPCcodeParams)parameters).getCriterion());
+        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, parameters.getCriterion());
         if (reports.size() > 1) {
             for (int i = 1; i < reports.size(); i++) {
-                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), ((IntervalMLPCcodeParams)parameters).getCriterion());
-                if (BestModelCriterionInterval.isCurrentBetterThanBest(((IntervalMLPCcodeParams)parameters).getCriterion(), currentMeasures, bestMeasures)) {
+                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), parameters.getCriterion());
+                if (BestModelCriterionInterval.isCurrentBetterThanBest(parameters.getCriterion(), currentMeasures, bestMeasures)) {
                     bestMeasures = currentMeasures;
                     bestReport = reports.get(i);
                     bestReportNum = i;

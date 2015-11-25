@@ -1,14 +1,10 @@
 package gui.settingspanels;
 
-import java.awt.CardLayout;
-import java.util.List;
 import models.params.Params;
-import utils.imlp.dist.BertoluzzaDistance;
-import utils.imlp.dist.DeCarvalhoDistance;
-import utils.imlp.dist.Distance;
-import utils.imlp.dist.HausdorffDistance;
-import utils.imlp.dist.IchinoYaguchiDistance;
-import utils.imlp.dist.WeightedEuclideanDistance;
+import utils.imlp.dist.*;
+
+import java.awt.*;
+import java.util.List;
 
 public class DistanceSettingsPanel extends SettingsPanel {
 

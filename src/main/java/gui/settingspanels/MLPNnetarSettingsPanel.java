@@ -1,11 +1,12 @@
 package gui.settingspanels;
 
+import models.params.Params;
+import utils.FieldsParser;
+import utils.Utils;
+
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.List;
-import models.params.Params;
-import utils.Utils;
-import utils.FieldsParser;
 
 public class MLPNnetarSettingsPanel extends SettingsPanel {
 

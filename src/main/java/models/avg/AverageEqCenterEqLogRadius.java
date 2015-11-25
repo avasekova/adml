@@ -1,7 +1,6 @@
 package models.avg;
 
 import gui.ColourService;
-import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
@@ -11,6 +10,8 @@ import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
+
+import java.util.List;
 
 public class AverageEqCenterEqLogRadius extends Average {
     

@@ -1,16 +1,15 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.List;
-import java.util.Map;
-
-import org.rosuda.JRI.REXP;
 import models.params.KNNcustomParams;
 import models.params.Params;
+import org.rosuda.JRI.REXP;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
 import utils.MyRengine;
 import utils.Utils;
+
+import java.util.List;
+import java.util.Map;
 
 //(not used, may contain dragons)
 public class KNNcustom implements Forecastable {

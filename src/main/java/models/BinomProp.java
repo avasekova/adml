@@ -1,17 +1,14 @@
 package models;
 
-import gui.PlotDrawer;
-import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import models.params.BinomPropParams;
 import models.params.Params;
 import utils.Const;
-import utils.FieldsParser;
 import utils.MyRengine;
 import utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class BinomProp implements Forecastable {
     private static final long serialVersionUID = 1L;

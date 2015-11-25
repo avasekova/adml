@@ -3,11 +3,6 @@ package gui.renderers;
 import gui.MainFrame;
 import gui.PlotDrawer;
 import gui.Plottable;
-import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JList;
-import javax.swing.JPopupMenu;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
@@ -17,6 +12,10 @@ import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public interface RightClickable {
     
@@ -64,6 +63,6 @@ public interface RightClickable {
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
             PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
         }
-    };
-    
+    }
+
 }

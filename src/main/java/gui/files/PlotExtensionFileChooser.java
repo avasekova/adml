@@ -1,6 +1,7 @@
 package gui.files;
 
 import gui.filefilters.RFileFilter;
+
 import java.io.File;
 
 public class PlotExtensionFileChooser extends OverwriteFileChooser {

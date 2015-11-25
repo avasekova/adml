@@ -1,8 +1,9 @@
 package gui.settingspanels;
 
-import java.util.List;
-import javax.swing.SpinnerNumberModel;
 import models.params.Params;
+
+import javax.swing.*;
+import java.util.List;
 
 public class KNNCustomSettingsPanel extends SettingsPanel {
 

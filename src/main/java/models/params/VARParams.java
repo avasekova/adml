@@ -4,6 +4,7 @@ import gui.MainFrame;
 import gui.settingspanels.SettingsPanel;
 import gui.settingspanels.VARSettingsPanel;
 import gui.tablemodels.DataTableModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

@@ -1,10 +1,11 @@
 package utils;
 
-import java.util.ArrayList;
-import java.util.List;
 import utils.imlp.Interval;
 import utils.imlp.IntervalLowerUpper;
 import utils.imlp.dist.Distance;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ErrorMeasuresUtils {
     

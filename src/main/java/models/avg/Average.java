@@ -1,20 +1,17 @@
 package models.avg;
 
 import gui.ColourService;
+import models.TrainAndTestReportCrisp;
+import models.TrainAndTestReportInterval;
+import org.rosuda.JRI.REXP;
+import utils.*;
+import utils.imlp.Interval;
+import utils.imlp.dist.WeightedEuclideanDistance;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import models.TrainAndTestReportCrisp;
-import models.TrainAndTestReportInterval;
-import org.rosuda.JRI.REXP;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresInterval;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
-import utils.imlp.Interval;
-import utils.imlp.dist.WeightedEuclideanDistance;
 
 
 /*

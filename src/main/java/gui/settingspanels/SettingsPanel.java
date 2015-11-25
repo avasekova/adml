@@ -2,15 +2,15 @@ package gui.settingspanels;
 
 import gui.ComponentGroup;
 import gui.MainFrame;
+import models.params.Params;
+
+import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import models.params.Params;
 
 public abstract class SettingsPanel extends JPanel {
     

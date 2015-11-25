@@ -1,11 +1,12 @@
 package gui.dialogs;
 
 import gui.MainFrame;
+import utils.imlp.IntervalNamesCentreRadius;
+import utils.imlp.IntervalNamesLowerUpper;
+
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import utils.imlp.IntervalNamesCentreRadius;
-import utils.imlp.IntervalNamesLowerUpper;
 
 public class DialogLbUbCenterRadius extends javax.swing.JDialog {
     

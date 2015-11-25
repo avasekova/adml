@@ -1,9 +1,10 @@
 package utils;
 
+import models.TrainAndTestReportInterval;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import models.TrainAndTestReportInterval;
 
 public abstract class BestModelCriterionInterval {
     

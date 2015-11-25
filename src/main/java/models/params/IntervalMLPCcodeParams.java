@@ -3,11 +3,12 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.IntMLPCcodeSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
-import java.util.ArrayList;
-import java.util.List;
 import utils.IntervalExplanatoryVariable;
 import utils.IntervalOutputVariable;
 import utils.imlp.dist.Distance;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class IntervalMLPCcodeParams extends Params {
     

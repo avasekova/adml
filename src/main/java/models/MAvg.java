@@ -1,19 +1,13 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import models.params.MAvgParams;
 import models.params.Params;
 import org.rosuda.JRI.REXP;
-import utils.Const;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
+import utils.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class MAvg implements Forecastable {
     private static final long serialVersionUID = 1L;

@@ -1,18 +1,14 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.List;
-import java.util.Map;
-
 import models.params.KNNfnnParams;
 import models.params.Params;
 import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 import utils.Const;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
 import utils.Utils;
+
+import java.util.List;
+import java.util.Map;
 
 public class KNNmyown implements Forecastable {
     private static final long serialVersionUID = 1L;

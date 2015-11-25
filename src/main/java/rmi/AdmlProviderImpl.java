@@ -3,12 +3,9 @@ package rmi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.RMIClientSocketFactory;
-import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -197,11 +194,8 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
 
     @Override
     public boolean shouldTerminate(String workerId) throws RemoteException {
-        if (!isRunning.get()){
-            return true;
-        }
+        return !isRunning.get();
 
-        return false;
     }
 
     @Override

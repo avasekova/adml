@@ -1,6 +1,5 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
 import models.params.NeuralnetParams;
 import models.params.Params;
 

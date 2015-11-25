@@ -1,9 +1,5 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.List;
-import java.util.Map;
-
 import models.params.Params;
 import models.params.SESParams;
 import models.params.SESintParams;
@@ -12,6 +8,9 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
+
+import java.util.List;
+import java.util.Map;
 
 public class SESint implements Forecastable {
     private static final long serialVersionUID = 1L;

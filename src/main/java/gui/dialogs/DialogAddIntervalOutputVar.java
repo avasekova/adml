@@ -1,13 +1,14 @@
 package gui.dialogs;
 
 import gui.tablemodels.IntervalOutVarsTableModel;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
+import utils.IntervalOutputVariable;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.IntervalOutputVariable;
+
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogAddIntervalOutputVar extends javax.swing.JDialog {
     

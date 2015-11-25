@@ -1,22 +1,16 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
+import models.params.NnetarParams;
+import models.params.Params;
+import org.rosuda.JRI.REXP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import utils.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
-import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
-import models.params.NnetarParams;
-import models.params.Params;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import utils.Const;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
 
 public class Nnetar implements Forecastable {
     private static final long serialVersionUID = 1L;

@@ -3,6 +3,7 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.KNNkknnSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
+
 import java.util.ArrayList;
 import java.util.List;
 

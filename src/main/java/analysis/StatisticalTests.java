@@ -1,15 +1,16 @@
 package analysis;
 
 import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class StatisticalTests {
     

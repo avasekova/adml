@@ -1,10 +1,11 @@
 package gui.tablemodels;
 
+import utils.CrispExplanatoryVariable;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import utils.CrispExplanatoryVariable;
 
 public class CrispExplVarsTableModel extends AbstractTableModel {
     

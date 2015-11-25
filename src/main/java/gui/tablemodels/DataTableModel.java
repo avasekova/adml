@@ -1,14 +1,14 @@
 package gui.tablemodels;
 
 import gui.LoadDataCustomizerPanel;
-import java.io.File;
-import java.io.Serializable;
-import java.util.*;
-import javax.swing.table.AbstractTableModel;
 import org.rosuda.JRI.REXP;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
+
+import javax.swing.table.AbstractTableModel;
+import java.io.File;
+import java.util.*;
 
 public class DataTableModel extends AbstractTableModel {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system

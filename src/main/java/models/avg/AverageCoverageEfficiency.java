@@ -1,9 +1,10 @@
 package models.avg;
 
-import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import utils.ErrorMeasuresInterval;
+
+import java.util.List;
 
 public class AverageCoverageEfficiency extends Average {
     

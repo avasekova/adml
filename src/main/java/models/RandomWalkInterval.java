@@ -1,13 +1,14 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
 import models.params.RandomWalkIntervalParams;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.imlp.Interval;
 import utils.imlp.IntervalLowerUpper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RandomWalkInterval { //TODO implements Forecastable!
 

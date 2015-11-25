@@ -1,6 +1,7 @@
 package models.params;
 
 import gui.settingspanels.BinomPropSettingsPanel;
+
 import java.util.ArrayList;
 import java.util.List;
 

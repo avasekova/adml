@@ -1,12 +1,11 @@
 package gui.renderers;
 
 import gui.tablemodels.ErrorMeasuresTableModel;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
 import utils.Utils;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
+import java.awt.*;
 
 public class ErrorTableCellRenderer extends DefaultTableCellRenderer { //TODO pouzit aj na stredny riadok
     //TODO vyrobit len Renderer na hrubsie pismo, a potom ho aplikovat nie na celu tabulku, ale na niektore riadky a stlpce

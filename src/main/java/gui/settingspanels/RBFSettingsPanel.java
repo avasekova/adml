@@ -1,15 +1,15 @@
 package gui.settingspanels;
 
-import gui.tablemodels.CrispExplVarsTableModel;
-import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.MainFrame;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import gui.dialogs.DialogAddCrispExplanatoryVar;
+import gui.tablemodels.CrispExplVarsTableModel;
 import models.params.Params;
 import utils.Const;
 import utils.CrispExplanatoryVariable;
 import utils.FieldsParser;
+
+import javax.swing.*;
+import java.util.List;
 
 public class RBFSettingsPanel extends SettingsPanel {
 

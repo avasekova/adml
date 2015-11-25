@@ -1,6 +1,5 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
 import models.params.Params;
 
 import java.util.List;

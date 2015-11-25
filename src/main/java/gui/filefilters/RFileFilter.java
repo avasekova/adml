@@ -1,7 +1,7 @@
 package gui.filefilters;
 
-import java.io.File;
 import javax.swing.filechooser.FileFilter;
+import java.io.File;
 
 public abstract class RFileFilter extends FileFilter {
 

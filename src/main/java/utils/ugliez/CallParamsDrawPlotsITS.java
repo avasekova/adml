@@ -1,11 +1,12 @@
 package utils.ugliez;
 
 import gui.tablemodels.DataTableModel;
-import java.util.List;
-import javax.swing.JList;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
+
+import javax.swing.*;
+import java.util.List;
 
 public class CallParamsDrawPlotsITS extends CallParams {
     

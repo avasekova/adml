@@ -1,18 +1,13 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
+import models.params.ArimaParams;
+import models.params.Params;
+import org.rosuda.JRI.REXP;
+import utils.*;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import org.rosuda.JRI.REXP;
-import models.params.ArimaParams;
-import models.params.Params;
-import utils.Const;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
 
 public class Arima implements Forecastable {
     private static final long serialVersionUID = 1L;

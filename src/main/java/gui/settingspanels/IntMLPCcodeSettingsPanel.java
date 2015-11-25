@@ -1,22 +1,17 @@
 package gui.settingspanels;
 
+import gui.MainFrame;
 import gui.dialogs.DialogAddIntervalExplanatoryVar;
 import gui.dialogs.DialogAddIntervalOutputVar;
 import gui.tablemodels.IntervalExplVarsTableModel;
 import gui.tablemodels.IntervalOutVarsTableModel;
-import gui.MainFrame;
+import models.params.Params;
+import utils.*;
+import utils.imlp.dist.Distance;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import models.params.Params;
-import utils.Const;
-import utils.FieldsParser;
-import utils.Improvable;
-import utils.IntervalExplanatoryVariable;
-import utils.IntervalOutputVariable;
-import utils.imlp.dist.Distance;
 
 public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     

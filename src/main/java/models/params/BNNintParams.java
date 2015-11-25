@@ -3,10 +3,11 @@ package models.params;
 import gui.settingspanels.BestModelCriterionIntervalSettingsPanel;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.SettingsPanel;
-import java.util.ArrayList;
-import java.util.List;
 import utils.FieldsParser;
 import utils.Improvable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class BNNintParams extends PseudoIntervalParams {
     

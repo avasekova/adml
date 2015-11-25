@@ -1,9 +1,10 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.List;
 import utils.Utils;
 import utils.imlp.Interval;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TrainAndTestReportInterval extends TrainAndTestReport {
     

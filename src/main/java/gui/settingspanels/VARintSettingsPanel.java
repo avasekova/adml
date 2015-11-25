@@ -1,9 +1,10 @@
 package gui.settingspanels;
 
-import java.util.ArrayList;
-import java.util.List;
 import models.params.Params;
 import utils.FieldsParser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class VARintSettingsPanel extends SettingsPanel {
 

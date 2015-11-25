@@ -1,11 +1,12 @@
 package gui.dialogs;
 
 import gui.tablemodels.CrispExplVarsTableModel;
+import utils.CrispExplanatoryVariable;
+
+import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.SpinnerNumberModel;
-import utils.CrispExplanatoryVariable;
 
 public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
     

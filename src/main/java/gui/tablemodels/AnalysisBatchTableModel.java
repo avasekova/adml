@@ -1,9 +1,10 @@
 package gui.tablemodels;
 
+import models.params.AnalysisBatchLine;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import models.params.AnalysisBatchLine;
 
 public class AnalysisBatchTableModel extends AbstractTableModel {
 

@@ -2,10 +2,10 @@ package models.params;
 
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.SettingsPanel;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
 
 public class SESintParams extends PseudoIntervalParams {
     

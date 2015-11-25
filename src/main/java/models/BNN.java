@@ -1,20 +1,13 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import models.params.BNNParams;
 import models.params.Params;
 import org.rosuda.JRI.REXP;
-import utils.Const;
-import utils.CrispExplanatoryVariable;
-import utils.CrispOutputVariable;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
+import utils.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class BNN implements Forecastable {
     private static final long serialVersionUID = 1L;
@@ -59,8 +52,8 @@ public class BNN implements Forecastable {
             MyRengine rengine = MyRengine.getRengine();
             rengine.require("brnn");
             
-            ((MyRengine)rengine).assignMatrix(INPUT_TRAIN, trainingInputs);
-            ((MyRengine)rengine).assignMatrix(INPUT_TEST, testingInputs);
+            rengine.assignMatrix(INPUT_TRAIN, trainingInputs);
+            rengine.assignMatrix(INPUT_TEST, testingInputs);
             rengine.assign(OUTPUT, Utils.listToArray(allOutputs));
             rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
             rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");

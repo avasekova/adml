@@ -1,9 +1,5 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.List;
-import java.util.Map;
-
 import models.params.HoltIntParams;
 import models.params.HoltParams;
 import models.params.Params;
@@ -12,6 +8,9 @@ import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
+
+import java.util.List;
+import java.util.Map;
 
 public class HoltInt implements Forecastable {
     private static final long serialVersionUID = 1L;

@@ -1,7 +1,10 @@
 package gui;
 
 import models.TrainAndTestReport;
-import org.kohsuke.args4j.*;
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rmi.AdmlProviderImpl;
@@ -14,7 +17,6 @@ import java.net.MalformedURLException;
 import java.rmi.AccessException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.rmi.registry.Registry;
 import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.List;

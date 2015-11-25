@@ -1,9 +1,5 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.List;
-import java.util.Map;
-
 import models.params.HoltWintersIntParams;
 import models.params.HoltWintersParams;
 import models.params.Params;
@@ -13,6 +9,9 @@ import utils.ErrorMeasuresUtils;
 import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
+
+import java.util.List;
+import java.util.Map;
 
 public class HoltWintersInt implements Forecastable {
     private static final long serialVersionUID = 1L;

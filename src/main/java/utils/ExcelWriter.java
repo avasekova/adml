@@ -4,13 +4,14 @@ import gui.tablemodels.ErrorMeasuresTableModel_CTS;
 import gui.tablemodels.ErrorMeasuresTableModel_ITS;
 import gui.tablemodels.ForecastValsTableModel;
 import gui.tablemodels.ResidualsTableModel;
-import java.io.File;
-import java.io.IOException;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+
+import java.io.File;
+import java.io.IOException;
 
 public class ExcelWriter { //TODO add information about the models, add formatting
     

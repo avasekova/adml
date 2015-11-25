@@ -1,15 +1,16 @@
 package gui.tablemodels;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReport;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresInterval;
 import utils.MinMaxTuple;
 import utils.Utils;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class ErrorMeasuresTableModel extends AbstractTableModel {
     

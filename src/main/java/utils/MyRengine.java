@@ -1,6 +1,10 @@
 package utils;
 
 import gui.tablemodels.DataTableModel;
+import org.rosuda.JRI.REXP;
+import org.rosuda.JRI.Rengine;
+
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,9 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
-import org.rosuda.JRI.REXP;
-import org.rosuda.JRI.Rengine;
 
 public class MyRengine extends Rengine {
     //TODO na konci kazdeho pouzivania Rengine (v modeloch atd): "rm" vsetky objekty, co uz nebudem potrebovat

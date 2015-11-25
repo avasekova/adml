@@ -1,18 +1,15 @@
 package models.avg;
 
 import gui.ColourService;
-import java.util.ArrayList;
-import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresInterval;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
+import utils.*;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Median extends Average { //well...
 

@@ -1,10 +1,11 @@
 package models.avg;
 
-import java.util.List;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import utils.ErrorMeasuresCrisp;
 import utils.ErrorMeasuresInterval;
+
+import java.util.List;
 
 public class AverageMDE extends Average {
     

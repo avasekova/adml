@@ -3,11 +3,10 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.HoltWintersSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 public class HoltWintersParams extends HoltParams {
     

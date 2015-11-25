@@ -3,9 +3,10 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.ARIMASettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
+import utils.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
-import utils.Utils;
 
 public class ArimaParams extends Params {
 

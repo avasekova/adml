@@ -3,11 +3,12 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.MLPNnetSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
-import java.util.ArrayList;
-import java.util.List;
 import utils.CrispExplanatoryVariable;
 import utils.R_Bool;
 import utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NnetParams extends Params {
     

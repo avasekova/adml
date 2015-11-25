@@ -1,6 +1,7 @@
 package gui.dialogs;
 
 import gui.MainFrame;
+
 import java.awt.event.WindowEvent;
 
 public class DialogTooManyModels extends javax.swing.JDialog {

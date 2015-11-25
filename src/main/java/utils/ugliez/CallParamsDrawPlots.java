@@ -1,12 +1,13 @@
 package utils.ugliez;
 
-import java.util.List;
-import javax.swing.JList;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.AveragesConfig;
 import org.rosuda.javaGD.JGDBufferedPanel;
+
+import javax.swing.*;
+import java.util.List;
 
 public class CallParamsDrawPlots extends CallParams {
     

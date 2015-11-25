@@ -1,16 +1,17 @@
 package gui.tablemodels;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import javax.swing.table.AbstractTableModel;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import utils.ErrorMeasuresInterval;
 import utils.Utils;
 import utils.imlp.Interval;
+
+import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ResidualsTableModel extends AbstractTableModel {
     

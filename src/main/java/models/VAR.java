@@ -1,17 +1,14 @@
 package models;
 
+import models.params.Params;
+import models.params.VARParams;
+import org.rosuda.JRI.REXP;
+import utils.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.rosuda.JRI.REXP;
-import models.params.Params;
-import models.params.VARParams;
-import utils.Const;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
 
 //(not used, may contain dragons)
 public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleReports
@@ -41,7 +38,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         double[] realOutput = getRealOutput.asDoubleArray();
         
         
-        ((MyRengine)rengine).assignMatrix(INPUT, dataToUse);
+        rengine.assignMatrix(INPUT, dataToUse);
         rengine.eval(FORECAST_MODEL + " <- vars::VAR(" + INPUT + ", p=" + params.getLag() + ", type=\"" + params.getType() + "\")");
         
         rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")"); //to je fitted pre vsetky, mna zaujima len pre tu jednu

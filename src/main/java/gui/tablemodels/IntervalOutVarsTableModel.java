@@ -1,12 +1,12 @@
 package gui.tablemodels;
 
+import utils.IntervalOutputVariable;
+import utils.imlp.IntervalNamesCentreRadius;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
-import utils.imlp.IntervalNamesCentreRadius;
-import utils.imlp.IntervalNamesLowerUpper;
-import utils.IntervalOutputVariable;
 
 public class IntervalOutVarsTableModel extends AbstractTableModel {
 
@@ -59,9 +59,9 @@ public class IntervalOutVarsTableModel extends AbstractTableModel {
                 return var.getName();
             case 1:
                 if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
-                    return ((IntervalNamesCentreRadius) var.getIntervalNames()).toString();
+                    return var.getIntervalNames().toString();
                 } else {
-                    return ((IntervalNamesLowerUpper) var.getIntervalNames()).toString();
+                    return var.getIntervalNames().toString();
                 }
         }
         

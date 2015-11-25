@@ -1,16 +1,16 @@
 package gui.settingspanels;
 
-import gui.tablemodels.CrispExplVarsTableModel;
-import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.MainFrame;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
+import gui.dialogs.DialogAddCrispExplanatoryVar;
+import gui.tablemodels.CrispExplVarsTableModel;
 import models.params.Params;
 import utils.CrispExplanatoryVariable;
-import utils.R_Bool;
 import utils.FieldsParser;
+import utils.R_Bool;
 import utils.Utils;
+
+import javax.swing.*;
+import java.util.List;
 
 public class MLPNnetSettingsPanel extends SettingsPanel {
 

@@ -1,19 +1,13 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
+import models.params.NnetParams;
+import models.params.Params;
+import org.rosuda.JRI.REXP;
+import utils.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.rosuda.JRI.REXP;
-import models.params.NnetParams;
-import models.params.Params;
-import utils.Const;
-import utils.CrispExplanatoryVariable;
-import utils.ErrorMeasuresCrisp;
-import utils.ErrorMeasuresUtils;
-import utils.MyRengine;
-import utils.Utils;
 
 public class Nnet implements Forecastable {
     private static final long serialVersionUID = 1L;
@@ -65,8 +59,8 @@ public class Nnet implements Forecastable {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("nnet");
 
-        ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
-        ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TEST, testingInputsScaled);
+        rengine.assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
+        rengine.assignMatrix(SCALED_INPUT_TEST, testingInputsScaled);
         
         List<Double> allDataOutput = dataTableModel.get(params.getColName());
         List<Double> dataToUseOutput = allDataOutput.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());

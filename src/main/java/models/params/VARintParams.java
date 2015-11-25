@@ -4,10 +4,11 @@ import gui.MainFrame;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
 import gui.settingspanels.VARintSettingsPanel;
+import utils.imlp.dist.Distance;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JPanel;
-import utils.imlp.dist.Distance;
 
 public class VARintParams extends Params {
     

@@ -1,7 +1,8 @@
 package utils.ugliez;
 
-import javax.swing.JList;
 import org.rosuda.javaGD.JGDBufferedPanel;
+
+import javax.swing.*;
 
 public abstract class CallParams {
     

@@ -1,19 +1,14 @@
 package models;
 
-import gui.tablemodels.DataTableModel;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
 import models.params.BNNParams;
 import models.params.BNNintParams;
 import models.params.Params;
-import utils.BestModelCriterionInterval;
-import utils.Const;
-import utils.ErrorMeasuresInterval;
-import utils.ErrorMeasuresUtils;
-import utils.Utils;
+import utils.*;
 import utils.imlp.Interval;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class BNNint implements Forecastable {
     private static final long serialVersionUID = 1L;
@@ -28,11 +23,11 @@ public class BNNint implements Forecastable {
         
         //and then determine which one is the best
         TrainAndTestReportInterval bestReport = reports.get(0);
-        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, ((BNNintParams)parameters).getCriterion());
+        double bestMeasures = BestModelCriterionInterval.computeCriterion(bestReport, parameters.getCriterion());
         if (reports.size() > 1) {
             for (int i = 1; i < reports.size(); i++) {
-                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), ((BNNintParams)parameters).getCriterion());
-                if (BestModelCriterionInterval.isCurrentBetterThanBest(((BNNintParams)parameters).getCriterion(), currentMeasures, bestMeasures)) {
+                double currentMeasures = BestModelCriterionInterval.computeCriterion(reports.get(i), parameters.getCriterion());
+                if (BestModelCriterionInterval.isCurrentBetterThanBest(parameters.getCriterion(), currentMeasures, bestMeasures)) {
                     bestMeasures = currentMeasures;
                     bestReport = reports.get(i);
                 }

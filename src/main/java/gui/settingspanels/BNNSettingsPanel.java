@@ -3,13 +3,13 @@ package gui.settingspanels;
 import gui.MainFrame;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.tablemodels.CrispExplVarsTableModel;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import models.params.Params;
 import utils.Const;
 import utils.CrispExplanatoryVariable;
 import utils.FieldsParser;
+
+import javax.swing.*;
+import java.util.List;
 
 public class BNNSettingsPanel extends SettingsPanel {
 

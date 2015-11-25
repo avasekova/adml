@@ -1,7 +1,8 @@
 package gui.settingspanels;
 
-import java.util.List;
 import models.params.Params;
+
+import java.util.List;
 
 public class MAvgSettingsPanel extends SettingsPanel {
 

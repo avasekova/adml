@@ -4,15 +4,11 @@ import gui.MainFrame;
 import gui.settingspanels.DistanceSettingsPanel;
 import gui.settingspanels.IntHoltSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
+import utils.imlp.dist.*;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import utils.imlp.dist.DeCarvalhoDistance;
-import utils.imlp.dist.Distance;
-import utils.imlp.dist.HausdorffDistance;
-import utils.imlp.dist.IchinoYaguchiDistance;
-import utils.imlp.dist.WeightedEuclideanDistance;
 
 public class IntervalHoltParams extends Params {
     

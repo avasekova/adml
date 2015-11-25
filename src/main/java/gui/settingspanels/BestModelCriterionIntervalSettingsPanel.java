@@ -1,9 +1,9 @@
 package gui.settingspanels;
 
-import java.util.List;
 import models.params.Params;
-import utils.BestModelCriterionInterval;
 import utils.Improvable;
+
+import java.util.List;
 
 public class BestModelCriterionIntervalSettingsPanel extends SettingsPanel {
 

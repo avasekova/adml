@@ -1,7 +1,7 @@
 package gui.tablemodels;
 
-import java.util.Map;
 import javax.swing.table.AbstractTableModel;
+import java.util.Map;
 
 public class CombinationWeightsTableModel extends AbstractTableModel {
     

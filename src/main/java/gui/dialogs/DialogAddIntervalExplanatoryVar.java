@@ -1,14 +1,15 @@
 package gui.dialogs;
 
 import gui.tablemodels.IntervalExplVarsTableModel;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.SpinnerNumberModel;
 import utils.IntervalExplanatoryVariable;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
+
+import javax.swing.*;
+import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     

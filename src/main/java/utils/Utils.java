@@ -1,20 +1,18 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import static java.lang.Double.NaN;
+import utils.imlp.Interval;
+import utils.imlp.IntervalCentreRadius;
+import utils.imlp.IntervalLowerUpper;
+import utils.imlp.dist.Distance;
+
+import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import javax.swing.JTextField;
-import utils.imlp.dist.Distance;
-import utils.imlp.Interval;
-import utils.imlp.IntervalCentreRadius;
-import utils.imlp.IntervalLowerUpper;
+
+import static java.lang.Double.NaN;
 
 public class Utils {
     

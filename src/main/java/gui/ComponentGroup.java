@@ -1,6 +1,6 @@
 package gui;
 
-import java.awt.Component;
+import java.awt.*;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
