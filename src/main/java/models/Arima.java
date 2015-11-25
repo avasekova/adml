@@ -3,6 +3,8 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 import org.rosuda.JRI.REXP;
 import models.params.ArimaParams;
 import models.params.Params;
@@ -16,7 +18,7 @@ public class Arima implements Forecastable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> data, Params parameters) {
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String SCALED_INPUT = "scaled." + INPUT;
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
@@ -35,7 +37,7 @@ public class Arima implements Forecastable {
         
         ArimaParams params = (ArimaParams) parameters;
         
-        List<Double> allData = dataTableModel.getDataForColname(params.getColName());
+        List<Double> allData = data.get(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
 
         MyRengine rengine = MyRengine.getRengine();

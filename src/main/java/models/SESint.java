@@ -2,6 +2,8 @@ package models;
 
 import gui.tablemodels.DataTableModel;
 import java.util.List;
+import java.util.Map;
+
 import models.params.Params;
 import models.params.SESParams;
 import models.params.SESintParams;
@@ -16,7 +18,7 @@ public class SESint implements Forecastable {
 
     //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         SESParams paramsCenter = ((SESintParams)parameters).getParamsCenter();
         SESParams paramsRadius = ((SESintParams)parameters).getParamsRadius();
         

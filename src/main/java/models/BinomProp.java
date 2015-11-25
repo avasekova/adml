@@ -4,6 +4,8 @@ import gui.PlotDrawer;
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import models.params.BinomPropParams;
 import models.params.Params;
 import utils.Const;
@@ -15,7 +17,7 @@ public class BinomProp implements Forecastable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> data, Params parameters) {
         
         BinomPropParams params = (BinomPropParams) parameters;
         

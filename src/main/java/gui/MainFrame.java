@@ -57,21 +57,13 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.*;
 import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
+import javax.swing.*;
 
 import static java.util.concurrent.TimeUnit.DAYS;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.table.TableColumn;
 
 import models.*;
@@ -6572,7 +6564,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         private static final long serialVersionUID = 1L;
 
         public Forecastable forecastable;
-        public DataTableModel inputData;
+        public Map<String, List<Double>> inputData;
         public Params params;
         public transient List reportList;
 
@@ -6614,12 +6606,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             // Hacking a bit - start REngine if not started.
             // This code is executed on the worker node, need to start engine.
             MyRengine.getRengine();
-
-            // If in worker process, DataTableModel needs to be reinitialized.
-            if (shouldSetNewDataInstance){
-                logger.info("Rewriting DataTableModel singleton as we are in the worker process");
-                DataTableModel.setInstance(inputData);
-            }
 
             // Execute the job
             final TrainAndTestReport report = forecastable.forecast(inputData, params);
@@ -6798,7 +6784,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 ModelForecastJob job = new ModelForecastJob();
                 job.forecastable = forecastable;
                 job.params = p;
-                job.inputData = DataTableModel.getInstance();
+                job.inputData = DataTableModel.getInstance().getAllValues(); //TODO potom tomu nedavat ani vsetky stlpce, len potrebne
                 job.reportList = reportList;
                 job.modelName = l.getModel();
                 job.paramIdx = paramCnt++;

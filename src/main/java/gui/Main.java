@@ -8,7 +8,7 @@ import rmi.AdmlProviderImpl;
 import rmi.AdmlRegistry;
 import rmi.AdmlWorkerImpl;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.rmi.AccessException;
@@ -58,14 +58,6 @@ public class Main {
 
     public static void main(String args[]) {
         logger.info("Starting the application");
-
-        //If you are going to set the L&F, you should do it as the very first step in your application.
-        // Otherwise you run the risk of initializing the Java L&F regardless of what L&F you've requested.
-        try {
-            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.error("Exception", ex);
-        }
 
         final Main app = new Main();
         app.startApplication(args);
@@ -241,6 +233,14 @@ public class Main {
      * Starts application GUI.
      */
     protected void startApplicationGUI(){
+        try {
+            javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+            SwingUtilities.updateComponentTreeUI(gui);
+            gui.pack();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.error("Exception", ex);
+        }
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {

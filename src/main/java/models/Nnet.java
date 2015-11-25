@@ -3,6 +3,8 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.rosuda.JRI.REXP;
 import models.params.NnetParams;
 import models.params.Params;
@@ -19,7 +21,7 @@ public class Nnet implements Forecastable {
     private int maxLag = 0; //a stupid solution, but whatever
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String SCALED_OUTPUT = "scaled." + OUTPUT;
         final String ORIGINAL_OUTPUT = "original." + OUTPUT;
@@ -66,7 +68,7 @@ public class Nnet implements Forecastable {
         ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
         ((MyRengine)rengine).assignMatrix(SCALED_INPUT_TEST, testingInputsScaled);
         
-        List<Double> allDataOutput = dataTableModel.getDataForColname(params.getColName());
+        List<Double> allDataOutput = dataTableModel.get(params.getColName());
         List<Double> dataToUseOutput = allDataOutput.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         rengine.assign(ORIGINAL_OUTPUT, Utils.listToArray(dataToUseOutput));
@@ -240,13 +242,13 @@ public class Nnet implements Forecastable {
         return optionalParams.toString();
     }
     
-    private List<List<Double>> prepareData(DataTableModel dataTableModel, List<CrispExplanatoryVariable> explVars,
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispExplanatoryVariable> explVars,
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
         int maximumLag = 0;
         for (CrispExplanatoryVariable var : explVars) {
-            List<Double> vals = dataTableModel.getDataForColname(var.getFieldName()).subList(from, to);
+            List<Double> vals = dataTableModel.get(var.getFieldName()).subList(from, to);
             data.add(IntervalMLPCcode.lagBy(var.getLag(), vals));
             
             maximumLag = Math.max(maximumLag, var.getLag());

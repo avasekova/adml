@@ -3,6 +3,8 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import models.params.BNNParams;
 import models.params.BNNintParams;
 import models.params.Params;
@@ -17,7 +19,7 @@ public class BNNint implements Forecastable {
     private static final long serialVersionUID = 1L;
     
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
         for (int i = 0; i < ((BNNintParams)parameters).getNumNetsToTrain(); i++) {
@@ -40,7 +42,7 @@ public class BNNint implements Forecastable {
         return bestReport;
     }
 
-    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
+    private TrainAndTestReport doTheActualForecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         BNNParams paramsCenter = ((BNNintParams)parameters).getParamsCenter();
         BNNParams paramsRadius = ((BNNintParams)parameters).getParamsRadius();
         

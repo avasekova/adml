@@ -5,6 +5,8 @@ import gui.tablemodels.DataTableModel;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.rosuda.JRI.REXP;
 import models.params.IntervalHoltParams;
 import models.params.Params;
@@ -24,7 +26,7 @@ public class IntervalHolt implements Forecastable {
     //A.holt(dejta, h=10, alpha=alpha, beta=beta, gamma=FALSE)
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String INPUT_TRAIN_LOWER = INPUT_TRAIN + ".lower";
@@ -38,8 +40,8 @@ public class IntervalHolt implements Forecastable {
         IntervalHoltParams params = (IntervalHoltParams) parameters;
         
         //bacha, tu si vsade navytvaram C+R, ale iHolt pracuje s L+U, takze potom previest
-        List<Double> allDataCenter = dataTableModel.getDataForColname(params.getColNameCenter());
-        List<Double> allDataRadius = dataTableModel.getDataForColname(params.getColNameRadius());
+        List<Double> allDataCenter = dataTableModel.get(params.getColNameCenter());
+        List<Double> allDataRadius = dataTableModel.get(params.getColNameRadius());
         List<Double> dataToUseCenter = new ArrayList<>(allDataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
         List<Double> dataToUseRadius = new ArrayList<>(allDataRadius.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
         

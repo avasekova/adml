@@ -3,6 +3,8 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import models.params.MLPintNnetarParams;
 import models.params.NnetarParams;
 import models.params.Params;
@@ -17,7 +19,7 @@ public class MLPintNnetar implements Forecastable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
         for (int i = 0; i < ((MLPintNnetarParams)parameters).getNumNetsToTrain(); i++) {
@@ -40,7 +42,7 @@ public class MLPintNnetar implements Forecastable {
         return bestReport;
     }
     
-    public TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport doTheActualForecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         NnetarParams paramsCenter = ((MLPintNnetarParams)parameters).getParamsCenter();
         NnetarParams paramsRadius = ((MLPintNnetarParams)parameters).getParamsRadius();
         

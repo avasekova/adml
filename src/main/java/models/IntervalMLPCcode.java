@@ -9,6 +9,7 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.params.IntervalMLPCcodeParams;
@@ -36,7 +37,7 @@ public class IntervalMLPCcode implements Forecastable {
     private int maxLag = 0;
     
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
         for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
@@ -108,7 +109,7 @@ public class IntervalMLPCcode implements Forecastable {
     }
     
     //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
-    private TrainAndTestReport doTheActualForecast(DataTableModel dataTableModel, Params parameters, String fileSuffix) {
+    private TrainAndTestReport doTheActualForecast(Map<String, List<Double>> dataTableModel, Params parameters, String fileSuffix) {
         final String CONFIG = "config" + fileSuffix;
         final String CONFIG_RES = CONFIG + ".res";
         final String CONFIG_OUT = CONFIG + ".out";
@@ -131,15 +132,15 @@ public class IntervalMLPCcode implements Forecastable {
         
         List<Interval> realData;
         if (params.getOutVars().get(0).getIntervalNames() instanceof IntervalNamesCentreRadius) {
-            List<Double> centers = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)params.getOutVars().get(0)
+            List<Double> centers = dataTableModel.get(((IntervalNamesCentreRadius)params.getOutVars().get(0)
                     .getIntervalNames()).getCentre()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
-            List<Double> radii = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)params.getOutVars().get(0)
+            List<Double> radii = dataTableModel.get(((IntervalNamesCentreRadius)params.getOutVars().get(0)
                     .getIntervalNames()).getRadius()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
             realData = Utils.zipCentersRadiiToIntervals(centers, radii);
         } else { //LB+UB
-            List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
+            List<Double> lowers = dataTableModel.get(((IntervalNamesLowerUpper)params.getOutVars().get(0)
                     .getIntervalNames()).getLowerBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
-            List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)params.getOutVars().get(0)
+            List<Double> uppers = dataTableModel.get(((IntervalNamesLowerUpper)params.getOutVars().get(0)
                     .getIntervalNames()).getUpperBound()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
             realData = Utils.zipLowerUpperToIntervals(lowers, uppers);
         }
@@ -286,7 +287,7 @@ public class IntervalMLPCcode implements Forecastable {
         return report;
     }
     
-    private List<List<Double>> prepareData(DataTableModel dataTableModel, List<IntervalExplanatoryVariable> explVars, 
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<IntervalExplanatoryVariable> explVars,
                                                                           List<IntervalOutputVariable> outVars,
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
@@ -296,12 +297,12 @@ public class IntervalMLPCcode implements Forecastable {
             List<Double> radii;
             
             if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
-                centers = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
-                radii = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
+                centers = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
+                radii = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
             } else {
                 //we have LB and UB
-                List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
-                List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
+                List<Double> lowers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
+                List<Double> uppers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
                 centers = new ArrayList<>();
                 radii = new ArrayList<>();
                 for (int i = 0; i < lowers.size(); i++) {
@@ -323,12 +324,12 @@ public class IntervalMLPCcode implements Forecastable {
             List<Double> radii;
             
             if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
-                centers = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
-                radii = dataTableModel.getDataForColname(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
+                centers = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
+                radii = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
             } else {
                 //we have LB and UB
-                List<Double> lowers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
-                List<Double> uppers = dataTableModel.getDataForColname(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
+                List<Double> lowers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
+                List<Double> uppers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
                 centers = new ArrayList<>();
                 radii = new ArrayList<>();
                 for (int i = 0; i < lowers.size(); i++) {

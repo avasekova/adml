@@ -3,6 +3,8 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import models.params.BNNParams;
 import models.params.Params;
 import org.rosuda.JRI.REXP;
@@ -20,7 +22,7 @@ public class BNN implements Forecastable {
     private int maxLag = 0; //a stupid solution, but whatever
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String INPUT_TEST = Const.INPUT + Utils.getCounter();
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
@@ -40,7 +42,7 @@ public class BNN implements Forecastable {
                 params.getOutVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());
         
         //int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(data.get(0).size() + maxLag));
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(dataTableModel.getDataForColname(params.getExplVars().get(0).getFieldName()).size()));
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(dataTableModel.get(params.getExplVars().get(0).getFieldName()).size()));
         report.setNumTrainingEntries(numTrainingEntries);
         numTrainingEntries -= maxLag; //dalej sa bude pocitat aj tak s datami zarovnanymi na rectangle
         
@@ -80,7 +82,7 @@ public class BNN implements Forecastable {
             
             //real outputs train and test are just the original data (used only for plotting)
             //za predpokladu, ze mame iba jednu OutVar:
-            List<Double> realOutputs = dataTableModel.getDataForColname(params.getOutVars().get(0).getFieldName()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
+            List<Double> realOutputs = dataTableModel.get(params.getOutVars().get(0).getFieldName()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
             List<Double> realOutputsTrain = realOutputs.subList(0, numTrainingEntries+maxLag);
             List<Double> realOutputsTest = realOutputs.subList(numTrainingEntries+maxLag, realOutputs.size());
             report.setRealOutputsTrain(Utils.listToArray(realOutputsTrain));
@@ -100,14 +102,14 @@ public class BNN implements Forecastable {
     }
     
     //podla vzoru iMLP C code
-    private List<List<Double>> prepareData(DataTableModel dataTableModel, List<CrispExplanatoryVariable> explVars, 
-                                                                          List<CrispOutputVariable> outVars,
-                                                                          int from, int to) {
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispExplanatoryVariable> explVars,
+                                           List<CrispOutputVariable> outVars,
+                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
         int maximumLag = 0;
         for (CrispExplanatoryVariable var : explVars) {
-            List<Double> vals = dataTableModel.getDataForColname(var.getFieldName()).subList(from, to);
+            List<Double> vals = dataTableModel.get(var.getFieldName()).subList(from, to);
             data.add(IntervalMLPCcode.lagBy(var.getLag(), vals));
             
             maximumLag = Math.max(maximumLag, var.getLag());
@@ -116,7 +118,7 @@ public class BNN implements Forecastable {
         this.maxLag = maximumLag;
         
         for (CrispOutputVariable var : outVars) {
-            List<Double> vals = dataTableModel.getDataForColname(var.getFieldName()).subList(from, to);
+            List<Double> vals = dataTableModel.get(var.getFieldName()).subList(from, to);
             data.add(vals);
         }
         

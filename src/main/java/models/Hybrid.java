@@ -3,6 +3,8 @@ package models;
 import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import models.params.ArimaParams;
 import models.params.BNNParams;
 import models.params.HoltParams;
@@ -25,7 +27,7 @@ public class Hybrid implements Forecastable {
     
     //TODO napisat aj prirucku na pridavanie veci do Hybrid - kde vsade to treba pridat, bo su to asi 3-4 miesta v kode
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         Params paramsCenter = ((HybridParams)parameters).getParamsCenter();
         Params paramsRadius = ((HybridParams)parameters).getParamsRadius();
         

@@ -4,6 +4,8 @@ import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
 import models.params.NnetarParams;
@@ -21,7 +23,7 @@ public class Nnetar implements Forecastable {
     private static final Logger logger = LoggerFactory.getLogger(Nnetar.class);
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters){
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters){
         final String TRAINDATA = Const.TRAINDATA + Utils.getCounter();
         final String NNETWORK = Const.NNETWORK + Utils.getCounter();
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
@@ -41,7 +43,7 @@ public class Nnetar implements Forecastable {
 
         logger.info("Params {}", params.getColName());
 
-        List<Double> allData = Collections.unmodifiableList(new ArrayList<>(dataTableModel.getDataForColname(params.getColName())));
+        List<Double> allData = Collections.unmodifiableList(new ArrayList<>(dataTableModel.get(params.getColName())));
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();

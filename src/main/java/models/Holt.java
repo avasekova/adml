@@ -2,6 +2,8 @@ package models;
 
 import gui.tablemodels.DataTableModel;
 import java.util.List;
+import java.util.Map;
+
 import org.rosuda.JRI.REXP;
 import models.params.HoltParams;
 import models.params.Params;
@@ -15,7 +17,7 @@ public class Holt implements Forecastable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         final String FORECAST_MODEL = Const.FORECAST_MODEL + Utils.getCounter();
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
@@ -25,7 +27,7 @@ public class Holt implements Forecastable {
         
         HoltParams params = (HoltParams) parameters;
         
-        List<Double> allData = dataTableModel.getDataForColname(params.getColName());
+        List<Double> allData = dataTableModel.get(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();

@@ -2,6 +2,8 @@ package models;
 
 import gui.tablemodels.DataTableModel;
 import java.util.List;
+import java.util.Map;
+
 import org.rosuda.JRI.REXP;
 import models.params.KNNcustomParams;
 import models.params.Params;
@@ -15,7 +17,7 @@ public class KNNcustom implements Forecastable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         final String INPUT = Const.INPUT + Utils.getCounter();
         final String OUTPUT = Const.OUTPUT + Utils.getCounter();
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
@@ -27,7 +29,7 @@ public class KNNcustom implements Forecastable {
         KNNcustomParams params = (KNNcustomParams) parameters;
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_CUSTOM);
         
-        List<Double> allData = dataTableModel.getDataForColname(params.getColName());
+        List<Double> allData = dataTableModel.get(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();

@@ -4,6 +4,8 @@ import gui.tablemodels.DataTableModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+
 import models.params.MAvgParams;
 import models.params.Params;
 import org.rosuda.JRI.REXP;
@@ -17,13 +19,13 @@ public class MAvg implements Forecastable {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public TrainAndTestReport forecast(DataTableModel dataTableModel, Params parameters) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         final String INPUT_TRAIN = Const.INPUT + Utils.getCounter();
         final String FIT = Const.FIT + Utils.getCounter();
         
         MAvgParams params = (MAvgParams) parameters;
         
-        List<Double> allData = dataTableModel.getDataForColname(params.getColName());
+        List<Double> allData = dataTableModel.get(params.getColName());
         List<Double> dataToUse = allData.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         MyRengine rengine = MyRengine.getRengine();

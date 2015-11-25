@@ -1,6 +1,10 @@
 package utils;
 
-public class MinMaxTuple {
+import java.io.Serializable;
+
+public class MinMaxTuple implements Serializable {
+
+    private static final long serialVersionUID = 0L;
     
     private final double min;
     private final double max;
