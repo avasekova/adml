@@ -545,6 +545,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonGroup_runFakeIntCRLBUB.add(radioButtonRunFakeIntCenterRadius);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         panelEverything.setPreferredSize(new java.awt.Dimension(1361, 687));
 
@@ -1103,14 +1108,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (listPlotLegend.getModel()
+                if (((DefaultListModel)listPlotLegend.getModel())
                     .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendTurnOFFableListElement) {
-                    ((PlotLegendTurnOFFableListElement) listPlotLegend.getModel()
+                    ((PlotLegendTurnOFFableListElement)((DefaultListModel)listPlotLegend.getModel())
                         .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
                 } else {
-                    if (listPlotLegend.getModel()
+                    if (((DefaultListModel)listPlotLegend.getModel())
                         .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendSimpleListElement) {
-                        ((PlotLegendSimpleListElement) listPlotLegend.getModel()
+                        ((PlotLegendSimpleListElement)((DefaultListModel)listPlotLegend.getModel())
                             .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
                     }
                 }
@@ -4144,11 +4149,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_menuFileLoadActionPerformed
 
     private void menuFileExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFileExitActionPerformed
-        if (server != null){
-            server.shutdown();
-        }
-        
-        MyRengine.stopRengine();
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_menuFileExitActionPerformed
 
@@ -5427,6 +5427,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void checkBoxAvgEigenvalsPCAIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgEigenvalsPCAIntTSActionPerformed
         checkBoxAvgGotSelected(checkBoxAvgEigenvalsPCAIntTS);
     }//GEN-LAST:event_checkBoxAvgEigenvalsPCAIntTSActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if (server != null){
+            server.shutdown();
+        }
+        
+        MyRengine.stopRengine();
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
     
     private void maybeTurnOffPlotAvgONLY() {
         if (groupCheckBoxesAvg_withoutAvgONLY.areEnabled() == ComponentGroup.ENABLED.NONE) {
