@@ -1,31 +1,37 @@
 package models;
 
+import models.params.Params;
 import models.params.RandomWalkIntervalParams;
 import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
+import utils.Utils;
 import utils.imlp.Interval;
 import utils.imlp.IntervalLowerUpper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class RandomWalkInterval { //TODO implements Forecastable!
+public class RandomWalkInterval implements Forecastable {
 
-    public TrainAndTestReport forecast(List<Interval> allData, RandomWalkIntervalParams params) {
+    public TrainAndTestReport forecast(Map<String, List<Double>> data, Params parameters) {
+        RandomWalkIntervalParams params = (RandomWalkIntervalParams) parameters;
+        List<Interval> allData = Utils.zipCentersRadiiToIntervals(data.get(params.getColnameCenter()), data.get(params.getColnameRadius()));
+
         List<Interval> dataToUse = allData.subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.RANDOM_WALK_INT);
         
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
+        int numTrainingEntries = Math.round(((float) 50/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
         report.setNumTrainingEntries(numTrainingEntries);
         
-        List<Interval> trainRealOutputs = dataToUse.subList(0, numTrainingEntries);
-        List<Interval> testRealOutputs = dataToUse.subList(numTrainingEntries, dataToUse.size());
+        List<Interval> trainRealOutputs = new ArrayList<>(dataToUse.subList(0, numTrainingEntries));
+        List<Interval> testRealOutputs = new ArrayList<>(dataToUse.subList(numTrainingEntries, dataToUse.size()));
         List<Interval> trainForecastOutputs = new ArrayList<>();
         trainForecastOutputs.add(new IntervalLowerUpper(Double.NaN, Double.NaN));
         trainForecastOutputs.addAll(dataToUse.subList(0, numTrainingEntries-1));
-        List<Interval> testForecastOutputs = dataToUse.subList(numTrainingEntries-1, dataToUse.size()-1);
+        List<Interval> testForecastOutputs = new ArrayList<>(dataToUse.subList(numTrainingEntries-1, dataToUse.size()-1));
         
         report.setRealValues(dataToUse);
         
@@ -37,5 +43,10 @@ public class RandomWalkInterval { //TODO implements Forecastable!
         report.setErrorMeasures(errorMeasures);
         
         return report;
+    }
+
+    @Override
+    public String getOptionalParams(Params parameters) {
+        return "";
     }
 }

@@ -1,38 +1,40 @@
 package models;
 
+import models.params.Params;
 import models.params.RandomWalkParams;
 import utils.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
-public class RandomWalk { //TODO implements Forecastable!
-    
-    public TrainAndTestReport forecast(List<Double> allData, RandomWalkParams params) {
-        final String DATA_FIT = Const.INPUT + Utils.getCounter();
-        final String DATA_FORECAST = Const.INPUT + Utils.getCounter();
+public class RandomWalk implements Forecastable {
+
+    @Override
+    public TrainAndTestReport forecast(Map<String, List<Double>> data, Params parameters) {
+        RandomWalkParams params = (RandomWalkParams) parameters;
+        List<Double> allData = data.get(params.getColName());
+
         List<Double> dataToUse = allData.subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RANDOM_WALK);
         
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
+        int numTrainingEntries = Math.round(((float) 50/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
         report.setNumTrainingEntries(numTrainingEntries);
         
-        List<Double> trainRealOutputs = dataToUse.subList(0, numTrainingEntries);
-        List<Double> testRealOutputs = dataToUse.subList(numTrainingEntries, dataToUse.size());
+        List<Double> trainRealOutputs = new ArrayList<>(dataToUse.subList(0, numTrainingEntries));
+        List<Double> testRealOutputs = new ArrayList<>(dataToUse.subList(numTrainingEntries, dataToUse.size()));
         List<Double> trainForecastOutputs = new ArrayList<>();
         trainForecastOutputs.add(Double.NaN);
         trainForecastOutputs.addAll(dataToUse.subList(0, numTrainingEntries-1));
-        List<Double> testForecastOutputs = dataToUse.subList(numTrainingEntries-1, dataToUse.size()-1);
+        List<Double> testForecastOutputs = new ArrayList<>(dataToUse.subList(numTrainingEntries-1, dataToUse.size()-1));
         
         report.setRealOutputsTrain(Utils.listToArray(trainRealOutputs));
         report.setRealOutputsTest(Utils.listToArray(testRealOutputs));
-        
-        MyRengine rengine = MyRengine.getRengine();
-        rengine.assign(DATA_FIT, Utils.listToArray(trainForecastOutputs));
-        rengine.assign(DATA_FORECAST, Utils.listToArray(testForecastOutputs));
-        report.setPlotCode("plot.ts(c(" + DATA_FIT + "," + DATA_FORECAST + "))"); //TODO zmenit potom, ked to bude aktualne - ked bude impl Forecastable
-        
+
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(Utils.listToArray(trainForecastOutputs)) + ","
+                + Utils.arrayToRVectorString(Utils.listToArray(testForecastOutputs)) + "))");
+
         report.setFittedValues(Utils.listToArray(trainForecastOutputs));
         report.setForecastValuesTest(Utils.listToArray(testForecastOutputs));
         
@@ -41,5 +43,10 @@ public class RandomWalk { //TODO implements Forecastable!
         report.setErrorMeasures(errorMeasures);
         
         return report;
+    }
+
+    @Override
+    public String getOptionalParams(Params parameters) {
+        return "";
     }
 }

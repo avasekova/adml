@@ -62,6 +62,9 @@ public class ModelFactory {
             case Const.BNN:
                 forecastable = new BNN();
                 break;
+            case Const.RANDOM_WALK:
+                forecastable = new RandomWalk();
+                break;
         }
 
         return forecastable;
@@ -109,6 +112,9 @@ public class ModelFactory {
                 break;
             case Const.BNN_INT:
                 forecastable = new BNNint();
+                break;
+            case Const.RANDOM_WALK_INT:
+                forecastable = new RandomWalkInterval();
                 break;
         }
 

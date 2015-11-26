@@ -10,5 +10,5 @@ public interface Forecastable extends Serializable {
     
     TrainAndTestReport forecast(Map<String, List<Double>> data, Params parameters);
     String getOptionalParams(Params parameters);
-    
+
 }

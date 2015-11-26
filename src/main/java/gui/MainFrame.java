@@ -4437,7 +4437,27 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         if (checkBoxRunBNNInt.isSelected()) {
             buttonSettingsAddToBatch_BNNintActionPerformed(null);
         }
-        
+
+        if (checkBoxRunRandomWalkCTS.isSelected()) {
+            try {
+                List<RandomWalkParams> paramsRandomWalk = RandomWalkParams.getParamsRandomWalk(comboBoxColnamesRun);
+                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RANDOM_WALK, paramsRandomWalk, paramsRandomWalk.size()));
+            } catch (IllegalArgumentException e) {
+                logger.error("Exception", e); // TODO: review logging
+            }
+        }
+
+        if (checkBoxRunIntervalRandomWalk.isSelected()) {
+            try {
+                List<RandomWalkIntervalParams> paramsRandomWalkInt =
+                        RandomWalkIntervalParams.getParamsRandomWalkInterval(panelMLPintSettingsDistance, comboBoxRunFakeIntCenter, comboBoxRunFakeIntRadius);
+                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RANDOM_WALK_INT, paramsRandomWalkInt,
+                        paramsRandomWalkInt.size()));
+            } catch (IllegalArgumentException e) {
+                logger.error("Exception", e); // TODO: review logging
+            }
+        }
+
         runModels(false);
         
         //a vratit tam stary batchTableModel
@@ -6747,47 +6767,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         logger.info("Waiting finished, CTS size: {}, interval size: {}, time elapsed {} ms",
                 reportsCTS.size(), reportsIntTS.size(), computationTime);
 
-        if (checkBoxRunIntervalRandomWalk.isSelected()) {
-            String colnameCenter = comboBoxRunFakeIntCenter.getSelectedItem().toString();
-            String colnameRadius = comboBoxRunFakeIntRadius.getSelectedItem().toString();
-            List<Interval> dataRandomWalk = Utils.zipCentersRadiiToIntervals(DataTableModel.getInstance().getDataForColname(colnameCenter),
-                    DataTableModel.getInstance().getDataForColname(colnameRadius));
 
-            Distance distance = ((DistanceSettingsPanel)panelMLPintSettingsDistance).getSelectedDistance();
-            RandomWalkIntervalParams params = new RandomWalkIntervalParams(); //TODO add support for rangeRun
-            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPintPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
-            params.setDistance(distance);
-            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
-            if (checkBoxRunIncludeRMSSE.isSelected()) {
-                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
-            }
-            
-            RandomWalkInterval randomWalkInterval = new RandomWalkInterval();
-            TrainAndTestReportInterval report = (TrainAndTestReportInterval) (randomWalkInterval.forecast(dataRandomWalk, params));
-            report.setID(Utils.getModelID());
-            reportsIntTS.add(report);
-        }
-        
-        if (checkBoxRunRandomWalkCTS.isSelected()) {
-            String colname = comboBoxColnamesRun.getSelectedItem().toString();
-            List<Double> dataRandomWalk = DataTableModel.getInstance().getDataForColname(colname);
-
-            RandomWalkParams params = new RandomWalkParams(); //TODO add support for rangeRun
-            params.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)panelMLPPercentTrain).getPercentTrain())); //TODO prerobit? zatial berie tento
-            params.setDataRangeFrom(Integer.parseInt(textFieldRunDataRangeFrom.getText()));
-            params.setDataRangeTo(Integer.parseInt(textFieldRunDataRangeTo.getText()));
-            params.setNumForecasts(Integer.parseInt(textFieldRunNumForecasts.getText()));
-            if (checkBoxRunIncludeRMSSE.isSelected()) {
-                params.setSeasonality(Integer.parseInt(textFieldRunRMSSESeasonality.getText()));
-            }
-            
-            RandomWalk randomWalk = new RandomWalk();
-            TrainAndTestReportCrisp report = (TrainAndTestReportCrisp) (randomWalk.forecast(dataRandomWalk, params));
-            report.setID(Utils.getModelID());
-            reportsCTS.add(report);
-        }
         
         
         //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
