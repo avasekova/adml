@@ -70,10 +70,4 @@ public class HoltWintersInt implements Forecastable {
         
         return report;
     }
-
-    //TODO uz tu metodu fakt musim zmazat...
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
 }

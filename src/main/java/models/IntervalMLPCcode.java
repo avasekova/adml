@@ -359,9 +359,4 @@ public class IntervalMLPCcode implements Forecastable {
         
         return lagged;
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
 }

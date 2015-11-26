@@ -16,7 +16,6 @@ public class Neuralnet implements Forecastable {
         return report;
     }
 
-    @Override
     public String getOptionalParams(Params parameters) {
         NeuralnetParams params = (NeuralnetParams) parameters;
         StringBuilder optionalParams = new StringBuilder();

@@ -12,9 +12,4 @@ public class DefaultForecastable implements Forecastable {
     public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         throw new UnsupportedOperationException("Not implemented yet.");
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        throw new UnsupportedOperationException("Not implemented yet.");
-    }
 }

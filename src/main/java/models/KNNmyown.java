@@ -107,10 +107,5 @@ public class KNNmyown implements Forecastable {
 */        
         return report;
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
     
 }

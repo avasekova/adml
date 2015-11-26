@@ -92,12 +92,6 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         return allReports;
     }
 
-    //TODO tuto metodu zrusit... potrebuje ju len asi jeden model. alebo teda ju vyuzit, tj. doplnit vsetky parametre zo
-    //  vsetkych balikov
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
-
     private Map<String, List<Double>> trimToRange(int from, int to, Map<String, List<Double>> data) {
         Map<String, List<Double>> trimmed = new HashMap<>();
         

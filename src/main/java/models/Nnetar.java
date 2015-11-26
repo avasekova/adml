@@ -111,8 +111,7 @@ public class Nnetar implements Forecastable {
         
         return report;
     }
-    
-    @Override
+
     public String getOptionalParams(Params parameters) {
         NnetarParams params = (NnetarParams) parameters;
         StringBuilder optionalParams = new StringBuilder();

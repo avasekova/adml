@@ -167,7 +167,6 @@ public class Nnet implements Forecastable {
         return report;
     }
 
-    @Override
     public String getOptionalParams(Params parameters) {
         NnetParams params = (NnetParams) parameters;
         StringBuilder optionalParams = new StringBuilder();

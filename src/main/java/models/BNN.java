@@ -156,9 +156,4 @@ public class BNN implements Forecastable {
         
         return inputsScaled;
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
 }

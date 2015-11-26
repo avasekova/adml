@@ -157,9 +157,4 @@ public class RBF implements Forecastable {
         
         return inputsScaled;
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
 }

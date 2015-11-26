@@ -26,11 +26,6 @@ public class BinomProp implements Forecastable {
         
         return report;
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return ""; //TODO uz konecne odstranit toto z toho interfejsu :)
-    }
     
     public static List<String> binomPropComputePosterior(List<BinomPropParams> params) {
         MyRengine rengine = MyRengine.getRengine();

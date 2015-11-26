@@ -97,9 +97,4 @@ public class Holt implements Forecastable {
         
         return report;
     }
-
-    @Override
-    public String getOptionalParams(Params parameters) {
-        return "";
-    }
 }
