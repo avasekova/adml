@@ -61,7 +61,7 @@ public class MLPintNnet implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((MLPintNnetParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.MLP_INT_NNET);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.MLP_INT_NNET);
         report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

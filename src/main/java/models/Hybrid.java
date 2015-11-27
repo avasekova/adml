@@ -106,7 +106,7 @@ public class Hybrid implements Forecastable {
         ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realOutputsIntervalTrain, 
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((HybridParams)parameters).getDistance(), parameters.getSeasonality());
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HYBRID);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.HYBRID);
         report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

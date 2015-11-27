@@ -1,5 +1,6 @@
 package gui.settingspanels;
 
+import models.Model;
 import models.params.Params;
 import utils.Const;
 import utils.FieldsParser;
@@ -222,8 +223,8 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && 
             (Utils.getDoubleOrDefault(getBeta()) > Utils.getDoubleOrDefault(getAlpha()))) {
-            JOptionPane.showMessageDialog(null, Const.HOLT_WINTERS + " will not run (Beta cannot be greater than Alpha)");
-            throw new IllegalArgumentException(Const.HOLT_WINTERS + " params error");
+            JOptionPane.showMessageDialog(null, Model.HOLT_WINTERS + " will not run (Beta cannot be greater than Alpha)");
+            throw new IllegalArgumentException(Model.HOLT_WINTERS + " params error");
         }
         
         if ("NULL".equals(getAlpha())) {

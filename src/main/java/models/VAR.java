@@ -47,7 +47,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         for (String s : params.getEndogenousVars()) {
             final String FIT_THIS = FIT + Utils.getCounter();
             
-            TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.VAR);
+            TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.VAR);
             report.setModelDescription(params.toString());
             report.setNumTrainingEntries(numTrainingEntries);
             report.setRealOutputsTrain(realOutput);

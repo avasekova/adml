@@ -5,6 +5,7 @@ import gui.dialogs.DialogAddIntervalExplanatoryVar;
 import gui.dialogs.DialogAddIntervalOutputVar;
 import gui.tablemodels.IntervalExplVarsTableModel;
 import gui.tablemodels.IntervalOutVarsTableModel;
+import models.Model;
 import models.params.Params;
 import utils.*;
 import utils.imlp.dist.Distance;
@@ -359,8 +360,8 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
         if (getExplVars().isEmpty() || getOutVars().isEmpty() || getDistancesUsed().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the " + Const.INTERVAL_MLP_C_CODE + " to run.");
-            throw new IllegalArgumentException(Const.INTERVAL_MLP_C_CODE + " insufficient expl/out/dist params");
+            JOptionPane.showMessageDialog(null, "At least one explanatory, one output variable and one distance need to be selected for the " + Model.INTERVAL_MLP_C_CODE + " to run.");
+            throw new IllegalArgumentException(Model.INTERVAL_MLP_C_CODE + " insufficient expl/out/dist params");
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setDistance", Distance.class, getDistancesUsed());

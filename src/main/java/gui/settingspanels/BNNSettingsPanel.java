@@ -3,6 +3,7 @@ package gui.settingspanels;
 import gui.MainFrame;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.tablemodels.CrispExplVarsTableModel;
+import models.Model;
 import models.params.Params;
 import utils.Const;
 import utils.CrispExplanatoryVariable;
@@ -191,7 +192,7 @@ public class BNNSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
         if (getExplVars().isEmpty()) {
             JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the BNN to run.");
-            throw new IllegalArgumentException(Const.BNN + " insufficient expl vars");
+            throw new IllegalArgumentException(Model.BNN + " insufficient expl vars");
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));

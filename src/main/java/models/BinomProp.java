@@ -21,7 +21,7 @@ public class BinomProp implements Forecastable {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("forecast");
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.BINOM_PROP);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.BINOM_PROP);
         
         
         return report;

@@ -11,7 +11,7 @@ public class Neuralnet implements Forecastable {
 
     @Override
     public TrainAndTestReportCrisp forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("neuralnet");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.NEURALNET);
         
         return report;
     }

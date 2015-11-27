@@ -44,7 +44,7 @@ public class Nnet implements Forecastable {
 //        final String MAX = Const.MAX + Utils.getCounter();
         
         NnetParams params = (NnetParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnet");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.NNET);
         report.setModelDescription(params.toString());
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), params.getDataRangeFrom()-1, params.getDataRangeTo());

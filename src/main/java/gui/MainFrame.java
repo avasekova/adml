@@ -1452,7 +1452,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         jLabelRPkg.setText("R package:");
 
-        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.NEURALNET }));
+        comboBoxRPackage.setModel(new javax.swing.DefaultComboBoxModel(new Model[] { Model.NNET, Model.NNETAR, Model.NEURALNET }));
         comboBoxRPackage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRPackageActionPerformed(evt);
@@ -1626,7 +1626,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         jLabelRPkg1.setText("R package:");
 
-        comboBoxRPackageMLPint.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR }));
+        comboBoxRPackageMLPint.setModel(new javax.swing.DefaultComboBoxModel(new Model[] { Model.NNET, Model.NNETAR }));
         comboBoxRPackageMLPint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxRPackageMLPintActionPerformed(evt);
@@ -1737,7 +1737,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         jLabel31.setText("(Mode)");
 
-        comboBoxIntervalMLPMode.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.INTERVAL_MLP_C_CODE, Const.NEURALNET }));
+        comboBoxIntervalMLPMode.setModel(new javax.swing.DefaultComboBoxModel(new Model[] { Model.INTERVAL_MLP_C_CODE, Model.NEURALNET }));
         comboBoxIntervalMLPMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxIntervalMLPModeActionPerformed(evt);
@@ -1987,7 +1987,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_kknn, "panelSettingsKNNoptions_kknn");
         panelSettingsKNNoptions.add(panelSettingsKNNoptions_myown, "card5");
 
-        comboBoxKNNoptions.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.KNN_FNN, Const.KNN_KKNN/*, Const.KNN_CUSTOM*/, Const.KNN_MYOWN }));
+        comboBoxKNNoptions.setModel(new javax.swing.DefaultComboBoxModel(new Model[] { Model.KNN_FNN, Model.KNN_KKNN/*, Model.KNN_CUSTOM*/, Model.KNN_MYOWN }));
         comboBoxKNNoptions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxKNNoptionsActionPerformed(evt);
@@ -2518,7 +2518,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Center:");
 
-        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.RBF, Const.ARIMA, Const.KNN_FNN, Const.KNN_KKNN, Const.SES, Const.HOLT, Const.BNN }));
+        comboBoxSettingsHybridMethod_center.setModel(new javax.swing.DefaultComboBoxModel(new Model[] { Model.NNET, Model.NNETAR, Model.RBF, Model.ARIMA, Model.KNN_FNN, Model.KNN_KKNN, Model.SES, Model.HOLT, Model.BNN }));
         comboBoxSettingsHybridMethod_center.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_centerActionPerformed(evt);
@@ -2528,7 +2528,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Radius:");
 
-        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new String[] { Const.NNET, Const.NNETAR, Const.RBF, Const.ARIMA, Const.KNN_FNN, Const.KNN_KKNN, Const.SES, Const.HOLT, Const.BNN }));
+        comboBoxSettingsHybridMethod_radius.setModel(new javax.swing.DefaultComboBoxModel(new Model[] { Model.NNET, Model.NNETAR, Model.RBF, Model.ARIMA, Model.KNN_FNN, Model.KNN_KKNN, Model.SES, Model.HOLT, Model.BNN }));
         comboBoxSettingsHybridMethod_radius.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboBoxSettingsHybridMethod_radiusActionPerformed(evt);
@@ -4161,14 +4161,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
         CardLayout card = (CardLayout)panelSettingsMLPPackage.getLayout();
-        switch (comboBoxRPackage.getSelectedItem().toString()) {
-            case Const.NNET:
+        switch (Model.myValueOf(comboBoxRPackage.getSelectedItem().toString())) {
+            case NNET:
                 card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_nnet");
                 break;
-            case Const.NNETAR:
+            case NNETAR:
                 card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_nnetar");
                 break;
-            case Const.NEURALNET:
+            case NEURALNET:
                 card.show(panelSettingsMLPPackage, "panelSettingsMLPPackage_neuralnet");
                 break;
         }
@@ -4211,11 +4211,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void comboBoxIntervalMLPModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxIntervalMLPModeActionPerformed
         CardLayout card = (CardLayout)panelSettingsIntervalMLPMode.getLayout();
-        switch (comboBoxIntervalMLPMode.getSelectedItem().toString()) {
-            case Const.INTERVAL_MLP_C_CODE:
+        switch (Model.myValueOf(comboBoxIntervalMLPMode.getSelectedItem().toString())) {
+            case INTERVAL_MLP_C_CODE:
                 card.show(panelSettingsIntervalMLPMode, "panelSettingsIntervalMLPModeCcode");
                 break;
-            case Const.NEURALNET:
+            case NEURALNET:
                 card.show(panelSettingsIntervalMLPMode, "panelSettingsIntervalMLPModeNeuralnet");
                 break;
         }
@@ -4225,14 +4225,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void comboBoxKNNoptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxKNNoptionsActionPerformed
         CardLayout card = (CardLayout)panelSettingsKNNoptions.getLayout();
-        switch (comboBoxKNNoptions.getSelectedItem().toString()) {
-            case Const.KNN_FNN:
+        switch (Model.myValueOf(comboBoxKNNoptions.getSelectedItem().toString())) {
+            case KNN_FNN:
                 card.show(panelSettingsKNNoptions, "panelSettingsKNNoptions_FNN");
                 break;
-            case Const.KNN_CUSTOM:
+            case KNN_CUSTOM:
                 card.show(panelSettingsKNNoptions, "panelSettingsKNNoptions_custom");
                 break;
-            case Const.KNN_KKNN:
+            case KNN_KKNN:
                 card.show(panelSettingsKNNoptions, "panelSettingsKNNoptions_kknn");
                 break;
         }
@@ -4302,32 +4302,32 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         //TODO mozno si nahadzat tie checkboxy do ComponentGroup a prechadzat ich len v cykle a nie takto natvrdo?
 
         if (checkBoxRunMLPnnetar.isSelected()) {
-            comboBoxRPackage.setSelectedItem(Const.NNETAR);
+            comboBoxRPackage.setSelectedItem(Model.NNETAR);
             buttonSettingsAddToBatch_MLPActionPerformed(null);
         }
 
         if (checkBoxRunMLPneuralnet.isSelected()) {
-            comboBoxRPackage.setSelectedItem(Const.NEURALNET);
+            comboBoxRPackage.setSelectedItem(Model.NEURALNET);
             buttonSettingsAddToBatch_MLPActionPerformed(null);
         }
 
         if (checkBoxRunMLPnnet.isSelected()) {
-            comboBoxRPackage.setSelectedItem(Const.NNET);
+            comboBoxRPackage.setSelectedItem(Model.NNET);
             buttonSettingsAddToBatch_MLPActionPerformed(null);
         }
 
         if (checkBoxRunIntervalMLPCcode.isSelected()) {
-            comboBoxIntervalMLPMode.setSelectedItem(Const.INTERVAL_MLP_C_CODE);
+            comboBoxIntervalMLPMode.setSelectedItem(Model.INTERVAL_MLP_C_CODE);
             buttonSettingsAddToBatch_intMLPActionPerformed(null);
         }
 
         if (checkBoxRunMLPintNnetar.isSelected()) {
-            comboBoxRPackageMLPint.setSelectedItem(Const.NNETAR);
+            comboBoxRPackageMLPint.setSelectedItem(Model.NNETAR);
             buttonSettingsAddToBatch_MLPintActionPerformed(null);
         }
         
         if (checkBoxRunMLPintNnet.isSelected()) {
-            comboBoxRPackageMLPint.setSelectedItem(Const.NNET);
+            comboBoxRPackageMLPint.setSelectedItem(Model.NNET);
             buttonSettingsAddToBatch_MLPintActionPerformed(null);
         }
 
@@ -4336,14 +4336,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
 
         if (checkBoxRunKNNfnn.isSelected()) {
-            comboBoxKNNoptions.setSelectedItem(Const.KNN_FNN);
+            comboBoxKNNoptions.setSelectedItem(Model.KNN_FNN);
             buttonSettingsAddToBatch_KNNActionPerformed(null);
         }
 
 //        if (checkBoxRunKNNcustom.isSelected()) {
 //            List<KNNcustomParams> params = getParamsKNNcustom();
 //            
-//            showDialogTooManyModelsInCase(params.size(), Const.KNN_CUSTOM);
+//            showDialogTooManyModelsInCase(params.size(), Model.KNN_CUSTOM);
 //            if (continueWithTooManyModels) {
 //                Forecastable kNNcustom = new KNNcustom();
 //                for (KNNcustomParams p : params) {
@@ -4355,12 +4355,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 //        }
 
         if (checkBoxRunKNNkknn.isSelected()) {
-            comboBoxKNNoptions.setSelectedItem(Const.KNN_KKNN);
+            comboBoxKNNoptions.setSelectedItem(Model.KNN_KKNN);
             buttonSettingsAddToBatch_KNNActionPerformed(null);
         }
         
         if (checkBoxRunKNNmyown.isSelected()) {
-            comboBoxKNNoptions.setSelectedItem(Const.KNN_MYOWN);
+            comboBoxKNNoptions.setSelectedItem(Model.KNN_MYOWN);
             buttonSettingsAddToBatch_KNNActionPerformed(null);
         }
         
@@ -4441,7 +4441,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         if (checkBoxRunRandomWalkCTS.isSelected()) {
             try {
                 List<RandomWalkParams> paramsRandomWalk = RandomWalkParams.getParamsRandomWalk(comboBoxColnamesRun);
-                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RANDOM_WALK, paramsRandomWalk, paramsRandomWalk.size()));
+                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RANDOM_WALK, paramsRandomWalk, paramsRandomWalk.size()));
             } catch (IllegalArgumentException e) {
                 logger.error("Exception", e); // TODO: review logging
             }
@@ -4451,7 +4451,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             try {
                 List<RandomWalkIntervalParams> paramsRandomWalkInt =
                         RandomWalkIntervalParams.getParamsRandomWalkInterval(panelMLPintSettingsDistance, comboBoxRunFakeIntCenter, comboBoxRunFakeIntRadius);
-                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RANDOM_WALK_INT, paramsRandomWalkInt,
+                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RANDOM_WALK_INT, paramsRandomWalkInt,
                         paramsRandomWalkInt.size()));
             } catch (IllegalArgumentException e) {
                 logger.error("Exception", e); // TODO: review logging
@@ -4466,11 +4466,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
         CardLayout card = (CardLayout) panelSettingsMLPintPackage.getLayout();
-        switch (comboBoxRPackageMLPint.getSelectedItem().toString()) {
-            case Const.NNET:
+        switch (Model.myValueOf(comboBoxRPackageMLPint.getSelectedItem().toString())) {
+            case NNET:
                 card.show(panelSettingsMLPintPackage, "panelSettingsMLPintPackage_nnet");
                 break;
-            case Const.NNETAR:
+            case NNETAR:
                 card.show(panelSettingsMLPintPackage, "panelSettingsMLPintPackage_nnetar");
         }
         
@@ -4665,32 +4665,32 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void switchHybridToCard(String centerOrRadius, JComboBox comboBox, JPanel panel) {
         CardLayout card = (CardLayout)panel.getLayout();
         //TODO neslo by tie panely nazvat tak, aby sa odstranil ten switch? ze uz priamo by tam mali tu konstantu v mene
-        switch (comboBox.getSelectedItem().toString()) {
-            case Const.NNETAR:
+        switch (Model.myValueOf(comboBox.getSelectedItem().toString())) {
+            case NNETAR:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_MLPnnetar");
                 break;
-            case Const.NNET:
+            case NNET:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_MLPnnet");
                 break;
-            case Const.RBF:
+            case RBF:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_RBF");
                 break;
-            case Const.ARIMA:
+            case ARIMA:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_ARIMA");
                 break;
-            case Const.KNN_FNN:
+            case KNN_FNN:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_KNNFNN");
                 break;
-            case Const.KNN_KKNN:
+            case KNN_KKNN:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_KNNkknn");
                 break;
-            case Const.SES:
+            case SES:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_SES");
                 break;
-            case Const.HOLT:
+            case HOLT:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_Holt");
                 break;
-            case Const.BNN:
+            case BNN:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_BNN");
                 break;
         }
@@ -4707,73 +4707,73 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void buttonSettingsAddToBatch_MLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPActionPerformed
         //zistit, ktora karta je hore
-        switch (comboBoxRPackage.getSelectedItem().toString()) {
-            case Const.NNET:
+        switch (Model.myValueOf(comboBoxRPackage.getSelectedItem().toString())) {
+            case NNET:
                 try {
                     List<NnetParams> paramsNnet = NnetParams.getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNET, paramsNnet, paramsNnet.size()));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.NNET, paramsNnet, paramsNnet.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.NNETAR:
+            case NNETAR:
                 try {
                     List<NnetarParams> paramsNnetar = NnetarParams.getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.NNETAR, paramsNnetar, paramsNnetar.size()));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.NNETAR, paramsNnetar, paramsNnetar.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.NEURALNET:
+            case NEURALNET:
                 break;
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_MLPActionPerformed
 
     private void buttonSettingsAddToBatch_MLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPintActionPerformed
-        switch (comboBoxRPackageMLPint.getSelectedItem().toString()) {
-            case Const.NNET:
+        switch (Model.myValueOf(comboBoxRPackageMLPint.getSelectedItem().toString())) {
+            case NNET:
                 try {
                     List<MLPintNnetParams> paramsNnet = MLPintNnetParams.getParamsMLPintNnet(panelMLPintPercentTrain, 
                             comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MLP_INT_NNET, paramsNnet, 
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MLP_INT_NNET, paramsNnet,
                             paramsNnet.size()*(paramsNnet.get(0).getNumNetsToTrain()))); //TODO mozno brat to numNetsToTrain nejak bezpecnejsie?
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.NNETAR:
+            case NNETAR:
                 try {
                     List<MLPintNnetarParams> paramsNnetar = MLPintNnetarParams.getParamsMLPintNnetar(panelMLPintPercentTrain, 
                             comboBoxRunFakeIntCenter, 
                         panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MLP_INT_NNETAR, paramsNnetar,
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MLP_INT_NNETAR, paramsNnetar,
                             paramsNnetar.size()*(paramsNnetar.get(0).getNumNetsToTrain())));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.NEURALNET:
+            case NEURALNET:
                 break;
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_MLPintActionPerformed
 
     private void buttonSettingsAddToBatch_intMLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_intMLPActionPerformed
-        switch (comboBoxIntervalMLPMode.getSelectedItem().toString()) {
-            case Const.INTERVAL_MLP_C_CODE:
+        switch (Model.myValueOf(comboBoxIntervalMLPMode.getSelectedItem().toString())) {
+            case INTERVAL_MLP_C_CODE:
                 try {
                     List<IntervalMLPCcodeParams> paramsIMLP = IntervalMLPCcodeParams.getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_MLP_C_CODE, paramsIMLP,
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.INTERVAL_MLP_C_CODE, paramsIMLP,
                             paramsIMLP.size()*(paramsIMLP.get(0).getNumNetworks())));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.NEURALNET:
+            case NEURALNET:
                 break;
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_intMLPActionPerformed
@@ -4781,7 +4781,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_RBFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_RBFActionPerformed
         try {
             List<RBFParams> paramsRBF = RBFParams.getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF, paramsRBF, paramsRBF.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RBF, paramsRBF, paramsRBF.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4793,7 +4793,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
                 panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
                 panelBestModelCriterionRBFint);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.RBF_INT, paramsRBFint, paramsRBFint.size()*(paramsRBFint.get(0).getNumNetsToTrain())));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RBF_INT, paramsRBFint, paramsRBFint.size()*(paramsRBFint.get(0).getNumNetsToTrain())));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4802,36 +4802,36 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_ARIMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_ARIMAActionPerformed
         try {
             List<ArimaParams> paramsArima = ArimaParams.getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.ARIMA, paramsArima, paramsArima.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.ARIMA, paramsArima, paramsArima.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_ARIMAActionPerformed
 
     private void buttonSettingsAddToBatch_KNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_KNNActionPerformed
-        switch (comboBoxKNNoptions.getSelectedItem().toString()) {
-            case Const.KNN_FNN:
+        switch (Model.myValueOf(comboBoxKNNoptions.getSelectedItem().toString())) {
+            case KNN_FNN:
                 try {
                     List<KNNfnnParams> paramsFNN = KNNfnnParams.getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_FNN, paramsFNN, paramsFNN.size()));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.KNN_FNN, paramsFNN, paramsFNN.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.KNN_KKNN:
+            case KNN_KKNN:
                 try {
                     List<KNNkknnParams> paramsKKNN = KNNkknnParams.getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_KKNN, paramsKKNN, paramsKKNN.size()));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.KNN_KKNN, paramsKKNN, paramsKKNN.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
                 break;
-            case Const.KNN_CUSTOM:
+            case KNN_CUSTOM:
                 break;
-            case Const.KNN_MYOWN:
+            case KNN_MYOWN:
                 try {
                     List<KNNmyownParams> paramsMyOwn = KNNmyownParams.getParamsKNNmyown(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_myown);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.KNN_MYOWN, paramsMyOwn, paramsMyOwn.size()));
+                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.KNN_MYOWN, paramsMyOwn, paramsMyOwn.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e); // TODO: review logging
                 }
@@ -4842,7 +4842,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_VARintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_VARintActionPerformed
         try {
             List<VARintParams> paramsVARint = VARintParams.getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.VAR_INT, paramsVARint, paramsVARint.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.VAR_INT, paramsVARint, paramsVARint.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4851,7 +4851,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_SESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_SESActionPerformed
         try {
             List<SESParams> paramsSES = SESParams.getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES, paramsSES, paramsSES.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.SES, paramsSES, paramsSES.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4862,7 +4862,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             List<SESintParams> paramsSESint = SESintParams.getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
                         comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
                         panelSESintDistance);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.SES_INT, paramsSESint, paramsSESint.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.SES_INT, paramsSESint, paramsSESint.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4871,7 +4871,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_HoltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltActionPerformed
         try {
             List<HoltParams> paramsHolt = HoltParams.getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT, paramsHolt, paramsHolt.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT, paramsHolt, paramsHolt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4882,7 +4882,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             List<HoltIntParams> paramsHoltInt = HoltIntParams.getParamsHoltInt(panelHoltIntPercentTrain, panelHoltInt_center, 
                         comboBoxRunFakeIntCenter, panelHoltIntPercentTrain, panelHoltInt_radius, comboBoxRunFakeIntRadius,
                         panelHoltIntDistance);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_INT, paramsHoltInt, paramsHoltInt.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT_INT, paramsHoltInt, paramsHoltInt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4892,7 +4892,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         try {
             List<IntervalHoltParams> paramsIntervalHolt = IntervalHoltParams.getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
                         comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.INTERVAL_HOLT, paramsIntervalHolt, paramsIntervalHolt.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.INTERVAL_HOLT, paramsIntervalHolt, paramsIntervalHolt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4902,7 +4902,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         try {
             List<HoltWintersParams> paramsHoltWinters = HoltWintersParams.getParamsHoltWinters(panelHoltWintersPercentTrain, 
                         panelHoltWintersInside, comboBoxColnamesRun);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS, paramsHoltWinters, paramsHoltWinters.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT_WINTERS, paramsHoltWinters, paramsHoltWinters.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4913,7 +4913,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             List<HoltWintersIntParams> paramsHoltWintersInt = HoltWintersIntParams.getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HOLT_WINTERS_INT, paramsHoltWintersInt, paramsHoltWintersInt.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT_WINTERS_INT, paramsHoltWintersInt, paramsHoltWintersInt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4922,7 +4922,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_HybridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HybridActionPerformed
         try {
             List<HybridParams> paramsHybrid = getParamsHybrid();
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.HYBRID, paramsHybrid, paramsHybrid.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HYBRID, paramsHybrid, paramsHybrid.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -4933,27 +4933,27 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
 
     private void buttonLegendSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectAllActionPerformed
-        selectAllOrNone(Const.ALL);
+        selectAllOrNone(Model.ALL);
     }//GEN-LAST:event_buttonLegendSelectAllActionPerformed
 
     private void buttonLegendSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectNoneActionPerformed
-        selectAllOrNone(Const.NONE);
+        selectAllOrNone(Model.NONE);
     }//GEN-LAST:event_buttonLegendSelectNoneActionPerformed
 
-    private void selectAllOrNone(String selectWhat) {
+    private void selectAllOrNone(Model selectWhat) {
         if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
             //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
             DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
             
             switch (selectWhat) {
-                case Const.NONE:
+                case NONE:
                     for (int i = 0; i < model.size(); i++) {
                         Plottable p = ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport();
                         if ((p instanceof TrainAndTestReport) && (! ((TrainAndTestReport)p).isAverage())) {
                             p.setVisible(false);
                         }
                     }   break;
-                case Const.ALL:
+                case ALL:
                     for (int i = 0; i < model.size(); i++) {
                         ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport().setVisible(true);
                 }   break;
@@ -5325,7 +5325,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
         try {
             List<BNNParams> paramsBNN = BNNParams.getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN, paramsBNN, paramsBNN.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.BNN, paramsBNN, paramsBNN.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -5337,7 +5337,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 panelSettingsBNNint_center, comboBoxRunFakeIntRadius, panelSettingsBNNint_radius,
                 panelBNNintSettingsDistance, textFieldNumNetworksToTrainBNNint,
                 panelBestModelCriterionBNNint);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.BNN_INT, paramsBNNint, paramsBNNint.size()*(paramsBNNint.get(0).getNumNetsToTrain())));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.BNN_INT, paramsBNNint, paramsBNNint.size()*(paramsBNNint.get(0).getNumNetsToTrain())));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -5354,7 +5354,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonSettingsAddToBatch_MAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MAvgActionPerformed
         try {
             List<MAvgParams> paramsMAvg = MAvgParams.getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Const.MAvg, paramsMAvg, paramsMAvg.size()));
+            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MAvg, paramsMAvg, paramsMAvg.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e); // TODO: review logging
         }
@@ -5983,64 +5983,64 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         List<HybridParams> resultList = new ArrayList<>();
         resultList.add(par);
         
-        switch (comboBoxSettingsHybridMethod_center.getSelectedItem().toString()) {
-            case Const.NNETAR:
+        switch (Model.myValueOf(comboBoxSettingsHybridMethod_center.getSelectedItem().toString())) {
+            case NNETAR:
                 List<NnetarParams> resultListCenterNnetar = NnetarParams.getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetarParams.class, resultListCenterNnetar);
                 break;
-            case Const.NNET:
+            case NNET:
                 List<NnetParams> resultListCenterNnet = NnetParams.getParamsNnet(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_MLPnnet);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         NnetParams.class, resultListCenterNnet);
                 break;
-            case Const.RBF:
+            case RBF:
                 List<RBFParams> resultListCenterRBF = RBFParams.getParamsRBF(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_RBF);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         RBFParams.class, resultListCenterRBF);
                 break;
-            case Const.ARIMA:
+            case ARIMA:
                 List<ArimaParams> resultListCenterARIMA = ArimaParams.getParamsArima(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_ARIMA);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         ArimaParams.class, resultListCenterARIMA);
                 break;
-            case Const.KNN_FNN:
+            case KNN_FNN:
                 List<KNNfnnParams> resultListCenterKNNFNN = KNNfnnParams.getParamsKNNfnn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNFNN);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNfnnParams.class, resultListCenterKNNFNN);
                 break;
-            case Const.KNN_KKNN:
+            case KNN_KKNN:
                 List<KNNkknnParams> resultListCenterKNNkknn = KNNkknnParams.getParamsKNNkknn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         KNNkknnParams.class, resultListCenterKNNkknn);
                 break;
-            case Const.SES:
+            case SES:
                 List<SESParams> resultListCenterSES = SESParams.getParamsSES(panelSettingsHybridPercentTrain, 
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_SES);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         SESParams.class, resultListCenterSES);
                 break;
-            case Const.HOLT:
+            case HOLT:
                 List<HoltParams> resultListCenterHolt = HoltParams.getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_centerMain_Holt, comboBoxRunFakeIntCenter);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsCenter",
                         HoltParams.class, resultListCenterHolt);
                 break;
-            case Const.BNN:
+            case BNN:
                 List<BNNParams> resultListCenterBNN = BNNParams.getParamsBNN(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntCenter, panelSettingsHybrid_centerMain_BNN);
                 
@@ -6054,64 +6054,64 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         
         
-        switch (comboBoxSettingsHybridMethod_radius.getSelectedItem().toString()) {
-            case Const.NNETAR:
+        switch (Model.myValueOf(comboBoxSettingsHybridMethod_radius.getSelectedItem().toString())) {
+            case NNETAR:
                 List<NnetarParams> resultListRadiusNnetar = NnetarParams.getParamsNnetar(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnetar);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetarParams.class, resultListRadiusNnetar);
                 break;
-            case Const.NNET:
+            case NNET:
                 List<NnetParams> resultListRadiusNnet = NnetParams.getParamsNnet(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_MLPnnet);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         NnetParams.class, resultListRadiusNnet);
                 break;
-            case Const.RBF:
+            case RBF:
                 List<RBFParams> resultListRadiusRBF = RBFParams.getParamsRBF(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_RBF);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         RBFParams.class, resultListRadiusRBF);
                 break;
-            case Const.ARIMA:
+            case ARIMA:
                 List<ArimaParams> resultListRadiusARIMA = ArimaParams.getParamsArima(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_ARIMA);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         ArimaParams.class, resultListRadiusARIMA);
                 break;
-            case Const.KNN_FNN:
+            case KNN_FNN:
                 List<KNNfnnParams> resultListRadiusKNNFNN = KNNfnnParams.getParamsKNNfnn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNFNN);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNfnnParams.class, resultListRadiusKNNFNN);
                 break;
-            case Const.KNN_KKNN:
+            case KNN_KKNN:
                 List<KNNkknnParams> resultListRadiusKNNkknn = KNNkknnParams.getParamsKNNkknn(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_KNNkknn);
                                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         KNNkknnParams.class, resultListRadiusKNNkknn);
                 break;
-            case Const.SES:
+            case SES:
                 List<SESParams> resultListRadiusSES = SESParams.getParamsSES(panelSettingsHybridPercentTrain, 
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_SES);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         SESParams.class, resultListRadiusSES);
                 break;
-            case Const.HOLT:
+            case HOLT:
                 List<HoltParams> resultListRadiusHolt = HoltParams.getParamsHolt(panelSettingsHybridPercentTrain, 
                         panelSettingsHybrid_radiusMain_Holt, comboBoxRunFakeIntRadius);
                 
                 SettingsPanel.setSomethingListForHybrid(HybridParams.class, resultList, "setParamsRadius",
                         HoltParams.class, resultListRadiusHolt);
                 break;
-            case Const.BNN:
+            case BNN:
                 List<BNNParams> resultListRadiusBNN = BNNParams.getParamsBNN(panelSettingsHybridPercentTrain,
                         comboBoxRunFakeIntRadius, panelSettingsHybrid_radiusMain_BNN);
                 
@@ -6292,7 +6292,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelErrorMeasures.repaint();
    }
 
-    private void showDialogTooManyModelsInCase(int paramsSize, String modelName) {
+    private void showDialogTooManyModelsInCase(int paramsSize, Model modelName) {
         if (paramsSize > Utils.REASONABLY_MANY_MODELS) {
             DialogTooManyModels dialogTooManyModels = new DialogTooManyModels(this, true, paramsSize, modelName);
             dialogTooManyModels.setVisible(true);
@@ -6520,7 +6520,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         public Params params;
         public transient List reportList;
 
-        public String modelName;
+        public Model modelName;
         public int paramIdx = 0;
         public int paramTotal = 0;
 

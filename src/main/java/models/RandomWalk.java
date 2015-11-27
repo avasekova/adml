@@ -17,9 +17,9 @@ public class RandomWalk implements Forecastable {
 
         List<Double> dataToUse = allData.subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.RANDOM_WALK);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.RANDOM_WALK);
         
-        int numTrainingEntries = Math.round(((float) 50/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
+        int numTrainingEntries = Math.round(((float) 100/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
         report.setNumTrainingEntries(numTrainingEntries);
         
         List<Double> trainRealOutputs = new ArrayList<>(dataToUse.subList(0, numTrainingEntries));

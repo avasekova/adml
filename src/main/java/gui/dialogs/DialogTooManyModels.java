@@ -1,6 +1,7 @@
 package gui.dialogs;
 
 import gui.MainFrame;
+import models.Model;
 
 import java.awt.event.WindowEvent;
 
@@ -13,7 +14,7 @@ public class DialogTooManyModels extends javax.swing.JDialog {
      * @param howManyModels
      * @param modelName
      */
-    public DialogTooManyModels(java.awt.Frame parent, boolean modal, int howManyModels, String modelName) {
+    public DialogTooManyModels(java.awt.Frame parent, boolean modal, int howManyModels, Model modelName) {
         super(parent, modal);
         initComponents();
         message.setText("You have selected " + howManyModels + " different settings for " + modelName + ".");

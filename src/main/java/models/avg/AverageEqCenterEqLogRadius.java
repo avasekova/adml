@@ -1,6 +1,7 @@
 package models.avg;
 
 import gui.ColourService;
+import models.Model;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
@@ -80,7 +81,7 @@ public class AverageEqCenterEqLogRadius extends Average {
     
     
     @Override
-    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, String name) {
+    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, Model model) {
         //first check if all of them have the same percentage of train data
         boolean allTheSame = true;
         int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
@@ -205,7 +206,7 @@ public class AverageEqCenterEqLogRadius extends Average {
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                 //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
 
-                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", true);
+                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);

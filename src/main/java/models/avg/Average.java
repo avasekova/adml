@@ -1,17 +1,18 @@
 package models.avg;
 
 import gui.ColourService;
+import models.Model;
+import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.*;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /*
@@ -22,6 +23,7 @@ To create a new Average implementation:
 - add this average to MainFrame.getAllAvgs
 */
 public abstract class Average {
+    private static final Logger logger = LoggerFactory.getLogger(Average.class);
     
     public abstract double getWeightForModelTrain(TrainAndTestReportCrisp report);
     public abstract double getWeightForModelTest(TrainAndTestReportCrisp report);
@@ -93,25 +95,25 @@ public abstract class Average {
         weightsCrisp.clear();
         weightsInterval.clear();
         
-        Map<String, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
+        Map<Model, List<TrainAndTestReportCrisp>> mapForAvg = new HashMap<>();
         for (TrainAndTestReportCrisp r : reportsCTS) {
-            if (mapForAvg.containsKey(r.getModelName())) {
-                mapForAvg.get(r.getModelName()).add(r);
+            if (mapForAvg.containsKey(r.getModel())) {
+                mapForAvg.get(r.getModel()).add(r);
             } else {
                 List<TrainAndTestReportCrisp> l = new ArrayList<>();
                 l.add(r);
-                mapForAvg.put(r.getModelName(), l);
+                mapForAvg.put(r.getModel(), l);
             }
         }
         
         List<TrainAndTestReportCrisp> avgReports = new ArrayList<>();
         
-        for (String name : mapForAvg.keySet()) {
-            List<TrainAndTestReportCrisp> l = mapForAvg.get(name);
+        for (Model model : mapForAvg.keySet()) {
+            List<TrainAndTestReportCrisp> l = mapForAvg.get(model);
             if (l.size() == 1) { //does not make sense to compute average over one series
                 //do not compute anything
             } else {
-                TrainAndTestReportCrisp thisAvgReport = computeAvgCTS(l, name);
+                TrainAndTestReportCrisp thisAvgReport = computeAvgCTS(l, model);
                 if (thisAvgReport != null) {
                     avgReports.add(thisAvgReport);
                 } else { //should never happen for the same method
@@ -124,24 +126,14 @@ public abstract class Average {
     }
     
     public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS) {
-        return computeAvgCTS(reportsCTS, "all");
+        return computeAvgCTS(reportsCTS, Model.ALL);
     }
     
-    public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS, String name) {
+    public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS, Model model) {
         if (reportsCTS.size() == 1) { //does not make sense to compute average over one series
             return reportsCTS.get(0);
         } else {
-            //first check if all of them have the same percentage of train data
-            boolean allTheSame = true;
-            int numTrainAll = reportsCTS.get(0).getNumTrainingEntries();
-            for (TrainAndTestReportCrisp r : reportsCTS) {
-                if (r.getNumTrainingEntries() != numTrainAll) {
-                    allTheSame = false;
-                    break;
-                }
-            }
-
-            if (! allTheSame) {
+            if (! allTheSamePercentTrain(reportsCTS)) {
                 return null;
             } else {
                 StringBuilder fittedValsAvgAll = new StringBuilder("(");
@@ -200,7 +192,7 @@ public abstract class Average {
                 
                 MyRengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
-                TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(" + getName() + ")", true);
+                TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
                 REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
                 double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
                 REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
@@ -228,24 +220,84 @@ public abstract class Average {
         }
     }
 
-    
+    private <T extends TrainAndTestReport> boolean allTheSamePercentTrain(List<T> reports) { //TODO krajsie by to neslo? :)
+        int numTrainAll = -1;
+        for (TrainAndTestReport r : reports) {
+            if (! Model.FLEXIBLE_PERCENTTRAIN_MODELS.contains(r.getModel())) {
+                numTrainAll = r.getNumTrainingEntries();
+                break;
+            }
+        }
+
+        if (numTrainAll > -1) {
+            for (TrainAndTestReport r : reports) {
+                if ((! Model.FLEXIBLE_PERCENTTRAIN_MODELS.contains(r.getModel())) && (r.getNumTrainingEntries() != numTrainAll)) {
+                    return false; //TODO mozno potom povedat, ktory bol zly, alebo dako inak vymysliet
+                }
+            }
+
+            for (TrainAndTestReport r : reports) {
+                if (Model.FLEXIBLE_PERCENTTRAIN_MODELS.contains(r.getModel())) {
+                    if (r.getNumTrainingEntries() != numTrainAll) {
+                        r.setNumTrainingEntries(numTrainAll);
+                        recomputeTrainTestSets(r);
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+
+    private void recomputeTrainTestSets(TrainAndTestReport r) { //TODO krajsie by to neslo? :)
+        if (r instanceof TrainAndTestReportCrisp) {
+            TrainAndTestReportCrisp rep = (TrainAndTestReportCrisp) r;
+            double[] newFittedValues = Arrays.copyOfRange(rep.getFittedValues(), 0, rep.getNumTrainingEntries());
+            double[] newForecastValsTest = Arrays.copyOfRange(rep.getFittedValues(), rep.getNumTrainingEntries(), rep.getFittedValues().length);
+            rep.setFittedValues(newFittedValues);
+            rep.setForecastValuesTest(newForecastValsTest);
+            double[] newRealTrain = Arrays.copyOfRange(rep.getRealOutputsTrain(), 0, rep.getNumTrainingEntries());
+            double[] newRealTest = Arrays.copyOfRange(rep.getRealOutputsTrain(), rep.getNumTrainingEntries(), rep.getRealOutputsTrain().length);
+            rep.setRealOutputsTrain(newRealTrain);
+            rep.setRealOutputsTest(newRealTest);
+            rep.setErrorMeasures(ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(newRealTrain), Utils.arrayToList(newRealTest),
+                    Utils.arrayToList(newFittedValues), Utils.arrayToList(newForecastValsTest), 0)); //TODO snad ta nula nebude robit problem
+        } else if (r instanceof TrainAndTestReportInterval) {
+            TrainAndTestReportInterval rep = (TrainAndTestReportInterval) r;
+            List<Interval> newFittedValues = new ArrayList<>(rep.getFittedValues().subList(0, rep.getNumTrainingEntries()));
+            List<Interval> newForecastValsTest = new ArrayList<>(rep.getFittedValues().subList(rep.getNumTrainingEntries(), rep.getFittedValues().size()));
+            rep.setFittedValues(newFittedValues);
+            rep.setForecastValuesTest(newForecastValsTest);
+
+            List<Interval> realVals = Utils.zipLowerUpperToIntervals(rep.getRealValuesLowers(), rep.getRealValuesUppers());
+            List<Interval> realValsTrain = new ArrayList<>(realVals.subList(0, rep.getNumTrainingEntries()));
+            List<Interval> realValsTest = new ArrayList<>(realVals.subList(rep.getNumTrainingEntries(), realVals.size()));
+
+            //TODO potom nejak doplnit skutocnu dist a seasonality z params
+            rep.setErrorMeasures(ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValsTrain, realValsTest, newFittedValues, newForecastValsTest,
+                    new WeightedEuclideanDistance(0.5), 0));
+        }
+    }
+
+
     public List<TrainAndTestReportInterval> computeAvgIntTSperM(List<TrainAndTestReportInterval> reportsIntTS) {
-        Map<String, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
+        Map<Model, List<TrainAndTestReportInterval>> mapForAvg = new HashMap<>();
         //first go through all the reports once to determine how many of each kind there are:
         for (TrainAndTestReportInterval r : reportsIntTS) {
-            if (mapForAvg.containsKey(r.getModelName())) {
-                mapForAvg.get(r.getModelName()).add(r);
+            if (mapForAvg.containsKey(r.getModel())) {
+                mapForAvg.get(r.getModel()).add(r);
                 List<TrainAndTestReportInterval> l = new ArrayList<>();
                 l.add(r);
-                mapForAvg.put(r.getModelName(), l);
+                mapForAvg.put(r.getModel(), l);
             }
         }
         
         List<TrainAndTestReportInterval> avgReports = new ArrayList<>();
-        for (String name : mapForAvg.keySet()) {
-            List<TrainAndTestReportInterval> l = mapForAvg.get(name);
+        for (Model model : mapForAvg.keySet()) {
+            List<TrainAndTestReportInterval> l = mapForAvg.get(model);
             if (l.size() > 1) { //does not make sense to compute average over one series
-                TrainAndTestReportInterval reportAvgMethod = computeAvgIntTS(l, name);
+                TrainAndTestReportInterval reportAvgMethod = computeAvgIntTS(l, model);
                 if (reportAvgMethod != null) {
                     avgReports.add(reportAvgMethod);
                 } else { //should never happen for the same method
@@ -258,21 +310,11 @@ public abstract class Average {
     }
 
     public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS) {
-        return computeAvgIntTS(reportsIntTS, "all");
+        return computeAvgIntTS(reportsIntTS, Model.ALL);
     }
     
-    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, String name) {
-        //first check if all of them have the same percentage of train data
-        boolean allTheSame = true;
-        int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
-        for (TrainAndTestReportInterval r : reportsIntTS) {
-            if (r.getNumTrainingEntries() != numTrainAll) {
-                allTheSame = false;
-                break;
-            }
-        }
-
-        if (! allTheSame) { //throw an error, we cannot compute it like this
+    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, Model model) {
+        if (! allTheSamePercentTrain(reportsIntTS)) { //throw an error, we cannot compute it like this
             return null;
         } else {
             MyRengine rengine = MyRengine.getRengine();
@@ -385,7 +427,7 @@ public abstract class Average {
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                 //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
 
-                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", true);
+                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);

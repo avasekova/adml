@@ -32,7 +32,7 @@ public class Nnetar implements Forecastable {
         final String FINAL_OUTPUT_TEST = "final." + OUTPUT_TEST;
         
         NnetarParams params = (NnetarParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp("nnetar");
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.NNETAR);
         report.setModelDescription(params.toString());
 
         logger.info("Params {}", params.getColName());

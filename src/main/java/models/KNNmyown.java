@@ -28,7 +28,7 @@ public class KNNmyown implements Forecastable {
         final String PREDICTED_OUTPUT = Const.OUTPUT + Utils.getCounter();
         
         KNNfnnParams params = (KNNfnnParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.KNN_FNN);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.KNN_FNN);
         report.setModelDescription(params.toString());
         
         List<Double> allData = dataTableModel.get(params.getColName());

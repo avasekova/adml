@@ -12,12 +12,16 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
     private double[] predictionIntervalsUppers = new double[] {};
     private double[] predictionIntervalsLowers = new double[] {};
     
-    public TrainAndTestReportCrisp(String modelName) {
-        this(modelName, false);
+    public TrainAndTestReportCrisp(Model model) {
+        this(model, false);
     }
     
-    public TrainAndTestReportCrisp(String modelName, boolean average) {
-        super(modelName, average);
+    public TrainAndTestReportCrisp(Model model, boolean average) {
+        super(model, average);
+    }
+
+    public TrainAndTestReportCrisp(Model model, String averageName, boolean average) {
+        super(model, averageName, average);
     }
 
     public double[] getRealOutputsTrain() {

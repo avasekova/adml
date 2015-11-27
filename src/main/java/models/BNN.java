@@ -28,7 +28,7 @@ public class BNN implements Forecastable {
         final String FORECAST_TEST = Const.FORECAST_VALS + Utils.getCounter();
         
         BNNParams params = (BNNParams) parameters;
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.BNN);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.BNN);
         report.setModelDescription(params.toString());
         
         List<List<Double>> data = prepareData(dataTableModel, params.getExplVars(), 

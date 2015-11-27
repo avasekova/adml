@@ -1,5 +1,6 @@
 package gui.settingspanels;
 
+import models.Model;
 import models.params.Params;
 import utils.Const;
 import utils.FieldsParser;
@@ -171,8 +172,8 @@ public class BinomPropSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
         if ("".equals(getQuantileOne()) || "".equals(getQuantileOneValue()) || "".equals(getQuantileTwo()) || "".equals(getQuantileTwoValue())
                                         || "".equals(getNumObservations())  || "".equals(getNumSuccesses())) {
-            JOptionPane.showMessageDialog(null, "All fields in the box need to be filled in for " + Const.BINOM_PROP + " analyses to run.");
-            throw new IllegalArgumentException(Const.BINOM_PROP + " not all filled in"); //TODO zaviest si vlastne vynimky pre tieto SettingsPanely, modely, atd.
+            JOptionPane.showMessageDialog(null, "All fields in the box need to be filled in for " + Model.BINOM_PROP + " analyses to run.");
+            throw new IllegalArgumentException(Model.BINOM_PROP + " not all filled in"); //TODO zaviest si vlastne vynimky pre tieto SettingsPanely, modely, atd.
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setQuantileOne", Integer.class, FieldsParser.parseIntegers(getQuantileOne()));

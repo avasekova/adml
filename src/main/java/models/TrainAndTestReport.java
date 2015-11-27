@@ -12,7 +12,8 @@ public abstract class TrainAndTestReport implements Plottable, Serializable {
     //                                       dat pracovat jednotne...
     
     private int id;
-    private final String modelName;
+    private final Model model;
+    private String averageName = "";
     private String modelDescription = "";
     private ErrorMeasures errorMeasures;
     private int numTrainingEntries = 1;
@@ -22,8 +23,14 @@ public abstract class TrainAndTestReport implements Plottable, Serializable {
     
     private String colourInPlot; //the name of R colour used in the last plot for this Report
     
-    public TrainAndTestReport(String modelName, boolean average) { 
-        this.modelName = modelName;
+    public TrainAndTestReport(Model model, boolean average) {
+        this.model = model;
+        this.average = average;
+    }
+
+    public TrainAndTestReport(Model model, String averageName, boolean average) {
+        this.model = model;
+        this.averageName = averageName;
         this.average = average;
     }
     
@@ -35,8 +42,8 @@ public abstract class TrainAndTestReport implements Plottable, Serializable {
         this.id = id;
     }
 
-    public String getModelName() {
-        return modelName;
+    public Model getModel() {
+        return model;
     }
 
     public String getModelDescription() {
@@ -98,6 +105,6 @@ public abstract class TrainAndTestReport implements Plottable, Serializable {
     
     @Override
     public String toString() {
-        return modelName + " (" + id + ")"; //+ modelDescription;
+        return model + " " + averageName + "(" + id + ")"; //+ modelDescription;
     }
 }

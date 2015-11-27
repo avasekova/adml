@@ -59,7 +59,7 @@ public class HoltWinters implements Forecastable {
         
         //ak to nie su seasonal data, R skonci s chybou
         if (rengine.eval(FORECAST_MODEL) == null) {
-            TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
+            TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.HOLT_WINTERS);
             report.setModelDescription("(unable to fit the requested model)");
             report.setRealOutputsTrain(Utils.listToArray(inputTrain));
             report.setFittedValues(Utils.listToArray(inputTrain));
@@ -80,7 +80,7 @@ public class HoltWinters implements Forecastable {
         List<Double> forecastTest = forecastTestAndFuture.subList(0, inputTest.size());
         List<Double> forecastFuture = forecastTestAndFuture.subList(inputTest.size(), forecastTestAndFuture.size());
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT_WINTERS);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.HOLT_WINTERS);
         report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);

@@ -14,12 +14,16 @@ public class TrainAndTestReportInterval extends TrainAndTestReport {
     private List<Double> realValuesLowers = new ArrayList<>();
     private List<Double> realValuesUppers = new ArrayList<>();
     
-    public TrainAndTestReportInterval(String modelName) {
-        this(modelName, false);
+    public TrainAndTestReportInterval(Model model) {
+        this(model, false);
     }
     
-    public TrainAndTestReportInterval(String modelName, boolean average) {
-        super(modelName, average);
+    public TrainAndTestReportInterval(Model model, boolean average) {
+        super(model, average);
+    }
+
+    public TrainAndTestReportInterval(Model model, String averageName, boolean average) {
+        super(model, averageName, average);
     }
     
     public double[] getFittedValuesLowers() {

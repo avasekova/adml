@@ -21,9 +21,9 @@ public class RandomWalkInterval implements Forecastable {
 
         List<Interval> dataToUse = allData.subList(params.getDataRangeFrom() - 1, params.getDataRangeTo());
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.RANDOM_WALK_INT);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.RANDOM_WALK_INT);
         
-        int numTrainingEntries = Math.round(((float) 50/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
+        int numTrainingEntries = Math.round(((float) 100/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
         report.setNumTrainingEntries(numTrainingEntries);
         
         List<Interval> trainRealOutputs = new ArrayList<>(dataToUse.subList(0, numTrainingEntries));

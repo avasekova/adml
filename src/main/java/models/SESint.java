@@ -43,7 +43,7 @@ public class SESint implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((SESintParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.SES_INT);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.SES_INT);
         report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

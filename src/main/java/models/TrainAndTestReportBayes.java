@@ -4,11 +4,11 @@ public class TrainAndTestReportBayes extends TrainAndTestReport {
     
     
     
-    public TrainAndTestReportBayes(String modelName) {
+    public TrainAndTestReportBayes(Model modelName) {
         this(modelName, false);
     }
 
-    public TrainAndTestReportBayes(String modelName, boolean average) {
+    public TrainAndTestReportBayes(Model modelName, boolean average) {
         super(modelName, average);
     }
     

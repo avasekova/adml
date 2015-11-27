@@ -43,7 +43,7 @@ public class HoltInt implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((HoltIntParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.HOLT_INT);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.HOLT_INT);
         report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

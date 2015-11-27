@@ -3,6 +3,7 @@ package gui.settingspanels;
 import gui.MainFrame;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.tablemodels.CrispExplVarsTableModel;
+import models.Model;
 import models.params.Params;
 import utils.Const;
 import utils.CrispExplanatoryVariable;
@@ -205,7 +206,7 @@ public class RBFSettingsPanel extends SettingsPanel {
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) throws IllegalArgumentException {
         if (getExplVars().isEmpty()) {
             JOptionPane.showMessageDialog(null, "At least one explanatory variable needs to be selected for the RBF to run.");
-            throw new IllegalArgumentException(Const.RBF + " insufficient expl vars");
+            throw new IllegalArgumentException(Model.RBF + " insufficient expl vars");
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));

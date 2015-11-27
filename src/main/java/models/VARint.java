@@ -76,7 +76,7 @@ public class VARint implements Forecastable {
         List<Double> fitRadius = Utils.arrayToList(getFitRadius.asDoubleArray());
         List<Interval> fitted = Utils.zipCentersRadiiToIntervals(fitCenter, fitRadius);
         
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.VAR_INT);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.VAR_INT);
         report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);

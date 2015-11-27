@@ -1,5 +1,6 @@
 package gui.settingspanels;
 
+import models.Model;
 import models.params.Params;
 import utils.Const;
 import utils.FieldsParser;
@@ -125,8 +126,8 @@ public class VARSettingsPanel extends SettingsPanel {
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if (getEndogenousVars().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "At least one endogenous variable needs to be selected for the " + Const.VAR + " to run.");
-            throw new IllegalArgumentException(Const.VAR + " insufficient endogenous vars");
+            JOptionPane.showMessageDialog(null, "At least one endogenous variable needs to be selected for the " + Model.VAR + " to run.");
+            throw new IllegalArgumentException(Model.VAR + " insufficient endogenous vars");
         }
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setEndogenousVars", List.class, getEndogenousVars());

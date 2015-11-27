@@ -52,7 +52,7 @@ public class AnalysisUtils {
     public static String getModelDetails(List<TrainAndTestReport> allReports) {
         StringBuilder details = new StringBuilder();
         for (TrainAndTestReport r : allReports) {
-            details.append(r.getModelName()).append(" (").append(r.getID()).append(")");
+            details.append(r.getModel()).append(" (").append(r.getID()).append(")");
             details.append("\n");
             details.append("--------------------");
             details.append("\n");

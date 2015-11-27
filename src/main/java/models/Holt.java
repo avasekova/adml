@@ -64,7 +64,7 @@ public class Holt implements Forecastable {
         
         
         
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Const.HOLT);
+        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.HOLT);
         report.setModelDescription(params.toString());
         
         report.setNumTrainingEntries(numTrainingEntries);

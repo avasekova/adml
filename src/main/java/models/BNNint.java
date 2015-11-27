@@ -63,7 +63,7 @@ public class BNNint implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((BNNintParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.BNN_INT);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.BNN_INT);
         report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

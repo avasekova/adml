@@ -63,7 +63,7 @@ public class RBFint implements Forecastable {
                 realOutputsIntervalTest, fittedVals, forecastsTest, ((RBFintParams)parameters).getDistance(), 
                 paramsCenter.getSeasonality());
 
-        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Const.RBF_INT);
+        TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.RBF_INT);
         report.setModelDescription(parameters.toString());
         report.setNumTrainingEntries(reportCenter.getNumTrainingEntries());
         

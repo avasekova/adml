@@ -1,20 +1,22 @@
 package models.params;
 
+import models.Model;
+
 import java.util.List;
 
 public class AnalysisBatchLine {
     
-    private final String model;
+    private final Model model;
     private final List<? extends Params> modelParams;
     private final int numModels;
     
-    public AnalysisBatchLine(String model, List<? extends Params> modelParams, int numModels) {
+    public AnalysisBatchLine(Model model, List<? extends Params> modelParams, int numModels) {
         this.model = model;
         this.modelParams = modelParams;
         this.numModels = numModels;
     }
 
-    public String getModel() {
+    public Model getModel() {
         return model;
     }
 

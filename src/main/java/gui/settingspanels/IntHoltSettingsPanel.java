@@ -1,6 +1,7 @@
 package gui.settingspanels;
 
 import gui.ComponentGroup;
+import models.Model;
 import models.params.Params;
 import utils.Const;
 import utils.Utils;
@@ -212,8 +213,8 @@ public class IntHoltSettingsPanel extends SettingsPanel {
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && (!isAlphaBetaOK())) {
-            JOptionPane.showMessageDialog(null, Const.HOLT + " will not run (wrong params)");
-            throw new IllegalArgumentException(Const.HOLT + " params error");
+            JOptionPane.showMessageDialog(null, Model.HOLT + " will not run (wrong params)");
+            throw new IllegalArgumentException(Model.HOLT + " params error");
         }
         
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());

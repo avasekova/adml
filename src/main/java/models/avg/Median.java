@@ -1,6 +1,7 @@
 package models.avg;
 
 import gui.ColourService;
+import models.Model;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import org.rosuda.JRI.REXP;
@@ -53,7 +54,7 @@ public class Median extends Average { //well...
     }
     
     @Override
-    public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS, String name) {
+    public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS, Model model) {
         if (reportsCTS.size() == 1) { //does not make sense to compute average over one series
             return reportsCTS.get(0);
         } else {
@@ -203,7 +204,7 @@ public class Median extends Average { //well...
                 
                 MyRengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
-                TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(name + "(" + getName() + ")", true);
+                TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
                 REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
                 double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
                 REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
@@ -233,7 +234,7 @@ public class Median extends Average { //well...
     
     
     @Override
-    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, String name) {
+    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, Model model) { //TODO fix - cele to spadne
         //first check if all of them have the same percentage of train data
         boolean allTheSame = true;
         int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
@@ -421,7 +422,7 @@ public class Median extends Average { //well...
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
                 //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
 
-                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(name + "_int(" + getName() + ")", true);
+                TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
