@@ -12,6 +12,8 @@ import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.settingspanels.*;
+import gui.subpanels.BayesianSubPanel;
+import gui.subpanels.ModelDescriptionsSubPanel;
 import gui.tablemodels.*;
 import models.*;
 import models.avg.*;
@@ -23,10 +25,8 @@ import rmi.AdmlProviderImpl;
 import rmi.OnJobFinishedListener;
 import rmi.Task;
 import utils.*;
-import utils.imlp.Interval;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.imlp.dist.Distance;
 import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
@@ -514,27 +514,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelCombinationWeightsAll = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         panelCombinationWeights = new javax.swing.JPanel();
-        panelModelDescriptionsAll = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jScrollPane8 = new javax.swing.JScrollPane();
-        textAreaModelsInfo = new javax.swing.JTextArea();
-        panelBayesianAll = new javax.swing.JPanel();
-        panelBayesianSettings = new javax.swing.JTabbedPane();
-        jPanel5 = new javax.swing.JPanel();
-        panelBinomPropPlot = new javax.swing.JPanel();
-        tabbedPaneBinomPropPlot = new javax.swing.JTabbedPane();
-        panelBinomPropSettings = new BinomPropSettingsPanel();
-        panelBinomPropInfo = new javax.swing.JScrollPane();
-        textAreaBinomPropInfo = new javax.swing.JTextArea();
-        buttonBinomPropComputePosterior = new javax.swing.JButton();
-        buttonBinomPropSimulate = new javax.swing.JButton();
-        jLabel26 = new javax.swing.JLabel();
-        textFieldBinomPropPercProbInterval = new javax.swing.JTextField();
-        jLabel27 = new javax.swing.JLabel();
-        buttonBinomPropPredict = new javax.swing.JButton();
-        jLabel28 = new javax.swing.JLabel();
-        textFieldBinomPropNumFutureObs = new javax.swing.JTextField();
-        jLabel29 = new javax.swing.JLabel();
+        panelModelDescriptionsAll = new ModelDescriptionsSubPanel();
+        panelBayesianAll = new BayesianSubPanel();
         menuBarMain = new javax.swing.JMenuBar();
         menuFile = new javax.swing.JMenu();
         menuFileLoad = new javax.swing.JMenuItem();
@@ -3939,161 +3920,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         panelEverything.addTab("Combination weights", panelCombinationWeightsAll);
         panelEverything.removeTabAt(panelEverything.getTabCount() - 1);
-
-        jLabel23.setText("Models and methods used in the last analysis:");
-
-        textAreaModelsInfo.setEditable(false);
-        textAreaModelsInfo.setColumns(20);
-        textAreaModelsInfo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        textAreaModelsInfo.setLineWrap(true);
-        textAreaModelsInfo.setRows(5);
-        jScrollPane8.setViewportView(textAreaModelsInfo);
-
-        javax.swing.GroupLayout panelModelDescriptionsAllLayout = new javax.swing.GroupLayout(panelModelDescriptionsAll);
-        panelModelDescriptionsAll.setLayout(panelModelDescriptionsAllLayout);
-        panelModelDescriptionsAllLayout.setHorizontalGroup(
-            panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addGap(0, 1135, Short.MAX_VALUE))
-                    .addComponent(jScrollPane8))
-                .addContainerGap())
-        );
-        panelModelDescriptionsAllLayout.setVerticalGroup(
-            panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         panelEverything.addTab("Model descriptions", panelModelDescriptionsAll);
-
-        panelBayesianSettings.setTabPlacement(javax.swing.JTabbedPane.LEFT);
-
-        panelBinomPropPlot.setLayout(new java.awt.BorderLayout());
-        panelBinomPropPlot.add(tabbedPaneBinomPropPlot, java.awt.BorderLayout.CENTER);
-
-        textAreaBinomPropInfo.setColumns(20);
-        textAreaBinomPropInfo.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        textAreaBinomPropInfo.setRows(5);
-        textAreaBinomPropInfo.setFocusable(false);
-        textAreaBinomPropInfo.setOpaque(false);
-        panelBinomPropInfo.setViewportView(textAreaBinomPropInfo);
-
-        buttonBinomPropComputePosterior.setText("Compute posterior");
-        buttonBinomPropComputePosterior.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBinomPropComputePosteriorActionPerformed(evt);
-            }
-        });
-
-        buttonBinomPropSimulate.setText("Simulate from posterior distr.");
-        buttonBinomPropSimulate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBinomPropSimulateActionPerformed(evt);
-            }
-        });
-
-        jLabel26.setText("and construct the");
-
-        textFieldBinomPropPercProbInterval.setText("90");
-
-        jLabel27.setText("% probability interval");
-
-        buttonBinomPropPredict.setText("Predict");
-        buttonBinomPropPredict.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBinomPropPredictActionPerformed(evt);
-            }
-        });
-
-        jLabel28.setText("the distr. of successes in the next");
-
-        textFieldBinomPropNumFutureObs.setText("20");
-
-        jLabel29.setText("observations");
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.PREFERRED_SIZE, 397, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(buttonBinomPropComputePosterior)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(buttonBinomPropPredict)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel28)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldBinomPropNumFutureObs))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(buttonBinomPropSimulate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel26)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldBinomPropPercProbInterval, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel29))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelBinomPropPlot, javax.swing.GroupLayout.PREFERRED_SIZE, 708, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelBinomPropPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonBinomPropComputePosterior)
-                            .addComponent(panelBinomPropSettings, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonBinomPropSimulate)
-                            .addComponent(jLabel26)
-                            .addComponent(textFieldBinomPropPercProbInterval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonBinomPropPredict)
-                            .addComponent(jLabel28)
-                            .addComponent(textFieldBinomPropNumFutureObs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel29))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelBinomPropInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-
-        panelBayesianSettings.addTab("Binomial Proportion", jPanel5);
-
-        javax.swing.GroupLayout panelBayesianAllLayout = new javax.swing.GroupLayout(panelBayesianAll);
-        panelBayesianAll.setLayout(panelBayesianAllLayout);
-        panelBayesianAllLayout.setHorizontalGroup(
-            panelBayesianAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBayesianSettings, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
-        panelBayesianAllLayout.setVerticalGroup(
-            panelBayesianAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBayesianSettings)
-        );
-
         panelEverything.addTab("Bayesian", panelBayesianAll);
 
         getContentPane().add(panelEverything, java.awt.BorderLayout.CENTER);
@@ -5266,62 +5093,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonAggregateToITSActionPerformed
 
-    private void buttonBinomPropComputePosteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropComputePosteriorActionPerformed
-        List<BinomPropParams> params;
-        try {
-            params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-        
-        List<String> plots = BinomProp.binomPropComputePosterior(params);
-        //TODO odstranit tento hnusny hack
-        String info = plots.get(plots.size() - 1);
-        plots.remove(plots.size() - 1);
-        
-        //draw plots into the right panel
-        PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
-        
-        textAreaBinomPropInfo.setText(info);
-    }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
-
-    private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
-        List<BinomPropParams> params;
-        try {
-            params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
-            if (textFieldBinomPropPercProbInterval.getText().isEmpty()) {
-                textAreaBinomPropInfo.setText("<no prediction interval specified>");
-                return;
-            }
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-        
-        List<Double> alphasssRaw = FieldsParser.parseDoubles(textFieldBinomPropPercProbInterval);
-        
-        textAreaBinomPropInfo.setText(BinomProp.binomPropSimulate(params, alphasssRaw));
-    }//GEN-LAST:event_buttonBinomPropSimulateActionPerformed
-
-    private void buttonBinomPropPredictActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropPredictActionPerformed
-        List<BinomPropParams> params;
-        try {
-            params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
-            //TODO zlepsit?
-            if (textFieldBinomPropNumFutureObs.getText().isEmpty()) {
-                textAreaBinomPropInfo.setText("<no number of future observations specified>");
-                return;
-            }
-        } catch (IllegalArgumentException e) {
-            return;
-        }
-        
-        List<Integer> numFutureObsss = FieldsParser.parseIntegers(textFieldBinomPropNumFutureObs);
-        
-        List<String> plots = BinomProp.binomPropPredict(params, numFutureObsss);
-        
-        PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
-    }//GEN-LAST:event_buttonBinomPropPredictActionPerformed
-
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
         try {
             List<BNNParams> paramsBNN = BNNParams.getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
@@ -5472,9 +5243,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonBartlettsTest;
     private javax.swing.JButton buttonBasicStats;
-    private javax.swing.JButton buttonBinomPropComputePosterior;
-    private javax.swing.JButton buttonBinomPropPredict;
-    private javax.swing.JButton buttonBinomPropSimulate;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonCTSclearSelection;
     private javax.swing.JButton buttonConvertITSLBUBCR;
@@ -5648,13 +5416,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -5687,7 +5450,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelRPkg1;
     private javax.swing.JLabel jLabelTrainingInfo;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -5695,7 +5457,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
@@ -5746,13 +5507,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JPanel panelBNNintPercentTrain;
     private javax.swing.JPanel panelBNNintSettingsDistance;
     private javax.swing.JPanel panelBayesianAll;
-    private javax.swing.JTabbedPane panelBayesianSettings;
     private javax.swing.JPanel panelBestModelCriterionBNNint;
     private javax.swing.JPanel panelBestModelCriterionMLPint;
     private javax.swing.JPanel panelBestModelCriterionRBFint;
-    private javax.swing.JScrollPane panelBinomPropInfo;
-    private javax.swing.JPanel panelBinomPropPlot;
-    private javax.swing.JPanel panelBinomPropSettings;
     private javax.swing.JPanel panelCRCombinationStrategyBNNint;
     private javax.swing.JPanel panelCRCombinationStrategyHoltWintersInt;
     private javax.swing.JPanel panelCRCombinationStrategyRBFint;
@@ -5890,17 +5647,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
-    private javax.swing.JTabbedPane tabbedPaneBinomPropPlot;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTable tableAnalysisBatch;
-    private javax.swing.JTextArea textAreaBinomPropInfo;
-    private javax.swing.JTextArea textAreaModelsInfo;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
     private javax.swing.JTextArea textAreaTests;
     private javax.swing.JTextField textFieldAggregateToITSevery;
-    private javax.swing.JTextField textFieldBinomPropNumFutureObs;
-    private javax.swing.JTextField textFieldBinomPropPercProbInterval;
     private javax.swing.JTextField textFieldMaxStructBreaks;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainBNNint;
@@ -6505,7 +6257,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }
     
     private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
-        textAreaModelsInfo.setText(AnalysisUtils.getModelDetails(allReports));
+        ((ModelDescriptionsSubPanel) panelModelDescriptionsAll).getTextAreaModelsInfo().setText(AnalysisUtils.getModelDetails(allReports));
     }
 
     /**
