@@ -216,7 +216,7 @@ public abstract class Average {
         }
     }
 
-    private <T extends TrainAndTestReport> boolean allTheSamePercentTrain(List<T> reports) { //TODO krajsie by to neslo? :)
+    public static <T extends TrainAndTestReport> boolean allTheSamePercentTrain(List<T> reports) { //TODO krajsie by to neslo? :)
         int numTrainAll = -1;
         for (TrainAndTestReport r : reports) {
             if (! Model.FLEXIBLE_PERCENTTRAIN_MODELS.contains(r.getModel())) {
@@ -246,7 +246,7 @@ public abstract class Average {
     }
 
 
-    private void recomputeTrainTestSets(TrainAndTestReport r) { //TODO krajsie by to neslo? :)
+    private static void recomputeTrainTestSets(TrainAndTestReport r) { //TODO krajsie by to neslo? :)
         if (r instanceof TrainAndTestReportCrisp) {
             TrainAndTestReportCrisp rep = (TrainAndTestReportCrisp) r;
             double[] newFittedValues = Arrays.copyOfRange(rep.getFittedValues(), 0, rep.getNumTrainingEntries());

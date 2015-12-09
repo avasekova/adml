@@ -59,20 +59,7 @@ public class Median extends Average { //well...
             return reportsCTS.get(0);
         } else {
             //first check if all of them have the same percentage of train data
-            boolean allTheSame = true;
-            int numTrainAll = reportsCTS.get(0).getNumTrainingEntries();
-            
-            for (TrainAndTestReportCrisp r : reportsCTS) {
-                //iba vyuzijem tento loop na nasyslenie weights, aj tak su vsetky 1
-                weightsCrisp.put(r.toString(), 1.0);
-                
-                if (r.getNumTrainingEntries() != numTrainAll) {
-                    allTheSame = false;
-                    break;
-                }
-            }
-
-            if (! allTheSame) {
+            if (! allTheSamePercentTrain(reportsCTS)) {
                 return null;
             } else {
 

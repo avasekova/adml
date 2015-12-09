@@ -82,19 +82,7 @@ public class AverageEqCenterEqLogRadius extends Average {
     @Override
     public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, Model model) {
         //first check if all of them have the same percentage of train data
-        boolean allTheSame = true;
-        int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
-        for (TrainAndTestReportInterval r : reportsIntTS) {
-            //iba vyuzijem tento loop na nasyslenie si weights - vsetky su aj tak jednotkove
-            weightsInterval.put(r.toString(), 1.0);
-            
-            if (r.getNumTrainingEntries() != numTrainAll) {
-                allTheSame = false;
-                break;
-            }
-        }
-
-        if (! allTheSame) { //throw an error, we cannot compute it like this
+        if (! allTheSamePercentTrain(reportsIntTS)) { //throw an error, we cannot compute it like this
             return null;
         } else {
             MyRengine rengine = MyRengine.getRengine();
