@@ -12,6 +12,7 @@ import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.settingspanels.*;
+import gui.subpanels.AnalysisBatchSubPanel;
 import gui.subpanels.BayesianSubPanel;
 import gui.subpanels.ModelDescriptionsSubPanel;
 import gui.tablemodels.*;
@@ -504,13 +505,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonExportPredictionIntervals = new javax.swing.JButton();
         panelPredictionIntervals = new javax.swing.JPanel();
         scrollPanePredictionIntervals = new javax.swing.JScrollPane();
-        panelAnalysisBatch = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        buttonAnalysisBatchRemoveSelectedRows = new javax.swing.JButton();
-        scrollPaneAnalysisBatchInside = new javax.swing.JScrollPane();
-        tableAnalysisBatch = new javax.swing.JTable();
-        buttonRunAnalysisBatch = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        panelAnalysisBatch = new AnalysisBatchSubPanel();
         panelCombinationWeightsAll = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
         panelCombinationWeights = new javax.swing.JPanel();
@@ -3817,70 +3812,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelEverything.removeTabAt(panelEverything.getTabCount() - 1);
 
         panelAnalysisBatch.setPreferredSize(new java.awt.Dimension(1361, 615));
-
-        jLabel1.setText("TODO: add checkboxes");
-
-        buttonAnalysisBatchRemoveSelectedRows.setText("Remove selected");
-        buttonAnalysisBatchRemoveSelectedRows.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonAnalysisBatchRemoveSelectedRowsActionPerformed(evt);
-            }
-        });
-
-        tableAnalysisBatch.setModel(AnalysisBatchTableModel.getInstance());
-        TableColumn firstColumn = tableAnalysisBatch.getColumnModel().getColumn(0);
-        firstColumn.setMinWidth(10);
-        firstColumn.setMaxWidth(50);
-        TableColumn secondColumn = tableAnalysisBatch.getColumnModel().getColumn(1);
-        secondColumn.setMinWidth(50);
-        secondColumn.setMaxWidth(110);
-        scrollPaneAnalysisBatchInside.setViewportView(tableAnalysisBatch);
-
-        buttonRunAnalysisBatch.setText("Run analysis batch");
-        buttonRunAnalysisBatch.setEnabled(false);
-        buttonRunAnalysisBatch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonRunAnalysisBatchActionPerformed(evt);
-            }
-        });
-
-        jLabel7.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel7.setText("TODO (later) dialog with data selection. for now takes what is selected here. and TODO: the plot! not everything into 1.");
-
-        javax.swing.GroupLayout panelAnalysisBatchLayout = new javax.swing.GroupLayout(panelAnalysisBatch);
-        panelAnalysisBatch.setLayout(panelAnalysisBatchLayout);
-        panelAnalysisBatchLayout.setHorizontalGroup(
-            panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 1354, Short.MAX_VALUE)
-                    .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(buttonAnalysisBatchRemoveSelectedRows)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonRunAnalysisBatch)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel7)))
-                .addContainerGap())
-        );
-        panelAnalysisBatchLayout.setVerticalGroup(
-            panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelAnalysisBatchLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonRunAnalysisBatch)
-                        .addComponent(jLabel7))
-                    .addGroup(panelAnalysisBatchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(buttonAnalysisBatchRemoveSelectedRows)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPaneAnalysisBatchInside, javax.swing.GroupLayout.DEFAULT_SIZE, 609, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         panelEverything.addTab("[Analysis batch]", panelAnalysisBatch);
 
         jButton2.setText("Export");
@@ -4528,10 +4459,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         textFieldRunRMSSESeasonality.setEnabled(checkBoxRunIncludeRMSSE.isSelected());
     }//GEN-LAST:event_checkBoxRunIncludeRMSSEActionPerformed
 
-    private void buttonRunAnalysisBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunAnalysisBatchActionPerformed
-        runModels(true);
-    }//GEN-LAST:event_buttonRunAnalysisBatchActionPerformed
-
     private void buttonSettingsAddToBatch_MLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPActionPerformed
         //zistit, ktora karta je hore
         switch (Model.myValueOf(comboBoxRPackage.getSelectedItem().toString())) {
@@ -4754,10 +4681,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             logger.error("Exception", e); // TODO: review logging
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HybridActionPerformed
-
-    private void buttonAnalysisBatchRemoveSelectedRowsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
-        ((AnalysisBatchTableModel)(tableAnalysisBatch.getModel())).removeRows(tableAnalysisBatch.getSelectedRows());
-    }//GEN-LAST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
 
     private void buttonLegendSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectAllActionPerformed
         selectAllOrNone(Model.ALL);
@@ -5240,7 +5163,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAggregateToITS;
-    private javax.swing.JButton buttonAnalysisBatchRemoveSelectedRows;
     private javax.swing.JButton buttonBartlettsTest;
     private javax.swing.JButton buttonBasicStats;
     private javax.swing.JButton buttonBoxplots;
@@ -5287,7 +5209,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonPlotZoomCTS;
     private javax.swing.JButton buttonPlotZoomIntTS;
     private javax.swing.JButton buttonRemoveTrend;
-    private javax.swing.JButton buttonRunAnalysisBatch;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonRunShowHiddenErrorMeasures;
@@ -5379,7 +5300,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_center;
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_radius;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
@@ -5439,7 +5359,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel52;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel64;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel8;
@@ -5634,7 +5553,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JPanel panelVARintPercentTrain;
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
-    private javax.swing.JScrollPane scrollPaneAnalysisBatchInside;
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneForecastVals;
     private javax.swing.JScrollPane scrollPaneListPlotLegend;
@@ -5648,7 +5566,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
-    private javax.swing.JTable tableAnalysisBatch;
     private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextArea textAreaResidualsBasicStats;
     private javax.swing.JTextArea textAreaTests;
@@ -6399,7 +6316,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }
 
-    private void runModels(boolean isBatch) {
+    public void runModels(boolean isBatch) {
         Utils.resetModelID();
         final int numThreads = 8;
 
@@ -6565,7 +6482,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         outputPredictionIntervals(reportsCTS);
         
         //show computed weights for combined models, if any
-        outputComputedWeights();
+        outputComputedWeights(); //TODO fix, broken
         
         
         
@@ -6719,7 +6636,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         //TODO pridat annotation processor alebo daco, co prejde vsetky JButtony deklarovane v MainFrame a napridava ich do
         //   tejto grupy automaticky
-        groupButtons.addAll(buttonPlotColname, buttonTrainAndTest, buttonRunAnalysisBatch, buttonSettingsAddToBatch_MLP, 
+        groupButtons.addAll(buttonPlotColname, buttonTrainAndTest, ((AnalysisBatchSubPanel) panelAnalysisBatch).getButtonRunAnalysisBatch(), buttonSettingsAddToBatch_MLP, 
                 buttonSettingsAddToBatch_MLPint, buttonSettingsAddToBatch_intMLP, buttonSettingsAddToBatch_RBF, 
                 buttonSettingsAddToBatch_RBFint, buttonSettingsAddToBatch_ARIMA, buttonSettingsAddToBatch_Holt, 
                 buttonSettingsAddToBatch_HoltWinters, buttonSettingsAddToBatch_HoltWintersInt, buttonSettingsAddToBatch_Holtint, 
