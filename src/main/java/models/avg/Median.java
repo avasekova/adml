@@ -4,7 +4,6 @@ import gui.ColourService;
 import models.Model;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import org.rosuda.JRI.REXP;
 import utils.*;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
@@ -206,10 +205,8 @@ public class Median extends Average { //well...
                 MyRengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
                 TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
-                REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
-                double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
-                REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
-                double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
+                double[] fittedValsAvg = rengine.evalAndReturnArray(fittedValsAvgAll.toString());
+                double[] forecastValsTestAvg = rengine.evalAndReturnArray(forecastValsTestAvgAll.toString());
 
                 ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
                         Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()), 
@@ -217,9 +214,7 @@ public class Median extends Average { //well...
                         Utils.arrayToList(fittedValsAvg), Utils.arrayToList(forecastValsTestAvg), 0);
 
                 thisAvgReport.setErrorMeasures(errorMeasures);
-                REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
-                double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
-                thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
+                thisAvgReport.setForecastValuesFuture(rengine.evalAndReturnArray(forecastValsFutureAvgAll.toString()));
                 thisAvgReport.setColourInPlot(ColourService.getService().getNewColour());
                 thisAvgReport.setPlotCode("plot.ts(" + avgAll + ", lty=2)");
                 thisAvgReport.setFittedValues(fittedValsAvg);

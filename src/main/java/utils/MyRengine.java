@@ -17,6 +17,7 @@ public class MyRengine extends Rengine {
     //TODO na konci kazdeho pouzivania Rengine (v modeloch atd): "rm" vsetky objekty, co uz nebudem potrebovat
     
     private static MyRengine instance = null;
+    private final String TEMP = "temp" + Utils.getCounter();
 
     private MyRengine() {
         super();
@@ -164,11 +165,14 @@ public class MyRengine extends Rengine {
     }
 
     public List<Double> evalAndReturnList(String expression) {
-        final String TEMP = "temp" + Utils.getCounter();
-        eval(TEMP + " <- " + expression); //pre istotu; aby nebolo treba 'eval(STH <- blabla), eval(STH)', ale stacilo 'eval(blabla)'
-        REXP getResult = eval(TEMP);
-        double[] result = getResult.asDoubleArray();
+        double[] result = evalAndReturnArray(expression);
         return result == null ? new ArrayList<>() : Utils.arrayToList(result);
+    }
+
+    public double[] evalAndReturnArray(String expression) {
+        eval(TEMP + " <- " + expression);  //pre istotu; aby nebolo treba 'eval(STH <- blabla), eval(STH)', ale stacilo 'eval(blabla)'
+        REXP getResult = eval(TEMP);
+        return getResult.asDoubleArray();
     }
     
     public String createDataFrame(List<String> selectedColumns) {
