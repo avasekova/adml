@@ -5,8 +5,6 @@ import models.Model;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utils.*;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
@@ -15,7 +13,6 @@ import java.util.List;
 import java.util.function.Function;
 
 public class Median extends Average { //well...
-    private static final Logger logger = LoggerFactory.getLogger(Median.class);
 
     public Median(boolean avgCTSperM, boolean avgCTS, boolean avgIntTSperM, boolean avgIntTS) {
         super(avgCTSperM, avgCTS, avgIntTSperM, avgIntTS);
