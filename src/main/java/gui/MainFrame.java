@@ -16,6 +16,7 @@ import gui.subpanels.AnalysisBatchSubPanel;
 import gui.subpanels.BayesianSubPanel;
 import gui.subpanels.ForecastValuesSubPanel;
 import gui.subpanels.ModelDescriptionsSubPanel;
+import gui.subpanels.ResidualsSubPanel;
 import gui.tablemodels.*;
 import models.*;
 import models.avg.*;
@@ -478,18 +479,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonHideAllErrorsExceptAvg = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         buttonRunExportErrorMeasures = new javax.swing.JButton();
-        panelResidualsAll = new javax.swing.JPanel();
-        panelResidualsPlot = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        textAreaResidualsBasicStats = new javax.swing.JTextArea();
-        panelResidualsLeft = new javax.swing.JPanel();
-        buttonExportResiduals = new javax.swing.JButton();
-        panelResiduals = new javax.swing.JPanel();
-        scrollPaneResiduals = new javax.swing.JScrollPane();
-        panelResidualsRightButtons = new javax.swing.JPanel();
-        buttonPlotResiduals = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        listPlotResidualsLegend = new javax.swing.JList();
+        panelResidualsAll = new ResidualsSubPanel();
         panelForecastValsAll = new ForecastValuesSubPanel();
         panelDiagramsNNs = new javax.swing.JPanel();
         panelDiagramsNNsInside = new javax.swing.JPanel();
@@ -3519,131 +3509,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         );
 
         panelEverything.addTab("Error measures", panelErrorMeasuresAll);
-
-        gdBufferedPanelPlotResiduals = new JGDBufferedPanel(panelResidualsPlot.getWidth(), panelResidualsPlot.getHeight());
-        panelResidualsPlot.add(gdBufferedPanelPlotResiduals, BorderLayout.CENTER);
-
-        javax.swing.GroupLayout panelResidualsPlotLayout = new javax.swing.GroupLayout(panelResidualsPlot);
-        panelResidualsPlot.setLayout(panelResidualsPlotLayout);
-        panelResidualsPlotLayout.setHorizontalGroup(
-            panelResidualsPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panelResidualsPlotLayout.setVerticalGroup(
-            panelResidualsPlotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 468, Short.MAX_VALUE)
-        );
-
-        textAreaResidualsBasicStats.setColumns(20);
-        textAreaResidualsBasicStats.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        textAreaResidualsBasicStats.setRows(5);
-        jScrollPane5.setViewportView(textAreaResidualsBasicStats);
-
-        buttonExportResiduals.setText("Export");
-        buttonExportResiduals.setEnabled(false);
-        buttonExportResiduals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportResidualsActionPerformed(evt);
-            }
-        });
-
-        scrollPaneResiduals.setPreferredSize(new java.awt.Dimension(100, 600));
-
-        javax.swing.GroupLayout panelResidualsLayout = new javax.swing.GroupLayout(panelResiduals);
-        panelResiduals.setLayout(panelResidualsLayout);
-        panelResidualsLayout.setHorizontalGroup(
-            panelResidualsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
-        );
-        panelResidualsLayout.setVerticalGroup(
-            panelResidualsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout panelResidualsLeftLayout = new javax.swing.GroupLayout(panelResidualsLeft);
-        panelResidualsLeft.setLayout(panelResidualsLeftLayout);
-        panelResidualsLeftLayout.setHorizontalGroup(
-            panelResidualsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResidualsLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelResidualsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelResidualsLeftLayout.createSequentialGroup()
-                        .addComponent(buttonExportResiduals)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(0, 0, 0))
-        );
-        panelResidualsLeftLayout.setVerticalGroup(
-            panelResidualsLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResidualsLeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(buttonExportResiduals)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelResiduals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
-        );
-
-        buttonPlotResiduals.setText("Plot");
-        buttonPlotResiduals.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotResidualsActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelResidualsRightButtonsLayout = new javax.swing.GroupLayout(panelResidualsRightButtons);
-        panelResidualsRightButtons.setLayout(panelResidualsRightButtonsLayout);
-        panelResidualsRightButtonsLayout.setHorizontalGroup(
-            panelResidualsRightButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResidualsRightButtonsLayout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(buttonPlotResiduals)
-                .addContainerGap(87, Short.MAX_VALUE))
-        );
-        panelResidualsRightButtonsLayout.setVerticalGroup(
-            panelResidualsRightButtonsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResidualsRightButtonsLayout.createSequentialGroup()
-                .addComponent(buttonPlotResiduals)
-                .addGap(0, 613, Short.MAX_VALUE))
-        );
-
-        listPlotResidualsLegend.setModel(new DefaultListModel());
-        jScrollPane6.setViewportView(listPlotResidualsLegend);
-
-        javax.swing.GroupLayout panelResidualsAllLayout = new javax.swing.GroupLayout(panelResidualsAll);
-        panelResidualsAll.setLayout(panelResidualsAllLayout);
-        panelResidualsAllLayout.setHorizontalGroup(
-            panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                .addComponent(panelResidualsLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(panelResidualsRightButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelResidualsPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane5)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 733, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelResidualsAllLayout.setVerticalGroup(
-            panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelResidualsLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panelResidualsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                                .addComponent(panelResidualsRightButtons, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(panelResidualsAllLayout.createSequentialGroup()
-                                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelResidualsPlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(7, 7, 7)
-                                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))))
-                .addContainerGap())
-        );
-
         panelEverything.addTab("Residuals", panelResidualsAll);
 
         panelForecastValsAll.setPreferredSize(new java.awt.Dimension(1361, 615));
@@ -4741,27 +4606,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonHistogramsActionPerformed
 
-    private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed
-        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-        //TODO refaktor, ptz je to to iste ako drawPlotGeneral/3, len s inymi objektami trosku
-        
-        int[] selectedCols = residualsTableLatest.getSelectedColumns();
-        
-        List<BasicStats> basicStats = PlotDrawer.drawPlotsResiduals(
-                ((ResidualsTableModel)residualsTableLatest.getModel()).getDataForSelectedCols(selectedCols), 
-                listPlotResidualsLegend, gdBufferedPanelPlotResiduals, 
-                panelResidualsPlot.getWidth(), panelResidualsPlot.getHeight(), "plot.ts");
-//        buttonPlotExportPlotResiduals.setEnabled(true);
-        
-        //mean, standard deviation, median
-        StringBuilder basicStatsString = new StringBuilder();
-        for (BasicStats stat : basicStats) {
-            basicStatsString.append(stat.toString());
-            basicStatsString.append(System.lineSeparator());
-        }
-        textAreaResidualsBasicStats.setText(basicStatsString.toString());
-    }//GEN-LAST:event_buttonPlotResidualsActionPerformed
-
     private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
         PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
         setPlotRanges(0, 0);
@@ -4794,26 +4638,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         Transformations.removeTrend(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonRemoveTrendActionPerformed
-
-    private void buttonExportResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportResidualsActionPerformed
-        //TODO refactor - je to to iste ako export forecasts len s premenovanymi premennymi
-        JFileChooser fileChooser = new OverwriteFileChooser();
-        fileChooser.setSelectedFile(new File("residuals.xls"));
-        if (evt.getSource() == buttonExportResiduals) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File residualsFile = fileChooser.getSelectedFile();
-                    ExcelWriter.residualsJTableToExcel((ResidualsTableModel)(residualsTableLatest.getModel()), residualsFile);
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
-        }
-
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonExportResiduals.setEnabled(false);
-    }//GEN-LAST:event_buttonExportResidualsActionPerformed
 
     private void buttonStructBreaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStructBreaksActionPerformed
         int breaks = 5;
@@ -5064,7 +4888,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonExportAnalysisText;
     private javax.swing.JButton buttonExportDiagramsNN;
     private javax.swing.JButton buttonExportPredictionIntervals;
-    private javax.swing.JButton buttonExportResiduals;
     private javax.swing.JButton buttonExportTestsPlots;
     private javax.swing.JButton buttonExportTextAreaTests;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
@@ -5086,7 +4909,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotExportPlot;
     private javax.swing.JButton buttonPlotRemoveITS;
-    private javax.swing.JButton buttonPlotResiduals;
     private javax.swing.JButton buttonPlotRestoreCTSRangeX;
     private javax.swing.JButton buttonPlotRestoreCTSRangeY;
     private javax.swing.JButton buttonPlotRestoreIntTSRangeX;
@@ -5258,8 +5080,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
@@ -5287,7 +5107,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listPlotLegend;
-    private javax.swing.JList listPlotResidualsLegend;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -5360,11 +5179,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JPanel panelRBFPercentTrain;
     private javax.swing.JPanel panelRBFintPercentTrain;
     private javax.swing.JPanel panelRBFintSettingsDistance;
-    private javax.swing.JPanel panelResiduals;
     private javax.swing.JPanel panelResidualsAll;
-    private javax.swing.JPanel panelResidualsLeft;
-    private javax.swing.JPanel panelResidualsPlot;
-    private javax.swing.JPanel panelResidualsRightButtons;
     private javax.swing.JPanel panelRunOutside;
     private javax.swing.JPanel panelSESintDistance;
     private javax.swing.JPanel panelSESintPercentTrain;
@@ -5440,7 +5255,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JScrollPane scrollPaneData;
     private javax.swing.JScrollPane scrollPaneListPlotLegend;
     private javax.swing.JScrollPane scrollPanePredictionIntervals;
-    private javax.swing.JScrollPane scrollPaneResiduals;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_centerMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_radiusMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPPackage_nnet;
@@ -5450,7 +5264,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTextArea textAreaPlotBasicStats;
-    private javax.swing.JTextArea textAreaResidualsBasicStats;
     private javax.swing.JTextArea textAreaTests;
     private javax.swing.JTextField textFieldAggregateToITSevery;
     private javax.swing.JTextField textFieldMaxStructBreaks;
@@ -5474,7 +5287,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private File loadedFile;
     public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
     private static JGDBufferedPanel gdBufferedPanelPlot;
-    private static JGDBufferedPanel gdBufferedPanelPlotResiduals;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<>()));
     private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<>())));
@@ -6434,10 +6246,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             firstCol.setMaxWidth(50);
             residualsTable.setVisible(true);
             residualsTableLatest = residualsTable;
-            panelResiduals.removeAll();
-            scrollPaneResiduals.setViewportView(residualsTableLatest);
-            panelResiduals.add(scrollPaneResiduals);
-            panelResiduals.repaint();
+            ((ResidualsSubPanel) panelResidualsAll).setResidualsTableLatest(residualsTableLatest);
+            ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().removeAll();
+            ((ResidualsSubPanel) panelResidualsAll).getScrollPaneResiduals().setViewportView(residualsTableLatest);
+            ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().add(((ResidualsSubPanel) panelResidualsAll).getScrollPaneResiduals());
+            ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().repaint();
         }
 
         panelEverything.setSelectedComponent(panelPlotImage);
@@ -6534,7 +6347,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection,
                 buttonPCA, buttonKMOTest, buttonBartlettsTest, buttonScreePlot);
         
-        groupExportButtons.addAll(buttonRunExportErrorMeasures, ((ForecastValuesSubPanel) panelForecastValsAll).getButtonExportForecastValues(), buttonExportResiduals);
+        groupExportButtons.addAll(buttonRunExportErrorMeasures, ((ForecastValuesSubPanel) panelForecastValsAll).getButtonExportForecastValues(),
+                ((ResidualsSubPanel) panelResidualsAll).getButtonExportResiduals());
     }
 
     public AdmlProviderImpl<TrainAndTestReport> getServer() {
