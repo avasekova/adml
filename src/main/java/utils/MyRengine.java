@@ -162,6 +162,14 @@ public class MyRengine extends Rengine {
         
         return returnVal;
     }
+
+    public List<Double> evalAndReturnList(String expression) {
+        final String TEMP = "temp" + Utils.getCounter();
+        eval(TEMP + " <- " + expression); //pre istotu; aby nebolo treba 'eval(STH <- blabla), eval(STH)', ale stacilo 'eval(blabla)'
+        REXP getResult = eval(TEMP);
+        double[] result = getResult.asDoubleArray();
+        return result == null ? new ArrayList<>() : Utils.arrayToList(result);
+    }
     
     public String createDataFrame(List<String> selectedColumns) {
         List<Integer> counters = new ArrayList<>();
