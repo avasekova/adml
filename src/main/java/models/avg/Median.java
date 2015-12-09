@@ -2,17 +2,20 @@ package models.avg;
 
 import gui.ColourService;
 import models.Model;
+import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.*;
 import utils.imlp.Interval;
 import utils.imlp.dist.WeightedEuclideanDistance;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 public class Median extends Average { //well...
+    private static final Logger logger = LoggerFactory.getLogger(Median.class);
 
     public Median(boolean avgCTSperM, boolean avgCTS, boolean avgIntTSperM, boolean avgIntTS) {
         super(avgCTSperM, avgCTS, avgIntTSperM, avgIntTS);
@@ -75,130 +78,10 @@ public class Median extends Average { //well...
             if (! allTheSame) {
                 return null;
             } else {
-                StringBuilder fittedValsAvgAll = new StringBuilder("c(");
-                StringBuilder forecastValsTestAvgAll = new StringBuilder("c(");
-                StringBuilder forecastValsFutureAvgAll = new StringBuilder("c(");
-                
-                //fitted
-                boolean nextOuter = false;
-                for (int i = 0; i < reportsCTS.get(0).getFittedValues().length; i++) {
-                    if (nextOuter) {
-                        fittedValsAvgAll.append(",");
-                    } else {
-                        nextOuter = true;
-                    }
-                    
-                    fittedValsAvgAll.append("median(c(");
-                    //idem po jednotlivych prvkoch fitted
-                    boolean nextInner = false;
-                    for (TrainAndTestReportCrisp r : reportsCTS) {
-                        if (! Double.isNaN(r.getFittedValues()[i])) {
-                            //a pre kazdy report si tam dam ciselko do medianu
-                            if (nextInner) {
-                                fittedValsAvgAll.append(",");
-                            } else {
-                                nextInner = true;
-                            }
-                            fittedValsAvgAll.append(r.getFittedValues()[i]);
-                        }
-                    }
-                    fittedValsAvgAll.append("))");
-                }
-                
-                
-                //forecast test---------------------------------
-                //sort podla dlzky:
-                //(bubblesort ftw)
-                List<TrainAndTestReportCrisp> reportsCTSforForecastTest = new ArrayList<>();
-                reportsCTSforForecastTest.addAll(reportsCTS);
-                for (int i = 0; i < reportsCTSforForecastTest.size(); i++) {
-                    for (int j = i + 1; j < reportsCTSforForecastTest.size(); j++) {
-                        if (reportsCTSforForecastTest.get(i).getForecastValuesTest().length > reportsCTSforForecastTest.get(j).getForecastValuesTest().length) {
-                            double[] pom = reportsCTSforForecastTest.get(i).getForecastValuesTest();
-                            reportsCTSforForecastTest.get(i).setForecastValuesTest(reportsCTSforForecastTest.get(j).getForecastValuesTest());
-                            reportsCTSforForecastTest.get(j).setForecastValuesTest(pom);
-                        }
-                    }
-                }
-                
-                int countAll = 0;
-                nextOuter = false;
-                while (! reportsCTSforForecastTest.isEmpty()) {
-                    for (int i = countAll; i < reportsCTSforForecastTest.get(0).getForecastValuesTest().length; i++) {
-                        if (nextOuter) {
-                            forecastValsTestAvgAll.append(",");
-                        } else {
-                            nextOuter = true;
-                        }
 
-                        forecastValsTestAvgAll.append("median(c(");
-                        //idem po jednotlivych prvkoch fitted
-                        boolean nextInner = false;
-                        for (TrainAndTestReportCrisp r : reportsCTSforForecastTest) {
-                            if (! Double.isNaN(r.getForecastValuesTest()[i])) {
-                                //a pre kazdy report si tam dam ciselko do medianu
-                                if (nextInner) {
-                                    forecastValsTestAvgAll.append(",");
-                                } else {
-                                    nextInner = true;
-                                }
-                                forecastValsTestAvgAll.append(r.getForecastValuesTest()[i]);
-                            }
-                        }
-                        forecastValsTestAvgAll.append("))");
-                    }
-                    countAll = reportsCTSforForecastTest.get(0).getForecastValuesTest().length;
-                    reportsCTSforForecastTest.remove(0);
-                }
-                
-                //forecast future---------------------------------
-                //sort podla dlzky:
-                //(bubblesort ftw)
-                List<TrainAndTestReportCrisp> reportsCTSforForecastFuture = new ArrayList<>();
-                reportsCTSforForecastFuture.addAll(reportsCTS);
-                for (int i = 0; i < reportsCTSforForecastFuture.size(); i++) {
-                    for (int j = i + 1; j < reportsCTSforForecastFuture.size(); j++) {
-                        if (reportsCTSforForecastFuture.get(i).getForecastValuesFuture().length > reportsCTSforForecastFuture.get(j).getForecastValuesFuture().length) {
-                            double[] pom = reportsCTSforForecastFuture.get(i).getForecastValuesFuture();
-                            reportsCTSforForecastFuture.get(i).setForecastValuesFuture(reportsCTSforForecastFuture.get(j).getForecastValuesFuture());
-                            reportsCTSforForecastFuture.get(j).setForecastValuesFuture(pom);
-                        }
-                    }
-                }
-                
-                countAll = 0;
-                nextOuter = false;
-                while (! reportsCTSforForecastFuture.isEmpty()) {
-                    for (int i = countAll; i < reportsCTSforForecastFuture.get(0).getForecastValuesFuture().length; i++) {
-                        if (nextOuter) {
-                            forecastValsFutureAvgAll.append(",");
-                        } else {
-                            nextOuter = true;
-                        }
-
-                        forecastValsFutureAvgAll.append("median(c(");
-                        //idem po jednotlivych prvkoch fitted
-                        boolean nextInner = false;
-                        for (TrainAndTestReportCrisp r : reportsCTSforForecastFuture) {
-                            if (! Double.isNaN(r.getForecastValuesFuture()[i])) {
-                                //a pre kazdy report si tam dam ciselko do medianu
-                                if (nextInner) {
-                                    forecastValsFutureAvgAll.append(",");
-                                } else {
-                                    nextInner = true;
-                                }
-                                forecastValsFutureAvgAll.append(r.getForecastValuesFuture()[i]);
-                            }
-                        }
-                        forecastValsFutureAvgAll.append("))");
-                    }
-                    countAll = reportsCTSforForecastFuture.get(0).getForecastValuesFuture().length;
-                    reportsCTSforForecastFuture.remove(0);
-                }
-                
-                fittedValsAvgAll.append(")");
-                forecastValsTestAvgAll.append(")");
-                forecastValsFutureAvgAll.append(")");
+                String fittedValsAvgAll = getMedians(reportsCTS, reportsCTS.get(0).getFittedValues().length, TrainAndTestReportCrisp::getFittedValues);
+                String forecastValsTestAvgAll = getMedians(reportsCTS, reportsCTS.get(0).getForecastValuesTest().length, TrainAndTestReportCrisp::getForecastValuesTest);
+                String forecastValsFutureAvgAll = getMedians(reportsCTS, reportsCTS.get(0).getForecastValuesFuture().length, TrainAndTestReportCrisp::getForecastValuesFuture);
                 
                 String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                 
@@ -304,7 +187,7 @@ public class Median extends Average { //well...
         }
     }
 
-    public String getMedians(List<TrainAndTestReportInterval> reportsIntTS, int size, Function<TrainAndTestReportInterval, double[]> getter) { //size = reportsIntTS.get(0).getFittedValues().size()
+    public <T extends TrainAndTestReport> String getMedians(List<T> reportsIntTS, int size, Function<T, double[]> getter) { //size = reportsIntTS.get(0).getFittedValues().size()
         StringBuilder avgAll = new StringBuilder("c(");
 
         boolean nextOuter = false;
@@ -318,7 +201,7 @@ public class Median extends Average { //well...
             avgAll.append("median(c(");
             //idem po jednotlivych prvkoch fitted
             boolean nextInner = false;
-            for (TrainAndTestReportInterval r : reportsIntTS) {
+            for (T r : reportsIntTS) {
                 if (!Double.isNaN(getter.apply(r)[i])) { //if (!Double.isNaN(r.getFittedValuesCenters()[i])) {
                     //a pre kazdy report si tam dam ciselko do medianu
                     if (nextInner) {
