@@ -257,12 +257,8 @@ public class Median extends Average { //well...
                 return reportsIntTS.get(0);
             } else {
                 StringBuilder avgAllCentersTrain = new StringBuilder("c(");
-                StringBuilder avgAllCentersTest = new StringBuilder("c(");
-                StringBuilder avgAllCentersFuture = new StringBuilder("c(");
                 StringBuilder avgAllRadiiTrain = new StringBuilder("c(");
-                StringBuilder avgAllRadiiTest = new StringBuilder("c(");
-                StringBuilder avgAllRadiiFuture = new StringBuilder("c(");
-                
+
                 boolean nextOuter = false;
                 for (int i = 0; i < reportsIntTS.get(0).getFittedValues().size(); i++) {
                     if (nextOuter) {
@@ -271,14 +267,14 @@ public class Median extends Average { //well...
                     } else {
                         nextOuter = true;
                     }
-                    
+
                     avgAllCentersTrain.append("median(c(");
-                    avgAllCentersTest.append("median(c(");
+                    avgAllRadiiTrain.append("median(c(");
                     //idem po jednotlivych prvkoch fitted
                     boolean nextInnerCenter = false;
                     boolean nextInnerRadius = false;
                     for (TrainAndTestReportInterval r : reportsIntTS) {
-                        if (! Double.isNaN(r.getFittedValuesCenters()[i])) {
+                        if (!Double.isNaN(r.getFittedValuesCenters()[i])) {
                             //a pre kazdy report si tam dam ciselko do medianu
                             if (nextInnerCenter) {
                                 avgAllCentersTrain.append(",");
@@ -287,8 +283,8 @@ public class Median extends Average { //well...
                             }
                             avgAllCentersTrain.append(r.getFittedValuesCenters()[i]);
                         }
-                        
-                        if (! Double.isNaN(r.getFittedValuesRadii()[i])) {
+
+                        if (!Double.isNaN(r.getFittedValuesRadii()[i])) {
                             if (nextInnerRadius) {
                                 avgAllRadiiTrain.append(",");
                             } else {
@@ -300,8 +296,10 @@ public class Median extends Average { //well...
                     avgAllCentersTrain.append("))");
                     avgAllRadiiTrain.append("))");
                 }
-                
-                
+
+                StringBuilder avgAllCentersTest = new StringBuilder("c(");
+                StringBuilder avgAllRadiiTest = new StringBuilder("c(");
+
                 nextOuter = false;
                 for (int i = 0; i < reportsIntTS.get(0).getForecastValuesTest().size(); i++) {
                     if (nextOuter) {
@@ -320,26 +318,29 @@ public class Median extends Average { //well...
                         if (! Double.isNaN(r.getForecastValuesTestCenters()[i])) {
                             //a pre kazdy report si tam dam ciselko do medianu
                             if (nextInnerCenter) {
-                                avgAllCentersTrain.append(",");
+                                avgAllCentersTest.append(",");
                             } else {
                                 nextInnerCenter = true;
                             }
-                            avgAllCentersTrain.append(r.getForecastValuesTestCenters()[i]);
+                            avgAllCentersTest.append(r.getForecastValuesTestCenters()[i]);
                         }
                         
                         if (! Double.isNaN(r.getForecastValuesTestRadii()[i])) {
                             if (nextInnerRadius) {
-                                avgAllRadiiTrain.append(",");
+                                avgAllRadiiTest.append(",");
                             } else {
                                 nextInnerRadius = true;
                             }
-                            avgAllRadiiTrain.append(r.getForecastValuesTestRadii()[i]);
+                            avgAllRadiiTest.append(r.getForecastValuesTestRadii()[i]);
                         }
                     }
                     avgAllCentersTest.append("))");
                     avgAllRadiiTest.append("))");
                 }
-                
+
+                StringBuilder avgAllCentersFuture = new StringBuilder("c(");
+                StringBuilder avgAllRadiiFuture = new StringBuilder("c(");
+
                 nextOuter = false;
                 for (int i = 0; i < reportsIntTS.get(0).getForecastValuesFuture().size(); i++) {
                     if (nextOuter) {
@@ -358,20 +359,20 @@ public class Median extends Average { //well...
                         if (! Double.isNaN(r.getForecastValuesFutureCenters()[i])) {
                             //a pre kazdy report si tam dam ciselko do medianu
                             if (nextInnerCenter) {
-                                avgAllCentersTrain.append(",");
+                                avgAllCentersFuture.append(",");
                             } else {
                                 nextInnerCenter = true;
                             }
-                            avgAllCentersTrain.append(r.getForecastValuesFutureCenters()[i]);
+                            avgAllCentersFuture.append(r.getForecastValuesFutureCenters()[i]);
                         }
                         
                         if (! Double.isNaN(r.getForecastValuesFutureRadii()[i])) {
                             if (nextInnerRadius) {
-                                avgAllRadiiTrain.append(",");
+                                avgAllRadiiFuture.append(",");
                             } else {
                                 nextInnerRadius = true;
                             }
-                            avgAllRadiiTrain.append(r.getForecastValuesFutureRadii()[i]);
+                            avgAllRadiiFuture.append(r.getForecastValuesFutureRadii()[i]);
                         }
                     }
                     avgAllCentersFuture.append("))");
@@ -427,12 +428,11 @@ public class Median extends Average { //well...
                 reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
-                reportAvgAllITS.setForecastValuesFuture(realValuesTest);
 
                 REXP getAllCentersFuture = rengine.eval("centerFuture");
-                List<Double> allCentersFutureList = Utils.arrayToList(getAllCentersFuture.asDoubleArray());
+                List<Double> allCentersFutureList = getAllCentersFuture.asDoubleArray() == null ? new ArrayList<>() : Utils.arrayToList(getAllCentersFuture.asDoubleArray());
                 REXP getAllRadiiFuture = rengine.eval("radiusFuture");
-                List<Double> allRadiiFutureList = Utils.arrayToList(getAllRadiiFuture.asDoubleArray());
+                List<Double> allRadiiFutureList = getAllRadiiFuture.asDoubleArray() == null ? new ArrayList<>() : Utils.arrayToList(getAllRadiiFuture.asDoubleArray());
                 List<Interval> allIntervalsFuture = Utils.zipCentersRadiiToIntervals(allCentersFutureList, allRadiiFutureList);
                 reportAvgAllITS.setForecastValuesFuture(allIntervalsFuture);
                 reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());
