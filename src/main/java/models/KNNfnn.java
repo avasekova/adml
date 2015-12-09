@@ -2,7 +2,6 @@ package models;
 
 import models.params.KNNfnnParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.List;
@@ -66,22 +65,16 @@ public class KNNfnn implements Forecastable {
         rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
-        
-        REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
-        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
-        
-        REXP getTestingOutputs = rengine.eval(OUTPUT_TEST);
-        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+
+        double[] trainingOutputs = rengine.evalAndReturnArray(OUTPUT_TRAIN);
+        double[] testingOutputs = rengine.evalAndReturnArray(OUTPUT_TEST);
         //-----
         rengine.eval(PREDICTED_OUTPUT + " <- c(rep(NA, " + LAG + "), " + PREDICTED_TRAIN + ", " + PREDICTED_TEST + ")");
         rengine.eval(PREDICTED_TRAIN + " <- " + PREDICTED_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(PREDICTED_TEST + " <- " + PREDICTED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + PREDICTED_OUTPUT + ")]");
-        
-        REXP getTrainingPredicted = rengine.eval(PREDICTED_TRAIN);
-        double[] trainingPredicted = getTrainingPredicted.asDoubleArray();
-        
-        REXP getTestingPredicted = rengine.eval(PREDICTED_TEST);
-        double[] testingPredicted = getTestingPredicted.asDoubleArray();
+
+        double[] trainingPredicted = rengine.evalAndReturnArray(PREDICTED_TRAIN);
+        double[] testingPredicted = rengine.evalAndReturnArray(PREDICTED_TEST);
         
         //then compute ErrorMeasures
         //TODO check the error measures, pretoze si myslim, ze to napriklad nepocita s tym posunom kvoli lagu. a potom

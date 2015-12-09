@@ -2,7 +2,6 @@ package models;
 
 import models.params.HoltWintersParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.List;
@@ -45,12 +44,9 @@ public class HoltWinters implements Forecastable {
                 + ", damped=" + params.getDamped() + ")");
             rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
             rengine.eval(FORECAST + " <- data.frame(" + FORECAST_MODEL + ")[\"Point.Forecast\"][1:" + num4castsTestAndFuture + ",]"); //if somebody renames this field in the next version, well...
-            REXP getFinalAlpha = rengine.eval(FORECAST_MODEL + "$model$par[\"alpha\"]");
-            double finalAlpha = getFinalAlpha.asDoubleArray()[0];
-            REXP getFinalBeta = rengine.eval(FORECAST_MODEL + "$model$par[\"beta\"]");
-            double finalBeta = getFinalBeta.asDoubleArray()[0];
-            REXP getFinalGamma = rengine.eval(FORECAST_MODEL + "$model$par[\"gamma\"]");
-            double finalGamma = getFinalGamma.asDoubleArray()[0];
+            double finalAlpha = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"alpha\"]")[0];
+            double finalBeta = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"beta\"]")[0];
+            double finalGamma = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"gamma\"]")[0];
         } else {
             rengine.eval(FORECAST_MODEL + " <- forecast::tbats(" + INPUT_TRAIN + ")");
             rengine.eval(FIT + " <- fitted.values(" + FORECAST_MODEL + ")");
@@ -71,12 +67,10 @@ public class HoltWinters implements Forecastable {
         
             return report;
         }
-        
-        REXP getFittedVals = rengine.eval(FIT);
-        double[] fittedVals = getFittedVals.asDoubleArray();
-        
-        REXP getForecastTestAndFuture = rengine.eval(FORECAST);
-        List<Double> forecastTestAndFuture = Utils.arrayToList(getForecastTestAndFuture.asDoubleArray());
+
+        double[] fittedVals = rengine.evalAndReturnArray(FIT);
+
+        List<Double> forecastTestAndFuture = rengine.evalAndReturnList(FORECAST);
         List<Double> forecastTest = forecastTestAndFuture.subList(0, inputTest.size());
         List<Double> forecastFuture = forecastTestAndFuture.subList(inputTest.size(), forecastTestAndFuture.size());
         

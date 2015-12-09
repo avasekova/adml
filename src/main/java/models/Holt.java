@@ -2,7 +2,6 @@ package models;
 
 import models.params.HoltParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.List;
@@ -46,19 +45,15 @@ public class Holt implements Forecastable {
         
         
         rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
-        REXP getFittedVals = rengine.eval(FIT);
-        double[] fittedVals = getFittedVals.asDoubleArray();
+        double[] fittedVals = rengine.evalAndReturnArray(FIT);
         
         rengine.eval(FORECAST + " <- data.frame(" + FORECAST_MODEL + ")[\"Point.Forecast\"][1:" + num4castsTestAndFuture + ",]"); //if somebody renames this field in the next version, well...
-        REXP getForecastTestAndFuture = rengine.eval(FORECAST);
-        List<Double> forecastTestAndFuture = Utils.arrayToList(getForecastTestAndFuture.asDoubleArray());
+        List<Double> forecastTestAndFuture = rengine.evalAndReturnList(FORECAST);
         List<Double> forecastTest = forecastTestAndFuture.subList(0, inputTest.size());
         List<Double> forecastFuture = forecastTestAndFuture.subList(inputTest.size(), forecastTestAndFuture.size());
         
-        REXP getFinalAlpha = rengine.eval(FORECAST_MODEL + "$model$par[\"alpha\"]");
-        double finalAlpha = getFinalAlpha.asDoubleArray()[0];
-        REXP getFinalBeta = rengine.eval(FORECAST_MODEL + "$model$par[\"beta\"]");
-        double finalBeta = getFinalBeta.asDoubleArray()[0];
+        double finalAlpha = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"alpha\"]")[0];
+        double finalBeta = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"beta\"]")[0];
         
         //tak a teraz postupne napredikujeme ten zbytok
         
@@ -81,10 +76,8 @@ public class Holt implements Forecastable {
                     + "[1:" + num4castsTestAndFuture + ",]");
             rengine.eval(PRED_INT_UPPER + " <- data.frame(" + FORECAST_MODEL + ")[\"Hi." + params.getPredIntPercent() + "\"]"
                     + "[1:" + num4castsTestAndFuture + ",]");
-            REXP getPredIntLowers = rengine.eval(PRED_INT_LOWER);
-            REXP getPredIntUppers = rengine.eval(PRED_INT_UPPER);
-            double[] predIntLowers = getPredIntLowers.asDoubleArray();
-            double[] predIntUppers = getPredIntUppers.asDoubleArray();
+            double[] predIntLowers = rengine.evalAndReturnArray(PRED_INT_LOWER);
+            double[] predIntUppers = rengine.evalAndReturnArray(PRED_INT_UPPER);
             report.setPredictionIntervalsLowers(predIntLowers);
             report.setPredictionIntervalsUppers(predIntUppers);
         }

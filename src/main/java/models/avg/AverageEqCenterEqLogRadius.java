@@ -4,7 +4,6 @@ import gui.ColourService;
 import models.Model;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import org.rosuda.JRI.REXP;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.MyRengine;
@@ -177,18 +176,10 @@ public class AverageEqCenterEqLogRadius extends Average {
                 rengine.eval("radiusFuture <- " + avgAllRadiiFuture.toString());
                 
                 //add report:
-                REXP getAllCentersTrain = rengine.eval("centerTrain");
-                double[] allCentersTrain = getAllCentersTrain.asDoubleArray();
-                List<Double> allCentersTrainList = Utils.arrayToList(allCentersTrain);
-                REXP getAllCentersTest = rengine.eval("centerTest");
-                double[] allCentersTest = getAllCentersTest.asDoubleArray();
-                List<Double> allCentersTestList = Utils.arrayToList(allCentersTest);
-                REXP getAllRadiiTrain = rengine.eval("radiusTrain");
-                double[] allRadiiTrain = getAllRadiiTrain.asDoubleArray();
-                List<Double> allRadiiTrainList = Utils.arrayToList(allRadiiTrain);
-                REXP getAllRadiiTest = rengine.eval("radiusTest");
-                double[] allRadiiTest = getAllRadiiTest.asDoubleArray();
-                List<Double> allRadiiTestList = Utils.arrayToList(allRadiiTest);
+                List<Double> allCentersTrainList = rengine.evalAndReturnList("centerTrain");
+                List<Double> allCentersTestList = rengine.evalAndReturnList("centerTest");
+                List<Double> allRadiiTrainList = rengine.evalAndReturnList("radiusTrain");
+                List<Double> allRadiiTestList = rengine.evalAndReturnList("radiusTest");
                 List<Interval> allIntervalsTrain = Utils.zipCentersRadiiToIntervals(allCentersTrainList, allRadiiTrainList);
                 List<Interval> allIntervalsTest = Utils.zipCentersRadiiToIntervals(allCentersTestList, allRadiiTestList);
 
@@ -213,10 +204,8 @@ public class AverageEqCenterEqLogRadius extends Average {
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
                 reportAvgAllITS.setForecastValuesFuture(realValuesTest);
 
-                REXP getAllCentersFuture = rengine.eval("centerFuture");
-                List<Double> allCentersFutureList = Utils.arrayToList(getAllCentersFuture.asDoubleArray());
-                REXP getAllRadiiFuture = rengine.eval("radiusFuture");
-                List<Double> allRadiiFutureList = Utils.arrayToList(getAllRadiiFuture.asDoubleArray());
+                List<Double> allCentersFutureList = rengine.evalAndReturnList("centerFuture");
+                List<Double> allRadiiFutureList = rengine.evalAndReturnList("radiusFuture");
                 List<Interval> allIntervalsFuture = Utils.zipCentersRadiiToIntervals(allCentersFutureList, allRadiiFutureList);
                 reportAvgAllITS.setForecastValuesFuture(allIntervalsFuture);
                 reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());

@@ -149,8 +149,7 @@ public class DataTableModel extends AbstractTableModel {
         //ciselne data
         int i = 1;
         for (String colName : columnNames) {
-            REXP getColumn = rengine.eval(DATA + "[," + i + "]");
-            double[] doubleArray = getColumn.asDoubleArray();
+            double[] doubleArray = rengine.evalAndReturnArray(DATA + "[," + i + "]");
             values.put(colName, Utils.arrayToList(doubleArray));
             
             if (doubleArray.length > maxRows) {

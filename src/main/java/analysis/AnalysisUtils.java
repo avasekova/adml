@@ -5,7 +5,6 @@ import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.params.BasicStats;
-import org.rosuda.JRI.REXP;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -29,12 +28,9 @@ public class AnalysisUtils {
             
             //and compute basic statistics of the data:
             //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
-            REXP getMean = rengine.eval("mean(" + TRAINDATA + ", na.rm=TRUE)");
-            double mean = getMean.asDoubleArray()[0];
-            REXP getStdDev = rengine.eval("sd(" + TRAINDATA + ", na.rm=TRUE)");
-            double stDev = getStdDev.asDoubleArray()[0];
-            REXP getMedian = rengine.eval("median(" + TRAINDATA + ", na.rm=TRUE)");
-            double median = getMedian.asDoubleArray()[0];
+            double mean = rengine.evalAndReturnArray("mean(" + TRAINDATA + ", na.rm=TRUE)")[0];
+            double stDev = rengine.evalAndReturnArray("sd(" + TRAINDATA + ", na.rm=TRUE)")[0];
+            double median = rengine.evalAndReturnArray("median(" + TRAINDATA + ", na.rm=TRUE)")[0];
             BasicStats stat = new BasicStats(col);
             stat.setMean(mean);
             stat.setStdDev(stDev);

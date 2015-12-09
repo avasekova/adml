@@ -2,7 +2,6 @@ package models;
 
 import models.params.Params;
 import models.params.RBFParams;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.ArrayList;
@@ -62,14 +61,12 @@ public class RBF implements Forecastable {
                           + "), maxit=" + params.getMaxIterations() + ", linOut=TRUE)");
             rengine.eval(FIT + " <- fitted(" + NNETWORK + ")");
             rengine.eval(UNSCALED_FIT + " <- MLPtoR.unscale(" + FIT + ", " + OUTPUT + ")");
-            REXP getFittedVals = rengine.eval("c(rep(NA, " + maxLag + "), " + UNSCALED_FIT + ")");
-            double[] fittedVals = getFittedVals.asDoubleArray();
+            double[] fittedVals = rengine.evalAndReturnArray("c(rep(NA, " + maxLag + "), " + UNSCALED_FIT + ")");
             report.setFittedValues(fittedVals);
             
             rengine.eval(FORECAST_TEST + " <- predict(" + NNETWORK + ", data.frame(" + SCALED_INPUT_TEST + "))");
             rengine.eval(UNSCALED_FORECAST_TEST + " <- MLPtoR.unscale(" + FORECAST_TEST + ", " + OUTPUT + ")");
-            REXP getForecastValsTest = rengine.eval(UNSCALED_FORECAST_TEST);
-            double[] forecastValsTest = getForecastValsTest.asDoubleArray();
+            double[] forecastValsTest = rengine.evalAndReturnArray(UNSCALED_FORECAST_TEST);
             report.setForecastValuesTest(forecastValsTest);
             
             report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastValsTest) + "))");
@@ -150,9 +147,7 @@ public class RBF implements Forecastable {
         for (List<Double> unscaled : inputs) {
             rengine.assign(LIST, Utils.listToArray(unscaled));
             rengine.eval(SCALED + " <- MLPtoR.scale(" + LIST + ")");
-            REXP getScaled = rengine.eval(SCALED);
-            double[] scaled = getScaled.asDoubleArray();
-            inputsScaled.add(Utils.arrayToList(scaled));
+            inputsScaled.add(rengine.evalAndReturnList(SCALED));
         }
         
         return inputsScaled;

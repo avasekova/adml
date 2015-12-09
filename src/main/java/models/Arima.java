@@ -2,7 +2,6 @@ package models;
 
 import models.params.ArimaParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.Arrays;
@@ -55,8 +54,7 @@ public class Arima implements Forecastable {
             //extract the order of ARIMA:
             final String ORDER = Const.INPUT + Utils.getCounter();
             rengine.eval(ORDER + " <- " + MODEL + "$arma");
-            REXP getAll = rengine.eval(ORDER);
-            double[] allArray = getAll.asDoubleArray();
+            double[] allArray = rengine.evalAndReturnArray(ORDER);
             arimaDescription = "(" + allArray[0] + ", " + allArray[5] + ", " + allArray[1] + ")(" + allArray[2]
                                + ", " + allArray[6] + ", " + allArray[3] + ")";
             
@@ -80,12 +78,11 @@ public class Arima implements Forecastable {
         
         rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")");
         rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + INPUT + ")");
-        REXP getFittedValues = rengine.eval(UNSCALED_FITTED_VALS);
-        if (getFittedValues == null) {
+        double[] fitted = rengine.evalAndReturnArray(UNSCALED_FITTED_VALS);
+        if (fitted == null) {
             return null;
         }
-        double[] fitted = getFittedValues.asDoubleArray();
-        
+
         //"forecast" testing data
         //in case I was wondering about this again: yes, it does compute the forecasts _directly_ (not iteratively using
         //  forecast values in the subsequent forecasts)
@@ -100,17 +97,14 @@ public class Arima implements Forecastable {
         //vziat vsetky forecasted vals (cast je z test data, cast je z future)
         rengine.eval(FORECAST_VALS_CUT + " <- " + FORECAST_VALS + "$mean[1:" + numForecasts + "]");
         rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS_CUT + ", " + INPUT + ")");
-        REXP getAllForecasts = rengine.eval(UNSCALED_FORECAST_VALS);
-        double[] allForecasts = getAllForecasts.asDoubleArray();
+        double[] allForecasts = rengine.evalAndReturnArray(UNSCALED_FORECAST_VALS);
         //TODO avoid this conversion array<->list whenever possible - moze to byt spomalovak pre velke mnozstva dat
         List<Double> allForecastsList = Utils.arrayToList(allForecasts);
         
         //error measures pocitat len z testu, z buducich sa neda
-        REXP getTrainingPortionOfData = rengine.eval(INPUT_TRAIN);
-        double[] trainingPortionOfDataArray = getTrainingPortionOfData.asDoubleArray();
+        double[] trainingPortionOfDataArray = rengine.evalAndReturnArray(INPUT_TRAIN);
         List<Double> trainingPortionOfData = Utils.arrayToList(trainingPortionOfDataArray);
-        REXP getTestingPortionOfData = rengine.eval(INPUT_TEST);
-        double[] testingPortionOfDataArray = getTestingPortionOfData.asDoubleArray();
+        double[] testingPortionOfDataArray = rengine.evalAndReturnArray(INPUT_TEST);
         List<Double> testingPortionOfData = Utils.arrayToList(testingPortionOfDataArray);
         
         double[] forecastsTest = Arrays.copyOf(allForecasts, testingPortionOfData.size());
@@ -142,10 +136,8 @@ public class Arima implements Forecastable {
                     + "[1:" + numForecasts + ",]");
             rengine.eval(PRED_INT_UPPER + " <- data.frame(" + FORECAST_VALS + ")[\"Hi." + params.getPredIntPercent() + "\"]"
                     + "[1:" + numForecasts + ",]");
-            REXP getPredIntLowers = rengine.eval("MLPtoR.unscale(" + PRED_INT_LOWER + "," + INPUT + ")");
-            REXP getPredIntUppers = rengine.eval("MLPtoR.unscale(" + PRED_INT_UPPER + "," + INPUT + ")");
-            double[] predIntLowers = getPredIntLowers.asDoubleArray();
-            double[] predIntUppers = getPredIntUppers.asDoubleArray();
+            double[] predIntLowers = rengine.evalAndReturnArray("MLPtoR.unscale(" + PRED_INT_LOWER + "," + INPUT + ")");
+            double[] predIntUppers = rengine.evalAndReturnArray("MLPtoR.unscale(" + PRED_INT_UPPER + "," + INPUT + ")");
             report.setPredictionIntervalsLowers(predIntLowers);
             report.setPredictionIntervalsUppers(predIntUppers);
         }

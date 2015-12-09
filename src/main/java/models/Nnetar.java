@@ -56,10 +56,8 @@ public class Nnetar implements Forecastable {
         rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ORIGINAL_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(FINAL_OUTPUT_TEST + " <- " + ORIGINAL_OUTPUT + "[(" + numTrainingEntries + " + 1):" + 
                 "length(" + ORIGINAL_OUTPUT + ")]");
-        REXP getTrainingOutputs = rengine.eval(FINAL_OUTPUT_TRAIN);
-        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
-        REXP getTestingOutputs = rengine.eval(FINAL_OUTPUT_TEST);
-        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        double[] trainingOutputs = rengine.evalAndReturnArray(FINAL_OUTPUT_TRAIN);
+        double[] testingOutputs = rengine.evalAndReturnArray(FINAL_OUTPUT_TEST);
         report.setRealOutputsTrain(trainingOutputs);
         report.setRealOutputsTest(testingOutputs);
         
@@ -75,9 +73,7 @@ public class Nnetar implements Forecastable {
         //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
         //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
         rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
-        REXP getForecastValsAll = rengine.eval(FORECAST_VALS);
-        double[] forecastAll = getForecastValsAll.asDoubleArray();
-        List<Double> allForecastsList = Utils.arrayToList(forecastAll);
+        List<Double> allForecastsList = rengine.evalAndReturnList(FORECAST_VALS);
         List<Double> forecastTest = allForecastsList.subList(0, testingPortionOfData.size());
         report.setForecastValuesTest(Utils.listToArray(forecastTest));
         report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(testingPortionOfData.size(), allForecastsList.size())));
@@ -91,8 +87,7 @@ public class Nnetar implements Forecastable {
         //nova verzia vracia aj ACF1
         
         rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
-        REXP getFittedVals = rengine.eval(FIT);
-        double[] fitted = getFittedVals.asDoubleArray();
+        double[] fitted = rengine.evalAndReturnArray(FIT);
         report.setFittedValues(fitted);
         
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 

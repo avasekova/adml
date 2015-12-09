@@ -2,7 +2,6 @@ package models;
 
 import models.params.Params;
 import models.params.VARParams;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.ArrayList;
@@ -34,8 +33,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         List<Double> trimmedOutVals = params.getOutputVarVals().subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         rengine.assign(REAL_OUTPUT, Utils.listToArray(trimmedOutVals));
         rengine.eval(REAL_OUTPUT + " <- c(rep(NA," + params.getLag() + ")," + REAL_OUTPUT + ")");
-        REXP getRealOutput = rengine.eval(REAL_OUTPUT);
-        double[] realOutput = getRealOutput.asDoubleArray();
+        double[] realOutput = rengine.evalAndReturnArray(REAL_OUTPUT);
         
         
         rengine.assignMatrix(INPUT, dataToUse);
@@ -54,8 +52,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
             
             rengine.eval(FIT_THIS + " <- " + FIT + "[,\"" + INPUT + "." + s + "\"]"); //len pre jednu
             rengine.eval(FIT_THIS + " <- c(rep(NA," + params.getLag() + "), as.vector(" + FIT_THIS + "))"); //lagnute
-            REXP getFittedOutput = rengine.eval(FIT_THIS);
-            double[] fittedOutput = getFittedOutput.asDoubleArray();
+            double[] fittedOutput = rengine.evalAndReturnArray(FIT_THIS);
             report.setFittedValues(fittedOutput);
 
 
@@ -66,8 +63,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
             if (numFutureForecasts > 0) {
                 rengine.eval(FORECAST + " <- predict(" + FORECAST_MODEL + ", n.ahead=" + numFutureForecasts + ")");
                 rengine.eval(FORECAST + " <- " + FORECAST + "$fcst$" + INPUT + "." + s + "[,1]");
-                REXP getForecastOutput = rengine.eval(FORECAST);
-                double[] forecastOutput = getForecastOutput.asDoubleArray();
+                double[] forecastOutput = rengine.evalAndReturnArray(FORECAST);
                 report.setForecastValuesFuture(forecastOutput);
                 report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedOutput) + "," + Utils.arrayToRVectorString(forecastOutput) + "))");
             } else {

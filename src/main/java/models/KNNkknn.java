@@ -2,7 +2,6 @@ package models;
 
 import models.params.KNNkknnParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.List;
@@ -59,8 +58,7 @@ public class KNNkknn implements Forecastable {
                                                                               + OUTPUT_TRAIN + " = " + OUTPUT_TEST + "))");
         
         rengine.eval(BEST_K + " <- " + MODEL + "$best.parameters$k");
-        REXP getBestK = rengine.eval(BEST_K);
-        double[] bestKarray = getBestK.asDoubleArray();
+        double[] bestKarray = rengine.evalAndReturnArray(BEST_K);
         long bestK = Math.round(bestKarray[0]); //will be integer anyway
         params.setBestNumNeighbours(bestK);
         
@@ -68,22 +66,16 @@ public class KNNkknn implements Forecastable {
         rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
-        
-        REXP getTrainingOutputs = rengine.eval(OUTPUT_TRAIN);
-        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
-        
-        REXP getTestingOutputs = rengine.eval(OUTPUT_TEST);
-        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+
+        double[] trainingOutputs = rengine.evalAndReturnArray(OUTPUT_TRAIN);
+        double[] testingOutputs = rengine.evalAndReturnArray(OUTPUT_TEST);
         //-----
         rengine.eval(PREDICTED_OUTPUT + " <- c(rep(NA, " + LAG + "), " + FITTED_VALS + ", " + FORECAST_VALS + ")");
         rengine.eval(FITTED_VALS + " <- " + PREDICTED_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(FORECAST_VALS + " <- " + PREDICTED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + PREDICTED_OUTPUT + ")]");
-        
-        REXP getTrainingPredicted = rengine.eval(FITTED_VALS);
-        double[] trainingPredicted = getTrainingPredicted.asDoubleArray();
-        
-        REXP getTestingPredicted = rengine.eval(FORECAST_VALS);
-        double[] testingPredicted = getTestingPredicted.asDoubleArray();
+
+        double[] trainingPredicted = rengine.evalAndReturnArray(FITTED_VALS);
+        double[] testingPredicted = rengine.evalAndReturnArray(FORECAST_VALS);
         
         
         ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 

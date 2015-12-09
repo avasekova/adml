@@ -2,7 +2,6 @@ package models;
 
 import models.params.NnetParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.ArrayList;
@@ -61,7 +60,7 @@ public class Nnet implements Forecastable {
 
         rengine.assignMatrix(SCALED_INPUT_TRAIN, trainingInputsScaled);
         rengine.assignMatrix(SCALED_INPUT_TEST, testingInputsScaled);
-        
+
         List<Double> allDataOutput = dataTableModel.get(params.getColName());
         List<Double> dataToUseOutput = allDataOutput.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
@@ -78,10 +77,8 @@ public class Nnet implements Forecastable {
         rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ORIGINAL_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(FINAL_OUTPUT_TEST + " <- " + ORIGINAL_OUTPUT + "[(" + numTrainingEntries + " + 1):" + 
                 "length(" + ORIGINAL_OUTPUT + ")]");
-        REXP getTrainingOutputs = rengine.eval(FINAL_OUTPUT_TRAIN);
-        double[] trainingOutputs = getTrainingOutputs.asDoubleArray();
-        REXP getTestingOutputs = rengine.eval(FINAL_OUTPUT_TEST);
-        double[] testingOutputs = getTestingOutputs.asDoubleArray();
+        double[] trainingOutputs = rengine.evalAndReturnArray(FINAL_OUTPUT_TRAIN);
+        double[] testingOutputs = rengine.evalAndReturnArray(FINAL_OUTPUT_TEST);
         report.setRealOutputsTrain(trainingOutputs);
         report.setRealOutputsTest(testingOutputs);
         
@@ -105,10 +102,8 @@ public class Nnet implements Forecastable {
         rengine.eval(FINAL_UNSCALED_FORECAST_VALS + " <- " + ALL_AUX + "[(" + numTrainingEntries + " + 1):" + 
                 "length(" + ORIGINAL_OUTPUT + ")]");
         
-        REXP getFittedVals = rengine.eval(FINAL_UNSCALED_FITTED_VALS);
-        double[] fittedVals = getFittedVals.asDoubleArray();
-        REXP getForecastVals = rengine.eval(FINAL_UNSCALED_FORECAST_VALS);
-        double[] forecastVals = getForecastVals.asDoubleArray();
+        double[] fittedVals = rengine.evalAndReturnArray(FINAL_UNSCALED_FITTED_VALS);
+        double[] forecastVals = rengine.evalAndReturnArray(FINAL_UNSCALED_FORECAST_VALS);
         
         report.setFittedValues(fittedVals);
         report.setForecastValuesTest(forecastVals);

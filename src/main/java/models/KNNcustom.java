@@ -2,7 +2,6 @@ package models;
 
 import models.params.KNNcustomParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.Const;
 import utils.ErrorMeasuresCrisp;
 import utils.MyRengine;
@@ -68,8 +67,7 @@ public class KNNcustom implements Forecastable {
                                                    + params.getLengthHistory() + ", " + INPUT_TRAIN
                                                    + ", distance = " + distanceFunction
                                                    + ", combination = " + combinationFunction + ")");
-        REXP getForecast = rengine.eval(FORECAST + "$oneforecast");
-        double[] forecasts = getForecast.asDoubleArray();
+        double[] forecasts = rengine.evalAndReturnArray(FORECAST + "$oneforecast");
         double forcast = forecasts[0]; //for now, only gives one forecast, TODO more
         System.out.println("the one and only forecast (kNN custom): " + forcast); //TODO ten forecast je okrem toho zle, pretoze predikuje prvu hodnotu za train datami a nie prvu buducu
         

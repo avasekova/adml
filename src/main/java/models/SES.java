@@ -2,7 +2,6 @@ package models;
 
 import models.params.Params;
 import models.params.SESParams;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.List;
@@ -37,17 +36,14 @@ public class SES implements Forecastable {
                 ", alpha=" + params.getAlpha() + ")");
         
         rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")[1:" + inputTrain.size() + "]");
-        REXP getFittedVals = rengine.eval(FIT);
-        double[] fittedVals = getFittedVals.asDoubleArray();
+        double[] fittedVals = rengine.evalAndReturnArray(FIT);
         
         rengine.eval(FORECAST + " <- data.frame(" + FORECAST_MODEL + ")[\"Point.Forecast\"][1:" + num4castsTestAndFuture + ",]"); //if somebody renames this field in the next version, well...
-        REXP getForecastTestAndFuture = rengine.eval(FORECAST);
-        List<Double> forecastTestAndFuture = Utils.arrayToList(getForecastTestAndFuture.asDoubleArray());
+        List<Double> forecastTestAndFuture = rengine.evalAndReturnList(FORECAST);
         List<Double> forecastTest = forecastTestAndFuture.subList(0, inputTest.size());
         List<Double> forecastFuture = forecastTestAndFuture.subList(inputTest.size(), forecastTestAndFuture.size());
         
-        REXP getFinalAlpha = rengine.eval(FORECAST_MODEL + "$model$par[\"alpha\"]");
-        double finalAlpha = getFinalAlpha.asDoubleArray()[0];
+        double finalAlpha = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"alpha\"]")[0];
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.SES);
         report.setModelDescription(params.toString());

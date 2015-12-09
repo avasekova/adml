@@ -2,7 +2,6 @@ package models;
 
 import models.params.KNNfnnParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -78,12 +77,9 @@ public class KNNmyown implements Forecastable {
         rengine.eval(PREDICTED_OUTPUT + " <- c(rep(NA, " + LAG + "), " + PREDICTED_TRAIN + ", " + PREDICTED_TEST + ")");
         rengine.eval(PREDICTED_TRAIN + " <- " + PREDICTED_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(PREDICTED_TEST + " <- " + PREDICTED_OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + PREDICTED_OUTPUT + ")]");
-        
-        REXP getTrainingPredicted = rengine.eval(PREDICTED_TRAIN);
-        double[] trainingPredicted = getTrainingPredicted.asDoubleArray();
-        
-        REXP getTestingPredicted = rengine.eval(PREDICTED_TEST);
-        double[] testingPredicted = getTestingPredicted.asDoubleArray();
+
+        double[] trainingPredicted = rengine.evalAndReturnArray(PREDICTED_TRAIN);
+        double[] testingPredicted = rengine.evalAndReturnArray(PREDICTED_TEST);
         
         //then compute ErrorMeasures
         //TODO check the error measures, pretoze si myslim, ze to napriklad nepocita s tym posunom kvoli lagu. a potom

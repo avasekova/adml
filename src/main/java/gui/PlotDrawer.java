@@ -200,10 +200,8 @@ public class PlotDrawer {
                     + ",las=2)");
             rengine.eval("abline(v = " + (to) + ", lty = 3)"); //dashed vertical line to separate forecasts
             
-            REXP getX = rengine.eval(rangeXCrisp);
-            double[] rangeX = getX.asDoubleArray();
-            REXP getY = rengine.eval(rangeYCrisp);
-            double[] rangeY = getY.asDoubleArray();
+            double[] rangeX = rengine.evalAndReturnArray(rangeXCrisp);
+            double[] rangeY = rengine.evalAndReturnArray(rangeYCrisp);
             PlotStateKeeper.setLastDrawnCrispXmin(rangeX[0]);
             PlotStateKeeper.setLastDrawnCrispXmax(rangeX[1]);
             PlotStateKeeper.setLastDrawnCrispYmin(rangeY[0]);
@@ -338,10 +336,8 @@ public class PlotDrawer {
             //add a line separating real data from forecasts
             rengine.eval("abline(v = " + (size+par.getFrom()) + ", lty = 3)");
             
-            REXP getX = rengine.eval(rangeXInt);
-            double[] rangeX = getX.asDoubleArray();
-            REXP getY = rengine.eval(rangeYInt);
-            double[] rangeY = getY.asDoubleArray();
+            double[] rangeX = rengine.evalAndReturnArray(rangeXInt);
+            double[] rangeY = rengine.evalAndReturnArray(rangeYInt);
             PlotStateKeeper.setLastDrawnIntXmin(rangeX[0]);
             PlotStateKeeper.setLastDrawnIntXmax(rangeX[1]);
             PlotStateKeeper.setLastDrawnIntYmin(rangeY[0]);
@@ -427,12 +423,9 @@ public class PlotDrawer {
 //                r.setColourInPlot(colourToUseNow);
 //            }
             
-            REXP getMean = rengine.eval("mean(na.omit(" + rVectorString + "))");
-            double mean = getMean.asDoubleArray()[0];
-            REXP getStdDev = rengine.eval("sd(na.omit(" + rVectorString + "))");
-            double stDev = getStdDev.asDoubleArray()[0];
-            REXP getMedian = rengine.eval("median(na.omit(" + rVectorString + "))");
-            double median = getMedian.asDoubleArray()[0];
+            double mean = rengine.evalAndReturnArray("mean(na.omit(" + rVectorString + "))")[0];
+            double stDev = rengine.evalAndReturnArray("sd(na.omit(" + rVectorString + "))")[0];
+            double median = rengine.evalAndReturnArray("median(na.omit(" + rVectorString + "))")[0];
             BasicStats basicStats = new BasicStats("Residuals for " + key);
             basicStats.setMean(mean);
             basicStats.setStdDev(stDev);
@@ -506,10 +499,8 @@ public class PlotDrawer {
         plots.addAll(par.getListLowerUpper());
         drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
-        REXP getRangeX = rengine.eval(rangeX);
-        double[] ranX = getRangeX.asDoubleArray();
-        REXP getRangeY = rengine.eval(rangeY);
-        double[] ranY = getRangeY.asDoubleArray();
+        double[] ranX = rengine.evalAndReturnArray(rangeX);
+        double[] ranY = rengine.evalAndReturnArray(rangeY);
         PlotStateKeeper.setLastDrawnIntXmin(ranX[0]);
         PlotStateKeeper.setLastDrawnIntXmax(ranX[1]);
         PlotStateKeeper.setLastDrawnIntYmin(ranY[0]);
@@ -608,10 +599,8 @@ public class PlotDrawer {
             rengine.assign(UPPER, Utils.listToArray(uppers));
             rengine.eval(CENTER + " <- (" + UPPER + " + " + LOWER + ")/2");
             rengine.eval(RADIUS + " <- (" + UPPER + " - " + LOWER + ")/2");
-            REXP getCenter = rengine.eval(CENTER);
-            REXP getRadii = rengine.eval(RADIUS);
-            List<Double> centers = Utils.arrayToList(getCenter.asDoubleArray());
-            List<Double> radii = Utils.arrayToList(getRadii.asDoubleArray());
+            List<Double> centers = rengine.evalAndReturnList(CENTER);
+            List<Double> radii = rengine.evalAndReturnList(RADIUS);
             allValsCenter.addAll(centers);
             allValsRadius.addAll(radii);
         }
@@ -667,10 +656,8 @@ public class PlotDrawer {
         drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
         MyRengine rengine = MyRengine.getRengine();
-        REXP getRangeX = rengine.eval(rangeCenter);
-        double[] ranX = getRangeX.asDoubleArray();
-        REXP getRangeY = rengine.eval(rangeRadius);
-        double[] ranY = getRangeY.asDoubleArray();
+        double[] ranX = rengine.evalAndReturnArray(rangeCenter);
+        double[] ranY = rengine.evalAndReturnArray(rangeRadius);
         PlotStateKeeper.setLastDrawnIntXmin(ranX[0]);
         PlotStateKeeper.setLastDrawnIntXmax(ranX[1]);
         PlotStateKeeper.setLastDrawnIntYmin(ranY[0]);
@@ -1281,10 +1268,8 @@ public class PlotDrawer {
         //add legend
         PlotDrawer.drawLegend(par.getListPlotLegend(), plots, new PlotLegendSimpleListCellRenderer());
         
-        REXP getX = rengine.eval(rangeX);
-        double[] ranX = getX.asDoubleArray();
-        REXP getY = rengine.eval(rangeY);
-        double[] ranY = getY.asDoubleArray();
+        double[] ranX = rengine.evalAndReturnArray(rangeX);
+        double[] ranY = rengine.evalAndReturnArray(rangeY);
         PlotStateKeeper.setLastDrawnCrispXmin(ranX[0]);
         PlotStateKeeper.setLastDrawnCrispXmax(ranX[1]);
         PlotStateKeeper.setLastDrawnCrispYmin(ranY[0]);

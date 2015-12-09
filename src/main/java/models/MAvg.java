@@ -2,7 +2,6 @@ package models;
 
 import models.params.MAvgParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.ArrayList;
@@ -31,8 +30,7 @@ public class MAvg implements Forecastable {
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
         
         rengine.eval(FIT + " <- forecast::ma(" + INPUT_TRAIN + ", order=" + params.getOrder() + ")");
-        REXP getFittedVals = rengine.eval(FIT);
-        double[] fittedVals = getFittedVals.asDoubleArray();
+        double[] fittedVals = rengine.evalAndReturnArray(FIT);
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.MAvg);
         report.setModelDescription(params.toString());

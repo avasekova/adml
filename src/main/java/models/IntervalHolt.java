@@ -2,7 +2,6 @@ package models;
 
 import models.params.IntervalHoltParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 import utils.imlp.Interval;
 import utils.imlp.dist.IchinoYaguchiDistance;
@@ -83,10 +82,8 @@ public class IntervalHolt implements Forecastable {
         //-2, ptz neprodukuje fit pre prve dve
         rengine.eval(FIT_LOWER + " <- " + FORECAST_MODEL + "$model$fitted[1:" + (numTrainingEntries-2) + ",2]");
         rengine.eval(FIT_UPPER + " <- " + FORECAST_MODEL + "$model$fitted[1:" + (numTrainingEntries-2) + ",1]");
-        REXP getFitLower = rengine.eval(FIT_LOWER);
-        List<Double> fitLower = Utils.arrayToList(getFitLower.asDoubleArray());
-        REXP getFitUpper = rengine.eval(FIT_UPPER);
-        List<Double> fitUpper = Utils.arrayToList(getFitUpper.asDoubleArray());
+        List<Double> fitLower = rengine.evalAndReturnList(FIT_LOWER);
+        List<Double> fitUpper = rengine.evalAndReturnList(FIT_UPPER);
         //a pridat tie prve dve hluche:
         fitLower.add(0, Double.NaN);
         fitLower.add(0, Double.NaN);
@@ -97,10 +94,8 @@ public class IntervalHolt implements Forecastable {
         
         rengine.eval(FORECAST_LOWER + " <- " + FORECAST_MODEL + "$mean[1:" + num4castsTestAndTrain + ",2]");
         rengine.eval(FORECAST_UPPER + " <- " + FORECAST_MODEL + "$mean[1:" + num4castsTestAndTrain + ",1]");
-        REXP getForecastLower = rengine.eval(FORECAST_LOWER);
-        List<Double> forecastLower = Utils.arrayToList(getForecastLower.asDoubleArray());
-        REXP getForecastUpper = rengine.eval(FORECAST_UPPER);
-        List<Double> forecastUpper = Utils.arrayToList(getForecastUpper.asDoubleArray());
+        List<Double> forecastLower = rengine.evalAndReturnList(FORECAST_LOWER);
+        List<Double> forecastUpper = rengine.evalAndReturnList(FORECAST_UPPER);
         
         List<Interval> forecastIntervalsAll = Utils.zipLowerUpperToIntervals(forecastLower, forecastUpper);
         List<Interval> forecastsTest = new ArrayList<>(forecastIntervalsAll.subList(0, num4castsTestAndTrain - params.getNumForecasts()));

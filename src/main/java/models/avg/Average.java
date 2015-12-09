@@ -5,7 +5,6 @@ import models.Model;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import org.rosuda.JRI.REXP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import utils.*;
@@ -193,10 +192,8 @@ public abstract class Average {
                 MyRengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
                 TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
-                REXP getFittedValsAvg = rengine.eval(fittedValsAvgAll.toString());
-                double[] fittedValsAvg = getFittedValsAvg.asDoubleArray();
-                REXP getForecastValsTestAvg = rengine.eval(forecastValsTestAvgAll.toString());
-                double[] forecastValsTestAvg = getForecastValsTestAvg.asDoubleArray();
+                double[] fittedValsAvg = rengine.evalAndReturnArray(fittedValsAvgAll.toString());
+                double[] forecastValsTestAvg = rengine.evalAndReturnArray(forecastValsTestAvgAll.toString());
 
                 ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
                         Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()), 
@@ -204,8 +201,7 @@ public abstract class Average {
                         Utils.arrayToList(fittedValsAvg), Utils.arrayToList(forecastValsTestAvg), 0);
 
                 thisAvgReport.setErrorMeasures(errorMeasures);
-                REXP getForecastValsFutureAvg = rengine.eval(forecastValsFutureAvgAll.toString());
-                double[] forecastValsFutureAvg = getForecastValsFutureAvg.asDoubleArray();
+                double[] forecastValsFutureAvg = rengine.evalAndReturnArray(forecastValsFutureAvgAll.toString());
                 thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
                 thisAvgReport.setColourInPlot(ColourService.getService().getNewColour());
                 thisAvgReport.setPlotCode("plot.ts(" + avgAll + ", lty=2)");
@@ -398,18 +394,10 @@ public abstract class Average {
                 rengine.eval("upperFuture <- " + avgAllUppersFuture.toString());
                 
                 //add report:
-                REXP getAllLowersTrain = rengine.eval("lowerTrain");
-                double[] allLowersTrain = getAllLowersTrain.asDoubleArray();
-                List<Double> allLowersTrainList = Utils.arrayToList(allLowersTrain);
-                REXP getAllLowersTest = rengine.eval("lowerTest");
-                double[] allLowersTest = getAllLowersTest.asDoubleArray();
-                List<Double> allLowersTestList = Utils.arrayToList(allLowersTest);
-                REXP getAllUppersTrain = rengine.eval("upperTrain");
-                double[] allUppersTrain = getAllUppersTrain.asDoubleArray();
-                List<Double> allUppersTrainList = Utils.arrayToList(allUppersTrain);
-                REXP getAllUppersTest = rengine.eval("upperTest");
-                double[] allUppersTest = getAllUppersTest.asDoubleArray();
-                List<Double> allUppersTestList = Utils.arrayToList(allUppersTest);
+                List<Double> allLowersTrainList = rengine.evalAndReturnList("lowerTrain");
+                List<Double> allLowersTestList = rengine.evalAndReturnList("lowerTest");
+                List<Double> allUppersTrainList = rengine.evalAndReturnList("upperTrain");
+                List<Double> allUppersTestList = rengine.evalAndReturnList("upperTest");
                 List<Interval> allIntervalsTrain = Utils.zipLowerUpperToIntervals(allLowersTrainList, allUppersTrainList);
                 List<Interval> allIntervalsTest = Utils.zipLowerUpperToIntervals(allLowersTestList, allUppersTestList);
 
@@ -434,10 +422,8 @@ public abstract class Average {
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
                 reportAvgAllITS.setForecastValuesFuture(realValuesTest);
 
-                REXP getAllLowersFuture = rengine.eval("lowerFuture");
-                List<Double> allLowersFutureList = Utils.arrayToList(getAllLowersFuture.asDoubleArray());
-                REXP getAllUppersFuture = rengine.eval("upperFuture");
-                List<Double> allUppersFutureList = Utils.arrayToList(getAllUppersFuture.asDoubleArray());
+                List<Double> allLowersFutureList = rengine.evalAndReturnList("lowerFuture");
+                List<Double> allUppersFutureList = rengine.evalAndReturnList("upperFuture");
                 List<Interval> allIntervalsFuture = Utils.zipLowerUpperToIntervals(allLowersFutureList, allUppersFutureList);
                 reportAvgAllITS.setForecastValuesFuture(allIntervalsFuture);
                 reportAvgAllITS.setNumTrainingEntries(reportsIntTS.get(0).getNumTrainingEntries());

@@ -2,7 +2,6 @@ package models;
 
 import models.params.BNNParams;
 import models.params.Params;
-import org.rosuda.JRI.REXP;
 import utils.*;
 
 import java.util.ArrayList;
@@ -61,14 +60,12 @@ public class BNN implements Forecastable {
             rengine.eval(NNETWORK + " <- brnn::brnn(" + INPUT_TRAIN + ", " + OUTPUT_TRAIN + ")");
             
             rengine.eval(FIT + " <- predict(" + NNETWORK + ")");
-            REXP getFittedVals = rengine.eval("c(rep(NA, " + maxLag + "), " + FIT + ")");
-            double[] fittedVals = getFittedVals.asDoubleArray();
+            double[] fittedVals = rengine.evalAndReturnArray("c(rep(NA, " + maxLag + "), " + FIT + ")");
             report.setFittedValues(fittedVals);
             
             rengine.eval(FORECAST_TEST + " <- predict(" + NNETWORK + ", " + INPUT_TEST + ")");
-            
-            REXP getForecastValsTest = rengine.eval(FORECAST_TEST);
-            double[] forecastValsTest = getForecastValsTest.asDoubleArray();
+
+            double[] forecastValsTest = rengine.evalAndReturnArray(FORECAST_TEST);
             report.setForecastValuesTest(forecastValsTest);
             
             report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastValsTest) + "))");
@@ -149,9 +146,7 @@ public class BNN implements Forecastable {
         for (List<Double> unscaled : inputs) {
             rengine.assign(LIST, Utils.listToArray(unscaled));
             rengine.eval(SCALED + " <- MLPtoR.scale(" + LIST + ")");
-            REXP getScaled = rengine.eval(SCALED);
-            double[] scaled = getScaled.asDoubleArray();
-            inputsScaled.add(Utils.arrayToList(scaled));
+            inputsScaled.add(rengine.evalAndReturnList(SCALED));
         }
         
         return inputsScaled;
