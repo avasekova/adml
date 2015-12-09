@@ -14,6 +14,7 @@ import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.settingspanels.*;
 import gui.subpanels.AnalysisBatchSubPanel;
 import gui.subpanels.BayesianSubPanel;
+import gui.subpanels.ForecastValuesSubPanel;
 import gui.subpanels.ModelDescriptionsSubPanel;
 import gui.tablemodels.*;
 import models.*;
@@ -489,14 +490,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonPlotResiduals = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         listPlotResidualsLegend = new javax.swing.JList();
-        panelForecastValsAll = new javax.swing.JPanel();
-        buttonExportForecastValues = new javax.swing.JButton();
-        panelForecastVals = new javax.swing.JPanel();
-        scrollPaneForecastVals = new javax.swing.JScrollPane();
-        buttonForecastValsShowHidden = new javax.swing.JButton();
-        buttonForecastValsHideNoForecasts = new javax.swing.JButton();
-        jLabel14 = new javax.swing.JLabel();
-        buttonForecastValsHideAllButAvg = new javax.swing.JButton();
+        panelForecastValsAll = new ForecastValuesSubPanel();
         panelDiagramsNNs = new javax.swing.JPanel();
         panelDiagramsNNsInside = new javax.swing.JPanel();
         buttonExportDiagramsNN = new javax.swing.JButton();
@@ -3653,79 +3647,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelEverything.addTab("Residuals", panelResidualsAll);
 
         panelForecastValsAll.setPreferredSize(new java.awt.Dimension(1361, 615));
-
-        buttonExportForecastValues.setText("Export these values");
-        buttonExportForecastValues.setEnabled(false);
-        buttonExportForecastValues.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportForecastValuesActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelForecastValsLayout = new javax.swing.GroupLayout(panelForecastVals);
-        panelForecastVals.setLayout(panelForecastValsLayout);
-        panelForecastValsLayout.setHorizontalGroup(
-            panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneForecastVals)
-        );
-        panelForecastValsLayout.setVerticalGroup(
-            panelForecastValsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
-        );
-
-        buttonForecastValsShowHidden.setText("Show hidden columns");
-        buttonForecastValsShowHidden.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonForecastValsShowHiddenActionPerformed(evt);
-            }
-        });
-
-        buttonForecastValsHideNoForecasts.setText("Hide models without forecasts");
-        buttonForecastValsHideNoForecasts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonForecastValsHideNoForecastsActionPerformed(evt);
-            }
-        });
-
-        jLabel14.setText("(double-click inside a column to hide it.)");
-
-        buttonForecastValsHideAllButAvg.setText("Hide all except for average");
-        buttonForecastValsHideAllButAvg.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonForecastValsHideAllButAvgActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelForecastValsAllLayout = new javax.swing.GroupLayout(panelForecastValsAll);
-        panelForecastValsAll.setLayout(panelForecastValsAllLayout);
-        panelForecastValsAllLayout.setHorizontalGroup(
-            panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelForecastValsAllLayout.createSequentialGroup()
-                .addComponent(buttonExportForecastValues)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonForecastValsShowHidden)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonForecastValsHideNoForecasts)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonForecastValsHideAllButAvg)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel14)
-                .addGap(0, 561, Short.MAX_VALUE))
-            .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        panelForecastValsAllLayout.setVerticalGroup(
-            panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelForecastValsAllLayout.createSequentialGroup()
-                .addGroup(panelForecastValsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(buttonExportForecastValues)
-                    .addComponent(buttonForecastValsShowHidden)
-                    .addComponent(buttonForecastValsHideNoForecasts)
-                    .addComponent(jLabel14)
-                    .addComponent(buttonForecastValsHideAllButAvg))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelForecastVals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         panelEverything.addTab("Forecast values", panelForecastValsAll);
 
         panelDiagramsNNs.setPreferredSize(new java.awt.Dimension(1361, 615));
@@ -4377,25 +4298,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
 
-    private void buttonExportForecastValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportForecastValuesActionPerformed
-        JFileChooser fileChooser = new OverwriteFileChooser();
-        fileChooser.setSelectedFile(new File("forecast_values.xls"));
-        if (evt.getSource() == buttonExportForecastValues) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File forecastValuesFile = fileChooser.getSelectedFile();
-                    ExcelWriter.forecastJTableToExcel((ForecastValsTableModel)(forecastValuesLatest.getModel()), forecastValuesFile);
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
-        }
-
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonExportForecastValues.setEnabled(false);
-    }//GEN-LAST:event_buttonExportForecastValuesActionPerformed
-
     private void checkBoxAvgSimpleCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleCTSperMActionPerformed
         checkBoxAvgGotSelected(checkBoxAvgSimpleCTSperM);
     }//GEN-LAST:event_checkBoxAvgSimpleCTSperMActionPerformed
@@ -4725,18 +4627,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         ((ErrorMeasuresTableModel_CTS)errorMeasuresLatest_CTS.getModel()).showAllHiddenRows();
         ((ErrorMeasuresTableModel_ITS)errorMeasuresLatest_IntTS.getModel()).showAllHiddenRows();
     }//GEN-LAST:event_buttonRunShowHiddenErrorMeasuresActionPerformed
-
-    private void buttonForecastValsShowHiddenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsShowHiddenActionPerformed
-        ((ForecastValsTableModel)forecastValuesLatest.getModel()).showAllHiddenColumns();
-    }//GEN-LAST:event_buttonForecastValsShowHiddenActionPerformed
-
-    private void buttonForecastValsHideNoForecastsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsHideNoForecastsActionPerformed
-        ((ForecastValsTableModel)forecastValuesLatest.getModel()).hideNoForecasts();
-    }//GEN-LAST:event_buttonForecastValsHideNoForecastsActionPerformed
-
-    private void buttonForecastValsHideAllButAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsHideAllButAvgActionPerformed
-        ((ForecastValsTableModel)forecastValuesLatest.getModel()).hideAllButAvg();
-    }//GEN-LAST:event_buttonForecastValsHideAllButAvgActionPerformed
 
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
@@ -5173,14 +5063,10 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonExportAnalysisPlotsCTS;
     private javax.swing.JButton buttonExportAnalysisText;
     private javax.swing.JButton buttonExportDiagramsNN;
-    private javax.swing.JButton buttonExportForecastValues;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.JButton buttonExportResiduals;
     private javax.swing.JButton buttonExportTestsPlots;
     private javax.swing.JButton buttonExportTextAreaTests;
-    private javax.swing.JButton buttonForecastValsHideAllButAvg;
-    private javax.swing.JButton buttonForecastValsHideNoForecasts;
-    private javax.swing.JButton buttonForecastValsShowHidden;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
     private javax.swing.JButton buttonHistograms;
@@ -5315,7 +5201,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel133;
     private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel139;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel143;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel150;
@@ -5444,7 +5329,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JPanel panelErrorMeasures;
     private javax.swing.JPanel panelErrorMeasuresAll;
     private javax.swing.JTabbedPane panelEverything;
-    private javax.swing.JPanel panelForecastVals;
     private javax.swing.JPanel panelForecastValsAll;
     private javax.swing.JPanel panelHoltInside;
     private javax.swing.JPanel panelHoltIntDistance;
@@ -5554,7 +5438,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
-    private javax.swing.JScrollPane scrollPaneForecastVals;
     private javax.swing.JScrollPane scrollPaneListPlotLegend;
     private javax.swing.JScrollPane scrollPanePredictionIntervals;
     private javax.swing.JScrollPane scrollPaneResiduals;
@@ -6532,10 +6415,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         firstColumn.setMaxWidth(50);
         forecastValuesTable.setVisible(true);
         forecastValuesLatest = forecastValuesTable;
-        panelForecastVals.removeAll();
-        scrollPaneForecastVals.setViewportView(forecastValuesLatest);
-        panelForecastVals.add(scrollPaneForecastVals);
-        panelForecastVals.repaint();
+        ((ForecastValuesSubPanel) panelForecastValsAll).setForecastValuesLatest(forecastValuesLatest);
+        ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().removeAll();
+        ((ForecastValuesSubPanel) panelForecastValsAll).getScrollPaneForecastVals().setViewportView(forecastValuesLatest);
+        ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().add(((ForecastValuesSubPanel) panelForecastValsAll).getScrollPaneForecastVals());
+        ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().repaint();
         
         //and show residuals
         if (! allReports.isEmpty()) {
@@ -6650,7 +6534,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection,
                 buttonPCA, buttonKMOTest, buttonBartlettsTest, buttonScreePlot);
         
-        groupExportButtons.addAll(buttonRunExportErrorMeasures, buttonExportForecastValues, buttonExportResiduals);
+        groupExportButtons.addAll(buttonRunExportErrorMeasures, ((ForecastValuesSubPanel) panelForecastValsAll).getButtonExportForecastValues(), buttonExportResiduals);
     }
 
     public AdmlProviderImpl<TrainAndTestReport> getServer() {
