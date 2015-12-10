@@ -1,21 +1,18 @@
 package gui;
 
 import analysis.AnalysisUtils;
-import analysis.StatisticalTests;
 import analysis.Transformations;
 import gui.dialogs.*;
 import gui.filefilters.*;
 import gui.files.OverwriteFileChooser;
 import gui.files.PlotExtensionFileChooser;
 import gui.renderers.ErrorTableCellRenderer;
-import gui.renderers.PlotLegendSimpleListElement;
-import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
-import gui.renderers.PlotLegendTurnOFFableListElement;
 import gui.settingspanels.*;
 import gui.subpanels.AnalysisBatchSubPanel;
 import gui.subpanels.BayesianSubPanel;
 import gui.subpanels.ForecastValuesSubPanel;
 import gui.subpanels.ModelDescriptionsSubPanel;
+import gui.subpanels.PlotSubPanel;
 import gui.subpanels.ResidualsSubPanel;
 import gui.subpanels.TestsSubPanel;
 import gui.tablemodels.*;
@@ -36,7 +33,6 @@ import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
@@ -44,7 +40,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -140,36 +135,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         jSeparator14 = new javax.swing.JSeparator();
         buttonConvertITSLBUBCR = new javax.swing.JButton();
         buttonITSclearSelection = new javax.swing.JButton();
-        panelPlotImage = new javax.swing.JPanel();
-        buttonPlotExportPlot = new javax.swing.JButton();
-        panelPlot = new javax.swing.JPanel();
-        jLabel89 = new javax.swing.JLabel();
-        jLabel127 = new javax.swing.JLabel();
-        textFieldPlotRangeCTSXfrom = new javax.swing.JTextField();
-        textFieldPlotRangeCTSYfrom = new javax.swing.JTextField();
-        textFieldPlotRangeCTSXto = new javax.swing.JTextField();
-        textFieldPlotRangeCTSYto = new javax.swing.JTextField();
-        jLabel126 = new javax.swing.JLabel();
-        jLabel128 = new javax.swing.JLabel();
-        buttonPlotRestoreCTSRangeX = new javax.swing.JButton();
-        buttonPlotRestoreCTSRangeY = new javax.swing.JButton();
-        buttonPlotZoomCTS = new javax.swing.JButton();
-        jLabel129 = new javax.swing.JLabel();
-        jLabel130 = new javax.swing.JLabel();
-        textFieldPlotRangeIntTSXfrom = new javax.swing.JTextField();
-        textFieldPlotRangeIntTSYfrom = new javax.swing.JTextField();
-        jLabel131 = new javax.swing.JLabel();
-        jLabel132 = new javax.swing.JLabel();
-        textFieldPlotRangeIntTSXto = new javax.swing.JTextField();
-        textFieldPlotRangeIntTSYto = new javax.swing.JTextField();
-        buttonPlotRestoreIntTSRangeX = new javax.swing.JButton();
-        buttonPlotRestoreIntTSRangeY = new javax.swing.JButton();
-        buttonPlotZoomIntTS = new javax.swing.JButton();
-        jSeparator9 = new javax.swing.JSeparator();
-        scrollPaneListPlotLegend = new javax.swing.JScrollPane();
-        listPlotLegend = new javax.swing.JList();
-        buttonLegendSelectAll = new javax.swing.JButton();
-        buttonLegendSelectNone = new javax.swing.JButton();
+        panelPlotImage = new PlotSubPanel();
         panelTestsOutside = new TestsSubPanel();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
@@ -645,7 +611,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                                 .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(buttonScreePlot)
                                     .addComponent(buttonPACF))))
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -656,7 +622,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addComponent(buttonExportAnalysisPlotsCTS)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel22)
-                        .addGap(0, 408, Short.MAX_VALUE)))
+                        .addGap(0, 391, Short.MAX_VALUE)))
                 .addGap(16, 16, 16))
         );
         panelCTSLayout.setVerticalGroup(
@@ -691,7 +657,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addGap(7, 7, 7)
                         .addComponent(buttonExportAnalysisText)
                         .addGap(9, 9, 9)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
                     .addGroup(panelCTSLayout.createSequentialGroup()
                         .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(buttonExportAnalysisPlotsCTS)
@@ -781,7 +747,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel25))
                     .addComponent(buttonNormalize))
-                .addContainerGap(845, Short.MAX_VALUE))
+                .addContainerGap(827, Short.MAX_VALUE))
         );
         panelTransformLayout.setVerticalGroup(
             panelTransformLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -803,7 +769,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                             .addComponent(textFieldAggregateToITSevery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel25)))
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(391, Short.MAX_VALUE))
+                .addContainerGap(390, Short.MAX_VALUE))
         );
 
         panelEverything.addTab("CTS transformation", panelTransform);
@@ -899,7 +865,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 .addComponent(jSeparator14, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(buttonConvertITSLBUBCR)
-                .addContainerGap(675, Short.MAX_VALUE))
+                .addContainerGap(657, Short.MAX_VALUE))
         );
         panelIntTSLayout.setVerticalGroup(
             panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -927,285 +893,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                                 .addGroup(panelIntTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(buttonPlotAllITSScatterplotMatrix)
                                     .addComponent(jLabel18))))
-                        .addGap(0, 328, Short.MAX_VALUE)))
+                        .addGap(0, 327, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         panelEverything.addTab("ITS", panelIntTS);
         panelIntTS.getAccessibleContext().setAccessibleName("");
-
-        buttonPlotExportPlot.setText("Save currently shown plot");
-        buttonPlotExportPlot.setEnabled(false);
-        buttonPlotExportPlot.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotExportPlotActionPerformed(evt);
-            }
-        });
-
-        gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());
-        panelPlot.add(gdBufferedPanelPlot, BorderLayout.CENTER);
-        panelPlot.setLayout(new java.awt.BorderLayout());
-
-        jLabel89.setText("Zoom CTS axis x: from");
-
-        jLabel127.setText("Zoom CTS axis y: from");
-
-        textFieldPlotRangeCTSXfrom.setText("0");
-        textFieldPlotRangeCTSXfrom.setEnabled(false);
-
-        textFieldPlotRangeCTSYfrom.setText("0");
-        textFieldPlotRangeCTSYfrom.setEnabled(false);
-
-        textFieldPlotRangeCTSXto.setText("0");
-        textFieldPlotRangeCTSXto.setEnabled(false);
-
-        textFieldPlotRangeCTSYto.setText("0");
-        textFieldPlotRangeCTSYto.setEnabled(false);
-
-        jLabel126.setText("to");
-
-        jLabel128.setText("to");
-
-        buttonPlotRestoreCTSRangeX.setText("<-restore all");
-        buttonPlotRestoreCTSRangeX.setEnabled(false);
-        buttonPlotRestoreCTSRangeX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotRestoreCTSRangeXActionPerformed(evt);
-            }
-        });
-
-        buttonPlotRestoreCTSRangeY.setText("<-restore all");
-        buttonPlotRestoreCTSRangeY.setEnabled(false);
-        buttonPlotRestoreCTSRangeY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotRestoreCTSRangeYActionPerformed(evt);
-            }
-        });
-
-        buttonPlotZoomCTS.setText("Zoom CTS");
-        buttonPlotZoomCTS.setEnabled(false);
-        buttonPlotZoomCTS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotZoomCTSActionPerformed(evt);
-            }
-        });
-
-        jLabel129.setText("Zoom ITS axis x: from");
-
-        jLabel130.setText("Zoom ITS axis y: from");
-
-        textFieldPlotRangeIntTSXfrom.setText("0");
-        textFieldPlotRangeIntTSXfrom.setEnabled(false);
-
-        textFieldPlotRangeIntTSYfrom.setText("0");
-        textFieldPlotRangeIntTSYfrom.setEnabled(false);
-
-        jLabel131.setText("to");
-
-        jLabel132.setText("to");
-
-        textFieldPlotRangeIntTSXto.setText("0");
-        textFieldPlotRangeIntTSXto.setEnabled(false);
-
-        textFieldPlotRangeIntTSYto.setText("0");
-        textFieldPlotRangeIntTSYto.setEnabled(false);
-
-        buttonPlotRestoreIntTSRangeX.setText("<-restore all");
-        buttonPlotRestoreIntTSRangeX.setEnabled(false);
-        buttonPlotRestoreIntTSRangeX.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotRestoreIntTSRangeXActionPerformed(evt);
-            }
-        });
-
-        buttonPlotRestoreIntTSRangeY.setText("<-restore all");
-        buttonPlotRestoreIntTSRangeY.setEnabled(false);
-        buttonPlotRestoreIntTSRangeY.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotRestoreIntTSRangeYActionPerformed(evt);
-            }
-        });
-
-        buttonPlotZoomIntTS.setText("Zoom ITS");
-        buttonPlotZoomIntTS.setEnabled(false);
-        buttonPlotZoomIntTS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotZoomIntTSActionPerformed(evt);
-            }
-        });
-
-        jSeparator9.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        scrollPaneListPlotLegend.setPreferredSize(new java.awt.Dimension(300, 130));
-
-        listPlotLegend.setModel(new DefaultListModel());
-        listPlotLegend.setCellRenderer(new gui.renderers.PlotLegendSimpleListCellRenderer());
-        MouseListener mouseListener = new MouseListener() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                //nerob inak vobec nic
-                if (listPlotLegend.getSelectedIndex() == -1) {
-                    listPlotLegend.setSelectedIndex(listPlotLegend.locationToIndex(e.getPoint()));
-                }
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                if (((DefaultListModel)listPlotLegend.getModel())
-                    .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendTurnOFFableListElement) {
-                    ((PlotLegendTurnOFFableListElement)((DefaultListModel)listPlotLegend.getModel())
-                        .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
-                } else {
-                    if (((DefaultListModel)listPlotLegend.getModel())
-                        .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendSimpleListElement) {
-                        ((PlotLegendSimpleListElement)((DefaultListModel)listPlotLegend.getModel())
-                            .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
-                    }
-                }
-            }
-            @Override
-            public void mouseEntered(MouseEvent e) { }
-            @Override
-            public void mouseExited(MouseEvent e) { }
-            @Override
-            public void mouseClicked(MouseEvent e) { }
-        };
-        listPlotLegend.addMouseListener(mouseListener);
-        scrollPaneListPlotLegend.setViewportView(listPlotLegend);
-
-        buttonLegendSelectAll.setText("Select all");
-        buttonLegendSelectAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLegendSelectAllActionPerformed(evt);
-            }
-        });
-
-        buttonLegendSelectNone.setText("Unselect all");
-        buttonLegendSelectNone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonLegendSelectNoneActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelPlotImageLayout = new javax.swing.GroupLayout(panelPlotImage);
-        panelPlotImage.setLayout(panelPlotImageLayout);
-        panelPlotImageLayout.setHorizontalGroup(
-            panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPlotImageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelPlotImageLayout.createSequentialGroup()
-                        .addComponent(buttonPlotExportPlot)
-                        .addGap(18, 18, 18)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel127)
-                            .addComponent(jLabel89))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldPlotRangeCTSXfrom)
-                            .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel126)
-                            .addComponent(jLabel128))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldPlotRangeCTSYto)
-                            .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotRestoreCTSRangeX)
-                            .addComponent(buttonPlotRestoreCTSRangeY))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonPlotZoomCTS)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel130)
-                            .addComponent(jLabel129))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldPlotRangeIntTSXfrom)
-                            .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel131)
-                            .addComponent(jLabel132))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textFieldPlotRangeIntTSYto)
-                            .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonPlotRestoreIntTSRangeX)
-                            .addComponent(buttonPlotRestoreIntTSRangeY))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(buttonPlotZoomIntTS)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonLegendSelectNone, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotImageLayout.createSequentialGroup()
-                                .addComponent(scrollPaneListPlotLegend, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonLegendSelectAll)
-                                .addGap(12, 12, 12))))
-                    .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        panelPlotImageLayout.setVerticalGroup(
-            panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelPlotImageLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelPlotImageLayout.createSequentialGroup()
-                        .addComponent(buttonLegendSelectAll)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonLegendSelectNone))
-                    .addComponent(buttonPlotExportPlot)
-                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelPlotImageLayout.createSequentialGroup()
-                            .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonPlotRestoreCTSRangeX)
-                                .addComponent(textFieldPlotRangeCTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonPlotRestoreCTSRangeY)
-                                .addComponent(jLabel127)
-                                .addComponent(textFieldPlotRangeCTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel128)
-                                .addComponent(textFieldPlotRangeCTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPlotImageLayout.createSequentialGroup()
-                            .addGap(11, 11, 11)
-                            .addComponent(buttonPlotZoomCTS)
-                            .addGap(15, 15, 15)))
-                    .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel89, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textFieldPlotRangeCTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel126))
-                    .addComponent(jSeparator9, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelPlotImageLayout.createSequentialGroup()
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonPlotRestoreIntTSRangeX)
-                            .addComponent(textFieldPlotRangeIntTSXto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldPlotRangeIntTSXfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel131)
-                            .addComponent(jLabel129, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelPlotImageLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonPlotRestoreIntTSRangeY)
-                            .addComponent(textFieldPlotRangeIntTSYto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(textFieldPlotRangeIntTSYfrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel132)
-                            .addComponent(jLabel130)))
-                    .addGroup(panelPlotImageLayout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(buttonPlotZoomIntTS))
-                    .addComponent(scrollPaneListPlotLegend, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelPlot, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         panelEverything.addTab("Plot", panelPlotImage);
         panelEverything.addTab("Tests", panelTestsOutside);
@@ -1217,11 +910,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelData.setLayout(panelDataLayout);
         panelDataLayout.setHorizontalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1374, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 1356, Short.MAX_VALUE)
         );
         panelDataLayout.setVerticalGroup(
             panelDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 660, Short.MAX_VALUE)
+            .addComponent(scrollPaneData, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
         );
 
         panelEverything.addTab("Data", panelData);
@@ -1286,7 +979,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addComponent(panelMLPPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsMLPLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_MLP)
-                        .addGap(0, 1126, Short.MAX_VALUE)))
+                        .addGap(0, 1108, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsMLPLayout.setVerticalGroup(
@@ -1341,7 +1034,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 .addGroup(panelSettingsMLPintPackage_nnetLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(jLabel101)
-                        .addGap(547, 620, Short.MAX_VALUE))
+                        .addGap(547, 602, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetLayout.createSequentialGroup()
                         .addComponent(scrollPane_panelSettingsMLPintPackage_nnet_radius)
                         .addContainerGap())))
@@ -1384,7 +1077,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 .addGroup(panelSettingsMLPintPackage_nnetarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(jLabel88)
-                        .addGap(0, 635, Short.MAX_VALUE))
+                        .addGap(0, 617, Short.MAX_VALUE))
                     .addGroup(panelSettingsMLPintPackage_nnetarLayout.createSequentialGroup()
                         .addComponent(panelSettingsMLPintPackage_nnetar_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -1440,7 +1133,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(panelSettingsMLPintPackage, javax.swing.GroupLayout.DEFAULT_SIZE, 1245, Short.MAX_VALUE)
                             .addGroup(paneSettingsMethodsMLPintLayout.createSequentialGroup()
                                 .addGap(40, 40, 40)
                                 .addComponent(comboBoxRPackageMLPint, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1463,7 +1156,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                                 .addComponent(panelCRCombinationsStrategyMLPint, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGap(0, 1283, Short.MAX_VALUE))
+                .addGap(0, 1265, Short.MAX_VALUE))
         );
         paneSettingsMethodsMLPintLayout.setVerticalGroup(
             paneSettingsMethodsMLPintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1549,7 +1242,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addComponent(panelSettingsIntervalMLPMode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsIntervalMLPLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_intMLP)
-                        .addGap(0, 1126, Short.MAX_VALUE)))
+                        .addGap(0, 1108, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsIntervalMLPLayout.setVerticalGroup(
@@ -1588,7 +1281,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addComponent(panelRBFPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(paneSettingsMethodsRBFLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_RBF)
-                        .addGap(0, 1126, Short.MAX_VALUE))
+                        .addGap(0, 1108, Short.MAX_VALUE))
                     .addComponent(panelSettingsRBFMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1663,7 +1356,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addGroup(paneSettingsMethodsRBFintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(jLabel151)
-                                .addGap(0, 693, Short.MAX_VALUE))
+                                .addGap(0, 675, Short.MAX_VALUE))
                             .addGroup(paneSettingsMethodsRBFintLayout.createSequentialGroup()
                                 .addComponent(panelSettingsRBFint_radius, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addContainerGap())))
@@ -1743,7 +1436,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addGroup(paneSettingsMethodsARIMALayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_ARIMA)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1116, Short.MAX_VALUE)))
+                        .addComponent(panelARIMAPercTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1098, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         paneSettingsMethodsARIMALayout.setVerticalGroup(
@@ -1795,7 +1488,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addComponent(jLabel64)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(comboBoxKNNoptions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 1153, Short.MAX_VALUE))
+                        .addGap(0, 1135, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsKNNLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_KNN)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1846,7 +1539,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                             .addGroup(panelSettingsMethodsVARintLayout.createSequentialGroup()
                                 .addComponent(buttonSettingsAddToBatch_VARint)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 674, Short.MAX_VALUE)))
+                                .addComponent(panelVARintPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)))
                         .addGap(10, 10, 10)
                         .addComponent(panelVARintDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1888,7 +1581,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addGroup(panelSettingsMethodsSESLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_SES)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)))
+                        .addComponent(panelSESpercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsSESLayout.setVerticalGroup(
@@ -1951,7 +1644,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(panelSESintPercentTrain, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)))
+                        .addComponent(panelSESintDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsSESintLayout.setVerticalGroup(
@@ -1999,7 +1692,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 .addGroup(panelSettingsMethodsMAvgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelSettingsMethodsMAvgLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_MAvg)
-                        .addGap(0, 1126, Short.MAX_VALUE))
+                        .addGap(0, 1108, Short.MAX_VALUE))
                     .addComponent(panelMAvgMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -2034,7 +1727,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addGroup(panelSettingsMethodsHoltLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_Holt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)))
+                        .addComponent(panelHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsHoltLayout.setVerticalGroup(
@@ -2081,7 +1774,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addGroup(panelSettingsMethodsHoltIntLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelSettingsMethodsHoltIntLayout.createSequentialGroup()
                                 .addComponent(jLabel152)
-                                .addGap(0, 573, Short.MAX_VALUE))
+                                .addGap(0, 555, Short.MAX_VALUE))
                             .addComponent(panelHoltInt_center, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -2152,7 +1845,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                             .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                                 .addComponent(buttonSettingsAddToBatch_IntervalHolt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
+                                .addComponent(panelIntervalHoltPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE))
                             .addGroup(panelSettingsMethodsIntervalHoltLayout.createSequentialGroup()
                                 .addComponent(jLabel10)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -2199,7 +1892,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addGroup(panelSettingsMethodsHoltWintersLayout.createSequentialGroup()
                         .addComponent(buttonSettingsAddToBatch_HoltWinters)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1120, Short.MAX_VALUE)))
+                        .addComponent(panelHoltWintersPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 1102, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelSettingsMethodsHoltWintersLayout.setVerticalGroup(
@@ -2262,7 +1955,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                             .addGroup(panelSettingsMethodsHoltWintersIntLayout.createSequentialGroup()
                                 .addComponent(buttonSettingsAddToBatch_HoltWintersInt)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)))
+                                .addComponent(panelHoltWintersIntPercentTrain, javax.swing.GroupLayout.DEFAULT_SIZE, 603, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(panelHoltWintersIntDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 489, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -2383,7 +2076,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(comboBoxSettingsHybridMethod_radius, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 590, Short.MAX_VALUE))
+                                .addGap(0, 572, Short.MAX_VALUE))
                             .addComponent(panelSettingsHybrid_radiusMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -2485,7 +2178,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneSettingsMethodsBNNintLayout.createSequentialGroup()
                         .addGroup(paneSettingsMethodsBNNintLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel30)
-                            .addComponent(panelSettingsBNNint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
+                            .addComponent(panelSettingsBNNint_center, javax.swing.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator13, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2544,7 +2237,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelAnalysisSettings.setLayout(panelAnalysisSettingsLayout);
         panelAnalysisSettingsLayout.setHorizontalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, 1374, Short.MAX_VALUE)
+            .addComponent(paneSettingsMethods, javax.swing.GroupLayout.DEFAULT_SIZE, 1356, Short.MAX_VALUE)
         );
         panelAnalysisSettingsLayout.setVerticalGroup(
             panelAnalysisSettingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -3254,7 +2947,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelRunOutsideLayout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(86, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         panelEverything.addTab("Run", panelRunOutside);
@@ -3269,7 +2962,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         );
         panelErrorMeasuresLayout.setVerticalGroup(
             panelErrorMeasuresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 609, Short.MAX_VALUE)
+            .addGap(0, 608, Short.MAX_VALUE)
         );
 
         buttonRunShowHiddenErrorMeasures.setText("Show hidden rows");
@@ -3312,7 +3005,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         .addComponent(jLabel13)
                         .addGap(18, 18, 18)
                         .addComponent(buttonRunExportErrorMeasures)
-                        .addGap(0, 712, Short.MAX_VALUE)))
+                        .addGap(0, 694, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelErrorMeasuresAllLayout.setVerticalGroup(
@@ -3391,7 +3084,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelPredictionIntervalsLayout.setVerticalGroup(
             panelPredictionIntervalsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPredictionIntervalsLayout.createSequentialGroup()
-                .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 615, Short.MAX_VALUE)
+                .addComponent(scrollPanePredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, 614, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -3401,7 +3094,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             panelPredictionIntervalsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addComponent(buttonExportPredictionIntervals)
-                .addGap(0, 1309, Short.MAX_VALUE))
+                .addGap(0, 1291, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelPredictionIntervalsAllLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(panelPredictionIntervals, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -3428,11 +3121,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelCombinationWeights.setLayout(panelCombinationWeightsLayout);
         panelCombinationWeightsLayout.setHorizontalGroup(
             panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1354, Short.MAX_VALUE)
+            .addGap(0, 1336, Short.MAX_VALUE)
         );
         panelCombinationWeightsLayout.setVerticalGroup(
             panelCombinationWeightsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 620, Short.MAX_VALUE)
+            .addGap(0, 619, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelCombinationWeightsAllLayout = new javax.swing.GroupLayout(panelCombinationWeightsAll);
@@ -3565,10 +3258,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             }
         }
         
-        PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(), DataTableModel.getInstance(),
+        PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCR, listITSPlotLU, false));
-        buttonPlotExportPlot.setEnabled(true);
+        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 1);
         
         panelEverything.setSelectedComponent(panelPlotImage);
@@ -3842,147 +3536,10 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelSettingsMLPintPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageMLPintActionPerformed
 
-    private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
-        JFileChooser fileChooser = new PlotExtensionFileChooser();
-        fileChooser.setSelectedFile(new File("plotExport.eps"));
-        
-        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.addChoosableFileFilter(new FileFilterEps());
-        fileChooser.addChoosableFileFilter(new FileFilterPs());
-        fileChooser.addChoosableFileFilter(new FileFilterPng());
-        fileChooser.addChoosableFileFilter(new FileFilterPdf());
-        
-        if (evt.getSource() == buttonPlotExportPlot) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File plotFile = fileChooser.getSelectedFile();
-                    MyRengine rengine = MyRengine.getRengine();
-
-                    String device = "";
-                    String ext = "";
-                    if (fileChooser.getFileFilter() instanceof RFileFilter) {
-                        device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
-                        ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
-                    }
-                    
-                    String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                        //tipnem si, ze je tam pripona
-                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
-                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-                        } //else to bola nejaka ina cast mena za bodkou
-                    }
-                    
-                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
-//                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
-                    //a na zaver to disablovat, aby sa na to netukalo furt
-                    buttonPlotExportPlot.setEnabled(false);
-                    
-                    
-                    
-                    //a exportuj aj legendu (zatial do samostatneho obrazku):
-                    BufferedImage im = new BufferedImage(listPlotLegend.getWidth(), listPlotLegend.getHeight(),
-                            BufferedImage.TYPE_INT_ARGB);
-                    listPlotLegend.paint(im.getGraphics());
-                    try {
-                        //for some reason only works with "PNG", so leave it be for now //TODO fix
-                        ImageIO.write(im, "PNG", new File(fileName + "-legend.png"));
-                    } catch (IOException ex) {
-                        logger.error("Exception", ex);
-                    }
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
-        }
-    }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
-
     private void buttonRunRestoreRangeAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunRestoreRangeAllActionPerformed
         textFieldRunDataRangeFrom.setText("1");
         textFieldRunDataRangeTo.setText("" + DataTableModel.getInstance().getRowCount());
     }//GEN-LAST:event_buttonRunRestoreRangeAllActionPerformed
-
-    private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed
-        textFieldPlotRangeCTSXfrom.setText("" + textFieldRunDataRangeFrom.getText());
-        int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
-                Integer.parseInt(textFieldRunNumForecasts.getText());
-        textFieldPlotRangeCTSXto.setText("" + upperBound);
-    }//GEN-LAST:event_buttonPlotRestoreCTSRangeXActionPerformed
-
-    private void buttonPlotRestoreCTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeYActionPerformed
-        textFieldPlotRangeCTSYfrom.setText("" + PlotStateKeeper.getCrispYmin());
-        textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getCrispYmax());
-    }//GEN-LAST:event_buttonPlotRestoreCTSRangeYActionPerformed
-
-    private void buttonPlotRestoreIntTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeXActionPerformed
-        if ((PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) &&
-                (((CallParamsDrawPlotsITS)PlotStateKeeper.getLastCallParams()).isScatterplot())) {
-            //TODO
-            textAreaPlotBasicStats.setText("The scatterplot does not support restoring the original range yet.");
-        } else {
-            textFieldPlotRangeIntTSXfrom.setText("" + textFieldRunDataRangeFrom.getText());
-            int upperBound = Integer.parseInt(textFieldRunDataRangeTo.getText()) + 
-                    Integer.parseInt(textFieldRunNumForecasts.getText());
-            textFieldPlotRangeIntTSXto.setText("" + upperBound);
-        }
-    }//GEN-LAST:event_buttonPlotRestoreIntTSRangeXActionPerformed
-
-    private void buttonPlotRestoreIntTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeYActionPerformed
-        if ((PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) &&
-                (((CallParamsDrawPlotsITS)PlotStateKeeper.getLastCallParams()).isScatterplot())) {
-            //TODO
-            textAreaPlotBasicStats.setText("The scatterplot does not support restoring the original range yet.");
-        } else {
-            textFieldPlotRangeIntTSYfrom.setText("" + PlotStateKeeper.getIntYmin());
-            textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getIntYmax());
-        }
-    }//GEN-LAST:event_buttonPlotRestoreIntTSRangeYActionPerformed
-
-    private void buttonPlotZoomCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotZoomCTSActionPerformed
-        if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlots) {
-            String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
-            String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
-            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
-            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
-                    
-            PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_NO, 
-                    (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
-            setPlotRanges(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS().size(),
-                          ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS().size());
-        } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
-            String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
-            String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
-            
-            PlotDrawer.drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
-            setPlotRanges(1, 0); //hack - cokolvek ine ako nula na prvom mieste
-        }
-    }//GEN-LAST:event_buttonPlotZoomCTSActionPerformed
-
-    private void buttonPlotZoomIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotZoomIntTSActionPerformed
-        if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlots) {
-            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
-            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
-            String rangeXInt = "range(c(" + textFieldPlotRangeIntTSXfrom.getText() + "," + textFieldPlotRangeIntTSXto.getText() + "))";
-            String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
-                    
-            PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_NO,
-                    (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
-            setPlotRanges(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS().size(),
-                          ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS().size());
-        } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
-            String rangeXInt = "range(c(" + textFieldPlotRangeIntTSXfrom.getText() + "," + textFieldPlotRangeIntTSXto.getText() + "))";
-            String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
-            
-            if (((CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams())).isScatterplot()) {
-                PlotDrawer.drawScatterPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
-            } else {
-                PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
-            }
-            setPlotRanges(0, 1); //hack, cokolvek ine ako 0 znamena enable
-        }
-    }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
 
     private void checkBoxAvgSimpleCTSperMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgSimpleCTSperMActionPerformed
         checkBoxAvgGotSelected(checkBoxAvgSimpleCTSperM);
@@ -4270,44 +3827,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_HybridActionPerformed
 
-    private void buttonLegendSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectAllActionPerformed
-        selectAllOrNone(Model.ALL);
-    }//GEN-LAST:event_buttonLegendSelectAllActionPerformed
-
-    private void buttonLegendSelectNoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLegendSelectNoneActionPerformed
-        selectAllOrNone(Model.NONE);
-    }//GEN-LAST:event_buttonLegendSelectNoneActionPerformed
-
-    private void selectAllOrNone(Model selectWhat) {
-        if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
-            //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
-            DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
-            
-            switch (selectWhat) {
-                case NONE:
-                    for (int i = 0; i < model.size(); i++) {
-                        Plottable p = ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport();
-                        if ((p instanceof TrainAndTestReport) && (! ((TrainAndTestReport)p).isAverage())) {
-                            p.setVisible(false);
-                        }
-                    }   break;
-                case ALL:
-                    for (int i = 0; i < model.size(); i++) {
-                        ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport().setVisible(true);
-                }   break;
-            }
-            
-            //to iste ako v buttonLegenSelectAll a v drawLegend - mouseListener. TODO refactor
-            listPlotLegend.repaint();
-            //and then redraw the plots:
-            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
-            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
-            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
-            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
-            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
-                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
-        } //else nereaguj
-    }
     
     private void buttonRunShowHiddenErrorMeasuresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunShowHiddenErrorMeasuresActionPerformed
         ((ErrorMeasuresTableModel_CTS)errorMeasuresLatest_CTS.getModel()).showAllHiddenRows();
@@ -4316,9 +3835,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(), DataTableModel.getInstance(), listITSPlotCentreRadius, listITSPlotLowerUpper, true));
-        buttonPlotExportPlot.setEnabled(true);
+        PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
+                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
+                listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 1);
         
         panelEverything.setSelectedComponent(panelPlotImage);
@@ -4388,12 +3909,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonPlotAllITSScatterplotMatrixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotMatrixActionPerformed
         buttonPlotAllITSScatterplot.doClick(); //hack. for some reason does not draw the matrix without setting up the
                                                //   plot with drawing sth else first.
-        ((DefaultListModel)listPlotLegend.getModel()).clear(); //a second hack to clear the legend after the scatterplot
+        ((DefaultListModel)(((PlotSubPanel)panelPlotImage).getListPlotLegend().getModel())).clear(); //a second hack to clear the legend after the scatterplot
         
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(), DataTableModel.getInstance(), listITSPlotCentreRadius, listITSPlotLowerUpper, true));
-        buttonPlotExportPlot.setEnabled(true);
+        PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(), 
+                listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 0);
         
         panelEverything.setSelectedComponent(panelPlotImage);
@@ -4483,7 +4006,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         } //else to bola nejaka ina cast mena za bodkou
                     }
                     
-                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
+                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + 
+                            ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth() + ", height=" + 
+                            ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight() + ")");
 //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
                     break;
                 case JFileChooser.CANCEL_OPTION:
@@ -4607,8 +4132,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
     private javax.swing.JButton buttonHistograms;
     private javax.swing.JButton buttonITSclearSelection;
-    private javax.swing.JButton buttonLegendSelectAll;
-    private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonLogTransformSeries;
     private javax.swing.JButton buttonNormProbPlot;
     private javax.swing.JButton buttonNormalize;
@@ -4618,15 +4141,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonPlotAllITSScatterplot;
     private javax.swing.JButton buttonPlotAllITSScatterplotMatrix;
     private javax.swing.JButton buttonPlotColname;
-    private javax.swing.JButton buttonPlotExportPlot;
     private javax.swing.JButton buttonPlotRemoveITS;
-    private javax.swing.JButton buttonPlotRestoreCTSRangeX;
-    private javax.swing.JButton buttonPlotRestoreCTSRangeY;
-    private javax.swing.JButton buttonPlotRestoreIntTSRangeX;
-    private javax.swing.JButton buttonPlotRestoreIntTSRangeY;
     private javax.swing.JButton buttonPlotSelectedITS;
-    private javax.swing.JButton buttonPlotZoomCTS;
-    private javax.swing.JButton buttonPlotZoomIntTS;
     private javax.swing.JButton buttonRemoveTrend;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonRunRestoreRangeAll;
@@ -4721,14 +4237,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel100;
     private javax.swing.JLabel jLabel101;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel126;
-    private javax.swing.JLabel jLabel127;
-    private javax.swing.JLabel jLabel128;
-    private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel130;
-    private javax.swing.JLabel jLabel131;
-    private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel133;
     private javax.swing.JLabel jLabel138;
     private javax.swing.JLabel jLabel139;
@@ -4776,7 +4285,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel87;
     private javax.swing.JLabel jLabel88;
-    private javax.swing.JLabel jLabel89;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelRPkg1;
@@ -4798,7 +4306,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JTable jTableData;
     private javax.swing.JLabel labelRunFakeIntCenter;
     private javax.swing.JLabel labelRunFakeIntLower;
@@ -4807,7 +4314,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JList listColnames;
     private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
-    private javax.swing.JList listPlotLegend;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -4873,7 +4379,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JPanel panelMLPintPercentTrain;
     private javax.swing.JPanel panelMLPintSettingsDistance;
     private javax.swing.JPanel panelModelDescriptionsAll;
-    private javax.swing.JPanel panelPlot;
     private javax.swing.JPanel panelPlotImage;
     private javax.swing.JPanel panelPredictionIntervals;
     private javax.swing.JPanel panelPredictionIntervalsAll;
@@ -4954,7 +4459,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JRadioButton radioButtonRunFakeIntCenterRadius;
     private javax.swing.JRadioButton radioButtonRunFakeIntLowerUpper;
     private javax.swing.JScrollPane scrollPaneData;
-    private javax.swing.JScrollPane scrollPaneListPlotLegend;
     private javax.swing.JScrollPane scrollPanePredictionIntervals;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_centerMain_MLPnnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsHybrid_radiusMain_MLPnnet;
@@ -4968,14 +4472,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainBNNint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
-    private javax.swing.JTextField textFieldPlotRangeCTSXfrom;
-    private javax.swing.JTextField textFieldPlotRangeCTSXto;
-    private javax.swing.JTextField textFieldPlotRangeCTSYfrom;
-    private javax.swing.JTextField textFieldPlotRangeCTSYto;
-    private javax.swing.JTextField textFieldPlotRangeIntTSXfrom;
-    private javax.swing.JTextField textFieldPlotRangeIntTSXto;
-    private javax.swing.JTextField textFieldPlotRangeIntTSYfrom;
-    private javax.swing.JTextField textFieldPlotRangeIntTSYto;
     private javax.swing.JTextField textFieldRunDataRangeFrom;
     private javax.swing.JTextField textFieldRunDataRangeTo;
     private javax.swing.JTextField textFieldRunNumForecasts;
@@ -4983,8 +4479,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     // End of variables declaration//GEN-END:variables
 
     private File loadedFile;
-    public static JGDBufferedPanel drawNowToThisGDBufferedPanel;
-    private static JGDBufferedPanel gdBufferedPanelPlot;
     private DialogLbUbCenterRadius dialogLBUBCenterRadius;
     private JTable errorMeasuresLatest_CTS = new JTable(new ErrorMeasuresTableModel_CTS(new ArrayList<>()));
     private JTable errorMeasuresLatest_IntTS = new JTable(new ErrorMeasuresTableModel_ITS((new ArrayList<>())));
@@ -5020,9 +4514,10 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         //String colname = comboBoxColnames.getSelectedItem().toString();
         
         //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(listPlotLegend, 
-                gdBufferedPanelPlot, panelPlot.getWidth(), panelPlot.getHeight(), plottables, plotFunction, additionalArgs));
-        buttonPlotExportPlot.setEnabled(true);
+        PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), plottables, plotFunction, additionalArgs));
+        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
     }
     
     public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
@@ -5361,25 +4856,25 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }
 
-    public void setPlotRanges(int sizeCTS, int sizeIntTS) {
+    public void setPlotRanges(int sizeCTS, int sizeIntTS) { //TODO presunut do PlotSubPanela
         if (sizeCTS == 0) {
             groupZoomControlsCTS.disableAll();
         } else {
             groupZoomControlsCTS.enableAll();
-            textFieldPlotRangeCTSXfrom.setText("" + PlotStateKeeper.getLastDrawnCrispXmin());
-            textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
-            textFieldPlotRangeCTSYfrom.setText("" + PlotStateKeeper.getLastDrawnCrispYmin());
-            textFieldPlotRangeCTSYto.setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSXfrom().setText("" + PlotStateKeeper.getLastDrawnCrispXmin());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSXto().setText("" + PlotStateKeeper.getLastDrawnCrispXmax());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSYfrom().setText("" + PlotStateKeeper.getLastDrawnCrispYmin());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSYto().setText("" + PlotStateKeeper.getLastDrawnCrispYmax());
         }
         
         if (sizeIntTS == 0) {
             groupZoomControlsIntTS.disableAll();
         } else {
             groupZoomControlsIntTS.enableAll();
-            textFieldPlotRangeIntTSXfrom.setText("" + PlotStateKeeper.getLastDrawnIntXmin());
-            textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getLastDrawnIntXmax());
-            textFieldPlotRangeIntTSYfrom.setText("" + PlotStateKeeper.getLastDrawnIntYmin());
-            textFieldPlotRangeIntTSYto.setText("" + PlotStateKeeper.getLastDrawnIntYmax());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSXfrom().setText("" + PlotStateKeeper.getLastDrawnIntXmin());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSXto().setText("" + PlotStateKeeper.getLastDrawnIntXmax());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSYfrom().setText("" + PlotStateKeeper.getLastDrawnIntYmin());
+            ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSYto().setText("" + PlotStateKeeper.getLastDrawnIntYmax());
         }
     }
 
@@ -5855,13 +5350,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
         List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
-                new CallParamsDrawPlots(listPlotLegend, gdBufferedPanelPlot, panelPlot.getWidth(), 
-                panelPlot.getHeight(),
+                new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+                        PlotDrawer.getDrawNowToThisGDBufferedPanel(), 
+                        ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(),
                 DataTableModel.getInstance().getDataForColname(colname_CTS), DataTableModel.getInstance().getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, 
                 new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-        buttonPlotExportPlot.setEnabled(true);
+        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
         allReports.addAll(reportsCTS);
@@ -6023,11 +5519,21 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 checkBoxAvgCenterLogRadiusIntTS, checkBoxAvgCenterLogRadiusIntTSperM,
                 checkBoxAvgMedianCTS, checkBoxAvgMedianCTSperM, checkBoxAvgMedianIntTS, checkBoxAvgMedianIntTSperM);
         
-        groupZoomControlsCTS.addAll(textFieldPlotRangeCTSXfrom, textFieldPlotRangeCTSXto, textFieldPlotRangeCTSYfrom,
-                textFieldPlotRangeCTSYto, buttonPlotRestoreCTSRangeX, buttonPlotRestoreCTSRangeY, buttonPlotZoomCTS);
+        groupZoomControlsCTS.addAll(((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSXfrom(), 
+                ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSXto(), 
+                ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSYfrom(),
+                ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeCTSYto(), 
+                ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreCTSRangeX(), 
+                ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreCTSRangeY(), 
+                ((PlotSubPanel)panelPlotImage).getButtonPlotZoomCTS());
         
-        groupZoomControlsIntTS.addAll(textFieldPlotRangeIntTSXfrom, textFieldPlotRangeIntTSXto, textFieldPlotRangeIntTSYfrom,
-                textFieldPlotRangeIntTSYto, buttonPlotRestoreIntTSRangeX, buttonPlotRestoreIntTSRangeY, buttonPlotZoomIntTS);
+        groupZoomControlsIntTS.addAll(((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSXfrom(), 
+                ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSXto(), 
+                ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSYfrom(),
+                ((PlotSubPanel)panelPlotImage).getTextFieldPlotRangeIntTSYto(), 
+                ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreIntTSRangeX(), 
+                ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreIntTSRangeY(), 
+                ((PlotSubPanel)panelPlotImage).getButtonPlotZoomIntTS());
         
         //TODO pridat annotation processor alebo daco, co prejde vsetky JButtony deklarovane v MainFrame a napridava ich do
         //   tejto grupy automaticky
@@ -6057,5 +5563,21 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     public void setServer(AdmlProviderImpl<TrainAndTestReport> server) {
         this.server = server;
+    }
+
+    public JTextField getTextFieldRunDataRangeFrom() {
+        return textFieldRunDataRangeFrom;
+    }
+
+    public JTextField getTextFieldRunDataRangeTo() {
+        return textFieldRunDataRangeTo;
+    }
+
+    public JTextField getTextFieldRunNumForecasts() {
+        return textFieldRunNumForecasts;
+    }
+
+    public JTextArea getTextAreaPlotBasicStats() {
+        return textAreaPlotBasicStats;
     }
 }

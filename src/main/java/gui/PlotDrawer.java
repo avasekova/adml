@@ -38,6 +38,8 @@ public class PlotDrawer {
     private static final int COLUMNS_BOXHIST = 2;
     private static final int ROWS_BOXHIST = 2;
     
+    private static JGDBufferedPanel drawNowToThisGDBufferedPanel;
+    
     //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
     //refreshOnly je true, ak pridavam/mazem niektore ploty z legendy. false, ak sa to spusta "nacisto" hned po Run alebo Zoom
@@ -105,7 +107,7 @@ public class PlotDrawer {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
         
-        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
+        drawNowToThisGDBufferedPanel = canvasToUse;
         rengine.eval("JavaGD()");
         
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //budem vykreslovat oba naraz
@@ -352,8 +354,8 @@ public class PlotDrawer {
             rengine.rm("all.lower", "all.upper");
         }
         
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        drawNowToThisGDBufferedPanel.initRefresh();
         
         if (! refreshOnly) {
             PlotStateKeeper.setLastCallParams(par);
@@ -386,7 +388,7 @@ public class PlotDrawer {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
         
-        MainFrame.drawNowToThisGDBufferedPanel = canvasToUse;
+        drawNowToThisGDBufferedPanel = canvasToUse;
         rengine.eval("JavaGD()");
         
         ((DefaultListModel)(listPlotLegendResiduals.getModel())).removeAllElements();
@@ -433,8 +435,8 @@ public class PlotDrawer {
             basicStatss.add(basicStats);
         }
 
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        drawNowToThisGDBufferedPanel.initRefresh();
         
         listPlotLegendResiduals.setCellRenderer(new PlotLegendSimpleListCellRenderer());
         listPlotLegendResiduals.repaint();
@@ -452,7 +454,7 @@ public class PlotDrawer {
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
-        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
@@ -575,8 +577,8 @@ public class PlotDrawer {
         
         
         
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+        drawNowToThisGDBufferedPanel.initRefresh();
     }
     
     //TODO refaktor - spojit nejak s drawPlotsITS, ak to ide?
@@ -620,7 +622,7 @@ public class PlotDrawer {
     }
     
     public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
-        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             String colour = ColourService.getService().getNewColour();
@@ -717,8 +719,8 @@ public class PlotDrawer {
             rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", xlab=\"Center\", ylab=\"Radius\")");
         }
         
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+        drawNowToThisGDBufferedPanel.initRefresh();
     }
     
     
@@ -770,15 +772,15 @@ public class PlotDrawer {
 //            }
         }
         
-        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         rengine.require("JavaGD");
         rengine.require("psych");
         rengine.eval("JavaGD()"); // zacne novy plot
         rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
         
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getCanvasToUse().getWidth(), par.getCanvasToUse().getHeight()));
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getCanvasToUse().getWidth(), par.getCanvasToUse().getHeight()));
+        drawNowToThisGDBufferedPanel.initRefresh();
         
         PlotStateKeeper.setLastCallParams(par); //povodne par
     }
@@ -1035,7 +1037,7 @@ public class PlotDrawer {
             int currentIndex = 0;
             while (currentIndex < plots.size()) {
                 JGDBufferedPanel panel = new JGDBufferedPanel(width, height);
-                MainFrame.drawNowToThisGDBufferedPanel = panel;
+                drawNowToThisGDBufferedPanel = panel;
                 rengine.eval("JavaGD()");
                 rengine.eval("par(mfrow=c(" + maxRow + "," + maxCol + "))"); //narobim si mriezku
                 
@@ -1054,8 +1056,8 @@ public class PlotDrawer {
                     counter--;
                 }
                 
-                MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
-                MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+                drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
+                drawNowToThisGDBufferedPanel.initRefresh();
                 
                 panelsList.add(panel);
             }
@@ -1224,7 +1226,7 @@ public class PlotDrawer {
     }
     
     public static void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
-        MainFrame.drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
@@ -1285,8 +1287,8 @@ public class PlotDrawer {
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDBufferedPanel is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
-        MainFrame.drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
-        MainFrame.drawNowToThisGDBufferedPanel.initRefresh();
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        drawNowToThisGDBufferedPanel.initRefresh();
     }
 
     static void drawScreePlot(List<String> selectedValuesList, JTabbedPane tabbedPaneAnalysisPlots) {
@@ -1311,5 +1313,13 @@ public class PlotDrawer {
         tabbedPaneAnalysisPlots.repaint();
         
         rengine.rm(INPUT);
+    }
+
+    public static JGDBufferedPanel getDrawNowToThisGDBufferedPanel() {
+        return drawNowToThisGDBufferedPanel;
+    }
+
+    public static void setDrawNowToThisGDBufferedPanel(JGDBufferedPanel drawNowToThisGDBufferedPanel) {
+        PlotDrawer.drawNowToThisGDBufferedPanel = drawNowToThisGDBufferedPanel;
     }
 }
