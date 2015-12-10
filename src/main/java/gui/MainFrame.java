@@ -10,6 +10,7 @@ import gui.renderers.ErrorTableCellRenderer;
 import gui.settingspanels.*;
 import gui.subpanels.AnalysisBatchSubPanel;
 import gui.subpanels.BayesianSubPanel;
+import gui.subpanels.CTSSubPanel;
 import gui.subpanels.ForecastValuesSubPanel;
 import gui.subpanels.ModelDescriptionsSubPanel;
 import gui.subpanels.PlotSubPanel;
@@ -91,26 +92,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         buttonGroup_runFakeIntCRLBUB = new javax.swing.ButtonGroup();
         panelEverything = new javax.swing.JTabbedPane();
-        panelCTS = new javax.swing.JPanel();
-        buttonPlotColname = new javax.swing.JButton();
-        buttonACF = new javax.swing.JButton();
-        buttonPACF = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        listColnames = new javax.swing.JList();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        textAreaPlotBasicStats = new javax.swing.JTextArea();
-        jSeparator2 = new javax.swing.JSeparator();
-        buttonBoxplots = new javax.swing.JButton();
-        buttonHistograms = new javax.swing.JButton();
-        tabbedPaneAnalysisPlotsCTS = new javax.swing.JTabbedPane();
-        buttonNormProbPlot = new javax.swing.JButton();
-        buttonExportAnalysisPlotsCTS = new javax.swing.JButton();
-        jLabel22 = new javax.swing.JLabel();
-        buttonExportAnalysisText = new javax.swing.JButton();
-        buttonBasicStats = new javax.swing.JButton();
-        buttonCTSclearSelection = new javax.swing.JButton();
-        buttonPCA = new javax.swing.JButton();
-        buttonScreePlot = new javax.swing.JButton();
+        panelCTS = new CTSSubPanel();
         panelTransform = new javax.swing.JPanel();
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
@@ -463,210 +445,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         panelEverything.setPreferredSize(new java.awt.Dimension(1361, 687));
 
         panelCTS.setPreferredSize(new java.awt.Dimension(1361, 614));
-
-        buttonPlotColname.setText("Plot selected time series");
-        buttonPlotColname.setEnabled(false);
-        buttonPlotColname.setEnabled(false);
-        buttonPlotColname.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPlotColnameActionPerformed(evt);
-            }
-        });
-
-        buttonACF.setText("Autocorrelation Plot");
-        buttonACF.setEnabled(false);
-        buttonACF.setEnabled(false);
-        buttonACF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonACFActionPerformed(evt);
-            }
-        });
-
-        buttonPACF.setText("Partial Autocorrelation Plot");
-        buttonPACF.setEnabled(false);
-        buttonPACF.setEnabled(false);
-        buttonPACF.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPACFActionPerformed(evt);
-            }
-        });
-
-        listColnames.setModel(new DefaultListModel());
-        jScrollPane1.setViewportView(listColnames);
-
-        jScrollPane2.setPreferredSize(new java.awt.Dimension(164, 89));
-
-        textAreaPlotBasicStats.setEditable(false);
-        textAreaPlotBasicStats.setColumns(20);
-        textAreaPlotBasicStats.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        textAreaPlotBasicStats.setLineWrap(true);
-        textAreaPlotBasicStats.setRows(5);
-        textAreaPlotBasicStats.setFocusable(false);
-        textAreaPlotBasicStats.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        textAreaPlotBasicStats.setOpaque(false);
-        jScrollPane2.setViewportView(textAreaPlotBasicStats);
-
-        jSeparator2.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        buttonBoxplots.setText("Boxplots");
-        buttonBoxplots.setEnabled(false);
-        buttonBoxplots.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBoxplotsActionPerformed(evt);
-            }
-        });
-
-        buttonHistograms.setText("Histograms");
-        buttonHistograms.setEnabled(false);
-        buttonHistograms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonHistogramsActionPerformed(evt);
-            }
-        });
-
-        buttonNormProbPlot.setText("Normal probability plot");
-        buttonNormProbPlot.setEnabled(false);
-        buttonNormProbPlot.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNormProbPlotActionPerformed(evt);
-            }
-        });
-
-        buttonExportAnalysisPlotsCTS.setText("Export currently shown plot");
-        buttonExportAnalysisPlotsCTS.setEnabled(false);
-        buttonExportAnalysisPlotsCTS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportAnalysisPlotsCTSActionPerformed(evt);
-            }
-        });
-
-        jLabel22.setText("(Broken - only exports the last tab.)");
-
-        buttonExportAnalysisText.setText("Save the contents of the box below:");
-        buttonExportAnalysisText.setEnabled(false);
-        buttonExportAnalysisText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportAnalysisTextActionPerformed(evt);
-            }
-        });
-
-        buttonBasicStats.setText("Basic statistics");
-        buttonBasicStats.setEnabled(false);
-        buttonBasicStats.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBasicStatsActionPerformed(evt);
-            }
-        });
-
-        buttonCTSclearSelection.setText("(Clear selection)");
-        buttonCTSclearSelection.setEnabled(false);
-        buttonCTSclearSelection.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonCTSclearSelectionActionPerformed(evt);
-            }
-        });
-
-        buttonPCA.setText("Principal Components Analysis");
-        buttonPCA.setEnabled(false);
-        buttonPCA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonPCAActionPerformed(evt);
-            }
-        });
-
-        buttonScreePlot.setText("Scree plot");
-        buttonScreePlot.setEnabled(false);
-        buttonScreePlot.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonScreePlotActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelCTSLayout = new javax.swing.GroupLayout(panelCTS);
-        panelCTS.setLayout(panelCTSLayout);
-        panelCTSLayout.setHorizontalGroup(
-            panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCTSLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelCTSLayout.createSequentialGroup()
-                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonExportAnalysisText))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCTSLayout.createSequentialGroup()
-                                .addComponent(buttonPlotColname)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonCTSclearSelection))
-                            .addComponent(buttonHistograms)
-                            .addComponent(buttonNormProbPlot)
-                            .addComponent(buttonBasicStats)
-                            .addComponent(buttonPCA)
-                            .addGroup(panelCTSLayout.createSequentialGroup()
-                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonACF)
-                                    .addComponent(buttonBoxplots))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(buttonScreePlot)
-                                    .addComponent(buttonPACF))))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPaneAnalysisPlotsCTS)
-                    .addGroup(panelCTSLayout.createSequentialGroup()
-                        .addComponent(buttonExportAnalysisPlotsCTS)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel22)
-                        .addGap(0, 391, Short.MAX_VALUE)))
-                .addGap(16, 16, 16))
-        );
-        panelCTSLayout.setVerticalGroup(
-            panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCTSLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator2)
-                    .addGroup(panelCTSLayout.createSequentialGroup()
-                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelCTSLayout.createSequentialGroup()
-                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonPlotColname)
-                                    .addComponent(buttonCTSclearSelection))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonACF)
-                                    .addComponent(buttonPACF))
-                                .addGap(18, 18, 18)
-                                .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonBoxplots)
-                                    .addComponent(buttonScreePlot))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonHistograms)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonNormProbPlot)
-                                .addGap(18, 18, 18)
-                                .addComponent(buttonBasicStats)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(buttonPCA))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(7, 7, 7)
-                        .addComponent(buttonExportAnalysisText)
-                        .addGap(9, 9, 9)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE))
-                    .addGroup(panelCTSLayout.createSequentialGroup()
-                        .addGroup(panelCTSLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonExportAnalysisPlotsCTS)
-                            .addComponent(jLabel22))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabbedPaneAnalysisPlotsCTS)))
-                .addContainerGap())
-        );
-
         panelEverything.addTab("CTS", panelCTS);
 
         buttonLogTransformSeries.setText("Log-transform selected");
@@ -3210,13 +2988,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_menuFileExitActionPerformed
 
-    private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
-        drawPlotGeneral(true, "plot.ts", "");
-        setPlotRanges(1, 0);
-        
-        panelEverything.setSelectedComponent(panelPlotImage);
-    }//GEN-LAST:event_buttonPlotColnameActionPerformed
-
     private void comboBoxRPackageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageActionPerformed
         CardLayout card = (CardLayout)panelSettingsMLPPackage.getLayout();
         switch (Model.myValueOf(comboBoxRPackage.getSelectedItem().toString())) {
@@ -3232,18 +3003,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
         panelSettingsMLPPackage.repaint();
     }//GEN-LAST:event_comboBoxRPackageActionPerformed
-
-    private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonACFActionPerformed
-
-    private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void buttonPlotSelectedITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotSelectedITSActionPerformed
         List<IntervalNamesCentreRadius> listITSPlotCR = new ArrayList<>();
@@ -3938,24 +3697,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         checkBoxAvgGotSelected(checkBoxAvgMedianIntTS);
     }//GEN-LAST:event_checkBoxAvgMedianIntTSActionPerformed
 
-    private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonBoxplotsActionPerformed
-
-    private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonHistogramsActionPerformed
-
-    private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonNormProbPlotActionPerformed
-
     private void buttonDiffSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiffSeriesActionPerformed
         Transformations.difference(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
@@ -3970,57 +3711,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         Transformations.removeTrend(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonRemoveTrendActionPerformed
-
-    private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
-        //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
-        //TODO vymysliet
-        JFileChooser fileChooser = new PlotExtensionFileChooser();
-        fileChooser.setSelectedFile(new File("plotExport.eps"));
-        
-        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.addChoosableFileFilter(new FileFilterEps());
-        fileChooser.addChoosableFileFilter(new FileFilterPs());
-        fileChooser.addChoosableFileFilter(new FileFilterPng());
-        fileChooser.addChoosableFileFilter(new FileFilterPdf());
-        
-        //TODO aj toto sa opakuje, refactor out
-        if (evt.getSource() == buttonExportAnalysisPlotsCTS) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File plotFile = fileChooser.getSelectedFile();
-                    MyRengine rengine = MyRengine.getRengine();
-
-                    String device = "";
-                    String ext = "";
-                    if (fileChooser.getFileFilter() instanceof RFileFilter) {
-                        device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
-                        ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
-                    }
-                    
-                    String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                        //tipnem si, ze je tam pripona
-                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
-                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-                        } //else to bola nejaka ina cast mena za bodkou
-                    }
-                    
-                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + 
-                            ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth() + ", height=" + 
-                            ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight() + ")");
-//                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
-        }
-    }//GEN-LAST:event_buttonExportAnalysisPlotsCTSActionPerformed
-
-    private void buttonExportAnalysisTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisTextActionPerformed
-        exportTextArea(evt, buttonExportAnalysisText, textAreaPlotBasicStats);
-    }//GEN-LAST:event_buttonExportAnalysisTextActionPerformed
 
     private void buttonAggregateToITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAggregateToITSActionPerformed
         final int length = Integer.parseInt(textFieldAggregateToITSevery.getText());
@@ -4066,32 +3756,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_MAvgActionPerformed
 
-    private void buttonBasicStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBasicStatsActionPerformed
-        textAreaPlotBasicStats.setText(AnalysisUtils.getBasicStats(listColnames.getSelectedValuesList()));
-    }//GEN-LAST:event_buttonBasicStatsActionPerformed
-
     private void buttonNormalizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalizeActionPerformed
         Transformations.normalize(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonNormalizeActionPerformed
 
-    private void buttonCTSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCTSclearSelectionActionPerformed
-        listColnames.setSelectedIndices(new int[]{});
-    }//GEN-LAST:event_buttonCTSclearSelectionActionPerformed
-
     private void buttonITSclearSelectionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonITSclearSelectionActionPerformed
         listPlotITSspecs.setSelectedIndices(new int[]{});
     }//GEN-LAST:event_buttonITSclearSelectionActionPerformed
-
-    private void buttonPCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPCAActionPerformed
-        textAreaPlotBasicStats.setText(AnalysisUtils.getPrincipalComponents(listColnames.getSelectedValuesList()));
-    }//GEN-LAST:event_buttonPCAActionPerformed
-
-    private void buttonScreePlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonScreePlotActionPerformed
-        PlotDrawer.drawScreePlot(listColnames.getSelectedValuesList(), tabbedPaneAnalysisPlotsCTS);
-        setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonScreePlotActionPerformed
 
     private void checkBoxAvgEigenvalsPCAIntTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxAvgEigenvalsPCAIntTSActionPerformed
         checkBoxAvgGotSelected(checkBoxAvgEigenvalsPCAIntTS);
@@ -4116,38 +3788,26 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAggregateToITS;
-    private javax.swing.JButton buttonBasicStats;
-    private javax.swing.JButton buttonBoxplots;
-    private javax.swing.JButton buttonCTSclearSelection;
     private javax.swing.JButton buttonConvertITSLBUBCR;
     private javax.swing.JButton buttonConvertITSLBUBCR1;
     private javax.swing.JButton buttonDiffSeries;
-    private javax.swing.JButton buttonExportAnalysisPlotsCTS;
-    private javax.swing.JButton buttonExportAnalysisText;
     private javax.swing.JButton buttonExportDiagramsNN;
     private javax.swing.JButton buttonExportPredictionIntervals;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
-    private javax.swing.JButton buttonHistograms;
     private javax.swing.JButton buttonITSclearSelection;
     private javax.swing.JButton buttonLogTransformSeries;
-    private javax.swing.JButton buttonNormProbPlot;
     private javax.swing.JButton buttonNormalize;
-    private javax.swing.JButton buttonPACF;
-    private javax.swing.JButton buttonPCA;
     private javax.swing.JButton buttonPlotAddITS;
     private javax.swing.JButton buttonPlotAllITSScatterplot;
     private javax.swing.JButton buttonPlotAllITSScatterplotMatrix;
-    private javax.swing.JButton buttonPlotColname;
     private javax.swing.JButton buttonPlotRemoveITS;
     private javax.swing.JButton buttonPlotSelectedITS;
     private javax.swing.JButton buttonRemoveTrend;
     private javax.swing.JButton buttonRunExportErrorMeasures;
     private javax.swing.JButton buttonRunRestoreRangeAll;
     private javax.swing.JButton buttonRunShowHiddenErrorMeasures;
-    private javax.swing.JButton buttonScreePlot;
     private javax.swing.JButton buttonSettingsAddToBatch_ARIMA;
     private javax.swing.JButton buttonSettingsAddToBatch_BNN;
     private javax.swing.JButton buttonSettingsAddToBatch_BNNint;
@@ -4257,7 +3917,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel160;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
@@ -4289,8 +3948,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabelRPkg;
     private javax.swing.JLabel jLabelRPkg1;
     private javax.swing.JLabel jLabelTrainingInfo;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JSeparator jSeparator1;
@@ -4299,7 +3956,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
@@ -4311,7 +3967,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel labelRunFakeIntLower;
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
-    private javax.swing.JList listColnames;
     private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JMenuBar menuBarMain;
@@ -4465,9 +4120,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPPackage_nnet;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
-    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
-    private javax.swing.JTextArea textAreaPlotBasicStats;
     private javax.swing.JTextField textFieldAggregateToITSevery;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainBNNint;
@@ -4495,7 +4148,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         //String colname = comboBoxColnames.getSelectedItem().toString();
-        List<String> colnames = listColnames.getSelectedValuesList();
+        List<String> colnames = (((CTSSubPanel)panelCTS).getListColnames()).getSelectedValuesList();
         
         List<DefaultPlottable> plottables = new ArrayList<>();
         for (String col : colnames) {
@@ -4506,7 +4159,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
         
         //mean, standard deviation, median
-        textAreaPlotBasicStats.setText(AnalysisUtils.getBasicStats(colnames));
+        ((CTSSubPanel)panelCTS).getTextAreaPlotBasicStats().setText(AnalysisUtils.getBasicStats(colnames));
     }
     
     public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
@@ -4971,7 +4624,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         textFieldRunDataRangeTo.setText("" + DataTableModel.getInstance().getRowCount());
         for (String colname : DataTableModel.getInstance().getColnames()) {
-            ((DefaultListModel)(listColnames.getModel())).addElement(colname);
+            ((DefaultListModel)((((CTSSubPanel)panelCTS).getListColnames()).getModel())).addElement(colname);
             ((DefaultListModel)(listColnamesTransform.getModel())).addElement(colname);
             ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).addElement(colname);
             comboBoxColnamesRun.addItem(colname);
@@ -5004,7 +4657,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }
 
     private void cleanGUIelements() {
-        ((DefaultListModel)(listColnames.getModel())).removeAllElements();
+        ((DefaultListModel)((((CTSSubPanel)panelCTS).getListColnames()).getModel())).removeAllElements();
         ((DefaultListModel)(listColnamesTransform.getModel())).removeAllElements();
         ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).removeAllElements();
         ((DefaultListModel)(listPlotITSspecs.getModel())).removeAllElements();
@@ -5537,21 +5190,26 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         //TODO pridat annotation processor alebo daco, co prejde vsetky JButtony deklarovane v MainFrame a napridava ich do
         //   tejto grupy automaticky
-        groupButtons.addAll(buttonPlotColname, buttonTrainAndTest, ((AnalysisBatchSubPanel) panelAnalysisBatch).getButtonRunAnalysisBatch(), buttonSettingsAddToBatch_MLP, 
+        groupButtons.addAll(((CTSSubPanel) panelCTS).getButtonPlotColname(), buttonTrainAndTest, 
+                ((AnalysisBatchSubPanel) panelAnalysisBatch).getButtonRunAnalysisBatch(), buttonSettingsAddToBatch_MLP, 
                 buttonSettingsAddToBatch_MLPint, buttonSettingsAddToBatch_intMLP, buttonSettingsAddToBatch_RBF, 
                 buttonSettingsAddToBatch_RBFint, buttonSettingsAddToBatch_ARIMA, buttonSettingsAddToBatch_Holt, 
                 buttonSettingsAddToBatch_HoltWinters, buttonSettingsAddToBatch_HoltWintersInt, buttonSettingsAddToBatch_Holtint, 
                 buttonSettingsAddToBatch_Hybrid, buttonSettingsAddToBatch_IntervalHolt, buttonSettingsAddToBatch_KNN, 
                 buttonSettingsAddToBatch_SES, buttonSettingsAddToBatch_SESint, buttonSettingsAddToBatch_VARint, 
-                buttonSettingsAddToBatch_BNN, buttonSettingsAddToBatch_BNNint, buttonACF, buttonPACF, buttonBasicStats, 
-                buttonBoxplots, buttonHistograms, buttonNormProbPlot, ((TestsSubPanel)panelTestsOutside).getButtonNormalityTests(), 
+                buttonSettingsAddToBatch_BNN, buttonSettingsAddToBatch_BNNint, ((CTSSubPanel) panelCTS).getButtonACF(), 
+                ((CTSSubPanel) panelCTS).getButtonPACF(), ((CTSSubPanel) panelCTS).getButtonBasicStats(), 
+                ((CTSSubPanel) panelCTS).getButtonBoxplots(), ((CTSSubPanel) panelCTS).getButtonHistograms(), 
+                ((CTSSubPanel) panelCTS).getButtonNormProbPlot(), ((TestsSubPanel)panelTestsOutside).getButtonNormalityTests(), 
                 ((TestsSubPanel)panelTestsOutside).getButtonStationarityTest(), ((TestsSubPanel)panelTestsOutside).getButtonStructBreaks(),
-                buttonExportAnalysisText, ((TestsSubPanel)panelTestsOutside).getButtonExportTestsPlots(),
+                ((CTSSubPanel) panelCTS).getButtonExportAnalysisText(), 
+                ((TestsSubPanel)panelTestsOutside).getButtonExportTestsPlots(),
                 ((TestsSubPanel)panelTestsOutside).getButtonExportTextAreaTests(), buttonDiffSeries, buttonLogTransformSeries, 
                 buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, buttonConvertITSLBUBCR, buttonPlotSelectedITS, 
                 buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, buttonPlotAddITS, buttonPlotRemoveITS, 
-                buttonCTSclearSelection, buttonITSclearSelection, buttonPCA, ((TestsSubPanel)panelTestsOutside).getButtonKMOTest(), 
-                ((TestsSubPanel)panelTestsOutside).getButtonBartlettsTest(), buttonScreePlot);
+                ((CTSSubPanel) panelCTS).getButtonCTSclearSelection(), buttonITSclearSelection, ((CTSSubPanel) panelCTS).getButtonPCA(), 
+                ((TestsSubPanel)panelTestsOutside).getButtonKMOTest(), ((TestsSubPanel)panelTestsOutside).getButtonBartlettsTest(), 
+                ((CTSSubPanel) panelCTS).getButtonScreePlot());
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, ((ForecastValuesSubPanel) panelForecastValsAll).getButtonExportForecastValues(),
                 ((ResidualsSubPanel) panelResidualsAll).getButtonExportResiduals());
@@ -5577,7 +5235,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         return textFieldRunNumForecasts;
     }
 
-    public JTextArea getTextAreaPlotBasicStats() {
-        return textAreaPlotBasicStats;
+    public JTextArea getTextAreaPlotBasicStats() { //TODO
+        return ((CTSSubPanel) panelCTS).getTextAreaPlotBasicStats();
+    }
+
+    public void setSelectedComponentPanelEverything(Component selectedPanel) {
+        panelEverything.setSelectedComponent(selectedPanel);
+    }
+
+    public JPanel getPanelPlotImage() {
+        return panelPlotImage;
     }
 }

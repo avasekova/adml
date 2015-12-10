@@ -1291,7 +1291,7 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel.initRefresh();
     }
 
-    static void drawScreePlot(List<String> selectedValuesList, JTabbedPane tabbedPaneAnalysisPlots) {
+    public static void drawScreePlot(List<String> selectedValuesList, JTabbedPane tabbedPaneAnalysisPlots) {
         MyRengine rengine = MyRengine.getRengine();
 
         rengine.require("psych");
