@@ -4,9 +4,6 @@ import gui.tablemodels.DataTableModel;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
-import utils.imlp.IntervalNames;
-import utils.imlp.IntervalNamesCentreRadius;
-import utils.imlp.IntervalNamesLowerUpper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -88,8 +85,7 @@ public class StatisticalTests {
         return results.toString();
     }
     
-    public static List<String> stucturalBreaksTests(List<String> selectedValuesList, List<IntervalNames> selectedIntervalsList, 
-            int breaks) {
+    public static List<String> stucturalBreaksTests(List<String> selectedValuesList, int breaks) {
         //TODO este zrefaktorovat. toto by malo tie veci len pocitat, ploty potom do plotovatka
         //TODO vymysliet, co s tym navratovym typom, je to nechutne, takto zamiesat: posledny prvok je strInfo, zbytok su ploty
         
@@ -104,7 +100,6 @@ public class StatisticalTests {
         final String DATA_TS = DATA + "ts";
         final String FIT = Const.FIT + Utils.getCounter();
         
-        //najprv vybavit jednoduche hodnoty
         for (String selectedVal : selectedValuesList) {
             rengine.assign(DATA, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selectedVal)));
             rengine.eval(DATA_TS + " <- ts(" + DATA + ")");
@@ -132,73 +127,7 @@ public class StatisticalTests {
             strBreaksInfo.append("\n\n");
         }
         
-        final String DATA1 = Const.INPUT + Utils.getCounter();
-        final String DATA1_TS = DATA1 + "ts";
-        final String DATA2 = Const.INPUT + Utils.getCounter();
-        final String DATA2_TS = DATA2 + "ts";
-        final String FIT1 = Const.FIT + Utils.getCounter();
-        final String FIT2 = Const.FIT + Utils.getCounter();
-        
-        //potom intervaly:
-        for (IntervalNames i : selectedIntervalsList) {
-            String ylab1 = "";
-            String ylab2 = "";
-            if (i instanceof IntervalNamesCentreRadius) {
-                ylab1 = ((IntervalNamesCentreRadius)i).getCentre();
-                ylab2 = ((IntervalNamesCentreRadius)i).getRadius();
-            } else {
-                ylab1 = ((IntervalNamesLowerUpper)i).getLowerBound();
-                ylab2 = ((IntervalNamesLowerUpper)i).getUpperBound();
-            }
-            rengine.assign(DATA1, Utils.listToArray(DataTableModel.getInstance().getDataForColname(ylab1)));
-            rengine.assign(DATA2, Utils.listToArray(DataTableModel.getInstance().getDataForColname(ylab2)));
-            rengine.eval(DATA1_TS + " <- ts(" + DATA1 + ")");
-            rengine.eval(DATA2_TS + " <- ts(" + DATA2 + ")");
-            
-            rengine.eval(FIT1 + " <- bfast(" + DATA1_TS + ", h=10/length(" + DATA1 + "), season=\"none\", max.iter=1, breaks="
-                    + breaks + ")");
-            rengine.eval(FIT2 + " <- bfast(" + DATA2_TS + ", h=10/length(" + DATA2 + "), season=\"none\", max.iter=1, breaks="
-                    + breaks + ")");
-            
-            //draw the plot with str. breaks - first component
-            StringBuilder pl = new StringBuilder();
-            pl.append("par(mfrow=c(2,1))");
-            pl.append(";");
-            pl.append("plot.ts(").append(DATA1).append(", col=\"red\", ylab=\"").append(ylab1).append("\");")
-                    .append("lines(").append(FIT1).append("$output[[1]]$Tt)").append(";")
-                    .append("abline(v=").append(FIT1).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
-            pl.append(";");
-            //draw the plot with str. breaks - second component
-            pl.append("plot.ts(").append(DATA2).append(", col=\"red\", ylab=\"").append(ylab2).append("\");")
-                    .append("lines(").append(FIT2).append("$output[[1]]$Tt)").append(";")
-                    .append("abline(v=").append(FIT2).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
-            plots.add(pl.toString());
-            
-            double[] breakpoints1 = null;
-            if (rengine.eval(FIT1 + "$output[[1]]$bp.Vt$breakpoints") != null) {
-                breakpoints1 = rengine.eval(FIT1 + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
-            }
-            
-            double[] breakpoints2 = null;
-            if (rengine.eval(FIT2 + "$output[[1]]$bp.Vt$breakpoints") != null) {
-                breakpoints2 = rengine.eval(FIT2 + "$output[[1]]$bp.Vt$breakpoints").asDoubleArray();
-            }
-            strBreaksInfo.append("-----\n").append("Structural breaks for ").append(i.toString()).append(":\n");
-            if (breakpoints1 == null) {
-                strBreaksInfo.append("(No structural breaks detected for the first component.)");
-            } else {
-                strBreaksInfo.append(Arrays.toString(breakpoints1));
-            }
-            strBreaksInfo.append("\n");
-            if (breakpoints2 == null) {
-                strBreaksInfo.append("(No structural breaks detected for the second component.)");
-            } else {
-                strBreaksInfo.append(Arrays.toString(breakpoints2));
-            }
-            strBreaksInfo.append("\n\n");
-        }
-        
-        rengine.rm(DATA, DATA_TS, FIT, DATA1, DATA1_TS, DATA2, DATA2_TS, FIT1, FIT2);
+        rengine.rm(DATA, DATA_TS, FIT);
         
         //TODO toto vyriesit, blee
         plots.add(strBreaksInfo.toString());

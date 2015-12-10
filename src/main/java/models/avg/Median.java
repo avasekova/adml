@@ -171,7 +171,7 @@ public class Median extends Average { //well...
         }
     }
 
-    public <T extends TrainAndTestReport> String getMedians(List<T> reportsIntTS, int size, Function<T, double[]> getter) { //size = reportsIntTS.get(0).getFittedValues().size()
+    public <T extends TrainAndTestReport> String getMedians(List<T> reportsIntTS, int size, Function<T, double[]> getter) {
         StringBuilder avgAll = new StringBuilder("c(");
 
         boolean nextOuter = false;
@@ -186,14 +186,14 @@ public class Median extends Average { //well...
             //idem po jednotlivych prvkoch fitted
             boolean nextInner = false;
             for (T r : reportsIntTS) {
-                if (!Double.isNaN(getter.apply(r)[i])) { //if (!Double.isNaN(r.getFittedValuesCenters()[i])) {
+                if (!Double.isNaN(getter.apply(r)[i])) {
                     //a pre kazdy report si tam dam ciselko do medianu
                     if (nextInner) {
                         avgAll.append(",");
                     } else {
                         nextInner = true;
                     }
-                    avgAll.append(getter.apply(r)[i]); //avgAll.append(r.getFittedValuesCenters()[i]);
+                    avgAll.append(getter.apply(r)[i]);
                 }
             }
             avgAll.append("))");

@@ -17,6 +17,7 @@ import gui.subpanels.BayesianSubPanel;
 import gui.subpanels.ForecastValuesSubPanel;
 import gui.subpanels.ModelDescriptionsSubPanel;
 import gui.subpanels.ResidualsSubPanel;
+import gui.subpanels.TestsSubPanel;
 import gui.tablemodels.*;
 import models.*;
 import models.avg.*;
@@ -169,25 +170,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         listPlotLegend = new javax.swing.JList();
         buttonLegendSelectAll = new javax.swing.JButton();
         buttonLegendSelectNone = new javax.swing.JButton();
-        panelTestsOutside = new javax.swing.JPanel();
-        buttonNormalityTests = new javax.swing.JButton();
-        buttonStationarityTest = new javax.swing.JButton();
-        buttonStructBreaks = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
-        textFieldMaxStructBreaks = new javax.swing.JTextField();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jScrollPane9 = new javax.swing.JScrollPane();
-        listColnamesTests = new javax.swing.JList();
-        jSeparator15 = new javax.swing.JSeparator();
-        tabbedPaneAnalysisPlotsTests = new javax.swing.JTabbedPane();
-        buttonExportTextAreaTests = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        textAreaTests = new javax.swing.JTextArea();
-        buttonExportTestsPlots = new javax.swing.JButton();
-        jLabel34 = new javax.swing.JLabel();
-        buttonKMOTest = new javax.swing.JButton();
-        buttonBartlettsTest = new javax.swing.JButton();
+        panelTestsOutside = new TestsSubPanel();
         panelData = new javax.swing.JPanel();
         scrollPaneData = new javax.swing.JScrollPane();
         jTableData = new javax.swing.JTable();
@@ -1225,168 +1208,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         );
 
         panelEverything.addTab("Plot", panelPlotImage);
-
-        buttonNormalityTests.setText("Tests for normality");
-        buttonNormalityTests.setEnabled(false);
-        buttonNormalityTests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonNormalityTestsActionPerformed(evt);
-            }
-        });
-
-        buttonStationarityTest.setText("Tests for stationarity");
-        buttonStationarityTest.setEnabled(false);
-        buttonStationarityTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStationarityTestActionPerformed(evt);
-            }
-        });
-
-        buttonStructBreaks.setText("Find structural breaks");
-        buttonStructBreaks.setEnabled(false);
-        buttonStructBreaks.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonStructBreaksActionPerformed(evt);
-            }
-        });
-
-        jLabel19.setText("Max");
-
-        textFieldMaxStructBreaks.setText("2");
-
-        jLabel20.setText("structural breaks");
-
-        jLabel21.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel21.setText("TODO: seasonal");
-
-        listColnamesTests.setModel(new DefaultListModel());
-        jScrollPane9.setViewportView(listColnamesTests);
-
-        jSeparator15.setOrientation(javax.swing.SwingConstants.VERTICAL);
-
-        buttonExportTextAreaTests.setText("Save the contents of the box below:");
-        buttonExportTextAreaTests.setEnabled(false);
-        buttonExportTextAreaTests.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportTextAreaTestsActionPerformed(evt);
-            }
-        });
-
-        jScrollPane3.setPreferredSize(new java.awt.Dimension(164, 89));
-
-        textAreaTests.setEditable(false);
-        textAreaTests.setColumns(20);
-        textAreaTests.setFont(new java.awt.Font("Tahoma", 0, 11)); // NOI18N
-        textAreaTests.setLineWrap(true);
-        textAreaTests.setRows(5);
-        textAreaTests.setFocusable(false);
-        textAreaTests.setMaximumSize(new java.awt.Dimension(32767, 32767));
-        textAreaTests.setOpaque(false);
-        jScrollPane3.setViewportView(textAreaTests);
-
-        buttonExportTestsPlots.setText("Export currently shown plot");
-        buttonExportTestsPlots.setEnabled(false);
-        buttonExportTestsPlots.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonExportTestsPlotsActionPerformed(evt);
-            }
-        });
-
-        jLabel34.setText("(Broken - only exports the last tab.)");
-
-        buttonKMOTest.setText("KMO test");
-        buttonKMOTest.setEnabled(false);
-        buttonKMOTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonKMOTestActionPerformed(evt);
-            }
-        });
-
-        buttonBartlettsTest.setText("Bartlett's test");
-        buttonBartlettsTest.setEnabled(false);
-        buttonBartlettsTest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonBartlettsTestActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panelTestsOutsideLayout = new javax.swing.GroupLayout(panelTestsOutside);
-        panelTestsOutside.setLayout(panelTestsOutsideLayout);
-        panelTestsOutsideLayout.setHorizontalGroup(
-            panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(buttonNormalityTests)
-                            .addComponent(buttonStationarityTest)
-                            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                                .addComponent(buttonStructBreaks)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel19)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addComponent(jLabel20)))
-                            .addComponent(buttonKMOTest)
-                            .addComponent(buttonBartlettsTest)))
-                    .addComponent(buttonExportTextAreaTests)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 532, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator15, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabbedPaneAnalysisPlotsTests)
-                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                        .addComponent(buttonExportTestsPlots)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel34)
-                        .addGap(0, 440, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        panelTestsOutsideLayout.setVerticalGroup(
-            panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(panelTestsOutsideLayout.createSequentialGroup()
-                                .addComponent(buttonNormalityTests)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonStationarityTest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel21)
-                                .addGap(7, 7, 7)
-                                .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(buttonStructBreaks)
-                                    .addComponent(jLabel19)
-                                    .addComponent(textFieldMaxStructBreaks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel20))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonKMOTest)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(buttonBartlettsTest)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(buttonExportTextAreaTests)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE))
-                    .addComponent(jSeparator15, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelTestsOutsideLayout.createSequentialGroup()
-                        .addGroup(panelTestsOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonExportTestsPlots)
-                            .addComponent(jLabel34))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tabbedPaneAnalysisPlotsTests)))
-                .addContainerGap())
-        );
-
         panelEverything.addTab("Tests", panelTestsOutside);
 
         jTableData.setModel(DataTableModel.getInstance());
@@ -4612,18 +4433,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonNormProbPlotActionPerformed
 
-    private void buttonNormalityTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormalityTestsActionPerformed
-        textAreaTests.setText(StatisticalTests.normalProbabilityTests(listColnamesTests.getSelectedValuesList()));
-
-        //and show the normal probability plots:
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsTests);
-        setPlotRanges(0, 0);
-    }//GEN-LAST:event_buttonNormalityTestsActionPerformed
-
-    private void buttonStationarityTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStationarityTestActionPerformed
-        textAreaTests.setText(StatisticalTests.stationarityTests(listColnamesTests.getSelectedValuesList()));
-    }//GEN-LAST:event_buttonStationarityTestActionPerformed
-
     private void buttonDiffSeriesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDiffSeriesActionPerformed
         Transformations.difference(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
@@ -4638,42 +4447,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         Transformations.removeTrend(listColnamesTransform.getSelectedValuesList());
         fillGUIelementsWithNewData();
     }//GEN-LAST:event_buttonRemoveTrendActionPerformed
-
-    private void buttonStructBreaksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonStructBreaksActionPerformed
-        int breaks = 5;
-        try {
-            breaks = Integer.parseInt(textFieldMaxStructBreaks.getText());
-        } catch (NumberFormatException e) {
-            logger.error("Exception", e); // TODO: review logging
-        }
-        
-        List<String> plots = StatisticalTests.stucturalBreaksTests(listColnamesTests.getSelectedValuesList(), 
-                listPlotITSspecs.getSelectedValuesList(), breaks); //bacha, posledny prvok je to info
-        //TODO toto potom vyriesit lepsie (uz na urovni tej metody, ktora to zle vracia
-        String structBreaksInfo = plots.get(plots.size() - 1);
-        plots.remove(plots.size() - 1);
-        
-        //TODO refactor odtialto------------------
-        //potom ich nechaj vyplut do mriezky
-        List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsTests.getWidth(), 
-                tabbedPaneAnalysisPlotsTests.getHeight(), plots, 1, 1);
-        
-        //a tu mriezku nakresli
-        tabbedPaneAnalysisPlotsTests.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : panels) {
-            tabbedPaneAnalysisPlotsTests.addTab("Page "+(++i), p);
-        }
-
-        tabbedPaneAnalysisPlotsTests.repaint();
-        //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
-        
-        //a vypis info
-        textAreaTests.setText(structBreaksInfo);
-
-        setPlotRanges(0, 0);
-        buttonExportTestsPlots.setEnabled(true);
-    }//GEN-LAST:event_buttonStructBreaksActionPerformed
 
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
         //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
@@ -4768,55 +4541,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }//GEN-LAST:event_buttonSettingsAddToBatch_MAvgActionPerformed
 
-    private void buttonExportTextAreaTestsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportTextAreaTestsActionPerformed
-        exportTextArea(evt, buttonExportTextAreaTests, textAreaTests);
-    }//GEN-LAST:event_buttonExportTextAreaTestsActionPerformed
-
-    private void buttonExportTestsPlotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportTestsPlotsActionPerformed
-        //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
-        //TODO vymysliet
-        
-        JFileChooser fileChooser = new PlotExtensionFileChooser();
-        fileChooser.setSelectedFile(new File("plotExport.eps"));
-        
-        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.addChoosableFileFilter(new FileFilterEps());
-        fileChooser.addChoosableFileFilter(new FileFilterPs());
-        fileChooser.addChoosableFileFilter(new FileFilterPng());
-        fileChooser.addChoosableFileFilter(new FileFilterPdf());
-        
-        if (evt.getSource() == buttonExportTestsPlots) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                    File plotFile = fileChooser.getSelectedFile();
-                    MyRengine rengine = MyRengine.getRengine();
-
-                    String device = "";
-                    String ext = "";
-                    if (fileChooser.getFileFilter() instanceof RFileFilter) {
-                        device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
-                        ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
-                    }
-                    
-                    String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                        //tipnem si, ze je tam pripona
-                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
-                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-                        } //else to bola nejaka ina cast mena za bodkou
-                    }
-                    
-                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
-//                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
-                    break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
-        }
-    }//GEN-LAST:event_buttonExportTestsPlotsActionPerformed
-
     private void buttonBasicStatsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBasicStatsActionPerformed
         textAreaPlotBasicStats.setText(AnalysisUtils.getBasicStats(listColnames.getSelectedValuesList()));
     }//GEN-LAST:event_buttonBasicStatsActionPerformed
@@ -4837,14 +4561,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonPCAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPCAActionPerformed
         textAreaPlotBasicStats.setText(AnalysisUtils.getPrincipalComponents(listColnames.getSelectedValuesList()));
     }//GEN-LAST:event_buttonPCAActionPerformed
-
-    private void buttonKMOTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonKMOTestActionPerformed
-        textAreaTests.setText(StatisticalTests.KMOTest(listColnamesTests.getSelectedValuesList()));
-    }//GEN-LAST:event_buttonKMOTestActionPerformed
-
-    private void buttonBartlettsTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBartlettsTestActionPerformed
-        textAreaTests.setText(StatisticalTests.bartlettsTest(listColnamesTests.getSelectedValuesList()));
-    }//GEN-LAST:event_buttonBartlettsTestActionPerformed
 
     private void buttonScreePlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonScreePlotActionPerformed
         PlotDrawer.drawScreePlot(listColnames.getSelectedValuesList(), tabbedPaneAnalysisPlotsCTS);
@@ -4877,7 +4593,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonACF;
     private javax.swing.JButton buttonAggregateToITS;
-    private javax.swing.JButton buttonBartlettsTest;
     private javax.swing.JButton buttonBasicStats;
     private javax.swing.JButton buttonBoxplots;
     private javax.swing.JButton buttonCTSclearSelection;
@@ -4888,18 +4603,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonExportAnalysisText;
     private javax.swing.JButton buttonExportDiagramsNN;
     private javax.swing.JButton buttonExportPredictionIntervals;
-    private javax.swing.JButton buttonExportTestsPlots;
-    private javax.swing.JButton buttonExportTextAreaTests;
     private javax.swing.ButtonGroup buttonGroup_runFakeIntCRLBUB;
     private javax.swing.JButton buttonHideAllErrorsExceptAvg;
     private javax.swing.JButton buttonHistograms;
     private javax.swing.JButton buttonITSclearSelection;
-    private javax.swing.JButton buttonKMOTest;
     private javax.swing.JButton buttonLegendSelectAll;
     private javax.swing.JButton buttonLegendSelectNone;
     private javax.swing.JButton buttonLogTransformSeries;
     private javax.swing.JButton buttonNormProbPlot;
-    private javax.swing.JButton buttonNormalityTests;
     private javax.swing.JButton buttonNormalize;
     private javax.swing.JButton buttonPACF;
     private javax.swing.JButton buttonPCA;
@@ -4940,8 +4651,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JButton buttonSettingsAddToBatch_SESint;
     private javax.swing.JButton buttonSettingsAddToBatch_VARint;
     private javax.swing.JButton buttonSettingsAddToBatch_intMLP;
-    private javax.swing.JButton buttonStationarityTest;
-    private javax.swing.JButton buttonStructBreaks;
     private javax.swing.JButton buttonTrainAndTest;
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTS;
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTSperM;
@@ -5038,10 +4747,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel160;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
@@ -5050,7 +4756,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel41;
     private javax.swing.JLabel jLabel42;
@@ -5078,17 +4783,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel jLabelTrainingInfo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator12;
     private javax.swing.JSeparator jSeparator13;
     private javax.swing.JSeparator jSeparator14;
-    private javax.swing.JSeparator jSeparator15;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -5103,7 +4805,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
     private javax.swing.JList listColnames;
-    private javax.swing.JList listColnamesTests;
     private javax.swing.JList listColnamesTransform;
     private javax.swing.JList listPlotITSspecs;
     private javax.swing.JList listPlotLegend;
@@ -5261,12 +4962,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_center;
     private javax.swing.JScrollPane scrollPane_panelSettingsMLPintPackage_nnet_radius;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsCTS;
-    private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
     private javax.swing.JTabbedPane tabbedPaneDiagramsNNs;
     private javax.swing.JTextArea textAreaPlotBasicStats;
-    private javax.swing.JTextArea textAreaTests;
     private javax.swing.JTextField textFieldAggregateToITSevery;
-    private javax.swing.JTextField textFieldMaxStructBreaks;
     private javax.swing.JTextField textFieldNumNetsToTrainMLPint;
     private javax.swing.JTextField textFieldNumNetworksToTrainBNNint;
     private javax.swing.JTextField textFieldNumNetworksToTrainRBFint;
@@ -5780,7 +5478,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         for (String colname : DataTableModel.getInstance().getColnames()) {
             ((DefaultListModel)(listColnames.getModel())).addElement(colname);
             ((DefaultListModel)(listColnamesTransform.getModel())).addElement(colname);
-            ((DefaultListModel)(listColnamesTests.getModel())).addElement(colname);
+            ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).addElement(colname);
             comboBoxColnamesRun.addItem(colname);
             comboBoxRunFakeIntCenter.addItem(colname);
             comboBoxRunFakeIntRadius.addItem(colname);
@@ -5813,7 +5511,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void cleanGUIelements() {
         ((DefaultListModel)(listColnames.getModel())).removeAllElements();
         ((DefaultListModel)(listColnamesTransform.getModel())).removeAllElements();
-        ((DefaultListModel)(listColnamesTests.getModel())).removeAllElements();
+        ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).removeAllElements();
         ((DefaultListModel)(listPlotITSspecs.getModel())).removeAllElements();
         comboBoxColnamesRun.removeAllItems();
         comboBoxRunFakeIntCenter.removeAllItems();
@@ -6276,7 +5974,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         fillGUIelementsWithNewData();
     }
 
-    private void exportTextArea(ActionEvent evt, JButton whichButton, JTextArea whichTextArea) {
+    public void exportTextArea(ActionEvent evt, JButton whichButton, JTextArea whichTextArea) {
         //TODO refactor this out to my own class; it is repeated quite a few times throughout the code
         JFileChooser fileChooser = new OverwriteFileChooser();
         fileChooser.setSelectedFile(new File("analysis.txt"));
@@ -6340,12 +6038,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 buttonSettingsAddToBatch_Hybrid, buttonSettingsAddToBatch_IntervalHolt, buttonSettingsAddToBatch_KNN, 
                 buttonSettingsAddToBatch_SES, buttonSettingsAddToBatch_SESint, buttonSettingsAddToBatch_VARint, 
                 buttonSettingsAddToBatch_BNN, buttonSettingsAddToBatch_BNNint, buttonACF, buttonPACF, buttonBasicStats, 
-                buttonBoxplots, buttonHistograms, buttonNormProbPlot, buttonNormalityTests, buttonStationarityTest,
-                buttonStructBreaks, buttonExportAnalysisText, buttonExportTestsPlots, buttonExportTextAreaTests, 
-                buttonDiffSeries, buttonLogTransformSeries, buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, 
-                buttonConvertITSLBUBCR, buttonPlotSelectedITS, buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, 
-                buttonPlotAddITS, buttonPlotRemoveITS, buttonCTSclearSelection, buttonITSclearSelection,
-                buttonPCA, buttonKMOTest, buttonBartlettsTest, buttonScreePlot);
+                buttonBoxplots, buttonHistograms, buttonNormProbPlot, ((TestsSubPanel)panelTestsOutside).getButtonNormalityTests(), 
+                ((TestsSubPanel)panelTestsOutside).getButtonStationarityTest(), ((TestsSubPanel)panelTestsOutside).getButtonStructBreaks(),
+                buttonExportAnalysisText, ((TestsSubPanel)panelTestsOutside).getButtonExportTestsPlots(),
+                ((TestsSubPanel)panelTestsOutside).getButtonExportTextAreaTests(), buttonDiffSeries, buttonLogTransformSeries, 
+                buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, buttonConvertITSLBUBCR, buttonPlotSelectedITS, 
+                buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, buttonPlotAddITS, buttonPlotRemoveITS, 
+                buttonCTSclearSelection, buttonITSclearSelection, buttonPCA, ((TestsSubPanel)panelTestsOutside).getButtonKMOTest(), 
+                ((TestsSubPanel)panelTestsOutside).getButtonBartlettsTest(), buttonScreePlot);
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, ((ForecastValuesSubPanel) panelForecastValsAll).getButtonExportForecastValues(),
                 ((ResidualsSubPanel) panelResidualsAll).getButtonExportResiduals());
