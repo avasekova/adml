@@ -83,7 +83,7 @@
         <Container class="javax.swing.JPanel" name="panelCTS">
           <Properties>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[1361, 614]"/>
+              <Dimension value="[1356, 659]"/>
             </Property>
           </Properties>
           <AuxValues>

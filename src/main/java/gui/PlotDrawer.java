@@ -12,6 +12,8 @@ import models.avg.Average;
 import models.params.BasicStats;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
@@ -32,6 +34,8 @@ import static gui.tablemodels.DataTableModel.LABELS_AXIS_X;
 public class PlotDrawer {
     //TODO toto by cele chcelo upratat, prekopar, mozno refaktorovat do viacerych tried
     //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
+
+    private static final Logger logger = LoggerFactory.getLogger(PlotDrawer.class);
     
     private static final int COLUMNS_DIAGRAMSNN = 3;
     private static final int ROWS_DIAGRAMSNN = 3;
@@ -87,6 +91,7 @@ public class PlotDrawer {
         ColourService.getService().resetCounter();
         
         //compute all averages:
+        logger.info("--------Computing averages");
         List<TrainAndTestReportCrisp> avgReportsCrisp = new ArrayList<>();
         List<TrainAndTestReportInterval> avgReportsInt = new ArrayList<>();
         try {

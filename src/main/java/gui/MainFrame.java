@@ -444,7 +444,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         panelEverything.setPreferredSize(new java.awt.Dimension(1361, 687));
 
-        panelCTS.setPreferredSize(new java.awt.Dimension(1361, 614));
+        panelCTS.setPreferredSize(new java.awt.Dimension(1356, 659));
         panelEverything.addTab("CTS", panelCTS);
 
         buttonLogTransformSeries.setText("Log-transform selected");

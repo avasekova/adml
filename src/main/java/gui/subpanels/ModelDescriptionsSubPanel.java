@@ -17,7 +17,6 @@ public class ModelDescriptionsSubPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        panelModelDescriptionsAll = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jScrollPane8 = new javax.swing.JScrollPane();
         textAreaModelsInfo = new javax.swing.JTextArea();
@@ -31,29 +30,6 @@ public class ModelDescriptionsSubPanel extends javax.swing.JPanel {
         textAreaModelsInfo.setRows(5);
         jScrollPane8.setViewportView(textAreaModelsInfo);
 
-        javax.swing.GroupLayout panelModelDescriptionsAllLayout = new javax.swing.GroupLayout(panelModelDescriptionsAll);
-        panelModelDescriptionsAll.setLayout(panelModelDescriptionsAllLayout);
-        panelModelDescriptionsAllLayout.setHorizontalGroup(
-            panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
-                        .addComponent(jLabel23)
-                        .addGap(0, 1135, Short.MAX_VALUE))
-                    .addComponent(jScrollPane8))
-                .addContainerGap())
-        );
-        panelModelDescriptionsAllLayout.setVerticalGroup(
-            panelModelDescriptionsAllLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelModelDescriptionsAllLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -61,18 +37,24 @@ public class ModelDescriptionsSubPanel extends javax.swing.JPanel {
             .addGap(0, 1374, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelModelDescriptionsAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel23)
+                            .addGap(0, 1135, Short.MAX_VALUE))
+                        .addComponent(jScrollPane8))
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 660, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(panelModelDescriptionsAll, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(jLabel23)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -80,7 +62,6 @@ public class ModelDescriptionsSubPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel23;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JPanel panelModelDescriptionsAll;
     private javax.swing.JTextArea textAreaModelsInfo;
     // End of variables declaration//GEN-END:variables
 
