@@ -4,7 +4,6 @@ import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.AveragesConfig;
-import org.rosuda.javaGD.JGDBufferedPanel;
 
 import javax.swing.*;
 import java.util.List;
@@ -22,12 +21,12 @@ public class CallParamsDrawPlots extends CallParams {
     private String colname_CTS;
     private AveragesConfig avgConfig;
 
-    public CallParamsDrawPlots(JList plotListLegend, JGDBufferedPanel canvasToUse, int width, int height, 
-            List<Double> allDataCTS,
-            int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
-            List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
-            AveragesConfig avgConfig) {
-        super(plotListLegend, canvasToUse, width, height);
+    public CallParamsDrawPlots(JList plotListLegend, int width, int height,
+                               List<Double> allDataCTS,
+                               int sizeDataWithoutFromToCrop, int numForecasts, List<TrainAndTestReportCrisp> reportsCTS,
+                               List<TrainAndTestReportInterval> reportsITS, int from, int to, String colname_CTS,
+                               AveragesConfig avgConfig) {
+        super(plotListLegend, width, height);
         this.allDataCTS = allDataCTS;
         this.sizeDataWithoutFromToCrop = sizeDataWithoutFromToCrop;
         this.numForecasts = numForecasts;

@@ -1,5 +1,6 @@
 package gui.subpanels;
 
+import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.files.OverwriteFileChooser;
 import gui.tablemodels.ResidualsTableModel;
@@ -16,10 +17,10 @@ import models.params.BasicStats;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.ExcelWriter;
 
-public class ResidualsSubPanel extends javax.swing.JPanel {
+public class ResidualsSubPanel extends javax.swing.JPanel implements PlotContainer {
     
     private JTable residualsTableLatest;
-    private static JGDBufferedPanel gdBufferedPanelPlotResiduals;
+    private JGDBufferedPanel gdBufferedPanelPlotResiduals;
 
     public ResidualsSubPanel() {
         initComponents();
@@ -234,10 +235,6 @@ public class ResidualsSubPanel extends javax.swing.JPanel {
         this.residualsTableLatest = residualsTableLatest;
     }
 
-    public static void setGdBufferedPanelPlotResiduals(JGDBufferedPanel gdBufferedPanelPlotResiduals) {
-        ResidualsSubPanel.gdBufferedPanelPlotResiduals = gdBufferedPanelPlotResiduals;
-    }
-
     public JButton getButtonExportResiduals() {
         return buttonExportResiduals;
     }
@@ -266,5 +263,11 @@ public class ResidualsSubPanel extends javax.swing.JPanel {
         return scrollPaneResiduals;
     }
 
-    
+
+    @Override
+    public void setPlots(List<JGDBufferedPanel> plots) {
+        panelResidualsPlot.removeAll();
+        panelResidualsPlot.add(plots.get(0));
+        panelResidualsPlot.repaint();
+    }
 }

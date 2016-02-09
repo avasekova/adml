@@ -3016,9 +3016,10 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 listITSPlotLU.add((IntervalNamesLowerUpper) val);
             }
         }
-        
+
+        //TODO refactor v duchu: return JGDPlot, panelPlotImage.setPlots(JGDPlot)
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCR, listITSPlotLU, false));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
@@ -3595,7 +3596,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
@@ -3672,7 +3673,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(), 
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
@@ -4156,21 +4157,27 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             plottables.add(p);
         }
         
-        drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
-        
+        List<JGDBufferedPanel> plots = drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
+        ((PlotSubPanel)panelPlotImage).setPlots(plots);
+
         //mean, standard deviation, median
         ((CTSSubPanel)panelCTS).getTextAreaPlotBasicStats().setText(AnalysisUtils.getBasicStats(colnames));
+
+        MainFrame.getInstance().setSelectedComponentPanelEverything(panelPlotImage);
     }
     
-    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
+    public List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         //String colname = comboBoxColnames.getSelectedItem().toString();
         
         //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
+        List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(
+                ((PlotSubPanel)panelPlotImage).getListPlotLegend(),
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), plottables, plotFunction, additionalArgs));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
+
+        return plots;
     }
     
     public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
@@ -5002,13 +5009,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
-                new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                        PlotDrawer.getDrawNowToThisGDBufferedPanel(), 
+
+        List<TrainAndTestReport> addedReports = new ArrayList<>(); //TODO dokoncit s tymi Averages - zvykla ich vratit drawPlots, ale teraz nebude--------------------------------
+        List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO,
+                new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                         ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(),
                 DataTableModel.getInstance().getDataForColname(colname_CTS), DataTableModel.getInstance().getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, 
                 new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
+        ((PlotSubPanel) panelPlotImage).setPlots(plots);
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         

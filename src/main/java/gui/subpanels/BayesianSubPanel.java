@@ -1,13 +1,15 @@
 package gui.subpanels;
 
+import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.settingspanels.BinomPropSettingsPanel;
 import java.util.List;
 import models.BinomProp;
 import models.params.BinomPropParams;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.FieldsParser;
 
-public class BayesianSubPanel extends javax.swing.JPanel {
+public class BayesianSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     public BayesianSubPanel() {
         initComponents();
@@ -235,4 +237,15 @@ public class BayesianSubPanel extends javax.swing.JPanel {
     private javax.swing.JTextField textFieldBinomPropNumFutureObs;
     private javax.swing.JTextField textFieldBinomPropPercProbInterval;
     // End of variables declaration//GEN-END:variables
+
+
+    @Override
+    public void setPlots(List<JGDBufferedPanel> plots) {
+        tabbedPaneBinomPropPlot.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : plots) {
+            tabbedPaneBinomPropPlot.addTab("Page "+(++i), p);
+        }
+        tabbedPaneBinomPropPlot.repaint();
+    }
 }

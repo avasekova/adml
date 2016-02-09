@@ -1,7 +1,6 @@
 package utils.ugliez;
 
 import gui.DefaultPlottable;
-import org.rosuda.javaGD.JGDBufferedPanel;
 
 import javax.swing.*;
 import java.util.List;
@@ -12,9 +11,9 @@ public class CallParamsDrawPlotGeneral extends CallParams {
     private String plotFunction;
     private String additionalArgs;
 
-    public CallParamsDrawPlotGeneral(JList listPlotLegend, JGDBufferedPanel canvasToUse, int width, int height, 
+    public CallParamsDrawPlotGeneral(JList listPlotLegend, int width, int height, 
             List<DefaultPlottable> plottables, String plotFunction, String additionalArgs) {
-        super(listPlotLegend, canvasToUse, width, height);
+        super(listPlotLegend, width, height);
         this.plottables = plottables;
         this.plotFunction = plotFunction;
         this.additionalArgs = additionalArgs;

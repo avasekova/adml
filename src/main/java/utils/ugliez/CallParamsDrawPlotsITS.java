@@ -1,7 +1,6 @@
 package utils.ugliez;
 
 import gui.tablemodels.DataTableModel;
-import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 
@@ -15,10 +14,10 @@ public class CallParamsDrawPlotsITS extends CallParams {
     private List<IntervalNamesLowerUpper> listLowerUpper;
     private boolean scatterplot;
 
-    public CallParamsDrawPlotsITS(JList listPlotLegend, JGDBufferedPanel canvasToUse, int width, int height, 
+    public CallParamsDrawPlotsITS(JList listPlotLegend, int width, int height,
             DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, 
             List<IntervalNamesLowerUpper> listLowerUpper, boolean scatterplot) {
-        super(listPlotLegend, canvasToUse, width, height);
+        super(listPlotLegend, width, height);
         this.dataTableModel = dataTableModel;
         this.listCentreRadius = listCentreRadius;
         this.listLowerUpper = listLowerUpper;

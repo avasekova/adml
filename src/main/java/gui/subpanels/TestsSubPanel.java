@@ -2,6 +2,7 @@ package gui.subpanels;
 
 import analysis.StatisticalTests;
 import gui.MainFrame;
+import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
@@ -24,7 +25,7 @@ import javax.swing.JTextField;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.MyRengine;
 
-public class TestsSubPanel extends javax.swing.JPanel {
+public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     public TestsSubPanel() {
         initComponents();
@@ -395,10 +396,6 @@ public class TestsSubPanel extends javax.swing.JPanel {
         return this;
     }
 
-    public JTabbedPane getTabbedPaneAnalysisPlotsTests() {
-        return tabbedPaneAnalysisPlotsTests;
-    }
-
     public JTextArea getTextAreaTests() {
         return textAreaTests;
     }
@@ -407,4 +404,13 @@ public class TestsSubPanel extends javax.swing.JPanel {
         return textFieldMaxStructBreaks;
     }
 
+    @Override
+    public void setPlots(List<JGDBufferedPanel> plots) {
+        tabbedPaneAnalysisPlotsTests.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : plots) {
+            tabbedPaneAnalysisPlotsTests.addTab("Page "+(++i), p);
+        }
+        tabbedPaneAnalysisPlotsTests.repaint();
+    }
 }

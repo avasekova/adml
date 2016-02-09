@@ -2,6 +2,7 @@ package gui.subpanels;
 
 import analysis.AnalysisUtils;
 import gui.MainFrame;
+import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
@@ -10,9 +11,11 @@ import gui.filefilters.FileFilterPs;
 import gui.filefilters.RFileFilter;
 import gui.files.PlotExtensionFileChooser;
 import gui.tablemodels.DataTableModel;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.MyRengine;
 
 import java.io.File;
+import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -23,7 +26,7 @@ import javax.swing.JTextArea;
  *
  * @author Andrejka
  */
-public class CTSSubPanel extends javax.swing.JPanel {
+public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     /**
      * Creates new form CTSSubPanel
@@ -272,8 +275,6 @@ public class CTSSubPanel extends javax.swing.JPanel {
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
         MainFrame.getInstance().drawPlotGeneral(true, "plot.ts", "");
         MainFrame.getInstance().setPlotRanges(1, 0);
-
-        MainFrame.getInstance().setSelectedComponentPanelEverything(this);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
@@ -453,6 +454,15 @@ public class CTSSubPanel extends javax.swing.JPanel {
     public JButton getButtonScreePlot() {
         return buttonScreePlot;
     }
-    
-    
+
+
+    @Override
+    public void setPlots(List<JGDBufferedPanel> plots) {
+        tabbedPaneAnalysisPlotsCTS.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : plots) {
+            tabbedPaneAnalysisPlotsCTS.addTab("Page "+(++i), p);
+        }
+        tabbedPaneAnalysisPlotsCTS.repaint(); //TODO ak nestaci, tak this.repaint
+    }
 }

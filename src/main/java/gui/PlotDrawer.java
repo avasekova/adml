@@ -48,7 +48,7 @@ public class PlotDrawer {
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
     //refreshOnly je true, ak pridavam/mazem niektore ploty z legendy. false, ak sa to spusta "nacisto" hned po Run alebo Zoom
     //return ploty, ktore sa prave pridali, takze AVG
-    public static List<TrainAndTestReport> drawPlots(boolean drawNew, boolean refreshOnly, CallParamsDrawPlots par) {
+    public static List<JGDBufferedPanel> drawPlots(boolean drawNew, boolean refreshOnly, CallParamsDrawPlots par) {
         String rangeXCrisp = "";
         String rangeYCrisp = "";
         String rangeXInt = "";
@@ -69,15 +69,15 @@ public class PlotDrawer {
         return drawPlots(drawNew, refreshOnly, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
     }
     
-    public static List<TrainAndTestReport> drawPlots(boolean drawNew, final boolean refreshOnly, CallParamsDrawPlots par,
+    public static List<JGDBufferedPanel> drawPlots(boolean drawNew, final boolean refreshOnly, CallParamsDrawPlots par,
                                  String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
         List<TrainAndTestReport> addedReports = new ArrayList<>();
         
         if (par.getReportsCTS().isEmpty() && par.getReportsITS().isEmpty()) {
-            return addedReports;
+            //return addedReports; //TODO fix
+            return new ArrayList<>();
         }
-        
-        JGDBufferedPanel canvasToUse = par.getCanvasToUse();
+
         int width = par.getWidth();
         int height = par.getHeight();
         List<Double> allDataCTS = par.getAllDataCTS();
@@ -111,8 +111,8 @@ public class PlotDrawer {
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
-        
-        drawNowToThisGDBufferedPanel = canvasToUse;
+
+        drawNowToThisGDBufferedPanel = new JGDBufferedPanel(width, height);
         rengine.eval("JavaGD()");
         
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //budem vykreslovat oba naraz
@@ -358,8 +358,9 @@ public class PlotDrawer {
             
             rengine.rm("all.lower", "all.upper");
         }
-        
-        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+
+
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO treba toto? //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         drawNowToThisGDBufferedPanel.initRefresh();
         
         if (! refreshOnly) {
@@ -373,7 +374,10 @@ public class PlotDrawer {
                     rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
         }
         
-        return addedReports;
+        //return addedReports; //TODO fix
+        List<JGDBufferedPanel> plots = new ArrayList<>();
+        plots.add(drawNowToThisGDBufferedPanel);
+        return plots;
     }
     
     public static List<BasicStats> drawPlotsResiduals(Map<String, List<Double>> residuals, JList listPlotLegendResiduals, 
@@ -459,7 +463,7 @@ public class PlotDrawer {
     }
     
     public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
-        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
@@ -627,7 +631,7 @@ public class PlotDrawer {
     }
     
     public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
-        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             String colour = ColourService.getService().getNewColour();
@@ -777,14 +781,14 @@ public class PlotDrawer {
 //            }
         }
         
-        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+        drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         rengine.require("JavaGD");
         rengine.require("psych");
         rengine.eval("JavaGD()"); // zacne novy plot
         rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
         
-        drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getCanvasToUse().getWidth(), par.getCanvasToUse().getHeight()));
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight()));
         drawNowToThisGDBufferedPanel.initRefresh();
         
         PlotStateKeeper.setLastCallParams(par); //povodne par
@@ -1030,7 +1034,7 @@ public class PlotDrawer {
     public static List<JGDBufferedPanel> drawToGrid(int width, int height, List<String> plots, int maxCol, int maxRow) {
         List<JGDBufferedPanel> panelsList = new ArrayList<>();
         
-        //TODO prerobit to, aby sa v tej poslednej mriezke, ak nie je plna, zvacovali grafy?
+        //TODO prerobit to, aby sa v tej poslednej mriezke, ak nie je plna, zvacsovali grafy?
         //tj ostane mi n grafov. x = horna cela cast z odmocniny z n. a potom vysledny obdlznik je x(x-1) ak to staci na n, inak x.x
         
         if (plots.isEmpty()) {
@@ -1112,6 +1116,7 @@ public class PlotDrawer {
         listPlotLegend.repaint();
     }
 
+    //TODO refactor - return the results or set them directly
     public static void drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
             DataTableModel dataTableModel, JTabbedPane tabbedPaneAnalysisPlots) throws IllegalArgumentException {
         //najprv si nasysli vsetky diagramy
@@ -1146,6 +1151,7 @@ public class PlotDrawer {
     }
     
     //TODO refactor vsetky tieto drawXXXtoGrid - aby pouzivali nejaky spolocny zaklad. vsetky su rovnake.
+    //TODO iba vyrobit ploty, naplacat ich tam uz v tom paneli
     public static void drawBayesToGrid(List<String> diagramsPlots, JTabbedPane tabbedPanePlots) throws IllegalArgumentException {
         //nechaj tie ploty vyplut do mriezky
         List<JGDBufferedPanel> panels = drawToGrid(tabbedPanePlots.getWidth(), tabbedPanePlots.getHeight(),
@@ -1197,7 +1203,7 @@ public class PlotDrawer {
     }
     
     
-    public static void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
+    public static List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
         boolean next = false;
@@ -1227,11 +1233,11 @@ public class PlotDrawer {
             rangeX = "range(c(0,10*log10(" + DataTableModel.getInstance().getRowCount() + ")))";
         }
         
-        drawPlotGeneral(drawNew, par, rangeX, rangeY);
+        return drawPlotGeneral(drawNew, par, rangeX, rangeY);
     }
     
-    public static void drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
-        drawNowToThisGDBufferedPanel = par.getCanvasToUse();
+    public static List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {
+        drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
@@ -1294,6 +1300,10 @@ public class PlotDrawer {
         // we have to resize it back to the size we want it to have.
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         drawNowToThisGDBufferedPanel.initRefresh();
+
+        List<JGDBufferedPanel> plotsResult = new ArrayList<>();
+        plotsResult.add(drawNowToThisGDBufferedPanel);
+        return plotsResult;
     }
 
     public static void drawScreePlot(List<String> selectedValuesList, JTabbedPane tabbedPaneAnalysisPlots) {
@@ -1322,9 +1332,5 @@ public class PlotDrawer {
 
     public static JGDBufferedPanel getDrawNowToThisGDBufferedPanel() {
         return drawNowToThisGDBufferedPanel;
-    }
-
-    public static void setDrawNowToThisGDBufferedPanel(JGDBufferedPanel drawNowToThisGDBufferedPanel) {
-        PlotDrawer.drawNowToThisGDBufferedPanel = drawNowToThisGDBufferedPanel;
     }
 }
