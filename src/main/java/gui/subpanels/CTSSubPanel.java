@@ -278,34 +278,32 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 
     private void buttonACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("acf", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        MainFrame.getInstance().setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
+        requestDrawSimpleFctionToGrid("acf");
     }//GEN-LAST:event_buttonACFActionPerformed
 
     private void buttonPACFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPACFActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("pacf", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        MainFrame.getInstance().setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
+        requestDrawSimpleFctionToGrid("pacf");
     }//GEN-LAST:event_buttonPACFActionPerformed
 
     private void buttonBoxplotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBoxplotsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("boxplot", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        MainFrame.getInstance().setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
+        requestDrawSimpleFctionToGrid("boxplot");
     }//GEN-LAST:event_buttonBoxplotsActionPerformed
 
     private void buttonHistogramsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHistogramsActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("hist", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
-        MainFrame.getInstance().setPlotRanges(0, 0);
-        buttonExportAnalysisPlotsCTS.setEnabled(true);
+        requestDrawSimpleFctionToGrid("hist");
     }//GEN-LAST:event_buttonHistogramsActionPerformed
 
     private void buttonNormProbPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonNormProbPlotActionPerformed
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnames.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsCTS);
+        requestDrawSimpleFctionToGrid("qqnorm");
+    }//GEN-LAST:event_buttonNormProbPlotActionPerformed
+
+    private void requestDrawSimpleFctionToGrid(String function) {
+        List<JGDBufferedPanel> plots = PlotDrawer.drawSimpleFctionToGrid(function, listColnames.getSelectedValuesList(), DataTableModel.getInstance(),
+                tabbedPaneAnalysisPlotsCTS.getWidth(), tabbedPaneAnalysisPlotsCTS.getHeight());
+        setPlots(plots);
         MainFrame.getInstance().setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
-    }//GEN-LAST:event_buttonNormProbPlotActionPerformed
+    }
 
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
         //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
@@ -345,7 +343,7 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
                     rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" +
                         ((PlotSubPanel)MainFrame.getInstance().getPanelPlotImage()).getPanelPlot().getWidth() + ", height=" +
                         ((PlotSubPanel)MainFrame.getInstance().getPanelPlotImage()).getPanelPlot().getHeight() + ")");
-                    //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
+                    //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem. //TODO skusit, nieco sa zmenilo v JavaGD veciach
                     break;
                     case JFileChooser.CANCEL_OPTION:
                     default:

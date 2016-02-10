@@ -228,7 +228,9 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
         textAreaTests.setText(StatisticalTests.normalProbabilityTests(listColnamesTests.getSelectedValuesList()));
 
         //and show the normal probability plots:
-        PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(), tabbedPaneAnalysisPlotsTests);
+        List<JGDBufferedPanel> plots = PlotDrawer.drawSimpleFctionToGrid("qqnorm", listColnamesTests.getSelectedValuesList(), DataTableModel.getInstance(),
+                tabbedPaneAnalysisPlotsTests.getWidth(), tabbedPaneAnalysisPlotsTests.getHeight());
+        setPlots(plots);
         MainFrame.getInstance().setPlotRanges(0, 0);
     }//GEN-LAST:event_buttonNormalityTestsActionPerformed
 

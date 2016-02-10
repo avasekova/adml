@@ -1117,8 +1117,8 @@ public class PlotDrawer {
     }
 
     //TODO refactor - return the results or set them directly
-    public static void drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
-            DataTableModel dataTableModel, JTabbedPane tabbedPaneAnalysisPlots) throws IllegalArgumentException {
+    public static List<JGDBufferedPanel> drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
+            DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
         //najprv si nasysli vsetky diagramy
         List<String> diagramsPlots = new ArrayList<>();
         MyRengine rengine = MyRengine.getRengine();
@@ -1136,18 +1136,8 @@ public class PlotDrawer {
             diagramsPlots.add(plotFunction);
         }
         
-        //potom ich nechaj vyplut do mriezky
-        List<JGDBufferedPanel> panels = drawToGrid(tabbedPaneAnalysisPlots.getWidth(), tabbedPaneAnalysisPlots.getHeight(),
-                diagramsPlots, COLUMNS_BOXHIST, ROWS_BOXHIST);
-        
-        //a tu mriezku nakresli
-        tabbedPaneAnalysisPlots.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : panels) {
-            tabbedPaneAnalysisPlots.addTab("Page "+(++i), p);
-        }
-
-        tabbedPaneAnalysisPlots.repaint();
+        //potom ich nechaj vyplut do mriezky a tu mriezku vrat
+        return drawToGrid(width, height, diagramsPlots, COLUMNS_BOXHIST, ROWS_BOXHIST);
     }
     
     //TODO refactor vsetky tieto drawXXXtoGrid - aby pouzivali nejaky spolocny zaklad. vsetky su rovnake.
