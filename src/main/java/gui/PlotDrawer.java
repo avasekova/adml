@@ -1152,19 +1152,9 @@ public class PlotDrawer {
     
     //TODO refactor vsetky tieto drawXXXtoGrid - aby pouzivali nejaky spolocny zaklad. vsetky su rovnake.
     //TODO iba vyrobit ploty, naplacat ich tam uz v tom paneli
-    public static void drawBayesToGrid(List<String> diagramsPlots, JTabbedPane tabbedPanePlots) throws IllegalArgumentException {
-        //nechaj tie ploty vyplut do mriezky
-        List<JGDBufferedPanel> panels = drawToGrid(tabbedPanePlots.getWidth(), tabbedPanePlots.getHeight(),
-                diagramsPlots, 1, 1);
-        
-        //a tu mriezku nakresli
-        tabbedPanePlots.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : panels) {
-            tabbedPanePlots.addTab("Page "+(++i), p);
-        }
-
-        tabbedPanePlots.repaint();
+    public static List<JGDBufferedPanel> drawBayesToGrid(List<String> diagramsPlots, int width, int height) throws IllegalArgumentException {
+        //nechaj tie ploty vyplut do mriezky a tu mriezku vrat
+        return drawToGrid(width, height, diagramsPlots, 1, 1);
     }
 
     private static String getRangeYCrisp(Collection<List<Double>> values) {

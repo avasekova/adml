@@ -176,7 +176,8 @@ public class BayesianSubPanel extends javax.swing.JPanel implements PlotContaine
         plots.remove(plots.size() - 1);
 
         //draw plots into the right panel
-        PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
+        List<JGDBufferedPanel> resultPlots = PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot.getWidth(), tabbedPaneBinomPropPlot.getHeight());
+        setPlots(resultPlots);
 
         textAreaBinomPropInfo.setText(info);
     }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
@@ -215,7 +216,8 @@ public class BayesianSubPanel extends javax.swing.JPanel implements PlotContaine
 
         List<String> plots = BinomProp.binomPropPredict(params, numFutureObsss);
 
-        PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot);
+        List<JGDBufferedPanel> resultPlots = PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot.getWidth(), tabbedPaneBinomPropPlot.getHeight());
+        setPlots(resultPlots);
     }//GEN-LAST:event_buttonBinomPropPredictActionPerformed
 
 
