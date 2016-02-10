@@ -3,10 +3,12 @@ package gui.renderers;
 import gui.MainFrame;
 import gui.PlotDrawer;
 import gui.Plottable;
+import gui.subpanels.PlotSubPanel;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.AveragesConfig;
+import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
 import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
@@ -31,6 +33,7 @@ public interface RightClickable {
         String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
         String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
 
+        List<JGDBufferedPanel> plots = null;
         if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlots) {
             List<TrainAndTestReportCrisp> updatedReportsCTS = new ArrayList<>();
             updatedReportsCTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS());
@@ -54,15 +57,17 @@ public interface RightClickable {
             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
 
-            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, 
+            plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY,
                     (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
                     rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
-            MainFrame.getInstance().drawPlotGeneral(true, "plot.ts", "", ((CallParamsDrawPlotGeneral)PlotStateKeeper.getLastCallParams()).getColnames());
+            plots = MainFrame.getInstance().drawPlotGeneral(true, "plot.ts", "", ((CallParamsDrawPlotGeneral)PlotStateKeeper.getLastCallParams()).getColnames());
             MainFrame.getInstance().setPlotRanges(1, 0);
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
-            PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+            plots = PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
         }
+
+        ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
     }
 
 }

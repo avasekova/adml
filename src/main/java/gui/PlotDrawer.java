@@ -451,16 +451,16 @@ public class PlotDrawer {
         return basicStatss;
     }
     
-    public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
+    public static List<JGDBufferedPanel> drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         List<Double> allVals = getAllVals(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
 //        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
         String rangeY = getRangeYMultipleInterval(allVals);
         String rangeX = getRangeXMultipleInterval(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
         
-        drawPlotsITS(drawNew, par, rangeX, rangeY);
+        return drawPlotsITS(drawNew, par, rangeX, rangeY);
     }
     
-    public static void drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
+    public static List<JGDBufferedPanel> drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeX, String rangeY) {
         drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         
         MyRengine rengine = MyRengine.getRengine();
@@ -521,6 +521,10 @@ public class PlotDrawer {
         }
         
         PlotStateKeeper.setLastCallParams(par);
+
+        List<JGDBufferedPanel> resultPlots = new ArrayList<>();
+        resultPlots.add(drawNowToThisGDBufferedPanel);
+        return resultPlots;
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,

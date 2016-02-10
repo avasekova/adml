@@ -3018,10 +3018,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
 
         //TODO refactor v duchu: return JGDPlot, panelPlotImage.setPlots(JGDPlot)
-        PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+        List<JGDBufferedPanel> plots = PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCR, listITSPlotLU, false));
+        ((PlotSubPanel)panelPlotImage).setPlots(plots);
+
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 1);
         
