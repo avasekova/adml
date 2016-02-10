@@ -740,7 +740,7 @@ public class PlotDrawer {
         final int start = Utils.getCounter();
         int counter = 0;
         MyRengine rengine = MyRengine.getRengine();
-        StringBuilder labels = new StringBuilder("labels=c(");
+        StringBuilder labels = new StringBuilder();
         StringBuilder df = new StringBuilder();
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
@@ -766,20 +766,29 @@ public class PlotDrawer {
             
             counter++;
         }
-        labels.append(")");
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            //TODO dokoncit; zatial ich ignoruje
-            
-//            String colour = ColourService.getService().getNewColour();
-//            interval.setColourInPlot(colour);
-//            
-//            String lineStyle = "col=\"" + colour + "\"";
-//            drawScatterPlotMatrixITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
-//                    par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeCenter, rangeRadius);
-//            if (! next) {
-//                next = true;
-//            }
+            if (next) {
+                labels.append(",");
+                df.append(",");
+            } else {
+                next = true;
+            }
+
+            String LOWER = Const.INPUT + ".lower." + (start+counter);
+            String UPPER = Const.INPUT + ".upper." + (start+counter);
+            rengine.assign(LOWER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getLowerBound())));
+            rengine.assign(UPPER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getUpperBound())));
+
+            labels.append("\"").append(interval.getLowerBound()).append("\"");
+            labels.append(",");
+            labels.append("\"").append(interval.getUpperBound()).append("\"");
+
+            df.append(Const.INPUT).append(".lower.").append(start+counter);
+            df.append(",");
+            df.append(Const.INPUT).append(".upper.").append(start+counter);
+
+            counter++;
         }
         
         drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
@@ -787,7 +796,7 @@ public class PlotDrawer {
         rengine.require("psych");
         rengine.eval("JavaGD()"); // zacne novy plot
         rengine.eval("pairs.panels(data.frame(" + df.toString() + ")"
-                + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
+                + ", labels=c(" + labels + "), smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
         
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight()));
