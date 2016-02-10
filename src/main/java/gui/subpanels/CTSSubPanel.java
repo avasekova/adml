@@ -371,7 +371,9 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
     }//GEN-LAST:event_buttonPCAActionPerformed
 
     private void buttonScreePlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonScreePlotActionPerformed
-        PlotDrawer.drawScreePlot(listColnames.getSelectedValuesList(), tabbedPaneAnalysisPlotsCTS);
+        List<JGDBufferedPanel> plots = PlotDrawer.drawScreePlot(listColnames.getSelectedValuesList(),
+                tabbedPaneAnalysisPlotsCTS.getWidth(), tabbedPaneAnalysisPlotsCTS.getHeight()); //TODO univerzalnejsie, nemusi byt tabbedPaneAnalysisPlotsCTS
+        setPlots(plots);
         MainFrame.getInstance().setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
     }//GEN-LAST:event_buttonScreePlotActionPerformed

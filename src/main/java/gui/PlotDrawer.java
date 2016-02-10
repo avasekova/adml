@@ -1306,7 +1306,7 @@ public class PlotDrawer {
         return plotsResult;
     }
 
-    public static void drawScreePlot(List<String> selectedValuesList, JTabbedPane tabbedPaneAnalysisPlots) {
+    public static List<JGDBufferedPanel> drawScreePlot(List<String> selectedValuesList, int width, int height) {
         MyRengine rengine = MyRengine.getRengine();
 
         rengine.require("psych");
@@ -1316,18 +1316,11 @@ public class PlotDrawer {
         List<String> plots = new ArrayList<>();
         plots.add("scree(cor(" + INPUT + "), factors=FALSE)");
         
-        List<JGDBufferedPanel> panels = drawToGrid(tabbedPaneAnalysisPlots.getWidth(), tabbedPaneAnalysisPlots.getHeight(),
-                plots, 1, 1);
-        
-        tabbedPaneAnalysisPlots.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : panels) {
-            tabbedPaneAnalysisPlots.addTab("Page "+(++i), p);
-        }
+        List<JGDBufferedPanel> panels = drawToGrid(width, height, plots, 1, 1);
 
-        tabbedPaneAnalysisPlots.repaint();
-        
         rengine.rm(INPUT);
+
+        return panels;
     }
 
     public static JGDBufferedPanel getDrawNowToThisGDBufferedPanel() {
