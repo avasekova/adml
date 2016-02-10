@@ -3675,10 +3675,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         ((DefaultListModel)(((PlotSubPanel)panelPlotImage).getListPlotLegend().getModel())).clear(); //a second hack to clear the legend after the scatterplot
         
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+        List<JGDBufferedPanel> plots = PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(
+                ((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(), 
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        ((PlotSubPanel)panelPlotImage).setPlots(plots);
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 0);
         

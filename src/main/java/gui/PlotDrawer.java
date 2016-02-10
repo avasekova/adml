@@ -742,17 +742,19 @@ public class PlotDrawer {
     
     
     //TODO refaktor: spojit s draw a drawScatterPlot (iba nejaky prepinac..)
-    public static void drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
+    public static List<JGDBufferedPanel> drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         final int start = Utils.getCounter();
         int counter = 0;
         MyRengine rengine = MyRengine.getRengine();
         StringBuilder formula = new StringBuilder("~");
         StringBuilder labels = new StringBuilder("labels=c(");
+        StringBuilder df = new StringBuilder();
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             if (next) {
                 formula.append("+");
                 labels.append(",");
+                df.append(",");
             } else {
                 next = true;
             }
@@ -769,6 +771,10 @@ public class PlotDrawer {
             labels.append("\"").append(interval.getCentre()).append("\"");
             labels.append(",");
             labels.append("\"").append(interval.getRadius()).append("\"");
+
+            df.append(Const.INPUT).append(".center.").append(start+counter);
+            df.append(",");
+            df.append(Const.INPUT).append(".radius.").append(start+counter);
             
             counter++;
         }
@@ -792,13 +798,18 @@ public class PlotDrawer {
         rengine.require("JavaGD");
         rengine.require("psych");
         rengine.eval("JavaGD()"); // zacne novy plot
-        rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
+        rengine.eval("pairs.panels(data.frame(" + df.toString() + ")"
+                + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
         
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight()));
         drawNowToThisGDBufferedPanel.initRefresh();
         
         PlotStateKeeper.setLastCallParams(par); //povodne par
+
+        List<JGDBufferedPanel> plots = new ArrayList<>();
+        plots.add(drawNowToThisGDBufferedPanel);
+        return plots;
     }
 
     private static String getRangeYMultipleInterval(List<Double> allVals) {
