@@ -3597,10 +3597,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
+        List<JGDBufferedPanel> plots = PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        ((PlotSubPanel)panelPlotImage).setPlots(plots);
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 1);
         

@@ -593,7 +593,7 @@ public class PlotDrawer {
     }
     
     //TODO refaktor - spojit nejak s drawPlotsITS, ak to ide?
-    public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
+    public static List<JGDBufferedPanel> drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         final String LOWER = Const.INPUT + Utils.getCounter();
         final String UPPER = Const.INPUT + Utils.getCounter();
         final String CENTER = Const.INPUT + Utils.getCounter();
@@ -629,18 +629,18 @@ public class PlotDrawer {
         String rangeCenter = getRangeYMultipleInterval(allValsCenter);
         String rangeRadius = getRangeYMultipleInterval(allValsRadius);
         
-        drawScatterPlotsITS(drawNew, par, rangeCenter, rangeRadius);
+        return drawScatterPlotsITS(drawNew, par, rangeCenter, rangeRadius);
     }
     
-    public static void drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
+    public static List<JGDBufferedPanel> drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par, String rangeCenter, String rangeRadius) {
         drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
-            String colour = ColourService.getService().getNewColour();
-            //remember the colour for the legend
-            interval.setColourInPlot(colour);
+            if (interval.getColourInPlot() == null) {
+                interval.setColourInPlot(ColourService.getService().getNewColour());
+            }
             
-            String lineStyle = "col=\"" + colour + "\"";
+            String lineStyle = "col=\"" + interval.getColourInPlot() + "\"";
             drawScatterPlotITS_CenterRadius(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getCentre()),
                     par.getDataTableModel().getDataForColname(interval.getRadius()), next, lineStyle, rangeCenter, rangeRadius);
             if (! next) {
@@ -651,10 +651,11 @@ public class PlotDrawer {
         next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            String colour = ColourService.getService().getNewColour();
-            interval.setColourInPlot(colour);
+            if (interval.getColourInPlot() == null) {
+                interval.setColourInPlot(ColourService.getService().getNewColour());
+            }
             
-            String lineStyle = "col=\"" + colour + "\"";
+            String lineStyle = "col=\"" + interval.getColourInPlot() + "\"";
             drawScatterPlotITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
                     par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeCenter, rangeRadius);
             if (! next) {
@@ -682,6 +683,10 @@ public class PlotDrawer {
         }
         
         PlotStateKeeper.setLastCallParams(par);
+
+        List<JGDBufferedPanel> resultPlots = new ArrayList<>();
+        resultPlots.add(drawNowToThisGDBufferedPanel);
+        return resultPlots;
     }
     
     private static void drawScatterPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,

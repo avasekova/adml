@@ -454,7 +454,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
     private void buttonPlotRestoreIntTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeXActionPerformed
         if ((PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) &&
             (((CallParamsDrawPlotsITS)PlotStateKeeper.getLastCallParams()).isScatterplot())) {
-            //TODO
+            //TODO restore scatterplot
             MainFrame.getInstance().getTextAreaPlotBasicStats().setText("The scatterplot does not support restoring the original range yet.");
         } else {
             textFieldPlotRangeIntTSXfrom.setText("" + MainFrame.getInstance().getTextFieldRunDataRangeFrom().getText());
@@ -467,7 +467,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
     private void buttonPlotRestoreIntTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreIntTSRangeYActionPerformed
         if ((PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) &&
             (((CallParamsDrawPlotsITS)PlotStateKeeper.getLastCallParams()).isScatterplot())) {
-            //TODO
+            //TODO restore scatterplot
             MainFrame.getInstance().getTextAreaPlotBasicStats().setText("The scatterplot does not support restoring the original range yet.");
         } else {
             textFieldPlotRangeIntTSYfrom.setText("" + PlotStateKeeper.getIntYmin());
@@ -492,7 +492,8 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
             String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
 
             if (((CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams())).isScatterplot()) {
-                PlotDrawer.drawScatterPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+                List<JGDBufferedPanel> plots = PlotDrawer.drawScatterPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+                ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
             } else {
                 List<JGDBufferedPanel> plots = PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
                 ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
