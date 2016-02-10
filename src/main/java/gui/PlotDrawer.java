@@ -740,13 +740,11 @@ public class PlotDrawer {
         final int start = Utils.getCounter();
         int counter = 0;
         MyRengine rengine = MyRengine.getRengine();
-        StringBuilder formula = new StringBuilder("~");
         StringBuilder labels = new StringBuilder("labels=c(");
         StringBuilder df = new StringBuilder();
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             if (next) {
-                formula.append("+");
                 labels.append(",");
                 df.append(",");
             } else {
@@ -757,11 +755,7 @@ public class PlotDrawer {
             String RADIUS = Const.INPUT + ".radius." + (start+counter);
             rengine.assign(CENTER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getCentre())));
             rengine.assign(RADIUS, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getRadius())));
-            
-            formula.append(Const.INPUT).append(".center.").append(start+counter);
-            formula.append("+");
-            formula.append(Const.INPUT).append(".radius.").append(start+counter);
-            
+
             labels.append("\"").append(interval.getCentre()).append("\"");
             labels.append(",");
             labels.append("\"").append(interval.getRadius()).append("\"");
