@@ -372,9 +372,7 @@ public class PlotDrawer {
         }
         
         //return addedReports; //TODO fix
-        List<JGDBufferedPanel> plots = new ArrayList<>();
-        plots.add(drawNowToThisGDBufferedPanel);
-        return plots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
     public static List<BasicStats> drawPlotsResiduals(Map<String, List<Double>> residuals, JList listPlotLegendResiduals, 
@@ -522,9 +520,7 @@ public class PlotDrawer {
         
         PlotStateKeeper.setLastCallParams(par);
 
-        List<JGDBufferedPanel> resultPlots = new ArrayList<>();
-        resultPlots.add(drawNowToThisGDBufferedPanel);
-        return resultPlots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
@@ -684,9 +680,7 @@ public class PlotDrawer {
         
         PlotStateKeeper.setLastCallParams(par);
 
-        List<JGDBufferedPanel> resultPlots = new ArrayList<>();
-        resultPlots.add(drawNowToThisGDBufferedPanel);
-        return resultPlots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
     private static void drawScatterPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
@@ -807,9 +801,7 @@ public class PlotDrawer {
         
         PlotStateKeeper.setLastCallParams(par); //povodne par
 
-        List<JGDBufferedPanel> plots = new ArrayList<>();
-        plots.add(drawNowToThisGDBufferedPanel);
-        return plots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
 
     private static String getRangeYMultipleInterval(List<Double> allVals) {
@@ -1297,9 +1289,7 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         drawNowToThisGDBufferedPanel.initRefresh();
 
-        List<JGDBufferedPanel> plotsResult = new ArrayList<>();
-        plotsResult.add(drawNowToThisGDBufferedPanel);
-        return plotsResult;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
 
     public static List<JGDBufferedPanel> drawScreePlot(List<String> selectedValuesList, int width, int height) {
