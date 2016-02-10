@@ -436,15 +436,17 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
             String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
             String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
 
-            PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_NO,
+            List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_NO,
                 (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+            ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
             MainFrame.getInstance().setPlotRanges(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS().size(),
                 ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS().size());
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
             String rangeXCrisp = "range(c(" + textFieldPlotRangeCTSXfrom.getText() + "," + textFieldPlotRangeCTSXto.getText() + "))";
             String rangeYCrisp = "range(c(" + textFieldPlotRangeCTSYfrom.getText() + "," + textFieldPlotRangeCTSYto.getText() + "))";
 
-            PlotDrawer.drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
+            List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
+            ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
             MainFrame.getInstance().setPlotRanges(1, 0); //hack - cokolvek ine ako nula na prvom mieste
         }
     }//GEN-LAST:event_buttonPlotZoomCTSActionPerformed
@@ -480,8 +482,9 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
             String rangeXInt = "range(c(" + textFieldPlotRangeIntTSXfrom.getText() + "," + textFieldPlotRangeIntTSXto.getText() + "))";
             String rangeYInt = "range(c(" + textFieldPlotRangeIntTSYfrom.getText() + "," + textFieldPlotRangeIntTSYto.getText() + "))";
 
-            PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_NO,
+            List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_NO,
                 (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+            ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
             MainFrame.getInstance().setPlotRanges(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS().size(),
                 ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS().size());
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
@@ -491,7 +494,8 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
             if (((CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams())).isScatterplot()) {
                 PlotDrawer.drawScatterPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
             } else {
-                PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+                List<JGDBufferedPanel> plots = PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
+                ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
             }
             MainFrame.getInstance().setPlotRanges(0, 1); //hack, cokolvek ine ako 0 znamena enable
         }
