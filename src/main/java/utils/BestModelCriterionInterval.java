@@ -32,7 +32,7 @@ public abstract class BestModelCriterionInterval {
         values.addAll(Arrays.asList(MAXIMIZE.class.getEnumConstants()));
         values.addAll(Arrays.asList(MINIMIZE.class.getEnumConstants()));
         
-        return values.toArray(new Improvable[]{});
+        return values.toArray(new Improvable[values.size()]);
     }
     
     public static double computeCriterion(TrainAndTestReportInterval report, Improvable criterion) {

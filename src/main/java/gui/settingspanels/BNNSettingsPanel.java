@@ -5,7 +5,6 @@ import gui.dialogs.DialogAddCrispExplanatoryVar;
 import gui.tablemodels.CrispExplVarsTableModel;
 import models.Model;
 import models.params.Params;
-import utils.Const;
 import utils.CrispExplanatoryVariable;
 import utils.FieldsParser;
 

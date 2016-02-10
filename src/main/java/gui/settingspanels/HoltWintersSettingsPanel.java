@@ -2,7 +2,6 @@ package gui.settingspanels;
 
 import models.Model;
 import models.params.Params;
-import utils.Const;
 import utils.FieldsParser;
 import utils.R_Bool;
 import utils.Utils;

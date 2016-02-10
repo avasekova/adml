@@ -108,11 +108,10 @@ public class StatisticalTests {
                     + breaks + ")");
             
             //draw the plot with str. breaks
-            StringBuilder pl = new StringBuilder("plot.ts(");
-            pl.append(DATA).append(", col=\"red\", ylab=\"").append(selectedVal).append("\");")
-                    .append("lines(").append(FIT).append("$output[[1]]$Tt)").append(";")
-                    .append("abline(v=").append(FIT).append("$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")");
-            plots.add(pl.toString());
+            String pl = "plot.ts(" + DATA + ", col=\"red\", ylab=\"" + selectedVal + "\");" +
+                    "lines(" + FIT + "$output[[1]]$Tt)" + ";" +
+                    "abline(v=" + FIT + "$output[[1]]$bp.Vt$breakpoints, lty=3, col=\"blue\")";
+            plots.add(pl);
             
             double[] breakpoints = null;
             if (rengine.eval(FIT + "$output[[1]]$bp.Vt$breakpoints") != null) {

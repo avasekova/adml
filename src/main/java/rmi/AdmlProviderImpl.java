@@ -77,12 +77,12 @@ public class AdmlProviderImpl<T> implements AdmlProvider<T> {
             return;
         }
 
-        List<String> keysToRemove = new ArrayList<String>(workers.size());
+        List<String> keysToRemove = new ArrayList<>(workers.size());
         for (Map.Entry<String, AdmlWorker<T>> workerEntry : workers.entrySet()) {
             final String workerKey = workerEntry.getKey();
             final AdmlWorker<T> worker = workerEntry.getValue();
 
-            boolean works = true;
+            boolean works;
             try {
                 worker.ping(pingCtr.incrementAndGet());
                 works = true;

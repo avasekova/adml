@@ -24,10 +24,8 @@ public class MAvg implements Forecastable {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("forecast");
         int numTrainingEntries = dataToUse.size();
-        
-        List<Double> inputTrain = dataToUse;
-        
-        rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
+
+        rengine.assign(INPUT_TRAIN, Utils.listToArray(dataToUse));
         
         rengine.eval(FIT + " <- forecast::ma(" + INPUT_TRAIN + ", order=" + params.getOrder() + ")");
         double[] fittedVals = rengine.evalAndReturnArray(FIT);
@@ -40,10 +38,10 @@ public class MAvg implements Forecastable {
         report.setForecastValuesTest(Utils.listToArray(new ArrayList<>()));
         report.setForecastValuesFuture(Utils.listToArray(new ArrayList<>()));
         report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + "))"); //musi tam byt aj to c() obalovatko, aj ked je len jeden prvok... on ho totiz v PlotDraweri potom maze a chyba mu. TODO zmenit uz konecne
-        report.setRealOutputsTrain(Utils.listToArray(inputTrain));
+        report.setRealOutputsTrain(Utils.listToArray(dataToUse));
         report.setRealOutputsTest(Utils.listToArray(new ArrayList<>()));
         
-        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(inputTrain, new ArrayList<>(), 
+        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(dataToUse, new ArrayList<>(),
                 Utils.arrayToList(fittedVals), new ArrayList<>(), params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         

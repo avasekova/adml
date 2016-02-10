@@ -2,6 +2,7 @@ package gui.subpanels;
 
 import analysis.StatisticalTests;
 import gui.MainFrame;
+import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.filefilters.FileFilterEps;
 import gui.filefilters.FileFilterPdf;
@@ -18,13 +19,12 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.MyRengine;
 
-public class TestsSubPanel extends javax.swing.JPanel {
+public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     public TestsSubPanel() {
         initComponents();
@@ -47,7 +47,7 @@ public class TestsSubPanel extends javax.swing.JPanel {
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
-        listColnamesTests = new javax.swing.JList();
+        listColnamesTests = new javax.swing.JList<>();
         jSeparator15 = new javax.swing.JSeparator();
         tabbedPaneAnalysisPlotsTests = new javax.swing.JTabbedPane();
         buttonExportTextAreaTests = new javax.swing.JButton();
@@ -345,7 +345,7 @@ public class TestsSubPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator15;
-    private javax.swing.JList listColnamesTests;
+    private javax.swing.JList<String> listColnamesTests;
     private javax.swing.JTabbedPane tabbedPaneAnalysisPlotsTests;
     private javax.swing.JTextArea textAreaTests;
     private javax.swing.JTextField textFieldMaxStructBreaks;
@@ -387,16 +387,12 @@ public class TestsSubPanel extends javax.swing.JPanel {
         return jScrollPane9;
     }
 
-    public JList getListColnamesTests() {
+    public JList<String> getListColnamesTests() {
         return listColnamesTests;
     }
 
     public JPanel getPanelTestsOutside() {
         return this;
-    }
-
-    public JTabbedPane getTabbedPaneAnalysisPlotsTests() {
-        return tabbedPaneAnalysisPlotsTests;
     }
 
     public JTextArea getTextAreaTests() {
@@ -407,4 +403,13 @@ public class TestsSubPanel extends javax.swing.JPanel {
         return textFieldMaxStructBreaks;
     }
 
+    @Override
+    public void setPlots(List<JGDBufferedPanel> plots) {
+        tabbedPaneAnalysisPlotsTests.removeAll();
+        int i = 0;
+        for (JGDBufferedPanel p : plots) {
+            tabbedPaneAnalysisPlotsTests.addTab("Page "+(++i), p);
+        }
+        tabbedPaneAnalysisPlotsTests.repaint();
+    }
 }

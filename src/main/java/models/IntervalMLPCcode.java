@@ -221,7 +221,7 @@ public class IntervalMLPCcode implements Forecastable {
         
         
         //zatial dummy
-        report.setFittedValues(new ArrayList<Interval>());
+        report.setFittedValues(new ArrayList<>());
         report.setForecastValuesTest(null);
         
         

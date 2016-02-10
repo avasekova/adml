@@ -3,7 +3,6 @@ package gui.settingspanels;
 import gui.ComponentGroup;
 import models.Model;
 import models.params.Params;
-import utils.Const;
 import utils.Utils;
 
 import javax.swing.*;

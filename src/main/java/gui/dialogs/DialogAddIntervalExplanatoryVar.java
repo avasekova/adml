@@ -303,10 +303,10 @@ public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupAddExplVar;
     private javax.swing.JButton buttonOKAddExplVar;
-    private javax.swing.JComboBox comboBoxAddExplVarCenter;
-    private javax.swing.JComboBox comboBoxAddExplVarLower;
-    private javax.swing.JComboBox comboBoxAddExplVarRadius;
-    private javax.swing.JComboBox comboBoxAddExplVarUpper;
+    private javax.swing.JComboBox<String> comboBoxAddExplVarCenter;
+    private javax.swing.JComboBox<String> comboBoxAddExplVarLower;
+    private javax.swing.JComboBox<String> comboBoxAddExplVarRadius;
+    private javax.swing.JComboBox<String> comboBoxAddExplVarUpper;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

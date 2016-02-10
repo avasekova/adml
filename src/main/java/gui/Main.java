@@ -26,7 +26,7 @@ public class Main {
 
     // receives other command line parameters than options
     @Argument
-    private List<String> arguments = new ArrayList<String>(8);
+    private List<String> arguments = new ArrayList<>(8);
 
     @Option(name="--rmi", aliases={"-r"}, usage = "If set, RMI is started in the server mode")
     private boolean rmi = false;

@@ -179,7 +179,7 @@ public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonOKAddExplVar;
-    private javax.swing.JComboBox comboBoxAddExplVar;
+    private javax.swing.JComboBox<String> comboBoxAddExplVar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;

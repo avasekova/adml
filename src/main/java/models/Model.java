@@ -63,7 +63,7 @@ public enum Model {
     }
 
     public static Model myValueOf(String name) {
-        Model modelName = null;
+        Model modelName;
         try {
             modelName = valueOf(name);
         } catch (IllegalArgumentException e) {

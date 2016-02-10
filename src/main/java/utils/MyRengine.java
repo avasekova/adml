@@ -204,8 +204,8 @@ public class MyRengine extends Rengine {
         
         //zlepit do data frame
         StringBuilder dataFrame = new StringBuilder("data.frame(");
-        for (int i = 0; i < counters.size(); i++) {
-            dataFrame.append(Const.INPUT).append(counters.get(i)).append(",");
+        for (Integer c : counters) {
+            dataFrame.append(Const.INPUT).append(c).append(",");
         }
         dataFrame.deleteCharAt(dataFrame.length() - 1);
         dataFrame.append(")");

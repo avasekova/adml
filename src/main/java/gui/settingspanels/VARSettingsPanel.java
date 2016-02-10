@@ -2,7 +2,6 @@ package gui.settingspanels;
 
 import models.Model;
 import models.params.Params;
-import utils.Const;
 import utils.FieldsParser;
 
 import javax.swing.*;
@@ -101,7 +100,7 @@ public class VARSettingsPanel extends SettingsPanel {
     private javax.swing.JLabel jLabel135;
     private javax.swing.JLabel jLabel136;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JList listEndogenousVars;
+    private javax.swing.JList<String> listEndogenousVars;
     private javax.swing.JTextField textFieldLag;
     // End of variables declaration//GEN-END:variables
 

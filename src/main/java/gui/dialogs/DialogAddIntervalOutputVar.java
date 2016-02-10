@@ -268,10 +268,10 @@ public class DialogAddIntervalOutputVar extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroupAddExplVar;
     private javax.swing.JButton buttonOKAddOutVar;
-    private javax.swing.JComboBox comboBoxAddOutVarCenter;
-    private javax.swing.JComboBox comboBoxAddOutVarLower;
-    private javax.swing.JComboBox comboBoxAddOutVarRadius;
-    private javax.swing.JComboBox comboBoxAddOutVarUpper;
+    private javax.swing.JComboBox<String> comboBoxAddOutVarCenter;
+    private javax.swing.JComboBox<String> comboBoxAddOutVarLower;
+    private javax.swing.JComboBox<String> comboBoxAddOutVarRadius;
+    private javax.swing.JComboBox<String> comboBoxAddOutVarUpper;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelCenter;
     private javax.swing.JLabel labelLB;

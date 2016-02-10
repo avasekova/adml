@@ -20,11 +20,9 @@ public class BinomProp implements Forecastable {
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("forecast");
-        
-        TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.BINOM_PROP);
-        
-        
-        return report;
+
+
+        return new TrainAndTestReportCrisp(Model.BINOM_PROP);
     }
     
     public static List<String> binomPropComputePosterior(List<BinomPropParams> params) {

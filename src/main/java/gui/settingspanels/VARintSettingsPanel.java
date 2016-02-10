@@ -119,9 +119,9 @@ public class VARintSettingsPanel extends SettingsPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox checkBoxOptimizeLag;
-    private javax.swing.JComboBox comboBoxCenter;
+    private javax.swing.JComboBox<String> comboBoxCenter;
     private javax.swing.JComboBox comboBoxCriterionOptimizeLag;
-    private javax.swing.JComboBox comboBoxRadius;
+    private javax.swing.JComboBox<String> comboBoxRadius;
     private javax.swing.JComboBox comboBoxType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel134;

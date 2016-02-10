@@ -1,7 +1,9 @@
 package gui.tablemodels;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
 
 public class CombinationWeightsTableModel extends AbstractTableModel {
     
@@ -37,9 +39,11 @@ public class CombinationWeightsTableModel extends AbstractTableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         switch (columnIndex) {
             case 0:
-                return weights.keySet().toArray(new String[]{})[rowIndex];
+                Set<String> keys = weights.keySet();
+                return keys.toArray(new String[keys.size()])[rowIndex];
             case 1:
-                return weights.values().toArray(new Double[]{})[rowIndex];
+                Collection<Double> vals = weights.values();
+                return vals.toArray(new Double[vals.size()])[rowIndex];
         }
         
         return "";

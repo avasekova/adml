@@ -8,10 +8,7 @@ import utils.Utils;
 import utils.imlp.Interval;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ResidualsTableModel extends AbstractTableModel {
     
@@ -52,7 +49,8 @@ public class ResidualsTableModel extends AbstractTableModel {
         if (columnIndex == 0) {
             return "";
         } else {
-            return residuals.keySet().toArray(new String[] {})[columnIndex - 1];
+            Set<String> keys = residuals.keySet();
+            return keys.toArray(new String[keys.size()])[columnIndex - 1];
         }
     }
     
@@ -61,7 +59,8 @@ public class ResidualsTableModel extends AbstractTableModel {
         if (columnIndex == 0) {
             return rowIndex + 1;
         } else {
-            List<Double> res = residuals.get(residuals.keySet().toArray(new String[] {})[columnIndex - 1]);
+            Set<String> keys = residuals.keySet();
+            List<Double> res = residuals.get(keys.toArray(new String[keys.size()])[columnIndex - 1]);
             if (res.size() < rowIndex+1) {
                 return "<not available>";
             } else {
@@ -106,7 +105,8 @@ public class ResidualsTableModel extends AbstractTableModel {
         Map<String, List<Double>> res = new LinkedHashMap<>();
         for (int col : selectedCols) {
             if (col != 0) { //skip 0 - these are just the line numbers
-                String key = residuals.keySet().toArray(new String[] {})[col-1];
+                Set<String> keys = residuals.keySet();
+                String key = keys.toArray(new String[keys.size()])[col-1];
                 res.put(key, residuals.get(key));
             }
         }

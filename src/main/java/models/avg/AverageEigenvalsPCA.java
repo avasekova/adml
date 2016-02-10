@@ -71,10 +71,8 @@ public class AverageEigenvalsPCA extends Average {
         
         final String RESULT = Const.OUTPUT + Utils.getCounter();
         rengine.eval(RESULT + " <- PCA(" + INPUT + ", graph = FALSE)"); //TODO output the graph, maybe?
-        
-        double[] eigenValues = rengine.eval(RESULT + "$eig$eigenvalue").asDoubleArray();
-        
-        return eigenValues;
+
+        return rengine.eval(RESULT + "$eig$eigenvalue").asDoubleArray();
     }
 
     @Override

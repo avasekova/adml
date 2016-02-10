@@ -2,7 +2,6 @@ package models.params;
 
 import gui.MainFrame;
 import gui.settingspanels.DistanceSettingsPanel;
-import models.RandomWalkInterval;
 import utils.imlp.dist.Distance;
 
 import java.util.ArrayList;

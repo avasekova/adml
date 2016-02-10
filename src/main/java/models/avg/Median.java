@@ -72,8 +72,8 @@ public class Median extends Average { //well...
                 MyRengine rengine = MyRengine.getRengine();
                 //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
                 TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
-                double[] fittedValsAvg = rengine.evalAndReturnArray(fittedValsAvgAll.toString());
-                double[] forecastValsTestAvg = rengine.evalAndReturnArray(forecastValsTestAvgAll.toString());
+                double[] fittedValsAvg = rengine.evalAndReturnArray(fittedValsAvgAll);
+                double[] forecastValsTestAvg = rengine.evalAndReturnArray(forecastValsTestAvgAll);
 
                 ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
                         Utils.arrayToList(reportsCTS.get(0).getRealOutputsTrain()), 
@@ -81,7 +81,7 @@ public class Median extends Average { //well...
                         Utils.arrayToList(fittedValsAvg), Utils.arrayToList(forecastValsTestAvg), 0);
 
                 thisAvgReport.setErrorMeasures(errorMeasures);
-                thisAvgReport.setForecastValuesFuture(rengine.evalAndReturnArray(forecastValsFutureAvgAll.toString()));
+                thisAvgReport.setForecastValuesFuture(rengine.evalAndReturnArray(forecastValsFutureAvgAll));
                 thisAvgReport.setColourInPlot(ColourService.getService().getNewColour());
                 thisAvgReport.setPlotCode("plot.ts(" + avgAll + ", lty=2)");
                 thisAvgReport.setFittedValues(fittedValsAvg);

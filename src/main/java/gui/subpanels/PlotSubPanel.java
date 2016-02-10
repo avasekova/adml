@@ -1,6 +1,7 @@
 package gui.subpanels;
 
 import gui.MainFrame;
+import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.Plottable;
 import gui.filefilters.FileFilterEps;
@@ -12,12 +13,13 @@ import gui.files.PlotExtensionFileChooser;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
-import java.awt.BorderLayout;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -35,7 +37,10 @@ import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
-public class PlotSubPanel extends javax.swing.JPanel {
+public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
+
+    private JGDBufferedPanel gdBufferedPanelPlot;
+
 
     public PlotSubPanel() {
         initComponents();
@@ -88,10 +93,8 @@ public class PlotSubPanel extends javax.swing.JPanel {
             }
         });
 
-        JGDBufferedPanel gdBuffPanlPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());
-        panelPlot.add(gdBuffPanlPlot, BorderLayout.CENTER);
-        panelPlot.setLayout(new java.awt.BorderLayout());
-        PlotDrawer.setDrawNowToThisGDBufferedPanel(gdBuffPanlPlot);
+        gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());
+        panelPlot.add(gdBufferedPanelPlot);
 
         jLabel89.setText("Zoom CTS axis x: from");
 
@@ -198,14 +201,14 @@ public class PlotSubPanel extends javax.swing.JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (((DefaultListModel)listPlotLegend.getModel())
+                if (listPlotLegend.getModel()
                     .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendTurnOFFableListElement) {
-                    ((PlotLegendTurnOFFableListElement)((DefaultListModel)listPlotLegend.getModel())
+                    ((PlotLegendTurnOFFableListElement) listPlotLegend.getModel()
                         .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
                 } else {
-                    if (((DefaultListModel)listPlotLegend.getModel())
+                    if (listPlotLegend.getModel()
                         .getElementAt(listPlotLegend.getSelectedIndex()) instanceof PlotLegendSimpleListElement) {
-                        ((PlotLegendSimpleListElement)((DefaultListModel)listPlotLegend.getModel())
+                        ((PlotLegendSimpleListElement) listPlotLegend.getModel()
                             .getElementAt(listPlotLegend.getSelectedIndex())).dispatchEvent(e);
                     }
                 }
@@ -642,7 +645,14 @@ public class PlotSubPanel extends javax.swing.JPanel {
     public JButton getButtonPlotZoomIntTS() {
         return buttonPlotZoomIntTS;
     }
-    
-    
-    
+
+
+    @Override
+    public void setPlots(List<JGDBufferedPanel> plots) {
+        //TODO ak ich bude nahodou viac? zahodit, ci..?
+        //TODO plus ak tam nebude nic
+        panelPlot.removeAll();
+        panelPlot.add(plots.get(0));  //pri troche stastia ani netreba atribut na GDPlot, TODO potom
+        panelPlot.repaint();
+    }
 }

@@ -128,7 +128,7 @@ public class Utils {
                     int upperB = Integer.parseInt(split[1]);
                     //if it comes here, they are both integers:
                     for (int i = lowerB; i <= upperB; i++) {
-                        list.add(new Double(i));
+                        list.add((double) i);
                     }
                 } catch (NumberFormatException e) {
                     //ak to vyhodilo vynimku, aspon jedno z nich je double, takze beriem obe ako double a krokujem ich ako double

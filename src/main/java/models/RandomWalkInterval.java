@@ -2,7 +2,6 @@ package models;
 
 import models.params.Params;
 import models.params.RandomWalkIntervalParams;
-import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;

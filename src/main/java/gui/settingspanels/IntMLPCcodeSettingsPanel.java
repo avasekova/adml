@@ -251,13 +251,13 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
 
     private void buttonAddDistanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddDistanceActionPerformed
         Distance distance = ((DistanceSettingsPanel)panelDistance).getSelectedDistance();
-        ((DefaultListModel)(listDistancesUsed.getModel())).addElement(distance);
+        ((DefaultListModel<Distance>)(listDistancesUsed.getModel())).addElement(distance);
     }//GEN-LAST:event_buttonAddDistanceActionPerformed
 
     private void buttonRemoveDistancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveDistancesActionPerformed
-        List<Object> values = listDistancesUsed.getSelectedValuesList();
-        for (Object val : values) {
-            ((DefaultListModel)(listDistancesUsed.getModel())).removeElement(val);
+        List<Distance> values = listDistancesUsed.getSelectedValuesList();
+        for (Distance val : values) {
+            ((DefaultListModel<Distance>)(listDistancesUsed.getModel())).removeElement(val);
         }
     }//GEN-LAST:event_buttonRemoveDistancesActionPerformed
 
@@ -302,7 +302,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     private javax.swing.JLabel jLabel45;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList listDistancesUsed;
+    private javax.swing.JList<Distance> listDistancesUsed;
     private javax.swing.JPanel panelBestModelCriterion;
     private javax.swing.JPanel panelDistance;
     private javax.swing.JScrollPane scrollPaneExplVars;

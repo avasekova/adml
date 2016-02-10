@@ -5,7 +5,6 @@ import analysis.Transformations;
 import gui.dialogs.*;
 import gui.filefilters.*;
 import gui.files.OverwriteFileChooser;
-import gui.files.PlotExtensionFileChooser;
 import gui.renderers.ErrorTableCellRenderer;
 import gui.settingspanels.*;
 import gui.subpanels.AnalysisBatchSubPanel;
@@ -27,6 +26,7 @@ import rmi.AdmlProviderImpl;
 import rmi.OnJobFinishedListener;
 import rmi.Task;
 import utils.*;
+import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
 import utils.ugliez.CallParamsDrawPlotGeneral;
@@ -97,7 +97,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonLogTransformSeries = new javax.swing.JButton();
         buttonDiffSeries = new javax.swing.JButton();
         jScrollPane7 = new javax.swing.JScrollPane();
-        listColnamesTransform = new javax.swing.JList();
+        listColnamesTransform = new javax.swing.JList<>();
         buttonRemoveTrend = new javax.swing.JButton();
         buttonAggregateToITS = new javax.swing.JButton();
         jLabel24 = new javax.swing.JLabel();
@@ -110,7 +110,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         buttonPlotRemoveITS = new javax.swing.JButton();
         buttonPlotSelectedITS = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
-        listPlotITSspecs = new javax.swing.JList();
+        listPlotITSspecs = new javax.swing.JList<>();
         buttonPlotAllITSScatterplot = new javax.swing.JButton();
         buttonPlotAllITSScatterplotMatrix = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
@@ -463,7 +463,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             }
         });
 
-        listColnamesTransform.setModel(new DefaultListModel());
+        listColnamesTransform.setModel(new DefaultListModel<String>());
         jScrollPane7.setViewportView(listColnamesTransform);
 
         buttonRemoveTrend.setText("Remove trend");
@@ -580,7 +580,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         jScrollPane4.setPreferredSize(new java.awt.Dimension(247, 130));
 
-        listPlotITSspecs.setModel(new DefaultListModel());
+        listPlotITSspecs.setModel(new DefaultListModel<IntervalNames>());
         jScrollPane4.setViewportView(listPlotITSspecs);
 
         buttonPlotAllITSScatterplot.setText("Scatterplots all in one");
@@ -3008,17 +3008,18 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         List<IntervalNamesCentreRadius> listITSPlotCR = new ArrayList<>();
         List<IntervalNamesLowerUpper> listITSPlotLU = new ArrayList<>();
         
-        List<Object> values = listPlotITSspecs.getSelectedValuesList();
-        for (Object val : values) {
+        List<IntervalNames> values = listPlotITSspecs.getSelectedValuesList();
+        for (IntervalNames val : values) {
             if (val instanceof IntervalNamesCentreRadius) {
                 listITSPlotCR.add((IntervalNamesCentreRadius) val);
             } else if (val instanceof IntervalNamesLowerUpper) {
                 listITSPlotLU.add((IntervalNamesLowerUpper) val);
             }
         }
-        
+
+        //TODO refactor v duchu: return JGDPlot, panelPlotImage.setPlots(JGDPlot)
         PlotDrawer.drawPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCR, listITSPlotLU, false));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
@@ -3065,14 +3066,14 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_buttonPlotAddITSActionPerformed
 
     private void buttonPlotRemoveITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRemoveITSActionPerformed
-        List<Object> values = listPlotITSspecs.getSelectedValuesList();
-        for (Object val : values) {
+        List<IntervalNames> values = listPlotITSspecs.getSelectedValuesList();
+        for (IntervalNames val : values) {
             if (val instanceof IntervalNamesCentreRadius) {
                 listITSPlotCentreRadius.remove(val);
             } else if (val instanceof IntervalNamesLowerUpper) {
                 listITSPlotLowerUpper.remove(val);
             }
-            ((DefaultListModel)(listPlotITSspecs.getModel())).removeElement(val);
+            ((DefaultListModel<IntervalNames>)(listPlotITSspecs.getModel())).removeElement(val);
         }
     }//GEN-LAST:event_buttonPlotRemoveITSActionPerformed
 
@@ -3595,7 +3596,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
@@ -3672,7 +3673,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         //tu uz len vezmi nasyslene v tych listoch
         PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(), 
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
@@ -3881,15 +3882,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JCheckBox checkBoxRunSESint;
     private javax.swing.JCheckBox checkBoxRunVAR;
     private javax.swing.JCheckBox checkBoxRunVARint;
-    private javax.swing.JComboBox comboBoxColnamesRun;
+    private javax.swing.JComboBox<String> comboBoxColnamesRun;
     private javax.swing.JComboBox comboBoxIntervalMLPMode;
     private javax.swing.JComboBox comboBoxKNNoptions;
     private javax.swing.JComboBox comboBoxRPackage;
     private javax.swing.JComboBox comboBoxRPackageMLPint;
-    private javax.swing.JComboBox comboBoxRunFakeIntCenter;
-    private javax.swing.JComboBox comboBoxRunFakeIntLower;
-    private javax.swing.JComboBox comboBoxRunFakeIntRadius;
-    private javax.swing.JComboBox comboBoxRunFakeIntUpper;
+    private javax.swing.JComboBox<String> comboBoxRunFakeIntCenter;
+    private javax.swing.JComboBox<String> comboBoxRunFakeIntLower;
+    private javax.swing.JComboBox<String> comboBoxRunFakeIntRadius;
+    private javax.swing.JComboBox<String> comboBoxRunFakeIntUpper;
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_center;
     private javax.swing.JComboBox comboBoxSettingsHybridMethod_radius;
     private javax.swing.JButton jButton2;
@@ -3967,8 +3968,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private javax.swing.JLabel labelRunFakeIntLower;
     private javax.swing.JLabel labelRunFakeIntRadius;
     private javax.swing.JLabel labelRunFakeIntUpper;
-    private javax.swing.JList listColnamesTransform;
-    private javax.swing.JList listPlotITSspecs;
+    private javax.swing.JList<String> listColnamesTransform;
+    private javax.swing.JList<IntervalNames> listPlotITSspecs;
     private javax.swing.JMenuBar menuBarMain;
     private javax.swing.JMenu menuEdit;
     private javax.swing.JMenu menuFile;
@@ -4156,21 +4157,27 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             plottables.add(p);
         }
         
-        drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
-        
+        List<JGDBufferedPanel> plots = drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
+        ((PlotSubPanel)panelPlotImage).setPlots(plots);
+
         //mean, standard deviation, median
         ((CTSSubPanel)panelCTS).getTextAreaPlotBasicStats().setText(AnalysisUtils.getBasicStats(colnames));
+
+        MainFrame.getInstance().setSelectedComponentPanelEverything(panelPlotImage);
     }
     
-    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
+    public List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
         //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
         //String colname = comboBoxColnames.getSelectedItem().toString();
         
         //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                PlotDrawer.getDrawNowToThisGDBufferedPanel(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
+        List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(
+                ((PlotSubPanel)panelPlotImage).getListPlotLegend(),
+                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), plottables, plotFunction, additionalArgs));
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
+
+        return plots;
     }
     
     public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
@@ -4342,12 +4349,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     
     public void addPlotITS_CentreRadius(IntervalNamesCentreRadius interval) {
         listITSPlotCentreRadius.add(interval);
-        ((DefaultListModel)(listPlotITSspecs.getModel())).addElement(interval);
+        ((DefaultListModel<IntervalNames>)(listPlotITSspecs.getModel())).addElement(interval);
     }
     
     public void addPlotITS_LowerUpper(IntervalNamesLowerUpper interval) {
         listITSPlotLowerUpper.add(interval);
-        ((DefaultListModel)(listPlotITSspecs.getModel())).addElement(interval);
+        ((DefaultListModel<IntervalNames>)(listPlotITSspecs.getModel())).addElement(interval);
     }
     
     private void drawTablesErrorMeasures(List<TrainAndTestReportCrisp> rCTS,
@@ -4624,9 +4631,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         
         textFieldRunDataRangeTo.setText("" + DataTableModel.getInstance().getRowCount());
         for (String colname : DataTableModel.getInstance().getColnames()) {
-            ((DefaultListModel)((((CTSSubPanel)panelCTS).getListColnames()).getModel())).addElement(colname);
-            ((DefaultListModel)(listColnamesTransform.getModel())).addElement(colname);
-            ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).addElement(colname);
+            ((DefaultListModel<String>)((((CTSSubPanel)panelCTS).getListColnames()).getModel())).addElement(colname);
+            ((DefaultListModel<String>)(listColnamesTransform.getModel())).addElement(colname);
+            ((DefaultListModel<String>)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).addElement(colname);
             comboBoxColnamesRun.addItem(colname);
             comboBoxRunFakeIntCenter.addItem(colname);
             comboBoxRunFakeIntRadius.addItem(colname);
@@ -4658,9 +4665,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void cleanGUIelements() {
         ((DefaultListModel)((((CTSSubPanel)panelCTS).getListColnames()).getModel())).removeAllElements();
-        ((DefaultListModel)(listColnamesTransform.getModel())).removeAllElements();
+        ((DefaultListModel<String>)(listColnamesTransform.getModel())).removeAllElements();
         ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).removeAllElements();
-        ((DefaultListModel)(listPlotITSspecs.getModel())).removeAllElements();
+        ((DefaultListModel<IntervalNames>)(listPlotITSspecs.getModel())).removeAllElements();
         comboBoxColnamesRun.removeAllItems();
         comboBoxRunFakeIntCenter.removeAllItems();
         comboBoxRunFakeIntRadius.removeAllItems();
@@ -4911,7 +4918,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
 
         for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
-            Forecastable forecastable = null;
+            Forecastable forecastable;
 
             // a) crisp model
             forecastable = ModelFactory.getCrispModel(l.getModel());
@@ -5002,13 +5009,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
-        List<TrainAndTestReport> addedReports = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO, 
-                new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
-                        PlotDrawer.getDrawNowToThisGDBufferedPanel(), 
+
+        List<TrainAndTestReport> addedReports = new ArrayList<>(); //TODO dokoncit s tymi Averages - zvykla ich vratit drawPlots, ale teraz nebude--------------------------------
+        List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO,
+                new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                         ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(),
                 DataTableModel.getInstance().getDataForColname(colname_CTS), DataTableModel.getInstance().getRowCount(), numForecasts, reportsCTS,
                 reportsIntTS, from, to, colname_CTS, 
                 new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
+        ((PlotSubPanel) panelPlotImage).setPlots(plots);
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         

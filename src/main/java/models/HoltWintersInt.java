@@ -3,7 +3,6 @@ package models;
 import models.params.HoltWintersIntParams;
 import models.params.HoltWintersParams;
 import models.params.Params;
-import utils.Const;
 import utils.ErrorMeasuresInterval;
 import utils.ErrorMeasuresUtils;
 import utils.Utils;

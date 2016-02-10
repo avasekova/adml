@@ -275,10 +275,10 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
     private javax.swing.JButton buttonCancelPlotITS;
     private javax.swing.ButtonGroup buttonGroupLbUbCenterRadius;
     private javax.swing.JButton buttonOKPlotITS;
-    private javax.swing.JComboBox comboBoxCenter;
-    private javax.swing.JComboBox comboBoxLowerBound;
-    private javax.swing.JComboBox comboBoxRadius;
-    private javax.swing.JComboBox comboBoxUpperBound;
+    private javax.swing.JComboBox<String> comboBoxCenter;
+    private javax.swing.JComboBox<String> comboBoxLowerBound;
+    private javax.swing.JComboBox<String> comboBoxRadius;
+    private javax.swing.JComboBox<String> comboBoxUpperBound;
     private javax.swing.JLabel labelCenter;
     private javax.swing.JLabel labelLB;
     private javax.swing.JLabel labelRadius;
@@ -292,12 +292,12 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
         List<String> colnamesCopy = new ArrayList<>(colnames);
         boolean containsAll = true;
         for (int i = 0; i < comboBoxLowerBound.getItemCount(); i++) { //prejdem vsetky, co su v comboBoxe...
-            if (! colnamesCopy.contains(comboBoxLowerBound.getItemAt(i).toString())) {
+            if (! colnamesCopy.contains(comboBoxLowerBound.getItemAt(i))) {
                 //assuming all four comboBoxes have the same values, we only need to check one of them
                 containsAll = false;
                 break;
             } else { //...a ak su vsetky v tom zozname, vsetky ich z neho zmazem...
-                colnamesCopy.remove(comboBoxLowerBound.getItemAt(i).toString());
+                colnamesCopy.remove(comboBoxLowerBound.getItemAt(i));
             }
         }
         

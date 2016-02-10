@@ -4,10 +4,7 @@ import models.params.Params;
 import models.params.VARParams;
 import utils.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 //(not used, may contain dragons)
 public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleReports
@@ -27,7 +24,8 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("vars");
-        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.get(dataToUse.keySet().toArray(new String[]{})[0]).size());
+        Set<String> keys = dataToUse.keySet();
+        int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.get(keys.toArray(new String[keys.size()])[0]).size());
         
         //nenastavim realOutputsTest (zatial pouzivam 100% na train) - takze to moze niekde vyhadzovat NPE
         List<Double> trimmedOutVals = params.getOutputVarVals().subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
@@ -72,8 +70,8 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
 
 
             ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(
-                    Utils.arrayToList(realOutput), new ArrayList<Double>(),
-                    Utils.arrayToList(fittedOutput), new ArrayList<Double>(), params.getSeasonality());
+                    Utils.arrayToList(realOutput), new ArrayList<>(),
+                    Utils.arrayToList(fittedOutput), new ArrayList<>(), params.getSeasonality());
             report.setErrorMeasures(errorMeasures);
 
 

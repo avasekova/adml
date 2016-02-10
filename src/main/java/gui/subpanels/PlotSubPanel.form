@@ -180,11 +180,11 @@
     </Component>
     <Container class="javax.swing.JPanel" name="panelPlot">
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="JGDBufferedPanel gdBuffPanlPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());&#xa;panelPlot.add(gdBuffPanlPlot, BorderLayout.CENTER);"/>
-        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="PlotDrawer.setDrawNowToThisGDBufferedPanel(gdBuffPanlPlot);"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="gdBufferedPanelPlot = new JGDBufferedPanel(panelPlot.getWidth(), panelPlot.getHeight());"/>
+        <AuxValue name="JavaCodeGenerator_LayoutCodePre" type="java.lang.String" value="panelPlot.add(gdBufferedPanelPlot);"/>
       </AuxValues>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel89">
       <Properties>
