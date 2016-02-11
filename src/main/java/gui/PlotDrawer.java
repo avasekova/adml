@@ -58,7 +58,7 @@ public class PlotDrawer {
         
         if (! par.getReportsITS().isEmpty()) {
             rangeXInt = getRangeXInterval(par.getSizeDataWithoutFromToCrop(), par.getNumForecasts(), par.getFrom(), par.getTo());
-            par.getReportsITS().removeIf(r -> !r.getFittedValues().isEmpty() || !r.getForecastValuesTest().isEmpty() || !r.getForecastValuesFuture().isEmpty());
+            par.getReportsITS().removeIf(r -> (r.getFittedValues().isEmpty() && r.getForecastValuesTest().isEmpty() && r.getForecastValuesFuture().isEmpty()));
             rangeYInt = getRangeYInterval(par.getReportsITS().stream().filter(r -> !r.isAverage()).collect(Collectors.toList()));
         }
         
@@ -189,7 +189,7 @@ public class PlotDrawer {
             
             rengine.rm("all.data");
         }
-        
+
         if (! reportsIntTS.isEmpty()) { //plot ITS
             boolean wasSthDrawnIntTS = false;
             

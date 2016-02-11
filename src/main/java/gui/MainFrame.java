@@ -5034,7 +5034,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         //TODO skontrolovat zoom, zmenu farby atd. - ci tam ostanu aj tie avgs (v lastCallParams). hlavne s ITS by mohol byt problem
 
         
-        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
+        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause avgs might have been added
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
         

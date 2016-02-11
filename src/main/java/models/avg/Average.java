@@ -417,7 +417,6 @@ public abstract class Average {
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
-                reportAvgAllITS.setForecastValuesFuture(realValuesTest);
 
                 List<Double> allLowersFutureList = rengine.evalAndReturnList("lowerFuture");
                 List<Double> allUppersFutureList = rengine.evalAndReturnList("upperFuture");
