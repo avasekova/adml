@@ -30,7 +30,7 @@ public class PlotLegendSimpleListElement extends JPanel implements RightClickabl
                             ((PlotLegendSimpleListElement) listPlotLegend.getSelectedValue()).report
                                     .setColourInPlot(String.format("#%02X%02X%02X", chosenColor.getRed(), 
                                             chosenColor.getGreen(), chosenColor.getBlue())); //found this at SO
-                            RightClickable.redrawPlots(listPlotLegend, new ArrayList<>());
+                            RightClickable.redrawPlots(listPlotLegend);
                         }
                         break;
                     default:
@@ -46,7 +46,7 @@ public class PlotLegendSimpleListElement extends JPanel implements RightClickabl
         item.addActionListener(menuListener);
         
         
-        MouseListener mListener = new RightClickLegendPopupMouseListener(listPlotLegend, new ArrayList<>(), this);
+        MouseListener mListener = new RightClickLegendPopupMouseListener(listPlotLegend, this);
         this.addMouseListener(mListener);
     }
 

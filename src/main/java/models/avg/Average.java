@@ -1,6 +1,5 @@
 package models.avg;
 
-import gui.ColourService;
 import models.Model;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
@@ -130,7 +129,7 @@ public abstract class Average {
     
     public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS, Model model) {
         if (reportsCTS.size() == 1) { //does not make sense to compute average over one series
-            return reportsCTS.get(0);
+            return reportsCTS.get(0); //TODO nevratit nic (ale osetrit na strane prijmu), ptz inak to tam kresli dvakrat zbytocne. akurat potom problem s "drawOnlyAVG"?
         } else {
             if (! allTheSamePercentTrain(reportsCTS)) {
                 return null;
@@ -203,7 +202,6 @@ public abstract class Average {
                 thisAvgReport.setErrorMeasures(errorMeasures);
                 double[] forecastValsFutureAvg = rengine.evalAndReturnArray(forecastValsFutureAvgAll.toString());
                 thisAvgReport.setForecastValuesFuture(forecastValsFutureAvg);
-                thisAvgReport.setColourInPlot(ColourService.getService().getNewColour());
                 thisAvgReport.setPlotCode("plot.ts(" + avgAll + ", lty=2)");
                 thisAvgReport.setFittedValues(fittedValsAvg);
                 thisAvgReport.setForecastValuesTest(forecastValsTestAvg);
@@ -417,7 +415,6 @@ public abstract class Average {
 
                 TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
-                reportAvgAllITS.setColourInPlot(ColourService.getService().getNewColour());
                 reportAvgAllITS.setFittedValues(allIntervalsTrain);
                 reportAvgAllITS.setForecastValuesTest(allIntervalsTest);
                 reportAvgAllITS.setForecastValuesFuture(realValuesTest);

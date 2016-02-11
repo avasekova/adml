@@ -19,7 +19,7 @@ public class PlotLegendTurnOFFableListElement extends JPanel implements RightCli
     private final Plottable report;
     private final JPopupMenu menu;
     
-    public PlotLegendTurnOFFableListElement(Plottable report, final JList listPlotLegend, final List<TrainAndTestReport> addedReports) {
+    public PlotLegendTurnOFFableListElement(Plottable report, final JList listPlotLegend) {
         super();
         this.report = report;
         
@@ -44,7 +44,7 @@ public class PlotLegendTurnOFFableListElement extends JPanel implements RightCli
                             ((PlotLegendTurnOFFableListElement) listPlotLegend.getSelectedValue()).report
                                     .setColourInPlot(String.format("#%02X%02X%02X", chosenColor.getRed(), 
                                             chosenColor.getGreen(), chosenColor.getBlue())); //found this at SO
-                            RightClickable.redrawPlots(listPlotLegend, addedReports);
+                            RightClickable.redrawPlots(listPlotLegend);
                         }
                         break;
                     default:
@@ -64,7 +64,7 @@ public class PlotLegendTurnOFFableListElement extends JPanel implements RightCli
         item.addActionListener(menuListener);
         
         
-        MouseListener mListener = new RightClickLegendPopupMouseListener(listPlotLegend, addedReports, this);
+        MouseListener mListener = new RightClickLegendPopupMouseListener(listPlotLegend, this);
         this.addMouseListener(mListener);
     }
 

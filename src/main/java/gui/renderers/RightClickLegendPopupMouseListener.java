@@ -13,13 +13,11 @@ import java.util.List;
  */
 class RightClickLegendPopupMouseListener extends MouseAdapter {
     private final JList listPlotLegend;
-    private final List<TrainAndTestReport> addedReports;
     private final RightClickable outer;
 
-    public RightClickLegendPopupMouseListener(final JList listPlotLegend, final List<TrainAndTestReport> addedReports, final RightClickable outer) {
+    public RightClickLegendPopupMouseListener(final JList listPlotLegend, final RightClickable outer) {
         this.outer = outer;
         this.listPlotLegend = listPlotLegend;
-        this.addedReports = addedReports;
     }
 
     @Override
@@ -33,7 +31,7 @@ class RightClickLegendPopupMouseListener extends MouseAdapter {
             if (outer instanceof PlotLegendTurnOFFableListElement) {
                 //invert the selection state of the checkbox
                 outer.getReport().setVisible(!outer.getReport().isVisible());
-                RightClickable.redrawPlots(listPlotLegend, addedReports);
+                RightClickable.redrawPlots(listPlotLegend);
             }
         }
     }

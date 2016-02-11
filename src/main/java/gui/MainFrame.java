@@ -54,6 +54,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static java.util.concurrent.TimeUnit.DAYS;
 
@@ -3675,10 +3676,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         ((DefaultListModel)(((PlotSubPanel)panelPlotImage).getListPlotLegend().getModel())).clear(); //a second hack to clear the legend after the scatterplot
         
         //tu uz len vezmi nasyslene v tych listoch
-        PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(), 
+        List<JGDBufferedPanel> plots = PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(
+                ((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(), 
                 listITSPlotCentreRadius, listITSPlotLowerUpper, true));
+        ((PlotSubPanel)panelPlotImage).setPlots(plots);
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
         setPlotRanges(0, 0);
         
@@ -4361,8 +4364,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }
     
     private void drawTablesErrorMeasures(List<TrainAndTestReportCrisp> rCTS,
-                                         List<TrainAndTestReportInterval> rIntTS,
-                                         List<TrainAndTestReport> addedReports) {
+                                         List<TrainAndTestReportInterval> rIntTS) {
         panelErrorMeasures.removeAll();
         JTabbedPane tabbedPaneTablesErrors = new JTabbedPane(JTabbedPane.TOP);
         tabbedPaneTablesErrors.setSize(panelErrorMeasures.getWidth(), panelErrorMeasures.getHeight());
@@ -4371,13 +4373,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         reportsCTS.addAll(rCTS);
         List<TrainAndTestReport> reportsIntTS = new ArrayList<>();
         reportsIntTS.addAll(rIntTS);
-        for (TrainAndTestReport r : addedReports) {
-            if (r instanceof TrainAndTestReportCrisp) {
-                reportsCTS.add(r);
-            } else if (r instanceof TrainAndTestReportInterval) {
-                reportsIntTS.add(r);
-            }
-        }
         
         if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //kresli obe
             final JTable errorMeasuresTable_CTS = new JTable();
@@ -5013,7 +5008,20 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
         String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
 
-        List<TrainAndTestReport> addedReports = new ArrayList<>(); //TODO dokoncit s tymi Averages - zvykla ich vratit drawPlots, ale teraz nebude--------------------------------
+        //compute averages
+        try {
+            for (Average av : getAllAvgs(reportsCTS, reportsIntTS)) {
+                reportsCTS.addAll(av.computeAllCTSAvgs(reportsCTS).stream().filter(r -> r != null).collect(Collectors.toList()));
+                reportsIntTS.addAll(av.computeAllIntTSAvgs(reportsIntTS).stream().filter(r -> r != null).collect(Collectors.toList()));
+            }
+        } catch (IllegalArgumentException e) {
+//            if (! refreshOnly) {
+                JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+//            } //otherwise they've already seen the error and it'd be annoying //TODO potom zakomponovat este pri redraw
+        }
+
+        //and plot it all
+        //TODO vycistit parametre tohoto; polku netreba
         List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO,
                 new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                         ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(),
@@ -5023,14 +5031,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         ((PlotSubPanel) panelPlotImage).setPlots(plots);
         setPlotRanges(reportsCTS.size(), reportsIntTS.size());
         ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
+        //TODO skontrolovat zoom, zmenu farby atd. - ci tam ostanu aj tie avgs (v lastCallParams). hlavne s ITS by mohol byt problem
+
         
         allReports = new ArrayList<>(); //we need to refresh allReports, 'cause sth might've been hack-added in drawPlots
         allReports.addAll(reportsCTS);
         allReports.addAll(reportsIntTS);
-        allReports.addAll(addedReports);
         
         //show errors
-        drawTablesErrorMeasures(reportsCTS, reportsIntTS, addedReports);
+        drawTablesErrorMeasures(reportsCTS, reportsIntTS);
         
         //show prediction intervals, if any
         outputPredictionIntervals(reportsCTS);

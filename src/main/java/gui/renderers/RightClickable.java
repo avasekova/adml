@@ -24,7 +24,7 @@ public interface RightClickable {
     Plottable getReport();
     JPopupMenu getMenu();
     
-    static void redrawPlots(JList listPlotLegend, List<TrainAndTestReport> addedReports) {
+    static void redrawPlots(JList listPlotLegend) {
         listPlotLegend.repaint();
 
         //and then redraw the plots:
@@ -40,16 +40,6 @@ public interface RightClickable {
 
             List<TrainAndTestReportInterval> updatedReportsIntTS = new ArrayList<>();
             updatedReportsIntTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsITS());
-
-            for (TrainAndTestReport rep : addedReports) {
-                if (rep instanceof TrainAndTestReportCrisp) {
-                    updatedReportsCTS.add((TrainAndTestReportCrisp)rep);
-                } else {
-                    if (rep instanceof TrainAndTestReportInterval) {
-                        updatedReportsIntTS.add((TrainAndTestReportInterval) rep);
-                    }
-                }
-            }
 
             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setAvgConfig(
                     new AveragesConfig(new ArrayList<>(),  //clear the avgs

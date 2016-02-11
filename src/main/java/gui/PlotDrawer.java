@@ -25,6 +25,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static gui.tablemodels.DataTableModel.LABELS_AXIS_X;
 
@@ -44,7 +45,6 @@ public class PlotDrawer {
     //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
     //refreshOnly je true, ak pridavam/mazem niektore ploty z legendy. false, ak sa to spusta "nacisto" hned po Run alebo Zoom
-    //return ploty, ktore sa prave pridali, takze AVG
     public static List<JGDBufferedPanel> drawPlots(boolean drawNew, boolean refreshOnly, CallParamsDrawPlots par) {
         String rangeXCrisp = "";
         String rangeYCrisp = "";
@@ -53,14 +53,13 @@ public class PlotDrawer {
         
         if (! par.getReportsCTS().isEmpty()) {
             rangeXCrisp = getRangeXCrisp(par.getAllDataCTS(), par.getNumForecasts(), par.getFrom(), par.getTo());
-            rangeYCrisp = getRangeYCrisp(par.getAllDataCTS(), par.getReportsCTS());
+            rangeYCrisp = getRangeYCrisp(par.getAllDataCTS(), par.getReportsCTS().stream().filter(r -> !r.isAverage()).collect(Collectors.toList())); //averages vzdy do toho rozsahu spadnu, tak ich tam ani nedavat. neviem, ci treba takto filtrovat, ale mozno to robi neplechu?
         }
         
         if (! par.getReportsITS().isEmpty()) {
             rangeXInt = getRangeXInterval(par.getSizeDataWithoutFromToCrop(), par.getNumForecasts(), par.getFrom(), par.getTo());
-            List<TrainAndTestReportInterval> reportsIntTS = deleteEmpty(par.getReportsITS());
-            par.setReportsITS(reportsIntTS);
-            rangeYInt = getRangeYInterval(par.getReportsITS());
+            par.getReportsITS().removeIf(r -> !r.getFittedValues().isEmpty() || !r.getForecastValuesTest().isEmpty() || !r.getForecastValuesFuture().isEmpty());
+            rangeYInt = getRangeYInterval(par.getReportsITS().stream().filter(r -> !r.isAverage()).collect(Collectors.toList()));
         }
         
         return drawPlots(drawNew, refreshOnly, par, rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
@@ -68,8 +67,6 @@ public class PlotDrawer {
     
     public static List<JGDBufferedPanel> drawPlots(boolean drawNew, final boolean refreshOnly, CallParamsDrawPlots par,
                                  String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
-        List<TrainAndTestReport> addedReports = new ArrayList<>();
-        
         if (par.getReportsCTS().isEmpty() && par.getReportsITS().isEmpty()) {
             //return addedReports; //TODO fix
             return new ArrayList<>();
@@ -87,25 +84,6 @@ public class PlotDrawer {
         
         ColourService.getService().resetCounter();
         
-        //compute all averages:
-        logger.info("--------Computing averages");
-        List<TrainAndTestReportCrisp> avgReportsCrisp = new ArrayList<>();
-        List<TrainAndTestReportInterval> avgReportsInt = new ArrayList<>();
-        try {
-            for (Average av : par.getAvgConfig().getAvgs()) {
-                avgReportsCrisp.addAll(av.computeAllCTSAvgs(reportsCTS));
-                avgReportsInt.addAll(av.computeAllIntTSAvgs(reportsIntTS));
-            }
-        } catch (IllegalArgumentException e) {
-            if (! refreshOnly) {
-                JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
-            } //otherwise they've already seen the error and it'd be annoying
-        }
-        addedReports.addAll(avgReportsCrisp);
-        addedReports.addAll(avgReportsInt);
-        
-        //then proceed to drawing
-        
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("JavaGD");
 
@@ -119,20 +97,19 @@ public class PlotDrawer {
         if (! reportsCTS.isEmpty()) { //plot CTS
             boolean wasSthDrawnCrisp = false;
             
-            List<TrainAndTestReportCrisp> whatToDrawNow = new ArrayList<>();
-            if (par.getAvgConfig().isAvgONLY()) {
-                whatToDrawNow = avgReportsCrisp;
-            } else {
-                whatToDrawNow.addAll(reportsCTS);
-                whatToDrawNow.addAll(avgReportsCrisp);
-            }
             //teraz nakresli vsetko
-            for (TrainAndTestReportCrisp r : whatToDrawNow) {
+            for (TrainAndTestReportCrisp r : reportsCTS) {
+                //if only averages are to be drawn and this is not one, skip it
+                if (par.getAvgConfig().isAvgONLY() && (! r.isAverage())) {
+                    continue;
+                }
+
+                if (r.getColourInPlot() == null) {
+                    r.setColourInPlot(ColourService.getService().getNewColour());
+                }
+
+                //make sure this is called _after_ the colour has been assigned
                 if (! r.isVisible()) { //skip those that are turned off
-                    if (r.getColourInPlot() == null) {
-                        ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
-                    }
-                    //do not discard the colour in case it was given, i.e. no new colour would have been asked for anyway
                     continue;
                 }
                 
@@ -140,17 +117,10 @@ public class PlotDrawer {
                     rengine.eval("par(new=TRUE)");
                 }
                 
-                String colourToUseNow;
-                if (refreshOnly || (r.getColourInPlot() != null)) { //get the colour that was used previously
-                    colourToUseNow = r.getColourInPlot();
-                } else { //else get a new one
-                    colourToUseNow = ColourService.getService().getNewColour();
-                }
-                
                 StringBuilder plotCode = new StringBuilder(r.getPlotCode());
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
-                        + "lwd=4, col=\"" + colourToUseNow + "\"");
+                        + "lwd=4, col=\"" + r.getColourInPlot() + "\"");
                 plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
 
                 rengine.eval(plotCode.toString());
@@ -176,16 +146,16 @@ public class PlotDrawer {
                                        + "c(" + UPPERS + "," + LOWERS_REVERSE + ","
                                               //and add the last "known" (forecast test) value
                                               + r.getForecastValuesTest()[r.getForecastValuesTest().length-1] + "),"
-                               + "density=NA, col=" + getRGBColorStringForHEX(colourToUseNow, 30) 
+                               + "density=NA, col=" + getRGBColorStringForHEX(r.getColourInPlot(), 30)
                                + ", border=NA)"); //TODO col podla aktualnej
                     
                     rengine.rm(UPPERS, LOWERS_REVERSE);
                 }
 
                 //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
+                rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + r.getColourInPlot() + "\")");
                 if ((! refreshOnly) && (r.getColourInPlot() == null)) {
-                    r.setColourInPlot(colourToUseNow);
+                    r.setColourInPlot(r.getColourInPlot());
                 }
             }
             
@@ -223,33 +193,24 @@ public class PlotDrawer {
         if (! reportsIntTS.isEmpty()) { //plot ITS
             boolean wasSthDrawnIntTS = false;
             
-            List<TrainAndTestReportInterval> whatToDrawNow = new ArrayList<>();
-            if (par.getAvgConfig().isAvgONLY()) {
-                whatToDrawNow = avgReportsInt;
-            } else {
-                whatToDrawNow.addAll(reportsIntTS);
-                whatToDrawNow.addAll(avgReportsInt);
-            }
-            
             //now draw
-            for (TrainAndTestReportInterval r : whatToDrawNow) {
+            for (TrainAndTestReportInterval r : reportsIntTS) {
+                //if only averages are to be drawn and this is not one, skip it
+                if (par.getAvgConfig().isAvgONLY() && (! r.isAverage())) {
+                    continue;
+                }
+
+                if (r.getColourInPlot() == null) {
+                    r.setColourInPlot(ColourService.getService().getNewColour());
+                }
+
+                //make sure this is called _after_ the colour has been assigned
                 if (! r.isVisible()) { //skip those that are turned off
-                    if (r.getColourInPlot() == null) {
-                        ColourService.getService().getNewColour(); //but discard the colour as if you drew them so that the avg had the same colour
-                    }
-                    //do not discard the colour in case it was given, i.e. no new colour would have been asked for anyway
                     continue;
                 }
                 
                 if (wasSthDrawnIntTS) {
                     rengine.eval("par(new=TRUE)");
-                }
-                
-                String colourToUseNow;
-                if (refreshOnly || (r.getColourInPlot() != null)) { //get the colour that was used previously
-                    colourToUseNow = r.getColourInPlot();
-                } else { //else get a new one
-                    colourToUseNow = ColourService.getService().getNewColour();
                 }
 
                 //naplotovat fitted values:
@@ -264,7 +225,7 @@ public class PlotDrawer {
                 rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", lower, " + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", upper, xlim = "
-                        + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + colourToUseNow + "\")");
+                        + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + r.getColourInPlot() + "\")");
 
                 //naplotovat fitted values pre training data:
                 final int sizeForecastTest = r.getForecastValuesTest().size();
@@ -280,7 +241,7 @@ public class PlotDrawer {
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", lower, "
                         + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", upper, xlim = " + rangeXInt
-                        + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + colourToUseNow + "\")");
+                        + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + r.getColourInPlot() + "\")");
 
                 //naplotovat forecasty buduce:
                 final int sizeForecastFuture = r.getForecastValuesFuture().size();
@@ -299,16 +260,16 @@ public class PlotDrawer {
                             + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom()) + ", lower, "
                             + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+sizeForecastFuture+par.getFrom())
                             + ", upper, xlim = " + rangeXInt + ", ylim = " + rangeYInt
-                            + ", lwd=4, col=\"" + colourToUseNow + "\")");
+                            + ", lwd=4, col=\"" + r.getColourInPlot() + "\")");
                 }
 
                 //add a dashed vertical line to separate test and train
-                rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + colourToUseNow + "\")");
+                rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + r.getColourInPlot() + "\")");
 
                 wasSthDrawnIntTS = true;
 
                 if ((! refreshOnly) && (r.getColourInPlot() == null)) {
-                    r.setColourInPlot(colourToUseNow);
+                    r.setColourInPlot(r.getColourInPlot());
                 }
             }
             
@@ -366,15 +327,11 @@ public class PlotDrawer {
             List<Plottable> allReports = new ArrayList<>();
             allReports.addAll(reportsCTS);
             allReports.addAll(reportsIntTS);
-            allReports.addAll(addedReports);
-            drawLegend(par.getListPlotLegend(), allReports, addedReports, new PlotLegendTurnOFFableListCellRenderer(),
-                    rangeXCrisp, rangeYCrisp, rangeXInt, rangeYInt);
+            drawLegend(par.getListPlotLegend(), allReports, new PlotLegendTurnOFFableListCellRenderer());
         }
         
         //return addedReports; //TODO fix
-        List<JGDBufferedPanel> plots = new ArrayList<>();
-        plots.add(drawNowToThisGDBufferedPanel);
-        return plots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
     public static List<BasicStats> drawPlotsResiduals(Map<String, List<Double>> residuals, JList listPlotLegendResiduals, 
@@ -522,9 +479,7 @@ public class PlotDrawer {
         
         PlotStateKeeper.setLastCallParams(par);
 
-        List<JGDBufferedPanel> resultPlots = new ArrayList<>();
-        resultPlots.add(drawNowToThisGDBufferedPanel);
-        return resultPlots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
     private static void drawPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
@@ -684,9 +639,7 @@ public class PlotDrawer {
         
         PlotStateKeeper.setLastCallParams(par);
 
-        List<JGDBufferedPanel> resultPlots = new ArrayList<>();
-        resultPlots.add(drawNowToThisGDBufferedPanel);
-        return resultPlots;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
     private static void drawScatterPlotITS_LBUB(int width, int height, List<Double> lowerBound, List<Double> upperBound,
@@ -742,17 +695,17 @@ public class PlotDrawer {
     
     
     //TODO refaktor: spojit s draw a drawScatterPlot (iba nejaky prepinac..)
-    public static void drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
+    public static List<JGDBufferedPanel> drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         final int start = Utils.getCounter();
         int counter = 0;
         MyRengine rengine = MyRengine.getRengine();
-        StringBuilder formula = new StringBuilder("~");
-        StringBuilder labels = new StringBuilder("labels=c(");
+        StringBuilder labels = new StringBuilder();
+        StringBuilder df = new StringBuilder();
         boolean next = false;
         for (IntervalNamesCentreRadius interval : par.getListCentreRadius()) {
             if (next) {
-                formula.append("+");
                 labels.append(",");
+                df.append(",");
             } else {
                 next = true;
             }
@@ -761,44 +714,56 @@ public class PlotDrawer {
             String RADIUS = Const.INPUT + ".radius." + (start+counter);
             rengine.assign(CENTER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getCentre())));
             rengine.assign(RADIUS, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getRadius())));
-            
-            formula.append(Const.INPUT).append(".center.").append(start+counter);
-            formula.append("+");
-            formula.append(Const.INPUT).append(".radius.").append(start+counter);
-            
+
             labels.append("\"").append(interval.getCentre()).append("\"");
             labels.append(",");
             labels.append("\"").append(interval.getRadius()).append("\"");
+
+            df.append(Const.INPUT).append(".center.").append(start+counter);
+            df.append(",");
+            df.append(Const.INPUT).append(".radius.").append(start+counter);
             
             counter++;
         }
-        labels.append(")");
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
-            //TODO dokoncit; zatial ich ignoruje
-            
-//            String colour = ColourService.getService().getNewColour();
-//            interval.setColourInPlot(colour);
-//            
-//            String lineStyle = "col=\"" + colour + "\"";
-//            drawScatterPlotMatrixITS_LBUB(par.getWidth(), par.getHeight(), par.getDataTableModel().getDataForColname(interval.getLowerBound()),
-//                    par.getDataTableModel().getDataForColname(interval.getUpperBound()), next, lineStyle, rangeCenter, rangeRadius);
-//            if (! next) {
-//                next = true;
-//            }
+            if (next) {
+                labels.append(",");
+                df.append(",");
+            } else {
+                next = true;
+            }
+
+            String LOWER = Const.INPUT + ".lower." + (start+counter);
+            String UPPER = Const.INPUT + ".upper." + (start+counter);
+            rengine.assign(LOWER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getLowerBound())));
+            rengine.assign(UPPER, Utils.listToArray(par.getDataTableModel().getDataForColname(interval.getUpperBound())));
+
+            labels.append("\"").append(interval.getLowerBound()).append("\"");
+            labels.append(",");
+            labels.append("\"").append(interval.getUpperBound()).append("\"");
+
+            df.append(Const.INPUT).append(".lower.").append(start+counter);
+            df.append(",");
+            df.append(Const.INPUT).append(".upper.").append(start+counter);
+
+            counter++;
         }
         
         drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         rengine.require("JavaGD");
         rengine.require("psych");
         rengine.eval("JavaGD()"); // zacne novy plot
-        rengine.eval("pairs.panels(" + formula + ", " + labels + ", smooth=FALSE, scale=FALSE, ellipses=FALSE, "
+        rengine.eval("pairs.panels(data.frame(" + df.toString() + ")"
+                + ", labels=c(" + labels + "), smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
         
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight()));
         drawNowToThisGDBufferedPanel.initRefresh();
         
         PlotStateKeeper.setLastCallParams(par); //povodne par
+
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
 
     private static String getRangeYMultipleInterval(List<Double> allVals) {
@@ -857,19 +822,6 @@ public class PlotDrawer {
         }
         
         return allVals;
-    }
-
-    private static List<TrainAndTestReportInterval> deleteEmpty(List<TrainAndTestReportInterval> reportsITS) {
-        List<TrainAndTestReportInterval> toDelete = new ArrayList<>();
-        
-        for (TrainAndTestReportInterval r : reportsITS) {
-            if (r.getFittedValues().isEmpty() && r.getForecastValuesTest().isEmpty() && r.getForecastValuesFuture().isEmpty()) {
-                toDelete.add(r);
-            }
-        }
-        
-        reportsITS.removeAll(toDelete);
-        return reportsITS;
     }
     
     private static String getRGBColorStringForHEX(String hexRColor, int alpha) {
@@ -1079,28 +1031,6 @@ public class PlotDrawer {
         
         return panelsList;
     }
-
-    public static void drawLegend(final JList<RightClickable> listPlotLegend, final List<Plottable> plots,
-                                  final List<TrainAndTestReport> addedReports, ListCellRenderer cellRenderer,
-                                  final String rangeXCrisp, final String rangeYCrisp, final String rangeXInt, final String rangeYInt) {
-        ((DefaultListModel<RightClickable>)(listPlotLegend.getModel())).removeAllElements();
-        
-        listPlotLegend.setCellRenderer(cellRenderer); //musi byt nastaveny pred vytvaranim TurnoOFFableElt! tam je repaint
-        
-        if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
-            for (Plottable p : plots) {
-                if (p.getColourInPlot() != null) {
-                    final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p, listPlotLegend, addedReports);
-                    ((DefaultListModel<RightClickable>)(listPlotLegend.getModel())).addElement(element);
-                }
-            }
-        }// else {
-            //TODO - should never happen
-        //}
-        
-        listPlotLegend.repaint();
-    }
-    
     
     public static void drawLegend(final JList<RightClickable> listPlotLegend, List<Plottable> plots, ListCellRenderer cellRenderer) {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
@@ -1108,7 +1038,12 @@ public class PlotDrawer {
         listPlotLegend.setCellRenderer(cellRenderer);
         
         if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
-            //TODO - should never happen
+            for (Plottable p : plots) {
+                if (p.getColourInPlot() != null) {
+                    final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p, listPlotLegend);
+                    ((DefaultListModel<RightClickable>)(listPlotLegend.getModel())).addElement(element);
+                }
+            }
         } else {
             for (Plottable p : plots) {
                 if (p.getColourInPlot() != null) {
@@ -1286,9 +1221,7 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
         drawNowToThisGDBufferedPanel.initRefresh();
 
-        List<JGDBufferedPanel> plotsResult = new ArrayList<>();
-        plotsResult.add(drawNowToThisGDBufferedPanel);
-        return plotsResult;
+        return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
 
     public static List<JGDBufferedPanel> drawScreePlot(List<String> selectedValuesList, int width, int height) {
