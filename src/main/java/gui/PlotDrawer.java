@@ -1036,20 +1036,17 @@ public class PlotDrawer {
         ((DefaultListModel)(listPlotLegend.getModel())).removeAllElements();
         
         listPlotLegend.setCellRenderer(cellRenderer);
-        
-        if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
-            for (Plottable p : plots) {
-                if (p.getColourInPlot() != null) {
-                    final PlotLegendTurnOFFableListElement element = new PlotLegendTurnOFFableListElement(p, listPlotLegend);
-                    ((DefaultListModel<RightClickable>)(listPlotLegend.getModel())).addElement(element);
+
+        for (Plottable p : plots) {
+            if (p.getColourInPlot() != null) {
+                RightClickable element;
+                if (cellRenderer instanceof PlotLegendTurnOFFableListCellRenderer) {
+                    element = new PlotLegendTurnOFFableListElement(p, listPlotLegend);
+                } else {
+                    element = new PlotLegendSimpleListElement(p, listPlotLegend);
                 }
-            }
-        } else {
-            for (Plottable p : plots) {
-                if (p.getColourInPlot() != null) {
-                    final PlotLegendSimpleListElement element = new PlotLegendSimpleListElement(p, listPlotLegend);
-                    ((DefaultListModel<RightClickable>)(listPlotLegend.getModel())).addElement(element);
-                }
+
+                ((DefaultListModel<RightClickable>)(listPlotLegend.getModel())).addElement(element);
             }
         }
         
