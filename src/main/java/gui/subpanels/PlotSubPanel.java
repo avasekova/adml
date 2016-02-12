@@ -27,6 +27,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import gui.renderers.RightClickable;
 import models.Model;
 import models.TrainAndTestReport;
 import org.rosuda.javaGD.JGDBufferedPanel;
@@ -543,31 +545,23 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
     private void selectAllOrNone(Model selectWhat) {
         if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
             //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
-            DefaultListModel model = (DefaultListModel)listPlotLegend.getModel();
-            
+            DefaultListModel<RightClickable> model = (DefaultListModel<RightClickable>)listPlotLegend.getModel();
+
             switch (selectWhat) {
                 case NONE:
                     for (int i = 0; i < model.size(); i++) {
-                        Plottable p = ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport();
+                        Plottable p = (model.getElementAt(i)).getReport();
                         if ((p instanceof TrainAndTestReport) && (! ((TrainAndTestReport)p).isAverage())) {
                             p.setVisible(false);
                         }
                     }   break;
                 case ALL:
                     for (int i = 0; i < model.size(); i++) {
-                        ((PlotLegendTurnOFFableListElement)model.getElementAt(i)).getReport().setVisible(true);
+                        (model.getElementAt(i)).getReport().setVisible(true);
                 }   break;
             }
-            
-            //to iste ako v buttonLegenSelectAll a v drawLegend - mouseListener. TODO refactor
-            listPlotLegend.repaint();
-            //and then redraw the plots:
-            String rangeXCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispXmin() + "," + PlotStateKeeper.getLastDrawnCrispXmax() + "))";
-            String rangeYCrisp = "range(c(" + PlotStateKeeper.getLastDrawnCrispYmin() + "," + PlotStateKeeper.getLastDrawnCrispYmax() + "))";
-            String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
-            String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
-            PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY, (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
-                    rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
+
+            RightClickable.redrawPlots(listPlotLegend);
         } //else nereaguj
     }
 

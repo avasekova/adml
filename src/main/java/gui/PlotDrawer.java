@@ -154,9 +154,6 @@ public class PlotDrawer {
 
                 //add a dashed vertical line to separate test and train
                 rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + r.getColourInPlot() + "\")");
-                if ((! refreshOnly) && (r.getColourInPlot() == null)) {
-                    r.setColourInPlot(r.getColourInPlot());
-                }
             }
             
             //teraz by mali byt nakreslene vsetky ciarky aj priemery
@@ -267,10 +264,6 @@ public class PlotDrawer {
                 rengine.eval("abline(v = " + (sizeFitted+par.getFrom()) + ", lty = 2, lwd=2, col=\"" + r.getColourInPlot() + "\")");
 
                 wasSthDrawnIntTS = true;
-
-                if ((! refreshOnly) && (r.getColourInPlot() == null)) {
-                    r.setColourInPlot(r.getColourInPlot());
-                }
             }
             
             rengine.rm("lower", "upper");
@@ -308,8 +301,8 @@ public class PlotDrawer {
             PlotStateKeeper.setLastDrawnIntYmin(rangeY[0]);
             PlotStateKeeper.setLastDrawnIntYmax(rangeY[1]);
             if (drawNew) {
-                PlotStateKeeper.setIntXmin(par.getFrom());
-                PlotStateKeeper.setIntXmax(par.getSizeDataWithoutFromToCrop() + numForecasts);
+                PlotStateKeeper.setIntXmin(rangeX[0]);
+                PlotStateKeeper.setIntXmax(rangeX[1]);
                 PlotStateKeeper.setIntYmin(rangeY[0]);
                 PlotStateKeeper.setIntYmax(rangeY[1]);
             }

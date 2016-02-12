@@ -47,7 +47,7 @@ public interface RightClickable {
             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsCTS(updatedReportsCTS);
             ((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).setReportsITS(updatedReportsIntTS);
 
-            plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_ONLY,
+            plots = PlotDrawer.drawPlots(Const.MODE_DRAW_ZOOM_ONLY, Const.MODE_REFRESH_ONLY,
                     (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
                     rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
