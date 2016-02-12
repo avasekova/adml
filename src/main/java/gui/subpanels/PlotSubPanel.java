@@ -418,10 +418,8 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
     }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
 
     private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed
-        textFieldPlotRangeCTSXfrom.setText("" + MainFrame.getInstance().getTextFieldRunDataRangeFrom().getText());
-        int upperBound = Integer.parseInt(MainFrame.getInstance().getTextFieldRunDataRangeTo().getText()) +
-        Integer.parseInt(MainFrame.getInstance().getTextFieldRunNumForecasts().getText());
-        textFieldPlotRangeCTSXto.setText("" + upperBound);
+        textFieldPlotRangeCTSXfrom.setText("" + PlotStateKeeper.getCrispXmin());
+        textFieldPlotRangeCTSXto.setText("" + PlotStateKeeper.getCrispXmax());
     }//GEN-LAST:event_buttonPlotRestoreCTSRangeXActionPerformed
 
     private void buttonPlotRestoreCTSRangeYActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeYActionPerformed
@@ -457,10 +455,8 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
             //TODO restore scatterplot
             MainFrame.getInstance().getTextAreaPlotBasicStats().setText("The scatterplot does not support restoring the original range yet.");
         } else {
-            textFieldPlotRangeIntTSXfrom.setText("" + MainFrame.getInstance().getTextFieldRunDataRangeFrom().getText());
-            int upperBound = Integer.parseInt(MainFrame.getInstance().getTextFieldRunDataRangeTo().getText()) +
-            Integer.parseInt(MainFrame.getInstance().getTextFieldRunNumForecasts().getText());
-            textFieldPlotRangeIntTSXto.setText("" + upperBound);
+            textFieldPlotRangeIntTSXfrom.setText("" + PlotStateKeeper.getIntXmin());
+            textFieldPlotRangeIntTSXto.setText("" + PlotStateKeeper.getIntXmax());
         }
     }//GEN-LAST:event_buttonPlotRestoreIntTSRangeXActionPerformed
 

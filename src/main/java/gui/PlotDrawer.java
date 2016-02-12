@@ -181,8 +181,8 @@ public class PlotDrawer {
             PlotStateKeeper.setLastDrawnCrispYmin(rangeY[0]);
             PlotStateKeeper.setLastDrawnCrispYmax(rangeY[1]);
             if (drawNew) {
-                PlotStateKeeper.setCrispXmin(par.getFrom());
-                PlotStateKeeper.setCrispXmax(par.getSizeDataWithoutFromToCrop() + numForecasts);
+                PlotStateKeeper.setCrispXmin(rangeX[0]);
+                PlotStateKeeper.setCrispXmax(rangeX[1]);
                 PlotStateKeeper.setCrispYmin(rangeY[0]);
                 PlotStateKeeper.setCrispYmax(rangeY[1]);
             }
