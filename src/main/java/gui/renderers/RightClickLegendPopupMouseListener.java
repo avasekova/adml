@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author xvasekov
  */
-class RightClickLegendPopupMouseListener extends MouseAdapter {
+public class RightClickLegendPopupMouseListener extends MouseAdapter {
     private final JList listPlotLegend;
     private final RightClickable outer;
 
