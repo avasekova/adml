@@ -4665,7 +4665,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         ((DefaultListModel)((((CTSSubPanel)panelCTS).getListColnames()).getModel())).removeAllElements();
         ((DefaultListModel<String>)(listColnamesTransform.getModel())).removeAllElements();
         ((DefaultListModel)(((TestsSubPanel)panelTestsOutside).getListColnamesTests().getModel())).removeAllElements();
-        ((DefaultListModel<IntervalNames>)(listPlotITSspecs.getModel())).removeAllElements();
+//        ((DefaultListModel<IntervalNames>)(listPlotITSspecs.getModel())).removeAllElements();  //do not clean these, no backup
         comboBoxColnamesRun.removeAllItems();
         comboBoxRunFakeIntCenter.removeAllItems();
         comboBoxRunFakeIntRadius.removeAllItems();
