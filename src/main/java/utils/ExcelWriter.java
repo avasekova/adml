@@ -9,11 +9,15 @@ import jxl.write.Label;
 import jxl.write.WritableSheet;
 import jxl.write.WritableWorkbook;
 import jxl.write.WriteException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 
 public class ExcelWriter { //TODO add information about the models, add formatting
+
+    private static final Logger logger = LoggerFactory.getLogger(ExcelWriter.class);
     
     public static void errorJTablesToExcel(ErrorMeasuresTableModel_CTS tableCTS,
             ErrorMeasuresTableModel_ITS tableIntTS, File file) {
@@ -44,7 +48,7 @@ public class ExcelWriter { //TODO add information about the models, add formatti
             workbook.write();
             workbook.close();
         } catch (IOException | WriteException ex) {
-            //TODO log
+            logger.debug("error writing results to Excel", ex);
         }
     }
     
@@ -73,7 +77,7 @@ public class ExcelWriter { //TODO add information about the models, add formatti
             workbook.write();
             workbook.close();
         } catch (IOException | WriteException ex) {
-            //TODO log
+            logger.debug("error writing results to Excel", ex);
         }
     }
     
@@ -102,7 +106,7 @@ public class ExcelWriter { //TODO add information about the models, add formatti
             workbook.write();
             workbook.close();
         } catch (IOException | WriteException ex) {
-            //TODO log
+            logger.debug("error writing results to Excel", ex);
         }
     }
 }

@@ -3,6 +3,8 @@ package utils;
 import gui.tablemodels.DataTableModel;
 import org.rosuda.JRI.REXP;
 import org.rosuda.JRI.Rengine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -15,6 +17,8 @@ import java.util.Map;
 
 public class MyRengine extends Rengine {
     //TODO na konci kazdeho pouzivania Rengine (v modeloch atd): "rm" vsetky objekty, co uz nebudem potrebovat
+
+    private static final Logger logger = LoggerFactory.getLogger(MyRengine.class);
     
     private static MyRengine instance = null;
     private final String TEMP = "temp" + Utils.getCounter();
@@ -35,7 +39,7 @@ public class MyRengine extends Rengine {
                 return null;
             }
             
-            //change the default destination for drawing with JavaGD //TODO always update when refactoring...
+            //change the default destination for drawing with JavaGD
             re.eval("Sys.setenv('JAVAGD_CLASS_NAME'='utils/MyJavaGD')"); //pozor! je to setenv, nie putenv
             
             //adding my own functions:
@@ -67,7 +71,7 @@ public class MyRengine extends Rengine {
                 }
             }
         } catch (IOException e) {
-            //TODO log
+            logger.debug("error loading R scripts from file", e);
         }
 
         //for some reason I cannot make it load more functions in a single call of re.eval
@@ -155,7 +159,7 @@ public class MyRengine extends Rengine {
 
     @Override
     public REXP eval(String expression) {
-        String[] commands = expression.split(";"); //TODO override "rengine.eval" so that it accepts multiple commands separated by ";"
+        String[] commands = expression.split(";");
         REXP returnVal = null;
         for (String command : commands) {
             returnVal = super.eval(command);

@@ -1,5 +1,7 @@
 package utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.imlp.Interval;
 import utils.imlp.IntervalCentreRadius;
 import utils.imlp.IntervalLowerUpper;
@@ -15,6 +17,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import static java.lang.Double.NaN;
 
 public class Utils {
+
+    private static final Logger logger = LoggerFactory.getLogger(Utils.class);
     
     public static final int NUM_DECIMAL_POINTS = 6;
     public static final int REASONABLY_MANY_MODELS = 10;
@@ -86,19 +90,16 @@ public class Utils {
                     list.add(i);
                 }
             }
-            return list;
         } catch (NumberFormatException e) {
-            //TODO log? resp. bude sa pouzivat defaultna hodnota
             list.add(null);
-            return list;
         }
+        return list;
     }
     
     public static Double getDoubleOrDefault(JTextField textField) {
         try {
             return Double.parseDouble(textField.getText());
         } catch (NumberFormatException e) {
-            //TODO log? resp. bude sa pouzivat defaultna hodnota
             return null;
         }
     }
@@ -107,7 +108,6 @@ public class Utils {
         try {
             return Double.parseDouble(text);
         } catch (NumberFormatException e) {
-            //TODO log? resp. bude sa pouzivat defaultna hodnota
             return null;
         }
     }
@@ -116,7 +116,7 @@ public class Utils {
         return getDoublesOrDefault(textField.getText());
     }
     
-    public static List<Double> getDoublesOrDefault(String text) { //TODO refaktorovat trochu? (tie vynimky)
+    public static List<Double> getDoublesOrDefault(String text) {
         List<Double> list = new ArrayList<>();
         try {
             String[] split = text.split("\\.\\.\\.");
@@ -142,12 +142,10 @@ public class Utils {
                     }
                 }
             }
-            return list;
         } catch (NumberFormatException e) {
-            //TODO log? resp. bude sa pouzivat defaultna hodnota
             list.add(null);
-            return list;
         }
+        return list;
     }
     
     public static R_Bool booleanToRBool(boolean truefalse) {
@@ -387,7 +385,7 @@ public class Utils {
         try (RandomAccessFile stream = new RandomAccessFile(file, "rw")) {
             return true;
         } catch (IOException e) {
-            //TODO log
+            logger.debug("stream not completely written", e);
         }
         
         return false;
