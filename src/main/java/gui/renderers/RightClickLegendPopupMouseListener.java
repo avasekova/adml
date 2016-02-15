@@ -12,10 +12,10 @@ import java.util.List;
  * @author xvasekov
  */
 public class RightClickLegendPopupMouseListener extends MouseAdapter {
-    private final JList listPlotLegend;
+    private final JList<RightClickable> listPlotLegend;
     private final RightClickable outer;
 
-    public RightClickLegendPopupMouseListener(final JList listPlotLegend, final RightClickable outer) {
+    public RightClickLegendPopupMouseListener(final JList<RightClickable> listPlotLegend, final RightClickable outer) {
         this.outer = outer;
         this.listPlotLegend = listPlotLegend;
     }
