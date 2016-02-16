@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
-public class CombinationWeightsTableModel extends AbstractTableModel {
+public class CombinationWeightsTableModel extends ReportsTableModel {
     
     private final Map<String, Double> weights;
     

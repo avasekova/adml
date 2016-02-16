@@ -1,7 +1,7 @@
 package gui.dialogs;
 
-import gui.tablemodels.IntervalExplVarsTableModel;
-import utils.IntervalExplanatoryVariable;
+import gui.tablemodels.IntervalVariablesTableModel;
+import utils.IntervalVariable;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     
-    private IntervalExplVarsTableModel tableModel;
+    private IntervalVariablesTableModel tableModel;
     private static List<String> colNames = new ArrayList<>();
     
     public DialogAddIntervalExplanatoryVar(java.awt.Frame parent, boolean modal) {
@@ -208,7 +208,7 @@ public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setExplVarsTableModel(IntervalExplVarsTableModel tableModel) {
+    public void setExplVarsTableModel(IntervalVariablesTableModel tableModel) {
         this.tableModel = tableModel;
     }
     
@@ -239,7 +239,7 @@ public class DialogAddIntervalExplanatoryVar extends javax.swing.JDialog {
     }//GEN-LAST:event_radioButtonAddExplVarCenterRadiusActionPerformed
 
     private void buttonOKAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKAddExplVarActionPerformed
-        IntervalExplanatoryVariable var = new IntervalExplanatoryVariable();
+        IntervalVariable var = new IntervalVariable();
         var.setName(textFieldAddExplVarName.getText());
         var.setLag(Integer.parseInt(spinnerAddExplVarLag.getValue().toString()));
             

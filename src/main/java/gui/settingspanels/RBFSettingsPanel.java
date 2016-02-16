@@ -2,14 +2,16 @@ package gui.settingspanels;
 
 import gui.MainFrame;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
-import gui.tablemodels.CrispExplVarsTableModel;
+import gui.tablemodels.CrispVariablesTableModel;
 import models.Model;
 import models.params.Params;
-import utils.CrispExplanatoryVariable;
+import utils.CrispVariable;
 import utils.FieldsParser;
 
 import javax.swing.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RBFSettingsPanel extends SettingsPanel {
 
@@ -70,7 +72,7 @@ public class RBFSettingsPanel extends SettingsPanel {
             }
         });
 
-        tableExplVars.setModel(new gui.tablemodels.CrispExplVarsTableModel());
+        tableExplVars.setModel(new CrispVariablesTableModel());
         tableExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneExplVars.setViewportView(tableExplVars);
 
@@ -146,12 +148,12 @@ public class RBFSettingsPanel extends SettingsPanel {
 
     private void buttonAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddExplVarActionPerformed
         DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(((MainFrame)SwingUtilities.windowForComponent(this)), true);
-        dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableExplVars.getModel()));
+        dialogAddExplVar.setExplVarsTableModel((CrispVariablesTableModel)(tableExplVars.getModel()));
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonAddExplVarActionPerformed
 
     private void buttonRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveExplVarActionPerformed
-        ((CrispExplVarsTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
+        ((CrispVariablesTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
     }//GEN-LAST:event_buttonRemoveExplVarActionPerformed
 
 
@@ -171,17 +173,19 @@ public class RBFSettingsPanel extends SettingsPanel {
     private javax.swing.JTextField textFieldNumHidden;
     // End of variables declaration//GEN-END:variables
 
-//    public List<CrispOutputVariable> getOutVars() {
-//        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
+//    public List<CrispVariable> getOutVars() {
+//        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
 //        outVar.setName(comboBoxOutputVar.getSelectedItem().toString() + comboBoxOutputVar.getSelectedIndex());
 //        outVar.setFieldName(comboBoxOutputVar.getSelectedItem().toString());
-//        List<CrispOutputVariable> outVars = new ArrayList<>();
+//        List<CrispVariable> outVars = new ArrayList<>();
 //        outVars.add(outVar);
 //        return outVars;
 //    }
     
-    public List<CrispExplanatoryVariable> getExplVars() {
-        return ((CrispExplVarsTableModel)tableExplVars.getModel()).getVariables();
+    public List<CrispVariable> getExplVars() {
+        return ((CrispVariablesTableModel)tableExplVars.getModel()).getVariables().stream()
+                .map(e -> (CrispVariable) e)
+                .collect(Collectors.toList());
     }
     
     public String getMaxIt() {
@@ -211,10 +215,10 @@ public class RBFSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
         //POZOR, OutVars sa nastavuju vonku v getParamsRBF! zatial. TODO prerobit sem?
-//        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
+//        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
 //        outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
 //        outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
-//        List<CrispOutputVariable> outVarList = new ArrayList<>();
+//        List<CrispVariable> outVarList = new ArrayList<>();
 //        outVarList.add(outVar);
 //        SettingsPanel.setSomethingOneValue(classss, resultList, "setOutVars",
 //                List.class, outVarList);

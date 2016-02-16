@@ -92,13 +92,13 @@ public class BNN implements Forecastable {
     }
     
     //podla vzoru iMLP C code
-    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispExplanatoryVariable> explVars,
-                                           List<CrispOutputVariable> outVars,
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispVariable> explVars,
+                                           List<CrispVariable> outVars,
                                            int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
         int maximumLag = 0;
-        for (CrispExplanatoryVariable var : explVars) {
+        for (CrispVariable var : explVars) {
             List<Double> vals = dataTableModel.get(var.getFieldName()).subList(from, to);
             data.add(IntervalMLPCcode.lagBy(var.getLag(), vals));
             
@@ -107,7 +107,7 @@ public class BNN implements Forecastable {
         
         this.maxLag = maximumLag;
         
-        for (CrispOutputVariable var : outVars) {
+        for (CrispVariable var : outVars) {
             List<Double> vals = dataTableModel.get(var.getFieldName()).subList(from, to);
             data.add(vals);
         }

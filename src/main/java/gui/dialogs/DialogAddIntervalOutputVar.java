@@ -1,7 +1,7 @@
 package gui.dialogs;
 
 import gui.tablemodels.IntervalOutVarsTableModel;
-import utils.IntervalOutputVariable;
+import utils.IntervalVariable;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
@@ -210,7 +210,7 @@ public class DialogAddIntervalOutputVar extends javax.swing.JDialog {
     }//GEN-LAST:event_radioButtonAddExplVarCenterRadiusActionPerformed
 
     private void buttonOKAddOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKAddOutVarActionPerformed
-        IntervalOutputVariable var = new IntervalOutputVariable();
+        IntervalVariable var = new IntervalVariable();
         var.setName(textFieldAddOutVarName.getText());
             
         if (radioButtonAddExplVarCenterRadius.isSelected()) {

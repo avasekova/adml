@@ -33,7 +33,7 @@ public interface RightClickable {
         String rangeXInt = "range(c(" + PlotStateKeeper.getLastDrawnIntXmin() + "," + PlotStateKeeper.getLastDrawnIntXmax() + "))";
         String rangeYInt = "range(c(" + PlotStateKeeper.getLastDrawnIntYmin() + "," + PlotStateKeeper.getLastDrawnIntYmax() + "))";
 
-        List<JGDBufferedPanel> plots = null;
+        List<JGDBufferedPanel> plots = new ArrayList<>();
         if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlots) {
             List<TrainAndTestReportCrisp> updatedReportsCTS = new ArrayList<>();
             updatedReportsCTS.addAll(((CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams())).getReportsCTS());

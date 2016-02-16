@@ -1,7 +1,7 @@
 package gui.dialogs;
 
-import gui.tablemodels.CrispExplVarsTableModel;
-import utils.CrispExplanatoryVariable;
+import gui.tablemodels.CrispVariablesTableModel;
+import utils.CrispVariable;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
     
-    private CrispExplVarsTableModel tableModel;
+    private CrispVariablesTableModel tableModel;
     private static List<String> colNames = new ArrayList<>();
     
     public DialogAddCrispExplanatoryVar(java.awt.Frame parent, boolean modal) {
@@ -120,12 +120,12 @@ public class DialogAddCrispExplanatoryVar extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void setExplVarsTableModel(CrispExplVarsTableModel tableModel) {
+    public void setExplVarsTableModel(CrispVariablesTableModel tableModel) {
         this.tableModel = tableModel;
     }
     
     private void buttonOKAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKAddExplVarActionPerformed
-        CrispExplanatoryVariable var = new CrispExplanatoryVariable();
+        CrispVariable var = new CrispVariable();
         var.setName(textFieldAddExplVarName.getText());
         var.setLag(Integer.parseInt(spinnerAddExplVarLag.getValue().toString()));
         var.setFieldName(comboBoxAddExplVar.getSelectedItem().toString());

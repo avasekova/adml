@@ -230,12 +230,12 @@ public class Nnet implements Forecastable {
         return optionalParams.toString();
     }
     
-    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispExplanatoryVariable> explVars,
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispVariable> explVars,
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
         int maximumLag = 0;
-        for (CrispExplanatoryVariable var : explVars) {
+        for (CrispVariable var : explVars) {
             List<Double> vals = dataTableModel.get(var.getFieldName()).subList(from, to);
             data.add(IntervalMLPCcode.lagBy(var.getLag(), vals));
             

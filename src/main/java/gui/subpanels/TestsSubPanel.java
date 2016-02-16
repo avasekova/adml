@@ -4,26 +4,18 @@ import analysis.StatisticalTests;
 import gui.MainFrame;
 import gui.PlotContainer;
 import gui.PlotDrawer;
-import gui.filefilters.FileFilterEps;
-import gui.filefilters.FileFilterPdf;
-import gui.filefilters.FileFilterPng;
-import gui.filefilters.FileFilterPs;
-import gui.filefilters.RFileFilter;
-import gui.files.PlotExporter;
-import gui.files.PlotExtensionFileChooser;
+import gui.files.Exporter;
 import gui.tablemodels.DataTableModel;
-import java.io.File;
+
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import org.rosuda.javaGD.JGDBufferedPanel;
-import utils.MyRengine;
 
 public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
 
@@ -283,7 +275,7 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
         //TODO vymysliet
 
         if (evt.getSource() == buttonExportTestsPlots) {
-            PlotExporter.export(tabbedPaneAnalysisPlotsTests);
+            Exporter.exportPlot(tabbedPaneAnalysisPlotsTests);
         }
     }//GEN-LAST:event_buttonExportTestsPlotsActionPerformed
 

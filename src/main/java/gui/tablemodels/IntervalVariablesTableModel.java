@@ -3,8 +3,8 @@ package gui.tablemodels;
 import utils.IntervalVariable;
 import utils.imlp.IntervalNamesCentreRadius;
 
-public class IntervalOutVarsTableModel extends OutputVariablesTableModel {
-
+public class IntervalVariablesTableModel extends VariablesTableModel {
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         IntervalVariable var = (IntervalVariable) (getVariables().get(rowIndex));
@@ -12,6 +12,8 @@ public class IntervalOutVarsTableModel extends OutputVariablesTableModel {
             case 0:
                 return var.getName();
             case 1:
+                return "(t-" + var.getLag() + ")";
+            case 2:
                 if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
                     return var.getIntervalNames().toString();
                 } else {

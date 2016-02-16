@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import java.io.File;
 import java.util.*;
 
-public class DataTableModel extends AbstractTableModel {
+public class DataTableModel extends ReportsTableModel {
     //TODO zjednotit vsetky nazvy premennych vsade v kode (hlavne v GUI), najst si system
     //TODO refaktorovat rovnake kusiska kodu (hlavne v plot drawingu a modeloch/metodach) von do metod;
 

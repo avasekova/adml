@@ -3,7 +3,7 @@ package gui.settingspanels;
 import gui.MainFrame;
 import gui.dialogs.DialogAddIntervalExplanatoryVar;
 import gui.dialogs.DialogAddIntervalOutputVar;
-import gui.tablemodels.IntervalExplVarsTableModel;
+import gui.tablemodels.IntervalVariablesTableModel;
 import gui.tablemodels.IntervalOutVarsTableModel;
 import models.Model;
 import models.params.Params;
@@ -13,6 +13,7 @@ import utils.imlp.dist.Distance;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     
@@ -93,7 +94,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
             }
         });
 
-        tableExplVars.setModel(new gui.tablemodels.IntervalExplVarsTableModel());
+        tableExplVars.setModel(new IntervalVariablesTableModel());
         tableExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneExplVars.setViewportView(tableExplVars);
 
@@ -263,12 +264,12 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
 
     private void buttonAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddExplVarActionPerformed
         DialogAddIntervalExplanatoryVar dialogAddExplVar = new DialogAddIntervalExplanatoryVar(((MainFrame)SwingUtilities.windowForComponent(this)), true);
-        dialogAddExplVar.setExplVarsTableModel((IntervalExplVarsTableModel)(tableExplVars.getModel()));
+        dialogAddExplVar.setExplVarsTableModel((IntervalVariablesTableModel)(tableExplVars.getModel()));
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonAddExplVarActionPerformed
 
     private void buttonRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveExplVarActionPerformed
-        ((IntervalExplVarsTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
+        ((IntervalVariablesTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
     }//GEN-LAST:event_buttonRemoveExplVarActionPerformed
 
     private void buttonAddOutVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddOutVarActionPerformed
@@ -328,11 +329,13 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
 //        return ((DistanceSettingsPanel) panelDistance).getSelectedDistance();
 //    }
     
-    public List<IntervalExplanatoryVariable> getExplVars() {
-        return ((IntervalExplVarsTableModel) tableExplVars.getModel()).getVariables();
+    public List<IntervalVariable> getExplVars() {
+        return ((IntervalVariablesTableModel) tableExplVars.getModel()).getVariables().stream()
+                .map(e -> (IntervalVariable) e)
+                .collect(Collectors.toList());
     }
     
-    public List<IntervalOutputVariable> getOutVars() {
+    public List<Variable> getOutVars() {
         return ((IntervalOutVarsTableModel) tableOutVars.getModel()).getVariables();
     }
     

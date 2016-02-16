@@ -4,8 +4,7 @@ import gui.MainFrame;
 import gui.settingspanels.PercentTrainSettingsPanel;
 import gui.settingspanels.RBFSettingsPanel;
 import gui.settingspanels.SettingsPanel;
-import utils.CrispExplanatoryVariable;
-import utils.CrispOutputVariable;
+import utils.CrispVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,8 @@ import java.util.List;
 public class RBFParams extends Params {
     
     private Integer numNodesHidden;
-    private List<CrispExplanatoryVariable> explVars = new ArrayList<>();
-    private List<CrispOutputVariable> outVars = new ArrayList<>();
+    private List<CrispVariable> explVars = new ArrayList<>();
+    private List<CrispVariable> outVars = new ArrayList<>();
     private Integer maxIterations;
 
     public Integer getNumNodesHidden() {
@@ -25,19 +24,19 @@ public class RBFParams extends Params {
         this.numNodesHidden = numNodesHidden;
     }
 
-    public List<CrispExplanatoryVariable> getExplVars() {
+    public List<CrispVariable> getExplVars() {
         return explVars;
     }
 
-    public void setExplVars(List<CrispExplanatoryVariable> explVars) {
+    public void setExplVars(List<CrispVariable> explVars) {
         this.explVars = explVars;
     }
 
-    public List<CrispOutputVariable> getOutVars() {
+    public List<CrispVariable> getOutVars() {
         return outVars;
     }
 
-    public void setOutVars(List<CrispOutputVariable> outVars) {
+    public void setOutVars(List<CrispVariable> outVars) {
         this.outVars = outVars;
     }
 
@@ -83,10 +82,10 @@ public class RBFParams extends Params {
         MainFrame.getInstance().setParamsGeneral(RBFParams.class, resultList);
         ((RBFSettingsPanel)panelSettingsRBF).setSpecificParams(RBFParams.class, resultList);
         //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
-        CrispOutputVariable outVar = new CrispOutputVariable(); //berie hodnoty z CTS Run
+        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
         outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
         outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
-        List<CrispOutputVariable> outVarList = new ArrayList<>();
+        List<CrispVariable> outVarList = new ArrayList<>();
         outVarList.add(outVar);
         SettingsPanel.setSomethingOneValue(RBFParams.class, resultList, "setOutVars", List.class, outVarList);
         

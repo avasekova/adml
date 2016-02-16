@@ -3,7 +3,7 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.MLPNnetSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
-import utils.CrispExplanatoryVariable;
+import utils.CrispVariable;
 import utils.R_Bool;
 import utils.Utils;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class NnetParams extends Params {
     
-    private List<CrispExplanatoryVariable> explVars = new ArrayList<>();
+    private List<CrispVariable> explVars = new ArrayList<>();
     private String colName;
     private Double abstol;
     private Double reltol;
@@ -29,11 +29,11 @@ public class NnetParams extends Params {
     private R_Bool traceOptimization = null;
     private Integer maxNumOfWeights;
 
-    public List<CrispExplanatoryVariable> getExplVars() {
+    public List<CrispVariable> getExplVars() {
         return explVars;
     }
 
-    public void setExplVars(List<CrispExplanatoryVariable> explVars) {
+    public void setExplVars(List<CrispVariable> explVars) {
         this.explVars = explVars;
     }
     

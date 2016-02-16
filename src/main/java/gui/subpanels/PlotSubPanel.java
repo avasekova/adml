@@ -4,13 +4,7 @@ import gui.MainFrame;
 import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.Plottable;
-import gui.filefilters.FileFilterEps;
-import gui.filefilters.FileFilterPdf;
-import gui.filefilters.FileFilterPng;
-import gui.filefilters.FileFilterPs;
-import gui.filefilters.RFileFilter;
-import gui.files.PlotExporter;
-import gui.files.PlotExtensionFileChooser;
+import gui.files.Exporter;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
 import gui.renderers.PlotLegendTurnOFFableListElement;
@@ -24,7 +18,6 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -34,7 +27,6 @@ import models.Model;
 import models.TrainAndTestReport;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.Const;
-import utils.MyRengine;
 import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
@@ -367,7 +359,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
         if (evt.getSource() == buttonPlotExportPlot) {
-            String fileName = PlotExporter.export(panelPlot);
+            String fileName = Exporter.exportPlot(panelPlot);
 
             //a exportuj aj legendu (zatial do samostatneho obrazku):
             BufferedImage im = new BufferedImage(listPlotLegend.getWidth(), listPlotLegend.getHeight(),
@@ -610,7 +602,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
         //TODO ak ich bude nahodou viac? zahodit, ci..?
         //TODO plus ak tam nebude nic
         panelPlot.removeAll();
-        panelPlot.add(plots.get(0));  //pri troche stastia ani netreba atribut na GDPlot, TODO potom
+        panelPlot.add(plots.get(0));
         panelPlot.repaint();
     }
 }

@@ -10,7 +10,7 @@ import utils.imlp.Interval;
 import javax.swing.table.AbstractTableModel;
 import java.util.*;
 
-public class ResidualsTableModel extends AbstractTableModel {
+public class ResidualsTableModel extends ReportsTableModel {
     
     private int maxRows;
     private final Map<String, List<Double>> residuals = new LinkedHashMap<>();
@@ -68,7 +68,8 @@ public class ResidualsTableModel extends AbstractTableModel {
             }
         }
     }
-    
+
+    @Override
     public boolean isEmpty() {
         return (residuals.isEmpty());
     }

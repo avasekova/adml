@@ -277,12 +277,12 @@ public class IntervalMLPCcode implements Forecastable {
         return report;
     }
     
-    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<IntervalExplanatoryVariable> explVars,
-                                                                          List<IntervalOutputVariable> outVars,
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<IntervalVariable> explVars,
+                                                                          List<IntervalVariable> outVars,
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
-        for (IntervalExplanatoryVariable var : explVars) {
+        for (IntervalVariable var : explVars) {
             List<Double> centers;
             List<Double> radii;
             
@@ -309,7 +309,7 @@ public class IntervalMLPCcode implements Forecastable {
         }
 
         //TODO refactor, uplne to iste...
-        for (IntervalOutputVariable var : outVars) {
+        for (IntervalVariable var : outVars) {
             List<Double> centers;
             List<Double> radii;
             

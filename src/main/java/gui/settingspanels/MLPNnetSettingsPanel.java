@@ -2,15 +2,13 @@ package gui.settingspanels;
 
 import gui.MainFrame;
 import gui.dialogs.DialogAddCrispExplanatoryVar;
-import gui.tablemodels.CrispExplVarsTableModel;
+import gui.tablemodels.CrispVariablesTableModel;
 import models.params.Params;
-import utils.CrispExplanatoryVariable;
-import utils.FieldsParser;
-import utils.R_Bool;
-import utils.Utils;
+import utils.*;
 
 import javax.swing.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MLPNnetSettingsPanel extends SettingsPanel {
 
@@ -172,7 +170,7 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
             }
         });
 
-        tableExplVars.setModel(new gui.tablemodels.CrispExplVarsTableModel());
+        tableExplVars.setModel(new CrispVariablesTableModel());
         tableExplVars.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         scrollPaneExplVars.setViewportView(tableExplVars);
 
@@ -336,12 +334,12 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
 
     private void buttonAddExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddExplVarActionPerformed
         DialogAddCrispExplanatoryVar dialogAddExplVar = new DialogAddCrispExplanatoryVar(((MainFrame)SwingUtilities.windowForComponent(this)), true);
-        dialogAddExplVar.setExplVarsTableModel((CrispExplVarsTableModel)(tableExplVars.getModel()));
+        dialogAddExplVar.setExplVarsTableModel((CrispVariablesTableModel)(tableExplVars.getModel()));
         dialogAddExplVar.setVisible(true);
     }//GEN-LAST:event_buttonAddExplVarActionPerformed
 
     private void buttonRemoveExplVarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRemoveExplVarActionPerformed
-        ((CrispExplVarsTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
+        ((CrispVariablesTableModel)(tableExplVars.getModel())).removeRow(tableExplVars.getSelectedRow());
     }//GEN-LAST:event_buttonRemoveExplVarActionPerformed
 
 
@@ -386,8 +384,10 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     private javax.swing.JTextField textFieldWeightDecay;
     // End of variables declaration//GEN-END:variables
 
-    public List<CrispExplanatoryVariable> getExplVars() {
-        return ((CrispExplVarsTableModel)tableExplVars.getModel()).getVariables();
+    public List<CrispVariable> getExplVars() {
+        return ((CrispVariablesTableModel)tableExplVars.getModel()).getVariables().stream()
+                .map(e -> (CrispVariable) e)
+                .collect(Collectors.toList());
     }
 
     public boolean isSkipConn() {

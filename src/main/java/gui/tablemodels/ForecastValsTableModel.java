@@ -10,7 +10,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ForecastValsTableModel extends AbstractTableModel {
+public class ForecastValsTableModel extends ReportsTableModel {
 
     private final int numForecasts;
     private final List<TrainAndTestReport> reports;
@@ -70,7 +70,8 @@ public class ForecastValsTableModel extends AbstractTableModel {
             }
         }
     }
-    
+
+    @Override
     public boolean isEmpty() {
         return (reports.isEmpty());
     }

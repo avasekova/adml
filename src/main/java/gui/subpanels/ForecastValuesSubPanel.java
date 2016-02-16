@@ -1,5 +1,6 @@
 package gui.subpanels;
 
+import gui.files.Exporter;
 import gui.files.OverwriteFileChooser;
 import gui.tablemodels.ForecastValsTableModel;
 import java.io.File;
@@ -117,22 +118,9 @@ public class ForecastValuesSubPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExportForecastValuesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportForecastValuesActionPerformed
-        JFileChooser fileChooser = new OverwriteFileChooser();
-        fileChooser.setSelectedFile(new File("forecast_values.xls"));
         if (evt.getSource() == buttonExportForecastValues) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                File forecastValuesFile = fileChooser.getSelectedFile();
-                ExcelWriter.forecastJTableToExcel((ForecastValsTableModel)(forecastValuesLatest.getModel()), forecastValuesFile);
-                break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
+            Exporter.exportValues("Forecasts", "forecast_values.xls", (ForecastValsTableModel) forecastValuesLatest.getModel());
         }
-
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonExportForecastValues.setEnabled(false);
     }//GEN-LAST:event_buttonExportForecastValuesActionPerformed
 
     private void buttonForecastValsShowHiddenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonForecastValsShowHiddenActionPerformed

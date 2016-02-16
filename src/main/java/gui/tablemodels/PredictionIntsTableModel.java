@@ -7,7 +7,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PredictionIntsTableModel extends AbstractTableModel {
+public class PredictionIntsTableModel extends ReportsTableModel {
 
     private final int numForecastsTestAndFuture;
     private final List<TrainAndTestReportCrisp> reports;

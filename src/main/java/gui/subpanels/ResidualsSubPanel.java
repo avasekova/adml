@@ -2,6 +2,7 @@ package gui.subpanels;
 
 import gui.PlotContainer;
 import gui.PlotDrawer;
+import gui.files.Exporter;
 import gui.files.OverwriteFileChooser;
 import gui.tablemodels.ResidualsTableModel;
 import java.awt.BorderLayout;
@@ -177,22 +178,9 @@ public class ResidualsSubPanel extends javax.swing.JPanel implements PlotContain
 
     private void buttonExportResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportResidualsActionPerformed
         //TODO refactor - je to to iste ako export forecasts len s premenovanymi premennymi
-        JFileChooser fileChooser = new OverwriteFileChooser();
-        fileChooser.setSelectedFile(new File("residuals.xls"));
         if (evt.getSource() == buttonExportResiduals) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                File residualsFile = fileChooser.getSelectedFile();
-                ExcelWriter.residualsJTableToExcel((ResidualsTableModel)(residualsTableLatest.getModel()), residualsFile);
-                break;
-                case JFileChooser.CANCEL_OPTION:
-                default:
-                //nothing
-            }
+            Exporter.exportValues("Residuals", "residuals.xls", (ResidualsTableModel) residualsTableLatest.getModel());
         }
-
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonExportResiduals.setEnabled(false);
     }//GEN-LAST:event_buttonExportResidualsActionPerformed
 
     private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed

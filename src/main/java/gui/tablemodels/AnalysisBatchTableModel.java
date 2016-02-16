@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AnalysisBatchTableModel extends AbstractTableModel {
+public class AnalysisBatchTableModel extends ReportsTableModel {
 
     private List<AnalysisBatchLine> lines = new ArrayList<>();
     

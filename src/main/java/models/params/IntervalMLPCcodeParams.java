@@ -3,8 +3,7 @@ package models.params;
 import gui.MainFrame;
 import gui.settingspanels.IntMLPCcodeSettingsPanel;
 import gui.settingspanels.PercentTrainSettingsPanel;
-import utils.IntervalExplanatoryVariable;
-import utils.IntervalOutputVariable;
+import utils.IntervalVariable;
 import utils.imlp.dist.Distance;
 
 import java.util.ArrayList;
@@ -14,8 +13,8 @@ public class IntervalMLPCcodeParams extends Params {
     
     private Integer numNodesHidden;
     private Integer numIterations;
-    private List<IntervalExplanatoryVariable> explVars = new ArrayList<>();
-    private List<IntervalOutputVariable> outVars = new ArrayList<>();
+    private List<IntervalVariable> explVars = new ArrayList<>();
+    private List<IntervalVariable> outVars = new ArrayList<>();
     private Distance distance;
     private int numNetworks;
 
@@ -35,19 +34,19 @@ public class IntervalMLPCcodeParams extends Params {
         this.numIterations = numIterations;
     }
 
-    public List<IntervalExplanatoryVariable> getExplVars() {
+    public List<IntervalVariable> getExplVars() {
         return explVars;
     }
 
-    public void setExplVars(List<IntervalExplanatoryVariable> explVars) {
+    public void setExplVars(List<IntervalVariable> explVars) {
         this.explVars = explVars;
     }
 
-    public List<IntervalOutputVariable> getOutVars() {
+    public List<IntervalVariable> getOutVars() {
         return outVars;
     }
 
-    public void setOutVars(List<IntervalOutputVariable> outVars) {
+    public void setOutVars(List<IntervalVariable> outVars) {
         this.outVars = outVars;
     }
 

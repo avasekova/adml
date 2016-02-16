@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class ErrorMeasuresTableModel extends AbstractTableModel {
+public abstract class ErrorMeasuresTableModel extends ReportsTableModel {
     
     private final List<TrainAndTestReport> reports;
     private final List<TrainAndTestReport> hiddenReports = new ArrayList<>();
@@ -67,6 +67,7 @@ public abstract class ErrorMeasuresTableModel extends AbstractTableModel {
         }
     }
 
+    @Override
     public boolean isEmpty() {
         return (reports.isEmpty());
     }

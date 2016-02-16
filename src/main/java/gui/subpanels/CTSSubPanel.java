@@ -4,22 +4,13 @@ import analysis.AnalysisUtils;
 import gui.MainFrame;
 import gui.PlotContainer;
 import gui.PlotDrawer;
-import gui.filefilters.FileFilterEps;
-import gui.filefilters.FileFilterPdf;
-import gui.filefilters.FileFilterPng;
-import gui.filefilters.FileFilterPs;
-import gui.filefilters.RFileFilter;
-import gui.files.PlotExporter;
-import gui.files.PlotExtensionFileChooser;
+import gui.files.Exporter;
 import gui.tablemodels.DataTableModel;
 import org.rosuda.javaGD.JGDBufferedPanel;
-import utils.MyRengine;
 
-import java.io.File;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 
@@ -311,7 +302,7 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
         //TODO vymysliet
 
         if (evt.getSource() == buttonExportAnalysisPlotsCTS) {
-            PlotExporter.export(tabbedPaneAnalysisPlotsCTS);
+            Exporter.exportPlot(tabbedPaneAnalysisPlotsCTS);
         }
     }//GEN-LAST:event_buttonExportAnalysisPlotsCTSActionPerformed
 
@@ -333,7 +324,7 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     private void buttonScreePlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonScreePlotActionPerformed
         List<JGDBufferedPanel> plots = PlotDrawer.drawScreePlot(listColnames.getSelectedValuesList(),
-                tabbedPaneAnalysisPlotsCTS.getWidth(), tabbedPaneAnalysisPlotsCTS.getHeight()); //TODO univerzalnejsie, nemusi byt tabbedPaneAnalysisPlotsCTS
+                tabbedPaneAnalysisPlotsCTS.getWidth(), tabbedPaneAnalysisPlotsCTS.getHeight());
         setPlots(plots);
         MainFrame.getInstance().setPlotRanges(0, 0);
         buttonExportAnalysisPlotsCTS.setEnabled(true);
