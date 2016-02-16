@@ -1,6 +1,7 @@
 package gui.subpanels;
 
 import analysis.AnalysisUtils;
+import gui.DefaultPlottable;
 import gui.MainFrame;
 import gui.PlotContainer;
 import gui.PlotDrawer;
@@ -8,6 +9,7 @@ import gui.files.Exporter;
 import gui.tablemodels.DataTableModel;
 import org.rosuda.javaGD.JGDBufferedPanel;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -265,7 +267,26 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPlotColnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotColnameActionPerformed
-        MainFrame.getInstance().drawPlotGeneral(true, "plot.ts", "");
+        List<String> colnames = listColnames.getSelectedValuesList();
+
+        List<DefaultPlottable> plottables = new ArrayList<>();
+        for (String col : colnames) {
+            DefaultPlottable p = new DefaultPlottable(col, null, col);
+            plottables.add(p);
+        }
+
+        PlotSubPanel plotPanel = ((PlotSubPanel) (MainFrame.getInstance().getPanelPlotImage()));
+
+        List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(true, "plot.ts", "", plottables,
+                plotPanel.getListPlotLegend(), plotPanel.getWidth(), plotPanel.getHeight());
+        plotPanel.setPlots(plots);
+        plotPanel.getButtonPlotExportPlot().setEnabled(true);
+
+        //mean, standard deviation, median
+        textAreaPlotBasicStats.setText(AnalysisUtils.getBasicStats(colnames));
+
+        MainFrame.getInstance().setSelectedComponentPanelEverything(MainFrame.getInstance().getPanelPlotImage());
+
         MainFrame.getInstance().setPlotRanges(1, 0);
     }//GEN-LAST:event_buttonPlotColnameActionPerformed
 

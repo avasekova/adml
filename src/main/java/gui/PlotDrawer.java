@@ -1,6 +1,7 @@
 package gui;
 
 import gui.renderers.*;
+import gui.subpanels.PlotSubPanel;
 import gui.tablemodels.DataTableModel;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
@@ -1111,18 +1112,20 @@ public class PlotDrawer {
         
         return "range(c(1," + maxLength + "))";
     }
-    
-    
-    public static List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par) {
+
+
+    public static List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs,
+                                                         List<DefaultPlottable> plottables, JList<RightClickable> listPlotLegend,
+                                                         int width, int height) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
         boolean next = false;
-        for (DefaultPlottable col : par.getColnames()) {
+        for (DefaultPlottable col : plottables) {
             for (Double d : DataTableModel.getInstance().getDataForColname(col.getColname())) {
                 if (d.isNaN()) {
                     continue;
                 }
-                
+
                 if (next) {
                     rangeYStringBuilder.append(", ");
                 } else {
@@ -1134,16 +1137,17 @@ public class PlotDrawer {
         rangeYStringBuilder.append("))");
         String rangeY = rangeYStringBuilder.toString();
         String rangeX = "range(c(0, " + DataTableModel.getInstance().getRowCount() + "))";
-        
-        if ("acf".equals(par.getPlotFunction()) || "pacf".equals(par.getPlotFunction())) {
+
+        if ("acf".equals(plotFunction) || "pacf".equals(plotFunction)) {
             rangeY = "range(c(-1,1))";
-            
+
             //String rangeX = "range(c(0, " + getRowCount() + "))";
             //default lagmax: 10*log10(N)
             rangeX = "range(c(0,10*log10(" + DataTableModel.getInstance().getRowCount() + ")))";
         }
-        
-        return drawPlotGeneral(drawNew, par, rangeX, rangeY);
+
+        return drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(
+                listPlotLegend, width, height, plottables, plotFunction, additionalArgs), rangeX, rangeY);
     }
     
     public static List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, CallParamsDrawPlotGeneral par, String rangeX, String rangeY) {

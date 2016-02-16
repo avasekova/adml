@@ -4151,40 +4151,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     public void setContinueWithTooManyModels(boolean continueWithTooManyModels) {
         this.continueWithTooManyModels = continueWithTooManyModels; //TODO toto tiez zavana skaredym dizajnom, prerobit
     }
-
-    public void drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs) {
-        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-        //String colname = comboBoxColnames.getSelectedItem().toString();
-        List<String> colnames = (((CTSSubPanel)panelCTS).getListColnames()).getSelectedValuesList();
-        
-        List<DefaultPlottable> plottables = new ArrayList<>();
-        for (String col : colnames) {
-            DefaultPlottable p = new DefaultPlottable(col, null, col);
-            plottables.add(p);
-        }
-        
-        List<JGDBufferedPanel> plots = drawPlotGeneral(drawNew, plotFunction, additionalArgs, plottables);
-        ((PlotSubPanel)panelPlotImage).setPlots(plots);
-
-        //mean, standard deviation, median
-        ((CTSSubPanel)panelCTS).getTextAreaPlotBasicStats().setText(AnalysisUtils.getBasicStats(colnames));
-
-        MainFrame.getInstance().setSelectedComponentPanelEverything(panelPlotImage);
-    }
-    
-    public List<JGDBufferedPanel> drawPlotGeneral(boolean drawNew, String plotFunction, String additionalArgs, List<DefaultPlottable> plottables) {
-        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-        //String colname = comboBoxColnames.getSelectedItem().toString();
-        
-        //TODO refactor? - tie basicStats by sa nemuseli ani prepocitavat, ak sa len prefarbuje
-        List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(drawNew, new CallParamsDrawPlotGeneral(
-                ((PlotSubPanel)panelPlotImage).getListPlotLegend(),
-                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(),
-                ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), plottables, plotFunction, additionalArgs));
-        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
-
-        return plots;
-    }
     
     public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingList(classss, resultList, "setNumForecasts", 

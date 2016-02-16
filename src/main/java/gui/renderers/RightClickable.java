@@ -51,7 +51,8 @@ public interface RightClickable {
                     (CallParamsDrawPlots)(PlotStateKeeper.getLastCallParams()), 
                     rangeXCrisp , rangeYCrisp, rangeXInt, rangeYInt);
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotGeneral) {
-            plots = MainFrame.getInstance().drawPlotGeneral(true, "plot.ts", "", ((CallParamsDrawPlotGeneral)PlotStateKeeper.getLastCallParams()).getColnames());
+            plots = PlotDrawer.drawPlotGeneral(true, "plot.ts", "", ((CallParamsDrawPlotGeneral)PlotStateKeeper.getLastCallParams()).getColnames(),
+                    listPlotLegend, PlotStateKeeper.getLastCallParams().getWidth(), PlotStateKeeper.getLastCallParams().getHeight());
             MainFrame.getInstance().setPlotRanges(1, 0);
         } else if (PlotStateKeeper.getLastCallParams() instanceof CallParamsDrawPlotsITS) {
             if (((CallParamsDrawPlotsITS) PlotStateKeeper.getLastCallParams()).isScatterplot()) {

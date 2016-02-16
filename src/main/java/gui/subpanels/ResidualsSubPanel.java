@@ -177,7 +177,6 @@ public class ResidualsSubPanel extends javax.swing.JPanel implements PlotContain
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonExportResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportResidualsActionPerformed
-        //TODO refactor - je to to iste ako export forecasts len s premenovanymi premennymi
         if (evt.getSource() == buttonExportResiduals) {
             Exporter.exportValues("Residuals", "residuals.xls", (ResidualsTableModel) residualsTableLatest.getModel());
         }
