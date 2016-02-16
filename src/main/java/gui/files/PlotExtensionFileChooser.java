@@ -7,9 +7,7 @@ import java.io.File;
 public class PlotExtensionFileChooser extends OverwriteFileChooser {
 
     public PlotExtensionFileChooser() {
-        super();
-
-        setSelectedFile(new File("plotExport.eps"));
+        super("plotExport.eps");
 
         setAcceptAllFileFilterUsed(false); //do not allow "All files"
         addChoosableFileFilter(new FileFilterEps());
