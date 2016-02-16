@@ -7,8 +7,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-public class ErrorTableCellRenderer extends DefaultTableCellRenderer { //TODO pouzit aj na stredny riadok
-    //TODO vyrobit len Renderer na hrubsie pismo, a potom ho aplikovat nie na celu tabulku, ale na niektore riadky a stlpce
+public class ErrorTableCellRenderer extends DefaultTableCellRenderer {
     
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value,
@@ -16,7 +15,7 @@ public class ErrorTableCellRenderer extends DefaultTableCellRenderer { //TODO po
  
         super.getTableCellRendererComponent(table, value, isSelected,
                 hasFocus, row, column);
-        
+
         setForeground(Color.BLACK); //aby sa sem neprenasala nejaka nastavena farba z minula
         
         //output headers in bold

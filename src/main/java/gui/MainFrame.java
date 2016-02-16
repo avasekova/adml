@@ -4373,8 +4373,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         reportsCTS.addAll(rCTS);
         List<TrainAndTestReport> reportsIntTS = new ArrayList<>();
         reportsIntTS.addAll(rIntTS);
-        
-        if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //kresli obe
+
+        if (! reportsCTS.isEmpty()) {
             final JTable errorMeasuresTable_CTS = new JTable();
             errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
             errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
@@ -4388,24 +4388,32 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
-                        //pozor, -1! pretoze 
+                        //pozor, -1! pretoze
                         int selectedRow = errorMeasuresTable_CTS.getSelectedRow();
-                        ((ErrorMeasuresTableModel_CTS)errorMeasuresTable_CTS.getModel()).hideRow(selectedRow);
+                        ((ErrorMeasuresTableModel_CTS) errorMeasuresTable_CTS.getModel()).hideRow(selectedRow);
                     }
                 }
-                
+
                 @Override
-                public void mousePressed(MouseEvent e) { }
+                public void mousePressed(MouseEvent e) {
+                }
+
                 @Override
-                public void mouseReleased(MouseEvent e) { }
+                public void mouseReleased(MouseEvent e) {
+                }
+
                 @Override
-                public void mouseEntered(MouseEvent e) { }
+                public void mouseEntered(MouseEvent e) {
+                }
+
                 @Override
-                public void mouseExited(MouseEvent e) { }
+                public void mouseExited(MouseEvent e) {
+                }
             });
             errorMeasuresLatest_CTS = errorMeasuresTable_CTS; //and save it for possible future export
+        }
 
-
+        if (! reportsIntTS.isEmpty()) {
             final JTable errorMeasuresTable_ITS = new JTable();
             errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsIntTS));
             errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
@@ -4419,12 +4427,12 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
-                        //pozor, -1! pretoze 
+                        //pozor, -1! pretoze
                         int selectedRow = errorMeasuresTable_ITS.getSelectedRow();
                         ((ErrorMeasuresTableModel_ITS)errorMeasuresTable_ITS.getModel()).hideRow(selectedRow);
                     }
                 }
-                
+
                 @Override
                 public void mousePressed(MouseEvent e) { }
                 @Override
@@ -4435,70 +4443,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 public void mouseExited(MouseEvent e) { }
             });
             errorMeasuresLatest_IntTS = errorMeasuresTable_ITS; //and save it for possible future export
-        } else {
-            if (! reportsCTS.isEmpty()) { //takze IntTS je empty, CTS moze zaplnit cele miesto
-                final JTable errorMeasuresTable_CTS = new JTable();
-                errorMeasuresTable_CTS.setModel(new ErrorMeasuresTableModel_CTS(reportsCTS));
-                errorMeasuresTable_CTS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
-                errorMeasuresTable_CTS.setTableHeader(null);
-                errorMeasuresTable_CTS.setVisible(true);
-
-                JScrollPane scrollPaneErrorMeasuresCTS = new JScrollPane(errorMeasuresTable_CTS);
-                tabbedPaneTablesErrors.addTab("CTS", scrollPaneErrorMeasuresCTS);
-                errorMeasuresTable_CTS.addMouseListener(new MouseListener() {
-
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        if (e.getClickCount() == 2) {
-                            //pozor, -1! pretoze 
-                            int selectedRow = errorMeasuresTable_CTS.getSelectedRow();
-                            ((ErrorMeasuresTableModel_CTS)errorMeasuresTable_CTS.getModel()).hideRow(selectedRow);
-                        }
-                    }
-
-                    @Override
-                    public void mousePressed(MouseEvent e) { }
-                    @Override
-                    public void mouseReleased(MouseEvent e) { }
-                    @Override
-                    public void mouseEntered(MouseEvent e) { }
-                    @Override
-                    public void mouseExited(MouseEvent e) { }
-                });
-                errorMeasuresLatest_CTS = errorMeasuresTable_CTS; //and save it for possible future export
-            } else {
-                if (! reportsIntTS.isEmpty()) { //CTS je empty, ITS moze zaplnit cele miesto
-                    final JTable errorMeasuresTable_ITS = new JTable();
-                    errorMeasuresTable_ITS.setModel(new ErrorMeasuresTableModel_ITS(reportsIntTS));
-                    errorMeasuresTable_ITS.setDefaultRenderer(Object.class, new ErrorTableCellRenderer());
-                    errorMeasuresTable_ITS.setTableHeader(null);
-                    errorMeasuresTable_ITS.setVisible(true);
-
-                    JScrollPane scrollPaneErrorMeasuresITS = new JScrollPane(errorMeasuresTable_ITS);
-                    tabbedPaneTablesErrors.addTab("ITS", scrollPaneErrorMeasuresITS);
-                    errorMeasuresTable_ITS.addMouseListener(new MouseListener() {
-
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            if (e.getClickCount() == 2) {
-                                //pozor, -1! pretoze 
-                                int selectedRow = errorMeasuresTable_ITS.getSelectedRow();
-                                ((ErrorMeasuresTableModel_ITS)errorMeasuresTable_ITS.getModel()).hideRow(selectedRow);
-                            }
-                        }
-
-                        @Override
-                        public void mousePressed(MouseEvent e) { }
-                        @Override
-                        public void mouseReleased(MouseEvent e) { }
-                        @Override
-                        public void mouseEntered(MouseEvent e) { }
-                        @Override
-                        public void mouseExited(MouseEvent e) { }
-                    });
-                    errorMeasuresLatest_IntTS = errorMeasuresTable_ITS; //and save it for possible future export
-                } //else do not draw anything
-            }
         }
         
         tabbedPaneTablesErrors.setVisible(true);
