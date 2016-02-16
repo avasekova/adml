@@ -67,8 +67,6 @@ public class CRCombinationsStrategySettingsPanel extends SettingsPanel {
 
     private void radioButtonAllCombinationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonAllCombinationsActionPerformed
         enableAllRadiusPanels(radioButtonAllCombinations.isSelected());
-        //TODO nedovolit im enablovat buttony, kym este nebol natiahnuty subor... nejak osefovat. mozno nedovolit ani na toto vobec sahat, kym nie je natiahnuty subor
-        //TODO mozno povinne zobrazit dialog na natiahnutie suboru hned po spusteni appky, zatial ani nepustit nikde do menu. odstrani sa tym rezia s povolovanim buttonov etc.
     }//GEN-LAST:event_radioButtonAllCombinationsActionPerformed
 
     private void radioButtonUseCenterForBothActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonUseCenterForBothActionPerformed

@@ -1,10 +1,22 @@
 package gui.files;
 
-import gui.filefilters.RFileFilter;
+import gui.filefilters.*;
 
 import java.io.File;
 
 public class PlotExtensionFileChooser extends OverwriteFileChooser {
+
+    public PlotExtensionFileChooser() {
+        super();
+
+        setSelectedFile(new File("plotExport.eps"));
+
+        setAcceptAllFileFilterUsed(false); //do not allow "All files"
+        addChoosableFileFilter(new FileFilterEps());
+        addChoosableFileFilter(new FileFilterPs());
+        addChoosableFileFilter(new FileFilterPng());
+        addChoosableFileFilter(new FileFilterPdf());
+    }
     
     @Override
     public void approveSelection() {

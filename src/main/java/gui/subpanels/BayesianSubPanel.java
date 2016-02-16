@@ -170,16 +170,11 @@ public class BayesianSubPanel extends javax.swing.JPanel implements PlotContaine
             return;
         }
 
-        List<String> plots = BinomProp.binomPropComputePosterior(params);
-        //TODO odstranit tento hnusny hack
-        String info = plots.get(plots.size() - 1);
-        plots.remove(plots.size() - 1);
+        List<String> plots = BinomProp.binomPropComputePosterior(params, textAreaBinomPropInfo);
 
         //draw plots into the right panel
         List<JGDBufferedPanel> resultPlots = PlotDrawer.drawBayesToGrid(plots, tabbedPaneBinomPropPlot.getWidth(), tabbedPaneBinomPropPlot.getHeight());
         setPlots(resultPlots);
-
-        textAreaBinomPropInfo.setText(info);
     }//GEN-LAST:event_buttonBinomPropComputePosteriorActionPerformed
 
     private void buttonBinomPropSimulateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBinomPropSimulateActionPerformed
@@ -203,7 +198,7 @@ public class BayesianSubPanel extends javax.swing.JPanel implements PlotContaine
         List<BinomPropParams> params;
         try {
             params = BinomPropParams.getParamsBinomProp(panelBinomPropSettings);
-            //TODO zlepsit?
+
             if (textFieldBinomPropNumFutureObs.getText().isEmpty()) {
                 textAreaBinomPropInfo.setText("<no number of future observations specified>");
                 return;

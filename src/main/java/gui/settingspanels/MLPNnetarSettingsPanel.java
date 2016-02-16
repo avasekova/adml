@@ -234,8 +234,6 @@ public class MLPNnetarSettingsPanel extends SettingsPanel {
 
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
-        //TODO toto mozno vymysliet inak :( classss by mala byt furt NnetarParams, a neviem, ci je dobre alebo zle, ze
-        //   je tu tym padom povolene dodat aj nieco ine.
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumNodesHidden()));
         SettingsPanel.setSomethingList(classss, resultList, "setNumSeasonalLags", Integer.class, FieldsParser.parseIntegers(getNumSeasonalLags()));
         SettingsPanel.setSomethingList(classss, resultList, "setNumNonSeasonalLags", Integer.class, FieldsParser.parseIntegers(getNumNonSeasonalLags()));

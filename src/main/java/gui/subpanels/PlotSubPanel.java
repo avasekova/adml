@@ -9,6 +9,7 @@ import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.RFileFilter;
+import gui.files.PlotExporter;
 import gui.files.PlotExtensionFileChooser;
 import gui.renderers.PlotLegendSimpleListElement;
 import gui.renderers.PlotLegendTurnOFFableListCellRenderer;
@@ -365,58 +366,20 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonPlotExportPlotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotExportPlotActionPerformed
-        JFileChooser fileChooser = new PlotExtensionFileChooser();
-        fileChooser.setSelectedFile(new File("plotExport.eps"));
-
-        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.addChoosableFileFilter(new FileFilterEps());
-        fileChooser.addChoosableFileFilter(new FileFilterPs());
-        fileChooser.addChoosableFileFilter(new FileFilterPng());
-        fileChooser.addChoosableFileFilter(new FileFilterPdf());
-
         if (evt.getSource() == buttonPlotExportPlot) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                File plotFile = fileChooser.getSelectedFile();
-                MyRengine rengine = MyRengine.getRengine();
+            String fileName = PlotExporter.export(panelPlot);
 
-                String device = "";
-                String ext = "";
-                if (fileChooser.getFileFilter() instanceof RFileFilter) {
-                    device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
-                    ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
-                }
-
-                String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                        //tipnem si, ze je tam pripona
-                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
-                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-                        } //else to bola nejaka ina cast mena za bodkou
-                    }
-
-                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" + panelPlot.getWidth() + ", height=" + panelPlot.getHeight() + ")");
-                    //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem.
-                    //a na zaver to disablovat, aby sa na to netukalo furt
-                    buttonPlotExportPlot.setEnabled(false);
-
-                    //a exportuj aj legendu (zatial do samostatneho obrazku):
-                    BufferedImage im = new BufferedImage(listPlotLegend.getWidth(), listPlotLegend.getHeight(),
-                        BufferedImage.TYPE_INT_ARGB);
-                    listPlotLegend.paint(im.getGraphics());
-                    try {
-                        //for some reason only works with "PNG", so leave it be for now //TODO fix
-                        ImageIO.write(im, "PNG", new File(fileName + "-legend.png"));
-                    } catch (IOException ex) {
-                        //logger.error("Exception", ex);
-                    }
-                    break;
-                    case JFileChooser.CANCEL_OPTION:
-                    default:
-                    //nothing
-                }
+            //a exportuj aj legendu (zatial do samostatneho obrazku):
+            BufferedImage im = new BufferedImage(listPlotLegend.getWidth(), listPlotLegend.getHeight(),
+                    BufferedImage.TYPE_INT_ARGB);
+            listPlotLegend.paint(im.getGraphics());
+            try {
+                //for some reason only works with "PNG", so leave it be for now //TODO fix
+                ImageIO.write(im, "PNG", new File(fileName + "-legend.png"));
+            } catch (IOException ex) {
+                //logger.error("Exception", ex);
             }
+        }
     }//GEN-LAST:event_buttonPlotExportPlotActionPerformed
 
     private void buttonPlotRestoreCTSRangeXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotRestoreCTSRangeXActionPerformed

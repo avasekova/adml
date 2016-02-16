@@ -6,6 +6,7 @@ import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class BinomProp implements Forecastable {
         return new TrainAndTestReportCrisp(Model.BINOM_PROP);
     }
     
-    public static List<String> binomPropComputePosterior(List<BinomPropParams> params) {
+    public static List<String> binomPropComputePosterior(List<BinomPropParams> params, JTextArea textAreaBinomPropInfo) {
         MyRengine rengine = MyRengine.getRengine();
         rengine.require("LearnBayes");
         
@@ -76,8 +77,7 @@ public class BinomProp implements Forecastable {
             info.append("Mode: ").append(rengine.eval(MODE).asDoubleArray()[0]).append("\n\n");
         }
         
-        //TODO osefovat nejak krajsie!!
-        plots.add(info.toString());
+        textAreaBinomPropInfo.setText(info.toString());
         
         return plots;
     }

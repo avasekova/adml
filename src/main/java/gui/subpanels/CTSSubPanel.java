@@ -9,6 +9,7 @@ import gui.filefilters.FileFilterPdf;
 import gui.filefilters.FileFilterPng;
 import gui.filefilters.FileFilterPs;
 import gui.filefilters.RFileFilter;
+import gui.files.PlotExporter;
 import gui.files.PlotExtensionFileChooser;
 import gui.tablemodels.DataTableModel;
 import org.rosuda.javaGD.JGDBufferedPanel;
@@ -308,48 +309,10 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
         //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
         //TODO vymysliet
-        JFileChooser fileChooser = new PlotExtensionFileChooser();
-        fileChooser.setSelectedFile(new File("plotExport.eps"));
 
-        fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.addChoosableFileFilter(new FileFilterEps());
-        fileChooser.addChoosableFileFilter(new FileFilterPs());
-        fileChooser.addChoosableFileFilter(new FileFilterPng());
-        fileChooser.addChoosableFileFilter(new FileFilterPdf());
-
-        //TODO aj toto sa opakuje, refactor out
         if (evt.getSource() == buttonExportAnalysisPlotsCTS) {
-            switch (fileChooser.showSaveDialog(this)) {
-                case JFileChooser.APPROVE_OPTION:
-                File plotFile = fileChooser.getSelectedFile();
-                MyRengine rengine = MyRengine.getRengine();
-
-                String device = "";
-                String ext = "";
-                if (fileChooser.getFileFilter() instanceof RFileFilter) {
-                    device = ((RFileFilter)fileChooser.getFileFilter()).getDevice();
-                    ext = ((RFileFilter)fileChooser.getFileFilter()).getExtension();
-                }
-
-                String fileName = plotFile.getPath().replace("\\", "\\\\");
-                    if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                        //tipnem si, ze je tam pripona
-                        String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
-                        if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
-                            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-                        } //else to bola nejaka ina cast mena za bodkou
-                    }
-
-                    rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" +
-                        ((PlotSubPanel)MainFrame.getInstance().getPanelPlotImage()).getPanelPlot().getWidth() + ", height=" +
-                        ((PlotSubPanel)MainFrame.getInstance().getPanelPlotImage()).getPanelPlot().getHeight() + ")");
-                    //                    rengine.eval("dev.off()"); //z nejakeho dovodu to "nerefreshuje" nasledujuce ploty, ked to vypnem. //TODO skusit, nieco sa zmenilo v JavaGD veciach
-                    break;
-                    case JFileChooser.CANCEL_OPTION:
-                    default:
-                    //nothing
-                }
-            }
+            PlotExporter.export(tabbedPaneAnalysisPlotsCTS);
+        }
     }//GEN-LAST:event_buttonExportAnalysisPlotsCTSActionPerformed
 
     private void buttonExportAnalysisTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisTextActionPerformed
@@ -463,6 +426,6 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
         for (JGDBufferedPanel p : plots) {
             tabbedPaneAnalysisPlotsCTS.addTab("Page "+(++i), p);
         }
-        tabbedPaneAnalysisPlotsCTS.repaint(); //TODO ak nestaci, tak this.repaint
+        tabbedPaneAnalysisPlotsCTS.repaint();
     }
 }
