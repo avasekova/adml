@@ -277,63 +277,45 @@ public class IntervalMLPCcode implements Forecastable {
         return report;
     }
     
-    private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<IntervalVariable> explVars,
+    private List<List<Double>> prepareData(Map<String, List<Double>> dataMap, List<IntervalVariable> explVars,
                                                                           List<IntervalVariable> outVars,
                                                                           int from, int to) {
         List<List<Double>> data = new ArrayList<>();
         
-        for (IntervalVariable var : explVars) {
+        data.addAll(doThisWhatever(dataMap, explVars, from, to));
+        data.addAll(doThisWhatever(dataMap, outVars, from, to));
+
+        return IntervalMLPCcode.trimDataToRectangle(data, maxLag);
+    }
+
+    private List<List<Double>> doThisWhatever(Map<String, List<Double>> dataMap, List<IntervalVariable> vars, int from, int to) {
+        List<List<Double>> data = new ArrayList<>();
+        for (IntervalVariable var : vars) {
             List<Double> centers;
             List<Double> radii;
-            
+
             if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
-                centers = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
-                radii = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
+                centers = dataMap.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
+                radii = dataMap.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
             } else {
                 //we have LB and UB
-                List<Double> lowers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
-                List<Double> uppers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
+                List<Double> lowers = dataMap.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
+                List<Double> uppers = dataMap.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
                 centers = new ArrayList<>();
                 radii = new ArrayList<>();
                 for (int i = 0; i < lowers.size(); i++) {
                     centers.add((uppers.get(i) + lowers.get(i))/2);
                     radii.add((uppers.get(i) - lowers.get(i))/2);
                 }
-                
             }
-            
-            data.add(IntervalMLPCcode.lagBy(var.getLag(), centers));
-            data.add(IntervalMLPCcode.lagBy(var.getLag(), radii));
-            
+
+            data.add(IntervalMLPCcode.lagBy(var.getLag(), centers)); //do not lag outVars -> lag=0, OK
+            data.add(IntervalMLPCcode.lagBy(var.getLag(), radii));   //do not lag outVars -> lag=0, OK
+
             maxLag = Math.max(maxLag, var.getLag());
         }
 
-        //TODO refactor, uplne to iste...
-        for (IntervalVariable var : outVars) {
-            List<Double> centers;
-            List<Double> radii;
-            
-            if (var.getIntervalNames() instanceof IntervalNamesCentreRadius) {
-                centers = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getCentre()).subList(from, to);
-                radii = dataTableModel.get(((IntervalNamesCentreRadius)var.getIntervalNames()).getRadius()).subList(from, to);
-            } else {
-                //we have LB and UB
-                List<Double> lowers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getLowerBound()).subList(from, to);
-                List<Double> uppers = dataTableModel.get(((IntervalNamesLowerUpper)var.getIntervalNames()).getUpperBound()).subList(from, to);
-                centers = new ArrayList<>();
-                radii = new ArrayList<>();
-                for (int i = 0; i < lowers.size(); i++) {
-                    centers.add((uppers.get(i) + lowers.get(i))/2);
-                    radii.add((uppers.get(i) - lowers.get(i))/2);
-                }
-                
-            }
-            
-            data.add(centers);
-            data.add(radii);
-        }
-        
-        return IntervalMLPCcode.trimDataToRectangle(data, maxLag);
+        return data;
     }
 
     public static List<List<Double>> trimDataToRectangle(List<List<Double>> data, int maxLag) {

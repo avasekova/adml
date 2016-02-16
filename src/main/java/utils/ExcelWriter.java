@@ -50,7 +50,7 @@ public class ExcelWriter { //TODO add information about the models, add formatti
         }
     }
     
-    public static void jTableToExcel(ReportsTableModel values, File file, String title) {
+    public static void jTableToExcel(ReportsTableModel values, File file, String title) { //TODO merge with errorJTablesToExcel
         try {
             WritableWorkbook workbook = Workbook.createWorkbook(file);
             

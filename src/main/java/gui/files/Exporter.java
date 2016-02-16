@@ -46,8 +46,7 @@ public class Exporter {
     }
 
     public static void exportValues(String title, String fileName, ReportsTableModel model) {
-        JFileChooser fileChooser = new OverwriteFileChooser();
-        fileChooser.setSelectedFile(new File(fileName));
+        JFileChooser fileChooser = new OverwriteFileChooser(fileName);
         switch (fileChooser.showSaveDialog(null)) {
             case JFileChooser.APPROVE_OPTION:
                 File file = fileChooser.getSelectedFile();

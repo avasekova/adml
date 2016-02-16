@@ -7,9 +7,6 @@ import java.io.Serializable;
 
 public abstract class TrainAndTestReport implements Plottable, Serializable {
     private static final long serialVersionUID = 1L;
-
-    //TODO nejak vylepsit, *Interval a *Crisp fitted vals sa velmi podobaju, mohlo by sa s nimi
-    //                                       dat pracovat jednotne...
     
     private int id;
     private final Model model;

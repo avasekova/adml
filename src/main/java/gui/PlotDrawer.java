@@ -69,7 +69,6 @@ public class PlotDrawer {
     public static List<JGDBufferedPanel> drawPlots(boolean drawNew, final boolean refreshOnly, CallParamsDrawPlots par,
                                  String rangeXCrisp, String rangeYCrisp, String rangeXInt, String rangeYInt) {
         if (par.getReportsCTS().isEmpty() && par.getReportsITS().isEmpty()) {
-            //return addedReports; //TODO fix
             return new ArrayList<>();
         }
 
@@ -312,7 +311,7 @@ public class PlotDrawer {
         }
 
 
-        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO treba toto? //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height));
         drawNowToThisGDBufferedPanel.initRefresh();
         
         if (! refreshOnly) {
@@ -323,8 +322,7 @@ public class PlotDrawer {
             allReports.addAll(reportsIntTS);
             drawLegend(par.getListPlotLegend(), allReports, new PlotLegendTurnOFFableListCellRenderer());
         }
-        
-        //return addedReports; //TODO fix
+
         return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
     
@@ -1047,7 +1045,6 @@ public class PlotDrawer {
         listPlotLegend.repaint();
     }
 
-    //TODO refactor - return the results or set them directly
     public static List<JGDBufferedPanel> drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
             DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
         //najprv si nasysli vsetky diagramy
@@ -1070,9 +1067,7 @@ public class PlotDrawer {
         //potom ich nechaj vyplut do mriezky a tu mriezku vrat
         return drawToGrid(width, height, diagramsPlots, COLUMNS_BOXHIST, ROWS_BOXHIST);
     }
-    
-    //TODO refactor vsetky tieto drawXXXtoGrid - aby pouzivali nejaky spolocny zaklad. vsetky su rovnake.
-    //TODO iba vyrobit ploty, naplacat ich tam uz v tom paneli
+
     public static List<JGDBufferedPanel> drawBayesToGrid(List<String> diagramsPlots, int width, int height) throws IllegalArgumentException {
         //nechaj tie ploty vyplut do mriezky a tu mriezku vrat
         return drawToGrid(width, height, diagramsPlots, 1, 1);

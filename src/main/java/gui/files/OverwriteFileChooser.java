@@ -5,10 +5,11 @@ import java.io.File;
 
 public class OverwriteFileChooser extends JFileChooser {
     
-    public OverwriteFileChooser() {
+    public OverwriteFileChooser(String fileName) {
         super();
         setCurrentDirectory(null);
         setMultiSelectionEnabled(false);
+        setSelectedFile(new File(fileName));
     }
     
     @Override

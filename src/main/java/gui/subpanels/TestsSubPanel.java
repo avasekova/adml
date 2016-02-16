@@ -244,20 +244,9 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
             String structBreaksInfo = plots.get(plots.size() - 1);
             plots.remove(plots.size() - 1);
 
-            //TODO refactor odtialto------------------
-            //potom ich nechaj vyplut do mriezky
             List<JGDBufferedPanel> panels = PlotDrawer.drawToGrid(tabbedPaneAnalysisPlotsTests.getWidth(),
                 tabbedPaneAnalysisPlotsTests.getHeight(), plots, 1, 1);
-
-            //a tu mriezku nakresli
-            tabbedPaneAnalysisPlotsTests.removeAll();
-            int i = 0;
-            for (JGDBufferedPanel p : panels) {
-                tabbedPaneAnalysisPlotsTests.addTab("Page "+(++i), p);
-            }
-
-            tabbedPaneAnalysisPlotsTests.repaint();
-            //---------------potialto je to rovnake aj inde. vybrat do samostatnej metody
+            setPlots(panels);
 
             //a vypis info
             textAreaTests.setText(structBreaksInfo);

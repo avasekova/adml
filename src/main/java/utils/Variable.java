@@ -6,7 +6,7 @@ public class Variable implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String name;
-    private int lag;
+    private int lag = 0;
 
     public String getName() {
         return name;
