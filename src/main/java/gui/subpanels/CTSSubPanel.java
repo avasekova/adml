@@ -278,7 +278,7 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
         PlotSubPanel plotPanel = ((PlotSubPanel) (MainFrame.getInstance().getPanelPlotImage()));
 
         List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(true, "plot.ts", "", plottables,
-                plotPanel.getListPlotLegend(), plotPanel.getWidth(), plotPanel.getHeight());
+                plotPanel.getListPlotLegend(), plotPanel.getPanelPlot().getWidth(), plotPanel.getPanelPlot().getHeight());
         plotPanel.setPlots(plots);
         plotPanel.getButtonPlotExportPlot().setEnabled(true);
 
