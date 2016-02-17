@@ -2,6 +2,11 @@ package gui;
 
 import analysis.AnalysisUtils;
 import analysis.Transformations;
+import com.klinec.admwl.AdmwlCancellation;
+import com.klinec.admwl.AdmwlOnJobFinishedListener;
+import com.klinec.admwl.AdmwlProgressMonitor;
+import com.klinec.admwl.remoteInterface.AdmwlTask;
+import com.klinec.admwl.remoteLogic.AdmwlProviderImpl;
 import gui.dialogs.*;
 import gui.filefilters.*;
 import gui.files.OverwriteFileChooser;
@@ -22,9 +27,6 @@ import models.params.*;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rmi.AdmlProviderImpl;
-import rmi.OnJobFinishedListener;
-import rmi.Task;
 import utils.*;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
@@ -58,12 +60,12 @@ import java.util.stream.Collectors;
 import static java.util.concurrent.TimeUnit.DAYS;
 
 
-public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListener<TrainAndTestReport> {
+public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedListener<TrainAndTestReport> {
     private static final Logger logger = LoggerFactory.getLogger(MainFrame.class);
 
     private static MainFrame INSTANCE = null; //created in main()
 
-    private AdmlProviderImpl<TrainAndTestReport> server;
+    private AdmwlProviderImpl<TrainAndTestReport> server;
     private final Queue<TrainAndTestReport> taskResults = new ConcurrentLinkedQueue<>();
     private final AtomicInteger taskToProcess = new AtomicInteger(0);
     private final AtomicInteger taskProcessed = new AtomicInteger(0);
@@ -4630,7 +4632,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
      * ModelForecastJob represents a single job of a model forecasting with given single parameter set.
      * Used for parallelization, executorService is fed with bunch of ModelForecastJob instances.
      */
-    private static class ModelForecastJob implements Runnable, Task<TrainAndTestReport> {
+    private static class ModelForecastJob implements Runnable, AdmwlTask<TrainAndTestReport> {
         private static final long serialVersionUID = 1L;
 
         public Forecastable forecastable;
@@ -4652,7 +4654,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         public void run() {
             // When executing via executor, do not overwrite data model singleton. Single process.
             shouldSetNewDataInstance = false;
-            final TrainAndTestReport report = execute();
+            final TrainAndTestReport report = execute(null, null); //TODO cancellation, progress
             if (report != null) {
                 report.setID(Utils.getModelID());
                 reportList.add(report);
@@ -4668,7 +4670,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
 
         @Override
-        public TrainAndTestReport execute() {
+        public TrainAndTestReport execute(AdmwlCancellation cancellation, AdmwlProgressMonitor progress) {
             final long curTime = System.currentTimeMillis();
             logger.info("<{} param={} total={} time={} thread={}>",
                     modelName, paramIdx, paramTotal, curTime, Thread.currentThread().getName());
@@ -4694,7 +4696,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
      * @param jobResult
      */
     @Override
-    public void onJobFinished(Task<TrainAndTestReport> task, TrainAndTestReport jobResult) {
+    public void onAdmwlJobFinished(AdmwlTask<TrainAndTestReport> task, TrainAndTestReport jobResult) {
         logger.info("Job finished {}, null result: {}", jobResult, jobResult == null);
 
         // Adding a null object to the concurrent queue causes freeze.
@@ -5134,11 +5136,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 ((ResidualsSubPanel) panelResidualsAll).getButtonExportResiduals());
     }
 
-    public AdmlProviderImpl<TrainAndTestReport> getServer() {
+    public AdmwlProviderImpl<TrainAndTestReport> getServer() {
         return server;
     }
 
-    public void setServer(AdmlProviderImpl<TrainAndTestReport> server) {
+    public void setServer(AdmwlProviderImpl<TrainAndTestReport> server) {
         this.server = server;
     }
 

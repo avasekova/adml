@@ -1,5 +1,8 @@
 package gui;
 
+import com.klinec.admwl.remoteLogic.AdmwlProviderImpl;
+import com.klinec.admwl.remoteLogic.AdmwlRegistry;
+import com.klinec.admwl.remoteLogic.AdmwlWorkerImpl;
 import models.TrainAndTestReport;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -7,9 +10,6 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import rmi.AdmlProviderImpl;
-import rmi.AdmlRegistry;
-import rmi.AdmlWorkerImpl;
 
 import javax.swing.*;
 import java.io.File;
@@ -23,6 +23,7 @@ import java.util.List;
 
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
+    private static final String SVCNAME = "ADMWL";
 
     // receives other command line parameters than options
     @Argument
@@ -49,8 +50,8 @@ public class Main {
     @Option(name="--rmiregistry-port", aliases={"-p"}, usage = "RMI registry port to use. If negative, the default one is used")
     private int rmiRegistryPort = -1;
 
-    private AdmlRegistry registry;
-    private AdmlProviderImpl<TrainAndTestReport> server;
+    private AdmwlRegistry registry;
+    private AdmwlProviderImpl<TrainAndTestReport> server;
     private MainFrame gui;
 
     /**
@@ -93,7 +94,7 @@ public class Main {
             // Server + main application
             gui =  MainFrame.getInstance();
             if (rmi || rmiRegistryConnect != null) {
-                registry = new AdmlRegistry();
+                registry = new AdmwlRegistry();
 
                 // If registry hostname to connect is not null, do not create own but use existing
                 if (rmiRegistryConnect != null && !rmiRegistryConnect.isEmpty()){
@@ -110,7 +111,7 @@ public class Main {
                 }
 
                 logger.info("Binding RMI server");
-                server = new AdmlProviderImpl<>();
+                server = new AdmwlProviderImpl<>(SVCNAME);
                 server.setRegistry(registry.getRegistry());
                 server.setJobFinishedListener(gui);
                 server.initServer();
@@ -155,7 +156,7 @@ public class Main {
             rmiRegistryConnect = "localhost";
         }
 
-        AdmlWorkerImpl<TrainAndTestReport> worker = new AdmlWorkerImpl<>(rmiRegistryConnect, rmiRegistryPort, AdmlProviderImpl.NAME);
+        AdmwlWorkerImpl<TrainAndTestReport> worker = new AdmwlWorkerImpl<>(rmiRegistryConnect, rmiRegistryPort, SVCNAME);
 
         // Starts worker loops, blocks until worker is running.
         worker.work();
@@ -198,7 +199,7 @@ public class Main {
      * Starts localhost registry.
      */
     protected boolean startLocalRegistry(){
-        registry = new AdmlRegistry();
+        registry = new AdmwlRegistry();
         try {
             logger.info("Starting local RMI registry, port: {}", rmiRegistryPort <= 0 ? "Default" : rmiRegistryPort);
             registry.createRegistry(rmiRegistryPort);
