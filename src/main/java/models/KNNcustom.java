@@ -69,12 +69,12 @@ public class KNNcustom implements Forecastable {
                                                    + ", combination = " + combinationFunction + ")");
         double[] forecasts = rengine.evalAndReturnArray(FORECAST + "$oneforecast");
         double forcast = forecasts[0]; //for now, only gives one forecast, TODO more
-        System.out.println("the one and only forecast (kNN custom): " + forcast); //TODO ten forecast je okrem toho zle, pretoze predikuje prvu hodnotu za train datami a nie prvu buducu
+        System.out.println("the one and only forecast (kNN custom): " + forcast); //TODO the 4cast is incorrect btw, because it predicts the first val after train and not the first future val
         
         double[] dummyVals = new double[]{ 1,2,3,4,5,6,7,8,9,10,100 };
-        report.setFittedValues(dummyVals); //TODO zmenit
-        report.setForecastValuesTest(dummyVals); //TODO zmenit
-        report.setPlotCode("plot.ts(sin(seq(0,2*pi))"); //potom pridat lag: rep(NA, " + params.getLag() + "), 
+        report.setFittedValues(dummyVals); //TODO chg
+        report.setForecastValuesTest(dummyVals); //TODO chg
+        report.setPlotCode("plot.ts(sin(seq(0,2*pi))"); //TODO add lag: rep(NA, " + params.getLag() + "),
         
         ErrorMeasuresCrisp errorMeasures = new ErrorMeasuresCrisp();
         errorMeasures.setMAEtrain(0.0);
@@ -96,7 +96,7 @@ public class KNNcustom implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
-        //TODO ako ziskat z mojej funkcie fitted vals?
+        //TODO how to get fitted vals from my fction?
         
         rengine.rm(INPUT, OUTPUT, INPUT_TRAIN, INPUT_TEST, OUTPUT_TRAIN, OUTPUT_TEST, FORECAST);
         

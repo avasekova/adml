@@ -22,7 +22,7 @@ public class RandomWalkInterval implements Forecastable {
         
         TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.RANDOM_WALK_INT);
         
-        int numTrainingEntries = Math.round(((float) 100/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
+        int numTrainingEntries = Math.round(((float) 100/100)*dataToUse.size()); //TODO maybe take a different %age - e.g. to agree with the other models when avg
         report.setNumTrainingEntries(numTrainingEntries);
         
         List<Interval> trainRealOutputs = new ArrayList<>(dataToUse.subList(0, numTrainingEntries));

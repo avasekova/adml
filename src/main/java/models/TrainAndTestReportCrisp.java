@@ -7,7 +7,7 @@ public class TrainAndTestReportCrisp extends TrainAndTestReport {
     private double[] fittedValues = new double[] {};
     private double[] forecastValuesTest = new double[] {};
     private double[] forecastValuesFuture = new double[] {};
-    private String plotCode = ""; //TODO toto zmazat a kreslit to rucne, ale
+    private String plotCode = ""; //TODO ditch this and draw it from the data, but...
     
     private double[] predictionIntervalsUppers = new double[] {};
     private double[] predictionIntervalsLowers = new double[] {};

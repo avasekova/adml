@@ -172,7 +172,7 @@ public class BinomPropSettingsPanel extends SettingsPanel {
         if ("".equals(getQuantileOne()) || "".equals(getQuantileOneValue()) || "".equals(getQuantileTwo()) || "".equals(getQuantileTwoValue())
                                         || "".equals(getNumObservations())  || "".equals(getNumSuccesses())) {
             JOptionPane.showMessageDialog(null, "All fields in the box need to be filled in for " + Model.BINOM_PROP + " analyses to run.");
-            throw new IllegalArgumentException(Model.BINOM_PROP + " not all filled in"); //TODO zaviest si vlastne vynimky pre tieto SettingsPanely, modely, atd.
+            throw new IllegalArgumentException(Model.BINOM_PROP + " not all filled in"); //TODO custom exceptions for SettingsPanels, models, etc?
         }
         
         SettingsPanel.setSomethingList(classss, resultList, "setQuantileOne", Integer.class, FieldsParser.parseIntegers(getQuantileOne()));

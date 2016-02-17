@@ -92,7 +92,7 @@ public class ForecastValsTableModel extends ReportsTableModel {
 
     public void hideColumn(int selectedCol) {
         int reportNumber = getReportNumber(selectedCol);
-        if (reportNumber > -1) { //teda ked to nie je nejaky header
+        if (reportNumber > -1) { //i.e. if this isn't a header
             hiddenReports.add(reports.get(reportNumber));
             reports.remove(reportNumber);
             hiddenNames.add(columnNames.get(reportNumber));

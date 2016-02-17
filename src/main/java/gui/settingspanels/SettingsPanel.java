@@ -96,7 +96,8 @@ public abstract class SettingsPanel extends JPanel {
     
     public abstract void enableAllElements(boolean trueFalse);
     
-    //je tu kvoli radius panelom (ktore sa nepouziju do parametrov, ak je toto vypnute) a CRCombinationStrategy panelom (ktore ich pomocou tohto vypinaju)
+    //this is here because of the radius panels (which won't be used in the params if this is turned off) and
+    //   CRCombinationStrategy panels (which turn them off using this)
     public void setTakenIntoAccount(boolean takenIntoAccount) {
         this.takenIntoAccount = takenIntoAccount;
     }

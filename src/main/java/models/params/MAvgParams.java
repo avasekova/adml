@@ -50,7 +50,7 @@ public class MAvgParams extends Params {
     
     public static List<MAvgParams> getParamsMAvg(JComboBox comboBoxColname, JPanel main) {
         MAvgParams par = new MAvgParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(100);
         par.setColName(comboBoxColname.getSelectedItem().toString()); //data
         

@@ -16,7 +16,7 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
         JLabel fillLabel2 = new JLabel("  ");
         
         JLabel colourLabel = new JLabel("   ");
-        colourLabel.setOpaque(true); //bez toho nefunguje setBkg
+        colourLabel.setOpaque(true); //setBkg does not work without this
         colourLabel.setBackground(((PlotLegendTurnOFFableListElement)value).getColour());
         
         JLabel textLabel = new JLabel(value.toString());
@@ -38,7 +38,7 @@ public class PlotLegendTurnOFFableListCellRenderer extends DefaultListCellRender
         line.add(textLabel);
         line.setVisible(true);
         
-        //alebo by sa tu mohli vytvarat a returnovat aj checkboxy k tym textom!
+        //or maybe the checkboxes for the texts could be created here
         
         return line;
     }

@@ -29,7 +29,7 @@ public class IntervalHolt implements Forecastable {
         
         IntervalHoltParams params = (IntervalHoltParams) parameters;
         
-        //bacha, tu si vsade navytvaram C+R, ale iHolt pracuje s L+U, takze potom previest
+        //here we create C+R, but iHolt works with L+U, so then transform
         List<Double> allDataCenter = dataTableModel.get(params.getColNameCenter());
         List<Double> allDataRadius = dataTableModel.get(params.getColNameRadius());
         List<Double> dataToUseCenter = new ArrayList<>(allDataCenter.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo()));
@@ -79,12 +79,12 @@ public class IntervalHolt implements Forecastable {
                        + alpha + beta + ", control = list(distance = \"" + params.getDistanceId() + "\", we.beta = " + weBeta
                        + ", iy.gama = " + iyGama + "))");
         
-        //-2, ptz neprodukuje fit pre prve dve
+        //-2, because it does not produce fit for the first two observations
         rengine.eval(FIT_LOWER + " <- " + FORECAST_MODEL + "$model$fitted[1:" + (numTrainingEntries-2) + ",2]");
         rengine.eval(FIT_UPPER + " <- " + FORECAST_MODEL + "$model$fitted[1:" + (numTrainingEntries-2) + ",1]");
         List<Double> fitLower = rengine.evalAndReturnList(FIT_LOWER);
         List<Double> fitUpper = rengine.evalAndReturnList(FIT_UPPER);
-        //a pridat tie prve dve hluche:
+        //and add the first two dummy ones:
         fitLower.add(0, Double.NaN);
         fitLower.add(0, Double.NaN);
         fitUpper.add(0, Double.NaN);

@@ -439,7 +439,7 @@ public class MLPNnetSettingsPanel extends SettingsPanel {
     }
     
     @Override
-    public void enableAllElements(boolean trueFalse) { //TODO islo by nejak krajsie, automaticky? pomocou mojich ComponentGroups alebo anotacie a nejak hromadne?
+    public void enableAllElements(boolean trueFalse) { //TODO could this be automated? using ComponentGroups or annotations or ..?
         checkBoxSkipConn.setEnabled(trueFalse);
         checkBoxTraceOptimization.setEnabled(trueFalse);
         jLabel10.setEnabled(trueFalse);

@@ -183,8 +183,8 @@ public class ResidualsSubPanel extends javax.swing.JPanel implements PlotContain
     }//GEN-LAST:event_buttonExportResidualsActionPerformed
 
     private void buttonPlotResidualsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotResidualsActionPerformed
-        //TODO mozno refaktor a vyhodit do PlotDrawera - aby tam bolo vsetko kreslenie grafov
-        //TODO refaktor, ptz je to to iste ako drawPlotGeneral/3, len s inymi objektami trosku
+        //TODO maybe refactor and move to PlotDrawer
+        //TODO refactor - it's the same as drawPlotGeneral/3, just with different objects
 
         int[] selectedCols = residualsTableLatest.getSelectedColumns();
 

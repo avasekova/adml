@@ -38,15 +38,12 @@ public class KNNmyown implements Forecastable {
         
         final int LAG = 1;
         
-        //vyrobit dva subory dat (vstupy, vystupy), lagnuty o prislusny lag (rovnaka dlzka)
         rengine.assign(INPUT, Utils.listToArray(dataToUse));
 //        rengine.assign(OUTPUT, Utils.listToArray(dataToUse));
         
-        //potom z dlzky tychto suborov vypocitat numTrainingEntries podla percentTrain
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.size());
         report.setNumTrainingEntries(numTrainingEntries);
         
-        //potom si vyrobit trainingValues, testingValues
         rengine.eval(INPUT_TRAIN + " <- " + INPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(INPUT_TEST + " <- " + INPUT + "[" + (numTrainingEntries+1) + ":(length(" + INPUT + ")-1)]");
         
@@ -63,7 +60,7 @@ public class KNNmyown implements Forecastable {
 //                                                   + "), y = " + OUTPUT_TRAIN + ", k = " + params.getNumNeighbours() + ")");
 //        rengine.eval(PREDICTED_TEST + " <- " + NBRS_WITH_TEST + "$pred");
         
-        //cele to posunut podla lagu:
+        //shift it all by lag:
 //        rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
 //        rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
 //        rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");
@@ -82,9 +79,7 @@ public class KNNmyown implements Forecastable {
         double[] testingPredicted = rengine.evalAndReturnArray(PREDICTED_TEST);
         
         //then compute ErrorMeasures
-        //TODO check the error measures, pretoze si myslim, ze to napriklad nepocita s tym posunom kvoli lagu. a potom
-        // napriklad pre test data mam len par pozorovani, ale priemerne errory delim celkovym poctom testov, a vychadzaju
-        // mi velmi male errory. bud je chybny graf alebo pocitanie errorov, pretoze na grafe su vyssie hodnoty
+        //TODO check the error measures
 /*        ErrorMeasuresCrisp errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(trainingOutputs), 
                 Utils.arrayToList(testingOutputs), Utils.arrayToList(trainingPredicted), Utils.arrayToList(testingPredicted), 
                 parameters.getSeasonality());

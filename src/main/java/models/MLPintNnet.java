@@ -45,7 +45,7 @@ public class MLPintNnet implements Forecastable {
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) nnet.forecast(dataTableModel, paramsCenter);
         TrainAndTestReportCrisp reportRadius = (TrainAndTestReportCrisp) nnet.forecast(dataTableModel, paramsRadius);
         
-        //sublistovat tie centers a radii az tu, ked uz to neovplyvni nnet
+        //sublist the centers and radii here, where it does not affect the nnet
         List<Interval> realOutputsIntervalTrain = Utils.zipCentersRadiiToIntervals(
                 Utils.arrayToList(reportCenter.getRealOutputsTrain()), Utils.arrayToList(reportRadius.getRealOutputsTrain()));
         List<Interval> realOutputsIntervalTest = Utils.zipCentersRadiiToIntervals(
@@ -72,7 +72,7 @@ public class MLPintNnet implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
-        //hack, aby sme mohli mat oba ploty v jednej premennej
+        //hack, so we could have both plots in one variable
         report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
         
         realOutputsIntervalTrain.addAll(realOutputsIntervalTest);

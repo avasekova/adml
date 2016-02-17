@@ -21,7 +21,7 @@ public class Transformations {
             rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             rengine.eval(VAR + " <- " + VAR + "[2:length(" + VAR + ")] - " + VAR + "[1:(length(" + VAR + ") - 1)]");
             List<Double> newData = new ArrayList<>();
-            //newData.add(Double.NaN); //TODO vymysliet, ako to posunut doprava... teraz je to 'zarovnane' dolava, co je zle
+            //newData.add(Double.NaN); //TODO shift this right somehow... atm left-'justified' (incorrect)
             newData.addAll(Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
             DataTableModel.getInstance().addDataForColname("DIFF(" + selected + ")", newData);
         }
@@ -43,17 +43,17 @@ public class Transformations {
         for (String selected : selectedValuesList) {
             rengine.assign(VAR, Utils.listToArray(DataTableModel.getInstance().getDataForColname(selected)));
             
-            //najprv si k tomu zozeniem regresnu priamku:
-            //k nej si potrebujem vyrobit ten frame:
+            //first get the regression line:
+            //for that I need the frame:
             rengine.eval(DATA + " <- cbind(seq(1, length(" + VAR + ")), " + VAR + ")");
-            //teraz mu premenujem stlpce
+            //rename the columns
             rengine.eval("colnames(" + DATA + ") <- c(\"x\", \"y\")");
-            //mozem poskladat rovnicu regresnej priamky:
+            //now I can build the function:
             rengine.eval(REG + " <- lm(y ~ x, data = data.frame(" + DATA + "))");
-            //z toho vytiahnem koeficienty a odcitam tuto priamku od povodnych dat, tj odstranim trend
+            //get the coefficients and subtract the line from the data, i.e. remove trend
             rengine.eval(VAR + " <- " + VAR + " - (" + REG + "$coefficients[1] + " 
                                                      + REG + "$coefficients[2]*seq(1, length(" + VAR + ")))"
-//                             + " + mean(" + VAR + ")"               //pripadne odkomentovat toto, aby ta nova TS krizovala staru
+//                             + " + mean(" + VAR + ")"               //uncomment this to have the new TS cross the old one
                         );
             
             DataTableModel.getInstance().addDataForColname("NOTREND(" + selected + ")", Utils.arrayToList(rengine.eval(VAR).asDoubleArray()));
@@ -94,15 +94,15 @@ public class Transformations {
             mins.append(")");
             maxs.append(")");
             
-            //vytvor LB a UB
+            //create LB a UB
             rengine.eval(LOWERB + " <- " + mins.toString());
             rengine.eval(UPPERB + " <- " + maxs.toString());
             
-            //vytvor este C a R
+            //create C a R
             rengine.eval(CENTERS + " <- (" + UPPERB + " + " + LOWERB + ")/2");
             rengine.eval(RADII + " <- (" + UPPERB + " - " + LOWERB + ")/2");
             
-            //pridaj vsetko medzi data
+            //add all to data
             DataTableModel.getInstance().addDataForColname("LB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(LOWERB).asDoubleArray()));
             DataTableModel.getInstance().addDataForColname("UB_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(UPPERB).asDoubleArray()));
             DataTableModel.getInstance().addDataForColname("C_" + length + "(" + selected + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
@@ -144,7 +144,7 @@ public class Transformations {
         rengine.eval(LOWERS + " <- " + CENTERS + " - " + RADII);
         rengine.eval(UPPERS + " <- " + CENTERS + " + " + RADII);
         
-        //pridaj vsetko medzi data
+        //add all to data
         DataTableModel.getInstance().addDataForColname("LB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(LOWERS).asDoubleArray()));
         DataTableModel.getInstance().addDataForColname("UB" + "(" + namesCR.getCentre() + "," + namesCR.getRadius() + ")", Utils.arrayToList(rengine.eval(UPPERS).asDoubleArray()));
         
@@ -165,7 +165,7 @@ public class Transformations {
         rengine.eval(RADII + " <- (" + UPPERS + " - " + LOWERS + ")/2");
         
 
-        //pridaj vsetko medzi data
+        //add all to data
         DataTableModel.getInstance().addDataForColname("C" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(CENTERS).asDoubleArray()));
         DataTableModel.getInstance().addDataForColname("R" + "(" + namesLBUB.getLowerBound() + "," + namesLBUB.getUpperBound() + ")", Utils.arrayToList(rengine.eval(RADII).asDoubleArray()));
         

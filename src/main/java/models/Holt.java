@@ -55,7 +55,7 @@ public class Holt implements Forecastable {
         double finalAlpha = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"alpha\"]")[0];
         double finalBeta = rengine.evalAndReturnArray(FORECAST_MODEL + "$model$par[\"beta\"]")[0];
         
-        //tak a teraz postupne napredikujeme ten zbytok
+        //aand now predict the rest
         
         
         

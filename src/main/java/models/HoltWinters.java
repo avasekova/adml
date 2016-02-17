@@ -31,13 +31,13 @@ public class HoltWinters implements Forecastable {
         
         rengine.assign(INPUT_TRAIN, Utils.listToArray(inputTrain));
         
-        //musim si z toho spravit seasonal data
+        //we need seasonal data
         rengine.eval(INPUT_TRAIN + " <- ts(" + INPUT_TRAIN + ", frequency=" + params.getFrequency() + ")");
         
         int num4castsTestAndFuture = inputTest.size() + params.getNumForecasts();
         
-        if (params.getFrequency() <= 24) { //forecast::HW zvladne do 24
-            //TODO potom to robit krajsie ako takto IFovat - ak je velka frekvencia, presmerovat na tbats a normalne zavolat komplet iny model
+        if (params.getFrequency() <= 24) { //forecast::HW can do up to 24
+            //TODO chg - if the freq is too high, redirect to tbats and just call a different model
             rengine.eval(FORECAST_MODEL + " <- forecast::hw(" + INPUT_TRAIN + ", h=" + num4castsTestAndFuture + 
                 ", alpha=" + params.getAlpha() + ", beta=" + params.getBeta() + ", gamma=" + params.getGamma()
                 + ", seasonal=\"" + params.getSeasonalityAddMult() + "\""
@@ -53,7 +53,7 @@ public class HoltWinters implements Forecastable {
             rengine.eval(FORECAST + " <- forecast(" + FORECAST_MODEL + ", h=" + num4castsTestAndFuture + ")$mean");
         }
         
-        //ak to nie su seasonal data, R skonci s chybou
+        //if this is not seasonal data, R throws an error
         if (rengine.eval(FORECAST_MODEL) == null) {
             TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.HOLT_WINTERS);
             report.setModelDescription("(unable to fit the requested model)");

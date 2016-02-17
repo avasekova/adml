@@ -319,8 +319,8 @@ public class CTSSubPanel extends javax.swing.JPanel implements PlotContainer {
     }
 
     private void buttonExportAnalysisPlotsCTSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportAnalysisPlotsCTSActionPerformed
-        //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
-        //TODO vymysliet
+        //ideally this would export all tabs in the future (though there is a problem with existing files)
+        //TODO export all tabs
 
         if (evt.getSource() == buttonExportAnalysisPlotsCTS) {
             Exporter.exportPlot(tabbedPaneAnalysisPlotsCTS);

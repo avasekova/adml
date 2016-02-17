@@ -80,7 +80,7 @@ public abstract class ErrorMeasuresTableModel extends ReportsTableModel {
     
     public void hideRow(int rowIndex) {
         int reportNumber = getReportNumber(rowIndex);
-        if (reportNumber > -1) { //teda ked to nie je nejaky header
+        if (reportNumber > -1) { //i.e. if this isn't a header
             hiddenReports.add(reports.get(reportNumber));
             reports.remove(reportNumber);
             this.fireTableRowsDeleted(rowIndex, rowIndex);
@@ -133,18 +133,18 @@ public abstract class ErrorMeasuresTableModel extends ReportsTableModel {
         }
         
         for (TrainAndTestReport r : reports) {
-            double[] vals = r.getErrorMeasures().serializeToArray(); //vals su po stlpcoch, tj MEtrain, MEtest, RMSEtrain, ...
+            double[] vals = r.getErrorMeasures().serializeToArray(); //vals are in columns, i.e. MEtrain, MEtest, RMSEtrain, ...
             
             for (int i = 0; i < vals.length; i++) {
-                if (i % 2 == 0) { //parne hodnoty = train
+                if (i % 2 == 0) { //even vals = train
                     errorMeasuresAggTrain = put(errorMeasuresAggTrain, names[i/2], vals[i]);
-                } else { //neparne = test
+                } else { //odd = test
                     errorMeasuresAggTest = put(errorMeasuresAggTest, names[i/2], vals[i]);
                 }
             }
         }
         
-        //mam nasyslene pre kazdu error measure vsetky aktualne hodnoty. teraz vybrat min a max
+        //we've got all current vals for each error measure, now choose min and max
         for (String errorMeasure : names) {
             errorMeasuresMinMaxTrain.put(errorMeasure, getMinMax(errorMeasuresAggTrain.get(errorMeasure)));
             errorMeasuresMinMaxTest.put(errorMeasure, getMinMax(errorMeasuresAggTest.get(errorMeasure)));
@@ -152,7 +152,7 @@ public abstract class ErrorMeasuresTableModel extends ReportsTableModel {
             if (errorMeasure.equals("Mean coverage") || errorMeasure.equals("Mean efficiency")) {
                 MinMaxTuple mmTrain = errorMeasuresMinMaxTrain.get(errorMeasure);
                 MinMaxTuple mmTest = errorMeasuresMinMaxTest.get(errorMeasure);
-                //a teraz to otocit, aby bolo minimum (tj najlepsie) to najvacsie a naopak
+                //now turn around so the min (i.e. the best) is the biggest and vice versa
                 errorMeasuresMinMaxTrain.put(errorMeasure, new MinMaxTuple(mmTrain.getMax(), mmTrain.getMin()));
                 errorMeasuresMinMaxTest.put(errorMeasure, new MinMaxTuple(mmTest.getMax(), mmTest.getMin()));
             }

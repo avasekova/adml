@@ -53,8 +53,8 @@ public class VARint implements Forecastable {
         List<Interval> realOutputsTrain = realOutputs.subList(0, numTrainingEntries);
         List<Interval> realOutpustTest = realOutputs.subList(numTrainingEntries, realOutputs.size());
         
-        //nepridavat NA nikam, prida sa pri plotovani!
-        //TODO zostavit si prirucku, kde co treba spravit... co sa robi v plotDraweri a co v jednotlivych Forecastable
+        //do not add NAs anywhere, will be added when plotting!
+        //TODO a manual, what to do where, what is the responsibility of the model and what is left for PlotDrawer etc.
         long finalLag;
         if (params.isOptimizeLag()) {
             rengine.eval(FORECAST_MODEL + " <- vars::VAR(" + INPUT_TRAIN + ", lag.max=" + params.getLag() + ", ic=\"" + params.getCriterionOptimizeLag() + "\", type=\"" + params.getType() + "\")");
@@ -77,7 +77,6 @@ public class VARint implements Forecastable {
         report.setRealValues(realOutputs);
         report.setFittedValues(fitted);
         
-        //
         int num4castsTestAndFuture = realOutpustTest.size() + params.getNumForecasts();
         rengine.eval(FORECAST + " <- predict(" + FORECAST_MODEL + ", n.ahead=" + num4castsTestAndFuture + ")");
         rengine.eval(FORECAST_CENTER + " <- " + FORECAST + "$fcst$center[,1]");

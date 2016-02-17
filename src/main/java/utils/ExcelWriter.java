@@ -27,7 +27,7 @@ public class ExcelWriter { //TODO add information about the models, add formatti
                 for (int row = 0; row < tableCTS.getRowCount(); row++) {
                     for (int col = 0; col < tableCTS.getColumnCount(); col++) {
                         sheet.addCell(new Label(col, row, "" + tableCTS.getValueAt(row, col)));
-                        //TODO mozno pridavat cisla ako cisla - teraz su to vsetko stringy. ale to by bolo zlozitejsie
+                        //TODO maybe add numbers as numbers, though it would be more complicated. atm it's all Strings.
                     }
                 }
             }
@@ -37,7 +37,7 @@ public class ExcelWriter { //TODO add information about the models, add formatti
                 for (int row = 0; row < tableIntTS.getRowCount(); row++) {
                     for (int col = 0; col < tableIntTS.getColumnCount(); col++) {
                         sheet.addCell(new Label(col, row, "" + tableIntTS.getValueAt(row, col)));
-                        //TODO mozno pridavat cisla ako cisla - teraz su to vsetko stringy. ale to by bolo zlozitejsie
+                        //TODO maybe add numbers as numbers, though it would be more complicated. atm it's all Strings.
                     }
                 }
             }
@@ -57,16 +57,16 @@ public class ExcelWriter { //TODO add information about the models, add formatti
             if (! values.isEmpty()) {
                 WritableSheet sheet = workbook.createSheet(title, 0);
                 
-                //najprv zapisat nadpisy
+                //first print the headers
                 for (int col = 0; col < values.getColumnCount(); col++) {
                     sheet.addCell(new Label(col, 0, "" + values.getColumnName(col)));
                 }
                 
-                //pozor na cislovanie row! kvoli headerom
+                //careful with the row numbers because of the headers
                 for (int row = 1; row < values.getRowCount()+1; row++) {
                     for (int col = 0; col < values.getColumnCount(); col++) {
                         sheet.addCell(new Label(col, row, "" + values.getValueAt(row-1, col)));
-                        //TODO mozno pridavat cisla ako cisla - teraz su to vsetko stringy. ale to by bolo zlozitejsie
+                        //TODO maybe add numbers as numbers, though it would be more complicated. atm it's all Strings.
                     }
                 }
             }

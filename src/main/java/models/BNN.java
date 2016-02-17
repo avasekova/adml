@@ -36,7 +36,7 @@ public class BNN implements Forecastable {
         //int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(data.get(0).size() + maxLag));
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(dataTableModel.get(params.getExplVars().get(0).getFieldName()).size()));
         report.setNumTrainingEntries(numTrainingEntries);
-        numTrainingEntries -= maxLag; //dalej sa bude pocitat aj tak s datami zarovnanymi na rectangle
+        numTrainingEntries -= maxLag; //from now on we will compute with the "rectangle" data anyway
         
         //most likely we will never allow more than 1... but whatever.
         if (params.getOutVars().size() == 1) {
@@ -44,7 +44,7 @@ public class BNN implements Forecastable {
             
             List<List<Double>> allInputs = new ArrayList<>();
             allInputs.addAll(data);
-            allInputs.remove(data.size() - 1); //bez poslednej, tj bez output var
+            allInputs.remove(data.size() - 1); //without the last one, i.e. without the output var
             List<List<Double>> trainingInputs = RBF.getInputsCut(allInputs, 0, numTrainingEntries);
             List<List<Double>> testingInputs = RBF.getInputsCut(allInputs, numTrainingEntries, allInputs.get(0).size());
             
@@ -71,7 +71,7 @@ public class BNN implements Forecastable {
             report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastValsTest) + "))");
             
             //real outputs train and test are just the original data (used only for plotting)
-            //za predpokladu, ze mame iba jednu OutVar:
+            //assuming we only have one OutVar:
             List<Double> realOutputs = dataTableModel.get(params.getOutVars().get(0).getFieldName()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
             List<Double> realOutputsTrain = realOutputs.subList(0, numTrainingEntries+maxLag);
             List<Double> realOutputsTest = realOutputs.subList(numTrainingEntries+maxLag, realOutputs.size());
@@ -82,16 +82,16 @@ public class BNN implements Forecastable {
                     Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest), parameters.getSeasonality());
             report.setErrorMeasures(errorMeasures);
             
-            //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.
-            //TODO doplnit, ked budem doplnat aj do iMLP C code, lebo to bude fungovat tak isto.
+            //future forecasts as usual - I know the first and the rest can be computed iteratively
+            //TODO add when I am adding this to the iMLP C code, it's the same thing.
             
-            rengine.rm(INPUT_TRAIN, INPUT_TEST, OUTPUT, OUTPUT_TRAIN, OUTPUT_TEST, NNETWORK); //POZOR, nemazat FIT, FORECAST_TEST
+            rengine.rm(INPUT_TRAIN, INPUT_TEST, OUTPUT, OUTPUT_TRAIN, OUTPUT_TEST, NNETWORK); //! do not delete FIT, FORECAST_TEST
         }
         
         return report;
     }
     
-    //podla vzoru iMLP C code
+    //as in iMLP C code //TODO de-duplicate
     private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispVariable> explVars,
                                            List<CrispVariable> outVars,
                                            int from, int to) {
@@ -113,7 +113,7 @@ public class BNN implements Forecastable {
         }
         
         return IntervalMLPCcode.trimDataToRectangle(data, maximumLag);
-        //na tomto mieste mam rectangle, bez akychkolvek NaN na zaciatku.
+        //here we've got "rectangle" data without any NaNs at the beginning.
     }
 
     public static List<List<Double>> getInputsCut(List<List<Double>> data, int from, int to) {

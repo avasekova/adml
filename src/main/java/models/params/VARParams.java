@@ -95,7 +95,7 @@ public class VARParams extends Params {
     
     public static List<VARParams> getParamsVAR(javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsVAR) throws IllegalArgumentException {
         VARParams par = new VARParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(100); //uses all data for training
         
         List<VARParams> resultList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class VARParams extends Params {
         
         MainFrame.getInstance().setParamsGeneral(VARParams.class, resultList);
         ((VARSettingsPanel)panelSettingsVAR).setSpecificParams(VARParams.class, resultList);
-        //TODO prehodit dnu?
+        //TODO move inside?
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarName",
                 String.class, comboBoxColName.getSelectedItem().toString());
         SettingsPanel.setSomethingOneValue(VARParams.class, resultList, "setOutputVarVals",

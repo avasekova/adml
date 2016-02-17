@@ -68,7 +68,7 @@ public class HoltIntParams extends PseudoIntervalParams {
         } else {
             for (HoltIntParams params : resultList) {
                 params.setParamsRadius(params.getParamsCenter().getClone());
-                //ale este preplacnut naspat niektore veci
+                //overwrite
                 params.getParamsRadius().setColName(resultListRadius.get(0).getColName());
             }
         }

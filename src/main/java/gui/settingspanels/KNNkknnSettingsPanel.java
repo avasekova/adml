@@ -60,7 +60,7 @@ public class KNNkknnSettingsPanel extends SettingsPanel {
     // End of variables declaration//GEN-END:variables
 
     public String getNumNeighbours() {
-        return spinnerNumNeighbours.getValue().toString(); //TODO obmedzit v SpinnerNumberModele maximalnu hodnotu na nieco neprekracujuce velkost suboru
+        return spinnerNumNeighbours.getValue().toString(); //TODO set max num in the SpinnerNumberModel to sth less, e.g. size of input
     }
 
     @Override

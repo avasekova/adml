@@ -14,14 +14,13 @@ import java.util.Map;
 public class SESint implements Forecastable {
     private static final long serialVersionUID = 1L;
 
-    //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?
+    //TODO generic superclass?
     @Override
     public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         SESParams paramsCenter = ((SESintParams)parameters).getParamsCenter();
         SESParams paramsRadius = ((SESintParams)parameters).getParamsRadius();
         
-        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
-        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
+        //assume C+R data
         
         SES ses = new SES();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) ses.forecast(dataTableModel, paramsCenter);

@@ -133,6 +133,6 @@ public class VARSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingList(classss, resultList, "setLag", Integer.class, FieldsParser.parseIntegers(getLag()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setType", String.class, getType());
         
-        //pozor, zbytok sa setuje v getParamsVAR
+        //the rest is being set in getParamsVAR
     }
 }

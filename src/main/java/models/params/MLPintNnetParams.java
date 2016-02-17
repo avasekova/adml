@@ -91,7 +91,7 @@ public class MLPintNnetParams extends PseudoIntervalParams {
         } else {
             for (MLPintNnetParams params : resultList) {
                 params.setParamsRadius(params.getParamsCenter().getClone());
-                //ale este preplacnut naspat explVars a colName! inak tam bude fakt UPLNE vsetko z Center, a to nechceme
+                //overwrite explVars and colName! otherwise they contain everything from Center and we do not want that
                 params.getParamsRadius().setColName(resultListRadius.get(0).getColName());
                 params.getParamsRadius().setExplVars(resultListRadius.get(0).getExplVars());
             }

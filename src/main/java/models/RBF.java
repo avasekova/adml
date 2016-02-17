@@ -37,7 +37,7 @@ public class RBF implements Forecastable {
         //int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(data.get(0).size() + maxLag));
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*(dataTableModel.get(params.getExplVars().get(0).getFieldName()).size()));
         report.setNumTrainingEntries(numTrainingEntries);
-        numTrainingEntries -= maxLag; //dalej sa bude pocitat aj tak s datami zarovnanymi na rectangle
+        numTrainingEntries -= maxLag; //from now on we take the "rectangle" data
         
         //most likely we will never allow more than 1... but whatever.
         if (params.getOutVars().size() == 1) {
@@ -72,7 +72,7 @@ public class RBF implements Forecastable {
             report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + ", " + Utils.arrayToRVectorString(forecastValsTest) + "))");
             
             //real outputs train and test are just the original data (used only for plotting)
-            //za predpokladu, ze mame iba jednu OutVar:
+            //assuming we only have one OutVar:
             List<Double> realOutputs = dataTableModel.get(params.getOutVars().get(0).getFieldName()).subList(params.getDataRangeFrom()-1, params.getDataRangeTo());
             List<Double> realOutputsTrain = realOutputs.subList(0, numTrainingEntries+maxLag);
             List<Double> realOutputsTest = realOutputs.subList(numTrainingEntries+maxLag, realOutputs.size());
@@ -83,8 +83,8 @@ public class RBF implements Forecastable {
                     Utils.arrayToList(fittedVals), Utils.arrayToList(forecastValsTest), parameters.getSeasonality());
             report.setErrorMeasures(errorMeasures);
             
-            //future forecasts klasicky - prvy viem, a dalsie sa daju napocitat iterativne.
-            //TODO doplnit, ked budem doplnat aj do iMLP C code, lebo to bude fungovat tak isto.
+            //future forecasts iteratively
+            //TODO add
             
             rengine.rm(SCALED_INPUT_TRAIN, SCALED_INPUT_TEST, OUTPUT, SCALED_OUTPUT, SCALED_OUTPUT_TRAIN, SCALED_OUTPUT_TEST, NNETWORK, FIT, FORECAST_TEST, UNSCALED_FIT, UNSCALED_FORECAST_TEST);
         }
@@ -92,7 +92,7 @@ public class RBF implements Forecastable {
         return report;
     }
     
-    //podla vzoru iMLP C code
+    //as in iMLP C code
     private List<List<Double>> prepareData(Map<String, List<Double>> dataTableModel, List<CrispVariable> explVars,
                                                                           List<CrispVariable> outVars,
                                                                           int from, int to) {
@@ -114,7 +114,7 @@ public class RBF implements Forecastable {
         }
         
         return IntervalMLPCcode.trimDataToRectangle(data, maximumLag);
-        //na tomto mieste mam rectangle, bez akychkolvek NaN na zaciatku.
+        //here we have rectangle data, without any NaNs at the beginning
     }
 
     public static List<List<Double>> getInputsCut(List<List<Double>> data, int from, int to) {

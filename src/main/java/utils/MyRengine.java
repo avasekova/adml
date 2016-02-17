@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MyRengine extends Rengine {
-    //TODO na konci kazdeho pouzivania Rengine (v modeloch atd): "rm" vsetky objekty, co uz nebudem potrebovat
+    //TODO at the end of using Rengine (in models etc): "rm" all objects not needed anymore
 
     private static final Logger logger = LoggerFactory.getLogger(MyRengine.class);
     
@@ -40,7 +40,7 @@ public class MyRengine extends Rengine {
             }
             
             //change the default destination for drawing with JavaGD
-            re.eval("Sys.setenv('JAVAGD_CLASS_NAME'='utils/MyJavaGD')"); //pozor! je to setenv, nie putenv
+            re.eval("Sys.setenv('JAVAGD_CLASS_NAME'='utils/MyJavaGD')"); //!! it's setenv, not putenv
             
             //adding my own functions:
             re.eval("MLPtoR.scale <- function(x) { (x - min(x))/(max(x) - min(x)) }");
@@ -130,8 +130,8 @@ public class MyRengine extends Rengine {
         }
     }
     
-    //TODO urobit nieco (kniznicnu funkciu, anotaciu, neviem) co zamedzi kopirovaniu "if (!rengine.require) throw sth...."
-    //     do kazdeho Forecastable. proste aby toto require vybavilo aj chybu pri nenajdeni baliku a nevyprodukovanie modelu
+    //TODO sth (method, annotation, anything) to prevent copying "if (!rengine.require) throw sth...." into every Forecastable
+    //     i.e. make sure this require takes care of the errors when the pkg is not found and the inability to produce a model
     public boolean require(String packageName) {
         final String SUCCESS = "successihope";
         instance.eval(SUCCESS + " <- require(" + packageName + ")");
@@ -174,7 +174,7 @@ public class MyRengine extends Rengine {
     }
 
     public double[] evalAndReturnArray(String expression) {
-        eval(TEMP + " <- " + expression);  //pre istotu; aby nebolo treba 'eval(STH <- blabla), eval(STH)', ale stacilo 'eval(blabla)'
+        eval(TEMP + " <- " + expression);  //to be sure; so we don't need 'eval(STH <- blabla), eval(STH)', but just 'eval(blabla)'
         REXP getResult = eval(TEMP);
         return getResult.asDoubleArray();
     }
@@ -182,7 +182,7 @@ public class MyRengine extends Rengine {
     public String createDataFrame(List<String> selectedColumns) {
         List<Integer> counters = new ArrayList<>();
         
-        //naassignovat oznacene stlpce   TODO neskor sa budu assignovat defaultne pri loadnuti suboru, tak toto nebude treba
+        //'assign' the selected columns   TODO later 'assign' them by default on loading the file, so this won't be necessary
         List<List<Double>> data = new ArrayList<>();
         boolean hasNaNs = false;
         int maxLength = 0;
@@ -206,7 +206,7 @@ public class MyRengine extends Rengine {
             instance.eval(DATA + " <- c(rep(NA," + (maxLength - d.size()) + "), " + DATA + ")");
         }
         
-        //zlepit do data frame
+        //create data frame
         StringBuilder dataFrame = new StringBuilder("data.frame(");
         for (Integer c : counters) {
             dataFrame.append(Const.INPUT).append(c).append(",");
@@ -218,7 +218,7 @@ public class MyRengine extends Rengine {
         instance.eval(INPUT + " <- " + dataFrame.toString());
         
         if (hasNaNs) {
-            //dopocitat missing vals, lebo sa to inak stazuje
+            //compute missing vals, otherwise it complains
             final String WITH_MISSING = Const.OUTPUT + Utils.getCounter();
             instance.require("missMDA");
             instance.eval(WITH_MISSING + " <- imputePCA(" + INPUT + ", ncp=1)");

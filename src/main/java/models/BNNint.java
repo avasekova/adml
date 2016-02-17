@@ -41,8 +41,8 @@ public class BNNint implements Forecastable {
         BNNParams paramsCenter = ((BNNintParams)parameters).getParamsCenter();
         BNNParams paramsRadius = ((BNNintParams)parameters).getParamsRadius();
         
-        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
-        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
+        //regardles of having Center + Radius or LB + UB (i.e. if isCenterRadius is true or false),
+        //  we assume it's C+R. so no change to the data.
         
         BNN bnn = new BNN();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) bnn.forecast(dataTableModel, paramsCenter);
@@ -74,7 +74,7 @@ public class BNNint implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
-        //hack, aby sme mohli mat oba ploty v jednej premennej
+        //hack, so we could have both plots in one variable
         //TODO produce NN diagram?
 //        report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
         

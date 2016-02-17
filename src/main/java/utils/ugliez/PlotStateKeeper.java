@@ -4,11 +4,11 @@ import utils.Utils;
 
 public class PlotStateKeeper {
     
-    private static double lastDrawnCrispXmin;//last call, tj. new alebo zoom
+    private static double lastDrawnCrispXmin;//last call, i.e. new or zoom
     private static double lastDrawnCrispXmax;
     private static double lastDrawnCrispYmin;
     private static double lastDrawnCrispYmax;
-    private static double crispXmin; //total, tj new
+    private static double crispXmin; //total, i.e. new
     private static double crispXmax;
     private static double crispYmin;
     private static double crispYmax;

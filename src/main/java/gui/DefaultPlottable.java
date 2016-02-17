@@ -3,7 +3,7 @@ package gui;
 public class DefaultPlottable implements Plottable {
 
     private String text;
-    private String colname; //ktore data to reprezentuje
+    private String colname; //the data it represents
     private String colourInPlot;
     private boolean visible;
     

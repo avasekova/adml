@@ -28,7 +28,7 @@ public class PlotLegendTurnOFFableListElement extends PlotLegendSimpleListElemen
                     TrainAndTestReportCrisp r = (TrainAndTestReportCrisp) selected.getReport();
                     MainFrame.getInstance().addReportToData(r);
                 } else if (selected.getReport() instanceof TrainAndTestReportInterval) {
-                    //chcem, aby to pridalo C, R, MIN, MAX
+                    //we want to add C, R, MIN, MAX
                     TrainAndTestReportInterval r = (TrainAndTestReportInterval) selected.getReport();
                     MainFrame.getInstance().addReportToData(r);
                 }

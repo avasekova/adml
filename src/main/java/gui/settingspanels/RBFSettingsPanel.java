@@ -174,7 +174,7 @@ public class RBFSettingsPanel extends SettingsPanel {
     // End of variables declaration//GEN-END:variables
 
 //    public List<CrispVariable> getOutVars() {
-//        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
+//        CrispVariable outVar = new CrispVariable(); //takes vals from CTS Run
 //        outVar.setName(comboBoxOutputVar.getSelectedItem().toString() + comboBoxOutputVar.getSelectedIndex());
 //        outVar.setFieldName(comboBoxOutputVar.getSelectedItem().toString());
 //        List<CrispVariable> outVars = new ArrayList<>();
@@ -214,8 +214,8 @@ public class RBFSettingsPanel extends SettingsPanel {
         
         SettingsPanel.setSomethingList(classss, resultList, "setNumNodesHidden", Integer.class, FieldsParser.parseIntegers(getNumHidden()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
-        //POZOR, OutVars sa nastavuju vonku v getParamsRBF! zatial. TODO prerobit sem?
-//        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
+        //for now, OutVars are set in getParamsRBF. TODO move here?
+//        CrispVariable outVar = new CrispVariable(); //takes vals from CTS Run
 //        outVar.setName(comboBoxColnamesRun.getSelectedItem().toString() + comboBoxColnamesRun.getSelectedIndex());
 //        outVar.setFieldName(comboBoxColnamesRun.getSelectedItem().toString());
 //        List<CrispVariable> outVarList = new ArrayList<>();

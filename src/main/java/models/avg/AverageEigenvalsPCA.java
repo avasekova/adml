@@ -24,7 +24,7 @@ public class AverageEigenvalsPCA extends Average {
         super(avgCTSperM, avgCTS, avgIntTSperM, avgIntTS);
         
         if (avgIntTS) {
-            //pridat vsetky modely do dat
+            //add all models to data
             List<String> namesOfModelsForPCA_center = new ArrayList<>();
             List<String> namesOfModelsForPCA_radius = new ArrayList<>();
             for (TrainAndTestReportInterval r : models) {
@@ -33,12 +33,11 @@ public class AverageEigenvalsPCA extends Average {
                 namesOfModelsForPCA_radius.add(r.toString() + "(R)");
             }
 
-            //na vsetkych pridanych spocitat pca: raz pre centers, raz pre radii
-            //TODO konecne zacat robit veci inak ako na kolene, fujha
+            //compute pca for all: once for centers, once for radii
             double[] eigenvals_center = computeEigenvals(namesOfModelsForPCA_center);
             double[] eigenvals_radius = computeEigenvals(namesOfModelsForPCA_radius);
 
-            //zo ziskanych eigenvals tu potom pocitat vahy.
+            //compute weights from the eigenvals.
             denominatorCenters = 0;
             for (double d : eigenvals_center) {
                 denominatorCenters += d;

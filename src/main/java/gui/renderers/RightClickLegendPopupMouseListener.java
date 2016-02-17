@@ -22,7 +22,7 @@ public class RightClickLegendPopupMouseListener extends MouseAdapter {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        //tu nerob nic, az v Released
+        //don't do anything here; only in Released
     }
 
     @Override

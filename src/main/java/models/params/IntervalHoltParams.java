@@ -101,7 +101,7 @@ public class IntervalHoltParams extends Params {
     public static List<IntervalHoltParams> getParamsIntervalHolt(JPanel percentTrainSettingsPanel, JComboBox comboBoxCenter,
             JComboBox comboBoxRadius, JPanel distancePanel, JPanel panelSettingsHolt) {
         IntervalHoltParams par = new IntervalHoltParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         par.setColNameCenter(comboBoxCenter.getSelectedItem().toString()); //data
         par.setColNameRadius(comboBoxRadius.getSelectedItem().toString());

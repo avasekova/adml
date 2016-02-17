@@ -76,7 +76,7 @@ public class BNNParams extends Params {
     public static List<BNNParams> getParamsBNN(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsBNN) throws IllegalArgumentException {
         BNNParams par = new BNNParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<BNNParams> resultList = new ArrayList<>();
@@ -84,8 +84,8 @@ public class BNNParams extends Params {
         
         MainFrame.getInstance().setParamsGeneral(BNNParams.class, resultList);
         ((BNNSettingsPanel)panelSettingsBNN).setSpecificParams(BNNParams.class, resultList);
-        //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
-        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
+        //OutVars are being set outside! TODO move?
+        CrispVariable outVar = new CrispVariable(); //takes vals from CTS Run
         outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
         outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
         List<CrispVariable> outVarList = new ArrayList<>();

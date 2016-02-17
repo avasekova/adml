@@ -37,7 +37,10 @@ public class MAvg implements Forecastable {
         report.setFittedValues(fittedVals);
         report.setForecastValuesTest(Utils.listToArray(new ArrayList<>()));
         report.setForecastValuesFuture(Utils.listToArray(new ArrayList<>()));
-        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + "))"); //musi tam byt aj to c() obalovatko, aj ked je len jeden prvok... on ho totiz v PlotDraweri potom maze a chyba mu. TODO zmenit uz konecne
+
+        //yes, the c() wrapper IS necessary, even if it's just one element... the PlotDrawer tries to remove it and fails if it's not there
+        //TODO change
+        report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fittedVals) + "))");
         report.setRealOutputsTrain(Utils.listToArray(dataToUse));
         report.setRealOutputsTest(Utils.listToArray(new ArrayList<>()));
         

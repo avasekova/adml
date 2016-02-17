@@ -13,7 +13,7 @@ public class FieldsParser {
         
         for (String r : ranges) {
             List<Integer> integers = Utils.getIntegersOrDefault(r);
-            if (! ((integers.size() == 1) && (integers.get(0) == null))) { //ak je tam nieco zmysluplne
+            if (! ((integers.size() == 1) && (integers.get(0) == null))) { //if it makes sense
                 list.addAll(integers);
             }
         }

@@ -3109,17 +3109,15 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             }
         }
 
-        //a na zaver to disablovat, aby sa na to netukalo furt
-        buttonRunExportErrorMeasures.setEnabled(false);
     }//GEN-LAST:event_buttonRunExportErrorMeasuresActionPerformed
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
-        //zazalohovat si aktualny batchTableModel
+        //backup the existing batchTableModel
         AnalysisBatchTableModel lastKnownBatchModel = AnalysisBatchTableModel.getInstance();
         lastKnownBatchModel.setAllLines(AnalysisBatchTableModel.getInstance().getAllLines());
         AnalysisBatchTableModel.getInstance().clear();
         
-        //TODO mozno si nahadzat tie checkboxy do ComponentGroup a prechadzat ich len v cykle a nie takto natvrdo?
+        //TODO maybe have the checkboxes in a ComponentGroup and just loop through them?
 
         if (checkBoxRunMLPnnetar.isSelected()) {
             comboBoxRPackage.setSelectedItem(Model.NNETAR);
@@ -3280,7 +3278,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
         runModels(false);
         
-        //a vratit tam stary batchTableModel
+        //and put the former batchTableModel back
         AnalysisBatchTableModel.getInstance().setAllLines(lastKnownBatchModel.getAllLines());
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
@@ -3328,7 +3326,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
 
     private void switchHybridToCard(String centerOrRadius, JComboBox comboBox, JPanel panel) {
         CardLayout card = (CardLayout)panel.getLayout();
-        //TODO neslo by tie panely nazvat tak, aby sa odstranil ten switch? ze uz priamo by tam mali tu konstantu v mene
+        //TODO could the panels be named in such a way that we could lose the switch? they would contain the constant etc
         switch (Model.myValueOf(comboBox.getSelectedItem().toString())) {
             case NNETAR:
                 card.show(panel, "panelSettingsHybrid_" + centerOrRadius + "Main_MLPnnetar");
@@ -3366,7 +3364,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_checkBoxRunIncludeRMSSEActionPerformed
 
     private void buttonSettingsAddToBatch_MLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MLPActionPerformed
-        //zistit, ktora karta je hore
+        //find out which card is active
         switch (Model.myValueOf(comboBoxRPackage.getSelectedItem().toString())) {
             case NNET:
                 try {
@@ -3399,7 +3397,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                         panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
                     AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MLP_INT_NNET, paramsNnet,
-                            paramsNnet.size()*(paramsNnet.get(0).getNumNetsToTrain()))); //TODO mozno brat to numNetsToTrain nejak bezpecnejsie?
+                            paramsNnet.size()*(paramsNnet.get(0).getNumNetsToTrain()))); //TODO maybe get numNetsTrain in a safer way?
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
                 }
@@ -3595,7 +3593,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_buttonRunShowHiddenErrorMeasuresActionPerformed
 
     private void buttonPlotAllITSScatterplotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAllITSScatterplotActionPerformed
-        //tu uz len vezmi nasyslene v tych listoch
         List<JGDBufferedPanel> plots = PlotDrawer.drawScatterPlotsITS(true, new CallParamsDrawPlotsITS(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(), DataTableModel.getInstance(),
@@ -3661,9 +3658,9 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_checkBoxAvgCenterLogRadiusIntTSActionPerformed
 
     private void checkBoxAvgGotSelected(JCheckBox checkBox) {
-        if (checkBox.isSelected()) { //ak sa to prave zafajklo
-            checkBoxAvgONLY.setEnabled(true); //povol ONLY AVG
-        } else { //prave sa to odfajklo
+        if (checkBox.isSelected()) { //it just got selected
+            checkBoxAvgONLY.setEnabled(true); //allow ONLY AVG
+        } else { //just got cleared
             maybeTurnOffPlotAvgONLY();
         }
     }
@@ -3673,7 +3670,6 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                                                //   plot with drawing sth else first.
         ((DefaultListModel)(((PlotSubPanel)panelPlotImage).getListPlotLegend().getModel())).clear(); //a second hack to clear the legend after the scatterplot
         
-        //tu uz len vezmi nasyslene v tych listoch
         List<JGDBufferedPanel> plots = PlotDrawer.drawScatterPlotMatrixITS(true, new CallParamsDrawPlotsITS(
                 ((PlotSubPanel)panelPlotImage).getListPlotLegend(),
                 ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), 
@@ -4147,7 +4143,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     private boolean continueWithTooManyModels = true;
     
     public void setContinueWithTooManyModels(boolean continueWithTooManyModels) {
-        this.continueWithTooManyModels = continueWithTooManyModels; //TODO toto tiez zavana skaredym dizajnom, prerobit
+        this.continueWithTooManyModels = continueWithTooManyModels; //TODO pbly bad design, rethink
     }
     
     public <T extends Params> void setParamsGeneral(Class<T> classss, List<T> resultList) {
@@ -4352,7 +4348,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
-                        //pozor, -1! pretoze
+                        // -1! because
                         int selectedRow = errorMeasuresTable_CTS.getSelectedRow();
                         ((ErrorMeasuresTableModel_CTS) errorMeasuresTable_CTS.getModel()).hideRow(selectedRow);
                     }
@@ -4391,7 +4387,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (e.getClickCount() == 2) {
-                        //pozor, -1! pretoze
+                        // -1! because
                         int selectedRow = errorMeasuresTable_ITS.getSelectedRow();
                         ((ErrorMeasuresTableModel_ITS)errorMeasuresTable_ITS.getModel()).hideRow(selectedRow);
                     }
@@ -4422,7 +4418,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }
 
-    public void setPlotRanges(int sizeCTS, int sizeIntTS) { //TODO presunut do PlotSubPanela
+    public void setPlotRanges(int sizeCTS, int sizeIntTS) { //TODO move to PlotSubPanel
         if (sizeCTS == 0) {
             groupZoomControlsCTS.disableAll();
         } else {
@@ -4496,7 +4492,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }
 
     private void outputComputedWeights() {
-        if (checkBoxAvgONLY.isEnabled()) { //hack; tj aspon jeden avg bol pocitany
+        if (checkBoxAvgONLY.isEnabled()) { //hack; i.e. at least one avg was computed
             panelCombinationWeights.removeAll();
             
             JTabbedPane tabbedPaneComputedWeights = new JTabbedPane(JTabbedPane.TOP);
@@ -4532,7 +4528,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         }
     }
 
-    private void fillGUIelementsWithNewData() { //TODO pridat observer na polia v dataTableModele?
+    private void fillGUIelementsWithNewData() { //TODO add observer for the fields in dataTableModele?
         cleanGUIelements();
         
         textFieldRunDataRangeTo.setText("" + DataTableModel.getInstance().getRowCount());
@@ -4550,8 +4546,8 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         DialogAddIntervalOutputVar.setColNames(DataTableModel.getInstance().getColnames());
         DialogAddCrispExplanatoryVar.setColNames(DataTableModel.getInstance().getColnames());
         VARSettingsPanel.setColNames(DataTableModel.getInstance().getColnames());
-//        panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //musim ho znovu vytvorit, inak je uz vytvoreny a nema
-//                                                       //tam tie colnames.
+//        panelSettingsVARMainInsideBecauseX = new VARSettingsPanel(); //create anew, otherwise already created and
+//                                                       //misses the colnames.
 //        paneSettingsMethodsVAR.removeAll();
 //        panelSettingsVARMain.removeAll();
 //        panelSettingsVARMain.add(panelSettingsVARMainInsideBecauseX);
@@ -4792,11 +4788,11 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             //------------end hack, part 1/2
         }
 
-        //vsetky pridaju do zoznamu trainingreports svoje errormeasures a plotcode
+        //they all add their errormeasures and plotcode to the trainingreports list
         List<TrainAndTestReportCrisp> reportsCTS = new CopyOnWriteArrayList<>();
         List<TrainAndTestReportInterval> reportsIntTS = new CopyOnWriteArrayList<>();
 
-        //najprv prebehnut vsetky BatchLines, ci nahodou niektora nema privela modelov a ci sa teda bude spustat:
+        //go through all BatchLines to see if there are some that have too many models, i.e. we need to ask if they really should run:
         List<AnalysisBatchLine> runOnlyTheseBatchLines = new ArrayList<>();
         for (AnalysisBatchLine l : AnalysisBatchTableModel.getInstance().getAllLines()) {
             int numModels = 0;
@@ -4812,7 +4808,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             }
         }
 
-        //a potom uz ist len cez tie, ktore bud maju malo modelov, alebo bolo potvrdene, ze maju bezat aj s velkym poctom
+        //and then only use those with fewer models or many, but confirmed
         // Iterate over list of models and parameters, create model forecasting jobs and feed executor service with them.
         final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
         final long computationTimeStarted = System.currentTimeMillis();
@@ -4859,7 +4855,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 ModelForecastJob job = new ModelForecastJob();
                 job.forecastable = forecastable;
                 job.params = p;
-                job.inputData = DataTableModel.getInstance().getAllValues(); //TODO potom tomu nedavat ani vsetky stlpce, len potrebne
+                job.inputData = DataTableModel.getInstance().getAllValues(); //TODO do not pass all columns, just those necessary
                 job.reportList = reportList;
                 job.modelName = l.getModel();
                 job.paramIdx = paramCnt++;
@@ -4925,7 +4921,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
         } catch (IllegalArgumentException e) {
 //            if (! refreshOnly) {
                 JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
-//            } //otherwise they've already seen the error and it'd be annoying //TODO potom zakomponovat este pri redraw
+//            } //otherwise they've already seen the error and it'd be annoying //TODO include in redraw
         }
 
         //and plot it all
@@ -4978,7 +4974,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    //pozor, -1! pretoze 
+                    // -1! because
                     int selectedCol = forecastValuesTable.getSelectedColumn();
                     ((ForecastValsTableModel)forecastValuesTable.getModel()).hideColumn(selectedCol);
 //                    forecastValuesTable.repaint();
@@ -5113,8 +5109,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
                 ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreIntTSRangeY(), 
                 ((PlotSubPanel)panelPlotImage).getButtonPlotZoomIntTS());
         
-        //TODO pridat annotation processor alebo daco, co prejde vsetky JButtony deklarovane v MainFrame a napridava ich do
-        //   tejto grupy automaticky
+        //TODO add an annotation processor or sth to go through all JBUttons declared in MainF and automatically adds them here
         groupButtons.addAll(((CTSSubPanel) panelCTS).getButtonPlotColname(), buttonTrainAndTest, 
                 ((AnalysisBatchSubPanel) panelAnalysisBatch).getButtonRunAnalysisBatch(), buttonSettingsAddToBatch_MLP, 
                 buttonSettingsAddToBatch_MLPint, buttonSettingsAddToBatch_intMLP, buttonSettingsAddToBatch_RBF, 

@@ -5,14 +5,14 @@ import org.slf4j.LoggerFactory;
 
 public class ColourService {
     
-    //TODO vykradnut nieco ako:
+    //TODO steal ideas from sth like:
     ///https://github.com/mbostock/d3/blob/master/lib/colorbrewer/colorbrewer.js
     ///https://github.com/mbostock/d3/wiki/Ordinal-Scales
     
     private static ColourService instance = null;
     private int counter = -1;
-    private static final String[] COLOURS = new String[]{ //TODO vybrat sem nejake pekne! (rucne) - a hlavne viac
-//        //farby z D3js:
+    private static final String[] COLOURS = new String[]{ //TODO or maybe just choose some nice colours here
+//        //D3js colours:
 //        "#1F77B4",
 //        "#FF7F0E",
 //        "#2CA02C",
@@ -34,32 +34,32 @@ public class ColourService {
 //        "#DBDB8D",
 //        "#9EDAE5",
         
-        //TODO urgentne pridat viac farieb, aby to nebolo treba modulit!
+        //TODO add more colours!
         "#FF00FF",
         "#0000FF",
         "#00CD00",
-        "#42E99D", //tyrkysova
-        "#FF7A4B", //oranzova
-        "#EA0D5B", //ruzova
-        "#1B60C5", //modra
-        "#FFEA48", //zlta
-        "#44F04F", //zelena
-        "#820000", //hneda
-        "#05787E" //ocelova
+        "#42E99D", //turquoise
+        "#FF7A4B", //orange
+        "#EA0D5B", //pink
+        "#1B60C5", //blue
+        "#FFEA48", //yellow
+        "#44F04F", //green
+        "#820000", //brown
+        "#05787E"  //steel
             
             
-        //desperate times call for desperate measures, zopakovane tie farby:
+        //desperate times call for desperate measures, repeat the colours:
         ,"#FF00FF",
         "#0000FF",
         "#00CD00",
-        "#42E99D", //tyrkysova
-        "#FF7A4B", //oranzova
-        "#EA0D5B", //ruzova
-        "#1B60C5", //modra
-        "#FFEA48", //zlta
-        "#44F04F", //zelena
-        "#820000", //hneda
-        "#05787E" //ocelova
+        "#42E99D", //turquoise
+        "#FF7A4B", //orange
+        "#EA0D5B", //pink
+        "#1B60C5", //blue
+        "#FFEA48", //yellow
+        "#44F04F", //green
+        "#820000", //brown
+        "#05787E"  //steel
     };
     
     private ColourService() { }

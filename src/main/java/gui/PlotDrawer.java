@@ -31,8 +31,8 @@ import java.util.stream.Collectors;
 import static gui.tablemodels.DataTableModel.LABELS_AXIS_X;
 
 public class PlotDrawer {
-    //TODO toto by cele chcelo upratat, prekopar, mozno refaktorovat do viacerych tried
-    //a pridat sem vsetko, co sa tyka kreslenia - napr. i v DataTableModel je nieco, mozno v MainFrame, a tak.
+    //TODO the whole thing could use some cleanup and refactoring, maybe even into several classes
+    //and add everything related to plotting here - e.g. DataTableModel contains sth, maybe MainFrame too, etc
 
     private static final Logger logger = LoggerFactory.getLogger(PlotDrawer.class);
     
@@ -43,9 +43,9 @@ public class PlotDrawer {
     
     private static JGDBufferedPanel drawNowToThisGDBufferedPanel;
     
-    //drawNew je true, ak sa maju zmenit maximalne medze obrazku, tj kresli sa to z Run, Plot CTS, Plot ITS, ACF, PACF
-    //drawNew je false, ak sa len zoomuje aktualny obrazok a nekresli sa novy, tj zo Zoom CTS, Zoom ITS
-    //refreshOnly je true, ak pridavam/mazem niektore ploty z legendy. false, ak sa to spusta "nacisto" hned po Run alebo Zoom
+    //drawNew is true if the max bounds of the picture are to change, i.e. drawn from Run, Plot CTS, Plot ITS, ACF, PACF
+    //drawNew is false if the picture is only zoomed and not drawn anew, i.e. from Zoom CTS, Zoom ITS
+    //refreshOnly is true if we are adding/removing plots from the legend. false, if run "clean" right after Run or Zoom
     public static List<JGDBufferedPanel> drawPlots(boolean drawNew, boolean refreshOnly, CallParamsDrawPlots par) {
         String rangeXCrisp = "";
         String rangeYCrisp = "";
@@ -54,7 +54,8 @@ public class PlotDrawer {
         
         if (! par.getReportsCTS().isEmpty()) {
             rangeXCrisp = getRangeXCrisp(par.getAllDataCTS(), par.getNumForecasts(), par.getFrom(), par.getTo());
-            rangeYCrisp = getRangeYCrisp(par.getAllDataCTS(), par.getReportsCTS().stream().filter(r -> !r.isAverage()).collect(Collectors.toList())); //averages vzdy do toho rozsahu spadnu, tak ich tam ani nedavat. neviem, ci treba takto filtrovat, ale mozno to robi neplechu?
+            rangeYCrisp = getRangeYCrisp(par.getAllDataCTS(), par.getReportsCTS().stream().filter(r -> !r.isAverage())
+                    .collect(Collectors.toList())); //averages will always be in this range, so leave them out
         }
         
         if (! par.getReportsITS().isEmpty()) {
@@ -90,14 +91,14 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel = new JGDBufferedPanel(width, height);
         rengine.eval("JavaGD()");
         
-        if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //budem vykreslovat oba naraz
-            rengine.eval("par(mfrow=c(1,2))"); //daj dva grafy vedla seba. potom normalne zavolat dva ploty.
+        if ((! reportsCTS.isEmpty()) && (! reportsIntTS.isEmpty())) { //both will be drawn
+            rengine.eval("par(mfrow=c(1,2))"); //two plots side by side. then just call 'plot' twice
         }
         
         if (! reportsCTS.isEmpty()) { //plot CTS
             boolean wasSthDrawnCrisp = false;
             
-            //teraz nakresli vsetko
+            //draw all
             for (TrainAndTestReportCrisp r : reportsCTS) {
                 //if only averages are to be drawn and this is not one, skip it
                 if (par.getAvgConfig().isAvgONLY() && (! r.isAverage())) {
@@ -121,7 +122,7 @@ public class PlotDrawer {
                 plotCode.insert(r.getPlotCode().length() - 1, ", xlim = " + rangeXCrisp + ", ylim = " + rangeYCrisp + ", "
                         + "axes=FALSE, ann=FALSE, " //suppress axes names and labels, just draw them for the main data
                         + "lwd=4, col=\"" + r.getColourInPlot() + "\"");
-                plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - posunutie
+                plotCode.insert(10, "rep(NA, " + par.getFrom() + "), "); //hack - shift
 
                 rengine.eval(plotCode.toString());
                 wasSthDrawnCrisp = true;
@@ -147,7 +148,7 @@ public class PlotDrawer {
                                               //and add the last "known" (forecast test) value
                                               + r.getForecastValuesTest()[r.getForecastValuesTest().length-1] + "),"
                                + "density=NA, col=" + getRGBColorStringForHEX(r.getColourInPlot(), 30)
-                               + ", border=NA)"); //TODO col podla aktualnej
+                               + ", border=NA)");
                     
                     rengine.rm(UPPERS, LOWERS_REVERSE);
                 }
@@ -156,7 +157,7 @@ public class PlotDrawer {
                 rengine.eval("abline(v = " + (r.getNumTrainingEntries() + par.getFrom()) + ", lty = 2, lwd=2, col=\"" + r.getColourInPlot() + "\")");
             }
             
-            //teraz by mali byt nakreslene vsetky ciarky aj priemery
+            //all lines and avgs should be drawn now
             
             allDataCTS = allDataCTS.subList(from, Math.min(to+numForecasts, allDataCTS.size()));
             rengine.assign("all.data", Utils.listToArray(allDataCTS));
@@ -210,47 +211,47 @@ public class PlotDrawer {
                     rengine.eval("par(new=TRUE)");
                 }
 
-                //naplotovat fitted values:
+                //plot fitted values:
                 final int sizeFitted = r.getFittedValues().size();
                 rengine.assign("lower", r.getFittedValuesLowers());
                 rengine.assign("upper", r.getFittedValuesUppers());
-                //hack - posunutie
+                //hack - shift
                 rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                //hack - posunutie
+                //hack - shift
                 rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", lower, " + (1+par.getFrom()) + ":" + (sizeFitted+par.getFrom()) + ", upper, xlim = "
                         + rangeXInt + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + r.getColourInPlot() + "\")");
 
-                //naplotovat fitted values pre training data:
+                //plot fitted values for training data:
                 final int sizeForecastTest = r.getForecastValuesTest().size();
                 rengine.eval("par(new=TRUE)");
                 rengine.assign("lower", r.getForecastValuesTestLowers());
                 rengine.assign("upper", r.getForecastValuesTestUppers());
-                //hack - posunutie
+                //hack - shift
                 rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("par(new=TRUE)");
-                //hack - posunutie
+                //hack - shift
                 rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                 rengine.eval("segments(" + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", lower, "
                         + (sizeFitted+1+par.getFrom()) + ":" + (sizeFitted+sizeForecastTest+par.getFrom()) + ", upper, xlim = " + rangeXInt
                         + ", ylim = " + rangeYInt + ", lwd=4, col=\"" + r.getColourInPlot() + "\")");
 
-                //naplotovat forecasty buduce:
+                //plot forecasts future
                 final int sizeForecastFuture = r.getForecastValuesFuture().size();
                 if (sizeForecastFuture > 0) {
                     rengine.eval("par(new=TRUE)");
                     rengine.assign("lower", r.getForecastValuesFutureLowers());
                     rengine.assign("upper", r.getForecastValuesFutureUppers());
-                    //hack - posunutie
+                    //hack - shift
                     rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("par(new=TRUE)");
-                    //hack - posunutie
+                    //hack - shift
                     rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), upper), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                             + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels, just draw them for the main data
                     rengine.eval("segments(" + (sizeFitted+sizeForecastTest+1+par.getFrom()) + ":"
@@ -268,20 +269,20 @@ public class PlotDrawer {
             
             rengine.rm("lower", "upper");
             
-            //tu by mali byt nakreslene vsetky ITS aj s priemermi
+            //all ITS and avgs should be drawn now
             
-            if (wasSthDrawnIntTS) { //inak to moze skocit vedla do CTS plotu
+            if (wasSthDrawnIntTS) { //otherwise it can fall into the CTS plot
                 rengine.eval("par(new=TRUE)");
             }
                 
-            //a na ne vsetky naplotovat realne data:
-            //TODO hack, zatial beriem data z prveho reportu. potom nejak vymysliet :(
+            //and plot the real data over it all:
+            //TODO hack, for now we take the data from the 1st report. rethink
             int size = reportsIntTS.get(reportsIntTS.size() - 1).getRealValuesLowers().size();
-            //tu ich uz nesublistuj! v realData v reporte je to uz orezane podla range zadaneho na vstupe
+            //do not sublist it again! the realData in the report is already sublisted bsd on the range from the Run settings
             rengine.assign("all.lower", Utils.listToArray(reportsIntTS.get(reportsIntTS.size() - 1).getRealValuesLowers()));
             rengine.assign("all.upper", Utils.listToArray(reportsIntTS.get(reportsIntTS.size() - 1).getRealValuesUppers()));
 
-            //TODO este sa pohrat s tymi "range" hodnotami, lebo mi to nejak divne zarovnava
+            //TODO play around with the range, see if they are being 'justified' correctly
             rengine.eval("plot.ts(c(rep(NA, " + par.getFrom() + "), all.lower), type=\"n\", xlim = " + rangeXInt + ", ylim = " + rangeYInt + ", "
                         + "axes=FALSE, ann=FALSE)"); //suppress axes names and labels
             rengine.eval("par(new=TRUE)");
@@ -336,7 +337,7 @@ public class PlotDrawer {
         }
 
         Set<String> keys = residuals.keySet();
-        String rangeXCrisp = "range(c(1, " + (residuals.get(keys.toArray(new String[keys.size()])[0]).size()) + "))"; //hack jak svina
+        String rangeXCrisp = "range(c(1, " + (residuals.get(keys.toArray(new String[keys.size()])[0]).size()) + "))"; //hack
         String rangeYCrisp = getRangeYCrisp(residuals.values());
         
         ColourService.getService().resetCounter();
@@ -391,7 +392,7 @@ public class PlotDrawer {
             basicStatss.add(basicStats);
         }
 
-        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(width, height)); //won't shrink under a threshold, TODO
         drawNowToThisGDBufferedPanel.initRefresh();
         
         listPlotLegendResiduals.setCellRenderer(new PlotLegendSimpleListCellRenderer());
@@ -402,7 +403,7 @@ public class PlotDrawer {
     
     public static List<JGDBufferedPanel> drawPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         List<Double> allVals = getAllVals(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
-//        String rangeX = ; //predpokladajme, ze vsetky maju rovnaky pocet pozorovani
+//        String rangeX = ; //let's say they all have the same num of observations
         String rangeY = getRangeYMultipleInterval(allVals);
         String rangeX = getRangeXMultipleInterval(par.getDataTableModel(), par.getListCentreRadius(), par.getListLowerUpper());
         
@@ -434,7 +435,7 @@ public class PlotDrawer {
             }
         }
         
-        next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
+        next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty());
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
             if (interval.getColourInPlot() == null) {
@@ -539,7 +540,7 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel.initRefresh();
     }
     
-    //TODO refaktor - spojit nejak s drawPlotsITS, ak to ide?
+    //TODO refactor - merge with drawPlotsITS, if possible
     public static List<JGDBufferedPanel> drawScatterPlotsITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         final String LOWER = Const.INPUT + Utils.getCounter();
         final String UPPER = Const.INPUT + Utils.getCounter();
@@ -549,7 +550,7 @@ public class PlotDrawer {
         MyRengine rengine = MyRengine.getRengine();
         ColourService.getService().resetCounter();
         
-        //ako prve prerobit vsetky LU(mena) na CR(cisla):
+        //first transform all LU(names) to CR(numbers):
         List<Double> allValsCenter = new ArrayList<>();
         List<Double> allValsRadius = new ArrayList<>();
         for (IntervalNamesLowerUpper namesLU : par.getListLowerUpper()) {
@@ -564,7 +565,7 @@ public class PlotDrawer {
             allValsCenter.addAll(centers);
             allValsRadius.addAll(radii);
         }
-        //potom prerobit aj vsetky CR mena na CR cisla:
+        //then transform all CR names to CR numbers as well:
         for (IntervalNamesCentreRadius namesCR : par.getListCentreRadius()) {
             List<Double> centers = par.getDataTableModel().getDataForColname(namesCR.getCentre());
             List<Double> radii = par.getDataTableModel().getDataForColname(namesCR.getRadius());
@@ -572,7 +573,7 @@ public class PlotDrawer {
             allValsRadius.addAll(radii);
         }
         
-        //teraz viem spocitat range
+        //now we can compute the range
         String rangeCenter = getRangeYMultipleInterval(allValsCenter);
         String rangeRadius = getRangeYMultipleInterval(allValsRadius);
         
@@ -595,7 +596,7 @@ public class PlotDrawer {
             }
         }
         
-        next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty()); //true ak je nieco v CenRad aj v LBUB
+        next = (! par.getListCentreRadius().isEmpty()) && (! par.getListLowerUpper().isEmpty());
         
         for (IntervalNamesLowerUpper interval : par.getListLowerUpper()) {
             if (interval.getColourInPlot() == null) {
@@ -676,7 +677,7 @@ public class PlotDrawer {
             rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", axes=FALSE, ann=FALSE)");
         } else { //start a new plot
             rengine.require("JavaGD");
-            rengine.eval("JavaGD()"); // zacne novy plot
+            rengine.eval("JavaGD()"); // starts a new plot
             rengine.eval("plot(" + CENTER + ", " + RADIUS + ", " + lim + ", " + lineColour + ", xlab=\"Center\", ylab=\"Radius\")");
         }
         
@@ -686,7 +687,7 @@ public class PlotDrawer {
     
     
     
-    //TODO refaktor: spojit s draw a drawScatterPlot (iba nejaky prepinac..)
+    //TODO refactor: merge with draw and drawScatterPlot?
     public static List<JGDBufferedPanel> drawScatterPlotMatrixITS(boolean drawNew, CallParamsDrawPlotsITS par) {
         final int start = Utils.getCounter();
         int counter = 0;
@@ -745,7 +746,7 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel = new JGDBufferedPanel(par.getWidth(), par.getHeight());
         rengine.require("JavaGD");
         rengine.require("psych");
-        rengine.eval("JavaGD()"); // zacne novy plot
+        rengine.eval("JavaGD()"); // starts a new plot
         rengine.eval("pairs.panels(data.frame(" + df.toString() + ")"
                 + ", labels=c(" + labels + "), smooth=FALSE, scale=FALSE, ellipses=FALSE, "
                 + "hist.col=\"#777777\", col=\"#444444\", rug=FALSE)");
@@ -753,7 +754,7 @@ public class PlotDrawer {
         drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight()));
         drawNowToThisGDBufferedPanel.initRefresh();
         
-        PlotStateKeeper.setLastCallParams(par); //povodne par
+        PlotStateKeeper.setLastCallParams(par);
 
         return Arrays.asList(drawNowToThisGDBufferedPanel);
     }
@@ -792,7 +793,7 @@ public class PlotDrawer {
     }
 
     private static List<Double> getAllVals(DataTableModel dataTableModel, List<IntervalNamesCentreRadius> listCentreRadius, List<IntervalNamesLowerUpper> listLowerUpper) {
-        //TODO maybe later "optimize" a bit - netreba tahat vsetky data z dataTableModela, iba unique mena... a tak.
+        //TODO maybe later "optimize" a bit - no need to take all data from dataTableModel, just unique names... etc
         
         List<Double> allVals = new ArrayList<>();
         
@@ -865,8 +866,8 @@ public class PlotDrawer {
             }
                     
         }
-        //a zahrnut aj povodne data:
-        if (rangesY.length() > 8) { //velmi hlupy a ohavny sposob, ako zistovat, ze tam nic neni
+        //include the original data as well:
+        if (rangesY.length() > 8) { //a very stupid and ugly way to see if nothing is there
             rangesY.append(", ");
         }
         rangesY.append(Utils.minList(allData)).append(", ").append(Utils.maxList(allData));
@@ -907,12 +908,11 @@ public class PlotDrawer {
                 rangesY.append(Utils.maxArray(r.getForecastValuesFutureUppers()));
             }
             
-            //a zahrnut aj povodne data:
+            //include the original data as well:
             List<Double> realDataLower = r.getRealValuesLowers();
             List<Double> realDataUpper = r.getRealValuesUppers();
             
-            //a zahrnut aj povodne data:
-            if (rangesY.length() > 8) { //velmi hlupy a ohavny sposob, ako zistovat, ze tam nic neni
+            if (rangesY.length() > 8) { //a very stupid and ugly way to see if nothing is there
                 rangesY.append(", ");
             }
             
@@ -954,12 +954,12 @@ public class PlotDrawer {
     }
     
     public static List<JGDBufferedPanel> drawDiagrams(int width, int height, List<TrainAndTestReport> reports) {
-        //najprv si nasysli vsetky diagramy
+        //first get all the diagrams
         List<String> diagramPlots = new ArrayList<>();
         for (TrainAndTestReport r : reports) {
             if (! "".equals(r.getNnDiagramPlotCode())) {
                 if (r.getNnDiagramPlotCode().contains(";")) {
-                    //fuj, hack, TODO spravit lepsie ako split na dva, resp. prisposobovat v buducnosti
+                    //hack TODO chg
                     String firstPlot = r.getNnDiagramPlotCode().split(";")[0];
                     StringBuilder diagramPlotCode = new StringBuilder(firstPlot);
                     diagramPlotCode.insert(firstPlot.length() - 1, ", main=\"" + r.toString() + " (Center)\"");
@@ -983,9 +983,9 @@ public class PlotDrawer {
     public static List<JGDBufferedPanel> drawToGrid(int width, int height, List<String> plots, int maxCol, int maxRow) {
         List<JGDBufferedPanel> panelsList = new ArrayList<>();
         
-        //TODO prerobit to, aby sa v tej poslednej mriezke, ak nie je plna, zvacsovali grafy?
-        //tj ostane mi n grafov. x = horna cela cast z odmocniny z n. a potom vysledny obdlznik je x(x-1) ak to staci na n, inak x.x
-        
+        //TODO chg so that the last grid, if not full, shows bigger plots?
+        //i.e. I'm left with n plots. x = ceil(sqrt(n)). then the resulting rectgl = x*(x-1) if enough for n, else x*x
+
         if (plots.isEmpty()) {
             return panelsList;
         } else {
@@ -997,7 +997,7 @@ public class PlotDrawer {
                 JGDBufferedPanel panel = new JGDBufferedPanel(width, height);
                 drawNowToThisGDBufferedPanel = panel;
                 rengine.eval("JavaGD()");
-                rengine.eval("par(mfrow=c(" + maxRow + "," + maxCol + "))"); //narobim si mriezku
+                rengine.eval("par(mfrow=c(" + maxRow + "," + maxCol + "))"); //create the grid
                 
                 int counter = maxCol*maxRow;
                 while ((counter > 0) && (currentIndex < plots.size())) {
@@ -1009,7 +1009,7 @@ public class PlotDrawer {
                 
                         
                 
-                while ((counter > 0) && (currentIndex == plots.size())) { //dosli mi diagramy a este nie je plna mriezka
+                while ((counter > 0) && (currentIndex == plots.size())) { //I'm out of diagrams and the grid is not full yet
                     rengine.eval("plot.new()");
                     counter--;
                 }
@@ -1047,7 +1047,7 @@ public class PlotDrawer {
 
     public static List<JGDBufferedPanel> drawSimpleFctionToGrid(String plottingFunction, List<String> selectedValuesList,
             DataTableModel dataTableModel, int width, int height) throws IllegalArgumentException {
-        //najprv si nasysli vsetky diagramy
+        //first get all the diagrams
         List<String> diagramsPlots = new ArrayList<>();
         MyRengine rengine = MyRengine.getRengine();
         
@@ -1064,12 +1064,12 @@ public class PlotDrawer {
             diagramsPlots.add(plotFunction);
         }
         
-        //potom ich nechaj vyplut do mriezky a tu mriezku vrat
+        //then output them to a grid and return it
         return drawToGrid(width, height, diagramsPlots, COLUMNS_BOXHIST, ROWS_BOXHIST);
     }
 
     public static List<JGDBufferedPanel> drawBayesToGrid(List<String> diagramsPlots, int width, int height) throws IllegalArgumentException {
-        //nechaj tie ploty vyplut do mriezky a tu mriezku vrat
+        //output the plots to a grid
         return drawToGrid(width, height, diagramsPlots, 1, 1);
     }
 
@@ -1207,7 +1207,7 @@ public class PlotDrawer {
         // R always draws a plot of a default size to the JavaGD device.
         // But our GDBufferedPanel is supposed to have a different size, so
         // we have to resize it back to the size we want it to have.
-        drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO nechce sa zmensit pod urcitu velkost, vymysliet
+        drawNowToThisGDBufferedPanel.setSize(new Dimension(par.getWidth(), par.getHeight())); //TODO won't shrink under a threshold, fix
         drawNowToThisGDBufferedPanel.initRefresh();
 
         return Arrays.asList(drawNowToThisGDBufferedPanel);

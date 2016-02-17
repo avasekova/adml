@@ -67,7 +67,7 @@ public class HoltParams extends SESParams {
     public static List<HoltParams> getParamsHolt(JPanel percentTrainSettingsPanel, JPanel panelSettingsHolt,
             JComboBox comboBoxColName) throws IllegalArgumentException {
         HoltParams par = new HoltParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         

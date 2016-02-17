@@ -65,12 +65,12 @@ public class Nnet implements Forecastable {
         List<Double> dataToUseOutput = allDataOutput.subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         
         rengine.assign(ORIGINAL_OUTPUT, Utils.listToArray(dataToUseOutput));
-        rengine.eval(OUTPUT + " <- " + ORIGINAL_OUTPUT + "[(1 + " + maxLag + "):length(" + ORIGINAL_OUTPUT + ")]"); //(1+lag):length //TODO urcite? nema to byt od zaciatku?
+        rengine.eval(OUTPUT + " <- " + ORIGINAL_OUTPUT + "[(1 + " + maxLag + "):length(" + ORIGINAL_OUTPUT + ")]"); //(1+lag):length //TODO are we sure about this? or should be from the beginning?
         rengine.eval(OUTPUT_TRAIN +        " <- " +        OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[(" + numTrainingEntries + " + 1):length(" +        OUTPUT + ")]");
         
         rengine.eval(SCALED_OUTPUT + " <- MLPtoR.scale(" + ORIGINAL_OUTPUT + ")");
-        rengine.eval(SCALED_OUTPUT + " <- " + SCALED_OUTPUT + "[(1 + " + maxLag + "):length(" + SCALED_OUTPUT + ")]"); //(1+lag):length //TODO urcite? nema to byt od zaciatku?
+        rengine.eval(SCALED_OUTPUT + " <- " + SCALED_OUTPUT + "[(1 + " + maxLag + "):length(" + SCALED_OUTPUT + ")]"); //(1+lag):length //TODO are we sure about this? or should be from the beginning?
         rengine.eval(SCALED_OUTPUT_TRAIN + " <- " + SCALED_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(SCALED_OUTPUT_TEST + " <- " + SCALED_OUTPUT + "[(" + numTrainingEntries + " + 1):length(" + SCALED_OUTPUT + ")]");
         
@@ -85,17 +85,17 @@ public class Nnet implements Forecastable {
         
         String optionalParams = getOptionalParams(params);
         rengine.eval(NNETWORK + " <- nnet::nnet(" + SCALED_INPUT_TRAIN + ", " + SCALED_OUTPUT_TRAIN + optionalParams + ", linout = TRUE)");
-        //TODO potom tu nemat natvrdo linout!
-        //- dovolit vybrat. akurat bez toho je to len na classification, a neni to zrejme z tych moznosti na vyber
+        //TODO later do not always put linout, customize
+        //- but without linout it is just for classification
         rengine.eval(FITTED_VALS + " <- fitted.values(" + NNETWORK + ")");
         rengine.eval(UNSCALED_FITTED_VALS + " <- MLPtoR.unscale(" + FITTED_VALS + ", " + ORIGINAL_OUTPUT + ")");
         
         rengine.eval(FORECAST_VALS + " <- predict(" + NNETWORK + ", data.frame(" + SCALED_INPUT_TEST + "), type='raw')");
         rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS + ", " + ORIGINAL_OUTPUT + ")");
         
-        //a teraz to cele posuniem o lag, aby to davalo normalne vysledky:
-        //povodne: -----fit-----|---forecast--|--nothin--
-        //teraz:   --nothin--|-----fit-----|---forecast--
+        //and now shift it all by lag:
+        //originally: -----fit-----|---forecast--|--nothin--
+        //now:        --nothin--|-----fit-----|---forecast--
         rengine.eval(ALL_AUX + " <- c(" + UNSCALED_FITTED_VALS + ", " + UNSCALED_FORECAST_VALS + ")");
         rengine.eval(ALL_AUX + " <- c(rep(NA, " + maxLag + "), " + ALL_AUX + ")");
         rengine.eval(FINAL_UNSCALED_FITTED_VALS + " <- " + ALL_AUX + "[1:" + numTrainingEntries + "]");
@@ -116,23 +116,22 @@ public class Nnet implements Forecastable {
                 params.getSeasonality());
         report.setErrorMeasures(errorMeasures);
         
-        //s expl vars zatial nebudem pocitat forecasty: zakomentovane
+        //for now, do not compute forecasts with expl vars; commented out
 //        if (params.getNumForecasts() > 0) {
-//            //now try to compute future forecasts. funguje to takto: prvy forecast viem spocitat vzdy, lebo si vezmem proste
-//            //  tu expl var lagnutu (lag bude minimalne 1, takze to bude maximalne posledna hodnota, co mam. kolko bude lag,
-//            //  tolko poslednych hodnot viem vyuzit na forecasty).
-//            //vzdy ked spocitam jeden forecast, prilepim si ho za realne hodnoty a pokracujem az kym ich nespocitam vsetky
-//            //  takto si ich tam nasyslim potrebny pocet (budu scaled), a potom si ich odrezem, unscalujem, a poslem von
+//            //now try to compute future forecasts. it works as follows: we can always compute the 1st forecast, just take
+//            //  the lagged expl var (lag at least 1, so it will be at most the last val, and I have that. we can use (lag) number
+//            //  of last values for forecasts.
+//            //every time we compute a forecast, we append it at the end of real vals and continue until we have all of them
+//            //  this way we compute the requested num (they'll be scaled), and then I cut them off, unscale them, and send them out
 //            rengine.eval(INPUT + " <- " + ORIGINAL_INPUT); //unscaled
 //            rengine.eval(MIN + " <- min(" + INPUT + ")");
 //            rengine.eval(MAX + " <- max(" + INPUT + ")");
 //            for (int i = 0; i < params.getNumForecasts(); i++) {
-//                //vezmi si hodnotu expl var, tj. tolkatu od konca aktualnych vals, kolko ma hodnotu lag.
-//                //konkretne pre R plati, ze chcem: values[length(values)+1-lag]
-//                //v ORIGINAL_INPUT a ORIGINAL_OUTPUT mam vsetky data. z nich si potrebujem vytiahnut input na predikciu
+//                //take the LAG-th expl var from the end, i.e. values[length(values)+1-lag]
+//                //take the input for forecasts from ORIGINAL_INPUT and ORIGINAL_OUTPUT
 //                rengine.eval(VAL + " <- " + INPUT + "[length(" + INPUT + ") + 1 - " + params.getLag() + "]");
-//                //scale podla INPUT. ak to je nieco, co tam uz bolo, nascaluje sa to rovnako ako predtym; ak to tam este
-//                //  nebolo, moze to potencialne vybehnut z 0..1, ale co uz. neviem ako inak na to.
+//                //scale by INPUT. if it's something that's already been there, it will scale the same way; if it hasn't,
+//                //  it could be outside 0..1, but whatever. I don't know what else to do.
 //                rengine.eval(VAL + " <- (" + VAL + " - " + MIN + ")/(" + MAX + " - " + MIN + ")"); //scale
 //
 //                //now predict

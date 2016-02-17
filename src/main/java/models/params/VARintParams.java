@@ -107,7 +107,7 @@ public class VARintParams extends Params {
     public static List<VARintParams> getParamsVARint(JPanel percentTrainSettingsPanel, JPanel distanceSettingsPanel, 
             JPanel panelSettingsVARint) throws IllegalArgumentException {
         VARintParams par = new VARintParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<VARintParams> resultList = new ArrayList<>();

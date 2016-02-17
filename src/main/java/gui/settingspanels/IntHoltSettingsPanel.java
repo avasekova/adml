@@ -199,8 +199,8 @@ public class IntHoltSettingsPanel extends SettingsPanel {
                 (beta01 >= 0) && (beta01 <= 1) &&
                 (beta10 >= 0) && (beta10 <= 1) &&
                 (beta11 >= 0) && (beta11 <= 1) &&
-                //dunno why, ale v povodnej impl bolo ze beta<=alpha, inak to padalo
-                //tak snad je toto korektne prepisanie tej podmienky:
+                //not sure why, but in the original impl there was a condition of beta<=alpha, otherwise it threw an error
+                //so I hope this is a correct adaptation to the intvl case:
                 (beta00 <= alpha00) && (beta01 <= alpha01) && (beta10 <= alpha10) && (beta11 <= alpha11));
     }
 

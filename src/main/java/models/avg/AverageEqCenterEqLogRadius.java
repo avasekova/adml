@@ -117,8 +117,8 @@ public class AverageEqCenterEqLogRadius extends Average {
                         next = true;
                     }
                     
-                    sumWeightsTrain.append("1"); //TODO vseobecne
-                    sumWeightsTest.append("1");  //TODO vseobecne
+                    sumWeightsTrain.append("1"); //TODO in general
+                    sumWeightsTest.append("1");  //TODO in general
                     
                     avgAllCentersTrain.append(getWeightForCenterTrain()).append("*")
                             .append(Utils.arrayToRVectorString(r.getFittedValuesCenters()));
@@ -136,12 +136,12 @@ public class AverageEqCenterEqLogRadius extends Average {
                         avgAllCentersFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureCenters()));
                         avgAllRadiiFuture.append(Utils.arrayToRVectorString(r.getForecastValuesFutureRadii()));
                         
-                        sumWeightsFuture.append("1"); //TODO vseobecne
+                        sumWeightsFuture.append("1"); //TODO in general
                     } else {
                         avgAllCentersFuture.append("0");
                         avgAllRadiiFuture  .append("1");
                         
-                        sumWeightsFuture.append("0"); //TODO vseobecne
+                        sumWeightsFuture.append("0"); //TODO in general
                     }
                 }
                 
@@ -183,7 +183,7 @@ public class AverageEqCenterEqLogRadius extends Average {
 
                 ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValuesTrain, 
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
-                //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
+                //TODO allow any distance
 
                 TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);

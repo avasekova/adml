@@ -11,7 +11,7 @@ import java.io.File;
 
 public class Exporter {
 
-    public static String exportPlot(Component plotToExport) { //TODO exportovat vsetky v pripade tabbedPane (asi najjednoduchsie nejaky prepinac do plotovacich metod, a redrawPlots)
+    public static String exportPlot(Component plotToExport) { //TODO export all in case of tabbedPane (maybe a flag to plotting methods, and then redrawPlots)
         JFileChooser fileChooser = new PlotExtensionFileChooser();
         switch (fileChooser.showSaveDialog(null)) {
             case JFileChooser.APPROVE_OPTION:
@@ -27,11 +27,11 @@ public class Exporter {
 
                 String fileName = plotFile.getPath().replace("\\", "\\\\");
                 if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-                    //tipnem si, ze je tam pripona
-                    String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+                    //guess it has an extension
+                    String extCurr = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //take the ext
                     if (extCurr.equals("eps") || extCurr.equals("ps") || extCurr.equals("png") || extCurr.equals("pdf")) {
                         fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-                    } //else to bola nejaka ina cast mena za bodkou
+                    } //else it was a different part of name after the dot
                 }
 
                 rengine.eval("dev.print(" + device + ", file=\"" + fileName + "." + ext + "\", width=" +

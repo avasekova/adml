@@ -15,14 +15,14 @@ import java.util.Map;
 public class HoltWintersInt implements Forecastable {
     private static final long serialVersionUID = 1L;
 
-    //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?
+    //TODO generic superclass?
     @Override
     public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         HoltWintersParams paramsCenter = ((HoltWintersIntParams)parameters).getParamsCenter();
         HoltWintersParams paramsRadius = ((HoltWintersIntParams)parameters).getParamsRadius();
-        
-        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
-        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
+
+        //regardles of having Center + Radius or LB + UB (i.e. if isCenterRadius is true or false),
+        //  we assume it's C+R. so no change to the data.
         
         HoltWinters holtWinters = new HoltWinters();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) holtWinters.forecast(dataTableModel, paramsCenter);
@@ -39,8 +39,8 @@ public class HoltWintersInt implements Forecastable {
         List<Interval> forecastsFuture = Utils.zipCentersRadiiToIntervals(Utils.arrayToList(reportCenter.getForecastValuesFuture()),
                 Utils.arrayToList(reportRadius.getForecastValuesFuture()));
         
-        //ak to nie su seasonal data, R skonci s chybou
-        if (reportCenter.getFittedValues().length == 0) { //ak neni fit, predpokladam, ze neni nic...
+        //if this is not seasonal data, R throws an error
+        if (reportCenter.getFittedValues().length == 0) { //if there's no fit, we assume there's nothing...
             TrainAndTestReportInterval report = new TrainAndTestReportInterval(Model.HOLT_WINTERS_INT);
             report.setModelDescription("(non-seasonal data!)");
             report.setRealValues(realOutputsIntervalTrain);

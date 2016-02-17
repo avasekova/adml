@@ -7,7 +7,7 @@ import utils.*;
 import java.util.*;
 
 //(not used, may contain dragons)
-public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleReports
+public class VAR { //TODO implements Forecastable or ForecastableMultipleReports
 
     public List<TrainAndTestReportCrisp> forecast(Params parameters) {
         //alllllData is not used, is empty!
@@ -27,7 +27,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         Set<String> keys = dataToUse.keySet();
         int numTrainingEntries = Math.round(((float) params.getPercentTrain()/100)*dataToUse.get(keys.toArray(new String[keys.size()])[0]).size());
         
-        //nenastavim realOutputsTest (zatial pouzivam 100% na train) - takze to moze niekde vyhadzovat NPE
+        //can throw NPE - realOutputsTest not set (100% used for training, for now)
         List<Double> trimmedOutVals = params.getOutputVarVals().subList((params.getDataRangeFrom() - 1), params.getDataRangeTo());
         rengine.assign(REAL_OUTPUT, Utils.listToArray(trimmedOutVals));
         rengine.eval(REAL_OUTPUT + " <- c(rep(NA," + params.getLag() + ")," + REAL_OUTPUT + ")");
@@ -37,7 +37,7 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
         rengine.assignMatrix(INPUT, dataToUse);
         rengine.eval(FORECAST_MODEL + " <- vars::VAR(" + INPUT + ", p=" + params.getLag() + ", type=\"" + params.getType() + "\")");
         
-        rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")"); //to je fitted pre vsetky, mna zaujima len pre tu jednu
+        rengine.eval(FIT + " <- fitted(" + FORECAST_MODEL + ")"); //this is fitted for all, I only want the one
         
         
         for (String s : params.getEndogenousVars()) {
@@ -48,8 +48,8 @@ public class VAR { //TODO implements Forecastable, alebo ForecastableMultipleRep
             report.setNumTrainingEntries(numTrainingEntries);
             report.setRealOutputsTrain(realOutput);
             
-            rengine.eval(FIT_THIS + " <- " + FIT + "[,\"" + INPUT + "." + s + "\"]"); //len pre jednu
-            rengine.eval(FIT_THIS + " <- c(rep(NA," + params.getLag() + "), as.vector(" + FIT_THIS + "))"); //lagnute
+            rengine.eval(FIT_THIS + " <- " + FIT + "[,\"" + INPUT + "." + s + "\"]"); //just the one
+            rengine.eval(FIT_THIS + " <- c(rep(NA," + params.getLag() + "), as.vector(" + FIT_THIS + "))"); //lagged
             double[] fittedOutput = rengine.evalAndReturnArray(FIT_THIS);
             report.setFittedValues(fittedOutput);
 

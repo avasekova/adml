@@ -41,8 +41,7 @@ public class RBFint implements Forecastable {
         RBFParams paramsCenter = ((RBFintParams)parameters).getParamsCenter();
         RBFParams paramsRadius = ((RBFintParams)parameters).getParamsRadius();
         
-        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
-        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
+        //assuming we have C+R data
         
         RBF rbf = new RBF();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) rbf.forecast(dataTableModel, paramsCenter);
@@ -74,7 +73,7 @@ public class RBFint implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
-        //hack, aby sme mohli mat oba ploty v jednej premennej
+        //hack, so both plots could be in one var
         //TODO produce NN diagram?
 //        report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
         

@@ -239,8 +239,9 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
             //logger.error("Exception", e); // TODO: review logging
         }
 
-        List<String> plots = StatisticalTests.stucturalBreaksTests(listColnamesTests.getSelectedValuesList(), breaks); //bacha, posledny prvok je to info
-        //TODO toto potom vyriesit lepsie (uz na urovni tej metody, ktora to zle vracia
+        //the last item is the info!
+        List<String> plots = StatisticalTests.stucturalBreaksTests(listColnamesTests.getSelectedValuesList(), breaks);
+        //TODO fix this (in the method that returns it!)
             String structBreaksInfo = plots.get(plots.size() - 1);
             plots.remove(plots.size() - 1);
 
@@ -248,7 +249,7 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
                 tabbedPaneAnalysisPlotsTests.getHeight(), plots, 1, 1);
             setPlots(panels);
 
-            //a vypis info
+            //and print the info
             textAreaTests.setText(structBreaksInfo);
 
             MainFrame.getInstance().setPlotRanges(0, 0);
@@ -260,8 +261,7 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
     }//GEN-LAST:event_buttonExportTextAreaTestsActionPerformed
 
     private void buttonExportTestsPlotsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportTestsPlotsActionPerformed
-        //idealne by mohlo v buducnosti exportovat vsetky zobrazene taby, ale tam je problem s existujucimi subormi
-        //TODO vymysliet
+        //TODO export all tabs
 
         if (evt.getSource() == buttonExportTestsPlots) {
             Exporter.exportPlot(tabbedPaneAnalysisPlotsTests);

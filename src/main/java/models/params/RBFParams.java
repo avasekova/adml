@@ -73,7 +73,7 @@ public class RBFParams extends Params {
     public static List<RBFParams> getParamsRBF(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsRBF) throws IllegalArgumentException {
         RBFParams par = new RBFParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<RBFParams> resultList = new ArrayList<>();
@@ -81,8 +81,8 @@ public class RBFParams extends Params {
         
         MainFrame.getInstance().setParamsGeneral(RBFParams.class, resultList);
         ((RBFSettingsPanel)panelSettingsRBF).setSpecificParams(RBFParams.class, resultList);
-        //POZOR, OutVars sa nastavuju az tu vonku! TODO prerobit
-        CrispVariable outVar = new CrispVariable(); //berie hodnoty z CTS Run
+        //OutVars are being set outside! TODO move?
+        CrispVariable outVar = new CrispVariable(); //takes vals from CTS Run
         outVar.setName(comboBoxColName.getSelectedItem().toString() + comboBoxColName.getSelectedIndex());
         outVar.setFieldName(comboBoxColName.getSelectedItem().toString());
         List<CrispVariable> outVarList = new ArrayList<>();

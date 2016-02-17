@@ -20,11 +20,11 @@ public class PlotExtensionFileChooser extends OverwriteFileChooser {
     public void approveSelection() {
         File f = getSelectedFile();
 
-        //teraz tomu prestavit priponu, ak ma priponu:
+        //now set the extension, if it has one:
         String fileName = f.getPath().replace("\\", "\\\\");
         if (fileName.contains(".") && (fileName.lastIndexOf('.') < (fileName.length()-1))) {
-            //tipnem si, ze je tam pripona, a odrezem ju
-            String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //vezmem si priponu
+            //guess it has an extension
+            String ext = fileName.substring((fileName.lastIndexOf('.')+1), fileName.length()); //take the ext
             String fileNameOnly = fileName.substring(0, fileName.lastIndexOf('.'));
             if (ext.equals("eps") || ext.equals("ps") || ext.equals("png") || ext.equals("pdf")) {
                 f = new File(fileNameOnly + "." + ((RFileFilter)getFileFilter()).getExtension());

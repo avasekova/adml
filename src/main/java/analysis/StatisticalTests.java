@@ -86,8 +86,8 @@ public class StatisticalTests {
     }
     
     public static List<String> stucturalBreaksTests(List<String> selectedValuesList, int breaks) {
-        //TODO este zrefaktorovat. toto by malo tie veci len pocitat, ploty potom do plotovatka
-        //TODO vymysliet, co s tym navratovym typom, je to nechutne, takto zamiesat: posledny prvok je strInfo, zbytok su ploty
+        //TODO refactor: this should only compute the thing; plots by PlotDrawer
+        //TODO return type: now the last item is strInfo, the rest are plots; ugly
         
         MyRengine rengine = MyRengine.getRengine();
 
@@ -128,7 +128,7 @@ public class StatisticalTests {
         
         rengine.rm(DATA, DATA_TS, FIT);
         
-        //TODO toto vyriesit, blee
+        //TODO chg this
         plots.add(strBreaksInfo.toString());
         
         return plots;

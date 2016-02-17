@@ -129,7 +129,7 @@ public abstract class Average {
     
     public TrainAndTestReportCrisp computeAvgCTS(List<TrainAndTestReportCrisp> reportsCTS, Model model) {
         if (reportsCTS.size() == 1) { //does not make sense to compute average over one series
-            return reportsCTS.get(0); //TODO nevratit nic (ale osetrit na strane prijmu), ptz inak to tam kresli dvakrat zbytocne. akurat potom problem s "drawOnlyAVG"?
+            return reportsCTS.get(0); //TODO do not return anything (but take care of it on the receiving end), because otherwise it draws twice. but then problems with "drawOnlyAVG"
         } else {
             if (! allTheSamePercentTrain(reportsCTS)) {
                 return null;
@@ -189,7 +189,7 @@ public abstract class Average {
                 String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                 
                 MyRengine rengine = MyRengine.getRengine();
-                //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
+                //and create a new report for this avg and add it to reportsCTS:
                 TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
                 double[] fittedValsAvg = rengine.evalAndReturnArray(fittedValsAvgAll.toString());
                 double[] forecastValsTestAvg = rengine.evalAndReturnArray(forecastValsTestAvgAll.toString());
@@ -214,7 +214,7 @@ public abstract class Average {
         }
     }
 
-    public static <T extends TrainAndTestReport> boolean allTheSamePercentTrain(List<T> reports) { //TODO krajsie by to neslo? :)
+    public static <T extends TrainAndTestReport> boolean allTheSamePercentTrain(List<T> reports) { //TODO a nicer way? :)
         int numTrainAll = -1;
         for (TrainAndTestReport r : reports) {
             if (! Model.FLEXIBLE_PERCENTTRAIN_MODELS.contains(r.getModel())) {
@@ -226,7 +226,7 @@ public abstract class Average {
         if (numTrainAll > -1) {
             for (TrainAndTestReport r : reports) {
                 if ((! Model.FLEXIBLE_PERCENTTRAIN_MODELS.contains(r.getModel())) && (r.getNumTrainingEntries() != numTrainAll)) {
-                    return false; //TODO mozno potom povedat, ktory bol zly, alebo dako inak vymysliet
+                    return false; //TODO maybe then say which one was wrong etc.
                 }
             }
 
@@ -244,7 +244,7 @@ public abstract class Average {
     }
 
 
-    private static void recomputeTrainTestSets(TrainAndTestReport r) { //TODO krajsie by to neslo? :)
+    private static void recomputeTrainTestSets(TrainAndTestReport r) { //TODO a nicer way? :)
         if (r instanceof TrainAndTestReportCrisp) {
             TrainAndTestReportCrisp rep = (TrainAndTestReportCrisp) r;
             double[] newFittedValues = Arrays.copyOfRange(rep.getFittedValues(), 0, rep.getNumTrainingEntries());
@@ -256,7 +256,7 @@ public abstract class Average {
             rep.setRealOutputsTrain(newRealTrain);
             rep.setRealOutputsTest(newRealTest);
             rep.setErrorMeasures(ErrorMeasuresUtils.computeAllErrorMeasuresCrisp(Utils.arrayToList(newRealTrain), Utils.arrayToList(newRealTest),
-                    Utils.arrayToList(newFittedValues), Utils.arrayToList(newForecastValsTest), 0)); //TODO snad ta nula nebude robit problem
+                    Utils.arrayToList(newFittedValues), Utils.arrayToList(newForecastValsTest), 0)); //TODO I hope the 0 is not a problem
         } else if (r instanceof TrainAndTestReportInterval) {
             TrainAndTestReportInterval rep = (TrainAndTestReportInterval) r;
             List<Interval> newFittedValues = new ArrayList<>(rep.getFittedValues().subList(0, rep.getNumTrainingEntries()));
@@ -268,7 +268,7 @@ public abstract class Average {
             List<Interval> realValsTrain = new ArrayList<>(realVals.subList(0, rep.getNumTrainingEntries()));
             List<Interval> realValsTest = new ArrayList<>(realVals.subList(rep.getNumTrainingEntries(), realVals.size()));
 
-            //TODO potom nejak doplnit skutocnu dist a seasonality z params
+            //TODO somehow add the actual distance and seasonality from params
             rep.setErrorMeasures(ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValsTrain, realValsTest, newFittedValues, newForecastValsTest,
                     new WeightedEuclideanDistance(0.5), 0));
         }
@@ -411,7 +411,7 @@ public abstract class Average {
 
                 ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValuesTrain, 
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
-                //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
+                //TODO chg; for now takes WeightedEuclid, but allow any distance
 
                 TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);

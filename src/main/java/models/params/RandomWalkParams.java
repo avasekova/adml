@@ -32,7 +32,7 @@ public class RandomWalkParams extends Params {
 
     public static List<RandomWalkParams> getParamsRandomWalk(javax.swing.JComboBox comboBoxColName) {
         RandomWalkParams par = new RandomWalkParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setColName(comboBoxColName.getSelectedItem().toString()); //data
 
         List<RandomWalkParams> resultList = new ArrayList<>();

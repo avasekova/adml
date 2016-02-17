@@ -98,7 +98,7 @@ public class CRCombinationsStrategySettingsPanel extends SettingsPanel {
     
     @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
-        //tu sa pravdepodobne vobec nic nedeje
+        //pbly nothing happens here
         //SettingsPanel.setSomethingOneValue(classss, resultList, "setCriterion", Improvable.class, getBestModelCriterion());
     }
 }

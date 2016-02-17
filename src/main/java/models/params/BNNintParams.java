@@ -87,7 +87,7 @@ public class BNNintParams extends PseudoIntervalParams {
         } else {
             for (BNNintParams params : resultList) {
                 params.setParamsRadius(params.getParamsCenter().getClone());
-                //ale este preplacnut naspat niektore veci
+                //overwrite
                 params.getParamsRadius().setExplVars(resultListRadius.get(0).getExplVars());
                 params.getParamsRadius().setOutVars(resultListRadius.get(0).getOutVars());
             }

@@ -44,16 +44,16 @@ public class KNNkknn implements Forecastable {
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[2:" + (numTrainingEntries+1) + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+2) + ":length(" + OUTPUT + ")]");
         
-        //nescalujem, dufam, ze nebude treba
+        //not scaling these, I hope it's not necessary
         
         rengine.eval(MODEL + " <- kknn::train.kknn(" + OUTPUT_TRAIN + " ~ " + INPUT_TRAIN + ", data.frame(" + INPUT_TRAIN + ", " 
                 + OUTPUT_TRAIN + "), kmax = " + params.getMaxNeighbours() + ", distance = 2)"); //dist=2 = Euclidean dist
         
-        //fitted.values(model)[model$best.parameters$k][[1]][1:51]     - dalo zabrat na to prist, tak to nemazat...
+        //fitted.values(model)[model$best.parameters$k][[1]][1:51]     - do not delete, it took some time getting this right...
         rengine.eval(FITTED_VALS + " <- fitted.values(" + MODEL + ")[" + MODEL + "$best.parameters$k][[1]][1:" + numTrainingEntries + "]");
         
         //test data forecasts
-        //pozor, treba nazvat tie stlpce v data.frame tak isto, ako sa volaju vo formulke v train.kknn - zato tu je IN/OUT_TRAIN
+        //the columns in the data.frame need to have the same names as in the formula in train.kknn - therefore the IN/OUT_TRAIN
         rengine.eval(FORECAST_VALS + " <- predict(" + MODEL + ", data.frame(" + INPUT_TRAIN + " = " + INPUT_TEST + ", "
                                                                               + OUTPUT_TRAIN + " = " + OUTPUT_TEST + "))");
         
@@ -62,7 +62,7 @@ public class KNNkknn implements Forecastable {
         long bestK = Math.round(bestKarray[0]); //will be integer anyway
         params.setBestNumNeighbours(bestK);
         
-        //cele to posunut podla lagu:
+        //shift it all by lag:
         rengine.eval(OUTPUT + " <- c(rep(NA, " + LAG + "), " + OUTPUT_TRAIN + ", " + OUTPUT_TEST + ")");
         rengine.eval(OUTPUT_TRAIN + " <- " + OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(OUTPUT_TEST + " <- " + OUTPUT + "[" + (numTrainingEntries+1) + ":length(" + OUTPUT + ")]");

@@ -52,7 +52,7 @@ public class SESParams extends Params {
     
     public static List<SESParams> getParamsSES(JPanel percentTrainSettingsPanel, JComboBox comboBoxColname, JPanel main) {
         SESParams par = new SESParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         par.setColName(comboBoxColname.getSelectedItem().toString()); //data
         

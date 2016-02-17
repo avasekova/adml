@@ -208,7 +208,7 @@ public class NnetParams extends Params {
     public static List<NnetParams> getParamsNnet(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnet) throws IllegalArgumentException {
         NnetParams par = new NnetParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         

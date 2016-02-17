@@ -96,7 +96,7 @@ public class NnetarParams extends Params {
     public static List<NnetarParams> getParamsNnetar(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JComboBox comboBoxColName, javax.swing.JPanel panelSettingsNnetar) {
         NnetarParams par = new NnetarParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         

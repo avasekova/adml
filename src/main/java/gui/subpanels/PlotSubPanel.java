@@ -188,7 +188,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
         MouseListener mouseListener = new MouseListener() {
             @Override
             public void mousePressed(MouseEvent e) {
-                //nerob inak vobec nic
+                //otherwise do nothing
                 if (listPlotLegend.getSelectedIndex() == -1) {
                     listPlotLegend.setSelectedIndex(listPlotLegend.locationToIndex(e.getPoint()));
                 }
@@ -361,7 +361,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
         if (evt.getSource() == buttonPlotExportPlot) {
             String fileName = Exporter.exportPlot(panelPlot);
 
-            //a exportuj aj legendu (zatial do samostatneho obrazku):
+            //and export the legend (for now, in a separate picture):
             BufferedImage im = new BufferedImage(listPlotLegend.getWidth(), listPlotLegend.getHeight(),
                     BufferedImage.TYPE_INT_ARGB);
             listPlotLegend.paint(im.getGraphics());
@@ -402,7 +402,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
 
             List<JGDBufferedPanel> plots = PlotDrawer.drawPlotGeneral(false, (CallParamsDrawPlotGeneral)(PlotStateKeeper.getLastCallParams()), rangeXCrisp, rangeYCrisp);
             ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
-            MainFrame.getInstance().setPlotRanges(1, 0); //hack - cokolvek ine ako nula na prvom mieste
+            MainFrame.getInstance().setPlotRanges(1, 0); //hack - anything else than a zero at the first place
         }
     }//GEN-LAST:event_buttonPlotZoomCTSActionPerformed
 
@@ -451,7 +451,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
                 List<JGDBufferedPanel> plots = PlotDrawer.drawPlotsITS(false, (CallParamsDrawPlotsITS)(PlotStateKeeper.getLastCallParams()), rangeXInt, rangeYInt);
                 ((PlotSubPanel)(MainFrame.getInstance().getPanelPlotImage())).setPlots(plots);
             }
-            MainFrame.getInstance().setPlotRanges(0, 1); //hack, cokolvek ine ako 0 znamena enable
+            MainFrame.getInstance().setPlotRanges(0, 1); //hack, anything else than a 0 means enable
         }
     }//GEN-LAST:event_buttonPlotZoomIntTSActionPerformed
 
@@ -499,7 +499,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     private void selectAllOrNone(Model selectWhat) {
         if (listPlotLegend.getCellRenderer() instanceof PlotLegendTurnOFFableListCellRenderer) {
-            //fuuuj, to je hnusny sposob zistovania, ci to je ta legenda :/ TODO prerobit
+            //a very ugly way of finding out if this is the legend :/ TODO fix
             DefaultListModel<RightClickable> model = (DefaultListModel<RightClickable>)listPlotLegend.getModel();
 
             switch (selectWhat) {
@@ -517,7 +517,7 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
             }
 
             RightClickable.redrawPlots(listPlotLegend);
-        } //else nereaguj
+        } //else do nothing
     }
 
     public JList getListPlotLegend() {
@@ -599,8 +599,8 @@ public class PlotSubPanel extends javax.swing.JPanel implements PlotContainer {
 
     @Override
     public void setPlots(List<JGDBufferedPanel> plots) {
-        //TODO ak ich bude nahodou viac? zahodit, ci..?
-        //TODO plus ak tam nebude nic
+        //TODO if there is by any chance more of them? throw away?
+        //TODO plus if there are none
         panelPlot.removeAll();
         panelPlot.add(plots.get(0));
         panelPlot.repaint();

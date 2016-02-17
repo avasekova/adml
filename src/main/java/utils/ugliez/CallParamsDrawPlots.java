@@ -10,10 +10,10 @@ import java.util.List;
 
 public class CallParamsDrawPlots extends CallParams {
     
-    private List<Double> allDataCTS; //vsetky data, naozaj vsetky, neosekane podla fromTo!
+    private List<Double> allDataCTS; //all data, not restricted by fromTo
     private int sizeDataWithoutFromToCrop;
     private int numForecasts;
-    private List<TrainAndTestReportCrisp> reportsCTS; //obsahuje ako realne data uz odseknute data podla fromTo
+    private List<TrainAndTestReportCrisp> reportsCTS; //real data cut by fromTo
     private List<TrainAndTestReportInterval> reportsITS;
     private List<TrainAndTestReport> addedReports;
     private int from;

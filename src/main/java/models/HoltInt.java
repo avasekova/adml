@@ -14,14 +14,14 @@ import java.util.Map;
 public class HoltInt implements Forecastable {
     private static final long serialVersionUID = 1L;
 
-    //mam pocit, ze (skoro?) vsetky TS(i) su uplne rovnake az na typ tych objektov. mozno vytvorit genericku nadtriedu?
+    //(almost?) all TS(i) models are the same, TODO maybe create a generic superclass?
     @Override
     public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         HoltParams paramsCenter = ((HoltIntParams)parameters).getParamsCenter();
         HoltParams paramsRadius = ((HoltIntParams)parameters).getParamsRadius();
-        
-        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
-        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
+
+        //regardles of having Center + Radius or LB + UB (i.e. if isCenterRadius is true or false),
+        //  we assume it's C+R. so no change to the data.
         
         Holt holt = new Holt();
         TrainAndTestReportCrisp reportCenter = (TrainAndTestReportCrisp) holt.forecast(dataTableModel, paramsCenter);

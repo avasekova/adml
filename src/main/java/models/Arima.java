@@ -94,14 +94,14 @@ public class Arima implements Forecastable {
                 "level=" + params.getPredIntPercent() + ")"); //predict all
         }
         
-        //vziat vsetky forecasted vals (cast je z test data, cast je z future)
+        //take all from forecasted vals (a part of them is from test data, a part from future)
         rengine.eval(FORECAST_VALS_CUT + " <- " + FORECAST_VALS + "$mean[1:" + numForecasts + "]");
         rengine.eval(UNSCALED_FORECAST_VALS + " <- MLPtoR.unscale(" + FORECAST_VALS_CUT + ", " + INPUT + ")");
         double[] allForecasts = rengine.evalAndReturnArray(UNSCALED_FORECAST_VALS);
-        //TODO avoid this conversion array<->list whenever possible - moze to byt spomalovak pre velke mnozstva dat
+        //TODO avoid this conversion array<->list whenever possible - can slow it down for huge data
         List<Double> allForecastsList = Utils.arrayToList(allForecasts);
         
-        //error measures pocitat len z testu, z buducich sa neda
+        //compute the error measures just from test data, you can't do it for the future
         double[] trainingPortionOfDataArray = rengine.evalAndReturnArray(INPUT_TRAIN);
         List<Double> trainingPortionOfData = Utils.arrayToList(trainingPortionOfDataArray);
         double[] testingPortionOfDataArray = rengine.evalAndReturnArray(INPUT_TEST);
@@ -112,7 +112,7 @@ public class Arima implements Forecastable {
                 testingPortionOfData, Utils.arrayToList(fitted), Utils.arrayToList(forecastsTest), params.getSeasonality());
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.ARIMA);
-        report.setModelDescription(arimaDescription + "\n" + params.toString()); //TODO upratat
+        report.setModelDescription(arimaDescription + "\n" + params.toString()); //TODO cleanup
         report.setNumTrainingEntries(numTrainingEntries);
         report.setFittedValues(fitted);
         

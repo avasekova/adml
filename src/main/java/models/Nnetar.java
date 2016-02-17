@@ -52,7 +52,7 @@ public class Nnetar implements Forecastable {
         rengine.eval(OUTPUT_TEST +        " <- " +        OUTPUT + "[(" + numTrainingEntries + " + 1):length(" +        OUTPUT + ")]");
         List<Double> trainingPortionOfData = dataToUse.subList(0, numTrainingEntries);
         List<Double> testingPortionOfData = dataToUse.subList(numTrainingEntries, dataToUse.size());
-        //vybavit lag:
+        //take care of the lag:
         rengine.eval(FINAL_OUTPUT_TRAIN + " <- " + ORIGINAL_OUTPUT + "[1:" + numTrainingEntries + "]");
         rengine.eval(FINAL_OUTPUT_TEST + " <- " + ORIGINAL_OUTPUT + "[(" + numTrainingEntries + " + 1):" + 
                 "length(" + ORIGINAL_OUTPUT + ")]");
@@ -69,9 +69,9 @@ public class Nnetar implements Forecastable {
         
         int numForecasts = testingPortionOfData.size() + params.getNumForecasts();
         rengine.eval(FORECAST_MODEL + " <- forecast::forecast(" + NNETWORK + ", " + numForecasts + ")");
-        //skoro ma svihlo, kym som na to prisla, ale:
-        //1. vo "forecastedModel" je strasne vela heterogennych informacii, neda sa to len tak poslat cele Jave
-        //2. takze ked chcem len tie forecastedValues, ziskam ich ako "forecastedModel$mean[1:8]", kde 8 je ich pocet...
+
+        //1. the "forecastedModel" contains many heterogeneous pieces of information, it cannot just be sent to Java as a whole
+        //2. so if I want the forecastedValues, I can get them as "forecastedModel$mean[1:N]", where N is their number...
         rengine.eval(FORECAST_VALS + " <- " + FORECAST_MODEL + "$mean[1:" + numForecasts + "]");
         List<Double> allForecastsList = rengine.evalAndReturnList(FORECAST_VALS);
         List<Double> forecastTest = allForecastsList.subList(0, testingPortionOfData.size());
@@ -79,12 +79,12 @@ public class Nnetar implements Forecastable {
         report.setForecastValuesFuture(Utils.listToArray(allForecastsList.subList(testingPortionOfData.size(), allForecastsList.size())));
         
         rengine.assign(TEST, Utils.listToArray(testingPortionOfData));
-        //TODO mozno iba accuracy(model) miesto accuracy(model, testingData)? zistit!!!
-        REXP getAcc = rengine.eval("forecast::accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//TODO [1:12] preto, ze v novej verzii
-        // tam pribudla aj ACF a niekedy robi problemy
-//        double[] acc = getAcc.asDoubleArray(); //pozor na poradie vysledkov, ochenta setenta...
-        //vrati vysledky po stlpcoch, tj. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
-        //nova verzia vracia aj ACF1
+        //TODO maybe just accuracy(model) instead of accuracy(model, testingData)?
+        REXP getAcc = rengine.eval("forecast::accuracy(" + FORECAST_MODEL + ", " + TEST + ")[1:12]");//[1:12] because in the new version,
+        // ACF was added and sometimes causes trouble
+//        double[] acc = getAcc.asDoubleArray(); //careful with the order of results
+        //returns results in columns, i.e. ME train, ME test, RMSE train, RMSE test, MAE, MPE, MAPE, MASE
+        //the new version produces ACF1 as well
         
         rengine.eval(FIT + " <- fitted.values(" + NNETWORK + ")");
         double[] fitted = rengine.evalAndReturnArray(FIT);
@@ -98,10 +98,10 @@ public class Nnetar implements Forecastable {
         
         report.setPlotCode("plot.ts(c(" + Utils.arrayToRVectorString(fitted) + "," + Utils.listToRVectorString(allForecastsList) + "))");
         
-        //TODO neskor vybrat najlepsi a ten naplotovat! zatial plotuje prvy :/
+        //TODO choose the best and plot that one. for now, plots the first :/
         report.setNnDiagramPlotCode("plot.nnet(" + NNETWORK + "$model[[1]]$wts, struct = " + NNETWORK + "$model[[1]]$n)");
         
-        //POZOR - nemazat z plotov
+        //careful, do not remove anything from the plots
         rengine.rm(TRAINDATA, FORECAST_MODEL, TEST, OUTPUT, ORIGINAL_OUTPUT, OUTPUT_TRAIN, OUTPUT_TEST, FINAL_OUTPUT_TRAIN, FINAL_OUTPUT_TEST, FIT, FORECAST_VALS);
         
         return report;

@@ -19,7 +19,7 @@ public class RandomWalk implements Forecastable {
         
         TrainAndTestReportCrisp report = new TrainAndTestReportCrisp(Model.RANDOM_WALK);
         
-        int numTrainingEntries = Math.round(((float) 100/100)*dataToUse.size()); //TODO vymysliet, kolko % brat - napr. nech sedi pri avg
+        int numTrainingEntries = Math.round(((float) 100/100)*dataToUse.size()); //TODO maybe take a different %age - e.g. to agree with the other models when avg
         report.setNumTrainingEntries(numTrainingEntries);
         
         List<Double> trainRealOutputs = new ArrayList<>(dataToUse.subList(0, numTrainingEntries));

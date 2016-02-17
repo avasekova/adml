@@ -13,14 +13,14 @@ import java.util.Map;
 public class Hybrid implements Forecastable {
     private static final long serialVersionUID = 1L;
     
-    //TODO napisat aj prirucku na pridavanie veci do Hybrid - kde vsade to treba pridat, bo su to asi 3-4 miesta v kode
+    //TODO write a "manual" for adding things to Hybrid - all the methods you need to change, because it's like 3-4 places in the code
     @Override
     public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
         Params paramsCenter = ((HybridParams)parameters).getParamsCenter();
         Params paramsRadius = ((HybridParams)parameters).getParamsRadius();
-        
-        //bez ohladu na to, ci mam Center a Radius alebo LB a UB (tj ci isCenterRadius je true alebo false),
-        //  pocita sa s tym ako s Center a Radius. takze nijak neupravujem data.
+
+        //regardles of having Center + Radius or LB + UB (i.e. if isCenterRadius is true or false),
+        //  we assume it's C+R. so no change to the data.
         
         TrainAndTestReportCrisp reportCenter = null;
         TrainAndTestReportCrisp reportRadius = null;
@@ -85,7 +85,7 @@ public class Hybrid implements Forecastable {
             reportRadius = (TrainAndTestReportCrisp) bnn.forecast(dataTableModel, paramsRadius);
         }
         
-        //zbytok je potom taky isty
+        //the rest is the same
         List<Interval> realOutputsIntervalTrain = Utils.zipCentersRadiiToIntervals(
                 Utils.arrayToList(reportCenter.getRealOutputsTrain()), Utils.arrayToList(reportRadius.getRealOutputsTrain()));
         List<Interval> realOutputsIntervalTest = Utils.zipCentersRadiiToIntervals(
@@ -116,7 +116,7 @@ public class Hybrid implements Forecastable {
         
         report.setErrorMeasures(errorMeasures);
         
-        //hack, aby sme mohli mat oba ploty v jednej premennej
+        //hack, so we could have both plots in the same variable
         //TODO produce NN diagram?
 //        report.setNnDiagramPlotCode(reportCenter.getNnDiagramPlotCode() + "; " + reportRadius.getNnDiagramPlotCode());
         

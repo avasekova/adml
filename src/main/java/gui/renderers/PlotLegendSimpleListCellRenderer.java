@@ -12,7 +12,7 @@ public class PlotLegendSimpleListCellRenderer extends DefaultListCellRenderer {
         super.getListCellRendererComponent(list, value, index, isSelected, hasFocus);
         
         JLabel colourLabel = new JLabel("   ");
-        colourLabel.setOpaque(true); //bez toho nefunguje setBkg
+        colourLabel.setOpaque(true); //setBkg does not work without this
         if (value instanceof PlotLegendSimpleListElement) {
             colourLabel.setBackground(((PlotLegendSimpleListElement)value).getColour());
         } else {
@@ -39,7 +39,7 @@ public class PlotLegendSimpleListCellRenderer extends DefaultListCellRenderer {
         line.add(textLabel);
         line.setVisible(true);
         
-        //alebo by sa tu mohli vytvarat a returnovat aj checkboxy k tym textom!
+        //or maybe the checkboxes for the texts could be created here
         
         return line;
     }

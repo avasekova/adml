@@ -167,7 +167,7 @@ public class ErrorMeasuresUtils {
         List<Double> realData = new ArrayList<>();
         List<Double> forecastData = new ArrayList<>();
         
-        //najprv "zmazat" vsetky NaN
+        //first "delete" all NaNs
         for (int i = 0; i < fData.size(); i++) {
             if (!(rData.get(i).isNaN()) && !(fData.get(i).isNaN())) {
                 realData.add(rData.get(i));
@@ -209,7 +209,7 @@ public class ErrorMeasuresUtils {
         double numerator = 0;
         double denominator = 0;
         
-        //najprv "zmazat" vsetky NaN
+        //first "delete" all NaNs
         for (int i = 0; i < fData.size(); i++) {
             if (!(rData.get(i).isNaN() || fData.get(i).isNaN())) {
                 realData.add(rData.get(i));
@@ -236,7 +236,7 @@ public class ErrorMeasuresUtils {
         double numerator = 0;
         double denominator = 0;
         
-        //najprv "zmazat" vsetky NaN
+        //first "delete" all NaNs
         for (int i = 0; i < fData.size(); i++) {
             if (!(Double.isNaN(rData.get(i).getLowerBound()) ||
                 Double.isNaN(rData.get(i).getUpperBound()) ||
@@ -247,8 +247,8 @@ public class ErrorMeasuresUtils {
             }
         }
         
-        //idem po size-1, hoci oficialny vzorec kazal ist po size.
-        //ale v oficialnom vzorci je furt j+1, takze by mi to vyliezlo z rozsahu
+        //taking values up to size-1, although the official equation said up to size.
+        //the original equation considers j+1 though, which would be out of bounds here
         for (int i = 1; i < forecastData.size(); i++) {
             Interval re = realData.get(i);
             Interval fore = forecastData.get(i);
@@ -266,7 +266,7 @@ public class ErrorMeasuresUtils {
         List<Interval> realData = new ArrayList<>();
         List<Interval> forecastData = new ArrayList<>();
         
-        //najprv "zmazat" vsetky NaN
+        //first "delete" all NaNs
         for (int i = 0; i < fData.size(); i++) {
             if (!(Double.isNaN(rData.get(i).getLowerBound()) ||
                 Double.isNaN(rData.get(i).getUpperBound()) ||
@@ -315,14 +315,14 @@ public class ErrorMeasuresUtils {
         double widthReal = real.getUpperBound() - real.getLowerBound();
         if (widthReal == 0) {
             if ((real.getUpperBound() < forecast.getLowerBound()) || (real.getLowerBound() > forecast.getUpperBound())) {
-                return 0; //ten bod je mimo
+                return 0; //the point it outside
             } else {
-                return 100; //ten bod je vnutri forecastu, i.e. 100% ho pokryva forecast
+                return 100; //the point is inside the forecast, i.e. 100% covered by the forecast
             }
         } else {
             return (widthIntersection(real, forecast) / widthReal) * 100;
         }
-        //vracia nulu, ak je forecast bodovy (ale aj ak lezi v realnom intervale) - co je ale feature, nie bug.
+        //returns 0 in case of point forecasts (or if it lies in an interval of length 0) - which is a feature, not a bug.
     }
     
     public static double efficiency(Interval real, Interval forecast) {
@@ -334,17 +334,17 @@ public class ErrorMeasuresUtils {
             return -1;
         }
         
-        //kvoli problemom s delenim nulou, ak je forecastInterval len cislo, tj radius nula:
+        //due to the problems of the division by zero, if the forecastInterval is just a number, i.e. the radius is 0:
         if (forecast.getUpperBound() == forecast.getLowerBound()) {
             if ((real.getLowerBound() <= forecast.getLowerBound()) &&
-                (real.getUpperBound() >= forecast.getUpperBound())) { //takze forecast je obsiahnuty
+                (real.getUpperBound() >= forecast.getUpperBound())) { //so the forecast is contained here
                 return 100;
             } else {
                 return 0;
             }
         }
         
-        //realInterval len cislo, tj radius nula:
+        //realInterval just a number, i.e. radius = 0:
         double widthReal = real.getUpperBound() - real.getLowerBound();
         if (widthReal == 0) {
             return 0;

@@ -98,7 +98,7 @@ public class IntervalMLPCcodeParams extends Params {
     public static List<IntervalMLPCcodeParams> getParamsIntervalMLPCcode(javax.swing.JPanel percentTrainSettingsPanel,
             javax.swing.JPanel panelSettingsIMLPCcode) throws IllegalArgumentException {
         IntervalMLPCcodeParams par = new IntervalMLPCcodeParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         
         List<IntervalMLPCcodeParams> resultList = new ArrayList<>();

@@ -98,7 +98,7 @@ public class IntervalMLPCcode implements Forecastable {
         return bestReport;
     }
     
-    //to, co tu nacvicujem, je asi trochu zamotane, ale na papieri je vysvetlenie.
+    //this might seem a little confusing. it's explained in my paper notes.
     private TrainAndTestReport doTheActualForecast(Map<String, List<Double>> dataTableModel, Params parameters, String fileSuffix) {
         final String CONFIG = "config" + fileSuffix;
         final String CONFIG_RES = CONFIG + ".res";
@@ -154,7 +154,7 @@ public class IntervalMLPCcode implements Forecastable {
         //create the train and test input files:
         //training data (i.e. just the part selected in the settings):
         File fileTrain = new File(TRAIN_FILE);
-        //ako "testovacie" data pouzijem vsetky (100% toho, co mam), aby som dostala fit/predikcie pre vsetko
+        //use all data for "testing" (100%), so we get fit/forecast for all of them
         File fileTest = new File(TEST_FILE);
         try (BufferedWriter fwTrain = new BufferedWriter(new FileWriter(fileTrain));
              BufferedWriter fwTest = new BufferedWriter(new FileWriter(fileTest))) {
@@ -168,7 +168,7 @@ public class IntervalMLPCcode implements Forecastable {
             }
             fwTrain.flush();
             
-            //a dopisat zvysok do Testu
+            //and add the rest to Test
             for (int i = numTrainingEntries - maxLag; i < data.get(0).size(); i++) {
                 for (List<Double> column : data) {
                     fwTest.write(column.get(i) + "\t");
@@ -212,7 +212,7 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         try {
-            //TODO neskor zabranit spustaniu viacerych veci naraz (disablovat Run button, kym neskonci aktualna)
+            //TODO later disable the Run button until the current batch finishes
             Process p = new ProcessBuilder("c", CONFIG).start();
             p.waitFor();
         } catch (IOException | InterruptedException ex) {
@@ -220,14 +220,14 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         
-        //zatial dummy
+        //dummy for now
         report.setFittedValues(new ArrayList<>());
         report.setForecastValuesTest(null);
         
         
         ErrorMeasuresInterval errorMeasures = new ErrorMeasuresInterval(params.getDistance());
         
-        //TODO potom zmenit!
+        //TODO chg
         if (params.getOutVars().size() == 1) {
             List<Interval> forecasts = Utils.getForecastsFromOutFile(new File(CONFIG_OUT));
             List<Interval> forecastsTrain = forecasts.subList(0, numTrainingEntries);
@@ -273,7 +273,7 @@ public class IntervalMLPCcode implements Forecastable {
         //real data: the last two columns in data are Center and Radius of real data.
 //        report.setRealValues(data.get(data.size() - 2), data.get(data.size() - 1));
         
-        //TODO add lag! resp. add lag do PlotDrawera, aby s tym vedel robit. nieco ako maxLag, tj zarezane spolocne
+        //TODO add lag! or add lag to PlotDrawer, so it could work with it, sth like maxLag, i.e. cut all at the same point
         return report;
     }
     
@@ -329,9 +329,9 @@ public class IntervalMLPCcode implements Forecastable {
     }
 
     public static List<Double> lagBy(int lag, List<Double> data) {
-        //output v case t chcem predikovat na zaklade inputu v case t-lag.
-        // takze inputy musim posunut "dopredu" (zahodim niekolko poslednych)
-        //je to spravne, nemazat!
+        //I want to predict the output in time t based on the inputu in t-lag.
+        // so I need to shift the inputs forward (throw away several of the last ones)
+        //note for self: correct, do not fix!
         List<Double> lagged = new ArrayList<>();
         
         for (int i = 0; i < lag; i++) {

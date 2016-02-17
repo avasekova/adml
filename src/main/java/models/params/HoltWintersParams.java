@@ -67,7 +67,7 @@ public class HoltWintersParams extends HoltParams {
     public static List<HoltWintersParams> getParamsHoltWinters(JPanel percentTrainSettingsPanel, JPanel panelSettingsHoltWint,
             JComboBox comboBoxColName) throws IllegalArgumentException {
         HoltWintersParams par = new HoltWintersParams();
-        //zohnat vsetky parametre pre dany model:
+        //get all params for the model:
         par.setPercentTrain(Integer.parseInt(((PercentTrainSettingsPanel)percentTrainSettingsPanel).getPercentTrain()));
         par.setColName(comboBoxColName.getSelectedItem().toString()); //data
         
@@ -81,7 +81,7 @@ public class HoltWintersParams extends HoltParams {
             int result = JOptionPane.showConfirmDialog(null, "Seasonal frequency larger than 24, so a TBATS model will be used instead of Holt-Winters. "
                     + "This may take a few minutes. Continue?", "Seasonality too large for HW", JOptionPane.YES_NO_OPTION);
             if ((result == JOptionPane.NO_OPTION) || (result == JOptionPane.CLOSED_OPTION)) {
-                return new ArrayList<>(); //nerob nic
+                return new ArrayList<>(); //do nothing
             }
         }
         

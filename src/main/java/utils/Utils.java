@@ -85,8 +85,8 @@ public class Utils {
             String[] split = text.split("\\.\\.\\.");
             if (split.length == 1) {
                 list.add(Integer.parseInt(text));
-            } else { //predpokladam vyraz v tvare LB...UB
-                for (int i = Integer.parseInt(split[0]); i <= Integer.parseInt(split[1]); i++) { //bleee, to je ohavne
+            } else { //we assume the format LB...UB
+                for (int i = Integer.parseInt(split[0]); i <= Integer.parseInt(split[1]); i++) { // :X
                     list.add(i);
                 }
             }
@@ -122,7 +122,7 @@ public class Utils {
             String[] split = text.split("\\.\\.\\.");
             if (split.length == 1) {
                 list.add(Double.parseDouble(text));
-            } else { //predpokladam vyraz v tvare LB...UB
+            } else { //we assume the format LB...UB
                 try {
                     int lowerB = Integer.parseInt(split[0]);
                     int upperB = Integer.parseInt(split[1]);
@@ -131,8 +131,8 @@ public class Utils {
                         list.add((double) i);
                     }
                 } catch (NumberFormatException e) {
-                    //ak to vyhodilo vynimku, aspon jedno z nich je double, takze beriem obe ako double a krokujem ich ako double
-                    //tj krok 0.01 by default //TODO neskor dat vybrat uzivatelovi?
+                    //at least one of them is double, so we take both as Double and proceed in Double steps
+                    //i.e. step 0.01 by default //TODO let the user choose the step in Preferences
                     double lowerB = Double.parseDouble(split[0]);
                     double upperB = Double.parseDouble(split[1]);
                     
@@ -296,7 +296,7 @@ public class Utils {
         int lastIndexCenters = centers.size() - 1;
         int lastIndexRadii = radii.size() - 1;
         
-        //kvoli lagom to cele zarovna "doprava" a odreze predok, kde trci
+        //due to lags 'justifies' everything right and then cuts off the beginnings to a rectangle
         while ((lastIndexCenters >= 0) && (lastIndexRadii >= 0)) {
             Interval interval;
             if (centers.get(lastIndexCenters).isNaN() || radii.get(lastIndexRadii).isNaN()) {
@@ -310,7 +310,7 @@ public class Utils {
             lastIndexRadii--;
         }
         
-        //teraz este doplnit tie NaN na zaciatok:
+        //now add NaNs back to the beginning:
         for (int i = 0; i <= Math.max(lastIndexCenters, lastIndexRadii); i++) {
             intervals.add(new IntervalCentreRadius(NaN, NaN));
         }
@@ -325,8 +325,8 @@ public class Utils {
         
         int lastIndexLowers = lowers.size() - 1;
         int lastIndexUppers = uppers.size() - 1;
-        
-        //kvoli lagom to cele zarovna "doprava" a odreze predok, kde trci
+
+        //due to lags 'justifies' everything right and then cuts off the beginnings to a rectangle
         while ((lastIndexLowers >= 0) && (lastIndexUppers >= 0)) {
             Interval interval = new IntervalLowerUpper(lowers.get(lastIndexLowers), uppers.get(lastIndexUppers));
             intervals.add(interval);
@@ -334,7 +334,7 @@ public class Utils {
             lastIndexUppers--;
         }
         
-        //teraz este doplnit tie NaN na zaciatok:
+        //now add NaNs back to the beginning:
         for (int i = 0; i <= Math.max(lastIndexLowers, lastIndexUppers); i++) {
             intervals.add(new IntervalLowerUpper(NaN, NaN));
         }
@@ -365,7 +365,7 @@ public class Utils {
         return resultEeew;
     }
     
-    //riadne skareda, vrati v jednom dlhom liste najprv lower, potom upper, a treba ho sublistnut na prvu a druhu polku
+    //TODO think of a different way; right now returns a list containing cat(lower, upper)
     public static List<Double> getLowersUppersFromCentersRadii(List<Double> centers, List<Double> radii) {
         List<Double> lowers = new ArrayList<>();
         List<Double> uppers = new ArrayList<>();

@@ -12,10 +12,10 @@ import java.util.*;
 
 public class DataTableModel extends ReportsTableModel {
 
-    private static DataTableModel INSTANCE = null; //TODO mozno bude inak, ked povolim loadovat viac suborov
+    private static DataTableModel INSTANCE = null; //TODO may change once we allow loading multiple files
     
     private final Map<String, List<Double>> values = new LinkedHashMap<>();
-    private List<String> columnNames = new ArrayList<>();      //ciste pre convenience ucely
+    private List<String> columnNames = new ArrayList<>();      //for convenience
     public static final String LABELS_AXIS_X = Const.LABELS + Utils.getCounter();
     
     private int maxRows = 0;
@@ -58,10 +58,10 @@ public class DataTableModel extends ReportsTableModel {
         return false;
     }
     
-    //KONVENCIE:
-    //interpretuje prvy riadok ako headers, bez ohladu na to, co v nom je (TODO customizable: 1. use the 1st line, 2. input
+    //CONVENTIONS:
+    //interprets the first line as headers, regardless of what it contains (TODO customizable: 1. use the 1st line, 2. input
     //   custom headers for each column now, 3. use placeholder names X1 ... Xn)
-    //interpretuje prvy stlpec ako labels pre os X, tj typicky datumy apod.. Berie to hlupo ako String, aby nebol problem.
+    //interprets the first column as labels for axis X, i.e. typically dates etc.. Just dumb Strings so as not to cause trouble.
     public void openFile(File file, LoadDataCustomizerPanel customizer) {
         final String WORKBOOK = Const.WORKBOOK + Utils.getCounter();
         final String DATA = Const.BRENT + Utils.getCounter();
@@ -74,7 +74,7 @@ public class DataTableModel extends ReportsTableModel {
         //then load new
         MyRengine rengine = MyRengine.getRengine();
         
-        String filePathEscaped = file.getPath().replace("\\","/"); //toto je snad lepsie kvoli platformovej prenositelnosti..?
+        String filePathEscaped = file.getPath().replace("\\", File.separator);
         String header = "";
         //read data
         switch (customizer.getColnamesType()) {
@@ -88,7 +88,7 @@ public class DataTableModel extends ReportsTableModel {
         }
         
         if (".csv".equals(file.getName().substring(file.getName().lastIndexOf('.'), file.getName().length()))) {
-            //csv sa loaduje inak ako xls(x)
+            //csv loads differently from xls(x)
             rengine.eval(DATA + " <- read.csv(file=\"" + filePathEscaped + "\", header=" + header + ", sep=\",\")");
         } else {
             rengine.require("XLConnect");
@@ -99,11 +99,11 @@ public class DataTableModel extends ReportsTableModel {
         
         //read X labels
         if (customizer.isFirstColumnLabelsAxisX()) {
-            //vezmi prvy stlpec ako nazvy na osi X
-            //pozor, asStringArray ich potrebuje nutne v uvodzovkach :/
-            REXP getLabelsAxisX = rengine.eval(DATA + "[,1]"); //1. stlpec
+            //take the first column as the axis X labels
+            //asStringArray needs them quoted!
+            REXP getLabelsAxisX = rengine.eval(DATA + "[,1]"); //1st column
             String[] labelsAxisX = getLabelsAxisX.asStringArray();
-            if (labelsAxisX == null) { //nepodarilo sa to nacitat ako stringy; nacitat to ako cisla a prerobit
+            if (labelsAxisX == null) { //could not be read as strings; read them as numbers and convert
                 double[] labelsAxisXasNumbers = getLabelsAxisX.asDoubleArray();
                 labelsAxisX = new String[labelsAxisXasNumbers.length];
                 for (int i = 0; i < labelsAxisXasNumbers.length; i++) {
@@ -117,9 +117,9 @@ public class DataTableModel extends ReportsTableModel {
             }
             rengine.assign(LABELS_AXIS_X, labelsAxisX);
 
-            rengine.eval(DATA + " <- " + DATA + "[2:length(" + DATA + ")]"); //a odrezem prvy stlpec
+            rengine.eval(DATA + " <- " + DATA + "[2:length(" + DATA + ")]"); //and cut off the first column
         } else {
-            rengine.eval(LABELS_AXIS_X + " <- seq(1,length(" + DATA + "[,1]))"); //TODO nie je ich tu o jedno viac ako ma?
+            rengine.eval(LABELS_AXIS_X + " <- seq(1,length(" + DATA + "[,1]))"); //TODO check if correct: maybe there's one too many
         }
         
         //and get names of columns
@@ -144,7 +144,7 @@ public class DataTableModel extends ReportsTableModel {
                 break;
         }
         
-        //ciselne data
+        //numbers
         int i = 1;
         for (String colName : columnNames) {
             double[] doubleArray = rengine.evalAndReturnArray(DATA + "[," + i + "]");

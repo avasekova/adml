@@ -70,7 +70,7 @@ public class Median extends Average { //well...
                 String avgAll = "c(" + fittedValsAvgAll + "," + forecastValsTestAvgAll + "," + forecastValsFutureAvgAll + ")";
                 
                 MyRengine rengine = MyRengine.getRengine();
-                //a vyrobit pre tento average novy report a pridat ho do reportsCTS:
+                //creat a new report for this avg and add it to reportsCTS:
                 TrainAndTestReportCrisp thisAvgReport = new TrainAndTestReportCrisp(model, "(" + getName() + ")", true);
                 double[] fittedValsAvg = rengine.evalAndReturnArray(fittedValsAvgAll);
                 double[] forecastValsTestAvg = rengine.evalAndReturnArray(forecastValsTestAvgAll);
@@ -97,12 +97,12 @@ public class Median extends Average { //well...
     
     
     @Override
-    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, Model model) { //TODO fix - cele to spadne
+    public TrainAndTestReportInterval computeAvgIntTS(List<TrainAndTestReportInterval> reportsIntTS, Model model) { //TODO fix - it all breaks down
         //first check if all of them have the same percentage of train data
         boolean allTheSame = true;
         int numTrainAll = reportsIntTS.get(0).getNumTrainingEntries();
         for (TrainAndTestReportInterval r : reportsIntTS) {
-            //iba vyuzijem tento loop na nasyslenie weights, aj tak su vsetky 1
+            //I'm just using this loop to collect the weights, they are all 1 anyway
             weightsInterval.put(r.toString(), 1.0);
             
             if (r.getNumTrainingEntries() != numTrainAll) {
@@ -146,7 +146,7 @@ public class Median extends Average { //well...
 
                 ErrorMeasuresInterval errorMeasures = ErrorMeasuresUtils.computeAllErrorMeasuresInterval(realValuesTrain, 
                         realValuesTest, allIntervalsTrain, allIntervalsTest, new WeightedEuclideanDistance(0.5), 0);
-                //TODO zmenit! zatial sa to pocita WeightedEuclid, ale dat tam hocijaku distance!
+                //TODO allow any distance
 
                 TrainAndTestReportInterval reportAvgAllITS = new TrainAndTestReportInterval(model, "_int(" + getName() + ")", true);
                 reportAvgAllITS.setErrorMeasures(errorMeasures);
@@ -183,11 +183,11 @@ public class Median extends Average { //well...
             }
 
             avgAll.append("median(c(");
-            //idem po jednotlivych prvkoch fitted
+            //loop through fitted
             boolean nextInner = false;
             for (T r : reportsIntTS) {
                 if (!Double.isNaN(getter.apply(r)[i])) {
-                    //a pre kazdy report si tam dam ciselko do medianu
+                    //and for each report put a number into the median
                     if (nextInner) {
                         avgAll.append(",");
                     } else {

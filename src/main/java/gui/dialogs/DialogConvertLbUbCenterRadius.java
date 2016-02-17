@@ -295,17 +295,17 @@ public class DialogConvertLbUbCenterRadius extends javax.swing.JDialog {
     public void setColnames(List<String> colnames) {
         List<String> colnamesCopy = new ArrayList<>(colnames);
         boolean containsAll = true;
-        for (int i = 0; i < comboBoxLowerBound.getItemCount(); i++) { //prejdem vsetky, co su v comboBoxe...
+        for (int i = 0; i < comboBoxLowerBound.getItemCount(); i++) { //go through all those in the combobox...
             if (! colnamesCopy.contains(comboBoxLowerBound.getItemAt(i))) {
                 //assuming all four comboBoxes have the same values, we only need to check one of them
                 containsAll = false;
                 break;
-            } else { //...a ak su vsetky v tom zozname, vsetky ich z neho zmazem...
+            } else { //...and if they are all contained in the list, remove all...
                 colnamesCopy.remove(comboBoxLowerBound.getItemAt(i));
             }
         }
         
-        if (! colnamesCopy.isEmpty()) { //...ak ale nieco v zozname ostalo navyse, bol iny
+        if (! colnamesCopy.isEmpty()) { //...but if sth is left in the list, it was different
             containsAll = false;
         }
         

@@ -14,7 +14,6 @@ import java.util.List;
 public class AnalysisUtils {
     
     public static String getBasicStats(List<String> selectedValuesList) {
-        //TODO refactor: toto sa da volat z basicPlots (tam je ten isty kod, ale prepleteny s plotovanim)
         MyRengine rengine = MyRengine.getRengine();
         
         //mean, standard deviation, median
@@ -27,7 +26,7 @@ public class AnalysisUtils {
             rengine.assign(TRAINDATA, Utils.listToArray(data));
             
             //and compute basic statistics of the data:
-            //TODO na.rm - radsej nemazat v kazdej tej funkcii, ale iba raz pred tymi troma volaniami
+            //TODO na.rm - delete once before these calls instead of separately in each
             double mean = rengine.evalAndReturnArray("mean(" + TRAINDATA + ", na.rm=TRUE)")[0];
             double stDev = rengine.evalAndReturnArray("sd(" + TRAINDATA + ", na.rm=TRUE)")[0];
             double median = rengine.evalAndReturnArray("median(" + TRAINDATA + ", na.rm=TRUE)")[0];
