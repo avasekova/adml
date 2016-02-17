@@ -74,7 +74,7 @@ public class DataTableModel extends ReportsTableModel {
         //then load new
         MyRengine rengine = MyRengine.getRengine();
         
-        String filePathEscaped = file.getPath().replace("\\", File.separator);
+        String filePathEscaped = file.getPath().replace("\\", "/"); //alright, "File.separator" instead of "/" crashes the whole thing
         String header = "";
         //read data
         switch (customizer.getColnamesType()) {
