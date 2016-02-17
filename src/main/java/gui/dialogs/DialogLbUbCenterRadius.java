@@ -11,10 +11,19 @@ import java.util.List;
 public class DialogLbUbCenterRadius extends javax.swing.JDialog {
     
     private static DialogLbUbCenterRadius INSTANCE = null;
+
+    private static boolean converter;
     
-    public static DialogLbUbCenterRadius getInstance(java.awt.Frame parent, boolean modal) {
+    public static DialogLbUbCenterRadius getInstance(java.awt.Frame parent, boolean modal, boolean converter) {
         if (INSTANCE == null) {
             INSTANCE = new DialogLbUbCenterRadius(parent, modal);
+        }
+
+        DialogLbUbCenterRadius.converter = converter;
+        if (converter) {
+            buttonOKPlotITS.setText("Convert to C/R");
+        } else {
+            buttonOKPlotITS.setText("OK");
         }
         
         return INSTANCE;
@@ -192,41 +201,44 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void radioButtonLbUbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonLbUbActionPerformed
-        if (radioButtonLbUb.isSelected()) {
-            labelLB.setEnabled(true);
-            labelUB.setEnabled(true);
-            comboBoxLowerBound.setEnabled(true);
-            comboBoxUpperBound.setEnabled(true);
-            labelCenter.setEnabled(false);
-            labelRadius.setEnabled(false);
-            comboBoxCenter.setEnabled(false);
-            comboBoxRadius.setEnabled(false);
+        toggleComponents(radioButtonLbUb.isSelected());
+
+        if (converter && radioButtonLbUb.isSelected()) {
+            buttonOKPlotITS.setText("Convert to C/R");
         }
     }//GEN-LAST:event_radioButtonLbUbActionPerformed
 
     private void radioButtonCenterRadiusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioButtonCenterRadiusActionPerformed
-        if (radioButtonCenterRadius.isSelected()) {
-            labelCenter.setEnabled(true);
-            labelRadius.setEnabled(true);
-            comboBoxCenter.setEnabled(true);
-            comboBoxRadius.setEnabled(true);
-            labelLB.setEnabled(false);
-            labelUB.setEnabled(false);
-            comboBoxLowerBound.setEnabled(false);
-            comboBoxUpperBound.setEnabled(false);
+        toggleComponents(radioButtonLbUb.isSelected());
+
+        if (converter && radioButtonCenterRadius.isSelected()) {
+            buttonOKPlotITS.setText("Convert to LB/UB");
         }
     }//GEN-LAST:event_radioButtonCenterRadiusActionPerformed
 
     private void buttonOKPlotITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOKPlotITSActionPerformed
-        if (radioButtonCenterRadius.isSelected()) {
-            ((MainFrame)(this.getParent())).
-                    addPlotITS_CentreRadius(new IntervalNamesCentreRadius(comboBoxCenter.getSelectedItem().toString(),
-                                                      comboBoxRadius.getSelectedItem().toString()));
+        if (converter) {
+            if (radioButtonCenterRadius.isSelected()) {
+                ((MainFrame)(this.getParent())).
+                        convertITStoLBUB(new IntervalNamesCentreRadius(comboBoxCenter.getSelectedItem().toString(),
+                                comboBoxRadius.getSelectedItem().toString()));
+            } else {
+                ((MainFrame)(this.getParent())).
+                        convertITStoCR(new IntervalNamesLowerUpper(comboBoxLowerBound.getSelectedItem().toString(),
+                                comboBoxUpperBound.getSelectedItem().toString()));
+            }
         } else {
-            ((MainFrame)(this.getParent())).
-                    addPlotITS_LowerUpper(new IntervalNamesLowerUpper(comboBoxLowerBound.getSelectedItem().toString(),
-                                                      comboBoxUpperBound.getSelectedItem().toString()));
+            if (radioButtonCenterRadius.isSelected()) {
+                ((MainFrame)(this.getParent())).
+                        addPlotITS_CentreRadius(new IntervalNamesCentreRadius(comboBoxCenter.getSelectedItem().toString(),
+                                comboBoxRadius.getSelectedItem().toString()));
+            } else {
+                ((MainFrame)(this.getParent())).
+                        addPlotITS_LowerUpper(new IntervalNamesLowerUpper(comboBoxLowerBound.getSelectedItem().toString(),
+                                comboBoxUpperBound.getSelectedItem().toString()));
+            }
         }
+
         this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
     }//GEN-LAST:event_buttonOKPlotITSActionPerformed
 
@@ -237,44 +249,44 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogLbUbCenterRadius.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                DialogLbUbCenterRadius dialog = new DialogLbUbCenterRadius(null, true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Windows".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(DialogLbUbCenterRadius.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            @Override
+//            public void run() {
+//                DialogLbUbCenterRadius dialog = new DialogLbUbCenterRadius(null, true, false);
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//                dialog.setVisible(true);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonCancelPlotITS;
     private javax.swing.ButtonGroup buttonGroupLbUbCenterRadius;
-    private javax.swing.JButton buttonOKPlotITS;
+    private static javax.swing.JButton buttonOKPlotITS;
     private javax.swing.JComboBox<String> comboBoxCenter;
     private javax.swing.JComboBox<String> comboBoxLowerBound;
     private javax.swing.JComboBox<String> comboBoxRadius;
@@ -318,5 +330,16 @@ public class DialogLbUbCenterRadius extends javax.swing.JDialog {
                 comboBoxRadius.addItem(c);
             }
         }
+    }
+
+    private void toggleComponents(boolean trueFalse) {
+        labelCenter.setEnabled(! trueFalse);
+        labelRadius.setEnabled(! trueFalse);
+        comboBoxCenter.setEnabled(! trueFalse);
+        comboBoxRadius.setEnabled(! trueFalse);
+        labelLB.setEnabled(trueFalse);
+        labelUB.setEnabled(trueFalse);
+        comboBoxLowerBound.setEnabled(trueFalse);
+        comboBoxUpperBound.setEnabled(trueFalse);
     }
 }

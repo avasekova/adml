@@ -29,7 +29,6 @@ import utils.*;
 import utils.imlp.IntervalNames;
 import utils.imlp.IntervalNamesCentreRadius;
 import utils.imlp.IntervalNamesLowerUpper;
-import utils.ugliez.CallParamsDrawPlotGeneral;
 import utils.ugliez.CallParamsDrawPlots;
 import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
@@ -3062,7 +3061,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_comboBoxKNNoptionsActionPerformed
 
     private void buttonPlotAddITSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonPlotAddITSActionPerformed
-        dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true);
+        dialogLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true, false);
         dialogLBUBCenterRadius.setColnames(DataTableModel.getInstance().getColnames());
         dialogLBUBCenterRadius.setVisible(true);
     }//GEN-LAST:event_buttonPlotAddITSActionPerformed
@@ -3741,7 +3740,7 @@ public class MainFrame extends javax.swing.JFrame implements OnJobFinishedListen
     }//GEN-LAST:event_buttonSettingsAddToBatch_BNNintActionPerformed
 
     private void buttonConvertITSLBUBCRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConvertITSLBUBCRActionPerformed
-        DialogConvertLbUbCenterRadius dialogConvertLBUBCenterRadius = DialogConvertLbUbCenterRadius.getInstance(this, true);
+        DialogLbUbCenterRadius dialogConvertLBUBCenterRadius = DialogLbUbCenterRadius.getInstance(this, true, true);
         dialogConvertLBUBCenterRadius.setColnames(DataTableModel.getInstance().getColnames());
         dialogConvertLBUBCenterRadius.setVisible(true);
         
