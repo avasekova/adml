@@ -3,6 +3,9 @@ package gui;
 import com.klinec.admwl.remoteLogic.AdmwlProviderImpl;
 import com.klinec.admwl.remoteLogic.AdmwlRegistry;
 import com.klinec.admwl.remoteLogic.AdmwlWorkerImpl;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import models.TrainAndTestReport;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -21,7 +24,7 @@ import java.security.AccessControlException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Main extends Application {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final String SVCNAME = "ADMWL";
 
@@ -240,6 +243,8 @@ public class Main {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
             SwingUtilities.updateComponentTreeUI(gui);
             gui.pack();
+
+            Platform.setImplicitExit(false);//if true, the JavaFX runtime will implicitly shutdown on last window closed
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.error("Exception", ex);
         }
@@ -271,5 +276,9 @@ public class Main {
 
         cmdLineParser.parseArgument(args);
     }
-    
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception { //just so JavaFX environment initializes
+    }
 }

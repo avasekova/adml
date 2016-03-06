@@ -21,6 +21,7 @@ import gui.subpanels.PlotSubPanel;
 import gui.subpanels.ResidualsSubPanel;
 import gui.subpanels.TestsSubPanel;
 import gui.tablemodels.*;
+import javafx.application.Platform;
 import models.*;
 import models.avg.*;
 import models.params.*;
@@ -3776,7 +3777,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             server.shutdown();
         }
         
-        MyRengine.stopRengine();
+        MyRengine.stopRengine(); //stop R
+        Platform.exit();         //stop JavaFX
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
     
