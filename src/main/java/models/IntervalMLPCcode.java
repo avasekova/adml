@@ -28,10 +28,12 @@ public class IntervalMLPCcode implements Forecastable {
     
     @Override
     public TrainAndTestReport forecast(Map<String, List<Double>> dataTableModel, Params parameters) {
+        String THREAD_ID = "" + parameters.getUID(); //TODO find a better way so you don't forget to update all filenames -.-
+
         List<TrainAndTestReportInterval> reports = new ArrayList<>();
         //train some number of networks
         for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
-            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters, "" + i)));
+            reports.add((TrainAndTestReportInterval)(doTheActualForecast(dataTableModel, parameters, THREAD_ID + i)));
         }
         
         //and then determine which one is the best
@@ -50,15 +52,15 @@ public class IntervalMLPCcode implements Forecastable {
         }
         
         //copy the best file to a file without suffix
-        final String CONFIG = "config" + bestReportNum;
-        final String CONFIG_WITHOUT = "config";
+        final String CONFIG = "config" + THREAD_ID + bestReportNum;
         final String CONFIG_NET = CONFIG + ".net";
-        final String CONFIG_NET_WITHOUT = CONFIG_WITHOUT + ".net";
         final String CONFIG_RES = CONFIG + ".res";
-        final String CONFIG_RES_WITHOUT = CONFIG_WITHOUT + ".res";
         final String CONFIG_OUT = CONFIG + ".out";
-        final String CONFIG_OUT_WITHOUT = CONFIG_WITHOUT + ".out";
         final String CONFIG_WGT = CONFIG + ".wgt";
+        final String CONFIG_WITHOUT = "config-final" + THREAD_ID;
+        final String CONFIG_NET_WITHOUT = CONFIG_WITHOUT + ".net";
+        final String CONFIG_RES_WITHOUT = CONFIG_WITHOUT + ".res";
+        final String CONFIG_OUT_WITHOUT = CONFIG_WITHOUT + ".out";
         final String CONFIG_WGT_WITHOUT = CONFIG_WITHOUT + ".wgt";
         
         try {
@@ -72,13 +74,13 @@ public class IntervalMLPCcode implements Forecastable {
         
         //and delete all those arbitrary files with suffixes
         for (int i = 0; i < ((IntervalMLPCcodeParams)parameters).getNumNetworks(); i++) {
-            String iCONFIG = "config" + i;
+            String iCONFIG = "config" + THREAD_ID + i;
             String iCONFIG_NET = iCONFIG + ".net";
             String iCONFIG_RES = iCONFIG + ".res";
             String iCONFIG_OUT = iCONFIG + ".out";
             String iCONFIG_WGT = iCONFIG + ".wgt";
-            String iTRAIN_FILE = "train" + i + ".dat";
-            String iTEST_FILE = "test" + i + ".dat";
+            String iTRAIN_FILE = "train" + THREAD_ID + i + ".dat";
+            String iTEST_FILE = "test" + THREAD_ID + i + ".dat";
             
             try {
                 Files.delete(new File(iCONFIG_NET).toPath());

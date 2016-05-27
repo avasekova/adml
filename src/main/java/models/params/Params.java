@@ -8,6 +8,8 @@ public class Params implements Serializable { //do not add futureForecastValues 
 
     private static final long serialVersionUID = 0L;
 
+    private int UID; //unique for this Run and a particular model   //practically used only for iMLP files, TODO a better way?
+
     private int percentTrain;
     private int numForecasts;
     private int dataRangeFrom;
@@ -19,6 +21,14 @@ public class Params implements Serializable { //do not add futureForecastValues 
     
     public Params(Integer percentTrain) {
         this.percentTrain = percentTrain;
+    }
+
+    public int getUID() {
+        return UID;
+    }
+
+    public void setUID(int UID) {
+        this.UID = UID;
     }
 
     public int getPercentTrain() {

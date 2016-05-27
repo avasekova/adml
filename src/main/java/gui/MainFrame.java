@@ -4682,6 +4682,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             MyRengine.getRengine();
 
             // Execute the job
+            params.setUID(paramIdx); //TODO maybe getTaskId instead?
             final TrainAndTestReport report = forecastable.forecast(inputData, params);
 
             final long compTime = System.currentTimeMillis();
