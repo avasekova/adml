@@ -1,6 +1,6 @@
 package gui.files;
 
-import gui.filefilters.*;
+import gui.filefilters.RFileFilter;
 
 import java.io.File;
 
@@ -10,10 +10,11 @@ public class PlotExtensionFileChooser extends OverwriteFileChooser {
         super("plotExport.eps");
 
         setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        addChoosableFileFilter(new FileFilterEps());
-        addChoosableFileFilter(new FileFilterPs());
-        addChoosableFileFilter(new FileFilterPng());
-        addChoosableFileFilter(new FileFilterPdf());
+        addChoosableFileFilter(new RFileFilter("postscript", "Encapsulated PostScript files (.eps)", "eps"));
+        addChoosableFileFilter(new RFileFilter("postscript", "PostScript files (.ps)", "ps"));
+        addChoosableFileFilter(new RFileFilter("png", "Portable Network Graphics files (.png)", "png"));
+        addChoosableFileFilter(new RFileFilter("pdf, paper=\"USr\"", "Portable Document Format files (.pdf)", "pdf"));
+        //device: pdf, paper="USr"  // pdf needs to have the size specified. here = A4 (landscape)
     }
     
     @Override

@@ -37,6 +37,7 @@ import utils.ugliez.CallParamsDrawPlotsITS;
 import utils.ugliez.PlotStateKeeper;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -2969,7 +2970,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         JFileChooser fileChooser = new JFileChooser((File)null);
         fileChooser.setMultiSelectionEnabled(false);
         fileChooser.setAcceptAllFileFilterUsed(false); //do not allow "All files"
-        fileChooser.setFileFilter(new FileFilterXlsXlsxCsv());
+        fileChooser.setFileFilter(new FileNameExtensionFilter("MS Excel files (.xls, .xlsx), CSV files", "xls", "xlsx", "csv"));
         LoadDataCustomizerPanel customizer = new LoadDataCustomizerPanel();
         fileChooser.setAccessory(customizer);
         if (evt.getSource() == menuFileLoad) {
