@@ -2977,9 +2977,23 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             switch (fileChooser.showOpenDialog(this)) {
                 case JFileChooser.APPROVE_OPTION:
                     this.loadedFile = fileChooser.getSelectedFile();
-                    DataTableModel.getInstance().openFile(loadedFile, customizer);
-                    DataTableModel.getInstance().fireTableStructureChanged();
-                    fillGUIelementsWithNewData();
+
+                    new SwingWorker<Void, Void>() {
+                        @Override
+                        protected Void doInBackground() throws Exception {
+                            DataTableModel.getInstance().openFile(loadedFile, customizer);
+                            return null;
+                        }
+
+                        @Override
+                        protected void done() {
+                            super.done();
+                            DataTableModel.getInstance().fireTableStructureChanged();
+                            fillGUIelementsWithNewData();
+                        }
+                    }.execute();
+                    //TODO handle errors
+
                     break;
                 case JFileChooser.CANCEL_OPTION:
                 default:
