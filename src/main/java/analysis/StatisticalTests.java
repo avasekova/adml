@@ -41,9 +41,14 @@ public class StatisticalTests {
             results.append("   - p-value: ");
             results.append(rengine.eval("pearson.test(" + DATA + ")$p.value").asDouble()).append("\n");
 
-            results.append("Shapiro-Francia test for normality:\n");
-            results.append("   - p-value: ");
-            results.append(rengine.eval("sf.test(" + DATA + ")$p.value").asDouble()).append("\n");
+            int sampleLength = rengine.eval("length(" + DATA + ")").asInt();
+            if ((sampleLength < 5) || (sampleLength > 5000)) {
+                results.append("(Shapiro-Francia test will not be applied, sample size needs to be between 5 and 5000.)");
+            } else {
+                results.append("Shapiro-Francia test for normality:\n");
+                results.append("   - p-value: ");
+                results.append(rengine.eval("sf.test(" + DATA + ")$p.value").asDouble()).append("\n");
+            }
 
             results.append("\n");
         }
