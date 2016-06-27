@@ -8,7 +8,6 @@ import com.klinec.admwl.AdmwlProgressMonitor;
 import com.klinec.admwl.remoteInterface.AdmwlTask;
 import com.klinec.admwl.remoteLogic.AdmwlProviderImpl;
 import gui.dialogs.*;
-import gui.filefilters.*;
 import gui.files.OverwriteFileChooser;
 import gui.renderers.ErrorTableCellRenderer;
 import gui.settingspanels.*;
@@ -40,10 +39,7 @@ import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.TableColumn;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -2978,9 +2974,11 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 case JFileChooser.APPROVE_OPTION:
                     this.loadedFile = fileChooser.getSelectedFile();
 
+                    SwingUtilities.invokeLater(groupButtons::disableAll);
                     new SwingWorker<Void, Void>() {
                         @Override
                         protected Void doInBackground() throws Exception {
+                            //TODO do not allow to load a file while an operation on the current dataset is in progress
                             DataTableModel.getInstance().openFile(loadedFile, customizer);
                             return null;
                         }
@@ -2990,6 +2988,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                             super.done();
                             DataTableModel.getInstance().fireTableStructureChanged();
                             fillGUIelementsWithNewData();
+                            SwingUtilities.invokeLater(groupButtons::enableAll);
                         }
                     }.execute();
                     //TODO handle errors
