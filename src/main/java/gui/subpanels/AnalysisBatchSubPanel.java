@@ -44,7 +44,7 @@ public class AnalysisBatchSubPanel extends javax.swing.JPanel {
             }
         });
 
-        tableAnalysisBatch.setModel(AnalysisBatchTableModel.getInstance());
+        tableAnalysisBatch.setModel(new AnalysisBatchTableModel());
         TableColumn firstColumn = tableAnalysisBatch.getColumnModel().getColumn(0);
         firstColumn.setMinWidth(10);
         firstColumn.setMaxWidth(50);
@@ -108,7 +108,7 @@ public class AnalysisBatchSubPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_buttonAnalysisBatchRemoveSelectedRowsActionPerformed
 
     private void buttonRunAnalysisBatchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRunAnalysisBatchActionPerformed
-        MainFrame.getInstance().runModels(true);
+        MainFrame.getInstance().runModels(true, ((AnalysisBatchTableModel) tableAnalysisBatch.getModel()).getAllLines());
     }//GEN-LAST:event_buttonRunAnalysisBatchActionPerformed
 
 

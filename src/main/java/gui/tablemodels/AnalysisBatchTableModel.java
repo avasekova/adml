@@ -1,28 +1,13 @@
 package gui.tablemodels;
 
-import models.params.AnalysisBatchLine;
+import models.params.AnalysisConfig;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnalysisBatchTableModel extends ReportsTableModel {
 
-    private List<AnalysisBatchLine> lines = new ArrayList<>();
-    
-    private static AnalysisBatchTableModel INSTANCE = null;
-    
-    private AnalysisBatchTableModel() {
-        super();
-    }
-    
-    public static synchronized AnalysisBatchTableModel getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new AnalysisBatchTableModel();
-        }
-        
-        return INSTANCE;
-    }
+    private List<AnalysisConfig> lines = new ArrayList<>();
     
     @Override
     public int getRowCount() {
@@ -68,13 +53,13 @@ public class AnalysisBatchTableModel extends ReportsTableModel {
         return false;
     }
     
-    public void addLine(AnalysisBatchLine line) {
+    public void addLine(AnalysisConfig line) {
         lines.add(line);
         fireTableRowsInserted(lines.size()-1, lines.size()-1);
     }
     
     public void removeRows(int[] rows) {
-        List<AnalysisBatchLine> toRemove = new ArrayList<>();
+        List<AnalysisConfig> toRemove = new ArrayList<>();
         for (int r : rows) {
             toRemove.add(lines.get(r));
         }
@@ -89,13 +74,13 @@ public class AnalysisBatchTableModel extends ReportsTableModel {
         lines.clear();
     }
     
-    public List<AnalysisBatchLine> getAllLines() {
+    public List<AnalysisConfig> getAllLines() {
         return lines;
     }
     
-    public void setAllLines(List<AnalysisBatchLine> lines) {
+    public void setAllLines(List<AnalysisConfig> lines) {
         this.lines = new ArrayList<>();
-        for (AnalysisBatchLine l : lines) {
+        for (AnalysisConfig l : lines) {
             this.lines.add(l);
         }
     }

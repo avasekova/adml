@@ -44,10 +44,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -327,7 +325,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        buttonTrainAndTest = new javax.swing.JButton();
+        buttonRunModels = new javax.swing.JButton();
         checkBoxRunKNNfnn = new javax.swing.JCheckBox();
         jLabel49 = new javax.swing.JLabel();
         labelRunFakeIntLower = new javax.swing.JLabel();
@@ -2054,9 +2052,9 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         jSeparator1.setForeground(new java.awt.Color(200, 200, 200));
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
-        buttonTrainAndTest.setText("Run");
-        buttonTrainAndTest.setEnabled(false);
-        buttonTrainAndTest.addActionListener(new java.awt.event.ActionListener() {
+        buttonRunModels.setText("Run");
+        buttonRunModels.setEnabled(false);
+        buttonRunModels.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonTrainAndTestActionPerformed(evt);
             }
@@ -2539,7 +2537,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel3))
                     .addGroup(panelRunOutsideLayout.createSequentialGroup()
-                        .addComponent(buttonTrainAndTest)
+                        .addComponent(buttonRunModels)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -2576,7 +2574,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                         .addContainerGap()
                         .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panelRunOutsideLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonTrainAndTest)
+                                .addComponent(buttonRunModels)
                                 .addComponent(jLabel9)
                                 .addComponent(textFieldRunDataRangeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jLabel44)
@@ -3129,9 +3127,10 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
 
     private void buttonTrainAndTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTrainAndTestActionPerformed
         //backup the existing batchTableModel
-        AnalysisBatchTableModel lastKnownBatchModel = AnalysisBatchTableModel.getInstance();
-        lastKnownBatchModel.setAllLines(AnalysisBatchTableModel.getInstance().getAllLines());
-        AnalysisBatchTableModel.getInstance().clear();
+        //TODO think of a better way to do this. this is just a hack so that the code in *AddToBatch methods isn't duplicated, otherwise has nothing to do with analysis batch
+        AnalysisBatchTableModel batchModel = (AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel());
+        List<AnalysisConfig> batchLinesBackup = new ArrayList<>(batchModel.getAllLines());
+        batchModel.clear();
         
         //TODO maybe have the checkboxes in a ComponentGroup and just loop through them?
 
@@ -3275,7 +3274,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         if (checkBoxRunRandomWalkCTS.isSelected()) {
             try {
                 List<RandomWalkParams> paramsRandomWalk = RandomWalkParams.getParamsRandomWalk(comboBoxColnamesRun);
-                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RANDOM_WALK, paramsRandomWalk, paramsRandomWalk.size()));
+                batchModel.addLine(new AnalysisConfig(Model.RANDOM_WALK, paramsRandomWalk, paramsRandomWalk.size()));
             } catch (IllegalArgumentException e) {
                 logger.error("Exception", e);
             }
@@ -3285,17 +3284,17 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             try {
                 List<RandomWalkIntervalParams> paramsRandomWalkInt =
                         RandomWalkIntervalParams.getParamsRandomWalkInterval(panelMLPintSettingsDistance, comboBoxRunFakeIntCenter, comboBoxRunFakeIntRadius);
-                AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RANDOM_WALK_INT, paramsRandomWalkInt,
+                batchModel.addLine(new AnalysisConfig(Model.RANDOM_WALK_INT, paramsRandomWalkInt,
                         paramsRandomWalkInt.size()));
             } catch (IllegalArgumentException e) {
                 logger.error("Exception", e);
             }
         }
 
-        runModels(false);
+        runModels(false, new ArrayList<>(batchModel.getAllLines()));
         
         //and put the former batchTableModel back
-        AnalysisBatchTableModel.getInstance().setAllLines(lastKnownBatchModel.getAllLines());
+        batchModel.setAllLines(batchLinesBackup);
     }//GEN-LAST:event_buttonTrainAndTestActionPerformed
 
     private void comboBoxRPackageMLPintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBoxRPackageMLPintActionPerformed
@@ -3385,7 +3384,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             case NNET:
                 try {
                     List<NnetParams> paramsNnet = NnetParams.getParamsNnet(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnet);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.NNET, paramsNnet, paramsNnet.size()));
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.NNET, paramsNnet, paramsNnet.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
                 }
@@ -3393,7 +3393,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             case NNETAR:
                 try {
                     List<NnetarParams> paramsNnetar = NnetarParams.getParamsNnetar(panelMLPPercentTrain, comboBoxColnamesRun, panelSettingsMLPPackage_nnetar);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.NNETAR, paramsNnetar, paramsNnetar.size()));
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.NNETAR, paramsNnetar, paramsNnetar.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
                 }
@@ -3412,7 +3413,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                         panelSettingsMLPintPackage_nnet_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnet_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MLP_INT_NNET, paramsNnet,
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.MLP_INT_NNET, paramsNnet,
                             paramsNnet.size()*(paramsNnet.get(0).getNumNetsToTrain()))); //TODO maybe get numNetsTrain in a safer way?
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
@@ -3425,7 +3427,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                         panelSettingsMLPintPackage_nnetar_center, panelMLPintPercentTrain, comboBoxRunFakeIntRadius, 
                         panelSettingsMLPintPackage_nnetar_radius, panelMLPintSettingsDistance, textFieldNumNetsToTrainMLPint,
                         panelBestModelCriterionMLPint);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MLP_INT_NNETAR, paramsNnetar,
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.MLP_INT_NNETAR, paramsNnetar,
                             paramsNnetar.size()*(paramsNnetar.get(0).getNumNetsToTrain())));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
@@ -3441,7 +3444,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             case INTERVAL_MLP_C_CODE:
                 try {
                     List<IntervalMLPCcodeParams> paramsIMLP = IntervalMLPCcodeParams.getParamsIntervalMLPCcode(panelIntMLPPercentTrain, panelSettingsIntervalMLPModeCcode);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.INTERVAL_MLP_C_CODE, paramsIMLP,
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.INTERVAL_MLP_C_CODE, paramsIMLP,
                             paramsIMLP.size()*(paramsIMLP.get(0).getNumNetworks())));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
@@ -3455,7 +3459,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_RBFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_RBFActionPerformed
         try {
             List<RBFParams> paramsRBF = RBFParams.getParamsRBF(panelRBFPercentTrain, comboBoxColnamesRun, panelSettingsRBFMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RBF, paramsRBF, paramsRBF.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.RBF, paramsRBF, paramsRBF.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3467,7 +3472,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 panelSettingsRBFint_center, panelRBFintPercentTrain, comboBoxRunFakeIntRadius, 
                 panelSettingsRBFint_radius, panelRBFintSettingsDistance, textFieldNumNetworksToTrainRBFint,
                 panelBestModelCriterionRBFint);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.RBF_INT, paramsRBFint, paramsRBFint.size()*(paramsRBFint.get(0).getNumNetsToTrain())));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.RBF_INT, paramsRBFint, paramsRBFint.size()*(paramsRBFint.get(0).getNumNetsToTrain())));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3476,7 +3482,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_ARIMAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_ARIMAActionPerformed
         try {
             List<ArimaParams> paramsArima = ArimaParams.getParamsArima(panelARIMAPercTrain, comboBoxColnamesRun, panelSettingsARIMAMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.ARIMA, paramsArima, paramsArima.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.ARIMA, paramsArima, paramsArima.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3487,7 +3494,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             case KNN_FNN:
                 try {
                     List<KNNfnnParams> paramsFNN = KNNfnnParams.getParamsKNNfnn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_FNN);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.KNN_FNN, paramsFNN, paramsFNN.size()));
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.KNN_FNN, paramsFNN, paramsFNN.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
                 }
@@ -3495,7 +3503,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             case KNN_KKNN:
                 try {
                     List<KNNkknnParams> paramsKKNN = KNNkknnParams.getParamsKNNkknn(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_kknn);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.KNN_KKNN, paramsKKNN, paramsKKNN.size()));
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.KNN_KKNN, paramsKKNN, paramsKKNN.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
                 }
@@ -3505,7 +3514,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             case KNN_MYOWN:
                 try {
                     List<KNNmyownParams> paramsMyOwn = KNNmyownParams.getParamsKNNmyown(panelKNNPercTrain, comboBoxColnamesRun, panelSettingsKNNoptions_myown);
-                    AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.KNN_MYOWN, paramsMyOwn, paramsMyOwn.size()));
+                    ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                            .addLine(new AnalysisConfig(Model.KNN_MYOWN, paramsMyOwn, paramsMyOwn.size()));
                 } catch (IllegalArgumentException e) {
                     logger.error("Exception", e);
                 }
@@ -3516,7 +3526,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_VARintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_VARintActionPerformed
         try {
             List<VARintParams> paramsVARint = VARintParams.getParamsVARint(panelVARintPercentTrain, panelVARintDistance, panelVARintInsideBecause);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.VAR_INT, paramsVARint, paramsVARint.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.VAR_INT, paramsVARint, paramsVARint.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3525,7 +3536,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_SESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_SESActionPerformed
         try {
             List<SESParams> paramsSES = SESParams.getParamsSES(panelSESpercentTrain, comboBoxColnamesRun, panelSESmain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.SES, paramsSES, paramsSES.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.SES, paramsSES, paramsSES.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3536,7 +3548,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             List<SESintParams> paramsSESint = SESintParams.getParamsSESint(panelSESintPercentTrain, panelSESint_center, 
                         comboBoxRunFakeIntCenter, panelSESintPercentTrain, panelSESint_radius, comboBoxRunFakeIntRadius,
                         panelSESintDistance);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.SES_INT, paramsSESint, paramsSESint.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.SES_INT, paramsSESint, paramsSESint.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3545,7 +3558,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_HoltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HoltActionPerformed
         try {
             List<HoltParams> paramsHolt = HoltParams.getParamsHolt(panelHoltPercentTrain, panelHoltInside, comboBoxColnamesRun);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT, paramsHolt, paramsHolt.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.HOLT, paramsHolt, paramsHolt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3556,7 +3570,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             List<HoltIntParams> paramsHoltInt = HoltIntParams.getParamsHoltInt(panelHoltIntPercentTrain, panelHoltInt_center, 
                         comboBoxRunFakeIntCenter, panelHoltIntPercentTrain, panelHoltInt_radius, comboBoxRunFakeIntRadius,
                         panelHoltIntDistance);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT_INT, paramsHoltInt, paramsHoltInt.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.HOLT_INT, paramsHoltInt, paramsHoltInt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3566,7 +3581,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         try {
             List<IntervalHoltParams> paramsIntervalHolt = IntervalHoltParams.getParamsIntervalHolt(panelIntervalHoltPercentTrain, comboBoxRunFakeIntCenter,
                         comboBoxRunFakeIntRadius, panelIntervalHoltDistance, panelIntervalHoltMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.INTERVAL_HOLT, paramsIntervalHolt, paramsIntervalHolt.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.INTERVAL_HOLT, paramsIntervalHolt, paramsIntervalHolt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3576,7 +3592,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         try {
             List<HoltWintersParams> paramsHoltWinters = HoltWintersParams.getParamsHoltWinters(panelHoltWintersPercentTrain, 
                         panelHoltWintersInside, comboBoxColnamesRun);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT_WINTERS, paramsHoltWinters, paramsHoltWinters.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.HOLT_WINTERS, paramsHoltWinters, paramsHoltWinters.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3587,7 +3604,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             List<HoltWintersIntParams> paramsHoltWintersInt = HoltWintersIntParams.getParamsHoltWintersInt(panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_center, comboBoxRunFakeIntCenter, panelHoltWintersIntPercentTrain, 
                         panelHoltWintersInt_radius, comboBoxRunFakeIntRadius, panelHoltWintersIntDistance);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HOLT_WINTERS_INT, paramsHoltWintersInt, paramsHoltWintersInt.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.HOLT_WINTERS_INT, paramsHoltWintersInt, paramsHoltWintersInt.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3596,7 +3614,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_HybridActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_HybridActionPerformed
         try {
             List<HybridParams> paramsHybrid = getParamsHybrid();
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.HYBRID, paramsHybrid, paramsHybrid.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.HYBRID, paramsHybrid, paramsHybrid.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3738,7 +3757,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_BNNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_BNNActionPerformed
         try {
             List<BNNParams> paramsBNN = BNNParams.getParamsBNN(panelBNNPercentTrain, comboBoxColnamesRun, panelSettingsBNNinside);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.BNN, paramsBNN, paramsBNN.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.BNN, paramsBNN, paramsBNN.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3750,7 +3770,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 panelSettingsBNNint_center, comboBoxRunFakeIntRadius, panelSettingsBNNint_radius,
                 panelBNNintSettingsDistance, textFieldNumNetworksToTrainBNNint,
                 panelBestModelCriterionBNNint);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.BNN_INT, paramsBNNint, paramsBNNint.size()*(paramsBNNint.get(0).getNumNetsToTrain())));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.BNN_INT, paramsBNNint, paramsBNNint.size()*(paramsBNNint.get(0).getNumNetsToTrain())));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3767,7 +3788,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private void buttonSettingsAddToBatch_MAvgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSettingsAddToBatch_MAvgActionPerformed
         try {
             List<MAvgParams> paramsMAvg = MAvgParams.getParamsMAvg(comboBoxColnamesRun, panelMAvgMain);
-            AnalysisBatchTableModel.getInstance().addLine(new AnalysisBatchLine(Model.MAvg, paramsMAvg, paramsMAvg.size()));
+            ((AnalysisBatchTableModel) (((AnalysisBatchSubPanel) panelAnalysisBatch).getTableAnalysisBatch().getModel()))
+                    .addLine(new AnalysisConfig(Model.MAvg, paramsMAvg, paramsMAvg.size()));
         } catch (IllegalArgumentException e) {
             logger.error("Exception", e);
         }
@@ -3845,7 +3867,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private javax.swing.JButton buttonSettingsAddToBatch_SESint;
     private javax.swing.JButton buttonSettingsAddToBatch_VARint;
     private javax.swing.JButton buttonSettingsAddToBatch_intMLP;
-    private javax.swing.JButton buttonTrainAndTest;
+    private javax.swing.JButton buttonRunModels;
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTS;
     private javax.swing.JCheckBox checkBoxAvgCenterLogRadiusIntTSperM;
     private javax.swing.JCheckBox checkBoxAvgCvgEffIntTS;
@@ -4703,12 +4725,15 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             logger.info("</{} param={} total={} time={} spent={} ms thread={}>",
                     modelName, paramIdx, paramTotal, compTime, compTime - curTime, Thread.currentThread().getName());
 
+
+            progress.onAdmwlProgressed(1); //dummy val
+
             return report;
         }
     }
 
     /**
-     * Handler triggered when a task posted to the worker has een finished.
+     * Handler triggered when a task posted to the worker has been finished.
      * @param task
      * @param jobResult
      */
@@ -4738,7 +4763,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
      * @param reportsIntTS
      */
     private void waitServerTasksFinished(List<TrainAndTestReportCrisp> reportsCTS, List<TrainAndTestReportInterval> reportsIntTS){
-        while(true){
+        while (true) {
             if (taskToProcess.get() <= taskProcessed.get()){
                 break;
             }
@@ -4754,7 +4779,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         logger.info("Waiting finished, result size: {}", taskResults.size());
 
         // TODO: refactor, this is baaaaad, ugly from the ugliest.
-        while(!taskResults.isEmpty()){
+        while (!taskResults.isEmpty()) {
             final TrainAndTestReport result = taskResults.poll();
 
             if (result instanceof TrainAndTestReportCrisp){
@@ -4784,12 +4809,11 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         }
     }
 
-    public void runModels(boolean isBatch) {
+    public void runModels(boolean isBatch, List<AnalysisConfig> analysisConfigs) {
         Utils.resetModelID();
-        final int numThreads = 8;
 
         groupExportButtons.enableAll();
-        
+
         ///hack: turn off all AVG checkboxes in case the params tried to take values from them.
         //  it is not safe to support average in these settings; there may be too many differences, we cannot check everything
         boolean originalStateCheckboxAvgCTSPerMethod = checkBoxAvgSimpleCTSperM.isSelected();
@@ -4806,242 +4830,269 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             //------------end hack, part 1/2
         }
 
-        //they all add their errormeasures and plotcode to the trainingreports list
-        List<TrainAndTestReportCrisp> reportsCTS = new CopyOnWriteArrayList<>();
-        List<TrainAndTestReportInterval> reportsIntTS = new CopyOnWriteArrayList<>();
+        disableAllButtons(); //TODO make sure they're all disabled (i.e. added to the componentgroups etc)
 
-        //go through all BatchLines to see if there are some that have too many models, i.e. we need to ask if they really should run:
-        List<AnalysisBatchLine> runOnlyTheseBatchLines = new ArrayList<>();
-        for (AnalysisBatchLine l : AnalysisBatchTableModel.getInstance().getAllLines()) {
-            int numModels = 0;
-            try {
-                numModels = l.getNumModels();
-            } catch (IllegalArgumentException e) {
-                logger.error("Exception", e); // TODO: review logging
-            }
-            showDialogTooManyModelsInCase(numModels, l.getModel());
-            
-            if (continueWithTooManyModels) {
-                runOnlyTheseBatchLines.add(l);
-            }
-        }
 
-        //and then only use those with fewer models or many, but confirmed
-        // Iterate over list of models and parameters, create model forecasting jobs and feed executor service with them.
-        final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
-        final long computationTimeStarted = System.currentTimeMillis();
-        taskToProcess.set(0);
-        taskProcessed.set(0);
-        taskResults.clear();
-        if (server != null){
-            server.checkAllWorkers();
-        }
+        //TODO revise what really needs to be in the SwingWorker etc.
+        new SwingWorker<Void, Void>() {  //TODO prettify
 
-        for (AnalysisBatchLine l : runOnlyTheseBatchLines) {
-            Forecastable forecastable;
+            //they all add their errormeasures and plotcode to the trainingreports list
+            private List<TrainAndTestReportCrisp> reportsCTS = new CopyOnWriteArrayList<>();
+            private List<TrainAndTestReportInterval> reportsIntTS = new CopyOnWriteArrayList<>();
 
-            // a) crisp model
-            forecastable = ModelFactory.getCrispModel(l.getModel());
-            List reportList = reportsCTS;
+            @Override
+            protected Void doInBackground() throws Exception {
+                //go through all BatchLines to see if there are some that have too many models, i.e. we need to ask if they really should run:
+                List<AnalysisConfig> runOnlyTheseBatchLines = new ArrayList<>();
+                int totalNumAllModels = 0;
+                for (AnalysisConfig l : analysisConfigs) {
+                    int numModels = 0;
+                    try {
+                        numModels = l.getNumModels();
+                    } catch (IllegalArgumentException e) {
+                        logger.error("Exception", e); // TODO: review logging
+                    }
+                    showDialogTooManyModelsInCase(numModels, l.getModel());
 
-            // b) interval model
-            if (forecastable == null){
-                forecastable = ModelFactory.getIntervalModel(l.getModel());
-                reportList = reportsIntTS;
-            }
+                    if (continueWithTooManyModels) {
+                        runOnlyTheseBatchLines.add(l);
+                        totalNumAllModels += numModels;
+                    }
+                }
 
-            // c) unknown
-            if (forecastable == null){
-                logger.error("Unknown model: {}", l.getModel());
-                continue;
-            }
+                //and then only use those with fewer models or many, but confirmed
+                // Iterate over list of models and parameters, create model forecasting jobs and feed executor service with them.
+                final int numThreads = 8;
+                final ExecutorService executor = Executors.newFixedThreadPool(numThreads);
+                final long computationTimeStarted = System.currentTimeMillis();
+                taskToProcess.set(0);
+                taskProcessed.set(0);
+                taskResults.clear();
+                if (server != null) {
+                    server.checkAllWorkers();
+                }
 
-            List<? extends Params> params = l.getModelParams();
+                for (AnalysisConfig l : runOnlyTheseBatchLines) {
+                    Forecastable forecastable;
 
-            // Sanity checking for parameter list, should be non-empty.
-            if (params == null){
-                logger.error("Null parameter list for model: {}", l.getModel());
-                continue;
-            } else if (params.isEmpty()){
-                logger.warn("Empty parameter list for model: {}", l.getModel());
-                continue;
-            }
+                    // a) crisp model
+                    forecastable = ModelFactory.getCrispModel(l.getModel());
+                    List reportList = reportsCTS;
 
-            // For each model parameter create a new job and add it to the executor service for the computation.
-            int paramCnt = 0;
-            for (Params p : params) {
-                ModelForecastJob job = new ModelForecastJob();
-                job.forecastable = forecastable;
-                job.params = p;
-                job.inputData = DataTableModel.getInstance().getAllValues(); //TODO do not pass all columns, just those necessary
-                job.reportList = reportList;
-                job.modelName = l.getModel();
-                job.paramIdx = paramCnt++;
-                job.paramTotal = params.size();
+                    // b) interval model
+                    if (forecastable == null) {
+                        forecastable = ModelFactory.getIntervalModel(l.getModel());
+                        reportList = reportsIntTS;
+                    }
 
-                if (server != null){
-                    logger.info("Submitting job {}, param: {}/{} to RMI server", l.getModel(), job.paramIdx + 1, job.paramTotal);
-                    server.enqueueJob(job);
+                    // c) unknown
+                    if (forecastable == null) {
+                        logger.error("Unknown model: {}", l.getModel());
+                        continue;
+                    }
 
+                    List<? extends Params> params = l.getModelParams();
+
+                    // Sanity checking for parameter list, should be non-empty.
+                    if (params == null) {
+                        logger.error("Null parameter list for model: {}", l.getModel());
+                        continue;
+                    } else if (params.isEmpty()) {
+                        logger.warn("Empty parameter list for model: {}", l.getModel());
+                        continue;
+                    }
+
+                    // For each model parameter create a new job and add it to the executor service for the computation.
+                    int paramCnt = 0;
+                    for (Params p : params) {
+                        ModelForecastJob job = new ModelForecastJob();
+                        job.forecastable = forecastable;
+                        job.params = p;
+                        job.inputData = DataTableModel.getInstance().getAllValues(); //TODO do not pass all columns, just those necessary
+                        job.reportList = reportList;
+                        job.modelName = l.getModel();
+                        job.paramIdx = paramCnt++;
+                        job.paramTotal = params.size();
+
+                        if (server != null) {
+                            logger.info("Submitting job {}, param: {}/{} to RMI server", l.getModel(), job.paramIdx + 1, job.paramTotal);
+                            server.enqueueJob(job);
+
+                        } else {
+                            logger.info("Submitting job {}, param: {}/{} to executor", l.getModel(), job.paramIdx + 1, job.paramTotal);
+                            executor.submit(job);
+                        }
+
+                        taskToProcess.getAndIncrement();
+                    }
+                }
+
+
+                //prepare progress info
+                AdmlProgressMonitor progressMonitor = new AdmlProgressMonitor(MainFrame.this, "Preparing models", totalNumAllModels);
+                server.setJobProgressListener(new AdmlProgressListener(progressMonitor));
+
+
+                logger.info("Waiting to get all jobs done: {}", taskToProcess.get());
+                if (server != null) {
+                    waitServerTasksFinished(reportsCTS, reportsIntTS);
                 } else {
-                    logger.info("Submitting job {}, param: {}/{} to executor", l.getModel(), job.paramIdx + 1, job.paramTotal);
-                    executor.submit(job);
+                    waitExecutorTasksFinished(executor);
                 }
 
-                taskToProcess.getAndIncrement();
+                server.setJobProgressListener(null);
+
+                final long computationTime = System.currentTimeMillis() - computationTimeStarted;
+                logger.info("Waiting finished, CTS size: {}, interval size: {}, time elapsed {} ms",
+                        reportsCTS.size(), reportsIntTS.size(), computationTime);
+
+                return null;
+
             }
-        }
-
-        logger.info("Waiting to get all jobs done: {}", taskToProcess.get());
-        if (server != null){
-            waitServerTasksFinished(reportsCTS, reportsIntTS);
-
-        } else {
-            waitExecutorTasksFinished(executor);
-        }
-
-        final long computationTime = System.currentTimeMillis() - computationTimeStarted;
-        logger.info("Waiting finished, CTS size: {}, interval size: {}, time elapsed {} ms",
-                reportsCTS.size(), reportsIntTS.size(), computationTime);
 
 
-        
-        
-        //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
-        //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
-        List<TrainAndTestReport> allReports = new ArrayList<>();
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
-        
-        writeAllModelDetails(allReports);
-        
-        List<JGDBufferedPanel> diagramPanels = PlotDrawer.drawDiagrams(tabbedPaneDiagramsNNs.getWidth(), tabbedPaneDiagramsNNs.getHeight(), allReports);
-        
-        tabbedPaneDiagramsNNs.removeAll();
-        int i = 0;
-        for (JGDBufferedPanel p : diagramPanels) {
-            tabbedPaneDiagramsNNs.addTab("Page "+(++i), p);
-        }
-        panelDiagramsNNsInside.repaint();
-        
-        //show Forecast plot
-        int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
-        int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
-        int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
-        String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+            @Override
+            protected void done() {
+                //TODO check if doInBkg() finished successfully and catch exceptions
 
-        //compute averages
-        try {
-            for (Average av : getAllAvgs(reportsCTS, reportsIntTS)) {
-                reportsCTS.addAll(av.computeAllCTSAvgs(reportsCTS).stream().filter(r -> r != null).collect(Collectors.toList()));
-                reportsIntTS.addAll(av.computeAllIntTSAvgs(reportsIntTS).stream().filter(r -> r != null).collect(Collectors.toList()));
-            }
-        } catch (IllegalArgumentException e) {
+                //first draw diagrams of NNs, if applicable. the plots need to be drawn second because of the problems
+                //  with determining the canvas to export. this way the last canvas can be exported, for it is the plot
+                List<TrainAndTestReport> allReports = new ArrayList<>();
+                allReports.addAll(reportsCTS);
+                allReports.addAll(reportsIntTS);
+
+                writeAllModelDetails(allReports);
+
+                List<JGDBufferedPanel> diagramPanels = PlotDrawer.drawDiagrams(tabbedPaneDiagramsNNs.getWidth(), tabbedPaneDiagramsNNs.getHeight(), allReports);
+
+                tabbedPaneDiagramsNNs.removeAll();
+                int i = 0;
+                for (JGDBufferedPanel p : diagramPanels) {
+                    tabbedPaneDiagramsNNs.addTab("Page "+(++i), p);
+                }
+                panelDiagramsNNsInside.repaint();
+
+                //show Forecast plot
+                int numForecasts = FieldsParser.parseIntegers(textFieldRunNumForecasts).get(0);
+                int from = Integer.parseInt(textFieldRunDataRangeFrom.getText()) - 1;
+                int to = Integer.parseInt(textFieldRunDataRangeTo.getText());
+                String colname_CTS = comboBoxColnamesRun.getSelectedItem().toString();
+
+                //compute averages
+                try {
+                    for (Average av : getAllAvgs(reportsCTS, reportsIntTS)) {
+                        reportsCTS.addAll(av.computeAllCTSAvgs(reportsCTS).stream().filter(r -> r != null).collect(Collectors.toList()));
+                        reportsIntTS.addAll(av.computeAllIntTSAvgs(reportsIntTS).stream().filter(r -> r != null).collect(Collectors.toList()));
+                    }
+                } catch (IllegalArgumentException e) {
 //            if (! refreshOnly) {
-                JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
+                    JOptionPane.showMessageDialog(null, "The average of all methods will not be computed due to the differences in training and testing sets among the methods.");
 //            } //otherwise they've already seen the error and it'd be annoying //TODO include in redraw
-        }
-
-        //and plot it all
-        List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO,
-                new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
-                        ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(),
-                DataTableModel.getInstance().getDataForColname(colname_CTS), DataTableModel.getInstance().getRowCount(), numForecasts, reportsCTS,
-                reportsIntTS, from, to, colname_CTS, 
-                new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
-        ((PlotSubPanel) panelPlotImage).setPlots(plots);
-        setPlotRanges(reportsCTS.size(), reportsIntTS.size());
-        ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
-
-        
-        allReports = new ArrayList<>(); //we need to refresh allReports, 'cause avgs might have been added
-        allReports.addAll(reportsCTS);
-        allReports.addAll(reportsIntTS);
-        
-        //show errors
-        drawTablesErrorMeasures(reportsCTS, reportsIntTS);
-        
-        //show prediction intervals, if any
-        outputPredictionIntervals(reportsCTS);
-        
-        //show computed weights for combined models, if any
-        outputComputedWeights(); //TODO fix, broken
-        
-        
-        
-        ///hack: turn on all AVG checkboxes the way they were before so nobody notices
-        //  (and so that... happy debugging, suckers :D)
-        if (isBatch) {
-            checkBoxAvgSimpleCTSperM.setSelected(originalStateCheckboxAvgCTSPerMethod);
-            checkBoxAvgSimpleCTS.setSelected(originalStateCheckboxAvgCTS);
-            checkBoxAvgSimpleIntTSperM.setSelected(originalStateCheckboxAvgIntTSPerMethod);
-            checkBoxAvgSimpleIntTS.setSelected(originalStateCheckboxAvgIntTS);
-            checkBoxAvgONLY.setSelected(originalStateCheckboxAvgONLY);
-        }
-        //------------end hack, part 2/2
-        
-
-        //and show forecast values in the other pane
-        final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
-        
-        forecastValuesTable.setColumnSelectionAllowed(true);
-        forecastValuesTable.setRowSelectionAllowed(false);
-        
-        forecastValuesTable.addMouseListener(new MouseListener() {
-
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
-                    // -1! because
-                    int selectedCol = forecastValuesTable.getSelectedColumn();
-                    ((ForecastValsTableModel)forecastValuesTable.getModel()).hideColumn(selectedCol);
-//                    forecastValuesTable.repaint();
                 }
+
+                //and plot it all
+                List<JGDBufferedPanel> plots = PlotDrawer.drawPlots(Const.MODE_DRAW_NEW, Const.MODE_REFRESH_NO,
+                        new CallParamsDrawPlots(((PlotSubPanel)panelPlotImage).getListPlotLegend(),
+                                ((PlotSubPanel)panelPlotImage).getPanelPlot().getWidth(), ((PlotSubPanel)panelPlotImage).getPanelPlot().getHeight(),
+                                DataTableModel.getInstance().getDataForColname(colname_CTS), DataTableModel.getInstance().getRowCount(), numForecasts, reportsCTS,
+                                reportsIntTS, from, to, colname_CTS,
+                                new AveragesConfig(getAllAvgs(reportsCTS, reportsIntTS), checkBoxAvgONLY.isSelected())));
+                ((PlotSubPanel) panelPlotImage).setPlots(plots);
+                setPlotRanges(reportsCTS.size(), reportsIntTS.size());
+                ((PlotSubPanel)panelPlotImage).getButtonPlotExportPlot().setEnabled(true);
+
+
+                allReports = new ArrayList<>(); //we need to refresh allReports, 'cause avgs might have been added
+                allReports.addAll(reportsCTS);
+                allReports.addAll(reportsIntTS);
+
+                //show errors
+                drawTablesErrorMeasures(reportsCTS, reportsIntTS);
+
+                //show prediction intervals, if any
+                outputPredictionIntervals(reportsCTS);
+
+                //show computed weights for combined models, if any
+                outputComputedWeights(); //TODO fix, broken
+
+
+
+                ///hack: turn on all AVG checkboxes the way they were before so nobody notices
+                //  (and so that... happy debugging, suckers :D)
+                if (isBatch) {
+                    checkBoxAvgSimpleCTSperM.setSelected(originalStateCheckboxAvgCTSPerMethod);
+                    checkBoxAvgSimpleCTS.setSelected(originalStateCheckboxAvgCTS);
+                    checkBoxAvgSimpleIntTSperM.setSelected(originalStateCheckboxAvgIntTSPerMethod);
+                    checkBoxAvgSimpleIntTS.setSelected(originalStateCheckboxAvgIntTS);
+                    checkBoxAvgONLY.setSelected(originalStateCheckboxAvgONLY);
+                }
+                //------------end hack, part 2/2
+
+
+                //and show forecast values in the other pane
+                final JTable forecastValuesTable = new JTable(new ForecastValsTableModel(numForecasts, allReports));
+
+                forecastValuesTable.setColumnSelectionAllowed(true);
+                forecastValuesTable.setRowSelectionAllowed(false);
+
+                forecastValuesTable.addMouseListener(new MouseListener() {
+
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        if (e.getClickCount() == 2) {
+                            // -1! because
+                            int selectedCol = forecastValuesTable.getSelectedColumn();
+                            ((ForecastValsTableModel)forecastValuesTable.getModel()).hideColumn(selectedCol);
+//                    forecastValuesTable.repaint();
+                        }
+                    }
+
+                    @Override
+                    public void mousePressed(MouseEvent e) { }
+                    @Override
+                    public void mouseReleased(MouseEvent e) { }
+                    @Override
+                    public void mouseEntered(MouseEvent e) { }
+                    @Override
+                    public void mouseExited(MouseEvent e) { }
+                });
+
+                forecastValuesTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                TableColumn firstColumn = forecastValuesTable.getColumnModel().getColumn(0);
+                firstColumn.setMinWidth(10);
+                firstColumn.setMaxWidth(50);
+                forecastValuesTable.setVisible(true);
+                forecastValuesLatest = forecastValuesTable;
+                ((ForecastValuesSubPanel) panelForecastValsAll).setForecastValuesLatest(forecastValuesLatest);
+                ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().removeAll();
+                ((ForecastValuesSubPanel) panelForecastValsAll).getScrollPaneForecastVals().setViewportView(forecastValuesLatest);
+                ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().add(((ForecastValuesSubPanel) panelForecastValsAll).getScrollPaneForecastVals());
+                ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().repaint();
+
+                //and show residuals
+                if (! allReports.isEmpty()) {
+                    final JTable residualsTable = new JTable(new ResidualsTableModel(allReports));
+                    residualsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+                    residualsTable.setColumnSelectionAllowed(true);
+                    residualsTable.setRowSelectionAllowed(false);
+
+                    TableColumn firstCol = residualsTable.getColumnModel().getColumn(0);
+                    firstCol.setMinWidth(10);
+                    firstCol.setMaxWidth(50);
+                    residualsTable.setVisible(true);
+                    residualsTableLatest = residualsTable;
+                    ((ResidualsSubPanel) panelResidualsAll).setResidualsTableLatest(residualsTableLatest);
+                    ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().removeAll();
+                    ((ResidualsSubPanel) panelResidualsAll).getScrollPaneResiduals().setViewportView(residualsTableLatest);
+                    ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().add(((ResidualsSubPanel) panelResidualsAll).getScrollPaneResiduals());
+                    ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().repaint();
+                }
+
+                panelEverything.setSelectedComponent(panelPlotImage);
+                enableAllButtons();
             }
-
-            @Override
-            public void mousePressed(MouseEvent e) { }
-            @Override
-            public void mouseReleased(MouseEvent e) { }
-            @Override
-            public void mouseEntered(MouseEvent e) { }
-            @Override
-            public void mouseExited(MouseEvent e) { }
-        });
-        
-        forecastValuesTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-        TableColumn firstColumn = forecastValuesTable.getColumnModel().getColumn(0);
-        firstColumn.setMinWidth(10);
-        firstColumn.setMaxWidth(50);
-        forecastValuesTable.setVisible(true);
-        forecastValuesLatest = forecastValuesTable;
-        ((ForecastValuesSubPanel) panelForecastValsAll).setForecastValuesLatest(forecastValuesLatest);
-        ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().removeAll();
-        ((ForecastValuesSubPanel) panelForecastValsAll).getScrollPaneForecastVals().setViewportView(forecastValuesLatest);
-        ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().add(((ForecastValuesSubPanel) panelForecastValsAll).getScrollPaneForecastVals());
-        ((ForecastValuesSubPanel) panelForecastValsAll).getPanelForecastVals().repaint();
-        
-        //and show residuals
-        if (! allReports.isEmpty()) {
-            final JTable residualsTable = new JTable(new ResidualsTableModel(allReports));
-            residualsTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            
-            residualsTable.setColumnSelectionAllowed(true);
-            residualsTable.setRowSelectionAllowed(false);
-            
-            TableColumn firstCol = residualsTable.getColumnModel().getColumn(0);
-            firstCol.setMinWidth(10);
-            firstCol.setMaxWidth(50);
-            residualsTable.setVisible(true);
-            residualsTableLatest = residualsTable;
-            ((ResidualsSubPanel) panelResidualsAll).setResidualsTableLatest(residualsTableLatest);
-            ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().removeAll();
-            ((ResidualsSubPanel) panelResidualsAll).getScrollPaneResiduals().setViewportView(residualsTableLatest);
-            ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().add(((ResidualsSubPanel) panelResidualsAll).getScrollPaneResiduals());
-            ((ResidualsSubPanel) panelResidualsAll).getPanelResiduals().repaint();
-        }
-
-        panelEverything.setSelectedComponent(panelPlotImage);
+        }.execute();
     }
     
     public void addReportToData(TrainAndTestReportCrisp r) {
@@ -5128,7 +5179,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 ((PlotSubPanel)panelPlotImage).getButtonPlotZoomIntTS());
         
         //TODO add an annotation processor or sth to go through all JBUttons declared in MainF and automatically adds them here
-        groupButtons.addAll(((CTSSubPanel) panelCTS).getButtonPlotColname(), buttonTrainAndTest, 
+        groupButtons.addAll(((CTSSubPanel) panelCTS).getButtonPlotColname(), buttonRunModels,
                 ((AnalysisBatchSubPanel) panelAnalysisBatch).getButtonRunAnalysisBatch(), buttonSettingsAddToBatch_MLP, 
                 buttonSettingsAddToBatch_MLPint, buttonSettingsAddToBatch_intMLP, buttonSettingsAddToBatch_RBF, 
                 buttonSettingsAddToBatch_RBFint, buttonSettingsAddToBatch_ARIMA, buttonSettingsAddToBatch_Holt, 

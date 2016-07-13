@@ -41,7 +41,7 @@ public class PlotDrawer {
     private static final int COLUMNS_BOXHIST = 2;
     private static final int ROWS_BOXHIST = 2;
     
-    private static JGDBufferedPanel drawNowToThisGDBufferedPanel;
+    private static JGDBufferedPanel drawNowToThisGDBufferedPanel = new JGDBufferedPanel(0, 0);
     
     //drawNew is true if the max bounds of the picture are to change, i.e. drawn from Run, Plot CTS, Plot ITS, ACF, PACF
     //drawNew is false if the picture is only zoomed and not drawn anew, i.e. from Zoom CTS, Zoom ITS

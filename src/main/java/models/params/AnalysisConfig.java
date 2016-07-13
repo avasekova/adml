@@ -4,13 +4,13 @@ import models.Model;
 
 import java.util.List;
 
-public class AnalysisBatchLine {
+public class AnalysisConfig {
     
     private final Model model;
     private final List<? extends Params> modelParams;
     private final int numModels;
     
-    public AnalysisBatchLine(Model model, List<? extends Params> modelParams, int numModels) {
+    public AnalysisConfig(Model model, List<? extends Params> modelParams, int numModels) {
         this.model = model;
         this.modelParams = modelParams;
         this.numModels = numModels;
