@@ -17,8 +17,6 @@ public class BNNSettingsPanel extends SettingsPanel {
 
     public BNNSettingsPanel() {
         initComponents();
-        
-        setButtons(buttonAddExplVar, buttonRemoveExplVar);
     }
 
     /**
@@ -181,14 +179,6 @@ public class BNNSettingsPanel extends SettingsPanel {
     
     public String getNumHidden() {
         return textFieldNumHidden.getText();
-    }
-    
-    @Override
-    public void enableAllElements(boolean trueFalse) {
-        jLabel140.setEnabled(trueFalse);
-        jLabel141.setEnabled(trueFalse);
-        textFieldMaxIt.setEnabled(trueFalse);
-        textFieldNumHidden.setEnabled(trueFalse);
     }
 
     @Override

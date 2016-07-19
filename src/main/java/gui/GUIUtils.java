@@ -40,4 +40,12 @@ public class GUIUtils {
         }
         return components;
     }
+
+    public static void setButtonsEnabled(JComponent parent, boolean enabled) {
+        setComponentsEnabled(parent, JButton.class, enabled);
+    }
+
+    public static void setButtonsEnabled(JFrame parent, boolean enabled) {
+        setComponentsEnabled(parent, JButton.class, enabled);
+    }
 }

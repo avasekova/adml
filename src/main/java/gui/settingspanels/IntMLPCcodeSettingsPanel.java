@@ -22,9 +22,6 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
      */
     public IntMLPCcodeSettingsPanel() {
         initComponents();
-        
-        setButtons(buttonAddDistance, buttonAddExplVar, buttonAddOutVar, 
-                buttonRemoveDistances, buttonRemoveExplVar, buttonRemoveOutVar);
     }
 
     /**
@@ -353,11 +350,6 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
     
     public Improvable getBestModelCriterion() {
         return ((BestModelCriterionIntervalSettingsPanel)panelBestModelCriterion).getBestModelCriterion();
-    }
-
-    @Override
-    public void enableAllElements(boolean trueFalse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override

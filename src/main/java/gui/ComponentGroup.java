@@ -16,9 +16,7 @@ public class ComponentGroup {
     }
     
     public void addAll(ComponentGroup group) {
-        for (Component c : group.getAllComponents()) {
-            add(c);
-        }
+        group.getAllComponents().forEach(this::add);
     }
     
     public void addAll(Component... comps) {
@@ -32,9 +30,7 @@ public class ComponentGroup {
     }
     
     public void removeAll(ComponentGroup group) {
-        for (Component c : group.getAllComponents()) {
-            remove(c);
-        }
+        group.getAllComponents().forEach(this::remove);
     }
     
     public void removeAll(Component... comps) {

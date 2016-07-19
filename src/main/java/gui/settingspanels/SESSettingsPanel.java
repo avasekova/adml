@@ -79,13 +79,6 @@ public class SESSettingsPanel extends SettingsPanel {
     }
     
     @Override
-    public void enableAllElements(boolean trueFalse) {
-        checkBoxOptimizeAlpha.setEnabled(trueFalse);
-        jLabel1.setEnabled(trueFalse);
-        textFieldAlpha.setEnabled(trueFalse);
-    }
-    
-    @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingOneValue(classss, resultList, "setAlpha", String.class, getAlpha());
     }

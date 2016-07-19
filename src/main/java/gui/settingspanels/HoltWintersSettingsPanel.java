@@ -203,22 +203,6 @@ public class HoltWintersSettingsPanel extends SettingsPanel {
     }
     
     @Override
-    public void enableAllElements(boolean trueFalse) {
-        checkBoxDamped.setEnabled(trueFalse);
-        checkBoxOptimizeAlpha.setEnabled(trueFalse);
-        checkBoxOptimizeBeta.setEnabled(trueFalse);
-        checkBoxOptimizeGamma.setEnabled(trueFalse);
-        comboboxSeasonalityAddMult.setEnabled(trueFalse);
-        jLabel1.setEnabled(trueFalse);
-        jLabel2.setEnabled(trueFalse);
-        jLabel3.setEnabled(trueFalse);
-        panelFrequency.setEnabled(trueFalse);
-        textFieldAlpha.setEnabled(trueFalse);
-        textFieldBeta.setEnabled(trueFalse);
-        textFieldGamma.setEnabled(trueFalse);
-    }
-    
-    @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if ((! "NULL".equals(getAlpha())) && (! "NULL".equals(getBeta())) && 
             (Utils.getDoubleOrDefault(getBeta()) > Utils.getDoubleOrDefault(getAlpha()))) {

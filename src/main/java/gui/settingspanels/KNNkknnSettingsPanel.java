@@ -64,11 +64,6 @@ public class KNNkknnSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public void enableAllElements(boolean trueFalse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         SettingsPanel.setSomethingList(classss, resultList, "setMaxNeighbours", Integer.class, FieldsParser.parseIntegers(getNumNeighbours()));
     }

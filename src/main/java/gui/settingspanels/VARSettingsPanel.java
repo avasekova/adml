@@ -118,11 +118,6 @@ public class VARSettingsPanel extends SettingsPanel {
     }
 
     @Override
-    public void enableAllElements(boolean trueFalse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public <T extends Params> void setSpecificParams(Class<T> classss, List<T> resultList) {
         if (getEndogenousVars().isEmpty()) {
             JOptionPane.showMessageDialog(null, "At least one endogenous variable needs to be selected for the " + Model.VAR + " to run.");

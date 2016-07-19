@@ -2972,7 +2972,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 case JFileChooser.APPROVE_OPTION:
                     this.loadedFile = fileChooser.getSelectedFile();
 
-                    SwingUtilities.invokeLater(groupButtons::disableAll);
+                    GUIUtils.setButtonsEnabled(this, false);
                     new SwingWorker<Void, Void>() {
                         @Override
                         protected Void doInBackground() throws Exception {
@@ -2986,7 +2986,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                             super.done();
                             DataTableModel.getInstance().fireTableStructureChanged();
                             fillGUIelementsWithNewData();
-                            SwingUtilities.invokeLater(groupButtons::enableAll);
+                            GUIUtils.setButtonsEnabled(INSTANCE, true);
                         }
                     }.execute();
                     //TODO handle errors
@@ -4600,7 +4600,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         panelVARintInside.repaint();
 
         if (! DataTableModel.getInstance().getColnames().isEmpty()) {
-            enableAllButtons();
+            GUIUtils.setButtonsEnabled(this, true);
         }
     }
 
@@ -4616,52 +4616,10 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
         comboBoxRunFakeIntUpper.removeAllItems();
         
         if (! DataTableModel.getInstance().getColnames().isEmpty()) {
-            disableAllButtons();
+            GUIUtils.setButtonsEnabled(this, false);
         }
     }
 
-    private void enableAllButtons() {
-        groupButtons.enableAll();
-        
-        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).enableAllButtons();
-        ((RBFSettingsPanel)panelSettingsRBFMain).enableAllButtons();
-        ((RBFSettingsPanel)panelSettingsRBFint_center).enableAllButtons();
-        ((RBFSettingsPanel)panelSettingsRBFint_radius).enableAllButtons();
-        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).enableAllButtons();
-        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).enableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).enableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).enableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).enableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).enableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).enableAllButtons();
-        ((BNNSettingsPanel)panelSettingsBNNinside).enableAllButtons();
-        ((BNNSettingsPanel)panelSettingsBNNint_center).enableAllButtons();
-        ((BNNSettingsPanel)panelSettingsBNNint_radius).enableAllButtons();
-        ((BNNSettingsPanel)panelSettingsHybrid_centerMain_BNN).enableAllButtons();
-        ((BNNSettingsPanel)panelSettingsHybrid_radiusMain_BNN).enableAllButtons();
-    }
-    
-    private void disableAllButtons() {
-        groupButtons.disableAll();
-        
-        ((IntMLPCcodeSettingsPanel)panelSettingsIntervalMLPModeCcode).disableAllButtons();
-        ((RBFSettingsPanel)panelSettingsRBFMain).disableAllButtons();
-        ((RBFSettingsPanel)panelSettingsRBFint_center).disableAllButtons();
-        ((RBFSettingsPanel)panelSettingsRBFint_radius).disableAllButtons();
-        ((RBFSettingsPanel)panelSettingsHybrid_centerMain_RBF).disableAllButtons();
-        ((RBFSettingsPanel)panelSettingsHybrid_radiusMain_RBF).disableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsMLPPackage_nnet).disableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_center).disableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsMLPintPackage_nnet_radius).disableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsHybrid_centerMain_MLPnnet).disableAllButtons();
-        ((MLPNnetSettingsPanel)panelSettingsHybrid_radiusMain_MLPnnet).disableAllButtons();
-        ((BNNSettingsPanel)panelSettingsBNNinside).disableAllButtons();
-        ((BNNSettingsPanel)panelSettingsBNNint_center).disableAllButtons();
-        ((BNNSettingsPanel)panelSettingsBNNint_radius).disableAllButtons();
-        ((BNNSettingsPanel)panelSettingsHybrid_centerMain_BNN).disableAllButtons();
-        ((BNNSettingsPanel)panelSettingsHybrid_radiusMain_BNN).disableAllButtons();
-    }
-    
     private void writeAllModelDetails(List<TrainAndTestReport> allReports) {
         ((ModelDescriptionsSubPanel) panelModelDescriptionsAll).getTextAreaModelsInfo().setText(AnalysisUtils.getModelDetails(allReports));
     }
@@ -4830,7 +4788,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             //------------end hack, part 1/2
         }
 
-        disableAllButtons(); //TODO make sure they're all disabled (i.e. added to the componentgroups etc)
+        //disable all buttons
+        GUIUtils.setButtonsEnabled(this, false);
 
 
         //TODO revise what really needs to be in the SwingWorker etc.
@@ -5090,7 +5049,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 }
 
                 panelEverything.setSelectedComponent(panelPlotImage);
-                enableAllButtons();
+                GUIUtils.setButtonsEnabled(INSTANCE, true);
             }
         }.execute();
     }
@@ -5138,7 +5097,6 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     }
     
     //groups
-    private final ComponentGroup groupButtons = new ComponentGroup();
     private final ComponentGroup groupExportButtons = new ComponentGroup();
     private final ComponentGroup groupRunControlsCenterRadius = new ComponentGroup();
     private final ComponentGroup groupRunControlsLowerUpper = new ComponentGroup();
@@ -5177,28 +5135,6 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                 ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreIntTSRangeX(), 
                 ((PlotSubPanel)panelPlotImage).getButtonPlotRestoreIntTSRangeY(), 
                 ((PlotSubPanel)panelPlotImage).getButtonPlotZoomIntTS());
-        
-        //TODO add an annotation processor or sth to go through all JBUttons declared in MainF and automatically adds them here
-        groupButtons.addAll(((CTSSubPanel) panelCTS).getButtonPlotColname(), buttonRunModels,
-                ((AnalysisBatchSubPanel) panelAnalysisBatch).getButtonRunAnalysisBatch(), buttonSettingsAddToBatch_MLP, 
-                buttonSettingsAddToBatch_MLPint, buttonSettingsAddToBatch_intMLP, buttonSettingsAddToBatch_RBF, 
-                buttonSettingsAddToBatch_RBFint, buttonSettingsAddToBatch_ARIMA, buttonSettingsAddToBatch_Holt, 
-                buttonSettingsAddToBatch_HoltWinters, buttonSettingsAddToBatch_HoltWintersInt, buttonSettingsAddToBatch_Holtint, 
-                buttonSettingsAddToBatch_Hybrid, buttonSettingsAddToBatch_IntervalHolt, buttonSettingsAddToBatch_KNN, 
-                buttonSettingsAddToBatch_SES, buttonSettingsAddToBatch_SESint, buttonSettingsAddToBatch_VARint, 
-                buttonSettingsAddToBatch_BNN, buttonSettingsAddToBatch_BNNint, ((CTSSubPanel) panelCTS).getButtonACF(), 
-                ((CTSSubPanel) panelCTS).getButtonPACF(), ((CTSSubPanel) panelCTS).getButtonBasicStats(), 
-                ((CTSSubPanel) panelCTS).getButtonBoxplots(), ((CTSSubPanel) panelCTS).getButtonHistograms(), 
-                ((CTSSubPanel) panelCTS).getButtonNormProbPlot(), ((TestsSubPanel)panelTestsOutside).getButtonNormalityTests(), 
-                ((TestsSubPanel)panelTestsOutside).getButtonStationarityTest(), ((TestsSubPanel)panelTestsOutside).getButtonStructBreaks(),
-                ((CTSSubPanel) panelCTS).getButtonExportAnalysisText(), 
-                ((TestsSubPanel)panelTestsOutside).getButtonExportTestsPlots(),
-                ((TestsSubPanel)panelTestsOutside).getButtonExportTextAreaTests(), buttonDiffSeries, buttonLogTransformSeries, 
-                buttonNormalize, buttonRemoveTrend, buttonAggregateToITS, buttonConvertITSLBUBCR, buttonPlotSelectedITS, 
-                buttonPlotAllITSScatterplot, buttonPlotAllITSScatterplotMatrix, buttonPlotAddITS, buttonPlotRemoveITS, 
-                ((CTSSubPanel) panelCTS).getButtonCTSclearSelection(), buttonITSclearSelection, ((CTSSubPanel) panelCTS).getButtonPCA(), 
-                ((TestsSubPanel)panelTestsOutside).getButtonKMOTest(), ((TestsSubPanel)panelTestsOutside).getButtonBartlettsTest(), 
-                ((CTSSubPanel) panelCTS).getButtonScreePlot());
         
         groupExportButtons.addAll(buttonRunExportErrorMeasures, ((ForecastValuesSubPanel) panelForecastValsAll).getButtonExportForecastValues(),
                 ((ResidualsSubPanel) panelResidualsAll).getButtonExportResiduals());
