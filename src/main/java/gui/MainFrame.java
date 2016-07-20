@@ -4804,19 +4804,19 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             protected Void doInBackground() throws Exception {
                 //go through all BatchLines to see if there are some that have too many models, i.e. we need to ask if they really should run:
                 List<AnalysisConfig> runOnlyTheseBatchLines = new ArrayList<>();
-                int totalNumAllModels = 0;
+                int totalNumModelsWithoutRepetitions = 0; //used later for the progress monitor
                 for (AnalysisConfig l : analysisConfigs) {
-                    int numModels = 0;
+                    int numModelsWithRepetitions = 0;
                     try {
-                        numModels = l.getNumModels();
+                        numModelsWithRepetitions = l.getNumModels();
                     } catch (IllegalArgumentException e) {
                         logger.error("Exception", e); // TODO: review logging
                     }
-                    showDialogTooManyModelsInCase(numModels, l.getModel());
+                    showDialogTooManyModelsInCase(numModelsWithRepetitions, l.getModel());
 
                     if (continueWithTooManyModels) {
                         runOnlyTheseBatchLines.add(l);
-                        totalNumAllModels += numModels;
+                        totalNumModelsWithoutRepetitions += l.getModelParams().size();
                     }
                 }
 
@@ -4891,7 +4891,7 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
 
 
                 //prepare progress info
-                AdmlProgressMonitor progressMonitor = new AdmlProgressMonitor(MainFrame.this, "Preparing models", totalNumAllModels);
+                AdmlProgressMonitor progressMonitor = new AdmlProgressMonitor(MainFrame.this, "Preparing models", totalNumModelsWithoutRepetitions);
                 server.setJobProgressListener(new AdmlProgressListener(progressMonitor));
 
 
