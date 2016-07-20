@@ -66,6 +66,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
     private final AtomicInteger taskToProcess = new AtomicInteger(0);
     private final AtomicInteger taskProcessed = new AtomicInteger(0);
 
+    private final AtomicInteger paramsCounter = new AtomicInteger(0);
+
     private MainFrame() {
         initComponents();
         addComponentsToGroups();
@@ -4676,7 +4678,6 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
             MyRengine.getRengine();
 
             // Execute the job
-            params.setUID(paramIdx); //TODO maybe getTaskId instead?
             final TrainAndTestReport report = forecastable.forecast(inputData, params);
 
             final long compTime = System.currentTimeMillis();
@@ -4864,6 +4865,8 @@ public class MainFrame extends javax.swing.JFrame implements AdmwlOnJobFinishedL
                     // For each model parameter create a new job and add it to the executor service for the computation.
                     int paramCnt = 0;
                     for (Params p : params) {
+                        p.setUID(Utils.getAdmlRunID() + "_" + paramsCounter.incrementAndGet());
+
                         ModelForecastJob job = new ModelForecastJob();
                         job.forecastable = forecastable;
                         job.params = p;

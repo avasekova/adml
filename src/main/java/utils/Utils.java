@@ -9,6 +9,8 @@ import utils.imlp.dist.Distance;
 
 import javax.swing.*;
 import java.io.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +28,8 @@ public class Utils {
     private static final AtomicInteger counter = new AtomicInteger(0);
     private static final AtomicInteger modelID = new AtomicInteger(0);
     private final static double EPSILON = 0.000000001;
+
+    private static final String admlRunID = LocalDateTime.now().toString().replace(':', '-').replace('.', '-');
     
     private static final double STEP = 0.01;
     
@@ -417,5 +421,9 @@ public class Utils {
         }
         
         return strings;
+    }
+
+    public static String getAdmlRunID() {
+        return admlRunID;
     }
 }

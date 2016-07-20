@@ -364,7 +364,7 @@ public class IntMLPCcodeSettingsPanel extends SettingsPanel {
         SettingsPanel.setSomethingList(classss, resultList, "setNumIterations", Integer.class, FieldsParser.parseIntegers(getNumIterations()));
         SettingsPanel.setSomethingOneValue(classss, resultList, "setExplVars", List.class, getExplVars());
         SettingsPanel.setSomethingOneValue(classss, resultList, "setOutVars", List.class, getOutVars());
-        SettingsPanel.setSomethingList(classss, resultList, "setNumNetworks", Integer.class, FieldsParser.parseIntegers(getNumNetsToTrain()));
+        SettingsPanel.setSomethingList(classss, resultList, "setNumNetworks", Integer.class, FieldsParser.parseIntegers(getNumNetsToTrain())); //TODO only 1 val, doesn't make sense otherwise
         SettingsPanel.setSomethingOneValue(classss, resultList, "setCriterion", Improvable.class, getBestModelCriterion());
     }
 }
