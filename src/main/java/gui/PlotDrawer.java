@@ -760,19 +760,7 @@ public class PlotDrawer {
     }
 
     private static String getRangeYMultipleInterval(List<Double> allVals) {
-        StringBuilder rangeY = new StringBuilder("range(c(");
-        boolean next = false;
-        for (Double d : allVals) {
-            if (next) {
-                rangeY.append(", ");
-            } else {
-                next = true;
-            }
-            rangeY.append(d);
-        }
-        
-        rangeY.append("))");
-        return rangeY.toString();
+        return "range(c(" + allVals.stream().map(d -> d.toString()).collect(Collectors.joining(", ")) + "))";
     }
     
     private static String getRangeXMultipleInterval(DataTableModel dataTableModel, List<IntervalNamesCentreRadius> intCRs, List<IntervalNamesLowerUpper> intLBUBs) {
@@ -938,19 +926,7 @@ public class PlotDrawer {
     }
     
     public static String getRString(List<String> list) {
-        StringBuilder rString = new StringBuilder();
-        rString.append("c(");
-        boolean next = false;
-        for (String s : list) {
-            if (next) {
-                rString.append(", ");
-            } else {
-                next = true;
-            }
-            rString.append("\"").append(s).append("\"");
-        }
-        rString.append(")");
-        return rString.toString();
+        return "c(" + list.stream().map(s -> "\"" + s + "\"").collect(Collectors.joining(", ")) + ")";
     }
     
     public static List<JGDBufferedPanel> drawDiagrams(int width, int height, List<TrainAndTestReport> reports) {
@@ -1114,20 +1090,13 @@ public class PlotDrawer {
                                                          int width, int height) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
-        boolean next = false;
         for (DefaultPlottable col : plottables) {
-            for (Double d : DataTableModel.getInstance().getDataForColname(col.getColname())) {
-                if (d.isNaN()) {
-                    continue;
-                }
-
-                if (next) {
-                    rangeYStringBuilder.append(", ");
-                } else {
-                    next = true;
-                }
-                rangeYStringBuilder.append(d);
-            }
+            String chunk = DataTableModel.getInstance().getDataForColname(col.getColname())
+                    .stream()
+                    .filter(d -> !(d.isNaN()))
+                    .map(d -> d.toString())
+                    .collect(Collectors.joining(", "));
+            rangeYStringBuilder.append(chunk).append(", ");
         }
         rangeYStringBuilder.append("))");
         String rangeY = rangeYStringBuilder.toString();
