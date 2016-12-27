@@ -1090,14 +1090,16 @@ public class PlotDrawer {
                                                          int width, int height) {
         //get the Y range first (assuming X is the same)
         StringBuilder rangeYStringBuilder = new StringBuilder("range(c(");
+        List<String> chunks = new ArrayList<>();
         for (DefaultPlottable col : plottables) {
             String chunk = DataTableModel.getInstance().getDataForColname(col.getColname())
                     .stream()
                     .filter(d -> !(d.isNaN()))
                     .map(d -> d.toString())
                     .collect(Collectors.joining(", "));
-            rangeYStringBuilder.append(chunk).append(", ");
+            chunks.add(chunk);
         }
+        rangeYStringBuilder.append(chunks.stream().collect(Collectors.joining(", ")));
         rangeYStringBuilder.append("))");
         String rangeY = rangeYStringBuilder.toString();
         String rangeX = "range(c(0, " + DataTableModel.getInstance().getRowCount() + "))";

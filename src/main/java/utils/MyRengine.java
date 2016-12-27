@@ -162,6 +162,7 @@ public class MyRengine extends Rengine {
         String[] commands = expression.split(";");
         REXP returnVal = null;
         for (String command : commands) {
+//            System.out.println(command); //TODO log all R commands (debug or trace)
             returnVal = super.eval(command);
         }
         
