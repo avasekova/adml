@@ -90,7 +90,7 @@ public class StatisticalTests {
         return results.toString();
     }
     
-    public static List<String> stucturalBreaksTests(List<String> selectedValuesList, int breaks) {
+    public static List<String> structuralBreaksTests(List<String> selectedValuesList, int breaks) {
         //TODO refactor: this should only compute the thing; plots by PlotDrawer
         //TODO return type: now the last item is strInfo, the rest are plots; ugly
         
@@ -130,9 +130,7 @@ public class StatisticalTests {
             }
             strBreaksInfo.append("\n\n");
         }
-        
-        rengine.rm(DATA, DATA_TS, FIT);
-        
+
         //TODO chg this
         plots.add(strBreaksInfo.toString());
         

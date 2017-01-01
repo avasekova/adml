@@ -240,7 +240,7 @@ public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
         }
 
         //the last item is the info!
-        List<String> plots = StatisticalTests.stucturalBreaksTests(listColnamesTests.getSelectedValuesList(), breaks);
+        List<String> plots = StatisticalTests.structuralBreaksTests(listColnamesTests.getSelectedValuesList(), breaks);
         //TODO fix this (in the method that returns it!)
             String structBreaksInfo = plots.get(plots.size() - 1);
             plots.remove(plots.size() - 1);
