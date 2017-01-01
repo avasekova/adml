@@ -6,16 +6,10 @@ import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.files.Exporter;
 import gui.tablemodels.DataTableModel;
-
-import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import org.rosuda.javaGD.JGDBufferedPanel;
+
+import javax.swing.*;
+import java.util.List;
 
 public class TestsSubPanel extends javax.swing.JPanel implements PlotContainer {
 

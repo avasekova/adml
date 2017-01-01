@@ -2,8 +2,8 @@ package gui.subpanels;
 
 import gui.MainFrame;
 import gui.tablemodels.AnalysisBatchTableModel;
-import javax.swing.JButton;
-import javax.swing.JTable;
+
+import javax.swing.*;
 import javax.swing.table.TableColumn;
 
 /**

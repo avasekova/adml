@@ -7,7 +7,6 @@ import models.Model;
 import models.params.Params;
 import utils.CrispVariable;
 import utils.FieldsParser;
-import utils.Variable;
 
 import javax.swing.*;
 import java.util.List;

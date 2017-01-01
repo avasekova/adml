@@ -1,12 +1,10 @@
 package gui;
 
 import gui.renderers.*;
-import gui.subpanels.PlotSubPanel;
 import gui.tablemodels.DataTableModel;
 import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
-import models.avg.Average;
 import models.params.BasicStats;
 import org.rosuda.JRI.REXP;
 import org.rosuda.javaGD.JGDBufferedPanel;

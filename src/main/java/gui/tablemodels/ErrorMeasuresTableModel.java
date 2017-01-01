@@ -6,7 +6,6 @@ import utils.ErrorMeasuresInterval;
 import utils.MinMaxTuple;
 import utils.Utils;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

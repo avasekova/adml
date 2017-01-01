@@ -3,11 +3,14 @@ package gui.settingspanels;
 import gui.MainFrame;
 import gui.dialogs.DialogAddIntervalExplanatoryVar;
 import gui.dialogs.DialogAddIntervalOutputVar;
-import gui.tablemodels.IntervalVariablesTableModel;
 import gui.tablemodels.IntervalOutVarsTableModel;
+import gui.tablemodels.IntervalVariablesTableModel;
 import models.Model;
 import models.params.Params;
-import utils.*;
+import utils.FieldsParser;
+import utils.Improvable;
+import utils.IntervalVariable;
+import utils.Variable;
 import utils.imlp.dist.Distance;
 
 import javax.swing.*;

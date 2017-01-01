@@ -6,7 +6,6 @@ import models.TrainAndTestReportInterval;
 import utils.Utils;
 import utils.imlp.Interval;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -4,7 +4,6 @@ import gui.MainFrame;
 import gui.PlotDrawer;
 import gui.Plottable;
 import gui.subpanels.PlotSubPanel;
-import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import models.avg.AveragesConfig;

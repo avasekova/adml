@@ -2,17 +2,13 @@ package gui.renderers;
 
 import gui.MainFrame;
 import gui.Plottable;
-import models.TrainAndTestReport;
 import models.TrainAndTestReportCrisp;
 import models.TrainAndTestReportInterval;
 import utils.Const;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
-import java.util.List;
 
 public class PlotLegendTurnOFFableListElement extends PlotLegendSimpleListElement implements RightClickable {
     

@@ -6,7 +6,6 @@ import utils.Const;
 import utils.MyRengine;
 import utils.Utils;
 
-import javax.swing.table.AbstractTableModel;
 import java.io.File;
 import java.util.*;
 
@@ -58,10 +57,9 @@ public class DataTableModel extends ReportsTableModel {
         return false;
     }
     
-    //CONVENTIONS:
-    //interprets the first line as headers, regardless of what it contains (TODO customizable: 1. use the 1st line, 2. input
-    //   custom headers for each column now, 3. use placeholder names X1 ... Xn)
-    //interprets the first column as labels for axis X, i.e. typically dates etc.. Just dumb Strings so as not to cause trouble.
+    //CONVENTIONS: based on current settings:
+    //may interpret the first row as labels for columns (data series)
+    //may interpret the first column as labels for axis X, i.e. typically dates etc.. Just dumb Strings so as not to cause trouble.
     public void openFile(File file, LoadDataCustomizerPanel customizer) {
         final String WORKBOOK = Const.WORKBOOK + Utils.getCounter();
         final String DATA = Const.BRENT + Utils.getCounter();

@@ -1,6 +1,6 @@
 package gui.subpanels;
 
-import javax.swing.JTextArea;
+import javax.swing.*;
 
 public class ModelDescriptionsSubPanel extends javax.swing.JPanel {
 

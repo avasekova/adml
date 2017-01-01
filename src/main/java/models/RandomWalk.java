@@ -2,7 +2,9 @@ package models;
 
 import models.params.Params;
 import models.params.RandomWalkParams;
-import utils.*;
+import utils.ErrorMeasuresCrisp;
+import utils.ErrorMeasuresUtils;
+import utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;

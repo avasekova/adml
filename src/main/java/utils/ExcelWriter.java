@@ -1,6 +1,8 @@
 package utils;
 
-import gui.tablemodels.*;
+import gui.tablemodels.ErrorMeasuresTableModel_CTS;
+import gui.tablemodels.ErrorMeasuresTableModel_ITS;
+import gui.tablemodels.ReportsTableModel;
 import jxl.Workbook;
 import jxl.write.Label;
 import jxl.write.WritableSheet;
@@ -9,7 +11,6 @@ import jxl.write.WriteException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.table.TableModel;
 import java.io.File;
 import java.io.IOException;
 

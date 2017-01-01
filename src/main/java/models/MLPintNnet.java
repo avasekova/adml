@@ -3,7 +3,10 @@ package models;
 import models.params.MLPintNnetParams;
 import models.params.NnetParams;
 import models.params.Params;
-import utils.*;
+import utils.BestModelCriterionInterval;
+import utils.ErrorMeasuresInterval;
+import utils.ErrorMeasuresUtils;
+import utils.Utils;
 import utils.imlp.Interval;
 
 import java.util.ArrayList;

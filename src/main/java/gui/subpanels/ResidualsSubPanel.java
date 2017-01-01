@@ -3,20 +3,13 @@ package gui.subpanels;
 import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.files.Exporter;
-import gui.files.OverwriteFileChooser;
 import gui.tablemodels.ResidualsTableModel;
-import java.awt.BorderLayout;
-import java.io.File;
-import java.util.List;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import models.params.BasicStats;
 import org.rosuda.javaGD.JGDBufferedPanel;
-import utils.ExcelWriter;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
 public class ResidualsSubPanel extends javax.swing.JPanel implements PlotContainer {
     

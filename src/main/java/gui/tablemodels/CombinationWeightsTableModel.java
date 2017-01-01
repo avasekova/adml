@@ -1,6 +1,5 @@
 package gui.tablemodels;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;

@@ -3,11 +3,12 @@ package gui.subpanels;
 import gui.PlotContainer;
 import gui.PlotDrawer;
 import gui.settingspanels.BinomPropSettingsPanel;
-import java.util.List;
 import models.BinomProp;
 import models.params.BinomPropParams;
 import org.rosuda.javaGD.JGDBufferedPanel;
 import utils.FieldsParser;
+
+import java.util.List;
 
 public class BayesianSubPanel extends javax.swing.JPanel implements PlotContainer {
 

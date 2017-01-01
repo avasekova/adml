@@ -3,7 +3,6 @@ package gui.tablemodels;
 import models.TrainAndTestReportCrisp;
 import utils.imlp.IntervalLowerUpper;
 
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
